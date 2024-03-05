@@ -8,36 +8,42 @@ using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
+    public enum Type
+    {
+        APARTMAN,
+        HOTEL,
+        COTTAGE
+    }
     public class Accommodation: ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Location { get; set; }
-        public string Type { get; set; }
+        public Location Location { get; set; }
+        public Type Type { get; set; }
         public int Capacity { get; set; }
         public int MinStay { get; set; }
-        public int CancelationDeadline { get; set; }
+        public int CancellationDeadline { get; set; }
         public string ImagesPath { get; set; }
         public User Owner { get; set; }
 
         public Accommodation() {
         }
 
-        public Accommodation(string name, string location,string type,int minStay,int cancelationDeadline, int capacity,string imagesPath, User owner)
+        public Accommodation(string name, string location,Type type,int minStay,int cancellationDeadline, int capacity,string imagesPath, User owner)
         {
             Name = name;
             Location = location;
             Type = type;
             Capacity = capacity;
             MinStay = minStay;
-            CancelationDeadline = cancelationDeadline;
+            CancellationDeadline = cancellationDeadline;
             ImagesPath = imagesPath;
             Owner = owner;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Location, Type, Capacity.ToString(),MinStay.ToString(),CancelationDeadline.ToString(), ImagesPath, Owner.Id.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Location.Id.toString(), Type.ToString(), Capacity.ToString(),MinStay.ToString(),CancellationDeadline.ToString(), ImagesPath, Owner.Id.ToString() };
             return csvValues;
         }
 
@@ -45,11 +51,11 @@ namespace BookingApp.Model
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            Location = values[2];
-            Type = values[3];
+            Location = new Location() { Id = Convert.ToInt32(values[2]) };      
+            Type = (Type)Enum.Parse(typeof(Type), values[3]);
             Capacity = Convert.ToInt32(values[4]);
             MinStay = Convert.ToInt32(values[5]);
-            CancelationDeadline = Convert.ToInt32(values[6]);
+            CancellationDeadline = Convert.ToInt32(values[6]);
             ImagesPath = values[7];
             Owner = new User() { Id = Convert.ToInt32(values[8]) };
         }
