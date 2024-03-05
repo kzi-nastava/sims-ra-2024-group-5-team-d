@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BookingApp.Model;
+using BookingApp.Repository;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace BookingApp.View
 {
@@ -19,9 +23,19 @@ namespace BookingApp.View
     /// </summary>
     public partial class OwnerWindow : Window
     {
-        public OwnerWindow()
+        public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public User LoggedInUser { get; set; }
+        private readonly AccommodationRepository _repository;
+
+
+        public OwnerWindow(User user)
         {
             InitializeComponent();
+            LoggedInUser = user;
+            DataContext = this;
+            _repository =new AccommodationRepository();
+            Accommodations = new ObservableCollection<Accommodation>(_repository.GetByUser(user));
+
         }
     }
 }
