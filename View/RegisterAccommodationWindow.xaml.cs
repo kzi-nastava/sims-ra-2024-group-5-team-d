@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace BookingApp.View
 {
     /// <summary>
-    /// Interaction logic for RegisterPropertyWindow.xaml
+    /// Interaction logic for RegisterAccommodationWindow.xaml
     /// </summary>
-    public partial class RegisterPropertyWindow : Window
+    public partial class RegisterAccommodationWindow : Window
     {
-        public RegisterPropertyWindow()
+        public RegisterAccommodationWindow()
         {
             InitializeComponent();
         }

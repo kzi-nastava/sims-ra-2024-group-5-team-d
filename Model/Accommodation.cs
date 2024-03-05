@@ -29,7 +29,7 @@ namespace BookingApp.Model
         public Accommodation() {
         }
 
-        public Accommodation(string name, string location,Type type,int minStay,int cancellationDeadline, int capacity,string imagesPath, User owner)
+        public Accommodation(string name, Location location,Type type,int minStay,int cancellationDeadline, int capacity,string imagesPath, User owner)
         {
             Name = name;
             Location = location;
@@ -43,7 +43,7 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Location.Id.toString(), Type.ToString(), Capacity.ToString(),MinStay.ToString(),CancellationDeadline.ToString(), ImagesPath, Owner.Id.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Location.Id.ToString(), Type.ToString(), Capacity.ToString(),MinStay.ToString(),CancellationDeadline.ToString(), ImagesPath, Owner.Id.ToString() };
             return csvValues;
         }
 
