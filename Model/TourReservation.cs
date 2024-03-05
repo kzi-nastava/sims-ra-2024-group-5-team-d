@@ -9,23 +9,23 @@ namespace BookingApp.Model
 {
     public class TourReservation
     {
-        public int TourGuestId { get; set; }
-        public int TourMaintenanceId { get; set; }
+        public int Id { get; set; }
+        public int TourRealisationId { get; set; }
         public TourReservation() { }
-        public TourReservation(int tourGuestId, int tourMaintenanceId)
+        public TourReservation(int id, int tourRealisationId)
         {
-            TourGuestId = tourGuestId;
-            TourMaintenanceId = tourMaintenanceId;
+            Id = id;
+            TourRealisationId = tourRealisationId;
         }
         public void FromCSV(string[] values)
         {
-            TourGuestId = Convert.ToInt32(values[0]);
-            TourMaintenanceId = Convert.ToInt32(values[1]);
+            Id = Convert.ToInt32(values[0]);
+            TourRealisationId = Convert.ToInt32(values[1]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { TourGuestId.ToString(), TourMaintenanceId.ToString() };
+            string[] csvValues = { Id.ToString(), TourRealisationId.ToString() };
             return csvValues;
         }
 

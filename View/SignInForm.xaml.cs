@@ -66,7 +66,7 @@ namespace BookingApp.View
                     }
                     else
                     {
-                        TouristGuideWindow touristGuideWindow = new TouristGuideWindow();
+                        TouristGuideWindow touristGuideWindow = new TouristGuideWindow(user);
                         touristGuideWindow.Show();
                     }
                     //                    CommentsOverview commentsOverview = new CommentsOverview(user);
