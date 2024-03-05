@@ -31,5 +31,11 @@ namespace BookingApp.View
             _repository = new TourRepository();
 
         }
+
+        private void CreateNewTour(object sender, RoutedEventArgs e)
+        {
+            NewTourForm createNewTourForm = new NewTourForm(LoggedInUser);
+            createNewTourForm.Show();
+        }
     }
 }

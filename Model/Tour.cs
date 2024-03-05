@@ -42,7 +42,7 @@ namespace BookingApp.Model
             Name = values[1];
             Location = new Location() { Id = Convert.ToInt32(values[2]) };
             Description = values[3];
-            Language = (LANGUAGE)Convert.ToInt32(values[4]);
+            Language = (LANGUAGE)Enum.Parse(typeof(LANGUAGE), values[4]);
             MaxCapacity = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
             ImagesPath = values[7];
