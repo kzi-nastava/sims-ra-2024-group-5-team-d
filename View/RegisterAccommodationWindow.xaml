@@ -7,6 +7,35 @@
         mc:Ignorable="d"
         Title="RegisterAccommodationWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Name:"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Name}"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Location:"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Location}"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Type:"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Type}"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="Capacity:"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Capacity}"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="Minimum days for reservation:"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding MinDaysForReservation}"/>
+        <Label Grid.Column="0" Grid.Row="5" Content="Cancellation due date (days):"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding CancellationDeadline}"/>
+        <Label Grid.Column="0" Grid.Row="6" Content="Upload a picture:"/>
+        <Button Grid.Column="1" Grid.Row="6" Content="+"/>
+        <Button Grid.Column="0" Grid.Row="7" Content="Register"/>
+        <Button Grid.Column="1" Grid.Row="7" Content="Cancel"/>
     </Grid>
 </Window>

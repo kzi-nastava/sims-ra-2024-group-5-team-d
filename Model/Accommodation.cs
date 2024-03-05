@@ -19,7 +19,7 @@ namespace BookingApp.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
-        public Type Type { get; set; }
+        public TYPE Type { get; set; }
         public int Capacity { get; set; }
         public int MinStay { get; set; }
         public int CancellationDeadline { get; set; }
@@ -29,7 +29,7 @@ namespace BookingApp.Model
         public Accommodation() {
         }
 
-        public Accommodation(string name, Location location,Type type,int minStay,int cancellationDeadline, int capacity,string imagesPath, User owner)
+        public Accommodation(string name, Location location,TYPE type,int minStay,int cancellationDeadline, int capacity,string imagesPath, User owner)
         {
             Name = name;
             Location = location;
@@ -52,7 +52,7 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             Location = new Location() { Id = Convert.ToInt32(values[2]) };      
-            Type = (Type)Enum.Parse(typeof(Type), values[3]);
+            Type = (TYPE)Enum.Parse(typeof(TYPE), values[3]);
             Capacity = Convert.ToInt32(values[4]);
             MinStay = Convert.ToInt32(values[5]);
             CancellationDeadline = Convert.ToInt32(values[6]);
