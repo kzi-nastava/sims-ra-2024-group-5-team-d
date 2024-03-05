@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace BookingApp.View
     /// </summary>
     public partial class GuestWindow : Window
     {
-        public GuestWindow()
+        public GuestWindow(User user)
         {
             InitializeComponent();
         }

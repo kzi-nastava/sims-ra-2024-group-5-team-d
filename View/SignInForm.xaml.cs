@@ -51,7 +51,7 @@ namespace BookingApp.View
                 {
                     if (user.Type.Equals("guest"))
                     {
-                        GuestWindow guestWindow = new GuestWindow();
+                        GuestWindow guestWindow = new GuestWindow(user);
                         guestWindow.Show();
                     }
                     else if (user.Type.Equals("owner"))
