@@ -14,7 +14,7 @@ namespace BookingApp.View
         public static ObservableCollection<Comment> Comments { get; set; }
 
         public Comment SelectedComment { get; set; }
-
+        
         public User LoggedInUser { get; set; }
 
         private readonly CommentRepository _repository;
