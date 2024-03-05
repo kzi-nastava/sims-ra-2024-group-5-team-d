@@ -8,7 +8,7 @@ using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
-    public enum Type
+    public enum TYPE
     {
         APARTMAN,
         HOTEL,
