@@ -35,5 +35,9 @@ namespace BookingApp.Model
             string[] csvValues = { Id.ToString(), Country, City };
             return csvValues;
         }
+        public override string ToString()
+        {
+            return $"{Country}, {City}";
+        }
     }
 }

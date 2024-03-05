@@ -56,7 +56,7 @@ namespace BookingApp.View
                     }
                     else if (user.Type.Equals("owner"))
                     {
-                        OwnerWindow ownerWindow = new OwnerWindow();
+                        OwnerWindow ownerWindow = new OwnerWindow(user);
                         ownerWindow.Show();
                     }
                     else if (user.Type.Equals("tourist"))
