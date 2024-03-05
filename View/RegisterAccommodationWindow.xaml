@@ -26,7 +26,11 @@
         <Label Grid.Column="0" Grid.Row="1" Content="Location:"/>
         <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Location}"/>
         <Label Grid.Column="0" Grid.Row="2" Content="Type:"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Type}"/>
+        <ComboBox Grid.Column="1" Grid.Row="2">
+            <ComboBoxItem Content="Hotel"/>
+            <ComboBoxItem Content="Apartment"/>
+            <ComboBoxItem Content="Cottage"/>
+        </ComboBox>
         <Label Grid.Column="0" Grid.Row="3" Content="Capacity:"/>
         <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Capacity}"/>
         <Label Grid.Column="0" Grid.Row="4" Content="Minimum days for reservation:"/>

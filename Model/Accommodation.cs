@@ -10,7 +10,7 @@ namespace BookingApp.Model
 {
     public enum TYPE
     {
-        APARTMAN,
+        APARTMENT,
         HOTEL,
         COTTAGE
     }
