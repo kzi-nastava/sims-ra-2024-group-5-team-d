@@ -43,11 +43,11 @@
             <ComboBoxItem Content="Cottage"/>
         </ComboBox>
         <Label Grid.Column="0" Grid.Row="3" Content="Capacity:"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Capacity}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Capacity, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Column="0" Grid.Row="4" Content="Minimum days for reservation:"/>
-        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding MinStay}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding MinStay, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Column="0" Grid.Row="5" Content="Cancellation due date (days):"/>
-        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding CancellationDeadline}"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding CancellationDeadline, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Column="0" Grid.Row="6" Content="Upload a picture:"/>
         <Button Grid.Column="1" Grid.Row="6" Content="+" Click="UploadPictureButtno_Click"/>
         <Button Grid.Column="0" Grid.Row="7" Content="Register" Click="RegisterButton_Click"/>

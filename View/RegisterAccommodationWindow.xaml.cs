@@ -92,7 +92,7 @@ namespace BookingApp.View
                 }
             }
         }
-        private int cancellationDeadline;
+        private int cancellationDeadline=1;
         public int CancellationDeadline
         {
             get => cancellationDeadline;
