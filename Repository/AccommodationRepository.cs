@@ -2,6 +2,7 @@
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +72,10 @@ namespace BookingApp.Repository
             _accommodations = _serializer.FromCSV(FilePath);
             _accommodations.ForEach(a => a.Location = _locationRepository.GetById(a.Location.Id));
             return _accommodations.FindAll(a => a.Owner.Id == user.Id);
+        }
+        public Location getLocationByLocationId(int locationId)
+        {
+            return _locationRepository.GetById(locationId);
         }
     }
 }
