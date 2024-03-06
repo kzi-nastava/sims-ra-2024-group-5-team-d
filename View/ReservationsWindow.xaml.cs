@@ -23,5 +23,10 @@ namespace BookingApp.View
         {
             InitializeComponent();
         }
+
+        private void Cancel(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

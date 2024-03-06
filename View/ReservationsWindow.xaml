@@ -28,6 +28,6 @@
         <Label Content="Number of people:" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center"/>
         <TextBox Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="110,0,30,0"/>
         <Button Content="Reserve" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Height="43" Margin="20,0,20,0" />
-        <Button Content="Cancel" Grid.Column="1" Grid.Row="4"  VerticalAlignment="Center" Height="43" Margin="20,0,20,0"/>
+        <Button Content="Cancel" Grid.Column="1" Grid.Row="4"  VerticalAlignment="Center" Height="43" Margin="20,0,20,0" Click="Cancel"/>
     </Grid>
 </Window>
