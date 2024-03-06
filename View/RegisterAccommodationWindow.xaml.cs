@@ -1,8 +1,11 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -110,6 +113,7 @@ namespace BookingApp.View
         }
         private readonly AccommodationRepository _repository;
         public User LoggedInUser { get; set; }
+        private List<string>imagesPath;
         public RegisterAccommodationWindow(User user)
         {
            
@@ -117,6 +121,7 @@ namespace BookingApp.View
             _repository = new AccommodationRepository();
             DataContext = this;
             LoggedInUser = user;
+            imagesPath = new List<string>();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -126,11 +131,33 @@ namespace BookingApp.View
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            string imagesPath = "putanja";
-            Accommodation newAccommodation = new Accommodation(accommodationName, _repository.getLocationByLocationId(locationId), (TYPE)accommodationType, minStay,cancellationDeadline,capacity,imagesPath,LoggedInUser);
+            string folderPath = "../../../AccommodationImages/Accommodation";
+            folderPath = folderPath +_repository.NextId();
+            Directory.CreateDirectory(folderPath);
+            Debug.WriteLine("Folder je kreiran.");
+            foreach (string imagePath in imagesPath)
+            {
+                string targetImagePath = System.IO.Path.Combine(folderPath, System.IO.Path.GetFileName(imagePath));
+                File.Copy(imagePath, targetImagePath);
+            }
+            Accommodation newAccommodation = new Accommodation(accommodationName, _repository.getLocationByLocationId(locationId), (TYPE)accommodationType, minStay,cancellationDeadline,capacity,folderPath,LoggedInUser);
             Accommodation savedAccommodation = _repository.Save(newAccommodation);
+
             OwnerWindow.Accommodations.Add(savedAccommodation);
             Close();
+        }
+
+        private void UploadPictureButtno_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                 string filePath = openFileDialog.FileName;
+                 imagesPath.Add(filePath);
+                 Debug.WriteLine(filePath);
+            }
+            
         }
     }
 }
