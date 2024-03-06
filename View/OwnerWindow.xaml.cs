@@ -23,7 +23,7 @@ namespace BookingApp.View
     /// </summary>
     public partial class OwnerWindow : Window
     {
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public static ObservableCollection<Accommodation> Accommodations { get; set; }
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
 
@@ -36,6 +36,12 @@ namespace BookingApp.View
             _repository =new AccommodationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_repository.GetByUser(user));
 
+        }
+
+        private void RegisterPropertyButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterAccommodationWindow registerAccommodationWindow = new RegisterAccommodationWindow(LoggedInUser);
+            registerAccommodationWindow.ShowDialog();
         }
     }
 }
