@@ -49,7 +49,7 @@
         <Label Grid.Column="0" Grid.Row="5" Content="Cancellation due date (days):"/>
         <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding CancellationDeadline}"/>
         <Label Grid.Column="0" Grid.Row="6" Content="Upload a picture:"/>
-        <Button Grid.Column="1" Grid.Row="6" Content="+"/>
+        <Button Grid.Column="1" Grid.Row="6" Content="+" Click="UploadPictureButtno_Click"/>
         <Button Grid.Column="0" Grid.Row="7" Content="Register" Click="RegisterButton_Click"/>
         <Button Grid.Column="1" Grid.Row="7" Content="Cancel" Click="CancelButton_Click"/>
     </Grid>
