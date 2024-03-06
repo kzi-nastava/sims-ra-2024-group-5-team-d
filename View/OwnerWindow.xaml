@@ -16,7 +16,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="Register new property"/>
+        <Button Grid.Row="0" Content="Register new property" Click="RegisterPropertyButton_Click"/>
         <Button  Grid.Column="1" Grid.Row="0" Content="Show stats"/>
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Accommodations}" AutoGenerateColumns="False">
             <DataGrid.Columns>
