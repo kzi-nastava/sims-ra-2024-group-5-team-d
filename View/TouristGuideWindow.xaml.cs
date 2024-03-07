@@ -34,24 +34,7 @@ namespace BookingApp.View
             DataContext = this;
             _repository = new TourRepository();
             AllTours = new ObservableCollection<Tour>(_repository.GetByUserTours(LoggedInUser));
-            ToursToday = new ObservableCollection<Tour>();
-            GetToursForToday();
-        }
-
-        private void GetToursForToday()
-        {
-            List<TourRealisation> tourRealisations = new List<TourRealisation>();
-            foreach(Tour t in AllTours)
-            {
-                foreach(TourRealisation tR in _repository.GetTourRealisationsByTourId(t.Id))
-                {
-                    if(tR.StartTime.Day == DateTime.Now.Day)
-                    {
-                        ToursToday.Add(t);
-                    }
-                }
-                
-            }
+            ToursToday = new ObservableCollection<Tour>(_repository.GetToursForToday());
         }
 
         private void CreateNewTourWindow(object sender, RoutedEventArgs e)

@@ -138,9 +138,13 @@ namespace BookingApp.View
             Debug.WriteLine(tourName+locationId+language+"aa"+capacity);
             Tour newTour = new Tour(tourName, _repository.getLocationByLocationId(locationId), description, (LANGUAGE)Language, Capacity, Duration, imagesPath, LoggedInUser);
             Tour savedTour = _repository.SaveTour(newTour);
-            TourRealisation newTourRealisation = new TourRealisation(DateTime,Capacity,savedTour.Id,LoggedInUser);
+            TourRealisation newTourRealisation = new TourRealisation(DateTime,savedTour.Id, Capacity, LoggedInUser);
             TourRealisation savedTourRealisation = _repository.SaveTourRealisation(newTourRealisation);
             TouristGuideWindow.AllTours.Add(savedTour);
+            if(savedTourRealisation.StartTime.Day == DateTime.Now.Day) 
+            {
+                TouristGuideWindow.ToursToday.Add(savedTour);
+            }
             Close();
         }
 

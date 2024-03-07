@@ -2,6 +2,7 @@
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -145,12 +146,34 @@ namespace BookingApp.Repository
             List<TourRealisation> tourRealisations = new List<TourRealisation>();
             foreach(TourRealisation tR in _tourRealisations)
             {
+                Debug.WriteLine(tourId);
+                Debug.WriteLine(tR.TourId);
                 if(tR.TourId == tourId)
                 {
                     tourRealisations.Add(tR);
                 }
             }
             return tourRealisations;
+        }
+
+        public List<Tour> GetToursForToday()
+        {
+            List<Tour> toursToday = new List<Tour>();
+            foreach (Tour t in _tours)
+            {
+                foreach (TourRealisation tR in GetTourRealisationsByTourId(t.Id))
+                {
+                        Debug.WriteLine(tR.StartTime.Day);
+                        Debug.WriteLine(DateTime.Now.Day);
+                    if (tR.StartTime.Day == DateTime.Now.Day)
+                    {
+                        Debug.WriteLine("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                        toursToday.Add(t);
+                    }
+                }
+
+            }
+            return toursToday;
         }
     }
 }
