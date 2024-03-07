@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
         Title="OwnerWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -23,8 +26,8 @@
                 <DataGridTemplateColumn Width="*" Header="Picture">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding ImagesPath}" Width="50" Height="50"/>
-                    </DataTemplate>
+                            <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Width="50" Height="50"/>
+                        </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn  Width="*" Header="Name" Binding="{Binding Name}"/>
