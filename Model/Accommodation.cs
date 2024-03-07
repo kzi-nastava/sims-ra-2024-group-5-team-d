@@ -10,8 +10,8 @@ namespace BookingApp.Model
 {
     public enum TYPE
     {
-        APARTMAN,
-        HOTEL,
+        APARTMENT,
+        HOUSE,
         COTTAGE
     }
     public class Accommodation: ISerializable

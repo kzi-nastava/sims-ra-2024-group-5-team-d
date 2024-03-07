@@ -8,43 +8,23 @@
         Title="GuestWindow" Height="450" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto" MinWidth="118"/>
-            <ColumnDefinition Width="139*"/>
-            <ColumnDefinition Width="191*"/>
-            <ColumnDefinition Width="191*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="-3.895,0.644" Height="26" Width="44"/>
-        <Label Content="Location:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="58" Grid.Column="1"/>
-        <Label Grid.Column="2" Content="Type:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="38"/>
-        <Label Grid.Column="3" Content="Capacity:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="-1.667,-0.05" Height="26" Margin="3,0,0,0" Width="67"/>
-        <Button Grid.Column="2" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.138,0.553" Width="80" Height="25" Margin="76,10,0,0" Grid.Row="4" Grid.ColumnSpan="2"/>
-        <ComboBox Grid.Column="2" Margin="36,0,2,0" VerticalAlignment="Center" Height="22">
-            <ComboBoxItem Content="Apartament"/>
-            <ComboBoxItem Content="House"/>
-            <ComboBoxItem Content="Cottage"/>
-        </ComboBox>
-        <TextBox HorizontalAlignment="Left" 
-                 Margin="42,0,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Center"
-                 Width="91" Height="18"/>
-        <TextBox Grid.Column="3" 
-                 HorizontalAlignment="Left" 
-                 Margin="58,0,0,0" 
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Center"
-                 Width="71" Height="18"/>
-        <DatePicker Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="-0.248,-2.165" Width="104" Margin="55,0,0,0" Height="24"/>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="58,0,0,0" VerticalAlignment="Center" Width="70" Height="22">
+        <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="26" Width="44"/>
+        <TextBox HorizontalAlignment="Left" Margin="42,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="103" Height="18" Grid.Column="0"  Text="{Binding AccommodationName, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Location:" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="58" />
+        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="58,0,0,0" VerticalAlignment="Center" Width="87" Height="22" SelectedIndex="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem Content="Serbia, Novi Sad"/>
             <ComboBoxItem Content="Serbia, Beograd"/>
             <ComboBoxItem Content="Serbia, Smederevo"/>
@@ -55,11 +35,36 @@
             <ComboBoxItem Content="Serbia, Pančevo"/>
             <ComboBoxItem Content="Serbia, Čačak"/>
             <ComboBoxItem Content="Serbia, Užice"/>
-
         </ComboBox>
-        <Label Grid.Column="4" Content="" HorizontalAlignment="Left" Margin="94,0,0,0" VerticalAlignment="Center" Height="26" Width="10"/>
-        <Label Grid.Column="5" Content="To:" HorizontalAlignment="Left" Margin="24,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="-0.905,-0.101" Height="26" Width="25"/>
-        <DatePicker Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="101" Height="24" RenderTransformOrigin="1.543,0.654" Margin="54,0,0,0"/>
-        <Label Grid.Column="4" Content="From:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+        <Label Content="Type:" Grid.Column="2"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="38"/>
+        <ComboBox Grid.Column="2" Margin="36,0,2,0" VerticalAlignment="Center" Height="22" SelectedIndex="{Binding AccommodationType, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="Apartament"/>
+            <ComboBoxItem Content="House"/>
+            <ComboBoxItem Content="Cottage"/>
+        </ComboBox>
+        <Label Content="Capacity:" Grid.Column="3"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="3,0,0,0" Width="67"/>
+        <TextBox Grid.Column="3" HorizontalAlignment="Left"  Margin="58,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="82" Height="18" Text="{Binding Capacity}"/>
+        <Label Content="From:" Grid.Column="4"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="40"/>
+        <DatePicker Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="104" Margin="36,0,0,0" Height="24"
+                    SelectedDate="{Binding FromDate, Mode=TwoWay}"/>
+        <Label  Content="To:" Grid.Column="5" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Height="26" Width="25"/>
+        <DatePicker Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="101" Height="24" Margin="35,0,0,0"
+                    SelectedDate="{Binding ToDate, Mode=TwoWay}"/>
+        <Button Content="Search" Click="SearchAccommodation" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="32" Margin="105,3,0,0"  Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="6" ItemsSource="{Binding Accommodations}" AutoGenerateColumns="False" Margin="0,40,0,-5" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="*" Header="Picture">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding ImagesPath}" Width="50" Height="50"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn  Width="*" Header="Name"  Binding="{Binding Name}"/>
+                <DataGridTextColumn  Width="*" Header="Location" Binding="{Binding Location}"/>
+                <DataGridTextColumn  Width="*" Header="Type" Binding="{Binding Type}"/>
+                <DataGridTextColumn  Width="*" Header="Capacity" Binding="{Binding Capacity}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
