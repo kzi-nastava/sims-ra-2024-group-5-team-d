@@ -17,9 +17,8 @@ namespace BookingApp.Model
         public User User { get; set; }
 
         public TourRealisation() { }
-        public TourRealisation(int id, DateTime startTime, int tourId, int availableSeats, User user)
+        public TourRealisation(DateTime startTime, int tourId, int availableSeats, User user)
         {
-            Id = id;
             StartTime = startTime;
             TourId = tourId;
             AvailableSeats = availableSeats;

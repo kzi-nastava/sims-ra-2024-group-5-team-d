@@ -2,6 +2,7 @@
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,36 +22,45 @@ namespace BookingApp.Repository
         private List<Tour> _tours;
         private List<TourRealisation> _tourRealisations;
 
+        private readonly LocationRepository _locationRepository;
+
         public TourRepository()
         {
             _serializerTours = new Serializer<Tour>();
             _serializerTourRealisations = new Serializer<TourRealisation>();
-            _tourRealisations = new List<TourRealisation>();
+            _locationRepository = new LocationRepository();
             _tours = _serializerTours.FromCSV(FilePathTours);
             _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
         }
 
         public List<Tour> GetAllTours()
         {
-            return _serializerTours.FromCSV(FilePathTours);
+            _tours = _serializerTours.FromCSV(FilePathTours);
+            _tours.ForEach(tour => tour.Location = _locationRepository.GetById(tour.Location.Id));
+            return _tours;
         }
         public List<TourRealisation> GetAllTourRealisations()
         {
             return _serializerTourRealisations.FromCSV(FilePathTourRealisations);
         }
 
-        public void Save(Tour tour, TourRealisation tourRealisation)
+        public Tour SaveTour(Tour tour)
         {
+            Debug.WriteLine(tour.Name);
             tour.Id = NextIdForTour();
-            tourRealisation.Id = NextIdForTourRealisation();
-
             _tours = _serializerTours.FromCSV(FilePathTours);
             _tours.Add(tour);
             _serializerTours.ToCSV(FilePathTours, _tours);
+            return tour;
+        }
+        public TourRealisation SaveTourRealisation(TourRealisation tourRealisation)
+        {
+            tourRealisation.Id = NextIdForTourRealisation();
 
             _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
             _tourRealisations.Add(tourRealisation);
-            _serializerTourRealisations.ToCSV(FilePathTours, _tourRealisations);
+            _serializerTourRealisations.ToCSV(FilePathTourRealisations, _tourRealisations);
+            return tourRealisation;
         }
 
         public int NextIdForTour()
@@ -117,6 +127,7 @@ namespace BookingApp.Repository
         public List<Tour> GetByUserTours(User user)
         {
             _tours = _serializerTours.FromCSV(FilePathTours);
+            _tours.ForEach(tour => tour.Location = _locationRepository.GetById(tour.Location.Id));
             return _tours.FindAll(c => c.User.Id == user.Id);
         }
         public List<TourRealisation> GetByUserTourRealisations(User user)
@@ -124,6 +135,22 @@ namespace BookingApp.Repository
             _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
             return _tourRealisations.FindAll(c => c.User.Id == user.Id);
         }
+        public Location getLocationByLocationId(int locationId)
+        {
+            return _locationRepository.GetById(locationId);
+        }
 
+        public List<TourRealisation> GetTourRealisationsByTourId(int tourId)
+        { 
+            List<TourRealisation> tourRealisations = new List<TourRealisation>();
+            foreach(TourRealisation tR in _tourRealisations)
+            {
+                if(tR.TourId == tourId)
+                {
+                    tourRealisations.Add(tR);
+                }
+            }
+            return tourRealisations;
+        }
     }
 }

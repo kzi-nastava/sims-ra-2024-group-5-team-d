@@ -48,7 +48,6 @@ namespace BookingApp.Model
             ImagesPath = values[7];
             User = new User() { Id = Convert.ToInt32(values[8]) };
         }
-
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), Name, Location.Id.ToString(), Description,Language.ToString(), MaxCapacity.ToString(),Duration.ToString(),ImagesPath, User.Id.ToString() };

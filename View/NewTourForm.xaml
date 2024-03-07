@@ -7,6 +7,53 @@
         mc:Ignorable="d"
         Title="NewTourForm" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Name:"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding TourName, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Location:"/>
+        <ComboBox Grid.Column="1" Grid.Row="1" SelectedIndex="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="Serbia, Novi Sad"/>
+            <ComboBoxItem Content="Serbia, Beograd"/>
+            <ComboBoxItem Content="Serbia, Smederevo"/>
+            <ComboBoxItem Content="Serbia, Požega"/>
+            <ComboBoxItem Content="Serbia, Kragujevac"/>
+            <ComboBoxItem Content="Serbia, Niš"/>
+            <ComboBoxItem Content="Serbia, Subotica"/>
+            <ComboBoxItem Content="Serbia, Pančevo"/>
+            <ComboBoxItem Content="Serbia, Čačak"/>
+            <ComboBoxItem Content="Serbia, Užice"/>
+        </ComboBox>
+        <Label Grid.Column="0" Grid.Row="2" Content="Duration:"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="Capacity:"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Capacity, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="Language"/>
+        <ComboBox Grid.Column="1" Grid.Row="4" SelectedIndex="{Binding Language, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="English"/>
+            <ComboBoxItem Content="Serbian"/>
+            <ComboBoxItem Content="German"/>
+        </ComboBox>
+        <Label Grid.Column="0" Grid.Row="5" Content="Description"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Column="0" Grid.Row="6" Content="Date and Time"/>
+        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding DateTime, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Column="0" Grid.Row="7" Content="Upload a picture:"/>
+        <Button Grid.Column="1" Grid.Row="7" Content="+"/>
+        <Button Grid.Column="0" Grid.Row="8" Content="Create" Click="CreateNewTour_Click"/>
+        <Button Grid.Column="1" Grid.Row="8" Content="Cancel" Click="CancelButton_Click"/>
     </Grid>
 </Window>
