@@ -8,6 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AccommodationImages\Accommodation10\**" />
+    <Compile Remove="AccommodationImages\Accommodation1\**" />
+    <Compile Remove="AccommodationImages\Accommodation8\**" />
+    <Compile Remove="AccommodationImages\Accommodation9\**" />
+    <EmbeddedResource Remove="AccommodationImages\Accommodation10\**" />
+    <EmbeddedResource Remove="AccommodationImages\Accommodation1\**" />
+    <EmbeddedResource Remove="AccommodationImages\Accommodation8\**" />
+    <EmbeddedResource Remove="AccommodationImages\Accommodation9\**" />
+    <None Remove="AccommodationImages\Accommodation10\**" />
+    <None Remove="AccommodationImages\Accommodation1\**" />
+    <None Remove="AccommodationImages\Accommodation8\**" />
+    <None Remove="AccommodationImages\Accommodation9\**" />
+    <Page Remove="AccommodationImages\Accommodation10\**" />
+    <Page Remove="AccommodationImages\Accommodation1\**" />
+    <Page Remove="AccommodationImages\Accommodation8\**" />
+    <Page Remove="AccommodationImages\Accommodation9\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
@@ -27,6 +46,10 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AccommodationImages\" />
   </ItemGroup>
 
 </Project>
