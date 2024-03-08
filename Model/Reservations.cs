@@ -1,0 +1,42 @@
+﻿using BookingApp.Serializer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace BookingApp.Model
+{
+    public  class Reservation : ISerializable
+    {
+        public int Id { get; set; }
+        public int AccommodationId { get; set; }
+        public int UserId { get; set; } 
+        public DateTime ReservedFrom { get; set; }
+        public DateTime ReservedTo { get; set; }
+        public int Cancelled { get; set; }
+        public int RescheduledReservation { get; set; }
+        public int RecommendedRenovations { get; set; }
+        public void FromCSV(string[] values)
+        {
+            Id = Convert.ToInt32(values[0]);
+            AccommodationId = Convert.ToInt32(values[1]);
+            UserId = Convert.ToInt32(values[2]);
+            ReservedFrom = DateTime.Parse(values[3]);
+            ReservedTo = DateTime.Parse(values[4]);
+            Cancelled = Convert.ToInt32(values[5]);
+            RescheduledReservation = Convert.ToInt32(values[6]);
+            RecommendedRenovations = Convert.ToInt32(values[7]);
+        }
+        public  Reservation()
+        {
+        }
+        public string[] ToCSV()
+        {
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString(), ReservedTo.ToString(),Cancelled.ToString(), RescheduledReservation.ToString(),RecommendedRenovations.ToString() };
+            return csvValues;
+        }
+    }   
+
+}
