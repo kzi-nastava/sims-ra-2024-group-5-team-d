@@ -32,6 +32,7 @@ namespace BookingApp.Model
         public  Reservation()
         {
         }
+
         public Reservation(int accommodationId, int userId, DateTime reservedFrom, DateTime reservedTo, int cancelled, int rescheduledReservation, int recommendedRenovation)
         {
             AccommodationId = accommodationId;

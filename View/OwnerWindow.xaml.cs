@@ -3,6 +3,7 @@ using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace BookingApp.View
     public partial class OwnerWindow : Window
     {
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
+        public Accommodation selectedAccommodation { get; set; }
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
 
@@ -42,6 +44,17 @@ namespace BookingApp.View
         {
             RegisterAccommodationWindow registerAccommodationWindow = new RegisterAccommodationWindow(LoggedInUser);
             registerAccommodationWindow.ShowDialog();
+        }
+
+        private void ShowStatsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedAccommodation!=null)
+            {
+                StatsForAccommodationWindow statsForAccommodationWindow = new StatsForAccommodationWindow(LoggedInUser, selectedAccommodation);
+                statsForAccommodationWindow.Owner = this;
+                statsForAccommodationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                statsForAccommodationWindow.ShowDialog();
+            }
         }
     }
 }
