@@ -42,6 +42,16 @@ namespace BookingApp.Model
             RescheduledReservation = rescheduledReservation;
             RecommendedRenovation = recommendedRenovation;
         }
+        public Reservation(int accommodationId,int userId, DateTime reservedFrom, DateTime reservedTo)
+        {
+            AccommodationId = accommodationId;
+            UserId = userId;
+            ReservedFrom = reservedFrom;
+            ReservedTo = reservedTo;
+            Cancelled = 0;
+            RescheduledReservation = 0;
+            RecommendedRenovation = 0;
+        }
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString(), ReservedTo.ToString(),Cancelled.ToString(), RescheduledReservation.ToString(),RecommendedRenovation.ToString() };
