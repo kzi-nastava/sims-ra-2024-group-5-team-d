@@ -17,7 +17,7 @@ namespace BookingApp.Model
         public DateTime ReservedTo { get; set; }
         public int Cancelled { get; set; }
         public int RescheduledReservation { get; set; }
-        public int RecommendedRenovations { get; set; }
+        public int RecommendedRenovation { get; set; }
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
@@ -27,14 +27,35 @@ namespace BookingApp.Model
             ReservedTo = DateTime.Parse(values[4]);
             Cancelled = Convert.ToInt32(values[5]);
             RescheduledReservation = Convert.ToInt32(values[6]);
-            RecommendedRenovations = Convert.ToInt32(values[7]);
+            RecommendedRenovation = Convert.ToInt32(values[7]);
         }
         public  Reservation()
         {
         }
+
+        public Reservation(int accommodationId, int userId, DateTime reservedFrom, DateTime reservedTo, int cancelled, int rescheduledReservation, int recommendedRenovation)
+        {
+            AccommodationId = accommodationId;
+            UserId = userId;
+            ReservedFrom = reservedFrom;
+            ReservedTo = reservedTo;
+            Cancelled = cancelled;
+            RescheduledReservation = rescheduledReservation;
+            RecommendedRenovation = recommendedRenovation;
+        }
+        public Reservation(int accommodationId,int userId, DateTime reservedFrom, DateTime reservedTo)
+        {
+            AccommodationId = accommodationId;
+            UserId = userId;
+            ReservedFrom = reservedFrom;
+            ReservedTo = reservedTo;
+            Cancelled = 0;
+            RescheduledReservation = 0;
+            RecommendedRenovation = 0;
+        }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString(), ReservedTo.ToString(),Cancelled.ToString(), RescheduledReservation.ToString(),RecommendedRenovations.ToString() };
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString(), ReservedTo.ToString(),Cancelled.ToString(), RescheduledReservation.ToString(),RecommendedRenovation.ToString() };
             return csvValues;
         }
     }   
