@@ -1,6 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,8 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             AccommodationId = Convert.ToInt32(values[1]);
             UserId = Convert.ToInt32(values[2]);
-            ReservedFrom = DateTime.Parse(values[3]);
-            ReservedTo = DateTime.Parse(values[4]);
+            ReservedFrom = DateTime.ParseExact(values[3], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            ReservedTo = DateTime.ParseExact(values[4], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             Cancelled = Convert.ToInt32(values[5]);
             RescheduledReservation = Convert.ToInt32(values[6]);
             RecommendedRenovation = Convert.ToInt32(values[7]);

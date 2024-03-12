@@ -27,7 +27,11 @@ namespace BookingApp.View
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation selectedAccommodation { get; set; }
         public User LoggedInUser { get; set; }
+        private List<GuestRating> guestRatingsByLoggedInUser;
         private readonly AccommodationRepository _repository;
+        private readonly ReservationRepository _reservationRepository;
+        private readonly GuestRatingRepository _guestRatingRepository;
+        private List<Reservation> ReservationsForLoggedInUserAccommodations;
 
 
         public OwnerWindow(User user)
@@ -35,9 +39,62 @@ namespace BookingApp.View
             InitializeComponent();
             LoggedInUser = user;
             DataContext = this;
-            _repository =new AccommodationRepository();
+            _reservationRepository = new ReservationRepository();
+            _guestRatingRepository = new GuestRatingRepository();
+            _repository = new AccommodationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_repository.GetByUser(user));
+            guestRatingsByLoggedInUser = GetAllGuestRatingsByLoggedInUser();
+            CheckForUnratedGuestsByLoggedInUser();
+        }
 
+        private List<GuestRating> GetAllGuestRatingsByLoggedInUser()
+        {
+            return _guestRatingRepository.GetAll().Where(guestRating => IsRatedByLoggedInUser(guestRating)).ToList();
+        }
+
+        private  bool IsRatedByLoggedInUser(GuestRating guestRating)
+        {
+            return Accommodations.Any(accommodation => accommodation.Id == guestRating.AccommodationId);
+        }
+
+        private void CheckForUnratedGuestsByLoggedInUser() {
+            FindReservationsForLoggedInUserAccommodations();
+            if (AreThereUnratedGuests())
+            { 
+                RateLabel.Visibility = Visibility.Visible;
+                RateButton.Visibility = Visibility.Visible;
+            }
+        }
+        private bool AreThereUnratedGuests()
+        {
+            List<Reservation> potentialUnratedGuests = ReservationsForLoggedInUserAccommodations.Where(reservation => !IsReservationCanceled(reservation) && IsReservationRateable(reservation)).ToList();
+            return !potentialUnratedGuests.All(p => IsGuestRated(p));
+        }
+
+        private bool IsGuestRated(Reservation p)
+        {
+            return guestRatingsByLoggedInUser.Any(q => q.ReservationId == p.Id);
+        }
+
+        private bool IsReservationRateable(Reservation reservation)
+        {
+            return Math.Abs((reservation.ReservedTo - DateTime.Now).Days) <= 5;
+        }
+
+        private bool IsReservationCanceled(Reservation reservation)
+        {
+            return reservation.Cancelled == 1;
+        }
+
+        private void FindReservationsForLoggedInUserAccommodations()
+        {
+            ReservationsForLoggedInUserAccommodations = _reservationRepository.GetAll()
+            .Where(reservation => IsReservationForLoggedInUserAccommodation(reservation)).ToList();
+        }
+
+        private bool IsReservationForLoggedInUserAccommodation(Reservation reservation)
+        {
+            return Accommodations.Any(accommodation => accommodation.Id == reservation.AccommodationId);
         }
 
         private void RegisterPropertyButton_Click(object sender, RoutedEventArgs e)
@@ -55,6 +112,14 @@ namespace BookingApp.View
                 statsForAccommodationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 statsForAccommodationWindow.ShowDialog();
             }
+        }
+
+        private void RateGuestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            RateGuestsWindow rateGuestsWindow = new RateGuestsWindow(LoggedInUser);
+            rateGuestsWindow.Owner = this;
+            rateGuestsWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            rateGuestsWindow.ShowDialog();
         }
     }
 }
