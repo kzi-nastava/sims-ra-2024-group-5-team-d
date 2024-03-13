@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
 namespace BookingApp.Repository
@@ -28,7 +29,9 @@ namespace BookingApp.Repository
         }
         public List<Accommodation> GetAll()
         {
-            return _serializer.FromCSV(FilePath);
+            _accommodations = _serializer.FromCSV(FilePath);
+            _accommodations.ForEach(accommodation => accommodation.Location = _locationRepository.GetById(accommodation.Location.Id));
+            return _accommodations;
         }
 
         public Accommodation Save(Accommodation accommodation)
@@ -72,8 +75,8 @@ namespace BookingApp.Repository
         public List<Accommodation> GetByUser(User user)
         {
             _accommodations = _serializer.FromCSV(FilePath);
-            _accommodations.ForEach(a => a.Location = _locationRepository.GetById(a.Location.Id));
-            return _accommodations.FindAll(a => a.Owner.Id == user.Id);
+            _accommodations.ForEach(accommodation =>  accommodation.Location = _locationRepository.GetById(accommodation.Location.Id));
+            return _accommodations.FindAll(accommodation => accommodation.Owner.Id == user.Id);
         }
         public Location getLocationByLocationId(int locationId)
         {

@@ -175,11 +175,8 @@ namespace BookingApp.Repository
             {
                 foreach (TourRealisation tR in GetTourRealisationsByTourId(t.Id))
                 {
-                        Debug.WriteLine(tR.StartTime.Day);
-                        Debug.WriteLine(DateTime.Now.Day);
                     if (tR.StartTime.Day == DateTime.Now.Day)
                     {
-                        Debug.WriteLine("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                         toursToday.Add(t);
                     }
                 }
@@ -187,5 +184,31 @@ namespace BookingApp.Repository
             }
             return toursToday;
         }
+        public Tour GetTourById(int id)
+        {
+            _tours = _serializerTours.FromCSV(FilePathTours);
+            foreach (Tour t in _tours)
+            {
+                if(t.Id == id)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
+        public Tour GetTourByName(string name)
+        {
+            _tours = _serializerTours.FromCSV(FilePathTours);
+            foreach (Tour t in _tours)
+            {
+                if (t.Name == name)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
     }
 }

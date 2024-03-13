@@ -65,41 +65,34 @@ namespace BookingApp.View
                 }
             }
         }
-        private int capacity;
-        public int Capacity
+        private int numberOfPeople;
+        public int NumberOfPeople
         {
-            get => capacity;
+            get => numberOfPeople;
             set
             {
-                if (value != capacity)
+                if (value != numberOfPeople)
                 {
-                    capacity = value;
+                    numberOfPeople = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private DateTime fromDate;
-        public DateTime FromDate
+        private int numberOfDays;
+        public int NumberOfDays
         {
-            get { return fromDate; }
+            get => numberOfDays;
             set
             {
-                fromDate = value;
-                OnPropertyChanged(nameof(FromDate)); 
+                if (value != numberOfDays)
+                {
+                    numberOfDays = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
-        private DateTime toDate;
-        public DateTime ToDate
-        {
-            get { return toDate; }
-            set
-            {
-                toDate = value;
-                OnPropertyChanged(nameof(ToDate));
-            }
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -112,7 +105,7 @@ namespace BookingApp.View
 
         private readonly AccommodationRepository _repository;
 
-        private int daysToStay;
+        public Accommodation SelectedAccommodation { get; set; }
         public GuestWindow(User user)
         {
             InitializeComponent();
@@ -125,15 +118,34 @@ namespace BookingApp.View
         private void SearchAccommodation(object sender, RoutedEventArgs e)
         {
 
-            TimeSpan difference = toDate - fromDate;
-            daysToStay = (int)difference.TotalDays;
             Accommodations.Clear();
-            _repository.GetAll().ForEach(accomodation => {
-                if (accomodation.Name.Contains(accommodationName) && accomodation.Location.Id ==locationId  && accomodation.Type == (TYPE)accommodationType
-                && accomodation.Capacity>=capacity && accomodation.MinStay<=daysToStay)
-                    Accommodations.Add(accomodation);
+            _repository.GetAll().ForEach(accommodation =>
+            {
+                if(IsWantedAccommodation(accommodation))
+                    Accommodations.Add(accommodation); 
             });
         
+        }
+
+        private bool IsWantedAccommodation(Accommodation accommodation)
+        {
+            bool isAccommodationNameContained = accommodation.Name.Contains(accommodationName);
+            bool isAccommodationTypeValid = accommodation.Type == (TYPE)accommodationType;
+            bool isLocationValid = accommodation.Location.Id == locationId;
+            bool isNumberOfPeopleValid = accommodation.Capacity >= numberOfPeople;
+            bool isNumberOfDaysValid = accommodation.MinStay <= numberOfDays;
+
+            return isAccommodationNameContained && isAccommodationTypeValid && isLocationValid && isNumberOfPeopleValid && isNumberOfDaysValid;
+        }
+
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is DataGrid dataGrid && dataGrid.SelectedItem != null)
+            {
+
+                ReservationsWindow reservationsWindow = new ReservationsWindow(LoggedInUser, SelectedAccommodation);
+                reservationsWindow.Show();
+            }
         }
     }
 }
