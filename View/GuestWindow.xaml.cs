@@ -102,6 +102,7 @@ namespace BookingApp.View
         }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public User LoggedInUser { get; set; }
+
         private readonly AccommodationRepository _repository;
 
         public Accommodation SelectedAccommodation { get; set; }

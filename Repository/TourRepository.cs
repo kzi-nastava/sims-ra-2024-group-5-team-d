@@ -31,7 +31,7 @@ namespace BookingApp.Repository
             _serializerTourRealisations = new Serializer<TourRealisation>();
             _locationRepository = new LocationRepository();
             _tours = _serializerTours.FromCSV(FilePathTours);
-            _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
+           // _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
         }
 
         public List<Tour> GetAllTours()
@@ -141,6 +141,18 @@ namespace BookingApp.Repository
             return _locationRepository.GetById(locationId);
         }
 
+        public TourRealisation GetTourRealisationById(int tourRealsiationId)
+        {
+            _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
+            foreach (TourRealisation tR in _tourRealisations)
+            {
+                if(tR.Id == tourRealsiationId)
+                {
+                    return tR;
+                }
+            }
+            return null;
+        }
         public List<TourRealisation> GetTourRealisationsByTourId(int tourId)
         { 
             List<TourRealisation> tourRealisations = new List<TourRealisation>();

@@ -26,6 +26,7 @@ namespace BookingApp.Model
 
         public Tour(string name, Location location, string description, LANGUAGE language, int capacity, double duration, string imagesPath, User user)
         {
+ 
             Name = name;
             Location = location;
             Description = description;
