@@ -1,7 +1,12 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,11 +25,61 @@ namespace BookingApp.View
     /// </summary>
     public partial class RateGuestsWindow : Window
     {
-        private User LoggedInUser { get; set; }
-        public RateGuestsWindow(User user)
+
+        private List<GuestRating> GuestRatings;
+        private List<Reservation> Reservations;
+        private AccommodationRepository accommodationRepository;
+        public GuestRatingDTO SelectedGuestRatingDTO { get; set; }
+
+        public static ObservableCollection<GuestRatingDTO> GuestRatingsObservable { get; set; }
+        public RateGuestsWindow(List<GuestRating>guestRatings,List<Reservation>reservations)
         {
-            LoggedInUser = user;
+            accommodationRepository = new AccommodationRepository();
+            this.GuestRatings = guestRatings;
+            this.Reservations = reservations;
+            GuestRatingsObservable = new ObservableCollection<GuestRatingDTO>();
             InitializeComponent();
+            DataContext = this;
+            Update();
+        }
+        private void Update()
+        {
+            foreach (Reservation reservation in Reservations)
+            {
+                if (!IsGuestFromReservationRated(reservation))
+                {
+                    if (IsGuestRateable(reservation) && !IsCanceled(reservation))
+                        GuestRatingsObservable.Add(new GuestRatingDTO(accommodationRepository.GetAccommodationNameById(reservation.AccommodationId), reservation.ReservedFrom, reservation.ReservedTo, reservation.UserId, reservation.Id, reservation.AccommodationId));
+                }
+            }
+        }
+
+        private static bool IsCanceled(Reservation reservation)
+        {
+            return reservation.Cancelled == 1;
+        }
+
+        private static bool IsGuestRateable(Reservation reservation)
+        {
+            return (DateTime.Now - reservation.ReservedTo).Days <= 5 && (DateTime.Now - reservation.ReservedTo).Days >= 0;
+        }
+
+        private bool IsGuestFromReservationRated(Reservation reservation)
+        {
+            return GuestRatings.Any(guestRating => guestRating.ReservationId == reservation.Id);
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void RateGuestButton_Click(object sender, RoutedEventArgs e)
+        {
+            GiveRateWindow giveRateWindow = new GiveRateWindow(SelectedGuestRatingDTO);
+            giveRateWindow.Owner = this;
+            giveRateWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            giveRateWindow.ShowDialog();
+
         }
     }
 }

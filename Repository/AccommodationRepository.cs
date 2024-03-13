@@ -82,5 +82,9 @@ namespace BookingApp.Repository
         {
             return _locationRepository.GetById(locationId);
         }
+        public string GetAccommodationNameById(int accommodationId)
+        {
+            return _accommodations.Find(accommodation => accommodation.Id == accommodationId).Name;
+        }
     }
 }

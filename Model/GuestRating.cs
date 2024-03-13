@@ -17,6 +17,18 @@ namespace BookingApp.Model
         public int CleanlinessRating { get; set; }
         public int RuleComplianceRating { get; set; }
         public string Comment { get; set; }
+        public GuestRating()
+        {
+        }
+        public GuestRating(int accommodationId, int guestId, int reservationId, int cleanlinessRating, int ruleComplianceRating, string comment)
+        {
+            AccommodationId = accommodationId;
+            GuestId = guestId;
+            ReservationId = reservationId;
+            CleanlinessRating = cleanlinessRating;
+            RuleComplianceRating = ruleComplianceRating;
+            Comment = comment;
+        }
 
         public void FromCSV(string[] values)
         {
