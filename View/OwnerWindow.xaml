@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
         Title="OwnerWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -17,14 +20,14 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Content="Register new property" Click="RegisterPropertyButton_Click"/>
-        <Button  Grid.Column="1" Grid.Row="0" Content="Show stats"/>
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Accommodations}" AutoGenerateColumns="False" IsReadOnly="True">
+        <Button  Grid.Column="1" Grid.Row="0" Content="Show stats" Click="ShowStatsButton_Click"/>
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Accommodations}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectedItem="{ Binding selectedAccommodation }">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="*" Header="Picture">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding ImagesPath}" Width="50" Height="50"/>
-                    </DataTemplate>
+                            <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Width="auto" Height="auto"/>
+                        </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn  Width="*" Header="Name" Binding="{Binding Name}"/>
