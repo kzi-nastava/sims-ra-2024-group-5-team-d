@@ -31,7 +31,7 @@ namespace BookingApp.Repository
             _serializerTourRealisations = new Serializer<TourRealisation>();
             _locationRepository = new LocationRepository();
             _tours = _serializerTours.FromCSV(FilePathTours);
-            _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
+           // _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
         }
 
         public List<Tour> GetAllTours()
