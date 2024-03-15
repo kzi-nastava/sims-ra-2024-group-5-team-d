@@ -33,6 +33,8 @@
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="TourImages\Tour13\tura1.jpg" />
+    <None Remove="TourImages\Tour1\tura1.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +56,26 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TourImages\Tour13\tura1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TourImages\Tour1\tura1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TourImages\Tour3\" />
+    <Folder Include="TourImages\Tour4\" />
+    <Folder Include="TourImages\Tour5\" />
+    <Folder Include="TourImages\Tour6\" />
+    <Folder Include="TourImages\Tour9\" />
+    <Folder Include="TourImages\Tour10\" />
+    <Folder Include="TourImages\Tour11\" />
+    <Folder Include="TourImages\Tour12\" />
+    <Folder Include="TourImages\Tour8\" />
+    <Folder Include="TourImages\Tour7\" />
+    <Folder Include="TourImages\Tour2\" />
   </ItemGroup>
 
 </Project>

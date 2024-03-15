@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
         Title="TouristGuideWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -41,14 +44,14 @@
                             <DataGridTemplateColumn Width="*" Header="Picture">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding ImagesPath}" Width="50" Height="50"/>
+                                        <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Width="auto" Height="auto"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn  Width="*" Header="Name" Binding="{Binding Name}"/>
                             <DataGridTextColumn  Width="*" Header="Location" Binding="{Binding Location}"/>
-                            <DataGridTextColumn  Width="auto" Header="Duration" Binding="{Binding Duration}"/>
-                            <DataGridTextColumn  Width="auto" Header="Capacity" Binding="{Binding MaxCapacity}"/>
+                            <DataGridTextColumn  Width="*" Header="Duration" Binding="{Binding Duration}"/>
+                            <DataGridTextColumn  Width="*" Header="Capacity" Binding="{Binding MaxCapacity}"/>
                             <DataGridTextColumn  Width="*" Header="Description" Binding="{Binding Description}"/>
                         </DataGrid.Columns>
                     </DataGrid>
