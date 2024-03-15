@@ -37,7 +37,7 @@ namespace BookingApp.View
             this.tourId = selectedTourId;
             this.LoggedInUser = loggedInUser;
             _repository = new TourRepository();
-            Realisations = new ObservableCollection<TourRealisation>(_repository.GetTourRealisationsByTourId(tourId));
+            Realisations = new ObservableCollection<TourRealisation>(_repository.GetTourRealisationsForToday(tourId));
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
