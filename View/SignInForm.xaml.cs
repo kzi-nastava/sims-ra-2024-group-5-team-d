@@ -52,22 +52,30 @@ namespace BookingApp.View
                     if (user.Type.Equals("guest"))
                     {
                         GuestWindow guestWindow = new GuestWindow(user);
-                        guestWindow.Show();
+                        guestWindow.Owner = this;
+                        guestWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                        guestWindow.ShowDialog();
                     }
                     else if (user.Type.Equals("owner"))
                     {
                         OwnerWindow ownerWindow = new OwnerWindow(user);
-                        ownerWindow.Show();
+                        ownerWindow.Owner = this;
+                        ownerWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                        ownerWindow.ShowDialog();
                     }
                     else if (user.Type.Equals("tourist"))
                     {
                         TouristWindow touristWindow = new TouristWindow();
-                        touristWindow.Show();
+                        touristWindow.Owner = this;
+                        touristWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                        touristWindow.ShowDialog();
                     }
                     else
                     {
                         TouristGuideWindow touristGuideWindow = new TouristGuideWindow(user);
-                        touristGuideWindow.Show();
+                        touristGuideWindow.Owner = this;
+                        touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                        touristGuideWindow.ShowDialog();
                     }
                     //                    CommentsOverview commentsOverview = new CommentsOverview(user);
                     //                  commentsOverview.Show();
