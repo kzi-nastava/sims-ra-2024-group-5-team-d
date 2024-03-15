@@ -1,9 +1,11 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -116,6 +118,10 @@ namespace BookingApp.View
                 }
             }
         }
+
+
+        private List<string> imagesPath;
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -130,13 +136,22 @@ namespace BookingApp.View
             LoggedInUser = user;
             DataContext = this;
             NumberOfCheckpoints = 0;
-        }
+            imagesPath = new List<string>();
 
-        private void CreateNewTour_Click(object sender, RoutedEventArgs e)
+        }
+       
+    private void CreateNewTour_Click(object sender, RoutedEventArgs e)
         {
-            string imagesPath = "putanja";
+            string folderPath = "../../../TourImages/Tour";
+            folderPath = folderPath + _repository.NextIdForTour();
+            Directory.CreateDirectory(folderPath);
+            foreach (string imagePath in imagesPath)
+            {
+                string targetImagePath = System.IO.Path.Combine(folderPath, System.IO.Path.GetFileName(imagePath));
+                File.Copy(imagePath, targetImagePath);
+            }
             int tourId = 0;
-            Tour newTour = new Tour(tourName, _repository.getLocationByLocationId(locationId), description, (LANGUAGE)Language, Capacity, Duration, imagesPath, LoggedInUser);
+            Tour newTour = new Tour(tourName, _repository.getLocationByLocationId(locationId), description, (LANGUAGE)Language, Capacity, Duration, folderPath, LoggedInUser);
             bool indicator = false;
             foreach (Tour tour in _repository.GetAllTours())
             {
@@ -208,6 +223,18 @@ namespace BookingApp.View
 
             // Show the window
             addCheckpointsWindow.ShowDialog();
+        }
+
+        private void UploadPictureButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filePath = openFileDialog.FileName;
+                imagesPath.Add(filePath);
+                Debug.WriteLine(filePath);
+            }
         }
     }
 }

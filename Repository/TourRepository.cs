@@ -75,7 +75,7 @@ namespace BookingApp.Repository
         public int NextIdForTourRealisation()
         {
             _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
-            if (_tours.Count < 1)
+            if (_tourRealisations.Count < 1)
             {
                 return 1;
             }
