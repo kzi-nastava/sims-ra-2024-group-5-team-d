@@ -38,5 +38,9 @@
                 <DataGridTextColumn  Width="*" Header="Cancellation deadline" Binding="{Binding CancellationDeadline}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label x:Name="RateLabel" Grid.Row="2" Content="You have unrated guests, click on button to rate them" Foreground="#FFFD0404" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Center">
+        </Label>
+        <Button x:Name="RateButton" Grid.Column="1" Grid.Row="2" Width="30" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Content="+" Visibility="Hidden" Click="RateGuestsButton_Click">
+            </Button>
     </Grid>
 </Window>
