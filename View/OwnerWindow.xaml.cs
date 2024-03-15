@@ -27,7 +27,7 @@ namespace BookingApp.View
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation selectedAccommodation { get; set; }
         public User LoggedInUser { get; set; }
-        private List<GuestRating> guestRatingsByLoggedInUser;
+        private List<GuestRating> GuestRatingsByLoggedInUser;
         private readonly AccommodationRepository _repository;
         private readonly ReservationRepository _reservationRepository;
         private readonly GuestRatingRepository _guestRatingRepository;
@@ -43,7 +43,6 @@ namespace BookingApp.View
             _guestRatingRepository = new GuestRatingRepository();
             _repository = new AccommodationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_repository.GetByUser(user));
-            guestRatingsByLoggedInUser = GetAllGuestRatingsByLoggedInUser();
             CheckForUnratedGuestsByLoggedInUser();
         }
 
@@ -58,11 +57,17 @@ namespace BookingApp.View
         }
 
         private void CheckForUnratedGuestsByLoggedInUser() {
+            GuestRatingsByLoggedInUser = GetAllGuestRatingsByLoggedInUser();
             FindReservationsForLoggedInUserAccommodations();
             if (AreThereUnratedGuests())
-            { 
+            {
                 RateLabel.Visibility = Visibility.Visible;
                 RateButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                RateLabel.Visibility = Visibility.Hidden;
+                RateButton.Visibility = Visibility.Hidden;
             }
         }
         private bool AreThereUnratedGuests()
@@ -73,12 +78,12 @@ namespace BookingApp.View
 
         private bool IsGuestRated(Reservation p)
         {
-            return guestRatingsByLoggedInUser.Any(q => q.ReservationId == p.Id);
+            return GuestRatingsByLoggedInUser.Any(q => q.ReservationId == p.Id);
         }
 
         private bool IsReservationRateable(Reservation reservation)
         {
-            return Math.Abs((reservation.ReservedTo - DateTime.Now).Days) <= 5;
+            return (DateTime.Now - reservation.ReservedTo).Days >= 0 && (DateTime.Now - reservation.ReservedTo).Days <= 5;
         }
 
         private bool IsReservationCanceled(Reservation reservation)
@@ -116,10 +121,11 @@ namespace BookingApp.View
 
         private void RateGuestsButton_Click(object sender, RoutedEventArgs e)
         {
-            RateGuestsWindow rateGuestsWindow = new RateGuestsWindow(LoggedInUser);
+            RateGuestsWindow rateGuestsWindow = new RateGuestsWindow(GuestRatingsByLoggedInUser, ReservationsForLoggedInUserAccommodations);
             rateGuestsWindow.Owner = this;
             rateGuestsWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             rateGuestsWindow.ShowDialog();
+            CheckForUnratedGuestsByLoggedInUser();
         }
     }
 }
