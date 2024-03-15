@@ -23,7 +23,7 @@
                       Grid.Column="1"
                       x:Name="tourList"
                       Padding="20,20,20,20"
-					  ItemsSource="{Binding TourRealisations}"
+					  ItemsSource="{Binding TourRealisations, UpdateSourceTrigger=PropertyChanged}"
 					  SelectedItem="{Binding SelectedTourRealisation}"
                       SelectionMode="Single"
 				      AutoGenerateColumns="False"

@@ -55,10 +55,8 @@ namespace BookingApp.View
         private void Tour_DoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-            Debug.WriteLine("BBBBBBBBBBB");
             if (SelectedTour != null)
             {
-                Debug.WriteLine("AAAAAAAAAAAAAAAAA");
                 string tourId = GetSelectedTourId();
                 tourRealisationWindow = new TourRealisationsForTourToday(Convert.ToInt32(tourId),LoggedInUser);
                 tourRealisationWindow.ShowDialog();

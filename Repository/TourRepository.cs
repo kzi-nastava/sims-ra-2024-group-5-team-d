@@ -47,7 +47,6 @@ namespace BookingApp.Repository
 
         public Tour SaveTour(Tour tour)
         {
-            Debug.WriteLine(tour.Name);
             tour.Id = NextIdForTour();
             _tours = _serializerTours.FromCSV(FilePathTours);
             _tours.Add(tour);
@@ -80,7 +79,7 @@ namespace BookingApp.Repository
             {
                 return 1;
             }
-            return _tours.Max(c => c.Id) + 1;
+            return _tourRealisations.Max(c => c.Id) + 1;
         }
 
         public void DeleteTour(Tour tour)
@@ -154,12 +153,11 @@ namespace BookingApp.Repository
             return null;
         }
         public List<TourRealisation> GetTourRealisationsByTourId(int tourId)
-        { 
+        {
+            _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
             List<TourRealisation> tourRealisations = new List<TourRealisation>();
             foreach(TourRealisation tR in _tourRealisations)
             {
-                Debug.WriteLine(tourId);
-                Debug.WriteLine(tR.TourId);
                 if(tR.TourId == tourId)
                 {
                     tourRealisations.Add(tR);
@@ -175,7 +173,7 @@ namespace BookingApp.Repository
             {
                 foreach (TourRealisation tR in GetTourRealisationsByTourId(t.Id))
                 {
-                    if (tR.StartTime.Day == DateTime.Now.Day)
+                    if (tR.StartTime.Day == DateTime.Now.Day && !toursToday.Contains(t))
                     {
                         toursToday.Add(t);
                     }

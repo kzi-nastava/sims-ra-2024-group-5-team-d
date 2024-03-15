@@ -35,10 +35,48 @@ namespace BookingApp.Repository
             return _tourGuests;
         }
 
+        public List<TourGuest> GetTourGuestsOnTourRealisation(int tourRealisation)
+        {
+            _tourGuests = _serializerTourGuests.FromCSV(FilePathTourGuests);
+            List<TourGuest> guests = new List<TourGuest>();
+            foreach (TourGuest guest in _tourGuests)
+            {
+                TourReservation reservation = GetTourReservationById(guest.TourReservationId);
+                Debug.WriteLine(reservation.Id);
+                if(reservation.TourRealisationId == tourRealisation)
+                {
+                    guests.Add(guest);
+                }
+            }
+            return guests;
+        }
+
+        public TourGuest UpdateTourGuest(TourGuest tourGuest)
+        {
+            _tourGuests = _serializerTourGuests.FromCSV(FilePathTourGuests);
+            TourGuest current = _tourGuests.Find(c => c.Id == tourGuest.Id);
+            int index = _tourGuests.IndexOf(current);
+            _tourGuests.Remove(current);
+            _tourGuests.Insert(index, tourGuest);       // keep ascending order of ids in file 
+            _serializerTourGuests.ToCSV(FilePathTourGuests, _tourGuests);
+            return tourGuest;
+        }
         public List<TourReservation> GetAllTourReservations()
         {
             _tourReservations = _serializerTourReservations.FromCSV(FilePathTourReservations);
             return _tourReservations;
+        }
+        public TourReservation GetTourReservationById(int id)
+        {
+            _tourReservations = _serializerTourReservations.FromCSV(FilePathTourReservations);
+            foreach (TourReservation reservation in _tourReservations)
+            {
+                if(reservation.Id == id)
+                {
+                    return reservation;
+                }
+            }
+            return null;
         }
         public void SaveGuest(TourGuest guest)
         {

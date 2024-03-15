@@ -1,0 +1,25 @@
+﻿<Window x:Class="BookingApp.View.TourGuestCheckPointList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View"
+        mc:Ignorable="d"
+        Title="TourGuestCheckPointList" Height="450" Width="800">
+    <Grid>
+        <!-- DataGrid for Guests -->
+        <DataGrid Name="guestsDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Guests, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <!-- Full Name Column -->
+                <DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" Width="*" />
+
+                <!-- Years Column -->
+                <DataGridTextColumn Header="Years" Binding="{Binding Years}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Button for enrolling guests -->
+        <Button Content="Sign up" Click="SignUpGuests_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"
+                FontSize="16" Height="30" Width="100"/>
+    </Grid>
+</Window>

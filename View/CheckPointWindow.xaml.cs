@@ -30,6 +30,7 @@ namespace BookingApp.View
         private int tourId;
         private int tourRealisationId;
         private readonly TourRepository _tourRepository;
+        private readonly TourGuestRepository _guestRepository;
         public TouristGuideWindow touristGuideWindow { get; set; }
 
         public ObservableCollection<CheckPoint> CheckPoints
@@ -135,6 +136,13 @@ namespace BookingApp.View
         {
             MessageBox.Show("Tour is finished");
             Close();
+        }
+
+        
+        private void RegisterTouristOnCheckPoint_Click(object sender, RoutedEventArgs e)
+        {
+            TourGuestCheckPointList tourGuestCheckPointList = new TourGuestCheckPointList(checkBox.SelectedItem,tourId,tourRealisationId);
+            tourGuestCheckPointList.Show();
         }
     }
 }

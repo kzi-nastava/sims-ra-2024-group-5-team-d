@@ -3,8 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="CheckPointWindow" Height="450" Width="800">
     <Grid>
-        <!-- DataGrid for CheckPoints -->
-        <DataGrid Name="checkBox" ItemsSource="{Binding CheckPoints}" AutoGenerateColumns="False" IsReadOnly="True">
+        <Grid.ColumnDefinitions>
+            <!-- Define two columns -->
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Button for enrolling tourists (on the left) -->
+        <Button Grid.Column="0" Content="Upisi Turistu" Click="RegisterTouristOnCheckPoint_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10"
+                FontSize="16" Height="30" Width="150"/>
+
+        <!-- DataGrid for CheckPoints (on the right) -->
+        <DataGrid Grid.Column="1" Name="checkBox" ItemsSource="{Binding CheckPoints}" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <!-- Custom CheckBox Column -->
                 <DataGridTemplateColumn Header="">
@@ -26,8 +36,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Button for finishing the tour -->
-        <Button Content="Finish Tour" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Click="FinishTour_Click"
+        <!-- Button for finishing the tour (on the right) -->
+        <Button Grid.Column="1" Content="Finish Tour" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Click="FinishTour_Click"
                 FontSize="16" Height="30" Width="100"/>
     </Grid>
 </Window>

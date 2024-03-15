@@ -135,17 +135,35 @@ namespace BookingApp.View
         private void CreateNewTour_Click(object sender, RoutedEventArgs e)
         {
             string imagesPath = "putanja";
-            Debug.WriteLine(tourName+locationId+language+"aa"+capacity);
+            int tourId = 0;
             Tour newTour = new Tour(tourName, _repository.getLocationByLocationId(locationId), description, (LANGUAGE)Language, Capacity, Duration, imagesPath, LoggedInUser);
-            Tour savedTour = _repository.SaveTour(newTour);
-            TourRealisation newTourRealisation = new TourRealisation(DateTime,savedTour.Id, Capacity, LoggedInUser);
-            TourRealisation savedTourRealisation = _repository.SaveTourRealisation(newTourRealisation);
-            TouristGuideWindow.AllTours.Add(savedTour);
-            if(savedTourRealisation.StartTime.Day == DateTime.Now.Day) 
+            bool indicator = false;
+            foreach (Tour tour in _repository.GetAllTours())
             {
-                TouristGuideWindow.ToursToday.Add(savedTour);
+                if(tour.Name == newTour.Name && tour.MaxCapacity == newTour.MaxCapacity && tour.Location.Id == newTour.Location.Id)
+                {
+                    indicator = true;
+                    tourId = tour.Id;
+                }
             }
-            Close();
+            if (!indicator)
+            {
+                Tour savedTour = _repository.SaveTour(newTour);
+                TourRealisation newTourRealisation = new TourRealisation(DateTime, savedTour.Id, Capacity, LoggedInUser);
+                TourRealisation savedTourRealisation = _repository.SaveTourRealisation(newTourRealisation);
+                TouristGuideWindow.AllTours.Add(newTour);
+                if (savedTourRealisation.StartTime.Day == DateTime.Now.Day)
+                {
+                    TouristGuideWindow.ToursToday.Add(newTour);
+                }
+                Close();
+            }
+            else
+            {
+                TourRealisation newTourRealisation = new TourRealisation(DateTime, tourId, Capacity, LoggedInUser);
+                TourRealisation savedTourRealisation = _repository.SaveTourRealisation(newTourRealisation);
+                Close();
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
