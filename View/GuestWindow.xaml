@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="GuestWindow" Height="450" Width="900">
+        Title="GuestWindow" Height="450" Width="900" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -43,24 +45,20 @@
             <ComboBoxItem Content="Cottage"/>
         </ComboBox>
         <Label Content="Capacity:" Grid.Column="3"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Margin="3,0,0,0" Width="67"/>
-        <TextBox Grid.Column="3" HorizontalAlignment="Left"  Margin="58,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="82" Height="18" Text="{Binding Capacity}"/>
-        <Label Content="From:" Grid.Column="4"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="40"/>
-        <DatePicker Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="104" Margin="36,0,0,0" Height="24"
-                    SelectedDate="{Binding FromDate, Mode=TwoWay}"/>
-        <Label  Content="To:" Grid.Column="5" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Height="26" Width="25"/>
-        <DatePicker Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="101" Height="24" Margin="35,0,0,0"
-                    SelectedDate="{Binding ToDate, Mode=TwoWay}"/>
+        <TextBox Grid.Column="3" HorizontalAlignment="Left"  Margin="58,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="82" Height="18" Text="{Binding NumberOfPeople}"/>
+        <Label Content="Number od days:" Grid.Column="4"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="100" Margin="10,0,0,0"/>
+        <TextBox Grid.Column="4" HorizontalAlignment="Left"  Margin="115,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="40" Height="18" Text="{Binding NumberOfDays}"/>
         <Button Content="Search" Click="SearchAccommodation" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="32" Margin="105,3,0,0"  Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-        <DataGrid Grid.Row="3" Grid.ColumnSpan="6" ItemsSource="{Binding Accommodations}" AutoGenerateColumns="False" Margin="0,40,0,-5" IsReadOnly="True">
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="6" ItemsSource="{Binding Accommodations}" SelectionMode="Single"  SelectedItem="{Binding SelectedAccommodation}" AutoGenerateColumns="False" Margin="0,40,0,-5" IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick" HorizontalAlignment="Center" VerticalAlignment="Center">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="*" Header="Picture">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding ImagesPath}" Width="50" Height="50"/>
+                            <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Width="auto" Height="auto"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn  Width="*" Header="Name"  Binding="{Binding Name}"/>
+                <DataGridTextColumn  Width="*" Header="Name"  Binding="{Binding Name}" />
                 <DataGridTextColumn  Width="*" Header="Location" Binding="{Binding Location}"/>
                 <DataGridTextColumn  Width="*" Header="Type" Binding="{Binding Type}"/>
                 <DataGridTextColumn  Width="*" Header="Capacity" Binding="{Binding Capacity}"/>

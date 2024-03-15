@@ -31,8 +31,12 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    
-                    <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding AllTours}" AutoGenerateColumns="False" IsReadOnly="True">
+
+                    <DataGrid Grid.Row="1" 
+                              Grid.ColumnSpan="2" 
+                              ItemsSource="{Binding AllTours,UpdateSourceTrigger=PropertyChanged}" 
+                              AutoGenerateColumns="False" 
+                              IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="*" Header="Picture">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -65,7 +69,15 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding ToursToday}" AutoGenerateColumns="False">
+                    <DataGrid x:Name="toursTodayDataGrid"
+                              Grid.Row="1"
+                              Grid.ColumnSpan="2"
+                              ItemsSource="{Binding ToursToday,UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedTour}"
+                              SelectionMode="Single"
+                              AutoGenerateColumns="False"
+                              MouseDoubleClick="Tour_DoubleClick"
+                              IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="*" Header="Picture">
                                 <DataGridTemplateColumn.CellTemplate>
