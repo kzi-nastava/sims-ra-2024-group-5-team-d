@@ -31,7 +31,7 @@ namespace BookingApp.Repository
 
         public CheckPoint Save(CheckPoint checkPoint)
         {
-            //checkPoint.Id = NextId();
+            checkPoint.Id = NextId();
             _checkPoints = _serializer.FromCSV(FilePath);
             _checkPoints.Add(checkPoint);
             _serializer.ToCSV(FilePath, _checkPoints);

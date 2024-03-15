@@ -21,6 +21,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="Name:"/>
         <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding TourName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -49,12 +50,33 @@
         </ComboBox>
         <Label Grid.Column="0" Grid.Row="5" Content="Description"/>
         <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label Grid.Column="0" Grid.Row="6" Content="Date and Time"/>
-        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding DateTime, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label Grid.Column="0" Grid.Row="7" Content="Upload a picture:"/>
-        <Label Grid.Column="0" Grid.Row="8" Content="Add check points:"/>
-        <Button Grid.Column="1" Grid.Row="7" Content="+" Click="UploadPictureButton_Click" />
-        <Button Grid.Column="0" Grid.Row="8" Content="Create" Click="CreateNewTour_Click"/>
-        <Button Grid.Column="1" Grid.Row="8" Content="Cancel" Click="CancelButton_Click"/>
+        <Label Grid.Column="0" Grid.Row="6" Content="Add check points:"/>
+        <StackPanel Grid.Column="1"  Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox Text="1"
+             FontSize="30"
+             Width="50"
+             x:Name="CheckPointCounter"
+             IsReadOnly="True"
+             TextAlignment="Center"/>
+            <StackPanel Orientation="Vertical">
+                <Button Content="▲"
+                Width="20"
+                Height="20"
+                Margin="0 0 0 5"
+                Click="IncreaseCount_Click"/>
+                <Button Content="▼"
+                Width="20"
+                Height="20"
+                Margin="0 5 0 0"
+                Click="DecreaseCount_Click"/>
+            </StackPanel>
+            <Button Grid.Column="1" Grid.Row="8" Content="+" Width="50" Click="AddCheckpointButton_Click"/>
+        </StackPanel>
+        <Label Grid.Column="0" Grid.Row="7" Content="Date and Time"/>
+        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding DateTime, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Column="0" Grid.Row="8" Content="Upload a picture:"/>
+        <Button Grid.Column="1" Grid.Row="8" Content="+" Click="UploadPictureButton_Click" />
+        <Button Grid.Column="0" Grid.Row="9" Content="Create" Click="CreateNewTour_Click"/>
+        <Button Grid.Column="1" Grid.Row="9" Content="Cancel" Click="CancelButton_Click"/>
     </Grid>
 </Window>

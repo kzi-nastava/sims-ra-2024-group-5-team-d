@@ -135,6 +135,7 @@ namespace BookingApp.View
             _repository = new TourRepository();
             LoggedInUser = user;
             DataContext = this;
+            NumberOfCheckpoints = 0;
             imagesPath = new List<string>();
 
         }
@@ -183,6 +184,45 @@ namespace BookingApp.View
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        
+        private int _numberofCheckPoints;
+        public int NumberOfCheckpoints
+        {
+            get => _numberofCheckPoints;
+            set
+            {
+                if (value != _numberofCheckPoints)
+                {
+                    _numberofCheckPoints = value;
+                    OnPropertyChanged(nameof(NumberOfCheckpoints));
+                }
+            }
+        }
+        private void IncreaseCount_Click(object sender, RoutedEventArgs e)
+        {
+            NumberOfCheckpoints++;
+            CheckPointCounter.Text = NumberOfCheckpoints.ToString();
+        }
+        private void DecreaseCount_Click(object sender, RoutedEventArgs e)
+        {
+            if (NumberOfCheckpoints > 1)
+            {
+                NumberOfCheckpoints--;
+            }
+            CheckPointCounter.Text = NumberOfCheckpoints.ToString();
+
+        }
+        private void AddCheckpointButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Create a new instance of the AddCheckpointsWindow
+
+            // Get the number of checkpoints specified by the user
+            int numberOfCheckpoints = int.Parse(CheckPointCounter.Text);
+            AddCheckpointsWindow addCheckpointsWindow = new AddCheckpointsWindow(numberOfCheckpoints);
+
+            // Show the window
+            addCheckpointsWindow.ShowDialog();
         }
 
         private void UploadPictureButton_Click(object sender, RoutedEventArgs e)
