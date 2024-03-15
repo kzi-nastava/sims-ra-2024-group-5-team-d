@@ -1,0 +1,30 @@
+﻿<Window x:Class="BookingApp.View.GiveRateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View"
+        mc:Ignorable="d"
+        Title="GiveRateWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Cleanliness rating:"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding CleanlinessRating, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Rule compliance rating:"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding RuleComplianceRating, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Comment" Grid.Row="2" Grid.Column="0"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Column="0" Grid.Row="3" Content="Register" Click="RateGuestButton_Click"/>
+        <Button Grid.Column="1" Grid.Row="3" Content="Cancel" Click="CancelButton_Click"/>
+    </Grid>
+</Window>
