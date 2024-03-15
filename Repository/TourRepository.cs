@@ -182,6 +182,20 @@ namespace BookingApp.Repository
             }
             return toursToday;
         }
+        public List<TourRealisation> GetTourRealisationsForToday(int tourId)
+        {
+            List<TourRealisation> toursToday = new List<TourRealisation>();
+           
+            foreach (TourRealisation tR in GetTourRealisationsByTourId(tourId))
+            {
+                if (tR.StartTime.Day == DateTime.Now.Day)
+                {
+                    toursToday.Add(tR);
+                }
+            }
+
+            return toursToday;
+        }
         public Tour GetTourById(int id)
         {
             _tours = _serializerTours.FromCSV(FilePathTours);

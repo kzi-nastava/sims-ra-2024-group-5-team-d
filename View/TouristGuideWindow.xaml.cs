@@ -50,6 +50,18 @@ namespace BookingApp.View
             NewTourForm createNewTourForm = new NewTourForm(LoggedInUser);
             createNewTourForm.ShowDialog();
         }
+        private void CreateNewTourRealisationWindow(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTour != null)
+            {
+                NewTourRealisationForm createNewTourRealisationForm = new NewTourRealisationForm(LoggedInUser, SelectedTour);
+                createNewTourRealisationForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select a tour","Error",MessageBoxButton.OK);
+            }
+        }
 
         private TourRealisationsForTourToday tourRealisationWindow;
         private void Tour_DoubleClick(object sender, MouseButtonEventArgs e)
