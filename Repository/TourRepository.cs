@@ -31,7 +31,7 @@ namespace BookingApp.Repository
             _serializerTourRealisations = new Serializer<TourRealisation>();
             _locationRepository = new LocationRepository();
             _tours = _serializerTours.FromCSV(FilePathTours);
-            _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
+           // _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
         }
 
         public List<Tour> GetAllTours()
@@ -141,6 +141,18 @@ namespace BookingApp.Repository
             return _locationRepository.GetById(locationId);
         }
 
+        public TourRealisation GetTourRealisationById(int tourRealsiationId)
+        {
+            _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
+            foreach (TourRealisation tR in _tourRealisations)
+            {
+                if(tR.Id == tourRealsiationId)
+                {
+                    return tR;
+                }
+            }
+            return null;
+        }
         public List<TourRealisation> GetTourRealisationsByTourId(int tourId)
         { 
             List<TourRealisation> tourRealisations = new List<TourRealisation>();
@@ -163,11 +175,8 @@ namespace BookingApp.Repository
             {
                 foreach (TourRealisation tR in GetTourRealisationsByTourId(t.Id))
                 {
-                        Debug.WriteLine(tR.StartTime.Day);
-                        Debug.WriteLine(DateTime.Now.Day);
                     if (tR.StartTime.Day == DateTime.Now.Day)
                     {
-                        Debug.WriteLine("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                         toursToday.Add(t);
                     }
                 }
@@ -175,5 +184,31 @@ namespace BookingApp.Repository
             }
             return toursToday;
         }
+        public Tour GetTourById(int id)
+        {
+            _tours = _serializerTours.FromCSV(FilePathTours);
+            foreach (Tour t in _tours)
+            {
+                if(t.Id == id)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
+        public Tour GetTourByName(string name)
+        {
+            _tours = _serializerTours.FromCSV(FilePathTours);
+            foreach (Tour t in _tours)
+            {
+                if (t.Name == name)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
     }
 }

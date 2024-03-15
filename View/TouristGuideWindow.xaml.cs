@@ -3,6 +3,8 @@ using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +26,11 @@ namespace BookingApp.View
     {
         public static ObservableCollection<Tour> AllTours { get; set; }
         public static ObservableCollection<Tour> ToursToday { get; set; }
+        public Tour SelectedTour { get; set; }
         public User LoggedInUser { get; set; }
 
         private readonly TourRepository _repository;
+
         public TouristGuideWindow(User user)
         {
             InitializeComponent();
@@ -36,11 +40,47 @@ namespace BookingApp.View
             AllTours = new ObservableCollection<Tour>(_repository.GetByUserTours(LoggedInUser));
             ToursToday = new ObservableCollection<Tour>(_repository.GetToursForToday());
         }
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         private void CreateNewTourWindow(object sender, RoutedEventArgs e)
         {
             NewTourForm createNewTourForm = new NewTourForm(LoggedInUser);
             createNewTourForm.ShowDialog();
+        }
+
+        private TourRealisationsForTourToday tourRealisationWindow;
+        private void Tour_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            Debug.WriteLine("BBBBBBBBBBB");
+            if (SelectedTour != null)
+            {
+                Debug.WriteLine("AAAAAAAAAAAAAAAAA");
+                string tourId = GetSelectedTourId();
+                tourRealisationWindow = new TourRealisationsForTourToday(Convert.ToInt32(tourId),LoggedInUser);
+                tourRealisationWindow.ShowDialog();
+            }
+
+        }
+
+        private string GetSelectedTourId()
+        {
+            // Assuming you're using a DataGrid named "toursTodayDataGrid" for the Tours Today tab
+            if (toursTodayDataGrid.SelectedItem != null)
+            {
+                // Assuming your tour object has a property named "Id"
+                var selectedTour = toursTodayDataGrid.SelectedItem as Tour;
+                if (selectedTour != null)
+                {
+                    return selectedTour.Id.ToString();
+                }
+            }
+
+            // Return null if no tour is selected
+            return null;
         }
     }
 }
