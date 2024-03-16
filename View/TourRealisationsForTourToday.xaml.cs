@@ -65,12 +65,13 @@ namespace BookingApp.View
             if (SelectedRealisation != null)
             {
                     currentCheckPointWindow = new CheckPointWindow(tourId,SelectedRealisation.Id, LoggedInUser);
-                    currentCheckPointWindow.Show();
+                    currentCheckPointWindow.ShowDialog();
             }
             else
             {
                 // If open, just activate the window
-                currentCheckPointWindow.Activate();
+                MessageBox.Show("Please select a tour");
+                
             }
         }
     }

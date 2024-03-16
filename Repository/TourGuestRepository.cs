@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.Repository
 {
@@ -35,17 +36,23 @@ namespace BookingApp.Repository
             return _tourGuests;
         }
 
-        public List<TourGuest> GetTourGuestsOnTourRealisation(int tourRealisation)
+        public List<TourGuest>? GetTourGuestsOnTourRealisation(int tourRealisation)
         {
             _tourGuests = _serializerTourGuests.FromCSV(FilePathTourGuests);
             List<TourGuest> guests = new List<TourGuest>();
+            TourReservation reservation = new TourReservation();
             foreach (TourGuest guest in _tourGuests)
             {
-                TourReservation reservation = GetTourReservationById(guest.TourReservationId);
-                Debug.WriteLine(reservation.Id);
-                if(reservation.TourRealisationId == tourRealisation)
+                reservation = GetTourReservationById(guest.TourReservationId);
+                if (reservation != null) { 
+                    if (reservation.TourRealisationId == tourRealisation)
+                    {
+                        guests.Add(guest);
+                    }
+                }
+                else
                 {
-                    guests.Add(guest);
+                    return null;
                 }
             }
             return guests;

@@ -86,6 +86,7 @@ namespace BookingApp.View
             this.tourRealisationId = tourRealisationId;
             _repository = new CheckPointRepository();
             _tourRepository = new TourRepository();
+            _guestRepository = new TourGuestRepository();
             touristGuideWindow = new TouristGuideWindow(user);
             CheckPoints = new ObservableCollection<CheckPoint>(_repository.GetAllCheckPointsByTourId(tourId));
             if(CheckPoints.Count > 0)
@@ -141,8 +142,16 @@ namespace BookingApp.View
         
         private void RegisterTouristOnCheckPoint_Click(object sender, RoutedEventArgs e)
         {
-            TourGuestCheckPointList tourGuestCheckPointList = new TourGuestCheckPointList(checkBox.SelectedItem,tourId,tourRealisationId);
-            tourGuestCheckPointList.Show();
+            if (_guestRepository.GetTourGuestsOnTourRealisation(tourRealisationId) == null)
+            {
+                MessageBox.Show("No tourists registered for this tour!");
+                Close();
+            }
+            else
+            {
+                TourGuestCheckPointList tourGuestCheckPointList = new TourGuestCheckPointList(checkBox.SelectedItem, tourId, tourRealisationId);
+                tourGuestCheckPointList.Show();
+            }
         }
     }
 }
