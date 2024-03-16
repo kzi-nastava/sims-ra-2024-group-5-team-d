@@ -135,7 +135,7 @@ namespace BookingApp.View
             _repository = new TourRepository();
             LoggedInUser = user;
             DataContext = this;
-            NumberOfCheckpoints = 0;
+            NumberOfCheckpoints = 2;
             imagesPath = new List<string>();
 
         }
@@ -187,7 +187,7 @@ namespace BookingApp.View
         }
         private void DecreaseCount_Click(object sender, RoutedEventArgs e)
         {
-            if (NumberOfCheckpoints > 1)
+            if (NumberOfCheckpoints > 2)
             {
                 NumberOfCheckpoints--;
             }
