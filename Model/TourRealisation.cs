@@ -1,6 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,8 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            StartTime = Convert.ToDateTime(values[1]);
+            StartTime = DateTime.ParseExact(values[1], "dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None);
+
             TourId = Convert.ToInt32(values[2]);
             AvailableSeats = Convert.ToInt32(values[3]);
             User = new User() { Id = Convert.ToInt32(values[4]) };

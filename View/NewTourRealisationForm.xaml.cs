@@ -62,7 +62,6 @@ namespace BookingApp.View
         {
             TourRealisation newTourRealisation = new TourRealisation(DateTime, TourId, Capacity, LoggedInUser);
             TourRealisation savedTourRealisation = _repository.SaveTourRealisation(newTourRealisation);
-            TouristGuideWindow.ToursToday.Add(SelectedTour);
             Close();
         }
         public event PropertyChangedEventHandler PropertyChanged;

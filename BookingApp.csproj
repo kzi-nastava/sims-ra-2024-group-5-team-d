@@ -33,8 +33,12 @@
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\view.png" />
-    <None Remove="TourImages\Tour13\tura1.jpg" />
-    <None Remove="TourImages\Tour1\tura1.jpg" />
+    <None Remove="TourImages\Tour1\caption.jpg" />
+    <None Remove="TourImages\Tour2\caption.jpg" />
+    <None Remove="TourImages\Tour3\caption.jpg" />
+    <None Remove="TourImages\Tour4\caption.jpg" />
+    <None Remove="TourImages\Tour4\GFS_smederevo-trg-25-09-09-04.jpg" />
+    <None Remove="TourImages\Tour5\download.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,26 +60,21 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TourImages\Tour13\tura1.jpg">
+    <Content Include="TourImages\Tour1\caption.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TourImages\Tour1\tura1.jpg">
+    <Content Include="TourImages\Tour2\caption.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TourImages\Tour3\" />
-    <Folder Include="TourImages\Tour4\" />
-    <Folder Include="TourImages\Tour5\" />
-    <Folder Include="TourImages\Tour6\" />
-    <Folder Include="TourImages\Tour9\" />
-    <Folder Include="TourImages\Tour10\" />
-    <Folder Include="TourImages\Tour11\" />
-    <Folder Include="TourImages\Tour12\" />
-    <Folder Include="TourImages\Tour8\" />
-    <Folder Include="TourImages\Tour7\" />
-    <Folder Include="TourImages\Tour2\" />
+    <Content Include="TourImages\Tour3\caption.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TourImages\Tour4\GFS_smederevo-trg-25-09-09-04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TourImages\Tour5\download.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
