@@ -42,7 +42,12 @@ namespace BookingApp.View
             Date = new ObservableCollection<string>();
             AccommodationStats = new ObservableCollection<AccommodationStat>();
             Reservations = new List<Reservation>(_repository.GetByAccommodation(Accommodation));
-            Update();
+            if(Reservations.Count!=0)
+                Update();
+            else
+            {
+                MessageBox.Show("There are no reservations for this accommodation");
+            }
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
