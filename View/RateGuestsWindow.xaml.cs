@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -61,7 +62,8 @@ namespace BookingApp.View
 
         private static bool IsGuestRateable(Reservation reservation)
         {
-            return (DateTime.Now - reservation.ReservedTo).Days <= 5 && (DateTime.Now - reservation.ReservedTo).Days >= 0;
+            
+            return (DateTime.Now - reservation.ReservedTo).TotalDays <= 5 && (DateTime.Now>reservation.ReservedTo);
         }
 
         private bool IsGuestFromReservationRated(Reservation reservation)
