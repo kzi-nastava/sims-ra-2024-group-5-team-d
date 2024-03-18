@@ -26,9 +26,11 @@ namespace BookingApp.View
     {
         public int tourId { get; set; }
         public User LoggedInUser { get; set; }
+
         public static ObservableCollection<TourRealisation> Realisations { get; set; }
         public TourRepository _repository { get; set; }
         public TourRealisation SelectedRealisation { get; set; }
+
 
         public TourRealisationsForTourToday(int selectedTourId,User loggedInUser)
         {

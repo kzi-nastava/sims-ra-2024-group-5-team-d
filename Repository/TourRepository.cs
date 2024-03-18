@@ -156,11 +156,12 @@ namespace BookingApp.Repository
         {
             _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
             List<TourRealisation> tourRealisations = new List<TourRealisation>();
-            foreach(TourRealisation tR in _tourRealisations)
+            foreach(TourRealisation tourRealisation in _tourRealisations)
             {
-                if(tR.TourId == tourId)
+                if(tourRealisation.TourId == tourId)
                 {
-                    tourRealisations.Add(tR);
+                    Debug.WriteLine(tourId);
+                    tourRealisations.Add(tourRealisation);
                 }
             }
             return tourRealisations;
@@ -184,17 +185,17 @@ namespace BookingApp.Repository
         }
         public List<TourRealisation> GetTourRealisationsForToday(int tourId)
         {
-            List<TourRealisation> toursToday = new List<TourRealisation>();
+            List<TourRealisation> tourRealisationsToday = new List<TourRealisation>();
            
-            foreach (TourRealisation tR in GetTourRealisationsByTourId(tourId))
+            foreach (TourRealisation tourRealisation in GetTourRealisationsByTourId(tourId))
             {
-                if (tR.StartTime.Day == DateTime.Now.Day)
+                if (tourRealisation.StartTime.Day == DateTime.Now.Day)
                 {
-                    toursToday.Add(tR);
+                    tourRealisationsToday.Add(tourRealisation);
                 }
             }
 
-            return toursToday;
+            return tourRealisationsToday;
         }
         public Tour GetTourById(int id)
         {

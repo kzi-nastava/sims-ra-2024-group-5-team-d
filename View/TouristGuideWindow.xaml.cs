@@ -63,14 +63,12 @@ namespace BookingApp.View
             }
         }
 
-        private TourRealisationsForTourToday tourRealisationWindow;
         private void Tour_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             if (SelectedTour != null)
             {
                 string tourId = GetSelectedTourId();
-                tourRealisationWindow = new TourRealisationsForTourToday(Convert.ToInt32(tourId),LoggedInUser);
+                TourRealisationsForTourToday tourRealisationWindow = new TourRealisationsForTourToday(SelectedTour.Id,LoggedInUser);
                 tourRealisationWindow.ShowDialog();
             }
 
