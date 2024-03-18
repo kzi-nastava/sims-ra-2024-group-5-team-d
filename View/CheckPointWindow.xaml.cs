@@ -86,6 +86,7 @@ namespace BookingApp.View
             this.tourRealisationId = tourRealisationId;
             _repository = new CheckPointRepository();
             _tourRepository = new TourRepository();
+            _guestRepository = new TourGuestRepository();
             touristGuideWindow = new TouristGuideWindow(user);
             CheckPoints = new ObservableCollection<CheckPoint>(_repository.GetAllCheckPointsByTourId(tourId));
             if(CheckPoints.Count > 0)
@@ -135,14 +136,34 @@ namespace BookingApp.View
         private void FinishTour_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Tour is finished");
+            TourRealisation tourRealisation = _tourRepository.GetTourRealisationById(tourRealisationId);
+            _tourRepository.DeleteTourRealisation(tourRealisation);
+            TourRealisationsForTourToday.Realisations.Remove(tourRealisation);
+            if(_tourRepository.GetTourRealisationsByTourId(tourRealisation.TourId).Count < 1)
+            {
+                Tour tour = _tourRepository.GetTourById(tourRealisation.TourId);
+                _tourRepository.DeleteTour(tour);
+            }
             Close();
         }
 
         
         private void RegisterTouristOnCheckPoint_Click(object sender, RoutedEventArgs e)
         {
-            TourGuestCheckPointList tourGuestCheckPointList = new TourGuestCheckPointList(checkBox.SelectedItem,tourId,tourRealisationId);
-            tourGuestCheckPointList.Show();
+            if (_guestRepository.GetTourGuestsOnTourRealisation(tourRealisationId).Count < 1)
+            {
+                MessageBox.Show("No tourists registered for this tour!");
+                Close();
+            }
+            else if (checkBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a checkpoint");
+            }
+            else
+            {
+                TourGuestCheckPointList tourGuestCheckPointList = new TourGuestCheckPointList(checkBox.SelectedItem, tourId, tourRealisationId);
+                tourGuestCheckPointList.Show();
+            }
         }
     }
 }

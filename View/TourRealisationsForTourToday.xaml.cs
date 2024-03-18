@@ -26,9 +26,11 @@ namespace BookingApp.View
     {
         public int tourId { get; set; }
         public User LoggedInUser { get; set; }
+
         public static ObservableCollection<TourRealisation> Realisations { get; set; }
         public TourRepository _repository { get; set; }
         public TourRealisation SelectedRealisation { get; set; }
+
 
         public TourRealisationsForTourToday(int selectedTourId,User loggedInUser)
         {
@@ -65,12 +67,13 @@ namespace BookingApp.View
             if (SelectedRealisation != null)
             {
                     currentCheckPointWindow = new CheckPointWindow(tourId,SelectedRealisation.Id, LoggedInUser);
-                    currentCheckPointWindow.Show();
+                    currentCheckPointWindow.ShowDialog();
             }
             else
             {
                 // If open, just activate the window
-                currentCheckPointWindow.Activate();
+                MessageBox.Show("Please select a tour");
+                
             }
         }
     }
