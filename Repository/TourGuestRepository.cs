@@ -40,19 +40,14 @@ namespace BookingApp.Repository
         {
             _tourGuests = _serializerTourGuests.FromCSV(FilePathTourGuests);
             List<TourGuest> guests = new List<TourGuest>();
-            TourReservation reservation = new TourReservation();
             foreach (TourGuest guest in _tourGuests)
             {
-                reservation = GetTourReservationById(guest.TourReservationId);
-                if (reservation != null) { 
-                    if (reservation.TourRealisationId == tourRealisation)
-                    {
-                        guests.Add(guest);
-                    }
-                }
-                else
+                
+                if (GetTourReservationById(guest.TourReservationId).TourRealisationId == tourRealisation)
                 {
-                    return null;
+
+                    Debug.WriteLine("DODAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOOOOOOOO");
+                    guests.Add(guest);
                 }
             }
             return guests;

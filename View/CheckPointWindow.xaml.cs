@@ -142,10 +142,14 @@ namespace BookingApp.View
         
         private void RegisterTouristOnCheckPoint_Click(object sender, RoutedEventArgs e)
         {
-            if (_guestRepository.GetTourGuestsOnTourRealisation(tourRealisationId) == null)
+            if (_guestRepository.GetTourGuestsOnTourRealisation(tourRealisationId).Count < 1)
             {
                 MessageBox.Show("No tourists registered for this tour!");
                 Close();
+            }
+            else if (checkBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a checkpoint");
             }
             else
             {
