@@ -75,7 +75,7 @@ namespace BookingApp.View
 
         private void tourList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

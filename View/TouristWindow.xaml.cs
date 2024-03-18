@@ -106,18 +106,7 @@ namespace BookingApp.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void LoadToursFromCSV()
-        {
-            /*
-            Tour tours = new Tour();
-            foreach (Tour tour in tours.GetAllTours())
-            {
-                Tours.Add(tour);
-            }*/ //BRISANJEE
-        }
-
-        
-
+       
         private void tourList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if(SelectedTour != null)
@@ -133,99 +122,19 @@ namespace BookingApp.View
         private void SearchTours_Click(object sender, RoutedEventArgs e)
         {
             Tours.Clear();
-            _tourRepository.GetAllTours().ForEach(tour => {
-                if (pickedLanguage != 3 && pickedDuration != 5 && pickedLocationId != 10)
+
+            foreach (Tour tour in _tourRepository.GetAllTours())
+            {
+                bool languageMatch = pickedLanguage == 3 || tour.Language == (LANGUAGE)pickedLanguage;
+                bool durationMatch = pickedDuration == 5 || (tour.Duration >= pickedDuration && tour.Duration <= pickedDuration + 1);
+                bool locationMatch = pickedLocationId == 10 || tour.Location.Id == pickedLocationId;
+                bool capacityMatch = tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity);
+
+                if (languageMatch && durationMatch && locationMatch && capacityMatch)
                 {
-                    if (tour.Location.Id == pickedLocationId
-                        && tour.Language == (LANGUAGE)pickedLanguage
-                        && tour.Duration <= pickedDuration + 1 && tour.Duration >= pickedDuration
-                        && tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity))
-                    {
-                        Tours.Add(tour);
-                    }
+                    Tours.Add(tour);
                 }
-                else if (pickedLanguage == 3 && pickedDuration != 5 && pickedLocationId != 10)
-                {
-                    // Handle case where pickedLanguage is 4
-                    // You may add specific logic for this case if needed
-
-                    if (tour.Location.Id == pickedLocationId
-                        && tour.Duration <= pickedDuration + 1 && tour.Duration >= pickedDuration
-                        && tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity))
-                    {
-                        Tours.Add(tour);
-                    }
-
-                }
-                else if (pickedLanguage != 3 && pickedDuration == 5 && pickedLocationId != 10)
-                {
-                    // Handle case where pickedDuration is 5
-                    // You may add specific logic for this case if needed
-
-                    if (tour.Location.Id == pickedLocationId
-                        && tour.Language == (LANGUAGE)pickedLanguage
-                        && tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity))
-                    {
-                        Tours.Add(tour);
-                    }
-                }
-                else if (pickedLanguage != 3 && pickedDuration != 5 && pickedLocationId == 10)
-                {
-                    // Handle case where pickedLocationId is 10
-                    // You may add specific logic for this case if needed
-
-                    if (tour.Language == (LANGUAGE)pickedLanguage
-                        && tour.Duration <= pickedDuration + 1 && tour.Duration >= pickedDuration
-                        && tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity))
-                    {
-                        Tours.Add(tour);
-                    }
-                }
-                else if (pickedLanguage == 3 && pickedDuration == 5 && pickedLocationId != 10)
-                {
-                    // Handle case where pickedLanguage is 4 and pickedDuration is 5
-                    // You may add specific logic for this case if needed
-
-                    if (tour.Location.Id == pickedLocationId
-                        && tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity))
-                    {
-                        Tours.Add(tour);
-                    }
-                }
-                else if (pickedLanguage == 3 && pickedDuration != 5 && pickedLocationId == 10)
-                {
-                    // Handle case where pickedLanguage is 4 and pickedLocationId is 10
-                    // You may add specific logic for this case if needed
-
-                    if (tour.Duration <= pickedDuration + 1 && tour.Duration >= pickedDuration
-                        && tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity))
-                    {
-                        Tours.Add(tour);
-                    }
-                }
-                else if (pickedLanguage != 3 && pickedDuration == 5 && pickedLocationId == 10)
-                {
-                    // Handle case where pickedDuration is 5 and pickedLocationId is 10
-                    // You may add specific logic for this case if needed
-
-                    if (tour.Language == (LANGUAGE)pickedLanguage
-                        && tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity))
-                    {
-                        Tours.Add(tour);
-                    }
-                }
-                else if (pickedLanguage == 3 && pickedDuration == 5 && pickedLocationId == 10)
-                {
-                    // Handle case where all three values are 4, 5, and 10 respectively
-                    // You may add specific logic for this case if needed
-
-                    if (tour.MaxCapacity >= Convert.ToDouble(pickedMaxCapacity))
-                    {
-                        Tours.Add(tour);
-                    }
-                }
-            });
-
+            }
 
         }
 

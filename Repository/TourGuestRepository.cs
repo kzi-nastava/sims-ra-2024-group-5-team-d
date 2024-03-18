@@ -57,7 +57,7 @@ namespace BookingApp.Repository
             TourGuest current = _tourGuests.Find(c => c.Id == tourGuest.Id);
             int index = _tourGuests.IndexOf(current);
             _tourGuests.Remove(current);
-            _tourGuests.Insert(index, tourGuest);       // keep ascending order of ids in file 
+            _tourGuests.Insert(index, tourGuest);
             _serializerTourGuests.ToCSV(FilePathTourGuests, _tourGuests);
             return tourGuest;
         }

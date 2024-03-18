@@ -30,7 +30,8 @@ namespace BookingApp.View
         public TourPersonRegistrationForm(int numberOfPeople, int selectedRealisationId)
         {
             InitializeComponent();
-
+            // Initialize the list of people
+            // Initialize the list of people
             // Initialize the list of people
             people = new List<TourGuest>();
             for (int i = 0; i < numberOfPeople; i++)
@@ -85,51 +86,62 @@ namespace BookingApp.View
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NameTextBox.Text == "" || AgeTextBox.Text == "")
+            if (string.IsNullOrEmpty(NameTextBox.Text) || string.IsNullOrEmpty(AgeTextBox.Text))
             {
                 MessageBox.Show("Error", "You didn't fill all the info", MessageBoxButton.OK);
+                return;
             }
-            if (currentPageIndex == people.Count - 1)
+
+            UpdateCurrentPersonData();
+
+            if (currentPageIndex < people.Count - 1)
             {
-                people[currentPageIndex].FullName = NameTextBox.Text;
-
-                people[currentPageIndex].Years = Convert.ToInt32(AgeTextBox.Text);
-
-                TourReservation reservation = new TourReservation();
-                reservation.TourRealisationId = idTourRealisation;
-                TourGuestRepository tourGuestRepository = new TourGuestRepository();
-                tourGuestRepository.SaveReservation(reservation);
-                TourRepository tourRepository = new TourRepository();
-                TourRealisation tourRealisation = new TourRealisation();
-                tourRealisation = tourRepository.GetTourRealisationById(reservation.TourRealisationId);
-                // Confirm registration
-                MessageBox.Show("Registration confirmed!");
-                foreach(TourGuest person in people)
-                {
-                    person.TourReservationId = reservation.Id;
-                    person.CheckPointId = -1;
-                    tourGuestRepository.SaveGuest(person);
-                    tourRealisation.AvailableSeats--;
-                }
-                tourRepository.UpdateTourRealisation(tourRealisation);
-                this.Close();
+                MoveToNextPerson();
             }
-            else if (NameTextBox.Text != "" && AgeTextBox.Text != "")
+            else
             {
-                people[currentPageIndex].FullName = NameTextBox.Text;
-
-                people[currentPageIndex].Years = Convert.ToInt32(AgeTextBox.Text);
-                
-                currentPageIndex++;
-
-                
-                NameTextBox.Text = people[currentPageIndex].FullName;
-                AgeTextBox.Text = people[currentPageIndex].Years.ToString();
-                DisplayCurrentPerson();
-                UpdateNavigationButtons();
-                DataContext = people[currentPageIndex];
+                ConfirmRegistration();
             }
-
         }
+
+        private void UpdateCurrentPersonData()
+        {
+            var currentPerson = people[currentPageIndex];
+            currentPerson.FullName = NameTextBox.Text;
+            currentPerson.Years = Convert.ToInt32(AgeTextBox.Text);
+        }
+
+        private void MoveToNextPerson()
+        {
+            currentPageIndex++;
+            DisplayCurrentPerson();
+            UpdateNavigationButtons();
+        }
+
+        private void ConfirmRegistration()
+        {
+            TourReservation reservation = new TourReservation();
+            reservation.TourRealisationId = idTourRealisation;
+            TourGuestRepository tourGuestRepository = new TourGuestRepository();
+            tourGuestRepository.SaveReservation(reservation);
+
+            TourRepository tourRepository = new TourRepository();
+            TourRealisation tourRealisation = tourRepository.GetTourRealisationById(reservation.TourRealisationId);
+
+            MessageBox.Show("Registration confirmed!");
+
+            // Save guests and update available seats
+            foreach (TourGuest person in people)
+            {
+                person.TourReservationId = reservation.Id;
+                person.CheckPointId = -1;
+                tourGuestRepository.SaveGuest(person);
+                tourRealisation.AvailableSeats--;
+            }
+
+            tourRepository.UpdateTourRealisation(tourRealisation);
+            this.Close();
+        }
+
     }
 }
