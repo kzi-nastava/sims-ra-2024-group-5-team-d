@@ -21,7 +21,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="26" Width="44"/>
         <TextBox HorizontalAlignment="Left" Margin="42,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="103" Height="18" Grid.Column="0"  Text="{Binding AccommodationName, UpdateSourceTrigger=PropertyChanged}"/>
