@@ -42,16 +42,18 @@ namespace BookingApp.Repository
             List<TourGuest> guests = new List<TourGuest>();
             foreach (TourGuest guest in _tourGuests)
             {
-                
-                if (GetTourReservationById(guest.TourReservationId).TourRealisationId == tourRealisation)
-                {
+                TourReservation reservation = GetTourReservationById(guest.TourReservationId);
+                bool isOnRealisation =  reservation.TourRealisationId == tourRealisation;
+                bool isCheckedIn = guest.CheckPointId < 0;
 
-                    Debug.WriteLine("DODAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOOOOOOOO");
+                if (isOnRealisation && isCheckedIn)
+                {
                     guests.Add(guest);
                 }
             }
             return guests;
         }
+
 
         public TourGuest UpdateTourGuest(TourGuest tourGuest)
         {

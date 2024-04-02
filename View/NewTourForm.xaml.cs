@@ -142,14 +142,7 @@ namespace BookingApp.View
        
     private void CreateNewTour_Click(object sender, RoutedEventArgs e)
         {
-            string folderPath = "../../../TourImages/Tour";
-            folderPath = folderPath + _repository.NextIdForTour();
-            Directory.CreateDirectory(folderPath);
-            foreach (string imagePath in imagesPath)
-            {
-                string targetImagePath = System.IO.Path.Combine(folderPath, System.IO.Path.GetFileName(imagePath));
-                File.Copy(imagePath, targetImagePath);
-            }
+            string folderPath = AddImage();
             Tour tour = new Tour(tourName, _repository.getLocationByLocationId(locationId), description,(LANGUAGE)language,capacity,duration, folderPath,LoggedInUser);
             Tour savedTour = _repository.SaveTour(tour);
             TourRealisation tourRealisation = new TourRealisation(dateTime,savedTour.Id,capacity,LoggedInUser);
@@ -165,6 +158,19 @@ namespace BookingApp.View
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private string AddImage()
+        {
+            string folderPath = "../../../TourImages/Tour";
+            folderPath = folderPath + _repository.NextIdForTour();
+            Directory.CreateDirectory(folderPath);
+            foreach (string imagePath in imagesPath)
+            {
+                string targetImagePath = System.IO.Path.Combine(folderPath, System.IO.Path.GetFileName(imagePath));
+                File.Copy(imagePath, targetImagePath);
+            }
+            return folderPath;
         }
         
         private int _numberofCheckPoints;

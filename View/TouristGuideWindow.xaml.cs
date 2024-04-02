@@ -67,28 +67,12 @@ namespace BookingApp.View
         {
             if (SelectedTour != null)
             {
-                string tourId = GetSelectedTourId();
+                string tourId = SelectedTour.Id.ToString();
                 TourRealisationsForTourToday tourRealisationWindow = new TourRealisationsForTourToday(SelectedTour.Id,LoggedInUser);
                 tourRealisationWindow.ShowDialog();
             }
 
         }
 
-        private string GetSelectedTourId()
-        {
-            // Assuming you're using a DataGrid named "toursTodayDataGrid" for the Tours Today tab
-            if (toursTodayDataGrid.SelectedItem != null)
-            {
-                // Assuming your tour object has a property named "Id"
-                var selectedTour = toursTodayDataGrid.SelectedItem as Tour;
-                if (selectedTour != null)
-                {
-                    return selectedTour.Id.ToString();
-                }
-            }
-
-            // Return null if no tour is selected
-            return null;
-        }
     }
 }

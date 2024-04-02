@@ -15,7 +15,7 @@
         <Label x:Name="TourRealisationsHeader">
             <TextBlock>
                 <Run Text="Future Tour Realisations for "/>
-                <Run FontWeight="Bold" Text="{Binding TourName}"/>
+                <Run FontWeight="Bold" Text="{Binding TourName,UpdateSourceTrigger=PropertyChanged}"/>
             </TextBlock>
         </Label>
         <DataGrid 

@@ -26,6 +26,8 @@ namespace BookingApp.View
     /// </summary>
     public partial class TourRealisationsForSelectedTour : Window
     {
+        private TourRepository _tourRepository;
+
         public TourRealisation SelectedTourRealisation { get; set; }
         public ObservableCollection<TourRealisation> TourRealisations { get; set; }
 
@@ -53,9 +55,11 @@ namespace BookingApp.View
             PeopleCounter.Text = NumberOfPeople.ToString();
 
             GetTourRealisationsForSelectedTour(pickedTour);
+            _tourRepository = new TourRepository(); 
 
             //TourRealisationsHeader.Content = "Future Tour Realisations (" + pickedTour.Name + ")";
             DataContext = this;
+            
         }
 
         private void GetTourRealisationsForSelectedTour(Tour pickedTour)
@@ -126,8 +130,22 @@ namespace BookingApp.View
                 personFormular.Show();
             }
             else if(SelectedTourRealisation.AvailableSeats == 0){
-                MessageBox.Show("Unfortunatelly, tour for selected term is full. \n We will show you other avaliable terms.", ":(", MessageBoxButton.OK);
-                TourRealisations.Remove(SelectedTourRealisation);
+                MessageBox.Show("Unfortunatelly, tour for selected term is full. \n We will show you other avaliable terms for selected city.", ":(", MessageBoxButton.OK);
+                
+                Location selectedLocation = new Location();
+                int selectedRealisationId = SelectedTourRealisation.Id;
+                LocationRepository _locationRep = new LocationRepository();
+                selectedLocation = _locationRep.GetById(_tourRepository.GetTourById(SelectedTourRealisation.TourId).Location.Id);
+
+                TourRealisationsHeader.Content = $"Other tour realisaitons in {selectedLocation.City}, {selectedLocation.Country}:";
+                TourRealisations.Clear();
+
+                foreach(TourRealisation tR in _tourRepository.GetAllTourRealisations())
+                {
+                    if(_tourRepository.GetTourById(tR.TourId).Location.Id == selectedLocation.Id && tR.Id != selectedRealisationId){
+                        TourRealisations.Add(tR);
+                    }
+                }
             }
             else
             {
