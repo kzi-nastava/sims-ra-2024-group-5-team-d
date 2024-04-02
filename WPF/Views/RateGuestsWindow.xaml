@@ -1,0 +1,28 @@
+﻿<Window x:Class="BookingApp.WPF.Views.RateGuestsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Views"
+        mc:Ignorable="d"
+        Title="RateGuestsWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Content="Rate guest" Width="107" Click="RateGuestButton_Click"/>
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding GuestRatingsObservable,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectedItem="{ Binding SelectedGuestRatingDTO,UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Width="*" Header="Accommodation name" Binding="{Binding AccommodationName,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn  Width="*" Header="Reserved from" Binding="{Binding ReservedFrom, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn  Width="*" Header="Reserved to" Binding="{Binding ReservedTo, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Ok" Grid.Row="2" Width="100" Click="CloseButton_Click"/>
+    </Grid>
+</Window>

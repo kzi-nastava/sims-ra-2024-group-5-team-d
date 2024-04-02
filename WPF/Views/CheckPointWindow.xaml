@@ -1,0 +1,37 @@
+﻿<Window x:Class="BookingApp.WPF.Views.CheckPointWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CheckPointWindow" Height="450" Width="800">
+    <Grid>
+        <!-- DataGrid for CheckPoints -->
+        <DataGrid Name="checkBox" ItemsSource="{Binding CheckPoints}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <!-- Custom CheckBox Column -->
+                <DataGridTemplateColumn Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="" IsChecked="{Binding IsChecked}" Checked="CheckBox_Checked" HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Name Column -->
+                <DataGridTemplateColumn Header="Name">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}" HorizontalContentAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Button for presenting tourists -->
+        <Button Content="Present Tourists" Click="RegisterTouristOnCheckPoint_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,5,10"
+                FontSize="16" Height="30" MinWidth="150"/>
+
+        <!-- Button for finishing the tour -->
+        <Button Content="Finish Tour" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,0,10,10" Click="FinishTour_Click"
+                FontSize="16" Height="30" MinWidth="150"/>
+    </Grid>
+</Window>

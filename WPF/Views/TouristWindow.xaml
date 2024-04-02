@@ -1,0 +1,114 @@
+﻿<Window x:Class="BookingApp.WPF.Views.TouristWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Views"
+        mc:Ignorable="d"
+        Title="TouristWindow" Height="470" Width="800">
+    <Window.Resources>
+        <local:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+    </Window.Resources>
+    <Grid>
+        <!-- Header -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+				   Text="Avaliable Tours:"
+		            FontSize="24"
+		            HorizontalAlignment="Center"
+		            VerticalAlignment="Center"/>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Filters -->
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBlock Text="Filter Tours"
+						   FontSize="18"
+				           FontWeight="Bold"
+				           Margin="0 0 0 10"/>
+                <TextBlock Text="Location:"/>
+                <ComboBox x:Name="LocationComboBox"
+						  Margin="0 0 0 5"
+                          SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="Serbia, Novi Sad"/>
+                    <ComboBoxItem Content="Serbia, Beograd"/>
+                    <ComboBoxItem Content="Serbia, Smederevo"/>
+                    <ComboBoxItem Content="Serbia, Požega"/>
+                    <ComboBoxItem Content="Serbia, Kragujevac"/>
+                    <ComboBoxItem Content="Serbia, Niš"/>
+                    <ComboBoxItem Content="Serbia, Subotica"/>
+                    <ComboBoxItem Content="Serbia, Pančevo"/>
+                    <ComboBoxItem Content="Serbia, Čačak"/>
+                    <ComboBoxItem Content="Serbia, Užice"/>
+                    <ComboBoxItem Content="Any"/>
+                </ComboBox>
+                <TextBlock Text="Duration:"
+						   Margin="0 10 0 0"/>
+                <ComboBox x:Name="DurationComboBox"
+						  Margin="0 0 0 5"
+                          SelectedIndex="{Binding PickedDuration, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="0-1h"></ComboBoxItem>
+                    <ComboBoxItem Content="1-2h"></ComboBoxItem>
+                    <ComboBoxItem Content="2-3h"></ComboBoxItem>
+                    <ComboBoxItem Content="3-4h"></ComboBoxItem>
+                    <ComboBoxItem Content="4-5h"></ComboBoxItem>
+                    <ComboBoxItem Content="Any"></ComboBoxItem>
+                </ComboBox>
+                <TextBlock Text="Language:"
+						   Margin="0 10 0 0"/>
+                <ComboBox x:Name="LanguageComboBox"
+						  Margin="0 0 0 5"
+                          SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="English"></ComboBoxItem>
+                    <ComboBoxItem Content="Serbian"></ComboBoxItem>
+                    <ComboBoxItem Content="German"></ComboBoxItem>
+                    <ComboBoxItem Content="Any"></ComboBoxItem>
+                </ComboBox>
+                <TextBlock Text="Number of People:"
+						   Margin="0 10 0 0"/>
+                <TextBox x:Name="NumberOfPeopleTextBox"
+						 Margin="0 0 0 5"
+                         Text="{Binding PickedMaxCapacity, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Search"
+						Margin="0 10 0 0"
+                        Click="SearchTours_Click"/>
+                <Button Content="Registered tours"
+						Margin="0 90 0 0"/>
+            </StackPanel>
+
+            <!-- Tour List -->
+            <DataGrid Grid.Column="1" x:Name="tourList" Padding="20,20,20,20"
+					  ItemsSource="{Binding Tours,  UpdateSourceTrigger=PropertyChanged}"
+					  SelectedItem="{Binding SelectedTour}"
+                      SelectionMode="Single"
+				      AutoGenerateColumns="False"
+				      IsReadOnly="True"
+				      HorizontalAlignment="Stretch"
+				      HorizontalContentAlignment="Stretch"
+                      MouseDoubleClick="tourList_MouseDoubleClick">
+                <!-- You can bind tour data here -->
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="*" Header="Picture">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Width="auto" Height="auto"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding Location}"/>
+                    <DataGridTextColumn Width="*" Header="Tour capacity" Binding="{Binding MaxCapacity}"/>
+                    <DataGridTextColumn Width="*" Header="Duration (in hours)" Binding="{Binding Duration}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
