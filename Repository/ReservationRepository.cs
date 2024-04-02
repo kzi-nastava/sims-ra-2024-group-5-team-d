@@ -14,22 +14,22 @@ namespace BookingApp.Repository
 
         private const string FilePath = "../../../Resources/Data/reservations.csv";
 
-        private readonly Serializer<Reservation> _serializer;
+        private readonly Serializer<AccommodationReservation> _serializer;
 
-        private List<Reservation> _reservations;
+        private List<AccommodationReservation> _reservations;
 
         public ReservationRepository()
         {
-            _serializer = new Serializer<Reservation>();
+            _serializer = new Serializer<AccommodationReservation>();
             _reservations = _serializer.FromCSV(FilePath);
         }
-        public List<Reservation> GetAll()
+        public List<AccommodationReservation> GetAll()
         {
             _reservations = _serializer.FromCSV(FilePath);
             return _reservations;
         }
 
-        public Reservation Save(Reservation reservation)
+        public AccommodationReservation Save(AccommodationReservation reservation)
         {
             reservation.Id = NextId();
             _reservations = _serializer.FromCSV(FilePath);
@@ -48,35 +48,35 @@ namespace BookingApp.Repository
             return _reservations.Max(c => c.Id) + 1;
         }
 
-        public void Delete(Reservation reservation)
+        public void Delete(AccommodationReservation reservation)
         {
             _reservations = _serializer.FromCSV(FilePath);
-            Reservation founded = _reservations.Find(r => r.Id == reservation.Id);
+            AccommodationReservation founded = _reservations.Find(r => r.Id == reservation.Id);
             _reservations.Remove(founded);
             _serializer.ToCSV(FilePath, _reservations);
         }
 
-        public Reservation Update(Reservation reservation)
+        public AccommodationReservation Update(AccommodationReservation reservation)
         {
             _reservations = _serializer.FromCSV(FilePath);
-            Reservation current = _reservations.Find(r => r.Id == reservation.Id);
+            AccommodationReservation current = _reservations.Find(r => r.Id == reservation.Id);
             int index = _reservations.IndexOf(current);
             _reservations.Remove(current);
             _reservations.Insert(index, reservation);       // keep ascending order of ids in file 
             _serializer.ToCSV(FilePath, _reservations);
             return reservation;
         }
-        public List<Reservation> GetByUser(User user)
+        public List<AccommodationReservation> GetByUser(User user)
         {
             _reservations = _serializer.FromCSV(FilePath);
             return _reservations.FindAll(reservation => reservation.UserId == user.Id);
         }
-        public List<Reservation> GetByAccommodation(Accommodation accommodation)
+        public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
         {
             _reservations = _serializer.FromCSV(FilePath);
             return _reservations.FindAll(reservation => reservation.AccommodationId == accommodation.Id);
         }
-        public List<Reservation> GetAllReservationsForUser(Accommodation accommodation,User user)
+        public List<AccommodationReservation> GetAllReservationsForUser(Accommodation accommodation,User user)
         {
             _reservations = _serializer.FromCSV(FilePath);
             return _reservations.FindAll(reservation =>  reservation.AccommodationId == accommodation.Id && reservation.UserId==user.Id );

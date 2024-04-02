@@ -31,7 +31,7 @@ namespace BookingApp.View
         private readonly AccommodationRepository _repository;
         private readonly ReservationRepository _reservationRepository;
         private readonly GuestRatingRepository _guestRatingRepository;
-        private List<Reservation> ReservationsForLoggedInUserAccommodations;
+        private List<AccommodationReservation> ReservationsForLoggedInUserAccommodations;
 
 
         public OwnerWindow(User user)
@@ -72,21 +72,21 @@ namespace BookingApp.View
         }
         private bool AreThereUnratedGuests()
         {
-            List<Reservation> potentialUnratedGuests = ReservationsForLoggedInUserAccommodations.Where(reservation => !IsReservationCanceled(reservation) && IsReservationRateable(reservation)).ToList();
+            List<AccommodationReservation> potentialUnratedGuests = ReservationsForLoggedInUserAccommodations.Where(reservation => !IsReservationCanceled(reservation) && IsReservationRateable(reservation)).ToList();
             return !potentialUnratedGuests.All(p => IsGuestRated(p));
         }
 
-        private bool IsGuestRated(Reservation p)
+        private bool IsGuestRated(AccommodationReservation p)
         {
             return GuestRatingsByLoggedInUser.Any(q => q.ReservationId == p.Id);
         }
 
-        private bool IsReservationRateable(Reservation reservation)
+        private bool IsReservationRateable(AccommodationReservation reservation)
         {
             return (DateTime.Now - reservation.ReservedTo).Days >= 0 && (DateTime.Now - reservation.ReservedTo).Days <= 5;
         }
 
-        private bool IsReservationCanceled(Reservation reservation)
+        private bool IsReservationCanceled(AccommodationReservation reservation)
         {
             return reservation.Cancelled == 1;
         }
@@ -97,7 +97,7 @@ namespace BookingApp.View
             .Where(reservation => IsReservationForLoggedInUserAccommodation(reservation)).ToList();
         }
 
-        private bool IsReservationForLoggedInUserAccommodation(Reservation reservation)
+        private bool IsReservationForLoggedInUserAccommodation(AccommodationReservation reservation)
         {
             return Accommodations.Any(accommodation => accommodation.Id == reservation.AccommodationId);
         }

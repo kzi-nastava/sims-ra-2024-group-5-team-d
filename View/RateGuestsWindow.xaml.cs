@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,17 +28,12 @@ namespace BookingApp.View
     public partial class RateGuestsWindow : Window
     {
 
-        private List<GuestRating> GuestRatings;
-        private List<Reservation> Reservations;
-        private AccommodationRepository accommodationRepository;
         public GuestRatingDTO SelectedGuestRatingDTO { get; set; }
-
+        private UnratedGuestService unratedGuestService;
         public static ObservableCollection<GuestRatingDTO> GuestRatingsObservable { get; set; }
-        public RateGuestsWindow(List<GuestRating>guestRatings,List<Reservation>reservations)
+        public RateGuestsWindow(List<GuestRating>guestRatings,List<AccommodationReservation>reservations)
         {
-            accommodationRepository = new AccommodationRepository();
-            this.GuestRatings = guestRatings;
-            this.Reservations = reservations;
+            unratedGuestService = new UnratedGuestService(guestRatings,reservations);
             GuestRatingsObservable = new ObservableCollection<GuestRatingDTO>();
             InitializeComponent();
             DataContext = this;
@@ -45,32 +41,9 @@ namespace BookingApp.View
         }
         private void Update()
         {
-            foreach (Reservation reservation in Reservations)
-            {
-                if (!IsGuestFromReservationRated(reservation))
-                {
-                    if (IsGuestRateable(reservation) && !IsCanceled(reservation))
-                        GuestRatingsObservable.Add(new GuestRatingDTO(accommodationRepository.GetAccommodationNameById(reservation.AccommodationId), reservation.ReservedFrom, reservation.ReservedTo, reservation.UserId, reservation.Id, reservation.AccommodationId));
-                }
-            }
+            unratedGuestService.GetUnratedGuests()
+                .ForEach(guestRatingDTO => GuestRatingsObservable.Add(guestRatingDTO));
         }
-
-        private static bool IsCanceled(Reservation reservation)
-        {
-            return reservation.Cancelled == 1;
-        }
-
-        private static bool IsGuestRateable(Reservation reservation)
-        {
-            
-            return (DateTime.Now - reservation.ReservedTo).TotalDays <= 5 && (DateTime.Now>reservation.ReservedTo);
-        }
-
-        private bool IsGuestFromReservationRated(Reservation reservation)
-        {
-            return GuestRatings.Any(guestRating => guestRating.ReservationId == reservation.Id);
-        }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
