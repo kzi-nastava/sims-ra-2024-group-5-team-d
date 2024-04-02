@@ -1,0 +1,38 @@
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BookingApp.Appl.UseCases
+{
+    public class Injector
+    {
+        private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
+        {
+        { typeof(IUserRepository), new UserRepository() },
+        { typeof(ITourRealisationRepository), new TourRealisationRepository() },
+        { typeof(IAccommodationReservationRepository), new AccommodationRepository() },
+        { typeof(ICheckPointRepository), new CheckPointRepository() },
+        { typeof(ICommentRepository), new CommentRepository() },
+        { typeof(IGustRatingRepository), new GuestRatingRepository() },
+        { typeof(ILocationRepository), new LocationRepository() },
+        { typeof(ITourGuestRepository), new TourGuestRepository() },
+        { typeof(ITourRepository), new TourRepository() },
+    };
+
+        public static T CreateInstance<T>()
+        {
+            Type type = typeof(T);
+
+            if (_implementations.ContainsKey(type))
+            {
+                return (T)_implementations[type];
+            }
+
+            throw new ArgumentException($"No implementation found for type {type}");
+        }
+    }
+}

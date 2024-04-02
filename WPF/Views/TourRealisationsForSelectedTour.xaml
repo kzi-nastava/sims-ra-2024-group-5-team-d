@@ -1,0 +1,100 @@
+﻿<Window x:Class="BookingApp.WPF.Views.TourRealisationsForSelectedTour"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Views"
+        mc:Ignorable="d"
+        Title="Tour Realisations For Selected Tour" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="TourRealisationsHeader">
+            <TextBlock>
+                <Run Text="Future Tour Realisations for "/>
+                <Run FontWeight="Bold" Text="{Binding TourName}"/>
+            </TextBlock>
+        </Label>
+        <DataGrid 
+                      Grid.Row="1"
+                      Grid.Column="1"
+                      x:Name="tourList"
+                      Padding="20,20,20,20"
+					  ItemsSource="{Binding TourRealisations, UpdateSourceTrigger=PropertyChanged}"
+					  SelectedItem="{Binding SelectedTourRealisation}"
+                      SelectionMode="Single"
+				      AutoGenerateColumns="False"
+				      IsReadOnly="True"
+				      HorizontalAlignment="Stretch"
+				      HorizontalContentAlignment="Stretch"
+                      MouseDoubleClick="tourList_MouseDoubleClick"
+                      SelectionChanged="DataGrid_SelectionChanged"
+                      >
+            <!-- You can bind tour data here -->
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                    Width="*"
+                    Header="Start time"
+                    Binding="{Binding StartTime}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Button x:Name="Cancel"
+                Content ="Cancel"
+                Grid.Row="2"
+                Width="60"
+                HorizontalAlignment="Right"
+                Margin="0,0,20,0"
+                VerticalAlignment="Center"
+                Click="Cancel_Click">
+        </Button>
+        <Label x:Name="NumberOfPeopleLabel"
+            Grid.Row="2"
+            Width="60"
+            Height="50"
+            HorizontalAlignment="Center"
+            Margin="0,0,100,0"
+            VerticalAlignment="Center">
+            <TextBlock Text="Number&#x0a;    of&#x0a;people:" FontWeight="Bold" FontSize="10"/>
+        </Label>
+        
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox Text="1"
+             FontSize="30"
+             Width="50"
+             x:Name="PeopleCounter"
+             IsReadOnly="True"
+             TextAlignment="Center"/>
+            <StackPanel Orientation="Vertical">
+                <Button Content="▲"
+                Width="20"
+                Height="20"
+                Margin="0 0 0 5"
+                Click="IncreaseCount_Click"/>
+                <Button Content="▼"
+                Width="20"
+                Height="20"
+                Margin="0 5 0 0"
+                Click="DecreaseCount_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+
+        <Button x:Name="BookNow"
+                Grid.Row="2"
+                Width="70"
+                HorizontalAlignment="Left"
+                Margin="30,0,0,0"
+                VerticalAlignment="Center" Click="BookNow_Click">
+            <Button.Content>
+                <TextBlock Text="Book now" FontWeight="Bold"/>
+                
+            </Button.Content>
+        </Button>
+        
+    </Grid>
+</Window>
