@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace BookingApp.Model
 {
-    public  class Reservation : ISerializable
+    public  class AccommodationReservation : ISerializable
     {
         public int Id { get; set; }
         public int AccommodationId { get; set; }
@@ -30,11 +30,11 @@ namespace BookingApp.Model
             RescheduledReservation = Convert.ToInt32(values[6]);
             RecommendedRenovation = Convert.ToInt32(values[7]);
         }
-        public  Reservation()
+        public  AccommodationReservation()
         {
         }
 
-        public Reservation(int accommodationId, int userId, DateTime reservedFrom, DateTime reservedTo, int cancelled, int rescheduledReservation, int recommendedRenovation)
+        public AccommodationReservation(int accommodationId, int userId, DateTime reservedFrom, DateTime reservedTo, int cancelled, int rescheduledReservation, int recommendedRenovation)
         {
             AccommodationId = accommodationId;
             UserId = userId;
@@ -44,7 +44,7 @@ namespace BookingApp.Model
             RescheduledReservation = rescheduledReservation;
             RecommendedRenovation = recommendedRenovation;
         }
-        public Reservation(int accommodationId,int userId, DateTime reservedFrom, DateTime reservedTo)
+        public AccommodationReservation(int accommodationId,int userId, DateTime reservedFrom, DateTime reservedTo)
         {
             AccommodationId = accommodationId;
             UserId = userId;

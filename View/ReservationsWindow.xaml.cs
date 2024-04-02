@@ -102,7 +102,7 @@ namespace BookingApp.View
             }
         }
 
-        private List<Reservation> reservedDatesForAccommodation;
+        private List<AccommodationReservation> reservedDatesForAccommodation;
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
         private readonly ReservationRepository _reservationRepository;
@@ -167,7 +167,7 @@ namespace BookingApp.View
         {
             DateTime newFromDate = fromDate;
             DateTime newToDate;
-            foreach (Reservation reservedDates in reservedDatesForAccommodation)
+            foreach (AccommodationReservation reservedDates in reservedDatesForAccommodation)
             {
                 if (reservedDates.ReservedFrom < fromDate)
                 {
@@ -212,12 +212,12 @@ namespace BookingApp.View
             reservedDatesForAccommodation.Sort((r1, r2) => r1.ReservedFrom.CompareTo(r2.ReservedFrom));
         }
 
-        private static bool IsReservationCancelled(Reservation reservation)
+        private static bool IsReservationCancelled(AccommodationReservation reservation)
         {
             return reservation.Cancelled == 1;
         }
 
-        private  bool IsReservationOutOfRange(Reservation reservation)
+        private  bool IsReservationOutOfRange(AccommodationReservation reservation)
         {
             return fromDate > reservation.ReservedTo || toDate < reservation.ReservedFrom;
         }
@@ -233,8 +233,8 @@ namespace BookingApp.View
         }
         private void ReserveAccommodation(object sender, RoutedEventArgs e)
         {
-            Reservation newReservation = new Reservation(Accommodation.Id, LoggedInUser.Id, SelectedDate.Key, SelectedDate.Value);
-            Reservation savedAccommodation = _reservationRepository.Save(newReservation);
+            AccommodationReservation newReservation = new AccommodationReservation(Accommodation.Id, LoggedInUser.Id, SelectedDate.Key, SelectedDate.Value);
+            AccommodationReservation savedAccommodation = _reservationRepository.Save(newReservation);
             Close();
         }
 

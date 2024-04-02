@@ -25,7 +25,7 @@ namespace BookingApp.View
     /// </summary>
     public partial class StatsForAccommodationWindow : Window
     {
-        public List<Reservation> Reservations { get; set; }
+        public List<AccommodationReservation> Reservations { get; set; }
         public Accommodation Accommodation { get; set; }
         public User LoggedInUser { get; set; }
         private readonly ReservationRepository _repository;
@@ -41,7 +41,7 @@ namespace BookingApp.View
             DataContext = this;
             Date = new ObservableCollection<string>();
             AccommodationStats = new ObservableCollection<AccommodationStat>();
-            Reservations = new List<Reservation>(_repository.GetByAccommodation(Accommodation));
+            Reservations = new List<AccommodationReservation>(_repository.GetByAccommodation(Accommodation));
             if(Reservations.Count!=0)
                 Update();
             else
@@ -107,7 +107,7 @@ namespace BookingApp.View
                 .Where(reservation => IsReservationInSelectedYear(reservation, Convert.ToInt32(selectedYear))).ToList();
         }
 
-        private bool IsReservationInSelectedYear(Reservation reservation, int selectedYear)
+        private bool IsReservationInSelectedYear(AccommodationReservation reservation, int selectedYear)
         {
             return reservation.ReservedFrom.Year == selectedYear || reservation.ReservedTo.Year == selectedYear;
         }
@@ -227,7 +227,7 @@ namespace BookingApp.View
                 });
         }
 
-        private bool IsNotCancelled(Reservation r)
+        private bool IsNotCancelled(AccommodationReservation r)
         {
             return r.Cancelled == 0;
         }
@@ -248,7 +248,7 @@ namespace BookingApp.View
                     else return 0;
                 });
         }
-        private bool IsReservationInSelectedMonth(Reservation reservation,int month)
+        private bool IsReservationInSelectedMonth(AccommodationReservation reservation,int month)
         {
             return reservation.ReservedFrom.Month == month || reservation.ReservedTo.Month == month;
         }
