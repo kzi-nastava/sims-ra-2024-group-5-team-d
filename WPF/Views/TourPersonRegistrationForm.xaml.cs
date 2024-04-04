@@ -125,8 +125,8 @@ namespace BookingApp.WPF.Views
             TourGuestRepository tourGuestRepository = new TourGuestRepository();
             tourGuestRepository.SaveReservation(reservation);
 
-            TourRepository tourRepository = new TourRepository();
-            TourRealisation tourRealisation = tourRepository.GetTourRealisationById(reservation.TourRealisationId);
+            TourRealisationRepository tourRealisationRepository = new TourRealisationRepository();
+            TourRealisation tourRealisation = tourRealisationRepository.GetTourRealisationById(reservation.TourRealisationId);
 
             MessageBox.Show("Registration confirmed!");
 
@@ -139,7 +139,7 @@ namespace BookingApp.WPF.Views
                 tourRealisation.AvailableSeats--;
             }
 
-            tourRepository.UpdateTourRealisation(tourRealisation);
+            tourRealisationRepository.UpdateTourRealisation(tourRealisation);
             this.Close();
         }
 

@@ -37,6 +37,8 @@ namespace BookingApp.Repositories
             return _tourGuests;
         }
 
+
+        //U NEKOM SPECIJALOM SERVICE KOJI KOMBINUJE 2 service repositorijuma
         public List<TourGuest>? GetTourGuestsOnTourRealisation(int tourRealisation)
         {
             _tourGuests = _serializerTourGuests.FromCSV(FilePathTourGuests);

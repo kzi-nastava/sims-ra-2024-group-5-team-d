@@ -15,5 +15,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public TourRealisation UpdateTourRealisation(TourRealisation tourRealisation);
         public List<TourRealisation> GetByUserTourRealisations(User user);
         public TourRealisation GetTourRealisationById(int tourRealsiationId);
+        public List<TourRealisation> GetTourRealisationsByTourId(int tourId);
     }
 }

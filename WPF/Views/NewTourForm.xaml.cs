@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using Microsoft.Win32;
 using System;
@@ -129,10 +130,14 @@ namespace BookingApp.WPF.Views
         }
         public User LoggedInUser { get; set; }
         private readonly TourRepository _repository;
+        private readonly TourRealisationRepository _tourRealisationRepository;
+        private readonly CheckPointRepository _cpRepository;
         public NewTourForm(User user)
         {
             InitializeComponent();
             _repository = new TourRepository();
+            _tourRealisationRepository = new TourRealisationRepository();
+            _cpRepository = new CheckPointRepository();
             LoggedInUser = user;
             DataContext = this;
             NumberOfCheckpoints = 2;
@@ -146,7 +151,7 @@ namespace BookingApp.WPF.Views
             Tour tour = new Tour(tourName, _repository.getLocationByLocationId(locationId), description,(LANGUAGE)language,capacity,duration, folderPath,LoggedInUser);
             Tour savedTour = _repository.SaveTour(tour);
             TourRealisation tourRealisation = new TourRealisation(dateTime,savedTour.Id,capacity,LoggedInUser);
-            TourRealisation savedTourRealisation = _repository.SaveTourRealisation(tourRealisation);
+            TourRealisation savedTourRealisation = _tourRealisationRepository.SaveTourRealisation(tourRealisation);
             TouristGuideWindow.AllTours.Add(savedTour);
             if (savedTourRealisation.StartTime.Day == DateTime.Now.Day )
             {
@@ -157,6 +162,7 @@ namespace BookingApp.WPF.Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            _cpRepository.DeleteByTourId(_repository.NextIdForTour());
             Close();
         }
 

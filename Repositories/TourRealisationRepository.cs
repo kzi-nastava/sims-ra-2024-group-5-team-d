@@ -38,6 +38,11 @@ namespace BookingApp.Repositories
             return tourRealisation;
         }
 
+        public List<TourRealisation> GetTourRealisationsByTourId(int tourId)
+        {
+            List<TourRealisation> tourRealisations = GetAllTourRealisations().Where(tourRealisation => tourRealisation.TourId == tourId).ToList();
+            return tourRealisations;
+        }
         private int NextIdForTourRealisation()
         {
             _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
@@ -81,34 +86,7 @@ namespace BookingApp.Repositories
             }
             return null;
         }
-        public List<TourRealisation> GetTourRealisationsByTourId(int tourId)
-        {
-            _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
-            List<TourRealisation> tourRealisations = new List<TourRealisation>();
-            foreach (TourRealisation tourRealisation in _tourRealisations)
-            {
-                if (tourRealisation.TourId == tourId)
-                {
-                    Debug.WriteLine(tourId);
-                    tourRealisations.Add(tourRealisation);
-                }
-            }
-            return tourRealisations;
-        }
-        public List<TourRealisation> GetTourRealisationsForToday(int tourId)
-        {
-            List<TourRealisation> tourRealisationsToday = new List<TourRealisation>();
-
-            foreach (TourRealisation tourRealisation in GetTourRealisationsByTourId(tourId))
-            {
-                if (tourRealisation.StartTime.Day == DateTime.Now.Day)
-                {
-                    tourRealisationsToday.Add(tourRealisation);
-                }
-            }
-
-            return tourRealisationsToday;
-        }
+        
     }
 
 }

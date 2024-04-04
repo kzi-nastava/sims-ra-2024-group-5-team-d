@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace BookingApp.WPF.Views
         public TourRepository _repository { get; set; }
         public TourRealisation SelectedRealisation { get; set; }
 
+        public TourRealisationService tourRealisationService;
+
 
         public TourRealisationsForTourToday(int selectedTourId,User loggedInUser)
         {
@@ -39,7 +42,8 @@ namespace BookingApp.WPF.Views
             this.tourId = selectedTourId;
             this.LoggedInUser = loggedInUser;
             _repository = new TourRepository();
-            Realisations = new ObservableCollection<TourRealisation>(_repository.GetTourRealisationsForToday(tourId));
+            tourRealisationService = new TourRealisationService();
+            Realisations = new ObservableCollection<TourRealisation>(tourRealisationService.GetTourRealisationsForToday(tourId));
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
