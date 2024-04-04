@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -101,19 +102,19 @@ namespace BookingApp.WPF.Views
                 }
             }
         }
-
-        private List<AccommodationReservation> reservedDatesForAccommodation;
+        private readonly AccommodationReservationRepository _reservationRepository;
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
-        private readonly AccommodationReservationRepository _reservationRepository;
         public ObservableCollection<KeyValuePair<DateTime, DateTime>> AvailableDates { get; set; }
         public KeyValuePair<DateTime, DateTime> SelectedDate { get; set; }
+        private AvailableDatesForReservationService AvailableDatesForReservationService;
 
         public ReservationsWindow(User user, Accommodation selectedAccommmodation)  
         {
+
             _reservationRepository = new AccommodationReservationRepository();
-            reservedDatesForAccommodation = _reservationRepository.GetByAccommodation(selectedAccommmodation);
             LoggedInUser = user;
+            AvailableDatesForReservationService = new AvailableDatesForReservationService();
             AvailableDates = new ObservableCollection<KeyValuePair<DateTime, DateTime>>();
             Accommodation = selectedAccommmodation;
             DataContext = this;
@@ -130,96 +131,23 @@ namespace BookingApp.WPF.Views
         {
             AvailableDates.Clear();
             NotAvailableLabel.Visibility = Visibility.Collapsed;
-            CheckAvailableDatesInGivenRange();   
-        }
-        private void CheckAvailableDatesInGivenRange()
-        {
-            FindReservedDatesInRange();
-            if (reservedDatesForAccommodation.Count != 0)
-                FindAndShowAvailableDates();
-            else
-                ShowAvailableDates(fromDate, toDate);
+            AvailableDatesForReservationService.CheckAvailableDatesInGivenRange(fromDate,toDate,numberOfDays,Accommodation).ForEach( availableDate=> AvailableDates.Add(availableDate));
             if (AvailableDates.Count() != 0)
                 ShowReservationControls();
             else
             {
-                FindandShowAvailableDatesForExtendendRange();
+                AvailableDatesForReservationService.FindandShowAvailableDatesForExtendendRange(fromDate, toDate, numberOfDays, Accommodation).ForEach(availableDate => AvailableDates.Add(availableDate));
                 ShowReservationControls();
                 NotAvailableLabel.Visibility = Visibility.Visible;
             }
         }
-
-        private void FindandShowAvailableDatesForExtendendRange()
-        {
-            while (AvailableDates.Count < 5)
-            {
-                AvailableDates.Clear();
-                FromDate = fromDate.AddDays(-1);
-                ToDate = toDate.AddDays(+1);
-                FindReservedDatesInRange();
-                FindAndShowAvailableDates();
-            }
-            if (AvailableDates.Count > 5)
-                AvailableDates.RemoveAt(AvailableDates.Count - 1);
-        }
-
-        private void FindAndShowAvailableDates()
-        {
-            DateTime newFromDate = fromDate;
-            DateTime newToDate;
-            foreach (AccommodationReservation reservedDates in reservedDatesForAccommodation)
-            {
-                if (reservedDates.ReservedFrom < fromDate)
-                {
-                    newFromDate = reservedDates.ReservedTo;
-                    continue;
-                }
-                newToDate = reservedDates.ReservedFrom;
-                ShowAvailableDates(newFromDate, newToDate);
-                newFromDate = reservedDates.ReservedTo;
-
-            }
-            if (newFromDate < ToDate)
-                ShowAvailableDates(newFromDate, toDate);
-        }
-
+      
         private void ShowReservationControls()
         {
             NumberOfPeopleLabel.Visibility = Visibility.Visible;
             NumberOfPeopleTextBox.Visibility = Visibility.Visible;
             ReserveButton.Visibility = Visibility.Visible;
             ReserveButton.IsEnabled = false;
-        }
-
-        private void ShowAvailableDates(DateTime fromDate,DateTime toDate)
-        {
-            DateTime LastAvailableDate = toDate.AddDays(-numberOfDays);
-            for (; fromDate <= LastAvailableDate; fromDate = fromDate.AddDays(1))
-            {
-                AvailableDates.Add(MakeAvailableDatesPair(fromDate));
-            }
-        }
-
-        private KeyValuePair<DateTime, DateTime> MakeAvailableDatesPair(DateTime start)
-        {
-            return new KeyValuePair<DateTime, DateTime>(start, start.AddDays(numberOfDays));
-        }
-
-        private void FindReservedDatesInRange()
-        {
-            reservedDatesForAccommodation = _reservationRepository.GetByAccommodation(Accommodation);
-            reservedDatesForAccommodation.RemoveAll(reservation => IsReservationOutOfRange(reservation) || IsReservationCancelled(reservation));
-            reservedDatesForAccommodation.Sort((r1, r2) => r1.ReservedFrom.CompareTo(r2.ReservedFrom));
-        }
-
-        private static bool IsReservationCancelled(AccommodationReservation reservation)
-        {
-            return reservation.Cancelled == 1;
-        }
-
-        private  bool IsReservationOutOfRange(AccommodationReservation reservation)
-        {
-            return fromDate > reservation.ReservedTo || toDate < reservation.ReservedFrom;
         }
 
         private void EnableReserveButton()
