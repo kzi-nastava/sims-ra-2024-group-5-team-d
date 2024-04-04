@@ -14,13 +14,15 @@ namespace BookingApp.Appl.UseCases
         {
         { typeof(IUserRepository), new UserRepository() },
         { typeof(ITourRealisationRepository), new TourRealisationRepository() },
-        { typeof(IAccommodationReservationRepository), new AccommodationRepository() },
+        { typeof(IAccommodationRepository), new AccommodationRepository() },
         { typeof(ICheckPointRepository), new CheckPointRepository() },
         { typeof(ICommentRepository), new CommentRepository() },
         { typeof(IGustRatingRepository), new GuestRatingRepository() },
         { typeof(ILocationRepository), new LocationRepository() },
         { typeof(ITourGuestRepository), new TourGuestRepository() },
         { typeof(ITourRepository), new TourRepository() },
+        { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
+        { typeof(ITourReservationRepository), new TourReservationRepository() },
     };
 
         public static T CreateInstance<T>()

@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
+    <Page Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="AccommodationImages\Accommodation11\13.jpg" />
     <None Remove="AccommodationImages\Accommodation12\14.jpg" />
     <None Remove="AccommodationImages\Accommodation2\hero-image.jpg" />
@@ -92,10 +99,6 @@
     <Content Include="TourImages\Tour6\GFS_smederevo-trg-25-09-09-04.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
