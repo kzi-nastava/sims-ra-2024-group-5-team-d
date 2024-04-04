@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace BookingApp.WPF.Views
                 }
             }
         }
-        private int numberOfPeople;
+        private int numberOfPeople = 1;
         public int NumberOfPeople
         {
             get => numberOfPeople;
@@ -79,7 +80,7 @@ namespace BookingApp.WPF.Views
             }
         }
 
-        private int numberOfDays;
+        private int numberOfDays = 1;
         public int NumberOfDays
         {
             get => numberOfDays;
@@ -102,8 +103,9 @@ namespace BookingApp.WPF.Views
         }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public User LoggedInUser { get; set; }
-
         private readonly AccommodationRepository _repository;
+
+        private readonly SearchAccommodationService SearchService;
 
         public Accommodation SelectedAccommodation { get; set; }
         public GuestWindow(User user)
@@ -111,6 +113,7 @@ namespace BookingApp.WPF.Views
             InitializeComponent();
             LoggedInUser = user;
             DataContext = this;
+            SearchService = new SearchAccommodationService(); 
             _repository = new AccommodationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_repository.GetAll());
         }
@@ -119,24 +122,12 @@ namespace BookingApp.WPF.Views
         {
 
             Accommodations.Clear();
-            _repository.GetAll().ForEach(accommodation =>
-            {
-                if(IsWantedAccommodation(accommodation))
-                    Accommodations.Add(accommodation); 
-            });
-        
+            SearchService.GetSearchedAccommodation(accommodationName, accommodationType, locationId, numberOfPeople, numberOfDays)
+                .ForEach(foundAccommodation=> Accommodations.Add(foundAccommodation));
+
         }
 
-        private bool IsWantedAccommodation(Accommodation accommodation)
-        {
-            bool isAccommodationNameContained = accommodation.Name.Contains(accommodationName);
-            bool isAccommodationTypeValid = accommodation.Type == (TYPE)accommodationType;
-            bool isLocationValid = accommodation.Location.Id == locationId;
-            bool isNumberOfPeopleValid = accommodation.Capacity >= numberOfPeople;
-            bool isNumberOfDaysValid = accommodation.MinStay <= numberOfDays;
 
-            return isAccommodationNameContained && isAccommodationTypeValid && isLocationValid && isNumberOfPeopleValid && isNumberOfDaysValid;
-        }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
