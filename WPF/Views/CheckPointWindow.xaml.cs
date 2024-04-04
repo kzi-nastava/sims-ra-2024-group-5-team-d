@@ -1,4 +1,6 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -30,7 +32,10 @@ namespace BookingApp.WPF.Views
         private int tourId;
         private int tourRealisationId;
         private readonly TourRepository _tourRepository;
+        private readonly TourRealisationRepository _tourRealisationRepository;
         private readonly TourGuestRepository _guestRepository;
+
+        private TourRealisationService _tourRealisationService;
         public TouristGuideWindow touristGuideWindow { get; set; }
 
         public ObservableCollection<CheckPoint> CheckPoints
@@ -86,10 +91,12 @@ namespace BookingApp.WPF.Views
             this.tourRealisationId = tourRealisationId;
             _repository = new CheckPointRepository();
             _tourRepository = new TourRepository();
+            _tourRealisationRepository = new TourRealisationRepository();
             _guestRepository = new TourGuestRepository();
             touristGuideWindow = new TouristGuideWindow(user);
             CheckPoints = new ObservableCollection<CheckPoint>(_repository.GetAllCheckPointsByTourId(tourId));
-            if(CheckPoints.Count > 0)
+            _tourRealisationService = new TourRealisationService();
+            if (CheckPoints.Count > 0)
             {
                 CheckPoints.First().IsChecked = true;
                 _repository.Update(CheckPoints.First());
@@ -136,10 +143,10 @@ namespace BookingApp.WPF.Views
         private void FinishTour_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Tour is finished");
-            TourRealisation tourRealisation = _tourRepository.GetTourRealisationById(tourRealisationId);
-            _tourRepository.DeleteTourRealisation(tourRealisation);
+            TourRealisation tourRealisation = _tourRealisationRepository.GetTourRealisationById(tourRealisationId);
+            _tourRealisationRepository.DeleteTourRealisation(tourRealisation);
             TourRealisationsForTourToday.Realisations.Remove(tourRealisation);
-            if(_tourRepository.GetTourRealisationsByTourId(tourRealisation.TourId).Count < 1)
+            if(_tourRealisationRepository.GetTourRealisationsByTourId(tourRealisation.TourId).Count < 1)
             {
                 Tour tour = _tourRepository.GetTourById(tourRealisation.TourId);
                 _tourRepository.DeleteTour(tour);

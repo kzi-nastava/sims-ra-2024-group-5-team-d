@@ -56,6 +56,13 @@ namespace BookingApp.Repositories
             _checkPoints.Remove(founded);
             _serializer.ToCSV(FilePath, _checkPoints);
         }
+        public void DeleteByTourId(int tourId)
+        {
+            _checkPoints = _serializer.FromCSV(FilePath);
+            
+            _checkPoints.RemoveAll(checkpoint=>checkpoint.TourId==tourId);
+            _serializer.ToCSV(FilePath, _checkPoints);
+        }
 
         public CheckPoint Update(CheckPoint checkPoint)
         {
@@ -68,6 +75,8 @@ namespace BookingApp.Repositories
             return checkPoint;
         }
 
+
+        // FUNKCIJA U CPREPOSITORYSERVICE??????
         public List<CheckPoint> GetAllCheckPointsByTourId(int tourId)
         {
             List<CheckPoint> checkPointsForTour = new List<CheckPoint>();

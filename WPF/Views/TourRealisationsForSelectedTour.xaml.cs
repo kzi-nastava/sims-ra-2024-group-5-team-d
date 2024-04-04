@@ -27,6 +27,7 @@ namespace BookingApp.WPF.Views
     public partial class TourRealisationsForSelectedTour : Window
     {
         private TourRepository _tourRepository;
+        private TourRealisationRepository _tourRealisationRepository;
 
         public TourRealisation SelectedTourRealisation { get; set; }
         public ObservableCollection<TourRealisation> TourRealisations { get; set; }
@@ -45,6 +46,7 @@ namespace BookingApp.WPF.Views
         public TourRealisationsForSelectedTour(Tour pickedTour)
         {
             TourRealisations = new ObservableCollection<TourRealisation>();
+            _tourRealisationRepository = new TourRealisationRepository();
 
             InitializeComponent();
 
@@ -67,7 +69,7 @@ namespace BookingApp.WPF.Views
             TourRepository _tours = new TourRepository();
 
             TourRealisations.Clear();
-            foreach (TourRealisation tR in _tours.GetAllTourRealisations())
+            foreach (TourRealisation tR in _tourRealisationRepository.GetAllTourRealisations())
             {
 
                 if (tR.TourId == pickedTour.Id)
@@ -140,7 +142,7 @@ namespace BookingApp.WPF.Views
                 TourRealisationsHeader.Content = $"Other tour realisaitons in {selectedLocation.City}, {selectedLocation.Country}:";
                 TourRealisations.Clear();
 
-                foreach(TourRealisation tR in _tourRepository.GetAllTourRealisations())
+                foreach(TourRealisation tR in _tourRealisationRepository.GetAllTourRealisations())
                 {
                     if(_tourRepository.GetTourById(tR.TourId).Location.Id == selectedLocation.Id && tR.Id != selectedRealisationId){
                         TourRealisations.Add(tR);

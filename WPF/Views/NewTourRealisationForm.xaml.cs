@@ -28,7 +28,7 @@ namespace BookingApp.WPF.Views
         private Tour SelectedTour { get; set; }
         public User LoggedInUser { get; }
         private int Capacity { get; set; }
-        private TourRepository _repository { get; set; }
+        private TourRealisationRepository _repository { get; set; }
 
         private DateTime dateTime;
         public DateTime DateTime
@@ -52,7 +52,7 @@ namespace BookingApp.WPF.Views
             TourId = selectedTour.Id;
             TourName = selectedTour.Name;
             Capacity = selectedTour.MaxCapacity;
-            _repository = new TourRepository();
+            _repository = new TourRealisationRepository();
         }
         public void CancelTourRealisation_Button(object sender, RoutedEventArgs e)
         {
