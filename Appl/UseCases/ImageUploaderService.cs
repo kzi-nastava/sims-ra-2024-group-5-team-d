@@ -11,23 +11,24 @@ namespace BookingApp.Appl.UseCases
 {
     public class ImageUploaderService
     {
-        private List<string> imagesPath;
-        private string accommodationFolderPath = "../../../AccommodationImages/Accommodation";
+        
+        private string accommodationFolderPath = "../../../Resources/AccommodationImages/Accommodation";
+        private string tourFolderPath = "../../../Resources/TourImages/Tour";
 
         public ImageUploaderService()
         {
-            imagesPath = new List<string>();
         }
 
-        public void UploadImage()
+        public string  UploadImage()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
                 string filePath = openFileDialog.FileName;
-                imagesPath.Add(filePath);
+                return filePath;
             }
+            return null;
         }
 
         public string CreateAccommodationFolder(int folderId)
@@ -39,12 +40,21 @@ namespace BookingApp.Appl.UseCases
             }
             return accommodationFolderPath;
         }
+        public string CreateTourFolder(int folderId)
+        {
+            tourFolderPath = tourFolderPath + folderId;
+            if (!Directory.Exists(accommodationFolderPath))
+            {
+                Directory.CreateDirectory(tourFolderPath);
+            }
+            return tourFolderPath;
+        }
 
-        public void SaveImages()
+        public void SaveImages(List<string>imagesPath,string folderPath)
         {
             foreach (string imagePath in imagesPath)
             {
-                string targetImagePath = Path.Combine(accommodationFolderPath, Path.GetFileName(imagePath));
+                string targetImagePath = Path.Combine(folderPath, Path.GetFileName(imagePath));
                 File.Copy(imagePath, targetImagePath);
             }
         }

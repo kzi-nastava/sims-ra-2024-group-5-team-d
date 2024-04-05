@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using Microsoft.Win32;
@@ -121,20 +122,21 @@ namespace BookingApp.WPF.Views
         }
 
 
-        private List<string> imagesPath;
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public User LoggedInUser { get; set; }
+        private List<string> imagesPath;
         private readonly TourRepository _repository;
         private readonly TourRealisationRepository _tourRealisationRepository;
         private readonly CheckPointRepository _cpRepository;
+        private ImageUploaderService imageUploaderService;
         public NewTourForm(User user)
         {
             InitializeComponent();
+            imageUploaderService = new ImageUploaderService();
             _repository = new TourRepository();
             _tourRealisationRepository = new TourRealisationRepository();
             _cpRepository = new CheckPointRepository();
@@ -168,14 +170,8 @@ namespace BookingApp.WPF.Views
 
         private string AddImage()
         {
-            string folderPath = "../../../TourImages/Tour";
-            folderPath = folderPath + _repository.NextIdForTour();
-            Directory.CreateDirectory(folderPath);
-            foreach (string imagePath in imagesPath)
-            {
-                string targetImagePath = System.IO.Path.Combine(folderPath, System.IO.Path.GetFileName(imagePath));
-                File.Copy(imagePath, targetImagePath);
-            }
+            string folderPath = imageUploaderService.CreateTourFolder(_repository.NextIdForTour());
+            imageUploaderService.SaveImages(imagesPath,folderPath);
             return folderPath;
         }
         
@@ -220,14 +216,9 @@ namespace BookingApp.WPF.Views
 
         private void UploadPictureButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                string filePath = openFileDialog.FileName;
-                imagesPath.Add(filePath);
-                Debug.WriteLine(filePath);
-            }
+            string imagePath = imageUploaderService.UploadImage();
+            if(imagePath!=null)
+            imagesPath.Add(imagePath);
         }
     }
 }
