@@ -58,7 +58,7 @@ namespace BookingApp.WPF.Views
                     }
                     else if (user.Type.Equals("owner"))
                     {
-                        OwnerWindow ownerWindow = new OwnerWindow(user);
+                        OwnerMainWindow ownerWindow = new OwnerMainWindow(user);
                         ownerWindow.Owner = this;
                         ownerWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                         ownerWindow.ShowDialog();
