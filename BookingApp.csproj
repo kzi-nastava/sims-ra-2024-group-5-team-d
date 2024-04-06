@@ -101,4 +101,11 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\GuestImages\" />
+    <Folder Include="Resources\Images\GuideImages\" />
+    <Folder Include="Resources\Images\TouristImages\" />
+    <Folder Include="Resources\Images\OwnerImages\" />
+  </ItemGroup>
+
 </Project>

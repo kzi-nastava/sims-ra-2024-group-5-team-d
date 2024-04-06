@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,36 +13,55 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Appl.UseCases
 {
-    public class ShowAccommodationStatsService
+    public class AccommodationStatsService
     {
-        private readonly AccommodationReservationRepository AccommodationReservationRepository;
-        public ShowAccommodationStatsService()
+        private readonly IAccommodationReservationRepository accommodationReservationRepository;
+        private AccommodationReservationService accommodationReservationService;
+        public AccommodationStatsService()
         {
-            AccommodationReservationRepository = new AccommodationReservationRepository();
+            accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
+            accommodationReservationService=new AccommodationReservationService();
         }
-        public List<AccommodationReservation> ShowMonthlyAccommodationStats(string selectedYear, Accommodation accommodation)
+
+        public List<AccommodationStat> GetAccommodationStats(string selectedYear,Accommodation accommodation)
+        {
+            List<AccommodationStat> stats=new List<AccommodationStat>();
+            List<AccommodationReservation> accommodationReservations;
+            if (selectedYear == "All years")
+            {
+                accommodationReservations = GetSortedReservationsForAllYears(selectedYear, accommodation);
+                GetYearlyAccommodationStats(accommodationReservations).ForEach(stat => stats.Add(stat));
+            }
+            else
+            {
+                accommodationReservations = GetSortedReservationsForSelectedYear(selectedYear, accommodation);
+                GetMonthlyAccommodationStats(accommodationReservations, selectedYear).ForEach(stat => stats.Add(stat));
+            }
+            return stats;
+        }
+        private List<AccommodationReservation> GetSortedReservationsForSelectedYear(string selectedYear, Accommodation accommodation)
         {
             List<AccommodationReservation> Reservations = GetReservationsForSelectedYear(accommodation,selectedYear);
             Reservations=SortReservations(Reservations);
             return Reservations;
         }
 
-        public List<AccommodationReservation> ShowYearlyAccommodationStats(string selectedYear, Accommodation accommodation)
+        private List<AccommodationReservation> GetSortedReservationsForAllYears(string selectedYear, Accommodation accommodation)
         {
-            List<AccommodationReservation> Reservations = AccommodationReservationRepository.GetByAccommodation(accommodation);
+            List<AccommodationReservation> Reservations = accommodationReservationRepository.GetByAccommodation(accommodation);
             Reservations = SortReservations(Reservations);
             return Reservations;
         }
 
-        private List<AccommodationReservation> SortReservations(List<AccommodationReservation> reservations)
+        public List<AccommodationReservation> SortReservations(List<AccommodationReservation> reservations)
         {
              reservations.Sort((r1, r2) => r1.ReservedFrom.CompareTo(r2.ReservedFrom));
             return reservations;
         }
         private List<AccommodationReservation> GetReservationsForSelectedYear(Accommodation accommodation,string selectedYear)
         {
-           return AccommodationReservationRepository.GetByAccommodation(accommodation)
-                .Where(reservation => IsReservationInSelectedYear(reservation, Convert.ToInt32(selectedYear))).ToList();
+           return accommodationReservationRepository.GetByAccommodation(accommodation)
+                .Where(reservation =>  reservation.IsMadeOrEndedInSelectedYear(Convert.ToInt32(selectedYear))).ToList();
         }
 
         public string FindMostBusy(string selectedYear,ObservableCollection<AccommodationStat>accommodationStats)
@@ -61,24 +81,24 @@ namespace BookingApp.Appl.UseCases
             return accommodationStats.OrderByDescending(aS => aS.Busyness).First();
 
         }
-        public List<AccommodationStat> GetYearlyAccommodationStats(List<AccommodationReservation> reservations)
+        private List<AccommodationStat> GetYearlyAccommodationStats(List<AccommodationReservation> reservations)
         {
-            int LastBusyYear = reservations[reservations.Count - 1].ReservedTo.Year;
-            int FirstBusyYear = reservations[0].ReservedFrom.Year;
+            int lastBusyYear = reservations[reservations.Count - 1].ReservedTo.Year;
+            int firstBusyYear = reservations[0].ReservedFrom.Year;
             List<AccommodationStat> accommodationStats = new List<AccommodationStat>();
-            for (int i = LastBusyYear; i >= FirstBusyYear; i--)
+            for (int year = lastBusyYear; year >= firstBusyYear; year--)
             {
-                accommodationStats.Add(CreateAccommodationStatForYear(i, reservations));
+                accommodationStats.Add(CreateAccommodationStatForYear(year, reservations));
               
             }
             return accommodationStats;
         }
-        public List<AccommodationStat> GetMonthlyAccommodationStats(List<AccommodationReservation> reservations,string selectedYear)
+        private List<AccommodationStat> GetMonthlyAccommodationStats(List<AccommodationReservation> reservations,string selectedYear)
         {
             List<AccommodationStat> accommodationStats = new List<AccommodationStat>();
             for (int i = 1; i <= 12; i++)
             {
-                accommodationStats.Add(CreateAccommodationStatForMonth(i, reservations, selectedYear));
+                accommodationStats.Add(CreateAccommodationStatForMonth(i, reservations, Convert.ToInt32(selectedYear)));
             }
             return accommodationStats;
         }
@@ -86,24 +106,24 @@ namespace BookingApp.Appl.UseCases
         {
             AccommodationStat accommodationStat = new AccommodationStat
             {
-                NumberOfReservations = reservations.Count(r => r.ReservedFrom.Year == year),
-                NumberOfCancelledReservations = reservations.Where(r => r.ReservedFrom.Year == year).Sum(r => r.Cancelled),
-                NumberOfRecommendedRenovations = reservations.Where(r => r.ReservedFrom.Year == year).Sum(r => r.RecommendedRenovation),
-                NumberOfRescheduledReservations = reservations.Where(r => r.ReservedFrom.Year == year).Sum(r => r.RescheduledReservation),
+                NumberOfReservations = reservations.Count(r => r.IsMadeInSelectedYear(year)),
+                NumberOfCancelledReservations = reservations.Where(r => r.IsMadeInSelectedYear(year)).Sum(r => r.Cancelled),
+                NumberOfRecommendedRenovations = reservations.Where(r => r.IsMadeInSelectedYear(year)).Sum(r => r.RecommendedRenovation),
+                NumberOfRescheduledReservations = reservations.Where(r => r.IsMadeInSelectedYear(year)).Sum(r => r.RescheduledReservation),
                 Busyness = CalculateYearlyBusyness(year,reservations),
                 RowHeader = $"Year: {year}"
             };
 
             return accommodationStat;
         }
-        private AccommodationStat CreateAccommodationStatForMonth(int month, List<AccommodationReservation> reservations,string selectedYear)
+        private AccommodationStat CreateAccommodationStatForMonth(int month, List<AccommodationReservation> reservations,int selectedYear)
         {
             AccommodationStat accommodationStat = new AccommodationStat
             {
-                NumberOfReservations = reservations.Where(r => r.ReservedFrom.Year.ToString() == selectedYear).Count(r => r.ReservedFrom.Month == month),
-                NumberOfCancelledReservations = reservations.Where(r => r.ReservedFrom.Month == month && r.ReservedFrom.Year.ToString() == selectedYear).Sum(r => r.Cancelled),
-                NumberOfRecommendedRenovations = reservations.Where(r => r.ReservedFrom.Month == month && r.ReservedFrom.Year.ToString() == selectedYear).Sum(r => r.RecommendedRenovation),
-                NumberOfRescheduledReservations = reservations.Where(r => r.ReservedFrom.Month == month && r.ReservedFrom.Year.ToString() == selectedYear).Sum(r => r.RescheduledReservation),
+                NumberOfReservations = reservations.Where(r => r.ReservedFrom.Year == selectedYear).Count(r => r.ReservedFrom.Month == month),
+                NumberOfCancelledReservations = reservations.Where(r => r.IsMadeInSelectedYear(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.Cancelled),
+                NumberOfRecommendedRenovations = reservations.Where(r => r.IsMadeInSelectedYear(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.RecommendedRenovation),
+                NumberOfRescheduledReservations = reservations.Where(r => r.IsMadeInSelectedYear(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.RescheduledReservation),
                 Busyness = CalculateMonthlyBusyness(month,selectedYear,reservations),
                 RowHeader = $"Month: {CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}"
             };
@@ -114,70 +134,25 @@ namespace BookingApp.Appl.UseCases
         private double CalculateYearlyBusyness(int year,List<AccommodationReservation> reservations)
         {
             int numberOfDaysInYear = GetNumberOfDaysInYear(year);
-            int numberOfReservationsinYear = GetNumberOfReservedDaysInYear(year,reservations);
+            int numberOfReservationsinYear = accommodationReservationService.GetNumberOfReservedDaysInYear(year,reservations);
             double busyness = (double)numberOfReservationsinYear / numberOfDaysInYear;
             return busyness;
         }
-        private double CalculateMonthlyBusyness(int month,string selectedYear,List<AccommodationReservation> reservations)
+        private double CalculateMonthlyBusyness(int month,int selectedYear,List<AccommodationReservation> reservations)
         {
             int numberOfDaysInMonth = GetNumberOfDaysInMonth(month,selectedYear);
-            int numberOfReservationsInMonth = GetNumberOfReservationsInMonth(month,reservations,selectedYear);
+            int numberOfReservationsInMonth = accommodationReservationService.GetNumberOfReservationsInMonth(month,reservations,selectedYear);
             double busyness = (double)numberOfReservationsInMonth / numberOfDaysInMonth;
-            Debug.WriteLine(numberOfReservationsInMonth);
             return busyness;
         }
         private int GetNumberOfDaysInYear(int currentYear)
         {
             return DateTime.IsLeapYear(currentYear) ? 366 : 365;
         }
-        private int GetNumberOfDaysInMonth(int month,string selectedYear)
+        private int GetNumberOfDaysInMonth(int month,int selectedYear)
         {
-            return DateTime.DaysInMonth(Convert.ToInt32(selectedYear), month);
-        }
-        private int GetNumberOfReservedDaysInYear(int currentYear,List<AccommodationReservation> reservations)
-        {
-            return reservations.Where(r => (IsReservationInSelectedYear(r, currentYear)) && IsNotCancelled(r))
-                .Sum(r =>
-                {
-                    if (r.ReservedFrom.Year == r.ReservedTo.Year)
-                        return (r.ReservedTo - r.ReservedFrom).Days;
-                    else if (r.ReservedFrom.Year != currentYear && r.ReservedTo.Year == currentYear)
-                        return (r.ReservedTo - new DateTime(r.ReservedTo.Year, 1, 1)).Days;
-                    else if (r.ReservedTo.Year != currentYear && r.ReservedFrom.Year == currentYear)
-                        return (new DateTime(r.ReservedFrom.Year, 12, 31) - r.ReservedFrom).Days;
-                    else
-                        return 0;
-                });
-        }
-        private int GetNumberOfReservationsInMonth(int month,List<AccommodationReservation> reservations,string selectedYear)
-        {
-
-            return reservations.Where(r => (IsReservationInSelectedMonth(r, month)) && IsNotCancelled(r))
-                .Sum(r => {
-                    if (r.ReservedFrom.Year.ToString() != selectedYear && r.ReservedFrom.Month == month)
-                        return 0;
-                    else if (r.ReservedTo.Month == month && r.ReservedFrom.Month != month)
-                        return (r.ReservedTo - new DateTime(r.ReservedTo.Year, r.ReservedTo.Month, 1)).Days;
-                    else if (r.ReservedFrom.Month == month && r.ReservedTo.Month != month)
-                        return (new DateTime(r.ReservedFrom.Year, r.ReservedFrom.Month, DateTime.DaysInMonth(r.ReservedFrom.Year, r.ReservedFrom.Month)) - r.ReservedFrom).Days;
-                    else if (r.ReservedFrom.Month == r.ReservedTo.Month)
-                        return (r.ReservedTo - r.ReservedFrom).Days;
-                    else return 0;
-                });
-        }
-        private bool IsNotCancelled(AccommodationReservation r)
-        {
-            return r.Cancelled == 0;
+            return DateTime.DaysInMonth(selectedYear, month);
         }
 
-        private bool IsReservationInSelectedYear(AccommodationReservation reservation, int selectedYear)
-        {
-            return reservation.ReservedFrom.Year == selectedYear || reservation.ReservedTo.Year == selectedYear;
-        }
-
-        private bool IsReservationInSelectedMonth(AccommodationReservation reservation, int month)
-        {
-            return reservation.ReservedFrom.Month == month || reservation.ReservedTo.Month == month;
-        }
     }
 }

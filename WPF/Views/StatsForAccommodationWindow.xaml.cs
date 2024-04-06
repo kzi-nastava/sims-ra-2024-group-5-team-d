@@ -26,34 +26,25 @@ namespace BookingApp.WPF.Views
     /// </summary>
     public partial class StatsForAccommodationWindow : Window
     {
-        public List<AccommodationReservation> Reservations { get; set; }
         public Accommodation Accommodation { get; set; }
         public User LoggedInUser { get; set; }
         private readonly AccommodationReservationRepository _repository;
         public ObservableCollection<string> Date { get; set; }
         public ObservableCollection<AccommodationStat> AccommodationStats { get; set; }
         private string selectedYear;
-        private ShowAccommodationStatsService ShowAccommodationStatsService;
+        private AccommodationStatsService accommodationStatsService;
         public StatsForAccommodationWindow(User loggedInUser, Accommodation selectedAccommodation)
         {
             InitializeComponent();
-            ShowAccommodationStatsService = new ShowAccommodationStatsService();
+            accommodationStatsService = new AccommodationStatsService();
             LoggedInUser = loggedInUser;
             Accommodation = selectedAccommodation;
             _repository = new AccommodationReservationRepository();
             DataContext = this;
             Date = new ObservableCollection<string>();
             AccommodationStats = new ObservableCollection<AccommodationStat>();
-            Reservations = new List<AccommodationReservation>(_repository.GetByAccommodation(Accommodation));
-            if (Reservations.Count != 0)
-            {
-                InitializeComboBox();
-                Update();
-            }
-            else
-            {
-                MessageBox.Show("There are no reservations for this accommodation");
-            }
+            InitializeComboBox();
+            Update();
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -61,21 +52,8 @@ namespace BookingApp.WPF.Views
         }
         private void Update()
         {
-            //DA LI OVO DA RAZDVOJIM NA 2 SERVISA TIPA SERVIS ZA
-            //MONTHLY STATS I SERVIS ZA YEARLY STATS KOJI POZIVAJU TRECI SERVIS UKOLIKO
-            //IMAJU ZAJEDNICKE FUNKCIJE?????
-           //OVE 2 FUNKCIJE MOGU DA SE UPROSTE DA SE U SERVISU PROVERAVA SELECTEDYEAR I DA SE POZOVE ODGOVARAJUCA FUNKCIJA CAK SU I 90% ISTE
-            if (selectedYear == "All years")
-            {
-                Reservations = ShowAccommodationStatsService.ShowYearlyAccommodationStats(selectedYear, Accommodation);
-                ShowAccommodationStatsService.GetYearlyAccommodationStats(Reservations).ForEach(stat => AccommodationStats.Add(stat));
-            }
-            else
-            {
-                Reservations = ShowAccommodationStatsService.ShowMonthlyAccommodationStats(selectedYear, Accommodation);
-                ShowAccommodationStatsService.GetMonthlyAccommodationStats(Reservations, selectedYear).ForEach(stat => AccommodationStats.Add(stat));
-            }
-            MostReservationsLabel.Content = ShowAccommodationStatsService.FindMostBusy(selectedYear, AccommodationStats);
+            accommodationStatsService.GetAccommodationStats(selectedYear, Accommodation).ForEach(stat => AccommodationStats.Add(stat));
+            MostReservationsLabel.Content = accommodationStatsService.FindMostBusy(selectedYear, AccommodationStats);
         }
 
         private void comboBox_DropDownClosed(object sender, EventArgs e)
@@ -87,19 +65,14 @@ namespace BookingApp.WPF.Views
                 Update();            
             }
         }
-
-        private void SortReservations()
-        {
-            Reservations.Sort((r1, r2) => r1.ReservedFrom.CompareTo(r2.ReservedFrom));
-
-        }
         //DA LI ZA OVO NOVI SERVIS
         private void InitializeComboBox()
         {
+            List<AccommodationReservation> Reservations =new List<AccommodationReservation>(_repository.GetByAccommodation(Accommodation));
             Date.Add("All years");
             comboBox.SelectedIndex = 0;
             selectedYear = "All years";
-            SortReservations();
+            accommodationStatsService. SortReservations(Reservations);
             int LastBusyYear = Reservations[Reservations.Count - 1].ReservedTo.Year;
             int FirstBusyYear = Reservations[0].ReservedFrom.Year;
             for (int i = LastBusyYear; i >= FirstBusyYear; i--)

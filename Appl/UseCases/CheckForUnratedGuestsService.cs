@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,66 +12,33 @@ namespace BookingApp.Appl.UseCases
 {
     public class CheckForUnratedGuestsService
     {
-        private GuestRatingRepository GuestRatingRepository;
-        private AccommodationRepository AccommodationRepository;
-        private AccommodationReservationRepository ReservationRepository;
+        private IGuestRatingRepository guestRatingRepository;
+        private IAccommodationRepository accommodationRepository;
+        private IAccommodationReservationRepository accommodationReservationRepository;
+        private AccommodationReservationService accommodationReservationService;
+        private GuestRatingService guestRatingService;
+
         public CheckForUnratedGuestsService()
         {
-            GuestRatingRepository = new GuestRatingRepository();
-            AccommodationRepository = new AccommodationRepository();
-            ReservationRepository = new AccommodationReservationRepository();
-
+            accommodationReservationService = new AccommodationReservationService();
+            guestRatingService = new GuestRatingService();
+            guestRatingRepository=Injector.CreateInstance<IGuestRatingRepository>();
+            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
+            accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
         }
-        public bool CheckForUnratedGuestsByLoggedInUser(User user)
+        public bool CheckForUnratedGuestsByLoggedInUser(User loggedInUser)
         {
-            List<GuestRating> GuestRatingsByLoggedInUser=GetAllGuestRatingsByLoggedInUser(user);
-            List<AccommodationReservation> ReservationsForLoggedInUserAccommodations= FindReservationsForLoggedInUserAccommodations(user);
-            if (AreThereUnratedGuests(GuestRatingsByLoggedInUser,ReservationsForLoggedInUserAccommodations))
-                return true;
-            else
-                return false;
+            List<GuestRating> guestRatingsByLoggedInUser= guestRatingService.GetAllGuestRatingsByUser(loggedInUser);
+            List<AccommodationReservation> reservationsForLoggedInUserAccommodations= accommodationReservationService.GetAccommodationReservationsForUser(loggedInUser);
+            return AreThereUnratedGuests(guestRatingsByLoggedInUser,reservationsForLoggedInUserAccommodations);
         }
 
+        //Da li ovo jos treba razdvoji ovaj poslednji return
         private bool AreThereUnratedGuests(List<GuestRating> guestRatingsByLoggedInUser,List<AccommodationReservation> reservationsForLoggedInUserAccommodations)
         {
-            List<AccommodationReservation> potentialUnratedGuests = reservationsForLoggedInUserAccommodations.Where(reservation => !IsReservationCanceled(reservation) && IsReservationRateable(reservation)).ToList();
-            return !potentialUnratedGuests.All(p => IsGuestRated(p,guestRatingsByLoggedInUser));
+            List<AccommodationReservation> potentialUnratedReservations = accommodationReservationService.FindRateableAccommodationReservations(reservationsForLoggedInUserAccommodations);
+            return !potentialUnratedReservations.All(p => accommodationReservationService.IsGuestFromReservationRated(p, guestRatingsByLoggedInUser));
         }
-        //OVU METODU KORISTIM I U DRUGOM SERVISU
-        public List<GuestRating> GetAllGuestRatingsByLoggedInUser(User user)
-        {
-            return GuestRatingRepository.GetAll().Where(guestRating => IsRatedByLoggedInUser(guestRating,user)).ToList();
-        }
-
-        private bool IsRatedByLoggedInUser(GuestRating guestRating,User user)
-        {
-            return AccommodationRepository.GetByUser(user).Any(accommodation => accommodation.Id == guestRating.AccommodationId);
-        }
-
-        private bool IsGuestRated(AccommodationReservation p,List<GuestRating> guestRatingsByLoggedInUser)
-        {
-            return guestRatingsByLoggedInUser.Any(q => q.ReservationId == p.Id);
-        }
-
-        private bool IsReservationRateable(AccommodationReservation reservation)
-        {
-            return (DateTime.Now - reservation.ReservedTo).Days >= 0 && (DateTime.Now - reservation.ReservedTo).Days <= 5;
-        }
-
-        private bool IsReservationCanceled(AccommodationReservation reservation)
-        {
-            return reservation.Cancelled == 1;
-        }
-        //OVU METODU KORISTIM I U DRUGOM SERVISU
-        public List<AccommodationReservation> FindReservationsForLoggedInUserAccommodations(User user)
-        {
-           return ReservationRepository.GetAll()
-                        .Where(reservation => IsReservationForLoggedInUserAccommodation(reservation,user)).ToList();
-        }
-
-        private bool IsReservationForLoggedInUserAccommodation(AccommodationReservation reservation,User user)
-        {
-            return AccommodationRepository.GetByUser(user).Any(accommodation => accommodation.Id == reservation.AccommodationId);
-        }
+      
     }
 }

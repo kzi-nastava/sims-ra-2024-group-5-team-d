@@ -17,20 +17,20 @@ namespace BookingApp.Appl.UseCases
         { typeof(IAccommodationRepository), new AccommodationRepository() },
         { typeof(ICheckPointRepository), new CheckPointRepository() },
         { typeof(ICommentRepository), new CommentRepository() },
-        { typeof(IGustRatingRepository), new GuestRatingRepository() },
+        { typeof(IGuestRatingRepository), new GuestRatingRepository() },
         { typeof(ILocationRepository), new LocationRepository() },
         { typeof(ITourGuestRepository), new TourGuestRepository() },
         { typeof(ITourRepository), new TourRepository() },
         { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
-        { typeof(ITourReservationRepository), new TourReservationRepository() },
-    };
+        { typeof(ITourReservationRepository), new TourReservationRepository() }
+        };
 
         public static T CreateInstance<T>()
         {
             Type type = typeof(T);
 
             if (_implementations.ContainsKey(type))
-            {
+           {
                 return (T)_implementations[type];
             }
 

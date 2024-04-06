@@ -14,5 +14,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public void Delete(Accommodation accommodation);
         public Accommodation Update(Accommodation accommodation);
         public List<Accommodation> GetByUser(User user);
+        public string GetAccommodationNameById(int accommodationId);
     }
 }

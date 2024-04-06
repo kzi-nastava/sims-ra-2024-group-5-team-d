@@ -29,6 +29,7 @@ namespace BookingApp.WPF.Views
         public Accommodation selectedAccommodation { get; set; }
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
+        private readonly AccommodationReservationRepository _accommodationReservationRepository;
         private CheckForUnratedGuestsService CheckForUnratedGuestsService;
 
 
@@ -39,6 +40,7 @@ namespace BookingApp.WPF.Views
             DataContext = this;
             CheckForUnratedGuestsService = new CheckForUnratedGuestsService();
             _repository = new AccommodationRepository();
+            _accommodationReservationRepository = new AccommodationReservationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_repository.GetByUser(user));
            if(CheckForUnratedGuestsService.CheckForUnratedGuestsByLoggedInUser(LoggedInUser))
             {
@@ -60,12 +62,19 @@ namespace BookingApp.WPF.Views
 
         private void ShowStatsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedAccommodation!=null)
+            if (selectedAccommodation!=null )
             {
-                StatsForAccommodationWindow statsForAccommodationWindow = new StatsForAccommodationWindow(LoggedInUser, selectedAccommodation);
-                statsForAccommodationWindow.Owner = this;
-                statsForAccommodationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                statsForAccommodationWindow.ShowDialog();
+                if (_accommodationReservationRepository.GetByAccommodation(selectedAccommodation).Count != 0)
+                {
+                    StatsForAccommodationWindow statsForAccommodationWindow = new StatsForAccommodationWindow(LoggedInUser, selectedAccommodation);
+                    statsForAccommodationWindow.Owner = this;
+                    statsForAccommodationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                    statsForAccommodationWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("There are no reservations for this accommodation.");
+                }
             }
         }
 
