@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repositories
 {
-    public class GuestRatingRepository :IGustRatingRepository
+    public class GuestRatingRepository :IGuestRatingRepository
     {
         private const string FilePath = "../../../Resources/Data/guestRatings.csv";
 
