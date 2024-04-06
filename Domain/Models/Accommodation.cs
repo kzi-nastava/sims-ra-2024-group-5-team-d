@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookingApp.Serializer;
+using BookingApp.Domain.Serializer;
 
 namespace BookingApp.Domain.Models
 {

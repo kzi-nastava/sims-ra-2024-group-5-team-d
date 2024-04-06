@@ -16,18 +16,16 @@ namespace BookingApp.WPF.Views
         public GuestRatingDTO SelectedGuestRatingDTO { get; set; }
         private UnratedGuestService unratedGuestService;
         public static ObservableCollection<GuestRatingDTO> GuestRatingsObservable { get; set; }
-        public RateGuestsWindow(List<GuestRating>guestRatings,List<AccommodationReservation>reservations)
-        {
-            unratedGuestService = new UnratedGuestService(guestRatings,reservations);
+        private User LoggedInUser;
+        public RateGuestsWindow(User user)
+        {        
+            LoggedInUser = user;
+            unratedGuestService = new UnratedGuestService();
             GuestRatingsObservable = new ObservableCollection<GuestRatingDTO>();
             InitializeComponent();
             DataContext = this;
-            Update();
-        }
-        private void Update()
-        {
-            unratedGuestService.GetUnratedGuests()
-                .ForEach(guestRatingDTO => GuestRatingsObservable.Add(guestRatingDTO));
+            unratedGuestService.GetUnratedGuests(LoggedInUser)
+                                .ForEach(guestRatingDTO => GuestRatingsObservable.Add(guestRatingDTO));
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {

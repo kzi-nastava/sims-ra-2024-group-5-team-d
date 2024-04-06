@@ -1,4 +1,4 @@
-﻿using BookingApp.Serializer;
+﻿using BookingApp.Domain.Serializer;
 using System;
 
 namespace BookingApp.Domain.Models

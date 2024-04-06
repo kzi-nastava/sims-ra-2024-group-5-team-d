@@ -115,9 +115,10 @@ namespace BookingApp.WPF.Views
         private readonly AccommodationRepository _repository;
         public User LoggedInUser { get; set; }
         private ImageUploaderService imageUploaderService;
+        private List<string> imagesPath;
         public RegisterAccommodationWindow(User user)
         {
-           
+            imagesPath = new List<string>();
             InitializeComponent();
             imageUploaderService = new ImageUploaderService();
             _repository = new AccommodationRepository();
@@ -135,7 +136,7 @@ namespace BookingApp.WPF.Views
         {
             string folderPath=imageUploaderService.CreateAccommodationFolder(_repository.NextId());
             
-            imageUploaderService.SaveImages();
+            imageUploaderService.SaveImages(imagesPath,folderPath);
 
             Accommodation newAccommodation = new Accommodation(accommodationName, _repository.GetLocationByLocationId(locationId), (TYPE)accommodationType, minStay,cancellationDeadline,capacity,folderPath,LoggedInUser);
             Accommodation savedAccommodation = _repository.Save(newAccommodation);
@@ -146,7 +147,9 @@ namespace BookingApp.WPF.Views
 
         private void UploadPictureButtno_Click(object sender, RoutedEventArgs e)
         {
-            imageUploaderService.UploadImage();
+            string imagePath=imageUploaderService.UploadImage();
+            if(imagePath!=null)
+            imagesPath.Add(imagePath);
         }
     }
 }

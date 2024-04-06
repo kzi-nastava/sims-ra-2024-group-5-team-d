@@ -11,28 +11,27 @@ namespace BookingApp.Appl.UseCases
 {
     public class UnratedGuestService
     {
-        private List<GuestRating> GuestRatings;
-        private List<AccommodationReservation> Reservations;
         private readonly AccommodationRepository accommodationRepository;
-        public UnratedGuestService(List<GuestRating> guestRatings, List<AccommodationReservation> reservations)
+        private CheckForUnratedGuestsService CheckForUnratedGuestsService;
+        public UnratedGuestService()
         {
             accommodationRepository = new AccommodationRepository();
-            GuestRatings = guestRatings;
-            Reservations = reservations;
+            CheckForUnratedGuestsService= new CheckForUnratedGuestsService();
         }
-        public List<GuestRatingDTO> GetUnratedGuests()
+        public List<GuestRatingDTO> GetUnratedGuests(User user)
         {
-
-            List<GuestRatingDTO> GuestRatings = new List<GuestRatingDTO>();
+          List<GuestRating> GuestRatings= CheckForUnratedGuestsService.GetAllGuestRatingsByLoggedInUser(user);// OVDE TREBA ZAMENITI SA SERVISOM KOJI DOBAVLJA SVE RATEOVANE O DULOGOVANOG KORISNIKA
+          List<AccommodationReservation> Reservations= CheckForUnratedGuestsService.FindReservationsForLoggedInUserAccommodations(user);//A OVDE TREBA ZAMENITI SA SERVISOM KOJI DOBAVLJA SVE REZERVACIJE KOJE JE VLASNIK IMAO
+          List<GuestRatingDTO> GuestRatingsDTO = new List<GuestRatingDTO>();
             foreach (AccommodationReservation reservation in Reservations)
             {
-                if (!IsGuestFromReservationRated(reservation))
+                if (!IsGuestFromReservationRated(reservation,GuestRatings))
                 {
                     if (IsGuestRateable(reservation) && !IsCanceled(reservation))
-                        GuestRatings.Add(CreateGuestRatingDTO(reservation));
+                        GuestRatingsDTO.Add(CreateGuestRatingDTO(reservation));
                 }
             }
-            return GuestRatings;
+            return GuestRatingsDTO;
         }
         private GuestRatingDTO CreateGuestRatingDTO(AccommodationReservation reservation)
         {
@@ -49,9 +48,9 @@ namespace BookingApp.Appl.UseCases
             return (DateTime.Now - reservation.ReservedTo).TotalDays <= 5 && DateTime.Now > reservation.ReservedTo;
         }
 
-        private bool IsGuestFromReservationRated(AccommodationReservation reservation)
+        private bool IsGuestFromReservationRated(AccommodationReservation reservation,List<GuestRating> guestRatings)
         {
-            return GuestRatings.Any(guestRating => guestRating.ReservationId == reservation.Id);
+            return guestRatings.Any(guestRating => guestRating.ReservationId == reservation.Id);
         }
 
     }

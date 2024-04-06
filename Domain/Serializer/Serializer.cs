@@ -2,9 +2,9 @@
 using System.IO;
 using System.Text;
 
-namespace BookingApp.Serializer
+namespace BookingApp.Domain.Serializer
 {
-    class Serializer<T> where T: ISerializable, new()
+    class Serializer<T> where T : ISerializable, new()
     {
         private const char Delimiter = '|';
 
@@ -12,7 +12,7 @@ namespace BookingApp.Serializer
         {
             StringBuilder csv = new StringBuilder();
 
-            foreach(T obj in objects)
+            foreach (T obj in objects)
             {
                 string line = string.Join(Delimiter.ToString(), obj.ToCSV());
                 csv.AppendLine(line);
@@ -25,7 +25,7 @@ namespace BookingApp.Serializer
         {
             List<T> objects = new List<T>();
 
-            foreach(string line in File.ReadLines(fileName))
+            foreach (string line in File.ReadLines(fileName))
             {
                 string[] csvValues = line.Split(Delimiter);
                 T obj = new T();
