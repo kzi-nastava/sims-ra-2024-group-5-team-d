@@ -65,7 +65,7 @@ namespace BookingApp.WPF.Views
                     }
                     else if (user.Type.Equals("tourist"))
                     {
-                        TouristWindow touristWindow = new TouristWindow();
+                        TouristHomeWindow touristWindow = new TouristHomeWindow();
                         touristWindow.Owner = this;
                         touristWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                         touristWindow.ShowDialog();
