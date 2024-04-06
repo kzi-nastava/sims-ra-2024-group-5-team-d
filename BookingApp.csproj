@@ -108,4 +108,9 @@
     <Folder Include="Resources\Images\OwnerImages\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+  </ItemGroup>
+
 </Project>
