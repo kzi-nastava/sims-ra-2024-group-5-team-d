@@ -22,16 +22,16 @@ namespace BookingApp.Appl.UseCases
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
         }
 
-        public List<GuestRatingDTO> GetUnratedGuests(User loggedInUser)
+        public List<AccommodationReservation> GetUnratedGuests(User loggedInUser)
         {
           List<GuestRating> guestRatings= guestRatingService.GetAllGuestRatingsByUser(loggedInUser);
             //Naredne 3 funkcije mogu u jednu pa da se pozivaju u drugom servisu
           List<AccommodationReservation> reservations = accommodationReservationService.GetAccommodationReservationsForUser(loggedInUser);
           List<AccommodationReservation> unratedReservations = accommodationReservationService.GetUnratedReservations(reservations,guestRatings);
-          List<GuestRatingDTO> guestRatingsDTO = new List<GuestRatingDTO>();
+          List<AccommodationReservation> rateableUnratedGuests = new List<AccommodationReservation>();
           accommodationReservationService.FindRateableAccommodationReservations(unratedReservations)
-                                         .ForEach(accommodationReservation=> guestRatingsDTO.Add(CreateGuestRatingDTO(accommodationReservation)));
-            return guestRatingsDTO;
+                                         .ForEach(accommodationReservation=> rateableUnratedGuests.Add(accommodationReservation));
+            return rateableUnratedGuests;
         }
         private GuestRatingDTO CreateGuestRatingDTO(AccommodationReservation reservation)
         {

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,13 +20,14 @@ namespace BookingApp.WPF.Views
         private User LoggedInUser;
         public RateGuestsWindow(User user)
         {        
+           // userRepository = Injector.CreateInstance<IUserRepository>();
             LoggedInUser = user;
             unratedGuestService = new UnratedGuestService();
             GuestRatingsObservable = new ObservableCollection<GuestRatingDTO>();
             InitializeComponent();
             DataContext = this;
-            unratedGuestService.GetUnratedGuests(LoggedInUser)
-                                .ForEach(guestRatingDTO => GuestRatingsObservable.Add(guestRatingDTO));
+           // unratedGuestService.GetUnratedGuests(LoggedInUser)
+                          //      .ForEach(unratedGuest => GuestRatingsObservable.Add(userRepository.GetById(unratedGuest.Id).Username));
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
