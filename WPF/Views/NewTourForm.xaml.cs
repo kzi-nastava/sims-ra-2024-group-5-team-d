@@ -170,8 +170,7 @@ namespace BookingApp.WPF.Views
 
         private string AddImage()
         {
-            string folderPath = imageUploaderService.CreateTourFolder(_repository.NextIdForTour());
-            imageUploaderService.SaveImages(imagesPath,folderPath);
+            string folderPath = imageUploaderService.CreateTourFolder(imagesPath);
             return folderPath;
         }
         

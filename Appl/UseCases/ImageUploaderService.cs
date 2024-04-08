@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,9 +15,13 @@ namespace BookingApp.Appl.UseCases
         
         private string accommodationFolderPath = "../../../Resources/AccommodationImages/Accommodation";
         private string tourFolderPath = "../../../Resources/TourImages/Tour";
+        private IAccommodationRepository accommodationRepository;
+        private ITourRepository tourRepository;
 
         public ImageUploaderService()
         {
+            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
+            tourRepository = Injector.CreateInstance<ITourRepository>();
         }
 
         public string  UploadImage()
@@ -31,26 +36,30 @@ namespace BookingApp.Appl.UseCases
             return null;
         }
 
-        public string CreateAccommodationFolder(int folderId)
+        public string CreateAccommodationFolder(List<string> imagesPath)
         {
+            int folderId = accommodationRepository.NextId();
             accommodationFolderPath = accommodationFolderPath + folderId;
             if (!Directory.Exists(accommodationFolderPath))
             {
                 Directory.CreateDirectory(accommodationFolderPath);
             }
+            SaveImages(imagesPath, accommodationFolderPath);
             return accommodationFolderPath;
         }
-        public string CreateTourFolder(int folderId)
+        public string CreateTourFolder(List<string> imagesPath)
         {
+            int folderId = tourRepository.NextIdForTour();
             tourFolderPath = tourFolderPath + folderId;
-            if (!Directory.Exists(accommodationFolderPath))
+            if (!Directory.Exists(tourFolderPath))
             {
                 Directory.CreateDirectory(tourFolderPath);
             }
-            return tourFolderPath;
+            SaveImages(imagesPath, tourFolderPath);
+            return accommodationFolderPath;
         }
 
-        public void SaveImages(List<string>imagesPath,string folderPath)
+        private void SaveImages(List<string>imagesPath,string folderPath)
         {
             foreach (string imagePath in imagesPath)
             {

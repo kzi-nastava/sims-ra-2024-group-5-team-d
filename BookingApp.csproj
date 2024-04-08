@@ -17,6 +17,8 @@
   <ItemGroup>
     <None Remove="Resources\AccommodationImages\Accommodation11\13.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation13\hero-image.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation14\a.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation15\a.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation2\hero-image.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation4\sadsadsa.jpeg" />
     <None Remove="Resources\AccommodationImages\Accommodation5\image268.png" />
@@ -75,6 +77,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\AccommodationImages\Accommodation13\hero-image.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation14\a.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation15\a.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\AccommodationImages\Accommodation2\hero-image.jpg">
@@ -212,6 +220,7 @@
     <Folder Include="Resources\Images\GuideImages\" />
     <Folder Include="Resources\Images\TouristImages\" />
     <Folder Include="Resources\Images\OwnerImages\" />
+    <Folder Include="WPF\Views\OwnerView\" />
   </ItemGroup>
 
   <ItemGroup>
