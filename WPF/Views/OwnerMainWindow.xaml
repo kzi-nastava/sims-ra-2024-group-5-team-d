@@ -1,0 +1,212 @@
+﻿<Window x:Class="BookingApp.WPF.Views.OwnerMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Views"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+       Title="MainWindow" Height="674" Width="1200">
+    <Window.Resources>
+        <Style x:Key="TextBlockPaddingStyle" TargetType="TextBlock">
+            <Setter Property="Padding" Value="20"/>
+        </Style>
+        <Style x:Key="ImageMargin" TargetType="Image">
+            <Setter Property="Margin" Value="15 0 0 0"/>
+        </Style>
+        <Style x:Key="ImageMarginLeftMenu" TargetType="Image">
+            <Setter Property="Margin" Value="0 0 0 20"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="TextBlockMarginLeftMenu" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0 0 0 10"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="BorderMarginClick" TargetType="Border">
+            <Setter Property="Margin" Value="10,0,10,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="86"></RowDefinition>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="92"></ColumnDefinition>
+            <ColumnDefinition Width="118"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" 
+                Grid.Row="0" 
+                BorderThickness="2 2 0 2" 
+                Grid.ColumnSpan="3"/>
+        <ContentControl Grid.Column="0" Grid.Row="1" x:Name="contentMenu"/>
+        <Image Source="C:\Users\lukai\Desktop\Resource\hamburger2.png" 
+               Height="42" 
+               Width="42" 
+               MouseLeftButtonDown="HamburgerClick" 
+               Cursor="Hand"/>
+        <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition  Width="auto"/>
+                <ColumnDefinition  Width="auto"/>
+                <ColumnDefinition  Width="auto"/>
+                <ColumnDefinition  Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" 
+                    Grid.Row="0" 
+                    BorderThickness="1" 
+                    Grid.Column="0" 
+                    CornerRadius="20" 
+                    Margin="0 0 10 0"
+                    Style="{StaticResource BorderMarginClick}" MouseLeftButtonDown="Border_MouseLeftButtonDown_1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="C:\Users\lukai\Desktop\Resource\home.png" 
+                           Width="32" 
+                           Height="32" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           Style="{StaticResource ImageMargin}"/>
+                    <TextBlock Text="Your &#xD;&#xA;accommodation" 
+                               Grid.Column="1" 
+                               TextAlignment="Center" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" 
+                               FontSize="20"
+                               Style="{StaticResource TextBlockPaddingStyle}">
+                    </TextBlock>
+                </Grid>
+            </Border>
+            <Border BorderBrush="Black" 
+                    Grid.Row="0" 
+                    BorderThickness="1" 
+                    Grid.Column="1" 
+                    CornerRadius="20"
+                    Style="{StaticResource BorderMarginClick}" MouseLeftButtonDown="Border_MouseLeftButtonDown_3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="C:\Users\lukai\Desktop\Resource\plusgreat.png" 
+                           Width="45" 
+                           Height="45" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           Margin="10 0 0 0"
+                           Style="{StaticResource ImageMargin}"/>
+                    <TextBlock Text="Register new &#xD;&#xA;accommodation" 
+                               Grid.Column="1" TextAlignment="Center" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" 
+                               FontSize="20"
+                               Padding="0 20 20 20"
+                               Style="{StaticResource TextBlockPaddingStyle}">
+                    </TextBlock>
+                </Grid>
+            </Border>
+            <Border BorderBrush="Black" 
+                    Grid.Row="0" 
+                    BorderThickness="1" 
+                    Grid.Column="2" 
+                    CornerRadius="20"
+                    Style="{StaticResource BorderMarginClick}" MouseLeftButtonDown="Border_MouseLeftButtonDown_4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="C:\Users\lukai\Desktop\Resource\notify2.png" 
+                           Width="32" 
+                           Height="32" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           Style="{StaticResource ImageMargin}"/>
+                    <TextBlock Text="Notifications" 
+                               Grid.Column="1" 
+                               TextAlignment="Center" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" 
+                               FontSize="20"
+                               Style="{StaticResource TextBlockPaddingStyle}">
+                    </TextBlock>
+                </Grid>
+            </Border>
+            <Border BorderBrush="Black" 
+                    Grid.Row="0" 
+                    BorderThickness="1" 
+                    Grid.Column="3" 
+                    CornerRadius="20"
+                    Style="{StaticResource BorderMarginClick}" 
+                    MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="C:\Users\lukai\Desktop\Resource\profile.png" 
+                           Width="32" 
+                           Height="32" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           Style="{StaticResource ImageMargin}"/>
+                    <TextBlock Text="Profile" 
+                               Grid.Column="1" 
+                               TextAlignment="Center" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               Style="{StaticResource TextBlockPaddingStyle}">
+                    </TextBlock>
+                </Grid>
+            </Border>
+            <Border BorderBrush="Black" 
+                    Grid.Row="0" 
+                    BorderThickness="1" 
+                    Grid.Column="4" 
+                    CornerRadius="20"
+                    Style="{StaticResource BorderMarginClick}" MouseLeftButtonDown="Border_MouseLeftButtonDown_2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="C:\Users\lukai\Desktop\Resource\info2.png" 
+                           Width="32" 
+                           Height="32" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           Style="{StaticResource ImageMargin}"/>
+                    <TextBlock Text="Shortcuts" Grid.Column="1" 
+                               TextAlignment="Center" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" 
+                               FontSize="20" 
+                               Style="{StaticResource TextBlockPaddingStyle}">
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </Grid>
+        <!-- OVDE JE BIO KOD-->
+        <ContentControl Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" x:Name="contentControl1" />
+        <Popup x:Name="popup_uc"
+                   AllowsTransparency="True"
+                   HorizontalOffset="-40"
+                   VerticalOffset="5">
+            <Grid>
+                <local:NotificationPopUpUserControl x:Name="Header" Foreground="#E0FFFF"/>
+            </Grid>
+        </Popup>
+    </Grid>
+</Window>

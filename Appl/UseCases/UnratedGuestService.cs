@@ -1,8 +1,10 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,47 +13,30 @@ namespace BookingApp.Appl.UseCases
 {
     public class UnratedGuestService
     {
-        private List<GuestRating> GuestRatings;
-        private List<AccommodationReservation> Reservations;
-        private readonly AccommodationRepository accommodationRepository;
-        public UnratedGuestService(List<GuestRating> guestRatings, List<AccommodationReservation> reservations)
+        private readonly IAccommodationRepository accommodationRepository;
+        private GuestRatingService guestRatingService;
+        private AccommodationReservationService accommodationReservationService;
+        public UnratedGuestService()
         {
-            accommodationRepository = new AccommodationRepository();
-            GuestRatings = guestRatings;
-            Reservations = reservations;
+            accommodationReservationService = new AccommodationReservationService();
+            guestRatingService = new GuestRatingService();
+            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
         }
-        public List<GuestRatingDTO> GetUnratedGuests()
-        {
 
-            List<GuestRatingDTO> GuestRatings = new List<GuestRatingDTO>();
-            foreach (AccommodationReservation reservation in Reservations)
-            {
-                if (!IsGuestFromReservationRated(reservation))
-                {
-                    if (IsGuestRateable(reservation) && !IsCanceled(reservation))
-                        GuestRatings.Add(CreateGuestRatingDTO(reservation));
-                }
-            }
-            return GuestRatings;
+        public List<AccommodationReservation> GetUnratedGuests(User loggedInUser)
+        {
+          List<GuestRating> guestRatings= guestRatingService.GetAllGuestRatingsByUser(loggedInUser);
+            //Naredne 3 funkcije mogu u jednu pa da se pozivaju u drugom servisu
+          List<AccommodationReservation> reservations = accommodationReservationService.GetAccommodationReservationsForUser(loggedInUser);
+          List<AccommodationReservation> unratedReservations = accommodationReservationService.GetUnratedReservations(reservations,guestRatings);
+          List<AccommodationReservation> rateableUnratedGuests = new List<AccommodationReservation>();
+          accommodationReservationService.FindRateableAccommodationReservations(unratedReservations)
+                                         .ForEach(accommodationReservation=> rateableUnratedGuests.Add(accommodationReservation));
+            return rateableUnratedGuests;
         }
         private GuestRatingDTO CreateGuestRatingDTO(AccommodationReservation reservation)
         {
             return new GuestRatingDTO(accommodationRepository.GetAccommodationNameById(reservation.AccommodationId), reservation.ReservedFrom, reservation.ReservedTo, reservation.UserId, reservation.Id, reservation.AccommodationId);
-        }
-        private static bool IsCanceled(AccommodationReservation reservation)
-        {
-            return reservation.Cancelled == 1;
-        }
-
-        private static bool IsGuestRateable(AccommodationReservation reservation)
-        {
-
-            return (DateTime.Now - reservation.ReservedTo).TotalDays <= 5 && DateTime.Now > reservation.ReservedTo;
-        }
-
-        private bool IsGuestFromReservationRated(AccommodationReservation reservation)
-        {
-            return GuestRatings.Any(guestRating => guestRating.ReservationId == reservation.Id);
         }
 
     }

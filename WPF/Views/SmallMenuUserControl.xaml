@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.SmallMenuUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views"
+             mc:Ignorable="d" 
+              d:DesignHeight="310" d:DesignWidth="92">
+    <UserControl.Resources>
+        <Style x:Key="ImageMarginLeftMenu" TargetType="Image">
+            <Setter Property="Margin" Value="0 0 0 20"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="TextBlockMarginLeftMenu" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0 0 0 10"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Border BorderBrush="Black" 
+                Grid.Row="1" 
+                BorderThickness="2 0 2 2" 
+                Height="310"
+                VerticalAlignment="Top"/>
+        <Grid Grid.Row="1"  
+              Height="304" 
+              VerticalAlignment="Top" 
+              Cursor="Hand" 
+              Background="Transparent" 
+              MouseLeftButtonDown="LeftMenu">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Source="C:\Users\lukai\Desktop\Resource\inbox1.png" 
+               Height="32" 
+               Width="32" 
+               Style="{StaticResource ImageMarginLeftMenu}"
+               Grid.Row="0"/>
+            <TextBlock Text="Requests" 
+                       FontSize="14"
+                       Style="{StaticResource TextBlockMarginLeftMenu}"/>
+            <Image Source="C:\Users\lukai\Desktop\Resource\renovations.png" 
+               Height="32" 
+               Width="32" 
+               Style="{StaticResource ImageMarginLeftMenu}"
+               Grid.Row="1"/>
+            <TextBlock Text="Renovations" 
+                       FontSize="14"
+                       Grid.Row="1"
+                       Style="{StaticResource TextBlockMarginLeftMenu}"/>
+            <Image Source="C:\Users\lukai\Desktop\Resource\star.png" 
+               Height="32" 
+               Width="32" 
+               Style="{StaticResource ImageMarginLeftMenu}"
+               Grid.Row="2"/>
+            <TextBlock Text="Reviews" 
+                       FontSize="14"
+                       Grid.Row="2"
+                       Style="{StaticResource TextBlockMarginLeftMenu}"/>
+            <Image Source="C:\Users\lukai\Desktop\Resource\forum.png" 
+               Height="32" 
+               Width="32" 
+               Style="{StaticResource ImageMarginLeftMenu}"
+               Grid.Row="3"/>
+            <TextBlock Text="Forum" 
+                       FontSize="14"
+                       Grid.Row="3"
+                       Style="{StaticResource TextBlockMarginLeftMenu}"/>
+        </Grid>
+    </Grid>
+</UserControl>

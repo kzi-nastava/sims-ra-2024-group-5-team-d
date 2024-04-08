@@ -1,6 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Serializer;
+using BookingApp.Domain.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,6 +24,11 @@ namespace BookingApp.Repositories
         {
             _users = _serializer.FromCSV(FilePath);
             return _users.FirstOrDefault(u => u.Username == username);
+        }
+        public User GetById(int id)
+        {
+            _users = _serializer.FromCSV(FilePath);
+            return _users.FirstOrDefault(u => u.Id == id);
         }
     }
 }

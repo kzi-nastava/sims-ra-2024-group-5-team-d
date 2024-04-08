@@ -1,6 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Serializer;
+using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ namespace BookingApp.Repositories
     public class AccommodationReservationRepository : IAccommodationReservationRepository
     {
 
-        private const string FilePath = "../../../Resources/Data/reservations.csv";
+        private const string FilePath = "../../../Resources/Data/accommodationReservations.csv";
 
         private readonly Serializer<AccommodationReservation> _serializer;
 
@@ -72,15 +72,15 @@ namespace BookingApp.Repositories
             _reservations = _serializer.FromCSV(FilePath);
             return _reservations.FindAll(reservation => reservation.UserId == user.Id);
         }
+        public AccommodationReservation GetById(int id)
+        {
+            _reservations = _serializer.FromCSV(FilePath);
+            return _reservations.Find(reservation => reservation.Id == id);
+        }
         public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
         {
             _reservations = _serializer.FromCSV(FilePath);
             return _reservations.FindAll(reservation => reservation.AccommodationId == accommodation.Id);
-        }
-        public List<AccommodationReservation> GetAllReservationsForUser(Accommodation accommodation, User user)
-        {
-            _reservations = _serializer.FromCSV(FilePath);
-            return _reservations.FindAll(reservation => reservation.AccommodationId == accommodation.Id && reservation.UserId == user.Id);
         }
 
 

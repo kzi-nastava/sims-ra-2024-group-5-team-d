@@ -15,58 +15,58 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="AccommodationImages\Accommodation11\13.jpg" />
-    <None Remove="AccommodationImages\Accommodation12\14.jpg" />
-    <None Remove="AccommodationImages\Accommodation2\hero-image.jpg" />
-    <None Remove="AccommodationImages\Accommodation4\sadsadsa.jpeg" />
-    <None Remove="AccommodationImages\Accommodation5\image268.png" />
-    <None Remove="AccommodationImages\Accommodation6\2857hotel-na-kopaoniku.jpg" />
-    <None Remove="AccommodationImages\Accommodation7\Oakford.jpg" />
-    <None Remove="AccommodationImages\Accommodation8\a.jpg" />
-    <None Remove="AccommodationImages\Accommodation9\b.jpg" />
-    <None Remove="AccommodationImages\Accommodation10\12.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation11\13.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation13\hero-image.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation2\hero-image.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation4\sadsadsa.jpeg" />
+    <None Remove="Resources\AccommodationImages\Accommodation5\image268.png" />
+    <None Remove="Resources\AccommodationImages\Accommodation6\2857hotel-na-kopaoniku.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation7\Oakford.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation8\a.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation9\b.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation10\12.jpg" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\view.png" />
-    <None Remove="TourImages\Tour1\caption.jpg" />
-    <None Remove="TourImages\Tour2\caption.jpg" />
-    <None Remove="TourImages\Tour3\caption.jpg" />
-    <None Remove="TourImages\Tour4\caption.jpg" />
-    <None Remove="TourImages\Tour4\GFS_smederevo-trg-25-09-09-04.jpg" />
-    <None Remove="TourImages\Tour5\download.jpeg" />
-    <None Remove="TourImages\Tour6\GFS_smederevo-trg-25-09-09-04.jpg" />
+    <None Remove="Resources\TourImages\Tour1\caption.jpg" />
+    <None Remove="Resources\TourImages\Tour2\caption.jpg" />
+    <None Remove="Resources\TourImages\Tour3\caption.jpg" />
+    <None Remove="Resources\TourImages\Tour4\caption.jpg" />
+    <None Remove="Resources\TourImages\Tour4\GFS_smederevo-trg-25-09-09-04.jpg" />
+    <None Remove="Resources\TourImages\Tour5\download.jpeg" />
+    <None Remove="Resources\TourImages\Tour6\GFS_smederevo-trg-25-09-09-04.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="AccommodationImages\Accommodation11\13.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation11\13.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation12\14.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation13\hero-image.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation2\hero-image.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation2\hero-image.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation8\a.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation8\a.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation9\b.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation9\b.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation10\12.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation10\12.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation4\sadsadsa.jpeg">
+    <Content Include="Resources\AccommodationImages\Accommodation4\sadsadsa.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation5\image268.png">
+    <Content Include="Resources\AccommodationImages\Accommodation5\image268.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation6\2857hotel-na-kopaoniku.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation6\2857hotel-na-kopaoniku.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AccommodationImages\Accommodation7\Oakford.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation7\Oakford.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\add.png">
@@ -81,24 +81,36 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TourImages\Tour1\caption.jpg">
+    <Content Include="Resources\TourImages\Tour1\caption.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TourImages\Tour2\caption.jpg">
+    <Content Include="Resources\TourImages\Tour2\caption.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TourImages\Tour3\caption.jpg">
+    <Content Include="Resources\TourImages\Tour3\caption.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TourImages\Tour4\GFS_smederevo-trg-25-09-09-04.jpg">
+    <Content Include="Resources\TourImages\Tour4\GFS_smederevo-trg-25-09-09-04.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TourImages\Tour5\download.jpeg">
+    <Content Include="Resources\TourImages\Tour5\download.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TourImages\Tour6\GFS_smederevo-trg-25-09-09-04.jpg">
+    <Content Include="Resources\TourImages\Tour6\GFS_smederevo-trg-25-09-09-04.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Images\GuestImages\" />
+    <Folder Include="Resources\Images\GuideImages\" />
+    <Folder Include="Resources\Images\TouristImages\" />
+    <Folder Include="Resources\Images\OwnerImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
 
 </Project>

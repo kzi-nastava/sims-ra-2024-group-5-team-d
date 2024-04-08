@@ -1,6 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Serializer;
+using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -72,6 +72,13 @@ namespace BookingApp.Repositories
             _accommodations.Insert(index, accommodation);       // keep ascending order of ids in file 
             _serializer.ToCSV(FilePath, _accommodations);
             return accommodation;
+        }
+        public Accommodation GetById(int id)
+        {
+            _accommodations = _serializer.FromCSV(FilePath);
+            _accommodations.ForEach(accommodation => accommodation.Location = _locationRepository.GetById(accommodation.Location.Id));
+            Debug.WriteLine("AccommodationRepository: " + id);
+            return _accommodations.Find(accommodation => accommodation.Id == id);
         }
         public List<Accommodation> GetByUser(User user)
         {

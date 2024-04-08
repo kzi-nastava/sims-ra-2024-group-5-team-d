@@ -1,4 +1,4 @@
-﻿using BookingApp.Serializer;
+﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -59,6 +59,81 @@ namespace BookingApp.Domain.Models
             string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString(), ReservedTo.ToString(), Cancelled.ToString(), RescheduledReservation.ToString(), RecommendedRenovation.ToString() };
             return csvValues;
         }
+        public bool IsCanceled()
+        {
+            return Cancelled == 1;
+        }
+        public bool IsRateable()
+        {
+            return (DateTime.Now - ReservedTo).Days >= 0 && (DateTime.Now - ReservedTo).Days <= 5;
+        }
+        public bool IsMadeOrEndedInSelectedYear(int year)
+        {
+            return ReservedFrom.Year == year || ReservedTo.Year == year;
+        }
+        public bool IsMadeInSelectedYear(int year)
+        {
+            return ReservedFrom.Year == year;
+        }
+        public bool IsMadeInSelectedMonth(int month)
+        {
+            return ReservedFrom.Month == month;
+        }
+        public bool IsInSelectedMonth(int month)
+        {
+            return ReservedFrom.Month == month || ReservedTo.Month == month;
+        }
+        public int CalculateNumberOfDaysInSelectedYear(int year)
+        {
+            if (ReservedFrom.Year == ReservedTo.Year)
+                return (ReservedTo - ReservedFrom).Days;
+            else if (ReservedFrom.Year != year && ReservedTo.Year == year)
+                return (ReservedTo - new DateTime(ReservedTo.Year, 1, 1)).Days;
+            else if (ReservedTo.Year != year && ReservedFrom.Year == year)
+                return (new DateTime(ReservedFrom.Year, 12, 31) - ReservedFrom).Days;
+            else
+                return 0;
+        }
+        public int CalculateNumberOfDaysInSelectedMonthInYear(int month,int year)
+        {
+            if (ReservedFrom.Year != year && ReservedFrom.Month == month)
+                return 0;
+            else if (ReservedTo.Month == month && ReservedFrom.Month != month)
+                return (ReservedTo - new DateTime(ReservedTo.Year, ReservedTo.Month, 1)).Days;
+            else if (ReservedFrom.Month == month && ReservedTo.Month != month)
+                return (new DateTime(ReservedFrom.Year, ReservedFrom.Month, DateTime.DaysInMonth(ReservedFrom.Year, ReservedFrom.Month)) - ReservedFrom).Days;
+            else if (ReservedFrom.Month == ReservedTo.Month)
+                return (ReservedTo - ReservedFrom).Days;
+            else return 0;
+        }
+        //MOZDA JE OVA BOLJA OD GORNJE
+        /*public int CalculateNumberOfDaysInSelectedMonthInYear(int month, int year)
+{
+    DateTime startOfMonth = new DateTime(year, month, 1);
+    DateTime endOfMonth = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+
+    if (ReservedFrom > endOfMonth || ReservedTo < startOfMonth)
+        return 0;
+    else if (ReservedFrom >= startOfMonth && ReservedTo <= endOfMonth)
+        return (ReservedTo - ReservedFrom).Days;
+    else if (ReservedFrom <= startOfMonth && ReservedTo >= endOfMonth)
+        return DateTime.DaysInMonth(year, month);
+    else if (ReservedFrom <= startOfMonth)
+        return (ReservedTo - startOfMonth).Days;
+    else if (ReservedTo >= endOfMonth)
+        return (endOfMonth - ReservedFrom).Days;
+    else
+        return 0;
+}*/
+        /*
+         *  public bool IsReservationRated(List<GuestRating> guestRatings)
+        {
+            return guestRatings.Any(q => q.ReservationId == Id);
+        }
+        public bool IsReservationRated(int reservationId)
+        {
+            return reservationId == Id;
+        }*/
     }
 
 }
