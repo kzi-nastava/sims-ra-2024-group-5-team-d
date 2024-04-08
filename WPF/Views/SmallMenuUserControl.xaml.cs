@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace BookingApp.WPF.Views
     /// </summary>
     public partial class SmallMenuUserControl : UserControl
     {
-        public SmallMenuUserControl()
+        private User loggedInUser;
+        public SmallMenuUserControl(User user)
         {
+            loggedInUser = user;
             InitializeComponent();
         }
         private void LeftMenu(object sender, MouseButtonEventArgs e)
@@ -49,9 +52,9 @@ namespace BookingApp.WPF.Views
                        OwnerMainWindow.contentControl.Content = new RequestsNoMenu();
                     if (row == 1)
                         OwnerMainWindow.contentControl.Content = new Renovations();
-                    if (row == 2)
-                        OwnerMainWindow.contentControl.Content = new ReviewsNoMenu();
-                    if (row == 3)
+                   */ if (row == 2)
+                        OwnerMainWindow.contentControl.Content = new OwnerReviewUserControl(loggedInUser);
+                    /*if (row == 3)
                         OwnerMainWindow.contentControl.Content = new ForumNoMenu();*/
                 }
                 // Ako je pronađen red, prikazujemo njegov indeks

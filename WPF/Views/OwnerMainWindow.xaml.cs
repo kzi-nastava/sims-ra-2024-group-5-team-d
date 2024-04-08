@@ -54,7 +54,7 @@ namespace BookingApp.WPF.Views
             contentControl = contentControl1;
             popUp = popup_uc;
             contentControl.Content = new OwnerMainWindowUserControl(user);
-            contentMenu.Content = new SmallMenuUserControl();
+            contentMenu.Content = new SmallMenuUserControl(loggedInUser);
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -114,17 +114,17 @@ namespace BookingApp.WPF.Views
                 }
 
                 // Ako je pronađen red, prikazujemo njegov indeks
-               /* if (row != -1)
+                if (row != -1)
                 {
-                    if (row == 0)
-                        contentControl.Content = new RequestsNoMenu();
-                    if (row == 1)
-                        contentControl.Content = new Renovations();
+                  //  if (row == 0)
+                     //   contentControl.Content = new RequestsNoMenu();
+                    //if (row == 1)
+                      //  contentControl.Content = new Renovations();
                     if (row == 2)
-                        contentControl.Content = new ReviewsNoMenu();
-                    if (row == 3)
-                        contentControl.Content = new ForumNoMenu();
-                }*/
+                        contentControl.Content = new OwnerReviewUserControl(loggedInUser);
+                    //if (row == 3)
+                        //contentControl.Content = new ForumNoMenu();
+                }
 
             }
         }
@@ -151,7 +151,7 @@ namespace BookingApp.WPF.Views
                 Grid.SetColumnSpan(contentMenu, 2);
                 Grid.SetColumn(contentControl, 2);
                 Grid.SetColumnSpan(contentControl, 1);
-                contentMenu.Content = new WideMenuUserControl();
+                contentMenu.Content = new WideMenuUserControl(loggedInUser);
             }
             else
             {
@@ -159,7 +159,7 @@ namespace BookingApp.WPF.Views
                 Grid.SetColumn(contentControl, 1);
                 Grid.SetColumnSpan(contentControl, 2);
                 Debug.WriteLine("HamburgerClick1");
-                contentMenu.Content = new SmallMenuUserControl();
+                contentMenu.Content = new SmallMenuUserControl(loggedInUser);
             }
         }
 
