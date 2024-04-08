@@ -86,10 +86,6 @@ namespace BookingApp.Repositories
             _accommodations.ForEach(accommodation => accommodation.Location = _locationRepository.GetById(accommodation.Location.Id));
             return _accommodations.FindAll(accommodation => accommodation.Owner.Id == user.Id);
         }
-        public Location GetLocationByLocationId(int locationId)
-        {
-            return _locationRepository.GetById(locationId);
-        }
         public string GetAccommodationNameById(int accommodationId)
         {
             return _accommodations.Find(accommodation => accommodation.Id == accommodationId).Name;

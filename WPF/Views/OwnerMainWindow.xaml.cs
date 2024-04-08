@@ -85,12 +85,12 @@ namespace BookingApp.WPF.Views
 
         private void Border_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
-            //contentControl.Content = new RegisterAccommodationNoMenu();
+            contentControl.Content = new RegisterAccommodationUserControl(loggedInUser);
         }
 
         private void Border_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
         {
-          //  contentControl.Content = new RegisterAccommodationNoMenu();
+            contentControl.Content = new RegisterAccommodationUserControl(loggedInUser);
         }
 
         private void LeftMenu(object sender, MouseButtonEventArgs e)

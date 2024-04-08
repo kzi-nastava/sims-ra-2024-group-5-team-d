@@ -16,5 +16,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public List<Accommodation> GetByUser(User user);
         public string GetAccommodationNameById(int accommodationId);
         public Accommodation GetById(int accommodationId);
+        public int NextId();
     }
 }
