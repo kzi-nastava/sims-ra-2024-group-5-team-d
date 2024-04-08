@@ -1,9 +1,11 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Repositories;
-using BookingApp.WPF.Views.TouristGuide;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using BookingApp.WPF.Views.GuestWindows;
+using BookingApp.WPF.Views.TouristGuide;
+using BookingApp.WPF.Views.OwnerView;
 
 namespace BookingApp.WPF.Views
 {

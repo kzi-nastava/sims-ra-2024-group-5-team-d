@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="587" 
              d:DesignWidth="1152">
     <UserControl.Resources>
-        <local:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
