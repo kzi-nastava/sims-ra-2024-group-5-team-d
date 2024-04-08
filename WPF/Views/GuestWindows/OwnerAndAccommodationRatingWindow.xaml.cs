@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Views.GuestWindows
 {
     /// <summary>
-    /// Interaction logic for InboxAccommodationUserControl.xaml
+    /// Interaction logic for OwnerAndAccommodationRatingWindow.xaml
     /// </summary>
-    public partial class InboxAccommodationUserControl : UserControl
+    public partial class OwnerAndAccommodationRatingWindow : Window
     {
-        public InboxAccommodationUserControl()
+        public OwnerAndAccommodationRatingWindow()
         {
             InitializeComponent();
         }
