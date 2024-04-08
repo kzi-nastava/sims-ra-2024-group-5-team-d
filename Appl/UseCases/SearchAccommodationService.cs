@@ -12,16 +12,17 @@ namespace BookingApp.Appl.UseCases
 
     public class SearchAccommodationService
     {
-        public AccommodationRepository AccommodationRepository;
+        public IAccommodationRepository accommodationRepository;
         public SearchAccommodationService() {
 
-            AccommodationRepository = new AccommodationRepository();
+            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
+
         }
         public List<Accommodation> GetSearchedAccommodation(string accommodationName,int accommodationType,int locationId,int numberOfPeople,int numberOfDays)
         {
 
             List<Accommodation> foundAccommodation = new List<Accommodation>();
-            AccommodationRepository.GetAll().ForEach(accommodation =>
+            accommodationRepository.GetAll().ForEach(accommodation =>
              {
                  if (IsWantedAccommodation(accommodation, accommodationName, accommodationType, locationId, numberOfPeople, numberOfDays))
                        foundAccommodation.Add(accommodation);
