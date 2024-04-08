@@ -28,6 +28,21 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\GuideImages\Add Circle.png" />
+    <None Remove="Resources\Images\GuideImages\Alt Arrow Down.png" />
+    <None Remove="Resources\Images\GuideImages\Alt Arrow Left.png" />
+    <None Remove="Resources\Images\GuideImages\Arrows ALogout 2.png" />
+    <None Remove="Resources\Images\GuideImages\Chat Round Line.png" />
+    <None Remove="Resources\Images\GuideImages\Clock Circle.png" />
+    <None Remove="Resources\Images\GuideImages\Flag.png" />
+    <None Remove="Resources\Images\GuideImages\Home.png" />
+    <None Remove="Resources\Images\GuideImages\Lightbulb Minimalistic.png" />
+    <None Remove="Resources\Images\GuideImages\Map Point Add.png" />
+    <None Remove="Resources\Images\GuideImages\ns.jpeg" />
+    <None Remove="Resources\Images\GuideImages\Play Circle.png" />
+    <None Remove="Resources\Images\GuideImages\Question Circle.png" />
+    <None Remove="Resources\Images\GuideImages\User Circle.png" />
+    <None Remove="Resources\Images\GuideImages\User.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\TourImages\Tour1\caption.jpg" />
     <None Remove="Resources\TourImages\Tour2\caption.jpg" />
@@ -78,6 +93,51 @@
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\GuideImages\Add Circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Alt Arrow Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Alt Arrow Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Arrows ALogout 2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Chat Round Line.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Clock Circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Lightbulb Minimalistic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Map Point Add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\ns.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Play Circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Question Circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\User Circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\User.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -103,7 +163,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\GuestImages\" />
-    <Folder Include="Resources\Images\GuideImages\" />
     <Folder Include="Resources\Images\TouristImages\" />
     <Folder Include="Resources\Images\OwnerImages\" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Repositories;
+using BookingApp.WPF.Views.TouristGuide;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -72,7 +73,7 @@ namespace BookingApp.WPF.Views
                     }
                     else
                     {
-                        TouristGuideWindow touristGuideWindow = new TouristGuideWindow(user);
+                        SideBar touristGuideWindow = new SideBar(user);
                         touristGuideWindow.Owner = this;
                         touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                         touristGuideWindow.ShowDialog();
