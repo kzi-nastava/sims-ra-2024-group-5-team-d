@@ -18,6 +18,8 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
 using ToastNotifications.Messages;
 using BookingApp.Domain.Models;
+using BookingApp.Appl.UseCases;
+using BookingApp.WPF.Comands;
 
 namespace BookingApp.WPF.Views.OwnerView
 {
@@ -27,6 +29,7 @@ namespace BookingApp.WPF.Views.OwnerView
     public partial class OwnerMainWindow : Window
     {
 
+        public ICommand ReviewCommand { get; private set; }
         public static ContentControl contentControl;
         public static Popup popUp;
         Notifier notifier = new Notifier(cfg =>
@@ -44,19 +47,36 @@ namespace BookingApp.WPF.Views.OwnerView
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
         User loggedInUser;
+        private UnratedGuestService unratedGuestService;
 
         public OwnerMainWindow(User user)
         {
+
+            unratedGuestService = new UnratedGuestService();
             InitializeComponent();
             loggedInUser = user;
             DataContext = this;
+            ReviewCommand = new RelayCommand(OpenReview);
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             contentControl = contentControl1;
             popUp = popup_uc;
             contentControl.Content = new OwnerMainWindowUserControl(user);
             contentMenu.Content = new SmallMenuUserControl(loggedInUser);
+            int numberOfUnratedGuests = unratedGuestService.GetUnratedGuests(loggedInUser).Count;
+            if (numberOfUnratedGuests != 0)
+            {
+                Notifications.Review.Text = "You have unrated guests";
+                numberOfNotify.Text = numberOfUnratedGuests.ToString();
+            }
+            else
+            {
+                numberOfNotify.Text ="0";
+               Notifications.Review.Text = "No unrated guests";
+            }
         }
-
+        private void OpenReview() {
+            contentControl.Content = new OwnerReviewUserControl(loggedInUser);
+        }
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
           //  contentControl.Content = new ProfileNoMenu();
@@ -169,8 +189,7 @@ namespace BookingApp.WPF.Views.OwnerView
             {
                 popUp.PlacementTarget = sender as UIElement;
                 popUp.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-                popUp.IsOpen = true;
-                Header.ala.Text = "Ala";
+                popUp.IsOpen = true;;
             }
             else
             {

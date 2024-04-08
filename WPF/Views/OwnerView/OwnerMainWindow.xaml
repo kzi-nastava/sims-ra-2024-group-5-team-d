@@ -126,6 +126,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="C:\Users\lukai\Desktop\Resource\notify2.png" 
                            Width="32" 
@@ -141,6 +142,10 @@
                                FontSize="20"
                                Style="{StaticResource TextBlockPaddingStyle}">
                     </TextBlock>
+                    <Border CornerRadius="900" Grid.Column="2" Background="Red" Width="15" Height="15" VerticalAlignment="Center" Margin="-20 -10 10 0">
+                        <TextBlock Foreground="AntiqueWhite" Margin="0 0 0 0" x:Name="numberOfNotify" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" Height="15" Width="auto"/>
+                    </Border>
+
                 </Grid>
             </Border>
             <Border BorderBrush="Black" 
@@ -205,7 +210,7 @@
                    HorizontalOffset="-40"
                    VerticalOffset="5">
             <Grid>
-                <local:NotificationPopUpUserControl x:Name="Header" Foreground="#E0FFFF"/>
+                <local:NotificationPopUpUserControl x:Name="Notifications" Foreground="#E0FFFF"/>
             </Grid>
         </Popup>
     </Grid>
