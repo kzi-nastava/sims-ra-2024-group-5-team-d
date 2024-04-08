@@ -43,8 +43,8 @@ namespace BookingApp.WPF.Views
         }
         private void RateGuest(object sender, RoutedEventArgs e)
         {
-           // RateGuestWindow rateGuestWindow = new RateGuestWindow();
-           // OwnerMainWindow.contentControl.Content = rateGuestWindow;
+            UnratedGuestsUserControl unratedGuestsWindow = new UnratedGuestsUserControl(LoggedInUser);
+            OwnerMainWindow.contentControl.Content = unratedGuestsWindow;
 
         }
 
