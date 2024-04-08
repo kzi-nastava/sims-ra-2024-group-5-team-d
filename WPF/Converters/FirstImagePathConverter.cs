@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Converters
 {
     public class FirstImagePathConverter : IValueConverter
     {

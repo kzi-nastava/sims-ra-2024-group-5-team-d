@@ -14,15 +14,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Views.OwnerView
 {
     /// <summary>
-    /// Interaction logic for SmallMenuUserControl.xaml
+    /// Interaction logic for WideMenuUserControl.xaml
     /// </summary>
-    public partial class SmallMenuUserControl : UserControl
+    public partial class WideMenuUserControl : UserControl
     {
         private User loggedInUser;
-        public SmallMenuUserControl(User user)
+        public WideMenuUserControl(User user)
         {
             loggedInUser = user;
             InitializeComponent();
@@ -49,10 +49,10 @@ namespace BookingApp.WPF.Views
                 if (row != -1)
                 {/*
                     if (row == 0)
-                       OwnerMainWindow.contentControl.Content = new RequestsNoMenu();
+                        OwnerMainWindow.contentControl.Content = new RequestsNoMenu();
                     if (row == 1)
                         OwnerMainWindow.contentControl.Content = new Renovations();
-                   */ if (row == 2)
+                    */if (row == 2)
                         OwnerMainWindow.contentControl.Content = new OwnerReviewUserControl(loggedInUser);
                     /*if (row == 3)
                         OwnerMainWindow.contentControl.Content = new ForumNoMenu();*/

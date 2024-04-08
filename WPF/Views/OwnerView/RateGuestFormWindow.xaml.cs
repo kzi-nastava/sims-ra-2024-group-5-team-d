@@ -18,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Views.OwnerView
 {
     /// <summary>
     /// Interaction logic for RateGuestFormWindow.xaml

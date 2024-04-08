@@ -19,7 +19,7 @@ using ToastNotifications.Position;
 using ToastNotifications.Messages;
 using BookingApp.Domain.Models;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Views.OwnerView
 {
     /// <summary>
     /// Interaction logic for OwnerMainWindow.xaml
