@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Repositories;
+using BookingApp.WPF.Views.OwnerView;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;

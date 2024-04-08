@@ -1,14 +1,15 @@
-﻿<UserControl x:Class="BookingApp.WPF.Views.OwnerMainWindowUserControl"
+﻿<UserControl x:Class="BookingApp.WPF.Views.OwnerView.OwnerMainWindowUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:local="clr-namespace:BookingApp.WPF.Views"
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
             d:DesignHeight="572" d:DesignWidth="1108">
     <UserControl.Resources>
-        <local:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
     </UserControl.Resources>
     <Grid 
               Width="920"

@@ -220,7 +220,6 @@
     <Folder Include="Resources\Images\GuideImages\" />
     <Folder Include="Resources\Images\TouristImages\" />
     <Folder Include="Resources\Images\OwnerImages\" />
-    <Folder Include="WPF\Views\OwnerView\" />
   </ItemGroup>
 
   <ItemGroup>

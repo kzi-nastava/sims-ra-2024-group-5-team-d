@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Views.OwnerView
 {
     /// <summary>
     /// Interaction logic for NotificationPopUpUserControl.xaml
