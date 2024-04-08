@@ -1,0 +1,228 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.AddReservationAccommodationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="657.04" d:DesignWidth="430">
+    <UserControl.Resources>
+        <local:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+    </UserControl.Resources>
+    <Grid x:Name="Grid">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="{Binding Accommodation.Name}" 
+            Grid.Column="0"
+            Grid.Row="0"
+            Width="auto"
+            Height="auto" 
+            Margin="51,30,0,20" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            FontSize="16" 
+            FontWeight="Bold" 
+            Grid.ColumnSpan="2"/>
+        <Image Source="{Binding Accommodation.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
+            Grid.Column="1"
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Height="54"
+            Width="59" Margin="91,17,0,0" />
+
+        <Image Source="../../Resources/Images/GuestImages/CheckIcon.png"
+            Grid.Column="0"
+            Grid.Row="1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Height="18"
+            Width="18" Margin="10,20,10,0"/>
+        <Label Content="Free cancelation" 
+            Grid.Column="0"
+            Grid.Row="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" Margin="35,15,0,0"/>
+        <Label Content="until 23:59 on dd/mm/yyyy" 
+            Grid.Column="0"
+            Grid.Row="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" Margin="50,30,0,0" FontSize="11"/>
+
+        <Image Source="../../Resources/Images/GuestImages/CheckIcon.png"
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Height="18"
+            Width="18" Margin="10,20,10,0"/>
+        <Label Content="No payement needed" 
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" Margin="35,15,0,0"/>
+        <Label Content="until 23:59 on dd/mm/yyyy" 
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" Margin="50,30,0,0" FontSize="11"/>
+
+        <Image Source="../../Resources/Images/GuestImages/CheckIcon.png"
+            Grid.Column="0"
+            Grid.Row="3"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Height="18"
+            Width="18" Margin="10,20,10,0"/>
+        <Label Content="No credit card needed" 
+            Grid.Column="0"
+            Grid.Row="3"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" Margin="35,15,0,0"/>
+        <Label Content="until 23:59 on dd/mm/yyyy" 
+            Grid.Column="0"
+            Grid.Row="3"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" 
+            Margin="50,30,0,10" 
+            FontSize="11"/>
+
+        <Label Content="Reservation" 
+            Grid.Column="0"
+            Grid.Row="4"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            Margin="0,15,0,10" 
+            FontSize="14"
+            Grid.ColumnSpan="2" FontWeight="Bold"/>
+        <Border BorderThickness="0,0,0,2" 
+                         BorderBrush="Black"
+                         Grid.Column="0"
+                         Grid.Row="4"
+                         Grid.ColumnSpan="2"
+                         VerticalAlignment="Top"/>
+
+        <Label Content="From:" 
+            Grid.Column="0" 
+            Grid.Row="5"
+            VerticalAlignment="Top" 
+            Margin="0,0,0,20"/>
+        <DatePicker Grid.Column="0" 
+                 Grid.Row="5"
+                 VerticalAlignment="Bottom" 
+                 Margin="48,0,45,20" 
+                 SelectedDate="{Binding FromDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="To:" 
+            Grid.Column="1" 
+            Grid.Row="5" 
+            VerticalAlignment="Center"
+             Margin="0,0,0,20"/>
+        <DatePicker Grid.Column="1"
+                 Grid.Row="5"
+                 VerticalAlignment="Center" 
+                 Margin="48,0,45,20" 
+                 SelectedDate="{Binding ToDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Content="Number of days:" 
+            Grid.Column="0" 
+            Grid.Row="6" 
+            VerticalAlignment="Center" Margin="0,0,0,20"/>
+        <TextBox Grid.Column="0"
+              Grid.Row="6" 
+              VerticalAlignment="Center"  
+              Margin="100,0,62,20" 
+              Text="{Binding NumberOfDays,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button x:Name="DateCheck" 
+             Content="DATE CHECK"
+             Grid.Column="0"
+             Grid.Row="7"
+             Grid.ColumnSpan="2" 
+             VerticalAlignment="Center"
+             Height="43"
+             Margin="130,0,130,20"
+             Click="DateCheckClick"/>
+        <TextBlock  x:Name="NotAvailableLabel" 
+             Text="Accommodation is not available in the given range, the range is extended!!!" 
+             Grid.Column="0"
+             Grid.Row="8" 
+             Grid.ColumnSpan="2" 
+             VerticalAlignment="Center" 
+             Foreground="Red"
+             TextWrapping="Wrap"
+             TextAlignment="Center"
+             MaxWidth="300" 
+             HorizontalAlignment="Center" 
+             Margin="0,0,0,10"
+             Visibility="Collapsed"/>
+        <DataGrid x:Name="AvailabilityDateGrid"
+               Grid.Row="9"
+               AutoGenerateColumns="False"
+               IsReadOnly="True"
+               Grid.ColumnSpan="2"
+               SelectionMode="Single"
+               ItemsSource="{Binding AvailableDates,UpdateSourceTrigger=PropertyChanged}"
+               SelectedItem="{Binding SelectedDate}"
+               SelectionChanged="AvailabilityDateGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Width="*" 
+                                  Header="Available from:" 
+                                  Binding="{Binding Key}"/>
+                <DataGridTextColumn  Width="*"
+                                  Header="Available to:"  
+                                  Binding="{Binding Value}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label x:Name="NumberOfPeopleLabel"
+            Content="Number of people:"
+            Grid.Column="0" 
+            Grid.Row="10"
+            VerticalAlignment="Center" 
+            Margin="0,15,0,15"
+            Visibility="Collapsed"/>
+        <TextBox  x:Name="NumberOfPeopleTextBox" 
+               Grid.Column="0"
+               Grid.Row="10" 
+               VerticalAlignment="Center" 
+               Margin="110,0,30,0" 
+               Text="{Binding NumberOfPeople, UpdateSourceTrigger=PropertyChanged}"
+               Visibility="Collapsed"/>
+
+        <Button x:Name="ReserveButton"
+             Content="Reserve" 
+             Grid.Column="0" 
+             Grid.Row="11"
+             VerticalAlignment="Center" 
+             HorizontalAlignment="Center"
+             Height="30"
+             Width="80"
+             Visibility="Collapsed"
+             Click="ReserveAccommodation"/>
+        <Button x:Name="CancelButton"
+             Content="Cancel" 
+             Grid.Column="1"
+             Grid.Row="11" 
+             VerticalAlignment="Center"
+             Width="80"
+             Height="30"
+             Click="Cancel"></Button>
+
+    </Grid>
+</UserControl>

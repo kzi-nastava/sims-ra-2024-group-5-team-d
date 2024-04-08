@@ -94,7 +94,7 @@ namespace BookingApp.Domain.Models
             else
                 return 0;
         }
-        public int CalculateNumberOfDaysInSelectedMonthInYear(int month,int year)
+        public int CalculateNumberOfDaysInSelectedMonthInYear(int month, int year)
         {
             if (ReservedFrom.Year != year && ReservedFrom.Month == month)
                 return 0;
@@ -105,6 +105,10 @@ namespace BookingApp.Domain.Models
             else if (ReservedFrom.Month == ReservedTo.Month)
                 return (ReservedTo - ReservedFrom).Days;
             else return 0;
+        }
+        public bool IsOutOfRange(DateTime fromDate, DateTime toDate)
+        {
+            return fromDate > ReservedTo || toDate < ReservedFrom;
         }
         //MOZDA JE OVA BOLJA OD GORNJE
         /*public int CalculateNumberOfDaysInSelectedMonthInYear(int month, int year)

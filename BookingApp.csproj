@@ -28,6 +28,32 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\GuestImages\ABCIcon.png" />
+    <None Remove="Resources\Images\GuestImages\ApprovedIcon.png" />
+    <None Remove="Resources\Images\GuestImages\BackIcon.png" />
+    <None Remove="Resources\Images\GuestImages\BathIcon.png" />
+    <None Remove="Resources\Images\GuestImages\BedsIcon.png" />
+    <None Remove="Resources\Images\GuestImages\CalendarIcon.png" />
+    <None Remove="Resources\Images\GuestImages\CheckIcon.png" />
+    <None Remove="Resources\Images\GuestImages\ClockIcon.png" />
+    <None Remove="Resources\Images\GuestImages\DaysIcon.png" />
+    <None Remove="Resources\Images\GuestImages\HelpIcon.png" />
+    <None Remove="Resources\Images\GuestImages\HouseIcon.png" />
+    <None Remove="Resources\Images\GuestImages\InboxIcon.png" />
+    <None Remove="Resources\Images\GuestImages\KnifeAndForkIcon.png" />
+    <None Remove="Resources\Images\GuestImages\LocationIcon.png" />
+    <None Remove="Resources\Images\GuestImages\NotificationIcon.png" />
+    <None Remove="Resources\Images\GuestImages\OtherIcon.png" />
+    <None Remove="Resources\Images\GuestImages\ParkingIcon.png" />
+    <None Remove="Resources\Images\GuestImages\PersonIcon.png" />
+    <None Remove="Resources\Images\GuestImages\RejectedIcon.png" />
+    <None Remove="Resources\Images\GuestImages\SearchIcon.png" />
+    <None Remove="Resources\Images\GuestImages\StarIcon.png" />
+    <None Remove="Resources\Images\GuestImages\TravelBagIcon.png" />
+    <None Remove="Resources\Images\GuestImages\UserIcon.png" />
+    <None Remove="Resources\Images\GuestImages\WaitingIcon.png" />
+    <None Remove="Resources\Images\GuestImages\WiFiIcon.png" />
+    <None Remove="Resources\Images\GuestImages\XIcon.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\TourImages\Tour1\caption.jpg" />
     <None Remove="Resources\TourImages\Tour2\caption.jpg" />
@@ -36,6 +62,12 @@
     <None Remove="Resources\TourImages\Tour4\GFS_smederevo-trg-25-09-09-04.jpg" />
     <None Remove="Resources\TourImages\Tour5\download.jpeg" />
     <None Remove="Resources\TourImages\Tour6\GFS_smederevo-trg-25-09-09-04.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\GuestImages\WaitingIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -78,6 +110,81 @@
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\GuestImages\ABCIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\ApprovedIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\BackIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\BathIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\BedsIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\CalendarIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\CheckIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\ClockIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\DaysIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\HelpIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\HouseIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\InboxIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\KnifeAndForkIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\LocationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\NotificationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\OtherIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\ParkingIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\PersonIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\RejectedIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\SearchIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\StarIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\TravelBagIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\UserIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\WiFiIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\XIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -102,7 +209,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\GuestImages\" />
     <Folder Include="Resources\Images\GuideImages\" />
     <Folder Include="Resources\Images\TouristImages\" />
     <Folder Include="Resources\Images\OwnerImages\" />
