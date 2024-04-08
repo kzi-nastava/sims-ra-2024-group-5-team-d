@@ -32,8 +32,8 @@
                      Grid.Row="2"
                      Grid.ColumnSpan="4"
                      ScrollViewer.CanContentScroll="False"
-                     ItemsSource="{Binding Accommodations}"
-                     SelectedItem="{Binding SelectedAccommodation}">
+                     ItemsSource="{Binding ActiveReservations}"
+                     SelectedItem="{Binding SelectedActiveReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Black" 
@@ -162,7 +162,7 @@
 
             </TabItem>
 
-            <TabItem Header="Canceled" 
+            <TabItem Header="Cancelled" 
                   Width="100">
                 <ListView BorderThickness="0" 
                       Background="Transparent"
@@ -170,8 +170,8 @@
                       Grid.Row="2"
                       Grid.ColumnSpan="4"
                       ScrollViewer.CanContentScroll="False"
-                      ItemsSource="{Binding Accommodations}"
-                      SelectedItem="{Binding SelectedAccommodation}">
+                      ItemsSource="{Binding CancelledReservations}"
+                      SelectedItem="{Binding SelectedCancelledReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Black" 
@@ -285,8 +285,8 @@
                      Grid.Row="2"
                      Grid.ColumnSpan="4"
                      ScrollViewer.CanContentScroll="False"
-                     ItemsSource="{Binding Accommodations}"
-                     SelectedItem="{Binding SelectedReservation}">
+                     ItemsSource="{Binding FinishedReservations}"
+                     SelectedItem="{Binding SelectedFinishedReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Black" 

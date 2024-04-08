@@ -1,6 +1,7 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Repositories;
+using BookingApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -88,8 +89,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private Accommodation accommodation;
-        public Accommodation Accommodation
+        private AccommodationViewModel accommodation;
+        public AccommodationViewModel Accommodation
         {
             get => accommodation;
             set
@@ -110,10 +111,11 @@ namespace BookingApp.WPF.Views.GuestWindows
         public KeyValuePair<DateTime, DateTime> SelectedDate { get; set; }
         private AvailableDatesForReservationService AvailableDatesForReservationService;
 
-        public AddReservationAccommodationUserControl(User user, Accommodation selectedAccommmodation)
+        public AddReservationAccommodationUserControl(User user, AccommodationViewModel selectedAccommmodation)
         {
 
             _reservationRepository = new AccommodationReservationRepository();
+            _repository = new AccommodationRepository();
             LoggedInUser = user;
             AvailableDatesForReservationService = new AvailableDatesForReservationService();
             AvailableDates = new ObservableCollection<KeyValuePair<DateTime, DateTime>>();
@@ -153,12 +155,12 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             AvailableDates.Clear();
             NotAvailableLabel.Visibility = Visibility.Collapsed;
-            AvailableDatesForReservationService.CheckAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, Accommodation).ForEach(availableDate => AvailableDates.Add(availableDate));
+            AvailableDatesForReservationService.CheckAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, _repository.GetById(Accommodation.Id)).ForEach(availableDate => AvailableDates.Add(availableDate));
             if (AvailableDates.Count() != 0)
                 ShowReservationControls();
             else
             {
-                AvailableDatesForReservationService.FindandShowAvailableDatesForExtendendRange(fromDate, toDate, numberOfDays, Accommodation).ForEach(availableDate => AvailableDates.Add(availableDate));
+                AvailableDatesForReservationService.FindandShowAvailableDatesForExtendendRange(fromDate, toDate, numberOfDays, _repository.GetById(Accommodation.Id)).ForEach(availableDate => AvailableDates.Add(availableDate));
                 ShowReservationControls();
                 NotAvailableLabel.Visibility = Visibility.Visible;
             }

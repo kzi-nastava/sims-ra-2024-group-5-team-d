@@ -41,7 +41,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         }
         private void TravelBagIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            contentControl.Content = new ReservationsAccommodationUserControl(LoggedInUser, Accommodation);
+            contentControl.Content = new ReservationsAccommodationUserControl(LoggedInUser);
         }
 
         private void InboxOpen_Button(object sender, MouseButtonEventArgs e)

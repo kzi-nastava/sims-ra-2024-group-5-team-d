@@ -63,6 +63,16 @@ namespace BookingApp.Domain.Models
         {
             return Cancelled == 1;
         }
+
+        public bool IsActive()
+        {
+            return !IsCanceled() && DateTime.Now < ReservedFrom;
+        }
+
+        public bool IsFinished()
+        {
+            return !IsCanceled() && DateTime.Now > ReservedTo;
+        }
         public bool IsRateable()
         {
             return (DateTime.Now - ReservedTo).Days >= 0 && (DateTime.Now - ReservedTo).Days <= 5;
