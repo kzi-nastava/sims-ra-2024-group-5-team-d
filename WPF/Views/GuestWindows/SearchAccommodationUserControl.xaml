@@ -1,13 +1,13 @@
-﻿<UserControl x:Class="BookingApp.WPF.Views.SearchAccommodationUserControl"
+﻿<UserControl x:Class="BookingApp.WPF.Views.GuestWindows.SearchAccommodationUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BookingApp.WPF.Views" xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:sys="clr-namespace:System;assembly=System.Runtime" xmlns:local1="clr-namespace:BookingApp.WPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="657.04" d:DesignWidth="430">
     <UserControl.Resources>
-        <local:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -56,7 +56,7 @@
                  Grid.ColumnSpan="3"
                  Grid.RowSpan="6"/>
 
-                    <Image Source="../../Resources/Images/GuestImages/ABCIcon.png"
+                    <Image Source="../../../Resources/Images/GuestImages/ABCIcon.png"
                  Grid.Column="0" 
                  Grid.Row="0"
                  Width="20" 
@@ -84,7 +84,7 @@
                   VerticalAlignment="Bottom">
                     </Border>
 
-                    <Image Source="../../Resources/Images/GuestImages/SearchIcon.png"
+                    <Image Source="../../../Resources/Images/GuestImages/SearchIcon.png"
                  Grid.Column="0"
                  Grid.Row="1"
                  Width="25" 
@@ -125,7 +125,7 @@
                     </Border>
 
 
-                    <Image Source="../../Resources/Images/GuestImages/PersonIcon.png"
+                    <Image Source="../../../Resources/Images/GuestImages/PersonIcon.png"
                  Grid.Column="0"
                  Grid.Row="2"
                  Width="22"
@@ -151,7 +151,7 @@
                   VerticalAlignment="Bottom">
                     </Border>
 
-                    <Image Source="../../Resources/Images/GuestImages/DaysIcon.png"
+                    <Image Source="../../../Resources/Images/GuestImages/DaysIcon.png"
                  Grid.Column="0"
                  Grid.Row="3"
                  Width="22"
@@ -179,7 +179,7 @@
 
                     </Border>
 
-                    <Image Source="../../Resources/Images/GuestImages/HouseIcon.png"
+                    <Image Source="../../../Resources/Images/GuestImages/HouseIcon.png"
                          Grid.Column="0" 
                          Grid.Row="4"
                          Width="20" 
@@ -258,7 +258,7 @@
                  Grid.ColumnSpan="3"
                  Grid.RowSpan="4"/>
 
-                    <Image Source="../../Resources/Images/GuestImages/PersonIcon.png"
+                    <Image Source="../../../Resources/Images/GuestImages/PersonIcon.png"
                       Grid.Column="0"
                       Grid.Row="0"
                       Width="22"
@@ -284,7 +284,7 @@
                        VerticalAlignment="Bottom">
                     </Border>
 
-                    <Image Source="../../Resources/Images/GuestImages/DaysIcon.png"
+                    <Image Source="../../../Resources/Images/GuestImages/DaysIcon.png"
                       Grid.Column="0"
                       Grid.Row="1"
                       Width="22"
@@ -310,7 +310,7 @@
                        VerticalAlignment="Bottom">
                     </Border>
 
-                    <Image Source="../../Resources/Images/GuestImages/CalendarIcon.png"
+                    <Image Source="../../../Resources/Images/GuestImages/CalendarIcon.png"
                  Grid.Column="0"
                  Grid.Row="2"
                  Width="22" 
@@ -422,14 +422,14 @@
                                  Width="auto"
                                  FontSize="11" 
                                  Margin="14,0,0,0"/>
-                            <Image Source="../../Resources/Images/GuestImages/LocationIcon.png" 
+                            <Image Source="../../../Resources/Images/GuestImages/LocationIcon.png" 
                              Width="auto" 
                              Height="20" 
                              HorizontalAlignment="Left" 
                              VerticalAlignment="Center"                                      
                              Grid.Row="1"
                              Grid.Column="1"/>
-                            <Image Source="../../Resources/Images/GuestImages/StarIcon.png" 
+                            <Image Source="../../../Resources/Images/GuestImages/StarIcon.png" 
                              Width="20" 
                              Height="20" 
                              HorizontalAlignment="Right" 
@@ -446,7 +446,7 @@
                                  Width="61"
                                  FontSize="11" 
                                  Margin="0,0,5,0"/>
-                            <Image Source="../../Resources/Images/GuestImages/PersonIcon.png" 
+                            <Image Source="../../../Resources/Images/GuestImages/PersonIcon.png" 
                              Width="20" 
                              Height="20" 
                              HorizontalAlignment="Center" 

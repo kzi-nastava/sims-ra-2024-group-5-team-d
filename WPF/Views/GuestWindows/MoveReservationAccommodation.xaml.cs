@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Views.GuestWindows
 {
     /// <summary>
     /// Interaction logic for MoveReservationAccommodation.xaml
