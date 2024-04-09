@@ -1,0 +1,67 @@
+﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.Views.GuestWindows;
+using BookingApp.WPF.Views.OwnerView;
+using BookingApp.WPF.Views.TouristGuide;
+using BookingApp.WPF.Views;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using BookingApp.Domain.RepositoryInterfaces;
+
+namespace BookingApp.Appl.UseCases
+{
+    public class SignInService
+    {
+        private readonly IUserRepository userRepository;
+        public SignInService()
+        {
+            userRepository = Injector.CreateInstance<IUserRepository>();
+        }
+        public string CkeckCredentials(string username,string password)
+        {
+            User user = userRepository.GetByUsername(username);
+            if (user != null)
+            {
+                if (user.Password == password)
+                {
+                    if (user.Type.ToString().Equals("Guest"))
+                    {
+                        GuestWindow guestWindow = new GuestWindow(user);
+                        guestWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        guestWindow.ShowDialog();
+                    }
+                    else if (user.Type.ToString().Equals("Owner"))
+                    {
+                        OwnerMainWindow ownerWindow = new OwnerMainWindow(user);
+                        ownerWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        ownerWindow.ShowDialog();
+                    }
+                    else if (user.Type.ToString().Equals("Tourist"))
+                    {
+                        TouristHomeWindow touristWindow = new TouristHomeWindow();
+                        touristWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        touristWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        SideBar touristGuideWindow = new SideBar(user);
+                        touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        touristGuideWindow.ShowDialog();
+                    }
+                    return "Success";
+                }
+                else
+                {
+                   return "Wrong password!";
+                }
+            }
+            else
+            {
+                return "Wrong username!";
+            }
+        }
+    }
+}

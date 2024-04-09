@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:local1="clr-namespace:BookingApp.WPF.Views"
+             xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="950">
     <UserControl.Resources>

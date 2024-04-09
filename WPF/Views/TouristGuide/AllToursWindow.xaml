@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
              xmlns:sys="clr-namespace:System;assembly=mscorlib" 
-             xmlns:local1="clr-namespace:BookingApp.WPF.Views"
+             xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="950">
     <UserControl.Resources>
-        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter" />
-        <!-- Style for the tabs -->
+        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+            <!-- Style for the tabs -->
         <Style TargetType="Label" x:Key="TabsLabelsStyle">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>

@@ -1,7 +1,7 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.WPF.Comands;
+using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views;
 using System;
 using System.Collections.Generic;
