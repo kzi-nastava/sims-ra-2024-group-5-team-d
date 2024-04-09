@@ -1,6 +1,8 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using BookingApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace BookingApp.WPF.Views.GuestWindows
 {
@@ -32,25 +35,36 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
-        public ObservableCollection<AccommodationReservation> Reservations { get; set; }
+        public ObservableCollection<UserReservationsViewModel> ActiveReservations { get; set; }
+        public ObservableCollection<UserReservationsViewModel> FinishedReservations { get; set; }
+        public ObservableCollection<UserReservationsViewModel> CancelledReservations { get; set; }
+
+        public UserReservationsViewModel SelectedActiveReservation;
         public User LoggedInUser { get; set; }
-        private readonly AccommodationRepository repository;
-        private readonly AccommodationReservationRepository repositoryReservation;
-        public AccommodationReservation SelectedReservation { get; set; }
-        public Accommodation Accommodation { get; set; }
-        public ReservationsAccommodationUserControl(User user, Accommodation accommodation)
+        public AccommodationReservationRepository repository { get; set; }
+        public UserReservationsService reservationsService { get; set; } 
+        public AccommodationReservation accommodationReservation { get; set; }
+        private IAccommodationRepository accommodationRepository;
+        public ReservationsAccommodationUserControl(User user)
         {
+            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
-            Accommodation = accommodation;
             DataContext = this;
-            repository = new AccommodationRepository();
-            //repositoryReservation = new AccommodationReservationRepository();
-            Accommodations = new ObservableCollection<Accommodation>(repository.GetAll());
-            //Reservations = new ObservableCollection<AccommodationReservation>(repositoryReservation.GetByAccommodation(Accommodation));
-
+            SelectedActiveReservation = new UserReservationsViewModel();
+            accommodationReservation = new AccommodationReservation();
+            repository = new AccommodationReservationRepository();
+            reservationsService = new UserReservationsService();
+            ActiveReservations = new ObservableCollection<UserReservationsViewModel>();
+            FinishedReservations = new ObservableCollection<UserReservationsViewModel>();
+            CancelledReservations = new ObservableCollection<UserReservationsViewModel>();
+            reservationsService.GetActiveReservationsForUser(LoggedInUser,accommodationReservation)
+                .ForEach(r => ActiveReservations.Add(new UserReservationsViewModel(r.Id,accommodationRepository.GetAccommodationNameById(r.AccommodationId) , accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo)));
+            reservationsService.GetFinishedReservationsForUser(LoggedInUser, accommodationReservation)
+                .ForEach(r => FinishedReservations.Add(new UserReservationsViewModel(r.Id, accommodationRepository.GetAccommodationNameById(r.AccommodationId), accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo)));
+            reservationsService.GetCancelledReservationsForUser(LoggedInUser, accommodationReservation)
+                .ForEach(r => CancelledReservations.Add(new UserReservationsViewModel(r.Id, accommodationRepository.GetAccommodationNameById(r.AccommodationId), accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo)));
         }
         private void MoveReservationClick(object sender, RoutedEventArgs e)
         {
