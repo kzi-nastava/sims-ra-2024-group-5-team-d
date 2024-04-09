@@ -47,7 +47,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.Column="0" Source="C:\Users\lukai\Desktop\Resource\profilna.png" Width="32" Height="32" HorizontalAlignment="Left"></Image>
-                                    <TextBlock Grid.Column="1" Text="{Binding Name}" FontSize="28" HorizontalAlignment="Left" Margin="20 0 0 0"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="{Binding FullName}" FontSize="28" HorizontalAlignment="Left" Margin="20 0 0 0"></TextBlock>
 
                                 </Grid>
                             </Border>

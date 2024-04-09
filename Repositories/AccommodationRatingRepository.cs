@@ -26,6 +26,11 @@ namespace BookingApp.Repositories
             _accommodationRatings = _serializer.FromCSV(FilePath);
             return _accommodationRatings;
         }
+        public AccommodationRating GetById(int id)
+        {
+            _accommodationRatings = _serializer.FromCSV(FilePath);
+            return _accommodationRatings.Find(accommodationRating => accommodationRating.Id == id);
+        }
         public AccommodationRating Update(AccommodationRating accommodationRating)
         {
             _accommodationRatings = _serializer.FromCSV(FilePath);

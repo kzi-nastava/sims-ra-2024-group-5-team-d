@@ -38,7 +38,7 @@ namespace BookingApp.WPF.Views.OwnerView
             UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
             DataContext = this;
             unratedGuestService.GetUnratedGuests(LoggedInUser)
-                                .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userRepository.GetById(unratedGuest.UserId).Username)));
+                                .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userRepository.GetById(unratedGuest.UserId).FullName)));
             InitializeComponent();
         }
         private void RateGuest(object sender, RoutedEventArgs e)
@@ -50,8 +50,8 @@ namespace BookingApp.WPF.Views.OwnerView
 
         private void OwnerRates(object sender, RoutedEventArgs e)
         {
-          //  OwnerRatings ownerRatings = new OwnerRatings();
-         //   OwnerMainWindow.contentControl.Content = ownerRatings;
+            OwnerRatingsUserControl ownerRatingsUserControl = new OwnerRatingsUserControl(LoggedInUser);
+            OwnerMainWindow.contentControl.Content = ownerRatingsUserControl;
         }
     }
 }

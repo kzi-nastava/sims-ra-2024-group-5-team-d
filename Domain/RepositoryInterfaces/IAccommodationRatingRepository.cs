@@ -13,5 +13,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public AccommodationRating Update(AccommodationRating accommodationRating);
         public List<AccommodationRating> GetByGuest(User guest);
         public AccommodationRating Save(AccommodationRating accommodationRating);
+        public AccommodationRating GetById(int id);
     }
 }

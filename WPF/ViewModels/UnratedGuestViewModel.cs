@@ -11,7 +11,7 @@ namespace BookingApp.WPF.ViewModels
     public class UnratedGuestViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FullName { get; set; }
         public string Surname { get; set; }
         public DateTime ReservedFrom { get; set; }
         public DateTime ReservedTo { get; set; }
@@ -22,14 +22,14 @@ namespace BookingApp.WPF.ViewModels
         {
 
         }
-        public UnratedGuestViewModel(string name)
+        public UnratedGuestViewModel(string fullName)
         {
-            Name = name;
+            FullName = fullName;
         }
         public UnratedGuestViewModel(int id,string name,DateTime reservedFrom, DateTime reservedTo,Location location, string accommodationName)
         {
             Id = id;
-            Name = name;
+            FullName = name;
             ReservedFrom = reservedFrom;
             ReservedTo = reservedTo;
             Location = location;

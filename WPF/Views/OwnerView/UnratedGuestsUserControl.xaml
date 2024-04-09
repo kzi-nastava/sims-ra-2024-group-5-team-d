@@ -47,7 +47,7 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Name}" Foreground="#124076" Grid.Column="0" FontSize="28" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding FullName}" Foreground="#124076" Grid.Column="0" FontSize="28" FontWeight="Bold"/>
                                 <Grid Grid.Column="1" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
