@@ -186,8 +186,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuideImages\User.png">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\GuestImages\ABCIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -296,6 +296,10 @@
     <Resource Include="Resources\Fonts\OpenSans-VariableFont_wdth,wght.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Folder Include="Resources\Images\GuestImages\" />
+    <Folder Include="Resources\Images\GuideImages\" />
+    <Folder Include="Resources\Images\TouristImages\" />
+    <Folder Include="Resources\Images\OwnerImages\" />
   </ItemGroup>
 
   <ItemGroup>
