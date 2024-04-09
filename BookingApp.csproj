@@ -27,10 +27,11 @@
     <None Remove="Resources\AccommodationImages\Accommodation8\a.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation9\b.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation10\12.jpg" />
+    <None Remove="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf" />
+    <None Remove="Resources\Fonts\OpenSans-VariableFont_wdth,wght.ttf" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
-<<<<<<< HEAD
     <None Remove="Resources\Images\GuideImages\Add Circle.png" />
     <None Remove="Resources\Images\GuideImages\Alt Arrow Down.png" />
     <None Remove="Resources\Images\GuideImages\Alt Arrow Left.png" />
@@ -46,7 +47,6 @@
     <None Remove="Resources\Images\GuideImages\Question Circle.png" />
     <None Remove="Resources\Images\GuideImages\User Circle.png" />
     <None Remove="Resources\Images\GuideImages\User.png" />
-=======
     <None Remove="Resources\Images\GuestImages\ABCIcon.png" />
     <None Remove="Resources\Images\GuestImages\ApprovedIcon.png" />
     <None Remove="Resources\Images\GuestImages\BackIcon.png" />
@@ -73,7 +73,8 @@
     <None Remove="Resources\Images\GuestImages\WaitingIcon.png" />
     <None Remove="Resources\Images\GuestImages\WiFiIcon.png" />
     <None Remove="Resources\Images\GuestImages\XIcon.png" />
->>>>>>> 55386744cb24418727beaf2c454eb48c5f5d2a70
+    <None Remove="Resources\Images\OwnerImages\loginPicture.jpg" />
+    <None Remove="Resources\Images\OwnerImages\loginPicture1.jpg" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\TourImages\Tour1\caption.jpg" />
     <None Remove="Resources\TourImages\Tour2\caption.jpg" />
@@ -82,6 +83,12 @@
     <None Remove="Resources\TourImages\Tour4\GFS_smederevo-trg-25-09-09-04.jpg" />
     <None Remove="Resources\TourImages\Tour5\download.jpeg" />
     <None Remove="Resources\TourImages\Tour6\GFS_smederevo-trg-25-09-09-04.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\OwnerImages\loginPicture1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -179,6 +186,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuideImages\User.png">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
     <Content Include="Resources\Images\GuestImages\ABCIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -254,6 +263,9 @@
     <Content Include="Resources\Images\GuestImages\XIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\OwnerImages\loginPicture.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -278,16 +290,22 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-    <Folder Include="Resources\Images\GuestImages\" />
-=======
-    <Folder Include="Resources\Images\GuideImages\" />
->>>>>>> 55386744cb24418727beaf2c454eb48c5f5d2a70
-    <Folder Include="Resources\Images\TouristImages\" />
-    <Folder Include="Resources\Images\OwnerImages\" />
+    <EmbeddedResource Include="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Resource Include="Resources\Fonts\OpenSans-VariableFont_wdth,wght.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Resources\Images\GuestImages\" />
+    <Folder Include="Resources\Images\GuideImages\" />
+    <Folder Include="Resources\Images\TouristImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Svg.Skia" Version="1.0.0.18" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
