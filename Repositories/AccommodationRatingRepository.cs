@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repositories
 {
-    public class AccommodationRatingRepository
+    public class AccommodationRatingRepository : IAccommodationRatingRepository
     {
         private const string FilePath = "../../../Resources/Data/accommodationRatings.csv";
 

@@ -17,21 +17,21 @@ namespace BookingApp.Appl.UseCases
             
         }
 
-        public List<AccommodationReservation> GetActiveReservationsForUser(User loggedUser, AccommodationReservation reservation)
+        public List<AccommodationReservation> GetActiveReservationsForUser(User loggedUser)
         {
             List<AccommodationReservation> userReservations = accommodationReservationRepository.GetByUser(loggedUser);
-            return userReservations.Where(r => reservation.IsActive()).ToList();
+            return userReservations.Where(r => r.IsActive()).ToList();
         }
-        public List<AccommodationReservation> GetFinishedReservationsForUser(User loggedUser, AccommodationReservation reservation)
+        public List<AccommodationReservation> GetFinishedReservationsForUser(User loggedUser)
         {
             List<AccommodationReservation> userReservations = accommodationReservationRepository.GetByUser(loggedUser);
-            return userReservations.Where(r => reservation.IsFinished()).ToList();
+            return userReservations.Where(r => r.IsFinished()).ToList();
 
         }
-        public List<AccommodationReservation> GetCancelledReservationsForUser(User loggedUser, AccommodationReservation reservation)
+        public List<AccommodationReservation> GetCancelledReservationsForUser(User loggedUser)
         {
             List<AccommodationReservation> userReservations = accommodationReservationRepository.GetByUser(loggedUser);
-            return userReservations.Where(r => reservation.IsCanceled()).ToList();
+            return userReservations.Where(r => r.IsCanceled()).ToList();
             
         }
     }

@@ -1,4 +1,9 @@
-﻿using System;
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Repositories;
+using BookingApp.WPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace BookingApp.WPF.Views.GuestWindows
 {
@@ -30,7 +36,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 if (_cleanliness != value)
                 {
                     _cleanliness = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("Cleanliness");
                 }
             }
         }
@@ -44,7 +50,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 if (_correctness != value)
                 {
                     _correctness = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("Correctness");
                 }
             }
         }
@@ -58,34 +64,38 @@ namespace BookingApp.WPF.Views.GuestWindows
                 if (_comment != value)
                 {
                     _comment = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("Comment");
                 }
             }
         }
 
-        private string _renovation;
-        public string Renovation
-        {
-            get { return _renovation; }
-            set
-            {
-                if (_renovation != value)
-                {
-                    _renovation = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public OwnerAndAccommodationRatingWindow()
+        public User LoggedInUser;
+        public AccommodationReservation AccommodationReservation;
+        public int accommodationId;
+        public DateTime dateTime;
+        private IAccommodationRatingRepository accommodationRatingRepository;
+        public OwnerAndAccommodationRatingWindow(User user, AccommodationReservation accommodationReservation, int accommodationId)
         {
             InitializeComponent();
             DataContext = this;
+            LoggedInUser = user;
+            AccommodationReservation = accommodationReservation;
+            this.accommodationId = accommodationId;
+            dateTime = DateTime.Now;
+            accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
+
+        }
+
+        private void RateOwnerAndAccommodation(object sender, RoutedEventArgs e)
+        {
+            accommodationRatingRepository.Save(new AccommodationRating(accommodationId, LoggedInUser.Id, AccommodationReservation.Id, Cleanliness, Correctness, Comment, DateOnly.FromDateTime(dateTime)));
+            Close();
         }
     }
 }

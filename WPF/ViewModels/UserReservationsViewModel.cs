@@ -9,7 +9,7 @@ namespace BookingApp.WPF.ViewModels
 {
     public class UserReservationsViewModel
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
         public string ImagesPath { get; set; }
