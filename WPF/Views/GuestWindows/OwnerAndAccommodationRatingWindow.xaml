@@ -22,7 +22,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Image Source="ICON/XIcon.png"
+        <Image Source="../../../Resources/Images/GuestImages/XIcon.png"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Height="16" 
@@ -45,11 +45,13 @@
              Height="26" 
              Width="auto"
              Margin="10,15,0,0"/>
-        <TextBox Grid.Row="2" 
+        <TextBox Text="{Binding Cleanliness, UpdateSourceTrigger=PropertyChanged}"
+              Grid.Row="2" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Left"
               Width="30"
-              Height="20" Margin="110,0,0,3"/>
+              Height="20" 
+              Margin="110,0,0,3"/>
 
         <Label Content="Correctness of the owner(1-5):" 
              HorizontalAlignment="Left"
@@ -58,7 +60,8 @@
              Height="26" 
              Width="auto"
              Margin="10,10,0,0"/>
-        <TextBox Grid.Row="3" 
+        <TextBox Text="{Binding Correctness, UpdateSourceTrigger=PropertyChanged}"
+              Grid.Row="3" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Left"
               Width="30"
@@ -71,7 +74,8 @@
             Height="26" 
             Width="auto"
             Margin="10,10,0,0"/>
-        <TextBox Grid.Row="5" 
+        <TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
+              Grid.Row="5" 
               VerticalAlignment="Center" 
               HorizontalAlignment="Center"
               Width="280"
@@ -88,13 +92,12 @@
             Width="auto"
             Margin="10,0,0,0"/>
 
-        <StackPanel Grid.Row="7"
-         Margin="0,0,0,10">
+        <StackPanel Grid.Row="7" Margin="0,0,0,10" DataContext="{Binding}">
             <StackPanel.Resources>
-                <Style TargetType="CheckBox" x:Key="RoundCheckBox">
+                <Style TargetType="RadioButton" x:Key="RoundRadioButton">
                     <Setter Property="Template">
                         <Setter.Value>
-                            <ControlTemplate TargetType="CheckBox">
+                            <ControlTemplate TargetType="RadioButton">
                                 <Grid>
                                     <Ellipse Width="15" Height="15" Stroke="Black" Fill="{TemplateBinding Background}" HorizontalAlignment="Left" Margin="10,0,0,4"/>
                                     <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0"/>
@@ -104,16 +107,21 @@
                     </Setter>
                 </Style>
             </StackPanel.Resources>
-            <CheckBox Name="checkBox1" Content="Level 1 (renovate small things, but is ok)" 
-           Style="{StaticResource RoundCheckBox}" />
-            <CheckBox Name="checkBox2" Content="Level 2 (need small changes)" 
-           Style="{StaticResource RoundCheckBox}" />
-            <CheckBox Name="checkBox3" Content="Level 3 (few things should be renovated)" 
-           Style="{StaticResource RoundCheckBox}"  />
-            <CheckBox Name="checkBox4" Content="Level 4 (lots of bad things, need renovation)" 
-           Style="{StaticResource RoundCheckBox}"  />
-            <CheckBox Name="checkBox5" Content="Level 5 (very bad condition, big renovation)" 
-           Style="{StaticResource RoundCheckBox}" />
+            <RadioButton Name="radioButton1" Content="{Binding Name}" 
+             ToolTip="{Binding Renovate}" 
+             Style="{StaticResource RoundRadioButton}" />
+            <RadioButton Name="radioButton2" Content="{Binding Name}" 
+             ToolTip="{Binding Renovate}" 
+             Style="{StaticResource RoundRadioButton}" />
+            <RadioButton Name="radioButton3" Content="{Binding Name}" 
+             ToolTip="{Binding Renovate}" 
+             Style="{StaticResource RoundRadioButton}" />
+            <RadioButton Name="radioButton4" Content="{Binding Name}" 
+             ToolTip="{Binding Renovate}" 
+             Style="{StaticResource RoundRadioButton}" />
+            <RadioButton Name="radioButton5" Content="{Binding Name}" 
+             ToolTip="{Binding Renovate}" 
+             Style="{StaticResource RoundRadioButton}" />
         </StackPanel>
 
         <Label Content="Add photo" 
