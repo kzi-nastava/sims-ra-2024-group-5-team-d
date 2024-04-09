@@ -37,7 +37,7 @@ namespace BookingApp.WPF.Views
 
             // Postavljanje tajmera za kašnjenje
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(5);
+            timer.Interval = TimeSpan.FromSeconds(1);//TREBA 5 ili 4 sekunde
             timer.Tick += Timer_Tick;
             timer.Start();
         }
