@@ -30,6 +30,33 @@ namespace BookingApp.WPF.Views.GuestWindows
     /// </summary>
     public partial class ReservationsAccommodationUserControl : UserControl
     {
+        private bool _cancellationEnabled;
+        public bool CancellationEnabled
+        {
+            get { return _cancellationEnabled; }
+            set
+            {
+                if (_cancellationEnabled != value)
+                {
+                    _cancellationEnabled = value;
+                    OnPropertyChanged(nameof(CancellationEnabled));
+                }
+            }
+        }
+        private bool _rateEnabled;
+        public bool RateEnabled
+        {
+            get { return _rateEnabled; }
+            set
+            {
+                if (_rateEnabled != value)
+                {
+                    _rateEnabled = value;
+                    OnPropertyChanged(nameof(RateEnabled));
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -71,23 +98,47 @@ namespace BookingApp.WPF.Views.GuestWindows
         }
         private void MoveReservationClick(object sender, RoutedEventArgs e)
         {
+            
             MoveReservationAccommodation moveReservationWindow = new MoveReservationAccommodation();
             moveReservationWindow.Show();
         }
 
         private void RateTheOwnerClick(object sender, RoutedEventArgs e)
         {
-            OwnerAndAccommodationRatingWindow rateWindow = new OwnerAndAccommodationRatingWindow(LoggedInUser, accommodationReservationRepository.GetById(SelectedReservation.Id), accommodationReservationRepository.GetById(SelectedReservation.Id).AccommodationId);
-            rateWindow.Show();
-
-
+            if (accommodationReservationRepository.GetById(SelectedReservation.Id).IsRateable())
+            {
+                OwnerAndAccommodationRatingWindow rateWindow = new OwnerAndAccommodationRatingWindow(LoggedInUser, accommodationReservationRepository.GetById(SelectedReservation.Id), accommodationReservationRepository.GetById(SelectedReservation.Id).AccommodationId);
+                rateWindow.Show();
+                RateEnabled = true;
+            }
+            else
+            {
+                RateEnabled = false;
+            }
         }
+
+        //private void CancelledReservationButton(object sender, RoutedEventArgs e)
+        //{
+        //            YesNoCancelledReservationWindow yesNoWindow = new YesNoCancelledReservationWindow(SelectedReservation);
+        //        yesNoWindow.Show();
+        //  }
+        
 
         private void CancelledReservationButton(object sender, RoutedEventArgs e)
         {
-            YesNoCancelledReservationWindow yesNoWindow = new YesNoCancelledReservationWindow(SelectedReservation);
-            yesNoWindow.Show();
+            if (repository.IsCancellable(accommodation , accommodationReservationRepository.GetById(SelectedReservation.Id))) //accommodation kako sam pozvalaaaa
+            {
+                YesNoCancelledReservationWindow yesNoWindow = new YesNoCancelledReservationWindow(SelectedReservation);
+                yesNoWindow.Show();
+                CancellationEnabled = true;
+            }
+            else
+            {
+                CancellationEnabled = false;
+            }
         }
+
+
 
     }
 }
