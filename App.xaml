@@ -17,10 +17,19 @@
             <SolidColorBrush x:Key="PrimaryBlack2" Color="#838383" />
             <SolidColorBrush x:Key="PrimaryBlack3" Color="#C8C8C8" />
             <SolidColorBrush x:Key="WhiteGrey" Color="#EEEEEE" />
-            <Style x:Key="FontGlobal">
-                <Setter Property="TextElement.FontFamily" Value="/Resources/Fonts/OpenSans-VariableFont_wdth,wght.ttf"/>
+            <FontFamily x:Key="CustomFont">/Resources/Fonts/#Open Sans</FontFamily>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource CustomFont}" />
             </Style>
-            <FontFamily x:Key="Font">pack://application:,,,\Resources\Fonts\OpenSans-VariableFont_wdth,wght.ttf</FontFamily>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource CustomFont}" />
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource CustomFont}" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="FontFamily" Value="{StaticResource CustomFont}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

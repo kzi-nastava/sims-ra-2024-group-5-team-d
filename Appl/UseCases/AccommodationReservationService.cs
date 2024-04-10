@@ -13,17 +13,17 @@ namespace BookingApp.Appl.UseCases
     public class AccommodationReservationService
     {
         private IAccommodationReservationRepository accommodationReservationRepository;
-        private AccommodationService accommodationService;
+        private IAccommodationRepository accommodationRepository;
         public AccommodationReservationService() {
 
-            accommodationService = new AccommodationService();
+            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
             
         }
-        public List<AccommodationReservation> GetAccommodationReservationsForUser(User user)
+        public List<AccommodationReservation> GetAllReservationsForOwner(User owner)
         {
             return accommodationReservationRepository.GetAll()
-                         .Where(reservation => accommodationService.IsReservationForUserAccommodation(reservation, user)).ToList();
+                         .Where(reservation => IsReservationForOwnerAccommodation(reservation, owner)).ToList();
         }
 
         public List<AccommodationReservation> FindRateableAccommodationReservations(List<AccommodationReservation> reservationsForUserAccommodations)
@@ -46,6 +46,11 @@ namespace BookingApp.Appl.UseCases
         {
             return guestRatings.Any(q => p.IsReservationRated(q.ReservationId));
         }*/
+        public List<AccommodationReservation> GetAllReservationsForAccommodation(int accommodationId)
+        {
+            return accommodationReservationRepository.GetAll()
+                .Where(reservation => reservation.AccommodationId == accommodationId).ToList();
+        }
         public int GetNumberOfReservedDaysInYear(int currentYear, List<AccommodationReservation> reservations)
         {
             return reservations.Where(r => r.IsMadeOrEndedInSelectedYear(currentYear) && !r.IsCanceled())
@@ -55,6 +60,10 @@ namespace BookingApp.Appl.UseCases
         {
             return reservations.Where(r => r.IsInSelectedMonth(month) && !r.IsCanceled())
                 .Sum(r => r.CalculateNumberOfDaysInSelectedMonthInYear(month, selectedYear));
+        }
+        public bool IsReservationForOwnerAccommodation(AccommodationReservation reservation, User owner)
+        {
+            return accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == reservation.AccommodationId);
         }
     }
 }

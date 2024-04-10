@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,14 +25,18 @@ namespace BookingApp.Domain.Models
         public int MinStay { get; set; }
         public int CancellationDeadline { get; set; }
         public string ImagesPath { get; set; }
+        public int AverageRating { get; set; }
+        public bool IsSuperOwner { get; set; }
         public User Owner { get; set; }
 
         public Accommodation()
         {
         }
 
-        public Accommodation(string name, Location location, TYPE type, int minStay, int cancellationDeadline, int capacity, string imagesPath, User owner)
+        public Accommodation(string name, Location location, TYPE type, int minStay, int cancellationDeadline, int capacity, string imagesPath, User owner,bool isSuperOwner)
         {
+            AverageRating = 0;
+            IsSuperOwner = isSuperOwner;
             Name = name;
             Location = location;
             Type = type;
@@ -44,7 +49,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Location.Id.ToString(), Type.ToString(), Capacity.ToString(), MinStay.ToString(), CancellationDeadline.ToString(), ImagesPath, Owner.Id.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Location.Id.ToString(), Type.ToString(), Capacity.ToString(), MinStay.ToString(), CancellationDeadline.ToString(), ImagesPath, Owner.Id.ToString(),AverageRating.ToString(),IsSuperOwner.ToString() };
             return csvValues;
         }
 
@@ -59,6 +64,8 @@ namespace BookingApp.Domain.Models
             CancellationDeadline = Convert.ToInt32(values[6]);
             ImagesPath = values[7];
             Owner = new User() { Id = Convert.ToInt32(values[8]) };
+            AverageRating = Convert.ToInt32(values[9]);
+            IsSuperOwner = Convert.ToBoolean(values[10]);
         }
     }
 

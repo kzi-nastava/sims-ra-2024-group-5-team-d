@@ -29,6 +29,7 @@
     <None Remove="Resources\AccommodationImages\Accommodation10\12.jpg" />
     <None Remove="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf" />
     <None Remove="Resources\Fonts\OpenSans-VariableFont_wdth,wght.ttf" />
+    <None Remove="Resources\Fonts\OpenSans_Condensed-Regular.ttf" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
@@ -290,12 +291,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf">
+    <Resource Include="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Resource Include="Resources\Fonts\OpenSans-VariableFont_wdth,wght.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Fonts\OpenSans_Condensed-Regular.ttf" />
     <Folder Include="Resources\Images\GuestImages\" />
     <Folder Include="Resources\Images\GuideImages\" />
     <Folder Include="Resources\Images\TouristImages\" />

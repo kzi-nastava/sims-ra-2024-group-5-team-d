@@ -12,9 +12,6 @@ namespace BookingApp.Appl.UseCases
 {
     public class CheckForUnratedGuestsService
     {
-        private IGuestRatingRepository guestRatingRepository;
-        private IAccommodationRepository accommodationRepository;
-        private IAccommodationReservationRepository accommodationReservationRepository;
         private AccommodationReservationService accommodationReservationService;
         private GuestRatingService guestRatingService;
 
@@ -22,21 +19,18 @@ namespace BookingApp.Appl.UseCases
         {
             accommodationReservationService = new AccommodationReservationService();
             guestRatingService = new GuestRatingService();
-            guestRatingRepository=Injector.CreateInstance<IGuestRatingRepository>();
-            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
-            accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
         }
-        public bool CheckForUnratedGuestsByLoggedInUser(User loggedInUser)
+        public bool CheckForUnratedGuestsByLoggedInUser(User owner)
         {
-            List<GuestRating> guestRatingsByLoggedInUser= guestRatingService.GetAllGuestRatingsByUser(loggedInUser);
-            List<AccommodationReservation> reservationsForLoggedInUserAccommodations= accommodationReservationService.GetAccommodationReservationsForUser(loggedInUser);
-            return AreThereUnratedGuests(guestRatingsByLoggedInUser,reservationsForLoggedInUserAccommodations);
+            List<GuestRating> guestRatingsByLoggedInUser= guestRatingService.GetAllGuestRatingsByOwner(owner);
+            List<AccommodationReservation> reservationsForOwnerAccommodations= accommodationReservationService.GetAllReservationsForOwner(owner);
+            return AreThereUnratedGuests(guestRatingsByLoggedInUser, reservationsForOwnerAccommodations);
         }
 
         //Da li ovo jos treba razdvoji ovaj poslednji return
-        private bool AreThereUnratedGuests(List<GuestRating> guestRatingsByLoggedInUser,List<AccommodationReservation> reservationsForLoggedInUserAccommodations)
+        private bool AreThereUnratedGuests(List<GuestRating> guestRatingsByLoggedInUser,List<AccommodationReservation> reservationsForOwnerAccommodations)
         {
-            List<AccommodationReservation> potentialUnratedReservations = accommodationReservationService.FindRateableAccommodationReservations(reservationsForLoggedInUserAccommodations);
+            List<AccommodationReservation> potentialUnratedReservations = accommodationReservationService.FindRateableAccommodationReservations(reservationsForOwnerAccommodations);
             return !potentialUnratedReservations.All(p => accommodationReservationService.IsGuestFromReservationRated(p, guestRatingsByLoggedInUser));
         }
       

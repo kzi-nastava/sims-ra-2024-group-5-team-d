@@ -52,5 +52,9 @@ namespace BookingApp.Domain.Models
             string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString() };
             return csvValues;
         }
+        public double GetAverageRating()
+        {
+            return (double)(Cleanliness+Correctness)/2;
+        }
     }
 }

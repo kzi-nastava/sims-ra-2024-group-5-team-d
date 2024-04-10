@@ -23,12 +23,12 @@ namespace BookingApp.Appl.UseCases
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
         }
 
-        public List<AccommodationReservation> GetUnratedGuests(User loggedInUser)
+        public List<AccommodationReservation> GetUnratedGuests(User owner)
         {
-          List<GuestRating> guestRatings= guestRatingService.GetAllGuestRatingsByUser(loggedInUser);
+          List<GuestRating> guestRatings= guestRatingService.GetAllGuestRatingsByOwner(owner);
             //Naredne 3 funkcije mogu u jednu pa da se pozivaju u drugom servisu
-          List<AccommodationReservation> reservations = accommodationReservationService.GetAccommodationReservationsForUser(loggedInUser);
-          List<AccommodationReservation> unratedReservations = accommodationReservationService.GetUnratedReservations(reservations,guestRatings);
+          List<AccommodationReservation> ownerReservations = accommodationReservationService.GetAllReservationsForOwner(owner);
+          List<AccommodationReservation> unratedReservations = accommodationReservationService.GetUnratedReservations(ownerReservations, guestRatings);
           List<AccommodationReservation> rateableUnratedGuests = new List<AccommodationReservation>();
           accommodationReservationService.FindRateableAccommodationReservations(unratedReservations)
                                          .ForEach(accommodationReservation=> rateableUnratedGuests.Add(accommodationReservation));
