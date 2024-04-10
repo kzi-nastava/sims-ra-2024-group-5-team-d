@@ -1,7 +1,7 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.WPF.Comands;
+using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views;
 using System;
 using System.Collections.Generic;
@@ -29,9 +29,13 @@ namespace BookingApp.WPF.ViewModels
         private readonly IAccommodationRepository accommodationRepository;
         private readonly ILocationRepository locationRepository;
         private List<string> imagesPath;
+        private AccommodationService accommodationService;
+        private User loggedInUser;
         public RegisterAccommodationViewModel(User user)
         {
+            this.loggedInUser = user;
             imagesPath = new List<string>();
+            accommodationService = new AccommodationService();
             locationRepository = Injector.CreateInstance<ILocationRepository>();
             Owner = user;
             accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
@@ -44,7 +48,7 @@ namespace BookingApp.WPF.ViewModels
         {
             string folderPath = imageUploaderService.CreateAccommodationFolder(imagesPath);
 
-            Accommodation newAccommodation = new Accommodation(Name, locationRepository.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner);
+            Accommodation newAccommodation = new Accommodation(Name, locationRepository.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner, accommodationService.IsSuperOwner(loggedInUser));
             Accommodation savedAccommodation = accommodationRepository.Save(newAccommodation);
         }
         private void UploadPicture()

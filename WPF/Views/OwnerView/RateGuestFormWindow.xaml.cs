@@ -34,7 +34,7 @@ namespace BookingApp.WPF.Views.OwnerView
             this.selectedGuest = selectedGuest;
             guestRatingRepository = Injector.CreateInstance<IGuestRatingRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
-            DataContext = new RateGuestViewModel(selectedGuest.Id, selectedGuest.Name);
+            DataContext = new RateGuestViewModel(selectedGuest.Id, selectedGuest.FullName);
             InitializeComponent();
         }
         private void Close(object sender, RoutedEventArgs e)

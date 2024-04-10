@@ -21,7 +21,6 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class NotificationPopUpUserControl : UserControl
     {
-
         public NotificationPopUpUserControl()
         {
             InitializeComponent();

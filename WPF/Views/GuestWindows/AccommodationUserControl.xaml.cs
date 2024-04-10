@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,8 +30,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private Accommodation accommodation;
-        public Accommodation Accommodation
+        private AccommodationViewModel accommodation;
+        public AccommodationViewModel Accommodation
         {
             get => accommodation;
             set
@@ -45,11 +46,11 @@ namespace BookingApp.WPF.Views.GuestWindows
 
         public User LoggedInUser;
 
-        public AccommodationUserControl(User user, Accommodation selectedAccommodation)
+        public AccommodationUserControl(User user, AccommodationViewModel accommodationViewModel)
         {
             InitializeComponent();
             LoggedInUser = user;
-            Accommodation = selectedAccommodation;
+            accommodation = accommodationViewModel;
             DataContext = this;
         }
 

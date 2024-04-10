@@ -32,8 +32,8 @@
                      Grid.Row="2"
                      Grid.ColumnSpan="4"
                      ScrollViewer.CanContentScroll="False"
-                     ItemsSource="{Binding Accommodations}"
-                     SelectedItem="{Binding SelectedAccommodation}">
+                     ItemsSource="{Binding ActiveReservations}"
+                     SelectedItem="{Binding SelectedReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Black" 
@@ -141,19 +141,24 @@
                                         FontSize="11" 
                                         Margin="69,18,0,0" 
                                         Grid.RowSpan="3"/>
-                                    <Button Content="Cancel" 
+                                    <Button x:Name="CancelledButton" 
+                                     Content="Cancel" 
                                      Grid.Row="4" 
                                      Grid.Column="1" 
                                      Width="50" 
                                      HorizontalAlignment="Center" 
-                                     VerticalAlignment="Center"/>
-                                    <Button Content="Move" 
+                                     VerticalAlignment="Center"
+                                     Click="CancelledReservationButton"
+                                     IsEnabled="True"/>
+                                    <Button x:Name="MoveButton" 
+                                     Content="Move" 
                                      Grid.Row="4" 
                                      Grid.Column="2" 
                                      Width="50" 
                                      VerticalAlignment="Center" 
                                      HorizontalAlignment="Center"
-                                     Click="MoveReservationClick"/>
+                                     Click="MoveReservationClick"
+                                     IsEnabled="True"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -162,7 +167,7 @@
 
             </TabItem>
 
-            <TabItem Header="Canceled" 
+            <TabItem Header="Cancelled" 
                   Width="100">
                 <ListView BorderThickness="0" 
                       Background="Transparent"
@@ -170,8 +175,8 @@
                       Grid.Row="2"
                       Grid.ColumnSpan="4"
                       ScrollViewer.CanContentScroll="False"
-                      ItemsSource="{Binding Accommodations}"
-                      SelectedItem="{Binding SelectedAccommodation}">
+                      ItemsSource="{Binding CancelledReservations}"
+                      SelectedItem="{Binding SelectedReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Black" 
@@ -285,7 +290,7 @@
                      Grid.Row="2"
                      Grid.ColumnSpan="4"
                      ScrollViewer.CanContentScroll="False"
-                     ItemsSource="{Binding Accommodations}"
+                     ItemsSource="{Binding FinishedReservations}"
                      SelectedItem="{Binding SelectedReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -395,15 +400,19 @@
                                         FontWeight="Bold"
                                         Height="auto" 
                                         Width="auto"
-                                        FontSize="11" Margin="49,15,0,0" Grid.RowSpan="2" />
-                                    <Button Content="Rate" 
+                                        FontSize="11"
+                                        Margin="49,15,0,0" 
+                                        Grid.RowSpan="2" />
+                                    <Button x:Name="RateButton"
+                                     Content="Rate" 
                                      Grid.Row="4" 
                                      Grid.Column="1" 
                                      Width="50" 
                                      HorizontalAlignment="Center" 
                                      VerticalAlignment="Center"
                                      Grid.ColumnSpan="2"
-                                     Click="RateTheOwner"/>
+                                     Click="RateTheOwnerClick"
+                                     IsEnabled="True"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>

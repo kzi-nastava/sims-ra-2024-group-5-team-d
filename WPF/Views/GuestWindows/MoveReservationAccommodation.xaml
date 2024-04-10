@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows"
         mc:Ignorable="d"
-        Title="MoveReservationAccommodation" Height="250" Width="250">
+        Title="MoveReservationAccommodation" Height="250" Width="250" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

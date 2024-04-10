@@ -1,6 +1,7 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Repositories;
+using BookingApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -100,13 +101,13 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public ObservableCollection<AccommodationViewModel> Accommodations { get; set; }
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
 
         private readonly SearchAccommodationService SearchService;
         private readonly ContentControl contentControl;
-        public Accommodation SelectedAccommodation { get; set; }
+        public AccommodationViewModel SelectedAccommodation { get; set; }
         public SearchAccommodationUserControl(User user, ContentControl contentControl)
         {
             InitializeComponent();
@@ -114,20 +115,21 @@ namespace BookingApp.WPF.Views.GuestWindows
             DataContext = this;
             SearchService = new SearchAccommodationService();
             _repository = new AccommodationRepository();
-            Accommodations = new ObservableCollection<Accommodation>(_repository.GetAll());
+            Accommodations = new ObservableCollection<AccommodationViewModel>();
+            _repository.GetAll().ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity)));
             this.contentControl = contentControl;
         }
         private void SearchAccommodation(object sender, RoutedEventArgs e)
         {
             Accommodations.Clear();
             SearchService.GetSearchedAccommodation(accommodationName, accommodationType, locationId, numberOfPeople, numberOfDays)
-                .ForEach(foundAccommodation => Accommodations.Add(foundAccommodation));
+                .ForEach(fA => Accommodations.Add(new AccommodationViewModel(fA.Id,fA.Name,fA.Location,fA.Type,fA.ImagesPath,fA.MinStay, fA.Capacity)));
 
         }
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (sender is ListView listView && listView.SelectedItem != null )
+            if (SelectedAccommodation!=null)
             { 
 
                 GuestWindow.contentControl.Content = new AccommodationUserControl(LoggedInUser, SelectedAccommodation);

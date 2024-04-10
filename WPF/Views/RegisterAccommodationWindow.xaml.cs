@@ -118,8 +118,10 @@ namespace BookingApp.WPF.Views
         private ImageUploaderService imageUploaderService;
         private List<string> imagesPath;
         private ILocationRepository locationRepository;
+        private AccommodationService accommodationService;
         public RegisterAccommodationWindow(User user)
         {
+            accommodationService = new AccommodationService();
             locationRepository = Injector.CreateInstance<ILocationRepository>();
             imagesPath = new List<string>();
             InitializeComponent();
@@ -138,7 +140,7 @@ namespace BookingApp.WPF.Views
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             string folderPath = imageUploaderService.CreateAccommodationFolder(imagesPath);
-            Accommodation newAccommodation = new Accommodation(accommodationName, locationRepository.GetById(locationId), (TYPE)accommodationType, minStay,cancellationDeadline,capacity,folderPath,LoggedInUser);
+            Accommodation newAccommodation = new Accommodation(accommodationName, locationRepository.GetById(locationId), (TYPE)accommodationType, minStay,cancellationDeadline,capacity,folderPath,LoggedInUser,accommodationService.IsSuperOwner(LoggedInUser));
             Accommodation savedAccommodation = _repository.Save(newAccommodation);
 
             OwnerWindow.Accommodations.Add(savedAccommodation);

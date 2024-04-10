@@ -42,7 +42,7 @@ namespace BookingApp.WPF.Views.OwnerView
             DataContext = this;
             unratedGuestService.GetUnratedGuests(loggedInUser)
                                 .ForEach(unratedGuest => UnratedGuests.Add
-                                (new UnratedGuestViewModel(unratedGuest.Id,userRepository.GetById(unratedGuest.UserId).Username, unratedGuest.ReservedFrom, unratedGuest.ReservedTo, accommodationRepository.GetById(unratedGuest.AccommodationId).Location, accommodationRepository.GetAccommodationNameById(unratedGuest.AccommodationId)))
+                                (new UnratedGuestViewModel(unratedGuest.Id,userRepository.GetById(unratedGuest.UserId).FullName, unratedGuest.ReservedFrom, unratedGuest.ReservedTo, accommodationRepository.GetById(unratedGuest.AccommodationId).Location, accommodationRepository.GetAccommodationNameById(unratedGuest.AccommodationId)))
                                 );
             InitializeComponent();
         }

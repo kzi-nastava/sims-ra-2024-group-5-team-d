@@ -10,7 +10,7 @@
              d:DesignHeight="768" d:DesignWidth="950">
     <UserControl.Resources>
         <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
-        <!-- Style for the tabs -->
+            <!-- Style for the tabs -->
         <Style TargetType="Label" x:Key="TabsLabelsStyle">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
