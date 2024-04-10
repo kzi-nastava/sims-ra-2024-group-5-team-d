@@ -15,6 +15,7 @@ namespace BookingApp.WPF.ViewModels
         public int Id { get; set; }
         public string GuestName { get; set; }
         public Location Location { get; set; }
+        public int ReservationId { get; set; }
         public string AccommodationName { get; set; }
         public int CleanlinessRating { get; set; }
         public int CorrectnessRating { get; set; }
@@ -37,6 +38,7 @@ namespace BookingApp.WPF.ViewModels
         }
         public OwnerRatingViewModel(AccommodationRating rating)
         {
+            ReservationId = rating.ReservationId;
             CleanlinessRating = rating.Cleanliness;
             CorrectnessRating = rating.Correctness;
             accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();

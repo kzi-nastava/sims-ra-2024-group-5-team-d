@@ -67,6 +67,7 @@ namespace BookingApp.WPF.Views.OwnerView
             {
                 Notifications.Review.Text = "You have unrated guests";
                 numberOfNotify.Text = numberOfUnratedGuests.ToString();
+                Debug.WriteLine("Unrated guests: " + numberOfUnratedGuests);
             }
             else
             {

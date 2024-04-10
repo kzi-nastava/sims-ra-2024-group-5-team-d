@@ -6,6 +6,7 @@ using BookingApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -80,8 +81,10 @@ namespace BookingApp.WPF.Views.GuestWindows
         public int accommodationId;
         public DateTime dateTime;
         private IAccommodationRatingRepository accommodationRatingRepository;
+        private RateOwnerService rateOwnerService;
         public OwnerAndAccommodationRatingWindow(User user, AccommodationReservation accommodationReservation, int accommodationId)
         {
+            rateOwnerService = new RateOwnerService();
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
@@ -94,7 +97,8 @@ namespace BookingApp.WPF.Views.GuestWindows
 
         private void RateOwnerAndAccommodation(object sender, RoutedEventArgs e)
         {
-            accommodationRatingRepository.Save(new AccommodationRating(accommodationId, LoggedInUser.Id, AccommodationReservation.Id, Cleanliness, Correctness, Comment, DateOnly.FromDateTime(dateTime)));
+           rateOwnerService.RateOwner(new AccommodationRating(accommodationId, LoggedInUser.Id, AccommodationReservation.Id, Cleanliness, Correctness, Comment, DateOnly.FromDateTime(dateTime)));
+       
             Close();
         }
     }

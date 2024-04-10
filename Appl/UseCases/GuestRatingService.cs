@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,20 @@ namespace BookingApp.Appl.UseCases
     public class GuestRatingService
     {
         private IGuestRatingRepository guestRatingRepository;
-        private AccommodationService accommodationService;
+        private IAccommodationRepository accommodationRepository;
         public GuestRatingService()
         {
-            accommodationService = new AccommodationService();
+            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             guestRatingRepository = Injector.CreateInstance<IGuestRatingRepository>();
         }
-        public List<GuestRating> GetAllGuestRatingsByUser(User user)
+        public List<GuestRating> GetAllGuestRatingsByOwner(User owner)
         {
-            return guestRatingRepository.GetAll().Where(guestRating => accommodationService.IsRatedByUser(guestRating, user)).ToList();
+            return guestRatingRepository.GetAll().Where(guestRating => IsGuestRatedByOwner(guestRating, owner)).ToList();
+        }
+
+        public bool IsGuestRatedByOwner(GuestRating guestRating, User owner)
+        {
+            return accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == guestRating.AccommodationId);
         }
     }
 }
