@@ -1,15 +1,14 @@
-﻿<UserControl x:Class="BookingApp.WPF.Views.TouristGuide.ToursTodayWindow"
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristGuide.FinishedToursWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="950">
     <UserControl.Resources>
-        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
         <!-- Style for the tabs -->
         <Style TargetType="Label" x:Key="TabsLabelsStyle">
             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -45,11 +44,11 @@
             <!-- Border around the tabs -->
             <Border BorderThickness="1 1 1 1" BorderBrush="Black" Grid.ColumnSpan="4"/>
 
-            <Label x:Name="allToursTab" Grid.Column="0" Content="All tours" Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="AllToursTab_MouseDown"/>
+            <Label x:Name="allToursTab" Grid.Column="0" Content="All tours"  Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="AllToursTab_MouseDown"/>
 
-            <Label x:Name="toursTodayTab" Grid.Column="1" Content="Tours today" Background="LightGray" Style="{StaticResource TabsLabelsStyle}"/>
+            <Label x:Name="toursTodayTab" Grid.Column="1" Content="Tours today" Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="ToursTodayTab_MouseDown"/>
 
-            <Label x:Name="finishedToursTab" Grid.Column="2" Content="Finished tours" Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="FinishedToursTab_MouseDown"/>
+            <Label x:Name="finishedToursTab" Grid.Column="2" Content="Finished tours" Background="LightGray" Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="FinishedToursTab_MouseDown"/>
 
             <Label x:Name="requestsTab" Grid.Column="3" Content="Requests"  Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="RequestsTab_MouseDown"/>
         </Grid>
@@ -132,8 +131,8 @@
         <ListView BorderThickness="0"
           Background="Transparent"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-          ScrollViewer.VerticalScrollBarVisibility="Visible"
-          ItemsSource="{Binding ToursToday}"
+          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+          ItemsSource="{Binding FinishedTours}"
           SelectedItem="{Binding SelectedTour}"
           ScrollViewer.CanContentScroll="False" Grid.Row="2" SelectionChanged="ListView_SelectionChanged">
             <ListView.ItemsPanel>
@@ -156,7 +155,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Grid.Column="0" Width="184" Height="105" HorizontalAlignment="Left" Margin="15 15 15 0"/>
+                                <Image  Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Grid.Column="0" Width="184" Height="105" HorizontalAlignment="Left" Margin="15 15 15 0"/>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
@@ -213,3 +212,4 @@
 
     </Grid>
 </UserControl>
+

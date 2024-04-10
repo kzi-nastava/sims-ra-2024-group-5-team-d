@@ -27,22 +27,22 @@ namespace BookingApp.WPF.Views.TouristGuide
             InitializeComponent();
             DataContext = this;
             contentControlW = contentControl;
-            contentControlW.Content = new AllToursWindow();
             LoggedInUser = user;
+            contentControlW.Content = new AllToursWindow(LoggedInUser);
         }
         public void Home_Click(object sender, RoutedEventArgs e)
         {
-            contentControlW.Content = new AllToursWindow();
+            contentControlW.Content = new AllToursWindow(LoggedInUser);
         }
 
         private void NewTour_Click(object sender, MouseButtonEventArgs e)
         {
-            //contentControlW.Content = new CreateNewTour();
+            //contentControlW.Content = new CreateNewTour(LoggedInUser);
         }
 
         private void Profile_Click(object sender, MouseButtonEventArgs e)
         {
-            //contentControlW.Content = new Profile();
+            //contentControlW.Content = new Profile(LoggedInUser);
         }
     }
 }
