@@ -22,7 +22,7 @@ namespace BookingApp.Appl.UseCases
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
         }
-        public List<AccommodationRating> GetAllRatingsForOwner(User owner) {
+        public List<AccommodationRating> GetAllRatingsForOwner(User owner) { //DA OVA FUNKCIJA PRIMI I LISTU SVIG REZERVACIJA ZA OWNERA
             List<AccommodationRating> allOwnerRatings = FindAllRatingsForOwner(owner);
             List<AccommodationRating> filteredOwnerRatings = filterOwnerRatings(allOwnerRatings,owner);
             return filteredOwnerRatings;
@@ -37,7 +37,6 @@ namespace BookingApp.Appl.UseCases
         }
         private bool IsReservationMutualyRated(User owner,AccommodationRating accommodationRating)
         {
-            Debug.WriteLine("Checking if reservation is mutualy rated"+ accommodationRating.ReservationId);
             return guestRatingService.GetAllGuestRatingsByOwner(owner).Any(guestrating => guestrating.ReservationId == accommodationRating.ReservationId);
         }
         private List<AccommodationRating> FindAllRatingsForOwner(User owner)

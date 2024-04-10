@@ -39,7 +39,7 @@ namespace BookingApp.WPF.Views.OwnerView
             userRepository = Injector.CreateInstance<IUserRepository>();
             accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
             OwnerRatings = new ObservableCollection<OwnerRatingViewModel>();
-            accommodationRatingService.GetAllRatingsForOwner(user).ForEach(rating=>OwnerRatings.Add(new OwnerRatingViewModel(rating)));
+            accommodationRatingService.GetAllRatingsForOwner(user).ForEach(rating=>OwnerRatings.Add(new OwnerRatingViewModel(rating)));//NEKI KOORDINATORSKI SERVIS
             DataContext = this;
         }
         private void ShowDetails(object sender, RoutedEventArgs e)

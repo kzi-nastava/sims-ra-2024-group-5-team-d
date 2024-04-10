@@ -26,8 +26,8 @@ namespace BookingApp.Appl.UseCases
         }
         public void UpgradeToSuperOwner(User user)
         {
-            if(accommodationRatingService.GetNumberOfRatingsForOwner(user)>=50)
-            accommodationRepository.GetByUser(user).ForEach(accommodation =>{ accommodation.IsSuperOwner = true;accommodationRepository.Update(accommodation); });
+            if(accommodationRatingService.GetNumberOfRatingsForOwner(user)>=50) //OVAJ USLOV OVDE PREBACITI 
+                accommodationRepository.GetByUser(user).ForEach(accommodation =>{ accommodation.IsSuperOwner = true;accommodationRepository.Update(accommodation); });
         }
         public void DowngradeFromSuperOwner(User user)
         {
