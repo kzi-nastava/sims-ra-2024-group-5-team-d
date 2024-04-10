@@ -25,7 +25,7 @@ namespace BookingApp.Domain.Models
         public int MinStay { get; set; }
         public int CancellationDeadline { get; set; }
         public string ImagesPath { get; set; }
-        public int AverageRating { get; set; }
+        public double AverageRating { get; set; }
         public bool IsSuperOwner { get; set; }
         public User Owner { get; set; }
 
@@ -64,7 +64,7 @@ namespace BookingApp.Domain.Models
             CancellationDeadline = Convert.ToInt32(values[6]);
             ImagesPath = values[7];
             Owner = new User() { Id = Convert.ToInt32(values[8]) };
-            AverageRating = Convert.ToInt32(values[9]);
+            AverageRating = Convert.ToDouble(values[9]);
             IsSuperOwner = Convert.ToBoolean(values[10]);
         }
     }

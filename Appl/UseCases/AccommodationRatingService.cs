@@ -43,5 +43,9 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationRatingRepository.GetAll().Where(aR => accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == aR.AccommodationId)).ToList();
         }
+        public int GetNumberOfRatingsForAccommodation(Accommodation accommodation)
+        {
+            return accommodationRatingRepository.GetAll().Where(rating => rating.AccommodationId == accommodation.Id).Count();
+        }
     }
 }
