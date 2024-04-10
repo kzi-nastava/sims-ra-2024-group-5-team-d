@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristGuide.LiveTourView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+              d:DesignHeight="767" d:DesignWidth="950">
+    <Grid Margin="40,15,40,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" HorizontalAlignment="Left"  Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Icons/Card/Alt Arrow Left.png" Width="16" Height="16"/>
+                <Label Content="Back" Margin="5,0,0,0"/>
+            </StackPanel>
+        </Button>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding tour.Name}" Margin="0,40,0,0" FontSize="35"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding tourRealisation.DateTime}" FontSize="15"/>
+        <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" BorderBrush="DarkGray" BorderThickness="2,0,0,0"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Attendees" Margin="20,40,0,0" FontSize="35"/>
+        <ListView BorderThickness="0" 
+                  Background="Transparent"
+            Height="500"
+            Margin="20,0,0,0"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            ScrollViewer.CanContentScroll="False"
+            Grid.Row="3" Grid.Column="1" >
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Height="65" Width="200" BorderThickness="0,0,0,2" BorderBrush="DarkGray">
+                        <Grid Margin="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="Icons/User Circle.png" Height="24" Width="24" HorizontalAlignment="Left" Grid.RowSpan="2"/>
+                            <TextBlock Grid.Row="0" Text="Petar Petrovic" Margin="30,0,0,0"/>
+                            <TextBlock Grid.Row="1" Text="25 godina" Margin="30,0,0,0"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type sys:String}">
+                    <sys:String>Ala</sys:String>
+                    <sys:String>Bela</sys:String>
+                    <sys:String>Ceca</sys:String>
+                    <sys:String>Veca</sys:String>
+                    <sys:String>Veca</sys:String>
+                    <sys:String>Veca</sys:String>
+                    <sys:String>Veca</sys:String>
+                </x:Array>
+            </ListView.ItemsSource>
+        </ListView>
+        <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+    </Grid>
+</UserControl>

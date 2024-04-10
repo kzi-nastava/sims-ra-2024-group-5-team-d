@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
              xmlns:sys="clr-namespace:System;assembly=mscorlib" 
-             xmlns:local1="clr-namespace:BookingApp.WPF.Views"
+             xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="950">
     <UserControl.Resources>
-        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
         <!-- Style for the tabs -->
         <Style TargetType="Label" x:Key="TabsLabelsStyle">
             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -36,10 +36,10 @@
         <!-- Grid containing the tabs -->
         <Grid Grid.Row="0" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="86"/>
-                <ColumnDefinition Width="86"/>
-                <ColumnDefinition Width="88"/>
-                <ColumnDefinition Width="86"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
             <!-- Border around the tabs -->
@@ -132,7 +132,7 @@
         <ListView BorderThickness="0"
           Background="Transparent"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-          ScrollViewer.VerticalScrollBarVisibility="Visible"
+          ScrollViewer.VerticalScrollBarVisibility="Hidden"
           ItemsSource="{Binding Tours}"
           SelectedItem="{Binding SelectedTour}"
           ScrollViewer.CanContentScroll="False" Grid.Row="2" SelectionChanged="ListView_SelectionChanged">
@@ -186,7 +186,13 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <Image Grid.Column="0" Source="Icons/Card/User.png" Height="16" Width="16"/>
-                                        <Label Grid.Column="1" Content="{Binding Capacity}" HorizontalAlignment="Left"/>
+                                        <Label Grid.Column="1" HorizontalAlignment="Left">
+                                            <TextBlock>
+        <Run Text="{Binding Capacity}" />
+        <Run Text=" seats available" />
+                                            </TextBlock>
+                                        </Label>
+
                                     </Grid>
                                     <Grid Grid.Row="3">
                                         <Grid.ColumnDefinitions>

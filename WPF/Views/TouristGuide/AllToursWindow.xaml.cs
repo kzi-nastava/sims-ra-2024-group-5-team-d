@@ -28,7 +28,8 @@ namespace BookingApp.WPF.Views.TouristGuide
         public TourViewModel SelectedTour { get; set; }
         public ObservableCollection<TourViewModel> Tours { get; set; }
         private readonly ITourRepository tourRepository;
-        public AllToursWindow()
+        private User LoggedInUser { get; set; }
+        public AllToursWindow(User user)
         {
             InitializeComponent();
             collapseGrid.Visibility = Visibility.Collapsed;
@@ -36,6 +37,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             tourRepository = Injector.CreateInstance<ITourRepository>();
             Tours = new ObservableCollection<TourViewModel>();
             tourRepository.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath,tour.MaxCapacity,tour.Language)));
+            LoggedInUser = user;
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -44,21 +46,21 @@ namespace BookingApp.WPF.Views.TouristGuide
 
         private void ViewMore_Click(object sender, RoutedEventArgs e)
         {
-            SideBar.contentControlW.Content = new ViewMoreTour(SelectedTour);
+            SideBar.contentControlW.Content = new ViewMoreTour(SelectedTour, LoggedInUser);
 
         }
         private void ToursTodayTab_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            SideBar.contentControlW.Content = new ToursTodayWindow();
+            SideBar.contentControlW.Content = new ToursTodayWindow(LoggedInUser);
         }
         private void RequestsTab_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //SideBar.contentControlW.Content = new RequestsWindow();
+            //SideBar.contentControlW.Content = new RequestsWindow(LoggedInUser);
         }
 
         private void FinishedToursTab_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //SideBar.contentControlW.Content = new FinishedToursWindow();
+            SideBar.contentControlW.Content = new FinishedToursWindow(LoggedInUser);
         }
     }
 }

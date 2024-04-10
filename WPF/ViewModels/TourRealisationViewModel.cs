@@ -22,6 +22,6 @@ namespace BookingApp.WPF.ViewModels
             TourId = tourId;
             AvailableSeats = availableSeats;
             User = user;
-        }
+        } 
     }
 }

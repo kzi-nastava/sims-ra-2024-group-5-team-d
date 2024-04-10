@@ -44,9 +44,24 @@ namespace BookingApp.Appl.UseCases
                         toursToday.Add(t);
                     }
                 }
-
             }
             return toursToday;
+        }
+
+        public List<Tour> GetFinishedTours()
+        {
+            List<Tour> finishedTours = new List<Tour>();
+            foreach (Tour t in _repository.GetAllTours())
+            {
+                foreach (TourRealisation tR in tourRealisationRepository.GetTourRealisationsByTourId(t.Id))
+                {
+                    if (tR.StartTime.DayOfYear < DateTime.Now.DayOfYear && !finishedTours.Contains(t))
+                    {
+                        finishedTours.Add(t);
+                    }
+                }
+            }
+            return finishedTours;
         }
 
     }

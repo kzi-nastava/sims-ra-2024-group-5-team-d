@@ -21,37 +21,24 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.TouristGuide
 {
     /// <summary>
-    /// Interaction logic for ToursTodayWindow.xaml
+    /// Interaction logic for FinishedToursWindow.xaml
     /// </summary>
-    public partial class ToursTodayWindow : UserControl
+    public partial class FinishedToursWindow : UserControl
     {
+        private User LoggedInUser { get; set; }
         public TourViewModel SelectedTour { get; set; }
-        public ObservableCollection<TourViewModel> ToursToday { get; set; }
+        public ObservableCollection<TourViewModel> FinishedTours { get; set; }
         private readonly ITourRepository tourRepository;
         private TourService tourService;
-        private User LoggedInUser { get; set; }
-        public ToursTodayWindow(User user)
+        public FinishedToursWindow(User user)
         {
             InitializeComponent();
             collapseGrid.Visibility = Visibility.Collapsed;
             DataContext = this;
-            tourService = new TourService();
-            ToursToday = new ObservableCollection<TourViewModel>();
-            tourService.GetToursForToday().ForEach(tour => ToursToday.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language)));
             LoggedInUser = user;
-        }
-        private void AllToursTab_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SideBar.contentControlW.Content = new AllToursWindow(LoggedInUser);
-        }
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-        private void ViewMore_Click(object sender, RoutedEventArgs e)
-        {
-            SideBar.contentControlW.Content = new ViewMoreTourToday(SelectedTour, LoggedInUser);
-
+            tourService = new TourService();
+            FinishedTours = new ObservableCollection<TourViewModel>();
+            tourService.GetFinishedTours().ForEach(tour => FinishedTours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language)));
         }
         private void ToursTodayTab_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -61,10 +48,21 @@ namespace BookingApp.WPF.Views.TouristGuide
         {
             //SideBar.contentControlW.Content = new RequestsWindow();
         }
+        private void AllToursTab_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SideBar.contentControlW.Content = new AllToursWindow(LoggedInUser);
+        }
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
         private void FinishedToursTab_MouseDown(object sender, MouseButtonEventArgs e)
         {
             SideBar.contentControlW.Content = new FinishedToursWindow(LoggedInUser);
+        }
+        private void ViewMore_Click(object sender, RoutedEventArgs e)
+        {
+            SideBar.contentControlW.Content = new ViewMoreFinishedTour(SelectedTour, LoggedInUser);
         }
     }
 }
