@@ -10,6 +10,8 @@
             d:DesignHeight="572" d:DesignWidth="1108">
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
     </UserControl.Resources>
     <Grid 
               Width="920"
@@ -47,126 +49,178 @@
                     <Border BorderBrush="Black" 
                                 BorderThickness="3" 
                                 CornerRadius="10"
+                            Height="130"
                                 Width="880">
                         <Grid Margin="15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
+
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition MinWidth="50" Width="auto"/>
+                                <ColumnDefinition MinWidth="200" Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
-                                       Width="100" 
-                                       Height="100" 
                                        HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center"                                      
+                                       VerticalAlignment="Center" 
+                                       MinHeight="130"
                                        Grid.RowSpan="2"/>
-                            <TextBlock Text="{Binding Name}" 
-                                           Grid.Column="1" 
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Name}"
+                                           Margin="15 -5 0 0"
+                                           Grid.Column="0" 
                                            FontSize="24" 
                                            FontWeight="Bold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding Location}" 
+                                           VerticalAlignment="Top"
+                                           HorizontalAlignment="Left"/>
+                                    <Image Source="C:\Users\lukai\Desktop\Resource\verified.png" 
+                                           Width="24" 
+                                           Visibility="{Binding IsSuperOwner, Converter={StaticResource BoolToVisibilityConverter}}"
+                                           Height="24"
+                                           Margin="10 0 0 0"
                                            Grid.Column="1"
-                                           Grid.Row="1"
-                                           FontSize="20"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"/>
-                            <Grid x:Name="StarGrid" Grid.Column="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Source="C:\Users\lukai\Desktop\Resource\StarFull.png" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Top"/>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid x:Name="StarGrid" Grid.Column="0" Margin="10 0 0 0"  HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding Star1}"
                                            Width="24" 
                                            Height="24" 
                                            Grid.Column="0"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                                <Image Source="C:\Users\lukai\Desktop\Resource\StarHalfFull.png" 
+                                        <Image Source="{Binding Star2}"
                                            Width="24" 
                                            Height="24" 
                                            Grid.Column="1"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                                <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
+                                        <Image Source="{Binding Star3}"
                                            Width="24" 
                                            Height="24" 
                                            Grid.Column="2"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                                <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
+                                        <Image Source="{Binding Star4}"
                                            Width="22" 
                                            Height="22" 
                                            Grid.Column="3"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                                <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
+                                        <Image Source="{Binding Star5}"
                                            Width="22" 
                                            Height="22" 
                                            Grid.Column="4"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                            </Grid>
-                            <TextBlock Text="{Binding Type}" 
-                                           Grid.Column="2"
-                                           Grid.Row="1"
+                                    </Grid>
+                                    <TextBlock FontSize="12" 
+                                               Grid.Column="1" 
+                                               Margin="7 0 0 4" VerticalAlignment="Center"> 
+                                               <Run Text="{Binding NumberOfRatings}"/> 
+                                               <Run Text="review(s)"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="2" VerticalAlignment="Bottom">
+                                    <Grid   Margin="10 0 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="C:\Users\lukai\Desktop\Resource\location.png" 
+                                       Height="28" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"                                      
+                                       Margin="0 -10 0 0"/>
+                                        <TextBlock Text="{Binding Location}" 
+                                           Grid.Column="1"
                                            FontSize="20"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"/>
+                                           HorizontalAlignment="Left"/>
+                                    </Grid>
+                                    <TextBlock Text="{Binding Type}" 
+                                           FontSize="20"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Grid>
                             <Image Source="C:\Users\lukai\Desktop\Resource\chat.png" 
                                        Width="24" 
                                        Height="24" 
                                        Grid.Row="0"
-                                       Grid.Column="3"
-                                       HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center"/>
-                            <Button Grid.Column="4"
-                                        FontSize="20" 
+                                       Grid.Column="2" 
+                                   Margin="0 5 0 0"
+                                       HorizontalAlignment="Right" 
+                                       VerticalAlignment="Top"/>
+                            <Button Grid.Column="3"
+                                        FontSize="20"
                                         FontWeight="Bold"
-                                        VerticalAlignment="Center"
+                                        VerticalAlignment="Top"
                                         Background="Transparent"
                                         BorderThickness="0" 
+                                        Margin="0 -2 0 0"
+                                        Width="142"
+                                        Height="38"
                                         Click="RenovateClick">
                                 <Border  BorderBrush="Black"
                                              BorderThickness="2"
-                                             CornerRadius="8"  
+                                             CornerRadius="8"
+                                            Height="36"
                                              Width="140">
                                     <StackPanel  Orientation="Horizontal">
                                         <Image  Source="C:\Users\lukai\Desktop\Resource\hammer.png" 
                                                Width="24" 
                                                Height="24"
                                                Margin="5 0 10 0"/>
-                                        <TextBlock  Text="Renovate"/>
+                                        <TextBlock  Text="Renovate" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Border>
                             </Button>
-                            <Button Grid.Column="4"
+                            <Button Grid.Column="3"
                                         Grid.Row="1"
                                         Background="Transparent" 
                                         FontSize="20" 
+                                        Width="142"
+                                        Height="38"
+                                        Margin="0 0 0 -2"
                                         FontWeight="Bold"
                                         BorderThickness="0"
-                                        VerticalAlignment="Center" Click="ShowStats">
+                                        VerticalAlignment="Bottom" Click="ShowStats">
                                 <Border BorderBrush="Black" 
                                             BorderThickness="2" 
-                                            CornerRadius="8"  
+                                            CornerRadius="8" 
+                                            Height="36"
                                             Width="140">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="C:\Users\lukai\Desktop\Resource\stats.png" 
                                                Width="24" 
                                                Height="24"
                                                Margin="5 0 5 0"/>
-                                        <TextBlock Text="Show stats"/>
+                                        <TextBlock Text="Show stats" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Border>
                             </Button>

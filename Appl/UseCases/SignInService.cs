@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.Appl.UseCases
 {
@@ -41,7 +42,7 @@ namespace BookingApp.Appl.UseCases
                     }
                     else if (user.Type.ToString().Equals("Tourist"))
                     {
-                        TouristHomeWindow touristWindow = new TouristHomeWindow();
+                        TouristHomeWindow touristWindow = new TouristHomeWindow(user);
                         touristWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                         touristWindow.ShowDialog();
                     }

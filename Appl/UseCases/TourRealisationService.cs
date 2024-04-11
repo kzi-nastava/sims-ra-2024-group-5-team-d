@@ -11,12 +11,12 @@ namespace BookingApp.Appl.UseCases
     public class TourRealisationService
     {
         private ITourRealisationRepository _repository;
-        public TourRealisationService() 
+        public TourRealisationService()
         {
             _repository = Injector.CreateInstance<ITourRealisationRepository>();
         }
         //potvrditi ovo
-        public void DeleteTourRealisation(TourRealisation tourRealisation) 
+        public void DeleteTourRealisation(TourRealisation tourRealisation)
         {
             _repository.DeleteTourRealisation(tourRealisation);
         }
@@ -39,5 +39,11 @@ namespace BookingApp.Appl.UseCases
 
             return tourRealisationsToday;
         }
+
+        public List<TourRealisation> GetRealisationsForTourOnGivenDate(int tourId, DateOnly date)
+        {
+            return _repository.GetTourRealisationsByTourId(tourId).Where(tr =>  tr.IsOnSelectedDate(date)).ToList();    
+        }
+
     }
 }

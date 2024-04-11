@@ -38,7 +38,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             LoggedInUser = user;
             tourService = new TourService();
             FinishedTours = new ObservableCollection<TourViewModel>();
-            tourService.GetFinishedTours().ForEach(tour => FinishedTours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language)));
+            tourService.GetFinishedTours().ForEach(tour => FinishedTours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
         }
         private void ToursTodayTab_MouseDown(object sender, MouseButtonEventArgs e)
         {

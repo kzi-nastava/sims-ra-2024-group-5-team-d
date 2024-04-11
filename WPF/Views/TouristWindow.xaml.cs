@@ -115,8 +115,8 @@ namespace BookingApp.WPF.Views
                 realisationsWindow.Owner = this;
                 realisationsWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 realisationsWindow.ShowDialog();
-            }
-            
+            }            
+
         }
 
         private void SearchTours_Click(object sender, RoutedEventArgs e)

@@ -67,5 +67,19 @@ namespace BookingApp.Appl.UseCases
                 File.Copy(imagePath, targetImagePath);
             }
         }
+        public List<string> GetImagePaths(string folderPath)
+        {
+            if (!Directory.Exists(folderPath))
+            {
+                throw new DirectoryNotFoundException($"Folder '{folderPath}' ne postoji.");
+            }
+
+            string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+            var imagePaths = Directory.GetFiles(folderPath)
+                                      .Where(file => imageExtensions.Contains(Path.GetExtension(file).ToLower()))
+                                      .ToList();
+
+            return imagePaths;
+        }
     }
 }
