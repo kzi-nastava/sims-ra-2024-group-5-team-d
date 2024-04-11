@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,13 @@ namespace BookingApp.Domain.Models
         {
             string[] csvValues = { Id.ToString(), StartTime.ToString(), TourId.ToString(), AvailableSeats.ToString(), User.Id.ToString() };
             return csvValues;
+        }
+
+        public bool IsOnSelectedDate(DateOnly date)
+        {
+            Debug.WriteLine("AAAA" +DateOnly.FromDateTime(StartTime).ToString());
+            Debug.WriteLine("BBBB" +date.ToString());
+            return DateOnly.FromDateTime(StartTime) == date;
         }
 
     }

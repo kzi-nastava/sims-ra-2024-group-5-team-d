@@ -13,6 +13,7 @@ namespace BookingApp.WPF.ViewModels
 
         public string Name { get; set; }
 
+       public User User { get; set; }
         public string Description { get; set; }
 
         public Location Location { get; set; }
@@ -26,7 +27,7 @@ namespace BookingApp.WPF.ViewModels
 
         public TourViewModel() { }
 
-        public TourViewModel(int id, string name, string description, double duration, string imagesPath, Location location)
+        public TourViewModel(int id, string name, string description, double duration, string imagesPath, Location location, User user)
         {
             Id = id;
             Name = name;
@@ -34,9 +35,10 @@ namespace BookingApp.WPF.ViewModels
             Duration = duration;
             ImagesPath = imagesPath;
             Location = location;
+            User = user;
         }
 
-        public TourViewModel(int id, string name, string description, Location location, double duration, string imagesPath, int capacity, LANGUAGE language)
+        public TourViewModel(int id, string name, string description, Location location, double duration, string imagesPath, int capacity, LANGUAGE language,User user)
         {
             Id = id;
             Name = name;
@@ -46,6 +48,7 @@ namespace BookingApp.WPF.ViewModels
             ImagesPath = imagesPath;
             Capacity = capacity;
             Language = language;
+            User = user;
         }
     }
 }

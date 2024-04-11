@@ -21,25 +21,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Views.TouristView
 {
     /// <summary>
     /// Interaction logic for TouristHomeUserControl.xaml
     /// </summary>
     public partial class TouristHomeUserControl : UserControl
     {
-        public Tour SelectedTour { get; set; }
+        public TourViewModel SelectedTour { get; set; }
         public ObservableCollection<TourViewModel> Tours { get; set; }
 
         private readonly ITourRepository tourRepository;
+        public User User { get; set; }
 
-        public TouristHomeUserControl()
+        public TouristHomeUserControl(User user)
         {
             InitializeComponent();
             DataContext = this;
+            User = user;
             tourRepository = Injector.CreateInstance<ITourRepository>();
             Tours = new ObservableCollection<TourViewModel>();
-            tourRepository.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Duration, tour.ImagesPath, tour.Location)));
+            tourRepository.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
+           
         }
 
         private int pickedLocationId = 10;
@@ -137,8 +140,16 @@ namespace BookingApp.WPF.Views
 
                 if (languageMatch && durationMatch && locationMatch && capacityMatch)
                 {
-                    Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Duration, tour.ImagesPath, tour.Location));
+                    Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Duration, tour.ImagesPath, tour.Location, tour.User));
                 }
+            }
+        }
+
+        private void TourDetails_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (SelectedTour != null)
+            {
+                TouristHomeWindow.contentControl.Content = new TourDetailsUserControl(SelectedTour, PickedMaxCapacity, User);
             }
         }
     }
