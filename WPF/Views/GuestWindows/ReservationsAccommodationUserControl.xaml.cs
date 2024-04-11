@@ -30,12 +30,7 @@ namespace BookingApp.WPF.Views.GuestWindows
     /// </summary>
     public partial class ReservationsAccommodationUserControl : UserControl
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         public static ObservableCollection<UserReservationsViewModel> ActiveReservations { get; set; }
         public static ObservableCollection<UserReservationsViewModel> FinishedReservations { get; set; }
         public static ObservableCollection<UserReservationsViewModel> CancelledReservations { get; set; }
@@ -63,31 +58,44 @@ namespace BookingApp.WPF.Views.GuestWindows
             CancelledReservations = new ObservableCollection<UserReservationsViewModel>();
  
             reservationsService.GetActiveReservationsForUser(LoggedInUser)
-                .ForEach(r => ActiveReservations.Add(new UserReservationsViewModel(r.Id,accommodationRepository.GetAccommodationNameById(r.AccommodationId) , accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo)));
+                .ForEach(r => ActiveReservations.Add(new UserReservationsViewModel(r.Id,accommodationRepository.GetAccommodationNameById(r.AccommodationId) , accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo,r.IsCancellable(accommodationRepository.GetById(r.AccommodationId).CancellationDeadline),r.IsRateable())));
             reservationsService.GetFinishedReservationsForUser(LoggedInUser)
-                .ForEach(r => FinishedReservations.Add(new UserReservationsViewModel(r.Id, accommodationRepository.GetAccommodationNameById(r.AccommodationId), accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo)));
+                .ForEach(r => FinishedReservations.Add(new UserReservationsViewModel(r.Id, accommodationRepository.GetAccommodationNameById(r.AccommodationId), accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationRepository.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable())));
             reservationsService.GetCancelledReservationsForUser(LoggedInUser)
-                .ForEach(r => CancelledReservations.Add(new UserReservationsViewModel(r.Id, accommodationRepository.GetAccommodationNameById(r.AccommodationId), accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo)));
+                .ForEach(r => CancelledReservations.Add(new UserReservationsViewModel(r.Id, accommodationRepository.GetAccommodationNameById(r.AccommodationId), accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationRepository.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable())));
         }
         private void MoveReservationClick(object sender, RoutedEventArgs e)
         {
+            
             MoveReservationAccommodation moveReservationWindow = new MoveReservationAccommodation();
             moveReservationWindow.Show();
         }
 
         private void RateTheOwnerClick(object sender, RoutedEventArgs e)
         {
-            OwnerAndAccommodationRatingWindow rateWindow = new OwnerAndAccommodationRatingWindow(LoggedInUser, accommodationReservationRepository.GetById(SelectedReservation.Id), accommodationReservationRepository.GetById(SelectedReservation.Id).AccommodationId);
-            rateWindow.Show();
 
+                OwnerAndAccommodationRatingWindow rateWindow = new OwnerAndAccommodationRatingWindow(LoggedInUser, accommodationReservationRepository.GetById(SelectedReservation.Id), accommodationReservationRepository.GetById(SelectedReservation.Id).AccommodationId);
+                rateWindow.Show();
 
         }
+
+        //private void CancelledReservationButton(object sender, RoutedEventArgs e)
+        //{
+        //            YesNoCancelledReservationWindow yesNoWindow = new YesNoCancelledReservationWindow(SelectedReservation);
+        //        yesNoWindow.Show();
+        //  }
+        
 
         private void CancelledReservationButton(object sender, RoutedEventArgs e)
         {
-            YesNoCancelledReservationWindow yesNoWindow = new YesNoCancelledReservationWindow(SelectedReservation);
-            yesNoWindow.Show();
+
+                YesNoCancelledReservationWindow yesNoWindow = new YesNoCancelledReservationWindow(SelectedReservation);
+                yesNoWindow.Show();
+
+
         }
+
+
 
     }
 }

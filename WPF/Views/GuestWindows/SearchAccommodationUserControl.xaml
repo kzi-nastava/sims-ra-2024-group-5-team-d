@@ -207,7 +207,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                         <sys:String>Apartament</sys:String>
-                        <sys:String>House</sys:String>
+                        <sys:String>Hotel</sys:String>
                         <sys:String>Cottage</sys:String>
                     </ComboBox>
 

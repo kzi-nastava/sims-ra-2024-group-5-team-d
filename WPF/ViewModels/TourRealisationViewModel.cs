@@ -18,7 +18,18 @@ namespace BookingApp.WPF.ViewModels
         public bool NotEnoughSpace { get; set; }
         public User User { get; set; }
         public int AvailableSeats { get; set; }
+        public bool IsCancellable { get; set; }
         public TourRealisationViewModel() { }
+
+        public TourRealisationViewModel(int id, DateTime dateTime, int tourId, int availableSeats,bool cancel, User user)
+        {
+            Id = id;
+            DateTime = dateTime;
+            TourId = tourId;
+            AvailableSeats = availableSeats;
+            User = user;
+            IsCancellable = cancel;
+        }         
 
         public TourRealisationViewModel(int id, DateTime dateTime, int tourId, int availableSeats, User user)
         {

@@ -59,6 +59,13 @@ namespace BookingApp.Repositories
             _tourRealisations.Remove(founded);
             _serializerTourRealisations.ToCSV(FilePathTourRealisations, _tourRealisations);
         }
+        public void DeleteTourRealisationById(int id)
+        {
+            _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);
+            TourRealisation founded = _tourRealisations.Find(c => c.Id == id);
+            _tourRealisations.Remove(founded);
+            _serializerTourRealisations.ToCSV(FilePathTourRealisations, _tourRealisations);
+        }
         public TourRealisation UpdateTourRealisation(TourRealisation tourRealisation)
         {
             _tourRealisations = _serializerTourRealisations.FromCSV(FilePathTourRealisations);

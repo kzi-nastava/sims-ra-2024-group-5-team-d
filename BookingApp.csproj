@@ -305,6 +305,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
      <Content Include="Resources\AccommodationImages\Accommodation2\hero-image - Copy.jpg">
        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
      </Content>

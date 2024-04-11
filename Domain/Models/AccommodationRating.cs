@@ -19,12 +19,13 @@ namespace BookingApp.Domain.Models
         public DateOnly TimeOfRating { get; set; }
         //public int Renovation { get; set; }
         public string Comment { get; set; }
+        public string ImagesPath { get; set; }
 
         public AccommodationRating() 
         {
         
         }
-        public AccommodationRating(int accommodationId, int guestId, int reservationId, int cleanlinessRating, int correctness, string comment, DateOnly timeOfRating)
+        public AccommodationRating(int accommodationId, int guestId, int reservationId, int cleanlinessRating, int correctness, string comment, DateOnly timeOfRating, string imagesPath)
         {
             AccommodationId = accommodationId;
             GuestId = guestId;
@@ -34,6 +35,7 @@ namespace BookingApp.Domain.Models
             //Renovation = renovation;
             Comment = comment;
             TimeOfRating = timeOfRating;
+            ImagesPath = imagesPath;
         }
         public void FromCSV(string[] values)
         {
@@ -45,11 +47,12 @@ namespace BookingApp.Domain.Models
             Correctness = Convert.ToInt32(values[5]);
             Comment = values[6];
             TimeOfRating = DateOnly.Parse(values[7]);
+            ImagesPath = values[8];
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString() };
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString(), ImagesPath };
             return csvValues;
         }
         public double GetAverageRating()

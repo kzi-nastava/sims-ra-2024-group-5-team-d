@@ -42,12 +42,16 @@ namespace BookingApp.Domain.Models
             return csvValues;
         }
 
+
+        public bool IsCancellable()
+        {
+            return StartTime >= DateTime.Now.AddDays(-2);
+        }
         public bool IsOnSelectedDate(DateOnly date)
         {
-            Debug.WriteLine("AAAA" +DateOnly.FromDateTime(StartTime).ToString());
-            Debug.WriteLine("BBBB" +date.ToString());
             return DateOnly.FromDateTime(StartTime) == date;
         }
 
+        
     }
 }

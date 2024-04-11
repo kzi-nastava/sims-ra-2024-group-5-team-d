@@ -126,7 +126,8 @@
         <Button Content="+" Grid.Row="5" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,0,0"
         Background="Transparent" BorderBrush="Gray" BorderThickness="1" 
         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-        Click="AddTourRealizationButton_Click">
+        Click="AddTourRealizationButton_Click"
+        IsEnabled="{Binding IsCancellable}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"

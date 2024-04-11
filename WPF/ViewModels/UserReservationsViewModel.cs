@@ -16,12 +16,14 @@ namespace BookingApp.WPF.ViewModels
         public int Capacity { get; set; }
 = 0;    public DateTime ReservedFrom { get; set; }
         public DateTime ReservedTo { get; set; }
+        public bool isReseravtionCancellable { get; set; }
+        public bool isReservationRateable { get; set; }
 
         public UserReservationsViewModel() 
         {
         
         }
-        public UserReservationsViewModel(int id, string name, Location location, string imagesPath, int capacity, DateTime reservedFrom, DateTime reservedTo)
+        public UserReservationsViewModel(int id, string name, Location location, string imagesPath, int capacity, DateTime reservedFrom, DateTime reservedTo, bool isReseravtionCancellable, bool isReservationRateable)
         {
             Id = id;
             Name = name;
@@ -30,7 +32,8 @@ namespace BookingApp.WPF.ViewModels
             Capacity = capacity;
             ReservedFrom = reservedFrom;
             ReservedTo = reservedTo;
-            
+            this.isReseravtionCancellable = isReseravtionCancellable;
+            this.isReservationRateable = isReservationRateable;
         }
     }
 

@@ -21,10 +21,5 @@ namespace BookingApp.WPF.ViewModels
             TourId = tourId;
             IsChecked = isChecked;
         }
-        public CheckPointViewModel(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
     }
 }
