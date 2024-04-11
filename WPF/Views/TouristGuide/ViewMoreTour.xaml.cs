@@ -28,7 +28,9 @@ namespace BookingApp.WPF.Views.TouristGuide
     /// </summary>
     public partial class ViewMoreTour : UserControl, INotifyPropertyChanged
     {
+        public bool CancelEnabled { get; set; }
         public TourViewModel SelectedTour { get; set; }
+        public TourRealisationViewModel SelectedTourRealisation { get; set; }
         public ObservableCollection<TourRealisationViewModel> TourRealisations { get; set; }
         private readonly ITourRealisationRepository tourRealisationRepository;
         private TourRealisationService tourRealisationService;
@@ -57,11 +59,12 @@ namespace BookingApp.WPF.Views.TouristGuide
             SelectedTour = selectedTour;
             tourRealisationRepository = new TourRealisationRepository();
             tourRealisationRepository.GetTourRealisationsByTourId(SelectedTour.Id)
-                .ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats, t.User)); });
+                .ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User)); });
 
             // Initialize NewTourRealizationDateTime with current date and time
             LoggedInUser = user;
             NewTourRealizationDateTime = DateTime.Now;
+            
         }
 
         // Implement INotifyPropertyChanged interface
@@ -103,7 +106,8 @@ namespace BookingApp.WPF.Views.TouristGuide
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-
+                tourRealisationService.DeleteTourRealisationById(SelectedTourRealisation.Id);
+                TourRealisations.Remove(SelectedTourRealisation);
         }
     }
 }

@@ -41,5 +41,10 @@ namespace BookingApp.Domain.Models
             return csvValues;
         }
 
+        public bool IsCancellable()
+        {
+             return StartTime >= DateTime.Now.AddDays(-2);
+        }
+
     }
 }

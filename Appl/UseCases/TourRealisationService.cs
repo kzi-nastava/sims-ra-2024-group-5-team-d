@@ -20,6 +20,10 @@ namespace BookingApp.Appl.UseCases
         {
             _repository.DeleteTourRealisation(tourRealisation);
         }
+        public void DeleteTourRealisationById(int id)
+        {
+            _repository.DeleteTourRealisationById(id);
+        }
         //pitati sutra
         public List<TourRealisation> GetTourRealisationsForToday(int tourId)
         {
