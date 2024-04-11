@@ -64,5 +64,10 @@ namespace BookingApp.Appl.UseCases
             return finishedTours;
         }
 
+        public bool HasAvailableSeatsInAnyRealisation(int tourId)
+        {
+            return tourRealisationRepository.GetTourRealisationsByTourId(tourId).Any(tR => tR.AvailableSeats > 0);
+        }
+
     }
 }
