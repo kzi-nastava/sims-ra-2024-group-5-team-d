@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 
 namespace BookingApp.WPF.ViewModels
 {
-    public class CheckpointViewModel
+    public class CheckPointViewModel
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
+        public int TourId { get; set; }
+        public bool IsChecked { get; set; }
 
-        public CheckpointViewModel() { }
-
-        public CheckpointViewModel(int id, string name)
+        public CheckPointViewModel() { }
+        public CheckPointViewModel(int id, string name, int tourId, bool isChecked)
+        {
+            Id = id;
+            Name = name;
+            TourId = tourId;
+            IsChecked = isChecked;
+        }
+        public CheckPointViewModel(int id, string name)
         {
             Id = id;
             Name = name;
         }
-
     }
 }

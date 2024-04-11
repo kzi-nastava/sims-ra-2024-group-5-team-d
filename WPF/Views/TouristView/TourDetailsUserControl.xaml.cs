@@ -63,7 +63,7 @@ namespace BookingApp.WPF.Views.TouristView
         public TourViewModel SelectedTourOnSameLocation { get; set; }
         public TourViewModel SelectedTour { get; set; }
         public ObservableCollection<TourRealisationViewModel> TourRealisations { get; set; }
-        public ObservableCollection<CheckpointViewModel> Checkpoints { get; set; }
+        public ObservableCollection<CheckPointViewModel> Checkpoints { get; set; }
         public ObservableCollection<TourViewModel> ToursOnSameLocation { get; set; }
 
         private TourRealisationService tourRealisationService;
@@ -95,8 +95,8 @@ namespace BookingApp.WPF.Views.TouristView
                     ToursOnSameLocation.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User));
             });
             checkpointRepository = Injector.CreateInstance<ICheckPointRepository>();
-            Checkpoints = new ObservableCollection<CheckpointViewModel>();
-            checkpointRepository.GetAllCheckPointsByTourId(selectedTour.Id).ForEach(checkpoint => Checkpoints.Add(new CheckpointViewModel(checkpoint.Id, checkpoint.Name)));
+            Checkpoints = new ObservableCollection<CheckPointViewModel>();
+            checkpointRepository.GetAllCheckPointsByTourId(selectedTour.Id).ForEach(checkpoint => Checkpoints.Add(new CheckPointViewModel(checkpoint.Id, checkpoint.Name)));
             NumberOfCheckpoints = Checkpoints.Count();
 
             tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
