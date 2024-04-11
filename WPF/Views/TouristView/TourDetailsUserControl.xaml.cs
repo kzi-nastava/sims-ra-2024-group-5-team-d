@@ -1,0 +1,322 @@
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.Views.OwnerView;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace BookingApp.WPF.Views.TouristView
+{
+    /// <summary>
+    /// Interaction logic for TourDetailsUserControl.xaml
+    /// </summary>
+    public partial class TourDetailsUserControl : UserControl, INotifyPropertyChanged
+    {
+        private DateTime date;
+        public DateTime Date
+        {
+            get => date;
+            set
+            {
+                if (value != date)
+                {
+                    date = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int numberOfTourists;
+
+        public int NumberOfTourists
+        {
+            get => numberOfTourists;
+            set
+            {
+                if (value != numberOfTourists)
+                {
+                    numberOfTourists = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string LocationName { get; set; }
+        public int NumberOfCheckpoints { get; set; }
+        public TourViewModel SelectedTourOnSameLocation { get; set; }
+        public TourViewModel SelectedTour { get; set; }
+        public ObservableCollection<TourRealisationViewModel> TourRealisations { get; set; }
+        public ObservableCollection<CheckPointViewModel> Checkpoints { get; set; }
+        public ObservableCollection<TourViewModel> ToursOnSameLocation { get; set; }
+
+        private TourRealisationService tourRealisationService;
+        private TourService tourService;
+        private readonly ITourRealisationRepository tourRealisationRepository;
+
+        private readonly ITourRepository tourRepository;
+
+        private readonly ILocationRepository locationRepository;
+        private readonly ICheckPointRepository checkpointRepository;
+        public User User { get; set; }
+
+        public TourDetailsUserControl(TourViewModel selectedTour, int numberOfPeople, User user)
+        {
+            InitializeComponent();
+            DataContext = this;
+            User = user;
+            Date = DateTime.UtcNow;
+            tourRealisationService = new TourRealisationService();
+            tourService = new TourService();
+            locationRepository = Injector.CreateInstance<ILocationRepository>();
+            LocationName = locationRepository.GetById(selectedTour.Location.Id).ToString();
+            numberOfTourists = numberOfPeople;
+            SelectedTour = selectedTour;
+            tourRepository = Injector.CreateInstance<ITourRepository>();
+            ToursOnSameLocation = new ObservableCollection<TourViewModel>();
+            tourRepository.GetAllTours().ForEach(tour => { 
+                if(tour.Location.Id == selectedTour.Location.Id && tour.Id != selectedTour.Id)
+                    ToursOnSameLocation.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User));
+            });
+            checkpointRepository = Injector.CreateInstance<ICheckPointRepository>();
+            Checkpoints = new ObservableCollection<CheckPointViewModel>();
+            checkpointRepository.GetAllCheckPointsByTourId(selectedTour.Id).ForEach(checkpoint => Checkpoints.Add(new CheckPointViewModel(checkpoint.Id, checkpoint.Name)));
+            NumberOfCheckpoints = Checkpoints.Count();
+
+            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
+            TourRealisations = new ObservableCollection<TourRealisationViewModel>();
+
+            
+            CreateProgressSteps();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void IncreaseCount_Click(object sender, RoutedEventArgs e)
+        {
+            //int currentCount = Convert.ToInt32(PeopleCounter.Text.Split(" ")[0]);
+            ++NumberOfTourists;
+            Debug.WriteLine(numberOfTourists);
+            Debug.WriteLine(SelectedTour.Capacity);
+        }
+
+        private void DecreaseCount_Click(object sender, RoutedEventArgs e)
+        {
+            if (numberOfTourists > 1)
+            {
+                --NumberOfTourists;
+                Debug.WriteLine(numberOfTourists);
+            }
+        }
+
+        private void CreateProgressSteps()
+        {
+            int numberOfSteps = NumberOfCheckpoints;
+            double stepWidth = (progressBar.Width - (numberOfSteps - 1) * 40) / (double)(numberOfSteps - 1);
+
+            double textBoxStep = (progressBar.Width - (numberOfSteps - 1) * 25) / (double)(numberOfSteps - 1);
+
+            Debug.WriteLine(stepWidth);
+            for (int i = 0; i < numberOfSteps; i++)
+            {
+                if (i == 0)
+                {
+                    Ellipse ellipse = new Ellipse
+                    {
+                        Width = 40,
+                        Height = 40,
+                        Fill = Brushes.Green,
+                        Margin = new Thickness(200, 20, 0, 0),
+                        Cursor = Cursors.Hand
+                    };
+
+                    TextBox textbox1 = new TextBox
+                    {
+                        Text = $"{i + 1}",
+                        IsReadOnly = true,
+                        Width = 25,
+                        Height = 25,
+                        BorderThickness = new Thickness(0),
+                        FontSize = 20,
+                        VerticalContentAlignment = VerticalAlignment.Top,
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        Foreground = Brushes.Yellow,
+                        Background = Brushes.Green,
+                        FontWeight = FontWeights.Bold,
+                        FontStyle = FontStyles.Normal,
+                        FontFamily = new FontFamily("Segoe UI"),
+                        Margin = new Thickness(207, 25, 0, 0)
+                    };
+
+                    TextBox textbox = new TextBox
+                    {
+                        Text = Checkpoints[i].Name,
+                        BorderBrush = Brushes.White,
+                        IsReadOnly = true,
+                        Width = 200,
+                        Height = 40,
+                        FontSize = 18,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        FontWeight = FontWeights.DemiBold,
+                        FontStyle = FontStyles.Normal,
+                        FontFamily = new FontFamily("Segoe UI"),
+                        Margin = new Thickness(250, 20, 0, 0)
+                    };
+
+                    numberContainer.Children.Add(textbox1);
+
+                    namesContainer.Children.Add(textbox);
+
+                    progressContainer.Children.Add(ellipse);
+                }
+                else
+                {
+                    Ellipse ellipse = new Ellipse
+                    {
+                        Width = 40,
+                        Height = 40,
+                        Fill = Brushes.Green,
+
+                        Margin = new Thickness(200, stepWidth, 0, 0),
+                        Cursor = Cursors.Hand
+                    };
+
+                    TextBox textbox1 = new TextBox
+                    {
+                        Text = $"{i + 1}",
+                        IsReadOnly = true,
+                        Width = 25,
+                        Height = 25,
+                        BorderThickness = new Thickness(0),
+                        FontSize = 20,
+                        VerticalContentAlignment = VerticalAlignment.Top,
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        Foreground = Brushes.Yellow,
+                        Background = Brushes.Green,
+                        FontWeight = FontWeights.Bold,
+                        FontStyle = FontStyles.Normal,
+                        FontFamily = new FontFamily("Segoe UI"),
+                        Margin = new Thickness(207, textBoxStep, 0, 0)
+                    };
+
+
+                    TextBox textbox = new TextBox
+                    {
+                        Text = Checkpoints[i].Name,
+                        IsReadOnly = true,
+                        Width = 200,
+                        Height = 40,
+                        BorderBrush = Brushes.White,
+                        FontSize = 18,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        Foreground = Brushes.Black,
+                        FontWeight = FontWeights.DemiBold,
+                        FontStyle = FontStyles.Normal,
+                        FontFamily = new FontFamily("Segoe UI"),
+                        Margin = new Thickness(250, stepWidth, 0, 0)
+                    };
+
+                    numberContainer.Children.Add(textbox1);
+
+                    namesContainer.Children.Add(textbox);
+
+                    progressContainer.Children.Add(ellipse);
+                }
+
+            }
+        }
+
+        private void ScrollToPosition(int position)
+        {
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = MainScroll.VerticalOffset;
+            animation.To = position;
+            animation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
+
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(animation);
+            Storyboard.SetTarget(animation, MainScroll);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(ScrollViewerBehavior.VerticalOffsetProperty));
+
+            storyboard.Begin();
+        }
+
+
+        private void CheckAvailabilty_Click(object sender, RoutedEventArgs e)
+        {
+            if (tourService.HasAvailableSeatsInAnyRealisation(SelectedTour.Id))
+            {
+                tourRealisationService.GetRealisationsForTourOnGivenDate(SelectedTour.Id, DateOnly.FromDateTime(Date)).ForEach(tR => TourRealisations.Add(new TourRealisationViewModel(tR.Id, tR.StartTime, tR.TourId, tR.AvailableSeats, SelectedTour.Duration, tR.User, NumberOfTourists)));
+                onClickVisible.Visibility = Visibility.Visible;
+            }
+            else
+                onClickVisible2.Visibility = Visibility.Visible;
+
+            ScrollToPosition(200);
+        }
+
+        private void Promeni_Click(object sender, MouseButtonEventArgs e)
+        {
+           
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //MainWindow.contentControl.Content = new BookSection();
+        }
+
+        private void SecondaryTourChoice_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TouristHomeWindow.contentControl.Content = new TourDetailsUserControl(SelectedTourOnSameLocation, NumberOfTourists, User);
+        }
+    }
+
+    public static class ScrollViewerBehavior
+    {
+        public static readonly DependencyProperty VerticalOffsetProperty =
+            DependencyProperty.RegisterAttached("VerticalOffset", typeof(double), typeof(ScrollViewerBehavior),
+                new PropertyMetadata(OnVerticalOffsetChanged));
+
+        public static double GetVerticalOffset(DependencyObject obj)
+        {
+            return (double)obj.GetValue(VerticalOffsetProperty);
+        }
+
+        public static void SetVerticalOffset(DependencyObject obj, double value)
+        {
+            obj.SetValue(VerticalOffsetProperty, value);
+        }
+
+        private static void OnVerticalOffsetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var scrollViewer = d as ScrollViewer;
+            if (scrollViewer != null)
+            {
+                scrollViewer.ScrollToVerticalOffset((double)e.NewValue);
+            }
+        }
+    }
+}

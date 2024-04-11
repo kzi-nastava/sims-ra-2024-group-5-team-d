@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristGuide.CreateNewTourForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+
+             mc:Ignorable="d" 
+                          d:DesignHeight="767" d:DesignWidth="950">
+    <UserControl.Resources>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock" >
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox" >
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="40,15,40,0">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Create New Tour" HorizontalAlignment="Center" FontSize="28" Grid.ColumnSpan="4" Margin="0,30,0,50"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" Style="{StaticResource TextBlockStyle}"/>
+        <TextBox Grid.Row="2" Grid.Column="0"  Style="{StaticResource TextBoxStyle}" Text="{Binding Name}"/>
+
+        <TextBlock Text="Add CheckPoints:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Style="{StaticResource TextBlockStyle}"/>
+        <TextBox x:Name="itemInput" Grid.Column="2" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Width="220"/>
+        <Button Content="+" Margin="0,0,30,0" Grid.Column="2"  Grid.Row="2" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding AddCheckPointCommand}" CommandParameter="{Binding Text, ElementName=itemInput}"/>
+        <ListView BorderThickness="0"
+          Background="Transparent"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+          ItemsSource="{Binding CheckPoints}"
+          SelectedItem="{Binding SelectedTour}"
+          ScrollViewer.CanContentScroll="False" Grid.Row="3" Grid.Column="2" Grid.RowSpan="7">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="{Binding Name}"/>
+                        <CheckBox IsChecked="{Binding IsChecked}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Location" Style="{StaticResource TextBlockStyle}"/>
+        <ComboBox Grid.Column="0" 
+                      Grid.Row="4"
+                      Height="30"
+                      Width="250"  
+                      HorizontalAlignment="Left" 
+                      VerticalAlignment="Top" 
+                      FontSize="20"
+                      SelectedIndex="{Binding LocationId}"
+                      
+                      >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DropDownClosed">
+                    <i:InvokeCommandAction Command="{Binding LocationChangedCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ComboBoxItem Content="Serbia, Novi Sad"/>
+            <ComboBoxItem Content="Serbia, Beograd"/>
+            <ComboBoxItem Content="Serbia, Smederevo"/>
+            <ComboBoxItem Content="Serbia, Požega"/>
+            <ComboBoxItem Content="Serbia, Kragujevac"/>
+            <ComboBoxItem Content="Serbia, Niš"/>
+            <ComboBoxItem Content="Serbia, Subotica"/>
+            <ComboBoxItem Content="Serbia, Pančevo"/>
+            <ComboBoxItem Content="Serbia, Čačak"/>
+            <ComboBoxItem Content="Serbia, Užice"/>
+        </ComboBox>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Duration" Style="{StaticResource TextBlockStyle}"/>
+        <TextBox Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding Duration}"/>
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="Capacity" Style="{StaticResource TextBlockStyle}"/>
+        <TextBox Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding Capacity}"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Language" Style="{StaticResource TextBlockStyle}"/>
+        <ComboBox Grid.Column="1" 
+                  Grid.Row="2"
+                  Height="30"
+                  Width="250"  
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Top"
+                  FontSize="20"
+                  SelectedIndex="{Binding LanguageId}">
+            <ComboBoxItem Content="English"/>
+            <ComboBoxItem Content="German"/>
+            <ComboBoxItem Content="Serbian"/>
+        </ComboBox>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Date and Time" Style="{StaticResource TextBlockStyle}"/>
+
+        <!-- TimePicker for selecting the time (using WPF Toolkit) -->
+        <xctk:DateTimePicker Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="30" Width="250"/>
+
+        <!-- TextBox for free-form time input -->
+        <TextBlock Grid.Row="5" Grid.Column="1" Text="Upload a Picture" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Row="9" Grid.Column="0" Text="Description" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="10" Grid.Column="0" Width="550" Height="110"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Text="{Binding Description}"/>
+        <Button Grid.Row="11" Grid.Column="2"  Content="Create" Margin="0,50,150,20" Height="40" Width="100" HorizontalAlignment="Right" />
+        <Button Grid.Row="11" Grid.Column="2"  Content="Cancel" Margin="0,50,0,20" Height="40" Width="100" HorizontalAlignment="Right"/>
+
+    </Grid>
+</UserControl>

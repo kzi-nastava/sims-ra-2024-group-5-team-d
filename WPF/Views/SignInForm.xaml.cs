@@ -6,6 +6,7 @@ using System.Windows;
 using BookingApp.WPF.Views.GuestWindows;
 using BookingApp.WPF.Views.TouristGuide;
 using BookingApp.WPF.Views.OwnerView;
+using BookingApp.WPF.Views.TouristView;
 
 namespace BookingApp.WPF.Views
 {
@@ -68,7 +69,7 @@ namespace BookingApp.WPF.Views
                     }
                     else if (user.Type.Equals("tourist"))
                     {
-                        TouristHomeWindow touristWindow = new TouristHomeWindow();
+                        TouristHomeWindow touristWindow = new TouristHomeWindow(user);
                         touristWindow.Owner = this;
                         touristWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                         touristWindow.ShowDialog();

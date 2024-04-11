@@ -36,7 +36,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             DataContext = this;
             tourRepository = Injector.CreateInstance<ITourRepository>();
             Tours = new ObservableCollection<TourViewModel>();
-            tourRepository.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath,tour.MaxCapacity,tour.Language)));
+            tourRepository.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath,tour.MaxCapacity,tour.Language, tour.User)));
             LoggedInUser = user;
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

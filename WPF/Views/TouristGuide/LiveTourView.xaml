@@ -7,6 +7,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
               d:DesignHeight="767" d:DesignWidth="950">
+    
     <Grid Margin="40,15,40,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -29,14 +30,53 @@
         <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding tourRealisation.DateTime}" FontSize="15"/>
         <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" BorderBrush="DarkGray" BorderThickness="2,0,0,0"/>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Attendees" Margin="20,40,0,0" FontSize="35"/>
+        <ListView Grid.Row="3" 
+                  Grid.Column="0"
+                  Height="500" 
+                  Margin="20,0,0,0" 
+                  ItemsSource="{Binding CheckPoints}" 
+                  BorderBrush="Transparent"
+                  x:Name="CheckPointsListView">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Height="90" Width="200" BorderThickness="0,0,0,0" BorderBrush="Transparent">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Circle -->
+                            <Grid>
+                                <Ellipse Width="30" Height="30" Fill="Black" Margin="10,0">
+                                    <Ellipse.ToolTip>
+                                        <TextBlock>Circle</TextBlock>
+                                    </Ellipse.ToolTip>
+                                </Ellipse>
+                                <!-- NIJE DOBAR BINDING NA LISTU PAZI -->
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+                            </Grid>
+                            <TextBlock Text="{Binding Name}" Margin="10,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+
         <ListView BorderThickness="0" 
                   Background="Transparent"
-            Height="500"
-            Margin="20,0,0,0"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            ScrollViewer.VerticalScrollBarVisibility="Visible"
-            ScrollViewer.CanContentScroll="False"
-            Grid.Row="3" Grid.Column="1" >
+                    Height="500"
+                    Margin="20,0,0,0"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                    ScrollViewer.CanContentScroll="False"
+                    Grid.Row="3" Grid.Column="1" 
+                    ItemsSource="{Binding TourGuests}"
+                    SelectionMode="Multiple"
+                    x:Name="TourGuestsListView"
+                    >
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical" />
@@ -51,25 +91,17 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <Image Grid.Row="0" Source="Icons/User Circle.png" Height="24" Width="24" HorizontalAlignment="Left" Grid.RowSpan="2"/>
-                            <TextBlock Grid.Row="0" Text="Petar Petrovic" Margin="30,0,0,0"/>
-                            <TextBlock Grid.Row="1" Text="25 godina" Margin="30,0,0,0"/>
+                            <TextBlock Grid.Row="0" Text="{Binding FullName}" Margin="30,0,0,0"/>
+                            <TextBlock Grid.Row="1" Margin="30,0,0,0">
+                                <Run Text="{Binding Years}" />
+                                <Run Text="years" />
+                            </TextBlock>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.ItemsSource>
-                <x:Array Type="{x:Type sys:String}">
-                    <sys:String>Ala</sys:String>
-                    <sys:String>Bela</sys:String>
-                    <sys:String>Ceca</sys:String>
-                    <sys:String>Veca</sys:String>
-                    <sys:String>Veca</sys:String>
-                    <sys:String>Veca</sys:String>
-                    <sys:String>Veca</sys:String>
-                </x:Array>
-            </ListView.ItemsSource>
         </ListView>
         <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
-        <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Click ="SignUpButton_Click" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
     </Grid>
 </UserControl>

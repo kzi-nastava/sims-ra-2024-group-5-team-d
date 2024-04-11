@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -41,5 +42,16 @@ namespace BookingApp.Domain.Models
             return csvValues;
         }
 
+
+        public bool IsCancellable()
+        {
+            return StartTime >= DateTime.Now.AddDays(-2);
+        }
+        public bool IsOnSelectedDate(DateOnly date)
+        {
+            return DateOnly.FromDateTime(StartTime) == date;
+        }
+
+        
     }
 }

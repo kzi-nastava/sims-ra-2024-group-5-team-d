@@ -37,7 +37,7 @@ namespace BookingApp.WPF.Views.TouristGuide
 
         private void NewTour_Click(object sender, MouseButtonEventArgs e)
         {
-            //contentControlW.Content = new CreateNewTour(LoggedInUser);
+            contentControlW.Content = new CreateNewTourForm(LoggedInUser);
         }
 
         private void Profile_Click(object sender, MouseButtonEventArgs e)

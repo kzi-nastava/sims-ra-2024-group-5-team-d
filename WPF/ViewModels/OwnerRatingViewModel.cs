@@ -2,20 +2,27 @@
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using BookingApp.WPF.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels
 {
     public class OwnerRatingViewModel
     {
+        public ICommand ForwardCommand { get; private set; }
+        public ICommand BackwardCommand { get; private set; }
         public int Id { get; set; }
         public string GuestName { get; set; }
         public Location Location { get; set; }
         public int ReservationId { get; set; }
+        public ObservableCollection<string> ImagesPaths { get; set; }
         public string AccommodationName { get; set; }
         public int CleanlinessRating { get; set; }
         public int CorrectnessRating { get; set; }
@@ -23,9 +30,34 @@ namespace BookingApp.WPF.ViewModels
         public string Comment { get; set; }
         private IAccommodationRepository accommodationRepository;
         private IUserRepository userRepository;
+        private ImageUploaderService imageUploaderService;
+        private List<string> imagesPaths;
         public OwnerRatingViewModel()
         {
-
+        }
+        public void Backward()
+        {
+            string path = ImagesPaths.Last();
+            ImagesPaths.Clear();
+            int indeksPocetnogStringa = imagesPaths.FindIndex(imagePath => imagePath.StartsWith(path))-1;
+            for (int i = indeksPocetnogStringa; i >=0; i--)
+            {
+                ImagesPaths.Add(imagesPaths[i]);
+                if (ImagesPaths.Count > 2)
+                    break;
+            }
+        }
+        public void Forward()
+        {
+            string path = ImagesPaths.Last();
+            ImagesPaths.Clear();
+            int indeksPocetnogStringa = imagesPaths.FindIndex(imagePath => imagePath.StartsWith(path)) + 1;
+            for (int i = indeksPocetnogStringa; i < imagesPaths.Count; i++)
+            {
+                ImagesPaths.Add(imagesPaths[i]);
+                if (ImagesPaths.Count > 2)
+                    break;
+            }
         }
         public OwnerRatingViewModel(int id,string guestName, Location location, string accommodationName, DateOnly ratingDate, string comment)
         {
@@ -38,6 +70,9 @@ namespace BookingApp.WPF.ViewModels
         }
         public OwnerRatingViewModel(AccommodationRating rating)
         {
+            BackwardCommand = new RelayCommand(Backward);
+            ForwardCommand = new RelayCommand(Forward);
+            imageUploaderService = new ImageUploaderService();
             ReservationId = rating.ReservationId;
             CleanlinessRating = rating.Cleanliness;
             CorrectnessRating = rating.Correctness;
@@ -50,6 +85,16 @@ namespace BookingApp.WPF.ViewModels
             AccommodationName = accommodation.Name;
             RatingDate = rating.TimeOfRating;
             Comment = rating.Comment;
+            imagesPaths = imageUploaderService.GetImagePaths(accommodation.ImagesPath);
+            ImagesPaths = new ObservableCollection<string>();
+            ImagesPaths.Add(imagesPaths[0]);
+            ImagesPaths.Add(imagesPaths[1]);
+            ImagesPaths.Add(imagesPaths[2]);
+            //imagesPaths.ForEach(imagePath => ImagesPaths.Add(imagePath));
+            //foreach (string path in imagePaths)
+            //ImagesPath =accommodation.ImagesPath;
+            //Debug.WriteLine("ImagesPath: "+ImagesPath);
+            //ImagesPath = rating.ImagesPath;
         }
     }
 }

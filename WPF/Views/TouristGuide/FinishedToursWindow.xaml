@@ -177,7 +177,12 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <Image Grid.Column="0" Source="Icons/Card/Clock Circle.png" Height="16" Width="16"/>
-                                        <Label Grid.Column="1" Content="{Binding Duration}" HorizontalAlignment="Left"/>
+                                        <Label Grid.Column="1" HorizontalAlignment="Left">
+                                            <TextBlock>
+                                                <Run Text="{Binding Duration}" />
+                                                <Run Text=" hours" />
+                                            </TextBlock>
+                                        </Label>
                                     </Grid>
                                     <Grid Grid.Row="2">
                                         <Grid.ColumnDefinitions>
@@ -185,7 +190,13 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <Image Grid.Column="0" Source="Icons/Card/User.png" Height="16" Width="16"/>
-                                        <Label Grid.Column="1" Content="{Binding Capacity}" HorizontalAlignment="Left"/>
+                                        <Label Grid.Column="1" HorizontalAlignment="Left">
+                                            <TextBlock>
+                                                <Run Text="{Binding Capacity}" />
+                                                <Run Text=" seats" />
+                                            </TextBlock>
+                                        </Label>
+
                                     </Grid>
                                     <Grid Grid.Row="3">
                                         <Grid.ColumnDefinitions>
