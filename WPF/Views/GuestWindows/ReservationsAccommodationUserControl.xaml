@@ -149,7 +149,7 @@
                                      HorizontalAlignment="Center" 
                                      VerticalAlignment="Center"
                                      Click="CancelledReservationButton"
-                                     IsEnabled="{Binding CancellationEnabled}"/>
+                                     IsEnabled="{Binding isReseravtionCancellable}"/>
                                     <Button x:Name="MoveButton" 
                                      Content="Move" 
                                      Grid.Row="4" 
@@ -412,7 +412,7 @@
                                             VerticalAlignment="Center"
                                             Grid.ColumnSpan="2"
                                             Click="RateTheOwnerClick"
-                                            IsEnabled="{Binding RateEnabled}">
+                                            IsEnabled="{Binding isReservationRateable}">
                                     </Button>
                                 </Grid>
                             </Border>

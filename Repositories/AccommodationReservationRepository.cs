@@ -83,18 +83,6 @@ namespace BookingApp.Repositories
             return _reservations.FindAll(reservation => reservation.AccommodationId == accommodation.Id);
         }
 
-        public bool IsCancellable(Accommodation accommodation, AccommodationReservation reservation) 
-       {
-            DateTime currentTime = DateTime.Now;
 
-            if (reservation.ReservedFrom > (currentTime.AddHours(24)) && reservation.ReservedFrom > (currentTime.AddDays(accommodation.CancellationDeadline)))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 }

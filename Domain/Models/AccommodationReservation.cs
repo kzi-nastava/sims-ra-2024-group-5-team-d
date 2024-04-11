@@ -77,6 +77,19 @@ namespace BookingApp.Domain.Models
         {
             return (DateTime.Now - ReservedTo).Days >= 0 && (DateTime.Now - ReservedTo).Days <= 5;
         }
+        public bool IsCancellable(int cancellationDeadLine)
+        {
+            DateTime currentTime = DateTime.Now;
+
+            if (ReservedFrom > (currentTime.AddHours(24)) && ReservedFrom > (currentTime.AddDays(cancellationDeadLine)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public bool IsMadeOrEndedInSelectedYear(int year)
         {
             return ReservedFrom.Year == year || ReservedTo.Year == year;
