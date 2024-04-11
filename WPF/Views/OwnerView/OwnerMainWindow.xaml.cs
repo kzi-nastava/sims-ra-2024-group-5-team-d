@@ -46,7 +46,7 @@ namespace BookingApp.WPF.Views.OwnerView
 
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
-        User loggedInUser;
+        private User loggedInUser;
         private UnratedGuestService unratedGuestService;
 
         public OwnerMainWindow(User user)

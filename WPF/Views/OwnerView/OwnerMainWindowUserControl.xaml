@@ -49,12 +49,11 @@
                     <Border BorderBrush="Black" 
                                 BorderThickness="3" 
                                 CornerRadius="10"
-                            Height="130"
+                            Height="150"
                                 Width="880">
                         <Grid Margin="15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
-
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="200"/>
@@ -62,11 +61,12 @@
                                 <ColumnDefinition MinWidth="50" Width="auto"/>
                                 <ColumnDefinition MinWidth="200" Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="3" Height="110">
+                                <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
                                        HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center" 
-                                       MinHeight="130"
-                                       Grid.RowSpan="2"/>
+                                       VerticalAlignment="Center"                                     
+                                        Stretch="Fill"/>
+                            </Border>
                             <Grid Grid.Column="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>

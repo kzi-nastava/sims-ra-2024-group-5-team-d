@@ -22,7 +22,7 @@ namespace BookingApp.Appl.UseCases
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
         }
-        public List<AccommodationRating> GetAllRatingsForOwner(User owner) { //DA OVA FUNKCIJA PRIMI I LISTU SVIG REZERVACIJA ZA OWNERA
+        public List<AccommodationRating> GetAllRatingsForOwner(User owner) {
             List<AccommodationRating> allOwnerRatings = FindAllRatingsForOwner(owner);
             List<AccommodationRating> filteredOwnerRatings = filterOwnerRatings(allOwnerRatings,owner);
             return filteredOwnerRatings;

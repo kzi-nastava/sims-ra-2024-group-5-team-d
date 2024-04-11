@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         WindowStyle="None"
         mc:Ignorable="d"
-        Title="" Height="550" Width="900">
+        Title="" Height="550" Width="900" KeyDown="Window_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
