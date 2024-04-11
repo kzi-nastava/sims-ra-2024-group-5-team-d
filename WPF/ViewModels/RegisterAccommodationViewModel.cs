@@ -9,12 +9,32 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 
 namespace BookingApp.WPF.ViewModels
 {
     public class RegisterAccommodationViewModel
     {
+
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive),
+                corner: Corner.BottomRight,
+                offsetX: 0,
+                offsetY: 0);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
         public ICommand SaveCommand { get; private set; }
         public ICommand UploadCommand { get; private set; }
         public string Name { get; set; }
@@ -50,6 +70,7 @@ namespace BookingApp.WPF.ViewModels
 
             Accommodation newAccommodation = new Accommodation(Name, locationRepository.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner, accommodationService.IsSuperOwner(loggedInUser));
             Accommodation savedAccommodation = accommodationRepository.Save(newAccommodation);
+            notifier.ShowSuccess("Accommodation added SUCCESSFULLY!");
         }
         private void UploadPicture()
         {
