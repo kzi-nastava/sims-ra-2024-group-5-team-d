@@ -138,9 +138,9 @@
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
                                     </Grid>
-                                    <TextBlock FontSize="13" 
+                                    <TextBlock FontSize="12" 
                                                Grid.Column="1" 
-                                               Margin="10 0 0 0" VerticalAlignment="Center"> 
+                                               Margin="7 0 0 4" VerticalAlignment="Center"> 
                                                <Run Text="{Binding NumberOfRatings}"/> 
                                                <Run Text="review(s)"/>
                                     </TextBlock>
