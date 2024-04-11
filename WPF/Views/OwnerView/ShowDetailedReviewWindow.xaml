@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
         mc:Ignorable="d"
-        Title="ShowDetailsWindow" Height="500" Width="450">
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"        
+        xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+        Title="ShowDetailsWindow" Height="600" Width="500">
+    <Window.Resources>
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -85,9 +91,54 @@
                                                VerticalAlignment="Center" Margin="5 0 0 0"/>
             </Grid>
         </Grid>
-        <TextBlock Grid.Row="4" Text="Additional comment :" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Margin="0 0 0 10"/>
-        <TextBox IsReadOnly="True" FontSize="20" Text="{Binding Comment}" Grid.Row="5" Padding="10" BorderBrush="Black" BorderThickness="2" Margin="20 0 20 0" TextWrapping="WrapWithOverflow"/>
-        <Button Margin="0 10 0 10" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Click="Close">
+        <Grid Grid.Row="4" Margin="10 0 10 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button BorderThickness="0" Command="{Binding BackwardCommand}">
+                <Image Source="C:\Users\lukai\Desktop\Resource\back.png" Height="50"/>
+            </Button>
+            <ListView BorderThickness="0" 
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      Grid.Column="1"
+                      Height="100"
+                      x:Name="lista"
+                      ItemsSource="{Binding ImagesPaths}"
+                      Margin="5 0 5 0"
+                      ScrollViewer.CanContentScroll="False">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" 
+                                BorderThickness="3" 
+                                CornerRadius="2"
+                                Width="91"
+                                Height="90" Margin="0 0 0 0">
+                            <Image Stretch="Fill" Source="{Binding}"/>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="10 0 5 0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <Button Grid.Column="2" Background="Transparent" BorderThickness="0" Command="{Binding ForwardCommand}">
+                <Image Source="C:\Users\lukai\Desktop\Resource\forward.png" Height="50"/>
+            </Button>
+        </Grid>
+        <TextBlock Grid.Row="5" Text="Additional comment :" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Margin="0 0 0 10"/>
+        <TextBox IsReadOnly="True" FontSize="20" Text="{Binding Comment}" Grid.Row="6" Padding="10" BorderBrush="Black" BorderThickness="2" Margin="20 0 20 0" TextWrapping="WrapWithOverflow"/>
+        <Button Margin="0 10 0 10" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Click="Close">
             <Border BorderBrush="Black" BorderThickness="2" Padding="2">
                 <TextBlock Text="OK" FontSize="24" Margin="5 0 5 0"/>
             </Border>
