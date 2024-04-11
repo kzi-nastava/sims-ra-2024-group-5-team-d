@@ -18,7 +18,14 @@ namespace BookingApp.WPF.Converters
             if (value is string imagesPath && !string.IsNullOrEmpty(imagesPath))
             {
                 string[] imagePaths = Directory.GetFiles(imagesPath, "*.*");
-                return imagePaths.Length > 0 ? imagePaths[0] : null;
+                if (imagePaths.Length > 0)
+                {
+                    return imagePaths[0];
+                }
+                else
+                {
+                    return "C:/Users/lukai/Desktop/Resource/house.png";
+                }
             }
 
             return null;

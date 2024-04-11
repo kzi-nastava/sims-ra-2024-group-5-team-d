@@ -17,6 +17,7 @@
   <ItemGroup>
     <None Remove="Resources\AccommodationImages\Accommodation11\13.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation13\hero-image.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation17\PROBAAAAAAA.png" />
     <None Remove="Resources\AccommodationImages\Accommodation2\13.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation2\hero-image - Copy.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation2\hero-image.jpg" />
@@ -88,6 +89,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\AccommodationImages\Accommodation17\PROBAAAAAAA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\AccommodationImages\Accommodation2\13.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -318,5 +322,10 @@
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Remove="Resources\AccommodationImages\Accommodation18\AHHAHAHHAHHAHA.jpg" />
+    <Content Include="Resources\AccommodationImages\Accommodation18\AHHAHAHHAHHAHA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

@@ -48,20 +48,30 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border  BorderThickness="2" Margin="0 20 10 20"  Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_1">
-                    <TextBlock Text="1" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Border  BorderThickness="2" Margin="0 20 10 20"  Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="1">
+                        <TextBlock Text="1" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
-                <Border Grid.Column="1" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_2">
-                    <TextBlock Text="2"  FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border Grid.Column="1" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="2">
+                        <TextBlock Text="2" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
-                <Border  Grid.Column="2" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_3">
-                    <TextBlock Text="3" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border  Grid.Column="2" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="3">
+                        <TextBlock Text="3" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
-                <Border  Grid.Column="3" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_4">
-                    <TextBlock Text="4"  FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border  Grid.Column="3" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="4">
+                        <TextBlock Text="4" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
-                <Border Grid.Column="4" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_5">
-                    <TextBlock Text="5" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border Grid.Column="4" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="5">
+                        <TextBlock Text="5" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
@@ -72,20 +82,30 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border  Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_6">
-                    <TextBlock Text="1" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border  Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="1">
+                        <TextBlock Text="1" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
-                <Border  Grid.Column="1" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_7">
-                    <TextBlock Text="2"  FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border  Grid.Column="1" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="2">
+                        <TextBlock Text="2" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
-                <Border Grid.Column="2" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_8">
-                    <TextBlock Text="3" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border Grid.Column="2" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="3">
+                        <TextBlock Text="3" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
-                <Border  Grid.Column="3" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_9">
-                    <TextBlock Text="4"  FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border  Grid.Column="3" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="4">
+                        <TextBlock Text="4" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
-                <Border Grid.Column="4" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}" MouseLeftButtonDown="Border_MouseLeftButtonDown_10">
-                    <TextBlock Text="5" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border Grid.Column="4" Margin="0 20 10 20" Style="{StaticResource HoverBorderStyle}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="5">
+                        <TextBlock Text="5" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
                 </Border>
             </Grid>
         </Grid>
@@ -122,7 +142,7 @@
                                     Background="Transparent"
                                     Height="50"
                                     VerticalAlignment="Center"
-                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Click="RateGuest_Click">
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding RateGuestCommand}">
                 <Border  BorderBrush="DarkGreen"
                                              BorderThickness="3"
                                              CornerRadius="10"

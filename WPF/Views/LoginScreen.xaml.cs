@@ -25,7 +25,15 @@ namespace BookingApp.WPF.Views
         {
             InitializeComponent();
             contentControl = contentControl1;
+            KeyDown += Window_KeyDown;
             contentControl.Content = new LoginUserControl();
+        }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
         }
     }
 }

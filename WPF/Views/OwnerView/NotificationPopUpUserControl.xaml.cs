@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,19 +24,20 @@ namespace BookingApp.WPF.Views.OwnerView
     {
         public NotificationPopUpUserControl()
         {
+            //Debug.WriteLine("User: " + user.Username);
             InitializeComponent();
         }
         private void Reviews(object sender, MouseButtonEventArgs e)
         {
-            //OwnerMainWindow.contentControl.Content = new OwnerReviewUserControl();
-          //  OwnerMainWindow.popUp.IsOpen = false;
+    //        OwnerMainWindow.contentControl.Content = new OwnerReviewUserControl(user);
+            OwnerMainWindow.popUp.IsOpen = false;
         }
 
 
         private void Border_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-         //   MainWindow.contentControl.Content = new RequestsNoMenu();
-          //  MainWindow.popUp.IsOpen = false;
+            //   MainWindow.contentControl.Content = new RequestsNoMenu();
+            OwnerMainWindow.popUp.IsOpen = false;
         }
     }
 }

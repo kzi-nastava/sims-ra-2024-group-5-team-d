@@ -24,51 +24,39 @@ namespace BookingApp.Appl.UseCases
             accommodationRatingRepository=Injector.CreateInstance<IAccommodationRatingRepository>();
         }
 
-        //DA LI OVDE ODVOJITI SAVE FUNKCIJE (SAVE UPDATE I UPDATEOWNERSTATUS JER JE REDOSLED BITAN)
         public void RateOwner(AccommodationRating accommodationRating)
         {
-            accommodationRatingRepository.Save(accommodationRating);
+
             Accommodation accommodation = accommodationRepository.GetById(accommodationRating.AccommodationId);
-            Accommodation updatedAccommodation=UpdateAverageRating(accommodationRating.AccommodationId,accommodationRating.Cleanliness, accommodation);
-            accommodationRepository.Update(updatedAccommodation);
-            double averageOwnerRating=GetOwnerAverageRating(accommodationRating.GetAverageRating(), accommodation);
-            accommodationService.UpdateOwnerStatus(averageOwnerRating,accommodation.Owner);
-        }
-        private double GetOwnerAverageRating(double averageRating,Accommodation accommodation)
-        {
+            double averageRating=accommodationRating.GetAverageRating();
+
+
             List<AccommodationReservation> allReservationsForOwner = accommodationReservationService.GetAllReservationsForOwner(accommodation.Owner);
-            double OwnerRatingSum = averageRating;
+            List<AccommodationReservation> allReservationsForAccommodation = accommodationReservationService.GetAllReservationsForAccommodation(accommodation.Id);
+            double ownerAverageRating = GetAverageRatingSum(allReservationsForOwner, averageRating);
+            double accommodationAverageRating = GetAverageRatingSum(allReservationsForAccommodation, averageRating);
+
+            accommodation.AverageRating = accommodationAverageRating;
+            accommodationRatingRepository.Save(accommodationRating);
+            accommodationRepository.Update(accommodation);
+            Debug.WriteLine("Accommodation average rating: " + accommodationAverageRating);
+            Debug.WriteLine("Owner average rating: " + ownerAverageRating);
+            accommodationService.UpdateOwnerStatus(ownerAverageRating, accommodation.Owner);
+        }
+
+        private double GetAverageRatingSum(List<AccommodationReservation> ReservationsForAccommodation,double newRating) {
+            double ratingSum = newRating;
             int count = 1;
-            allReservationsForOwner.ForEach(acReservation => {
+            ReservationsForAccommodation.ForEach(acReservation => {
                 AccommodationRating accommodationRating = accommodationRatingRepository.GetByReservationId(acReservation.Id);
                 if (accommodationRating != null)
                 {
-                    OwnerRatingSum +=accommodationRating.GetAverageRating();
+                    ratingSum += accommodationRating.GetAverageRating();
                     count += 1;
                 }
             }
            );
-            return  OwnerRatingSum / count;
-         
-
-        }
-        private Accommodation UpdateAverageRating(int accommodationId,int newRating, Accommodation accommodation)
-        {
-            List<AccommodationReservation> allReservationsForAccommodation=accommodationReservationService.GetAllReservationsForAccommodation(accommodationId);
-            int accommodationRatingSum = newRating;
-            int count = 1;
-             allReservationsForAccommodation.ForEach(acReservation => {
-                AccommodationRating accommodationRating=accommodationRatingRepository.GetByReservationId(acReservation.Id);
-                if (accommodationRating != null)
-                {
-                     accommodationRatingSum += accommodationRating.Cleanliness;
-                   count+=1;
-                }                
-              }
-            );
-            int averageRating = accommodationRatingSum / count;
-            accommodation.AverageRating = averageRating;
-            return accommodation;
+            return ratingSum / count;
         }
     }
 }
