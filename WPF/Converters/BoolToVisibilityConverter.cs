@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,11 @@ namespace BookingApp.WPF.Converters
             }
             else
             {
+                if(parameter != null && parameter is string && (string)parameter == "1")
+                {
+                    return Visibility.Hidden;
+                }
+
                 return Visibility.Collapsed;
             }
         }

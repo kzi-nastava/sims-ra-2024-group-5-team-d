@@ -12,11 +12,18 @@ namespace BookingApp.Domain.Models
     {
         public int Id { get; set; }
         public int TourRealisationId { get; set; }
+        public User User { get; set; }
         public TourReservation() { }
         public TourReservation(int id, int tourRealisationId)
         {
             Id = id;
             TourRealisationId = tourRealisationId;
+        }
+        public TourReservation(int id, int tourRealisationId, User user)
+        {
+            Id=id;
+            User = user;
+            TourRealisationId=tourRealisationId;
         }
         public void FromCSV(string[] values)
         {

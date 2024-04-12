@@ -36,5 +36,10 @@ namespace BookingApp.Appl.UseCases
             }
             return guests;
         }
+
+        public int NextIdForGuest()
+        {
+            return _repository.NextIdForGuest();
+        }
     }
 }

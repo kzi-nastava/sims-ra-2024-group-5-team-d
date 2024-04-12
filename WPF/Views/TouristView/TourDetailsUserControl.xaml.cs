@@ -30,6 +30,65 @@ namespace BookingApp.WPF.Views.TouristView
     /// </summary>
     public partial class TourDetailsUserControl : UserControl, INotifyPropertyChanged
     {
+        public bool IsRealisationSelected { get; set; }
+
+        private int numberOfSeats;
+
+        public int NumberOfSeats
+        {
+            get => numberOfSeats;
+            set
+            {
+                if (value != numberOfSeats)
+                {
+                    numberOfSeats = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private TimeOnly tourStartTime;
+        public TimeOnly TourStartTime
+        {
+            get => tourStartTime;
+            set
+            {
+                if (value != tourStartTime)
+                {
+                    tourStartTime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private TimeOnly tourEndTime;
+        public TimeOnly TourEndTime
+        {
+            get => tourEndTime;
+            set
+            {
+                if (value != tourEndTime)
+                {
+                    tourEndTime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private DateTime selectedDate;
+        public DateTime SelectedDate
+        {
+            get => selectedDate;
+            set
+            {
+                if (value != selectedDate)
+                {
+                    selectedDate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private DateTime date;
         public DateTime Date
         {
@@ -39,6 +98,20 @@ namespace BookingApp.WPF.Views.TouristView
                 if (value != date)
                 {
                     date = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private DateTime cancelationDue;
+        public DateTime CancelationDue
+        {
+            get => cancelationDue;
+            set
+            {
+                if (value != cancelationDue)
+                {
+                    cancelationDue = value;
                     OnPropertyChanged();
                 }
             }
@@ -61,6 +134,8 @@ namespace BookingApp.WPF.Views.TouristView
         public string LocationName { get; set; }
         public int NumberOfCheckpoints { get; set; }
         public TourViewModel SelectedTourOnSameLocation { get; set; }
+
+        public TourRealisationViewModel SelectedRealisation { get; set; }
         public TourViewModel SelectedTour { get; set; }
         public ObservableCollection<TourRealisationViewModel> TourRealisations { get; set; }
         public ObservableCollection<CheckPointViewModel> Checkpoints { get; set; }
@@ -81,6 +156,7 @@ namespace BookingApp.WPF.Views.TouristView
             InitializeComponent();
             DataContext = this;
             User = user;
+            IsRealisationSelected = true;
             Date = DateTime.UtcNow;
             tourRealisationService = new TourRealisationService();
             tourService = new TourService();
@@ -269,6 +345,10 @@ namespace BookingApp.WPF.Views.TouristView
         {
             if (tourService.HasAvailableSeatsInAnyRealisation(SelectedTour.Id))
             {
+                //TourStartTime = 
+                TourRealisations.Clear();
+                SelectedDate = Date;
+                NumberOfSeats = NumberOfTourists;
                 tourRealisationService.GetRealisationsForTourOnGivenDate(SelectedTour.Id, DateOnly.FromDateTime(Date)).ForEach(tR => TourRealisations.Add(new TourRealisationViewModel(tR.Id, tR.StartTime, tR.TourId, tR.AvailableSeats, SelectedTour.Duration, tR.User, NumberOfTourists)));
                 onClickVisible.Visibility = Visibility.Visible;
             }
@@ -283,14 +363,35 @@ namespace BookingApp.WPF.Views.TouristView
            
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BookNow_Click(object sender, RoutedEventArgs e)
         {
-            //MainWindow.contentControl.Content = new BookSection();
+            // izbrana realizacija, broj turista, user, 
+            if(SelectedRealisation != null)
+                TouristHomeWindow.contentControl.Content = new BookingSection(SelectedTour, SelectedRealisation, User, NumberOfSeats);
         }
 
         private void SecondaryTourChoice_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             TouristHomeWindow.contentControl.Content = new TourDetailsUserControl(SelectedTourOnSameLocation, NumberOfTourists, User);
+        }
+
+        private void ListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Debug.WriteLine(IsRealisationSelected + " HIHI");
+            if (SelectedRealisation != null)
+            {
+                TourEndTime = SelectedRealisation.EndTime;
+                TourStartTime = SelectedRealisation.StartTime;
+                IsRealisationSelected = true;
+                Debug.WriteLine(IsRealisationSelected + " HIHI");
+                Debug.WriteLine(SelectedRealisation.Id + " HIHI");
+                CancelationDue = SelectedRealisation.DateTime.AddDays(-2);
+            }
         }
     }
 

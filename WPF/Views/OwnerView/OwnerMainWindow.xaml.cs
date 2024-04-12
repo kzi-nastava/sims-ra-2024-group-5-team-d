@@ -32,7 +32,21 @@ namespace BookingApp.WPF.Views.OwnerView
         public ICommand ReviewCommand { get; private set; }
         public static ContentControl contentControl;
         public static Popup popUp;
-        private User loggedInUser;
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.BottomRight,
+                offsetX: 0,
+                offsetY: 0);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
+        User loggedInUser;
         private UnratedGuestService unratedGuestService;
 
         public OwnerMainWindow(User user)
@@ -151,7 +165,7 @@ namespace BookingApp.WPF.Views.OwnerView
                 },
             };
             notifier.ShowSuccess("Success message",options);*/
-            //notifier.ShowSuccess("Message");
+           // notifier.ShowSuccess("Message");
             if (contentMenu.Content is SmallMenuUserControl)
             {
                 Debug.WriteLine("HamburgerClick");
