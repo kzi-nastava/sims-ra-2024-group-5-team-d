@@ -13,12 +13,14 @@ namespace BookingApp.Appl.UseCases
         private ITourGuestRepository _repository;
         private ITourRealisationRepository tourRealisationRepository;
         private ITourReservationRepository tourReservationRepository;
+        private TourService tourService;
 
         public TourGuestService()
         {
             _repository = Injector.CreateInstance<ITourGuestRepository>();
             tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
             tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
+            tourService = new TourService();
         }
         public List<TourGuest>? GetTourGuestsOnTourRealisation(int tourRealisation)
         {
@@ -37,9 +39,20 @@ namespace BookingApp.Appl.UseCases
             return guests;
         }
 
-        public int NextIdForGuest()
+        public List<TourGuest> GetTourGuestsOnTour(int tourId)
         {
-            return _repository.NextIdForGuest();
+            List<TourGuest> guests = new List<TourGuest>();
+            foreach (TourGuest guest in _repository.GetAllTourGuests())
+            {
+                TourReservation reservation = tourReservationRepository.GetTourReservationById(guest.TourReservationId);
+                TourRealisation tourRealisation = tourRealisationRepository.GetTourRealisationById(reservation.TourRealisationId);
+                Tour tour = tourService.FindTourForTourRealisation(reservation.TourRealisationId);
+                if (tour != null && tour.Id == tourId)
+                {
+                    guests.Add(guest);
+                }
+            }
+            return guests;
         }
     }
 }
