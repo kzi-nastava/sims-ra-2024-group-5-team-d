@@ -25,14 +25,14 @@ namespace BookingApp.WPF.Views.GuestWindows
     {
         private AccommodationReservation accommodationReservation;
         private UserReservationsViewModel userReservationsViewModel;
-        private IAccommodationReservationRepository accommodationReservationRepository;
+        private AccommodationReservationService accommodationReservationService;
         public YesNoCancelledReservationWindow(UserReservationsViewModel reservation)
         {
             InitializeComponent();
             userReservationsViewModel = reservation;
             DataContext = this;
-            accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
-            accommodationReservation = accommodationReservationRepository.GetById(reservation.Id);
+            accommodationReservationService = new AccommodationReservationService();
+            accommodationReservation = accommodationReservationService.GetById(reservation.Id);
         }
 
         private void YesCancelReservationButton(object sender, RoutedEventArgs e)
@@ -40,7 +40,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             
             accommodationReservation.Cancelled = 1;
             ReservationsAccommodationUserControl.ActiveReservations.Remove(userReservationsViewModel);
-            accommodationReservationRepository.Update(accommodationReservation);
+            accommodationReservationService.Update(accommodationReservation);
             Close();
 
         }

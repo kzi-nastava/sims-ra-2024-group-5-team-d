@@ -37,7 +37,7 @@ namespace BookingApp.WPF.Views.GuestWindows
 
         public UserReservationsViewModel SelectedReservation { get; set; }
         public User LoggedInUser { get; set; }
-        public AccommodationReservationRepository repository { get; set; }
+        public AccommodationReservationService repositoryService { get; set; }
         public UserReservationsService reservationsService { get; set; }
         public Accommodation accommodation;
         public AccommodationReservation accommodationReservation { get; set; }
@@ -51,7 +51,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             DataContext = this;
             LoggedInUser = user;
             accommodation = new Accommodation();
-            repository = new AccommodationReservationRepository();
+            repositoryService = new AccommodationReservationService();
             reservationsService = new UserReservationsService();
             ActiveReservations = new ObservableCollection<UserReservationsViewModel>();
             FinishedReservations = new ObservableCollection<UserReservationsViewModel>();
@@ -74,7 +74,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private void RateTheOwnerClick(object sender, RoutedEventArgs e)
         {
 
-                OwnerAndAccommodationRatingWindow rateWindow = new OwnerAndAccommodationRatingWindow(LoggedInUser, accommodationReservationRepository.GetById(SelectedReservation.Id), accommodationReservationRepository.GetById(SelectedReservation.Id).AccommodationId);
+                OwnerAndAccommodationRatingWindow rateWindow = new OwnerAndAccommodationRatingWindow(LoggedInUser, repositoryService.GetById(SelectedReservation.Id), repositoryService.GetById(SelectedReservation.Id).AccommodationId);
                 rateWindow.Show();
 
         }

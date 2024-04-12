@@ -65,5 +65,33 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == reservation.AccommodationId);
         }
+        public List<AccommodationReservation> GetAll()
+        {
+            return accommodationReservationRepository.GetAll();
+        }
+        public AccommodationReservation Save(AccommodationReservation reservation)
+        {
+            return accommodationReservationRepository.Save(reservation);
+        }
+        public void Delete(AccommodationReservation reservation)
+        {
+            accommodationReservationRepository.Delete(reservation);
+        }
+        public AccommodationReservation Update(AccommodationReservation reservation)
+        {
+            return accommodationReservationRepository.Update(reservation);
+        }
+        public List<AccommodationReservation> GetByUser(User user)
+        {
+            return accommodationReservationRepository.GetByUser(user);
+        }
+        public AccommodationReservation GetById(int id)
+        {
+            return accommodationReservationRepository.GetById(id);
+        }
+        public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
+        {
+            return accommodationReservationRepository.GetByAccommodation(accommodation);
+        }
     }
 }

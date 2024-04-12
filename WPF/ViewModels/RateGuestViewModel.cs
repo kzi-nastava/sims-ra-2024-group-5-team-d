@@ -24,16 +24,16 @@ namespace BookingApp.WPF.ViewModels
         public int Cleanliness { get; set; }
         public int RuleCompliance { get; set; }
 
-        private IAccommodationReservationRepository accommodationReservationRepository;
-        private IGuestRatingRepository guestRatingRepository;
+        private AccommodationReservationService accommodationReservationService;
+        private GuestRatingService guestRatingService;
         private UnratedGuestViewModel unratedGuest;
         public RateGuestViewModel()
         {
         }
         public RateGuestViewModel(UnratedGuestViewModel unratedGuest)
         {
-            accommodationReservationRepository=Injector.CreateInstance<IAccommodationReservationRepository>();
-            guestRatingRepository=Injector.CreateInstance<IGuestRatingRepository>();
+            accommodationReservationService = new AccommodationReservationService();
+            guestRatingService = new GuestRatingService();
             CleanlinessRatingCommand= new RelayParameterCommand(GetCleanlinessRating);
             RuleComplianceRatingCommand = new RelayParameterCommand(GetRuleComplianceRating);
             RateGuestCommand = new RelayCommand(RateGuest);
@@ -55,7 +55,7 @@ namespace BookingApp.WPF.ViewModels
         }
         private void RateGuest()
         {
-            guestRatingRepository.Save(new GuestRating(accommodationReservationRepository.GetById(Id).AccommodationId, accommodationReservationRepository.GetById(Id).UserId,Id,Cleanliness,RuleCompliance,Comment));
+            guestRatingService.Save(new GuestRating(accommodationReservationService.GetById(Id).AccommodationId, accommodationReservationService.GetById(Id).UserId,Id,Cleanliness,RuleCompliance,Comment));
             UnratedGuestsUserControl.UnratedGuests.Remove(unratedGuest);
         }
     }

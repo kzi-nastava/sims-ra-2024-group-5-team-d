@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace BookingApp.WPF.Views
         public Accommodation selectedAccommodation { get; set; }
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private readonly AccommodationReservationService _accommodationReservationService;
         private CheckForUnratedGuestsService CheckForUnratedGuestsService;
 
 
@@ -40,7 +41,7 @@ namespace BookingApp.WPF.Views
             DataContext = this;
             CheckForUnratedGuestsService = new CheckForUnratedGuestsService();
             _repository = new AccommodationRepository();
-            _accommodationReservationRepository = new AccommodationReservationRepository();
+            _accommodationReservationService = new AccommodationReservationService();
             Accommodations = new ObservableCollection<Accommodation>(_repository.GetByUser(user));
            if(CheckForUnratedGuestsService.CheckForUnratedGuestsByLoggedInUser(LoggedInUser))
             {
@@ -64,7 +65,7 @@ namespace BookingApp.WPF.Views
         {
             if (selectedAccommodation!=null )
             {
-                if (_accommodationReservationRepository.GetByAccommodation(selectedAccommodation).Count != 0)
+                if (_accommodationReservationService.GetByAccommodation(selectedAccommodation).Count != 0)
                 {
                     StatsForAccommodationWindow statsForAccommodationWindow = new StatsForAccommodationWindow(LoggedInUser, selectedAccommodation);
                     statsForAccommodationWindow.Owner = this;

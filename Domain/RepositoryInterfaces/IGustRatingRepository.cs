@@ -13,5 +13,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public GuestRating Save(GuestRating guestRating);
         public void Delete(GuestRating guestRating);
         public GuestRating Update(GuestRating guestRating);
+        public List<GuestRating> GetByGuest(User guest);
     }
 }
