@@ -42,10 +42,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         public Accommodation accommodation;
         public AccommodationReservation accommodationReservation { get; set; }
         private AccommodationService accommodationService;
-        private IAccommodationReservationRepository accommodationReservationRepository;
         public ReservationsAccommodationUserControl(User user)
         {
-            accommodationReservationRepository=Injector.CreateInstance<IAccommodationReservationRepository>();
             accommodationService = new AccommodationService();
             InitializeComponent();
             DataContext = this;

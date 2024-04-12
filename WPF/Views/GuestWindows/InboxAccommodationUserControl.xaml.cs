@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,10 @@ namespace BookingApp.WPF.Views.GuestWindows
     /// </summary>
     public partial class InboxAccommodationUserControl : UserControl
     {
-        public InboxAccommodationUserControl()
+        public InboxAccommodationUserControl(User user)
         {
             InitializeComponent();
+            DataContext = new CreateInboxViewModel(user);
         }
     }
 }

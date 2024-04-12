@@ -19,7 +19,7 @@ namespace BookingApp.Domain.Models
         public int Id { get; set; }
         public int ReservationId { get; set; }
         public DateTime NewReservedFrom { get; set; }
-        public DateTime NewReservedTo { get; set; }
+        public DateTime NewReservedTo {  get; set; }
         public string Comment {  get; set; }
         public STATUS Status { get; set; }
 

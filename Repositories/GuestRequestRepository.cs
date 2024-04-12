@@ -73,5 +73,10 @@ namespace BookingApp.Repositories
             guestRequests = _serializer.FromCSV(FilePath);
             return guestRequests.Find(request => request.Id == id);
         }
+        public List<GuestRequest> GetByUser(User user)
+        {
+            guestRequests = _serializer.FromCSV(FilePath);
+            return guestRequests.FindAll(request => request.Id == user.Id);
+        }
     }
 }
