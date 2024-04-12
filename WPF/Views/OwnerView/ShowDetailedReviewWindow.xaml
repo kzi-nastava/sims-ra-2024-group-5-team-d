@@ -97,7 +97,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button BorderThickness="0" Command="{Binding BackwardCommand}">
+            <Button BorderThickness="0" Background="Transparent" Command="{Binding BackwardCommand}">
                 <Image Source="C:\Users\lukai\Desktop\Resource\back.png" Height="50"/>
             </Button>
             <ListView BorderThickness="0" 

@@ -12,5 +12,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         List<GuestOwnerNotifications> GetAll();
         GuestOwnerNotifications GetByReferenceId(int referenceId);
         GuestOwnerNotifications GetById(int id);
+        GuestOwnerNotifications Save(GuestOwnerNotifications guestOwnerNotifications);
     }
 }

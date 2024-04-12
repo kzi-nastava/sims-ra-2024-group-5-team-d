@@ -32,27 +32,28 @@ namespace BookingApp.WPF.ViewModels
         private IUserRepository userRepository;
         private ImageUploaderService imageUploaderService;
         private List<string> imagesPaths;
+        private int PaginationIndex = -3;
         public OwnerRatingViewModel()
         {
         }
         public void Backward()
         {
-            string path = ImagesPaths.Last();
+            PaginationIndex=PaginationIndex-3;
             ImagesPaths.Clear();
-            int indeksPocetnogStringa = imagesPaths.FindIndex(imagePath => imagePath.StartsWith(path))-1;
-            for (int i = indeksPocetnogStringa; i >=0; i--)
+            for (int i = PaginationIndex; i < imagesPaths.Count; i++)
             {
                 ImagesPaths.Add(imagesPaths[i]);
                 if (ImagesPaths.Count > 2)
                     break;
             }
+
+        
         }
         public void Forward()
         {
-            string path = ImagesPaths.Last();
-            ImagesPaths.Clear();
-            int indeksPocetnogStringa = imagesPaths.FindIndex(imagePath => imagePath.StartsWith(path)) + 1;
-            for (int i = indeksPocetnogStringa; i < imagesPaths.Count; i++)
+            PaginationIndex=PaginationIndex+3;
+           ImagesPaths.Clear();
+            for (int i = PaginationIndex; i < imagesPaths.Count; i++)
             {
                 ImagesPaths.Add(imagesPaths[i]);
                 if (ImagesPaths.Count > 2)
@@ -85,11 +86,9 @@ namespace BookingApp.WPF.ViewModels
             AccommodationName = accommodation.Name;
             RatingDate = rating.TimeOfRating;
             Comment = rating.Comment;
-            imagesPaths = imageUploaderService.GetImagePaths(accommodation.ImagesPath);
+            imagesPaths = imageUploaderService.GetImagePaths(rating.ImagesPath);
             ImagesPaths = new ObservableCollection<string>();
-            ImagesPaths.Add(imagesPaths[0]);
-            ImagesPaths.Add(imagesPaths[1]);
-            ImagesPaths.Add(imagesPaths[2]);
+            Forward();
             //imagesPaths.ForEach(imagePath => ImagesPaths.Add(imagePath));
             //foreach (string path in imagePaths)
             //ImagesPath =accommodation.ImagesPath;
