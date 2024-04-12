@@ -13,17 +13,15 @@ namespace BookingApp.Repositories
     public class GuestRequestRepository
     {
 
-        private const string FilePath = "../../../Resources/Data/guestRequest.csv";
+        private const string FilePath = "../../../Resources/Data/guestRequests.csv";
 
         private readonly Serializer<GuestRequest> _serializer;
 
         private List<GuestRequest> guestRequests;
-        private readonly LocationRepository _locationRepository;
 
         public GuestRequestRepository()
         {
             _serializer = new Serializer<GuestRequest>();
-            _locationRepository = new LocationRepository();
             guestRequests = _serializer.FromCSV(FilePath);
         }
 

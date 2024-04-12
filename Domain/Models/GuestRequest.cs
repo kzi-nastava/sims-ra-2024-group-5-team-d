@@ -35,6 +35,15 @@ namespace BookingApp.Domain.Models
             Comment = comment;
             Status = status;
         }
+        public GuestRequest( int idReservation, DateTime newFrom, DateTime newTo, string comment, STATUS status)
+        {
+
+            ReservationId = idReservation;
+            NewReservedFrom = newFrom;
+            NewReservedTo = newTo;
+            Comment = comment;
+            Status = status;
+        }
 
         public string[] ToCSV()
         {
