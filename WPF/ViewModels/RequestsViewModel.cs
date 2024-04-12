@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
 using System;
@@ -8,35 +9,83 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels
 {
     public class RequestsViewModel
     {
+        public ICommand SelectionChangedCommand { get; set; }
         public ICommand AcceptRequestCommand { get; set; }
         public ICommand DenyRequestCommand { get; set; }
-        public ObservableCollection<RequestViewModel> Requests { get; set; }
+        public static ObservableCollection<RequestViewModel> Requests { get; set; }
 
         private User loggedInUser;
+        private GuestRequestService guestRequestService;
+        private AccommodationReservationService accommodationReservationService;
+        private UserService userService;
+        private AccommodationService accommodationService;
+        private AvailableDatesForReservationService availableDatesForReservationService;
+        private RequestViewModel SelectedRequest;
         public RequestsViewModel(User user)
         {
+            availableDatesForReservationService= new AvailableDatesForReservationService();
+            accommodationService = new AccommodationService();
+            userService= new UserService();
+            accommodationReservationService = new AccommodationReservationService();
+            guestRequestService = new GuestRequestService();
             AcceptRequestCommand = new RelayCommand(AcceptRequest);
             DenyRequestCommand = new RelayCommand(DenyRequest);
+            SelectionChangedCommand = new RelayParameterCommand(OnSelectionChanged);
             loggedInUser = user;
             Requests = new ObservableCollection<RequestViewModel>();
+
+            guestRequestService.GetAllRequestsForOwner(user).ForEach(guestRequest =>
+            {
+                AccommodationReservation reservation = accommodationReservationService.GetById(guestRequest.ReservationId);
+                User guest = userService.GetById(reservation.UserId);
+                Accommodation accommodation = accommodationService.GetById(reservation.AccommodationId);
+                List<KeyValuePair<DateTime, DateTime>>found= availableDatesForReservationService.CheckAvailableDatesInGivenRange(guestRequest.NewReservedFrom, guestRequest.NewReservedTo, (guestRequest.NewReservedTo - guestRequest.NewReservedFrom).Days, accommodation);
+                string message = "";
+                if(found.Count==0)
+                 message= "No available dates for reservation";
+                Requests.Add(new RequestViewModel(guestRequest.Id, guest.FullName, accommodation.Name, accommodation.Location,reservation.ReservedFrom,reservation.ReservedTo, guestRequest.NewReservedFrom, guestRequest.NewReservedTo,message));
+            });
+        }
+
+        private void OnSelectionChanged(object parameter)
+        {
+            Debug.WriteLine("Selection changed");
+            if(parameter!=null)
+            {
+                 SelectedRequest = parameter as RequestViewModel;
+                Debug.WriteLine(SelectedRequest.RequestId);
+            }
+               
+            // Implementirajte logiku koja treba da se izvrši kada se promeni selekcija
         }
         private void AcceptRequest()
         {
-            Debug.WriteLine("Accept request");
-            AcceptRequestWindow denyRequest = new AcceptRequestWindow(loggedInUser, 1);
-            // Accept request
+            if (SelectedRequest != null)
+            {
+                AcceptRequestWindow acceptRequest = new AcceptRequestWindow(loggedInUser, SelectedRequest);
+                //Window parentWindow = Window.GetWindow(this);
+                // acceptRequest.Owner = parentWindow;
+                acceptRequest.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                acceptRequest.ShowDialog();
+            }
         }
         private void DenyRequest()
         {
-            Debug.WriteLine("Accept request");
-            DenyRequest denyRequest = new DenyRequest(loggedInUser,1);
-            // Deny request
+            if (SelectedRequest != null)
+            {
+                DenyRequest denyRequest = new DenyRequest(loggedInUser, SelectedRequest);
+            //Window parentWindow = Window.GetWindow(this);
+            //denyRequest.Owner = parentWindow;
+            denyRequest.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            denyRequest.ShowDialog();
+            }
         }
     }
 }

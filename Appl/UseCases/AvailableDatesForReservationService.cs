@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,6 +90,7 @@ namespace BookingApp.Appl.UseCases
             reservedDatesForAccommodation = reservationRepository.GetByAccommodation(accommodation);
             reservedDatesForAccommodation.RemoveAll(reservation => reservation.IsOutOfRange(fromDate,toDate) || IsReservationCancelled(reservation));
             reservedDatesForAccommodation.Sort((r1, r2) => r1.ReservedFrom.CompareTo(r2.ReservedFrom));
+            Debug.WriteLine(reservedDatesForAccommodation.Count + "GAAAAAS");
             return reservedDatesForAccommodation;
         }
         private static bool IsReservationCancelled(AccommodationReservation reservation)

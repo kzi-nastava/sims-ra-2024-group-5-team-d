@@ -331,6 +331,7 @@
     <PackageReference Include="Svg.Skia" Version="1.0.0.18" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
