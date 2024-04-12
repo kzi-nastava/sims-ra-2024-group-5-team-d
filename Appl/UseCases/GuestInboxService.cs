@@ -28,7 +28,7 @@ namespace BookingApp.Appl.UseCases
 
         public List<GuestRequest> GetInProcessRequests (User user)
         {
-            return guestRequestService.RequestsByUser(user).Where(request => request.IsInProgress()).ToList();
+            return guestRequestService.RequestsByUser(user).Where(request => request.IsInProcess()).ToList();
         }
 
         public List<GuestRequest> GetRejectedRequests(User user)
