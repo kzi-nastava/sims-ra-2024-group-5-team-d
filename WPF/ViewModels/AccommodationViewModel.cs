@@ -55,7 +55,7 @@ namespace BookingApp.WPF.ViewModels
             Type = type;
             IsSuperOwner = isSuperOwner;
             List<string> starPaths = new List<string>();
-            while (averageRating > 1)
+            while (averageRating >= 1)
             {
                 starPaths.Add("../../../Resources/Images/OwnerImages/StarFull.png");
                 averageRating--;
