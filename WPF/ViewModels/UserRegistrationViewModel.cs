@@ -23,10 +23,10 @@ namespace BookingApp.WPF.ViewModels
         public string PersonalId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        private IUserRepository userRepository;
+        private UserService userService;
         public UserRegistrationViewModel()
         {
-            userRepository = Injector.CreateInstance<IUserRepository>();
+            userService =new UserService();
             TypeCommand = new RelayParameterCommand(TypeClick);
             RegisterCommand = new RelayParameterCommand(RegisterUser);
         }
@@ -40,7 +40,7 @@ namespace BookingApp.WPF.ViewModels
             var passwordBox = parameter as PasswordBox;
             Password = passwordBox.Password;
             Type= UserType.Guest;
-            userRepository.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate)));
+            userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate)));
         }
 
     }

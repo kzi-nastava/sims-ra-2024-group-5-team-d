@@ -51,8 +51,7 @@ namespace BookingApp.WPF.ViewModels
         public ObservableCollection<string> ImagesPaths { get; set; }
         public User Owner { get; set; }
         private ImageUploaderService imageUploaderService = new ImageUploaderService();
-        private readonly IAccommodationRepository accommodationRepository;
-        private readonly ILocationRepository locationRepository;
+        private readonly LocationService locationService;
         private List<string> imagesPath;
         private AccommodationService accommodationService;
         private User loggedInUser;
@@ -65,9 +64,8 @@ namespace BookingApp.WPF.ViewModels
             this.loggedInUser = user;
             imagesPath = new List<string>();
             accommodationService = new AccommodationService();
-            locationRepository = Injector.CreateInstance<ILocationRepository>();
+            locationService =new LocationService();
             Owner = user;
-            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
             imageUploaderService = new ImageUploaderService();
             SaveCommand = new RelayCommand(Save);
             UploadCommand = new RelayCommand(UploadPicture);
@@ -89,8 +87,8 @@ namespace BookingApp.WPF.ViewModels
         private void Save()
         {
             string folderPath = imageUploaderService.CreateAccommodationFolder(imagesPath);
-            Accommodation newAccommodation = new Accommodation(Name, locationRepository.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner, accommodationService.IsSuperOwner(loggedInUser));
-            Accommodation savedAccommodation = accommodationRepository.Save(newAccommodation);
+            Accommodation newAccommodation = new Accommodation(Name, locationService.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner, accommodationService.IsSuperOwner(loggedInUser));
+            Accommodation savedAccommodation = accommodationService.Save(newAccommodation);
             notifier.ShowSuccess("Accommodation added SUCCESSFULLY!");
         }
         private void UploadPicture()

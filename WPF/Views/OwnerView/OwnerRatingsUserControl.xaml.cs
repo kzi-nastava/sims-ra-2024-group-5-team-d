@@ -26,18 +26,13 @@ namespace BookingApp.WPF.Views.OwnerView
     public partial class OwnerRatingsUserControl : UserControl
     {
         public ObservableCollection<OwnerRatingViewModel> OwnerRatings { get; set; }
-        private IAccommodationRepository accommodationRepository;
-        private IUserRepository userRepository;
-        private IAccommodationRatingRepository accommodationRatingRepository;
+
         private AccommodationRatingService accommodationRatingService;
         public OwnerRatingViewModel SelectedOwnerRating { get; set; }
         public OwnerRatingsUserControl(User user)
         {
             InitializeComponent();
             accommodationRatingService = new AccommodationRatingService();
-            accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
-            userRepository = Injector.CreateInstance<IUserRepository>();
-            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
             OwnerRatings = new ObservableCollection<OwnerRatingViewModel>();
             accommodationRatingService.GetAllRatingsForOwner(user).ForEach(rating=>OwnerRatings.Add(new OwnerRatingViewModel(rating)));//NEKI KOORDINATORSKI SERVIS
             DataContext = this;

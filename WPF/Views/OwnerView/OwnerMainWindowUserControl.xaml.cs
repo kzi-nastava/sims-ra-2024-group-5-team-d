@@ -27,15 +27,15 @@ namespace BookingApp.WPF.Views.OwnerView
     public partial class OwnerMainWindowUserControl : UserControl
     {
         public static ObservableCollection<AccommodationViewModel> Accommodations { get; set; }
-        private readonly IAccommodationRepository accommodationRepository;
+        private readonly AccommodationService accommodationService;
         private AccommodationRatingService accommodationRatingService;
         public OwnerMainWindowUserControl(User user)
         {
-            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
+            accommodationService =new AccommodationService();
             InitializeComponent();
             accommodationRatingService = new AccommodationRatingService();
             Accommodations = new ObservableCollection<AccommodationViewModel>();
-            List<Accommodation> ownerAccommodations = accommodationRepository.GetByUser(user);
+            List<Accommodation> ownerAccommodations = accommodationService.GetByUser(user);
             ownerAccommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
             ownerAccommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type,accommodation.ImagesPath,accommodation.IsSuperOwner,accommodation.AverageRating,accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
             DataContext = this;

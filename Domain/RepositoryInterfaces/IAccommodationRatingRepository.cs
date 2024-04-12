@@ -16,5 +16,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public AccommodationRating GetById(int id);
         public AccommodationRating GetByReservationId(int reservationId);
         public int NextId();
+        public void Delete(AccommodationRating accommodationRating);
     }
 }

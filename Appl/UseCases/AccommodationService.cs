@@ -39,5 +39,33 @@ namespace BookingApp.Appl.UseCases
             else if (averageOwnerRating < 4.5 && IsSuperOwner(owner))
                 DowngradeFromSuperOwner(owner);
         }
+        public List<Accommodation> GetAll()
+        {
+            return accommodationRepository.GetAll();
+        }
+        public Accommodation Save(Accommodation accommodation)
+        {
+            return accommodationRepository.Save(accommodation);
+        }
+        public void Delete(Accommodation accommodation)
+        {
+            accommodationRepository.Delete(accommodation);
+        }
+        public Accommodation Update(Accommodation accommodation)
+        {
+            return accommodationRepository.Update(accommodation);
+        }
+        public Accommodation GetById(int id)
+        {
+            return accommodationRepository.GetById(id);
+        }
+        public List<Accommodation> GetByUser(User user)
+        {
+            return accommodationRepository.GetByUser(user);
+        }
+        public string GetAccommodationNameById(int accommodationId)
+        {
+            return accommodationRepository.GetById(accommodationId).Name;
+        }
     }
 }
