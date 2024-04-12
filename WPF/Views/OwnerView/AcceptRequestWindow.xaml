@@ -26,7 +26,7 @@
                                     Background="Transparent"
                                     Height="50"
                                     VerticalAlignment="Center"
-                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Click="Button_Click">
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding AcceptRequestCommand}">
                 <Border  BorderBrush="DarkGreen"
                                              BorderThickness="3"
                                              CornerRadius="10"

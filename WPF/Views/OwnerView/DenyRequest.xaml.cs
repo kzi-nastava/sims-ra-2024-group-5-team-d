@@ -21,10 +21,10 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class DenyRequest : Window
     {
-        public DenyRequest(User user,int requestId)
+        public DenyRequest(User user, RequestViewModel request)
         {
             InitializeComponent();
-            DataContext= new DenyRequestViewModel(user, requestId);
+            DataContext= new ProcessRequestViewModel(user, request);
         }
 
         private void Close(object sender, RoutedEventArgs e)

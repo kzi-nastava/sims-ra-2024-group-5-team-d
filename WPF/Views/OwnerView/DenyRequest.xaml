@@ -16,7 +16,7 @@
         <TextBlock Text="Deny Milan GOlub request" Margin="0 10 0 10"  FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         <TextBlock Text="Explanation (OPTIONAL) :" Grid.Row="1"  Margin="0 10 0 10" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox Grid.Row="2" BorderBrush="Black" BorderThickness="3" Margin="10 0 10 0" FontSize="20" TextWrapping="Wrap"/>
+        <TextBox Grid.Row="2" BorderBrush="Black" Text="{Binding Comment}" BorderThickness="3" Margin="10 0 10 0" FontSize="20" TextWrapping="Wrap"/>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

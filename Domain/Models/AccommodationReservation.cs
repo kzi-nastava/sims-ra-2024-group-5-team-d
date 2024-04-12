@@ -56,7 +56,7 @@ namespace BookingApp.Domain.Models
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString(), ReservedTo.ToString(), Cancelled.ToString(), RescheduledReservation.ToString(), RecommendedRenovation.ToString() };
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString("M/d/yyyy h:mm:ss tt"), ReservedTo.ToString("M/d/yyyy h:mm:ss tt"), Cancelled.ToString(), RescheduledReservation.ToString(), RecommendedRenovation.ToString() };
             return csvValues;
         }
         public bool IsCanceled()

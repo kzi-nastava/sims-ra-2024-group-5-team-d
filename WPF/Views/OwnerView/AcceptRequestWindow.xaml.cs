@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.WPF.ViewModels;
 
 namespace BookingApp.WPF.Views.OwnerView
 {
@@ -20,8 +21,9 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class AcceptRequestWindow : Window
     {
-        public AcceptRequestWindow(User user, int requestId)
+        public AcceptRequestWindow(User user, RequestViewModel request)
         {
+            DataContext=new ProcessRequestViewModel(user, request);
             InitializeComponent();
         }
 

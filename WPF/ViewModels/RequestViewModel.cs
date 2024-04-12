@@ -13,18 +13,24 @@ namespace BookingApp.WPF.ViewModels
         public string GuestName { get; set; }
         public string AccommodationName { get; set; }
         public Location Location { get; set; }
-        public DateTime CheckIn { get; set; }
-        public DateTime CheckOut { get; set; }
+        public DateTime PreviousCheckIn { get; set; }
+        public DateTime PreviousCheckOut { get; set; }
+        public DateTime NewCheckIn { get; set; }
+        public DateTime NewCheckOut { get; set; }
         public string Message { get; set; }
-      /*  public RequestViewModel(Request request)
+
+        public RequestViewModel(int requestId, string guestName, string accommodationName, Location location,DateTime previousCheckIn,DateTime previousCheckOut, DateTime newCheckIn, DateTime newCheckOut, string message)
         {
-            RequestId = request.RequestId;
-            GuestName = request.Guest.FirstName + " " + request.Guest.LastName;
-            AccommodationName = request.Accommodation.Name;
-            Location = request.Accommodation.Location;
-            CheckIn = request.CheckIn;
-            CheckOut = request.CheckOut;
-            Message = request.Message;
-        }*/
+            RequestId = requestId;
+            GuestName = guestName;
+            AccommodationName = accommodationName;
+            Location = location;
+            PreviousCheckIn = previousCheckIn;
+            PreviousCheckOut = previousCheckOut;
+            NewCheckIn = newCheckIn;
+            NewCheckOut = newCheckOut;
+            Message = message;
+        }
+
     }
 }
