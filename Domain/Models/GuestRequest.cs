@@ -48,7 +48,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), ReservationId.ToString(), NewReservedFrom.ToString(), NewReservedTo.ToString(), Comment, Status.ToString() };
+            string[] csvValues = { Id.ToString(), ReservationId.ToString(), NewReservedFrom.ToString("M/d/yyyy h:mm:ss tt"), NewReservedTo.ToString("M/d/yyyy h:mm:ss tt"), Comment, Status.ToString() };
             return csvValues;
         }
 
@@ -71,7 +71,7 @@ namespace BookingApp.Domain.Models
             return Status == STATUS.REJECTED;
         }
 
-        public bool IsInProgress()
+        public bool IsInProcess()
         {
             return Status == STATUS.INPROCESS;
         }

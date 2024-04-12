@@ -13,9 +13,11 @@ namespace BookingApp.Appl.UseCases
     {
         private IGuestRequestRepository guestRequestRepository;
         private IAccommodationReservationRepository accommodationReservationRepository;
+        private AccommodationReservationService accommodationReservationService;
 
         public GuestRequestService()
         {
+            accommodationReservationService = new AccommodationReservationService();   
             guestRequestRepository = Injector.CreateInstance<IGuestRequestRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
         }
@@ -44,6 +46,12 @@ namespace BookingApp.Appl.UseCases
             List<GuestRequest> requests = guestRequestRepository.GetAll();
             List<GuestRequest> requestByUser = requests.Where(request => accommodationReservationRepository.GetById(request.ReservationId).UserId == user.Id).ToList();
             return requestByUser;
+        }
+        public List<GuestRequest> GetAllRequestsForOwner(User owner)
+        {
+            List<GuestRequest> guestRequestsInProgress = guestRequestRepository.GetAll().Where(guestRequests=>guestRequests.IsInProcess()).ToList();
+            List<AccommodationReservation> ownerReservations = accommodationReservationService.GetAllReservationsForOwner(owner);
+            return guestRequestsInProgress.Where(guestRequests => ownerReservations.Any(reservation => guestRequests.ReservationId == reservation.Id)).ToList();
         }
     }
 }

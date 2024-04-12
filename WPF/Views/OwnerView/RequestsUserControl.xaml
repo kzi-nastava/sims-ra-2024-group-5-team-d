@@ -5,10 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
              mc:Ignorable="d" 
              d:DesignHeight="572" d:DesignWidth="1108">
     <Grid 
-              Width="885"
+              Width="920"
               Margin="0 0 0 30">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -20,18 +22,24 @@
                    FontSize="32" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
-        <ListView BorderThickness="0" 
+        <ListView BorderThickness="0"                    
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
-                      ScrollViewer.CanContentScroll="False">
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Requests}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
+                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" 
                                 BorderThickness="3" 
                                 CornerRadius="10"
-                                Width="844">
-                        <Grid Margin="10" >
+                                Width="880" Padding="15" Margin="0 0 10 0">
+                        <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
@@ -40,25 +48,37 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid  Grid.Row="0" >
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1.2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Milan Kovacevic" Foreground="#124076" Grid.Column="0" FontSize="24" FontWeight="Bold"/>
-                                <Image  Source="C:\Users\lukai\Desktop\Resource\Home.png" 
-                                               Width="28" 
-                                               Height="28"
-                                               Margin="18 0 0 3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <TextBlock HorizontalAlignment="Center" Text="Stars Palic" Grid.Column="1" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-                                <Image  Source="C:\Users\lukai\Desktop\Resource\Location.png" 
-                                               Width="28" 
-                                               Height="28"
-                                               Margin="18 0 0 0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <TextBlock Text="Serbia, Palic " Grid.Column="2" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                <TextBlock Text="{Binding GuestName}" Foreground="#124076" Grid.Column="0" MinWidth="250" FontSize="24" FontWeight="Bold"/>
+                                <Grid Grid.Column="1" MinWidth="220">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image  Source="C:\Users\lukai\Desktop\Resource\Home.png" 
+                                               Width="25" 
+                                               Height="25"
+                                               Margin="15 0 5 3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding AccommodationName}" Grid.Column="1" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Column="2" VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image  Source="C:\Users\lukai\Desktop\Resource\Location.png" 
+                                               Width="25" 
+                                               Height="25"
+                                               Margin="18 -4 0 0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Location}" Grid.Column="1" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </Grid>
                             <Grid Grid.Row="1" Height="30" Margin="0 10 0 0">
                                 <Grid.ColumnDefinitions>
@@ -68,9 +88,9 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Previous reservation dates :" Grid.Column="0" FontSize="20" VerticalAlignment="Center"/>
-                                <TextBlock HorizontalAlignment="Left" Text="12.5.2024. " VerticalAlignment="Center" Grid.Column="1" FontSize="20" FontWeight="Bold" Margin="10 0 0 0"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding PreviousCheckIn,StringFormat='dd/MM/yyyy'}" VerticalAlignment="Center" Grid.Column="1" FontSize="20" FontWeight="Bold" Margin="10 0 0 0"/>
                                 <TextBlock Text="- " Grid.Column="2" FontSize="32" VerticalAlignment="Center" Padding="0 0 0 7"/>
-                                <TextBlock HorizontalAlignment="Left" Text="20.5.2024. " Grid.Column="3" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding PreviousCheckOut,StringFormat='dd/MM/yyyy'}" Grid.Column="3" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
                             </Grid>
                             <Grid Grid.Row="2" Height="30">
                                 <Grid.ColumnDefinitions>
@@ -80,65 +100,63 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="New reservation dates :" Grid.Column="0" FontSize="20" VerticalAlignment="Center"/>
-                                <TextBlock HorizontalAlignment="Left" Text="12.5.2024. " VerticalAlignment="Center" Grid.Column="1" FontSize="20" FontWeight="Bold" Margin="10 0 0 0"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding NewCheckIn,StringFormat='dd/MM/yyyy'}" VerticalAlignment="Center" Grid.Column="1" FontSize="20" FontWeight="Bold" Margin="10 0 0 0"/>
                                 <TextBlock Text="- " Grid.Column="2" FontSize="32" VerticalAlignment="Center" Padding="0 0 0 7"/>
-                                <TextBlock HorizontalAlignment="Left" Text="20.5.2024. " Grid.Column="3" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding NewCheckOut,StringFormat='dd/MM/yyyy'}" Grid.Column="3" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
                             </Grid>
-                            <TextBlock Text="You already have a reservation for requested date" Grid.Row="3" FontSize="17" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Button Grid.Column="1"
+                            <TextBlock Text="{Binding Message}" Visibility="Visible" Grid.Row="3" FontSize="17" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Grid Grid.Column="0" Grid.RowSpan="4" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="70"/>
+                                </Grid.RowDefinitions>
+                                <Button Grid.Column="0"
                                     FontSize="20" 
                                     Background="Transparent"
                                     Height="50"
-                                    VerticalAlignment="Center"
+                                    VerticalAlignment="Top"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding AcceptRequestCommand}" >
-                                <Border  BorderBrush="DarkGreen"
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center"  Command="{Binding DataContext.AcceptRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                    <Border  BorderBrush="DarkGreen"
                                              BorderThickness="3"
                                              CornerRadius="10"
                                          Height="48"
                                              Width="140">
-                                    <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image  Source="C:\Users\lukai\Desktop\Resource\Check.png" 
+                                        <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image  Source="C:\Users\lukai\Desktop\Resource\Check.png" 
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                                        <TextBlock  Text="Accept" Margin="0 2 0 0" Foreground="DarkGreen" FontWeight="Normal"/>
-                                    </StackPanel>
-                                </Border>
-                            </Button>
-                            <Button Grid.Column="1"
+                                            <TextBlock  Text="Accept" Margin="0 2 0 0" Foreground="DarkGreen" FontWeight="Normal"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Button>
+                                <Button Grid.Column="1"
                                     FontSize="20" 
                                     Background="Transparent"
                                     Height="50"
-                                    VerticalAlignment="Center"
+                                    VerticalAlignment="Bottom"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Command="{Binding DenyRequestCommand}" >
-                                <Border  BorderBrush="DarkRed"
+                                    BorderThickness="0" Grid.Row="1" HorizontalAlignment="Center" Command="{Binding DataContext.DenyRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" >
+                                    <Border  BorderBrush="DarkRed"
                                              BorderThickness="3"
                                              CornerRadius="10"
                                          Height="48"
                                              Width="140">
-                                    <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image  Source="C:\Users\lukai\Desktop\Resource\X.png" 
+                                        <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image  Source="C:\Users\lukai\Desktop\Resource\X.png" 
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                                        <TextBlock  Text="Deny" Margin="5 1 0 0" Foreground="DarkRed" FontWeight="Normal"/>
-                                    </StackPanel>
-                                </Border>
-                            </Button>
+                                            <TextBlock  Text="Deny" Margin="5 1 0 0" Foreground="DarkRed" FontWeight="Normal"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.ItemsSource>
-                <x:Array Type="{x:Type sys:String}">
-                    <sys:String>Ala</sys:String>
-                    <sys:String>Bela</sys:String>
-                    <sys:String>Ceca</sys:String>
-                    <sys:String>Veca</sys:String>
-                </x:Array>
-            </ListView.ItemsSource>
         </ListView>
     </Grid>
 </UserControl>
