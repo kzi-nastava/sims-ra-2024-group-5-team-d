@@ -86,7 +86,7 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Select date and time:"/>
-                            <xctk:DateTimePicker x:Name="NewTourRealizationDateTimePicker" Width="200"/>
+                            <xctk:DateTimePicker x:Name="NewTourRealizationDateTimePicker" Value="{Binding SelectedDateTime}" Width="200"/>
                         </StackPanel>
                         <Button Content="Save" Click="SaveNewTourRealization_Click" Margin="5,10,0,0"/>
                     </StackPanel>
@@ -116,7 +116,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="Cancel" Click="Cancel_Click" Width="57" HorizontalAlignment="Center"/>
+                                <Button Content="Cancel" Click="Cancel_Click" Width="57" HorizontalAlignment="Center" IsEnabled="{Binding IsCancellable}"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -127,7 +127,7 @@
         Background="Transparent" BorderBrush="Gray" BorderThickness="1" 
         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
         Click="AddTourRealizationButton_Click"
-        IsEnabled="{Binding IsCancellable}">
+        >
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"

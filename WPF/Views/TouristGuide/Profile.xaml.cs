@@ -18,14 +18,15 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.TouristGuide
 {
     /// <summary>
-    /// Interaction logic for ViewMoreFinishedTour.xaml
+    /// Interaction logic for Profile.xaml
     /// </summary>
-    public partial class ViewMoreFinishedTour : UserControl
+    public partial class Profile : UserControl
     {
-        public ViewMoreFinishedTour(TourViewModel tour, User user)
+
+        public Profile(User user)
         {
             InitializeComponent();
-            DataContext = new FinishedTourViewModel(tour,user);
+            DataContext = new ProfileViewModel(user);
         }
     }
 }

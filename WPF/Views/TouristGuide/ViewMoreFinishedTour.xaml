@@ -23,7 +23,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" HorizontalAlignment="Left" Click="BackButton_Click" Background="Transparent" BorderBrush="Transparent">
+            <Button Grid.Row="0" HorizontalAlignment="Left" Command="{Binding BackCommand}" Background="Transparent" BorderBrush="Transparent">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="Icons/Card/Alt Arrow Left.png" Width="16" Height="16"/>
                     <Label Content="Back" Margin="5,0,0,0" />
@@ -81,7 +81,7 @@
                 </Grid.ColumnDefinitions>
                 <ListView BorderThickness="0" 
                       Background="Transparent" 
-                      SelectionChanged="ListView_SelectionChanged"
+                      
                       Grid.Column="0" 
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemsPanel>
@@ -118,13 +118,14 @@
                         </x:Array>
                     </ListView.ItemsSource>
                 </ListView>
-                <lvc:PieChart Grid.Row="6" Grid.Column="1"  LegendLocation="Right" VerticalAlignment="Top" Height="200" Margin="10,0,0,0">
+                <lvc:PieChart Grid.Row="6" Grid.Column="1" LegendLocation="Right" VerticalAlignment="Top" Height="200" Margin="10,0,0,0" >
                     <lvc:PieChart.Series>
-                        <lvc:PieSeries Values="10" DataLabels="True" Title="&lt;18"/>
-                        <lvc:PieSeries Values="20" DataLabels="True" Title="18-50"/>
-                        <lvc:PieSeries Values="30" DataLabels="True" Title="50>"/>
+                        <lvc:PieSeries Values="10" DataLabels="True" Title="First"/>
+                        <lvc:PieSeries Values="20" DataLabels="True" Title="Second"/>
+                        <lvc:PieSeries Values="30" DataLabels="True" Title="Third"/>
                     </lvc:PieChart.Series>
                 </lvc:PieChart>
+
             </Grid>
         </Grid>
     </ScrollViewer>

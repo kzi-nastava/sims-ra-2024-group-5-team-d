@@ -29,6 +29,7 @@ namespace BookingApp.WPF.Views.TouristGuide
     public partial class ViewMoreTour : UserControl, INotifyPropertyChanged
     {
         public bool CancelEnabled { get; set; }
+        public DateTime SelectedDateTime { get; set; }  
         public TourViewModel SelectedTour { get; set; }
         public TourRealisationViewModel SelectedTourRealisation { get; set; }
         public ObservableCollection<TourRealisationViewModel> TourRealisations { get; set; }
@@ -63,7 +64,7 @@ namespace BookingApp.WPF.Views.TouristGuide
 
             // Initialize NewTourRealizationDateTime with current date and time
             LoggedInUser = user;
-            NewTourRealizationDateTime = DateTime.Now;
+            SelectedDateTime = DateTime.Now;
             
         }
 
@@ -85,10 +86,10 @@ namespace BookingApp.WPF.Views.TouristGuide
         private void SaveNewTourRealization_Click(object sender, RoutedEventArgs e)
         {
             // Saving logic here using NewTourRealizationDateTime property
-            DateTime selectedDateTime = NewTourRealizationDateTime;
+            DateTime selectedDateTime = SelectedDateTime;
             TourRealisation tourRealisation = new TourRealisation(selectedDateTime,SelectedTour.Id,SelectedTour.Capacity, LoggedInUser);
             tourRealisationRepository.SaveTourRealisation(tourRealisation);
-            TourRealisationViewModel tourRealisationViewModel = new TourRealisationViewModel(tourRealisation.Id,selectedDateTime, SelectedTour.Id, SelectedTour.Capacity, LoggedInUser);
+            TourRealisationViewModel tourRealisationViewModel = new TourRealisationViewModel(tourRealisation.Id,selectedDateTime, SelectedTour.Id, SelectedTour.Capacity, tourRealisation.IsCancellable(), LoggedInUser);
             TourRealisations.Add(tourRealisationViewModel);
             // For example, close the popup after saving
             NewTourRealizationPopup.IsOpen = false;

@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.Views.TouristGuide;
 using HarfBuzzSharp;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace BookingApp.WPF.ViewModels
 {
     public class CreateTourViewModel
     {
+        public ICommand ForwardCommand { get; private set; }
+        public ICommand BackwardCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
         public ICommand LocationChangedCommand { get; private set; }
 
@@ -44,6 +47,8 @@ namespace BookingApp.WPF.ViewModels
         private ITourRealisationRepository tourRealisationRepository;
         private ICheckPointRepository checkPointRepository;
         private List<string> imagesPath;
+        private int PaginationIndex = 0;
+        public ObservableCollection<string> ImagesPaths { get; set; }
         public CreateTourViewModel(User user) 
         {
             LoggedInUser = user;
@@ -57,15 +62,36 @@ namespace BookingApp.WPF.ViewModels
             LocationChangedCommand = new RelayCommand(LocationChanged);
             AddCheckPointCommand = new RelayParameterCommand(AddCheckPoint);
             UploadCommand = new RelayCommand(UploadPicture);
+            BackwardCommand = new RelayCommand(Backward);
+            ForwardCommand = new RelayCommand(Forward);
             CheckPoints = new ObservableCollection<CheckPoint>(SuggestCheckPoints());
             checkPointsToSave = new List<CheckPoint>();
+            ImagesPaths = new ObservableCollection<string>();
+            DateTime = DateTime.Now;
+        }
+        public void Backward()
+        {
+            PaginationIndex--;
+            ImagesPaths.Clear();
+            ImagesPaths.Add(imagesPath[PaginationIndex]);
+        }
+        public void Forward()
+        {
+            PaginationIndex++;
+            ImagesPaths.Clear();
+            ImagesPaths.Add(imagesPath[PaginationIndex]);
         }
 
         private void UploadPicture()
         {
             string imagePath = imageUploaderService.UploadImage();
             if (imagePath != null)
+            {
                 imagesPath.Add(imagePath);
+                ImagesPaths.Clear();
+                ImagesPaths.Add(imagePath);
+                PaginationIndex = imagesPath.Count - 1;
+            }
         }
         private void Save()
         {
@@ -80,7 +106,9 @@ namespace BookingApp.WPF.ViewModels
             checkPointsToSave = CheckPoints.Where(cp => cp.IsChecked == true).ToList();
 
             checkPointsToSave.ForEach(cp => cp.IsChecked = false);
+            checkPointsToSave.ForEach(cp => cp.TourId = SavedTour.Id);
             checkPointsToSave.ForEach(cp => checkPointRepository.Save(cp));
+            SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser);
         }
 
         private void AddCheckPoint(object parameter)

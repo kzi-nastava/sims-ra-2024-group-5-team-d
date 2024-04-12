@@ -45,5 +45,28 @@ namespace BookingApp.Appl.UseCases
             return _repository.GetTourRealisationsByTourId(tourId).Where(tr =>  tr.IsOnSelectedDate(date)).ToList();    
         }
 
+        public List<TourRealisation> GetTourRealisationsByTourId(int tourId)
+        {
+            return _repository.GetTourRealisationsByTourId(tourId);
+        }
+        public List<TourRealisation> GetAllTourRealisations()
+        {
+            return _repository.GetAllTourRealisations();
+        }
+
+        public TourRealisation GetFirstTourRealisationMadeByUser(User user)
+        {
+            List<TourRealisation> tourRealisations = _repository.GetAllTourRealisations().Where(tR => tR.User.Id == user.Id).ToList();
+             return tourRealisations.MinBy(x => x.StartTime.Year);
+        }
+        public TourRealisation GetLastTourRealisationMadeByUser(User user)
+        {
+            List<TourRealisation> tourRealisations = _repository.GetAllTourRealisations().Where(tR => tR.User.Id == user.Id).ToList();
+            return tourRealisations.MaxBy(x => x.StartTime.Year);
+        }
+        public TourRealisation GetTourRealisationById(int tourRealsiationId)
+        {
+            return _repository.GetTourRealisationById(tourRealsiationId);
+        }
     }
 }

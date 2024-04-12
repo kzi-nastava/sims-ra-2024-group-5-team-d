@@ -42,7 +42,7 @@ namespace BookingApp.WPF.Views.TouristGuide
 
         private void Profile_Click(object sender, MouseButtonEventArgs e)
         {
-            //contentControlW.Content = new Profile(LoggedInUser);
+            contentControlW.Content = new Profile(LoggedInUser);
         }
     }
 }

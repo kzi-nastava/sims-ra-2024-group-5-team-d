@@ -2,6 +2,7 @@
 using BookingApp.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,18 +21,14 @@ namespace BookingApp.Appl.UseCases
             _repository = Injector.CreateInstance<ITourRepository>();
             tourRealisationService = new TourRealisationService();
         }
-        //PROVERITI I OVO
         public void DeleteTour(Tour tour)
         {
-            // Obrisi sve realizacije ture prvo
             foreach (TourRealisation tourRealisation in tourRealisationRepository.GetTourRealisationsByTourId(tour.Id))
             {
                 tourRealisationRepository.DeleteTourRealisation(tourRealisation);
             }
-            // Obrisi turu sada
             _repository.DeleteTour(tour);
         }
-        //pitati gde ova
         public List<Tour> GetToursForToday()
         {
             List<Tour> toursToday = new List<Tour>();
@@ -68,6 +65,74 @@ namespace BookingApp.Appl.UseCases
         {
             return tourRealisationRepository.GetTourRealisationsByTourId(tourId).Any(tR => tR.AvailableSeats > 0);
         }
+        public Tour GetBestTourOfAllTime()
+        {
+            double mostVisited = 0.00;
+            int mostVisitedTourId = -1;
+
+            foreach (Tour t in _repository.GetAllTours())
+            {
+                int totalAttendees = 0;
+                int counter = 0;
+
+                foreach (TourRealisation tR in tourRealisationRepository.GetTourRealisationsByTourId(t.Id))
+                {
+                    totalAttendees += t.MaxCapacity - tR.AvailableSeats;
+                    counter++; 
+                }
+
+                if (counter > 0)
+                {
+                    if (totalAttendees > mostVisited)
+                    {
+                        mostVisited = totalAttendees;
+                        mostVisitedTourId = t.Id;
+                    }
+                }
+            }
+
+            return _repository.GetTourById(mostVisitedTourId);
+        }
+        public Tour GetBestTourInAYear(int year)
+        {
+            double mostVisited = 0.00;
+            int mostVisitedTourId = -1;
+
+            foreach (Tour t in _repository.GetAllTours())
+            {
+                int totalAttendees = 0; 
+                int counter = 0; 
+
+                foreach (TourRealisation tR in tourRealisationRepository.GetTourRealisationsByTourId(t.Id).Where(tR => tR.StartTime.Year == year))
+                {
+                    totalAttendees += t.MaxCapacity - tR.AvailableSeats; 
+                    counter++; 
+                }
+
+                if (counter > 0)
+                {
+                    if (totalAttendees > mostVisited)
+                    {
+                        mostVisited = totalAttendees;
+                        mostVisitedTourId = t.Id;
+                    }
+                }
+            }
+
+            return _repository.GetTourById(mostVisitedTourId);
+        }
+
+
+
+        public List<Tour> GetAllTours()
+        {
+            return _repository.GetAllTours();
+        }
+        public Tour FindTourForTourRealisation(int tourRealisationTourId)
+        {
+            return _repository.GetAllTours().Find(t => t.Id == tourRealisationTourId);
+        }
+
 
     }
 }

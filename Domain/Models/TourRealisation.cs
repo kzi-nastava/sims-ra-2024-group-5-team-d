@@ -45,7 +45,11 @@ namespace BookingApp.Domain.Models
 
         public bool IsCancellable()
         {
-            return StartTime >= DateTime.Now.AddDays(-2);
+            Debug.WriteLine(StartTime);
+            Debug.WriteLine(StartTime.AddDays(-2));
+            Debug.WriteLine(DateTime.Now);
+            Debug.WriteLine(StartTime.AddDays(-2) > DateTime.Now);
+            return StartTime.AddDays(-2) > DateTime.Now;
         }
         public bool IsOnSelectedDate(DateOnly date)
         {

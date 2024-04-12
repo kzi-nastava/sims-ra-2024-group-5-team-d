@@ -62,7 +62,8 @@ namespace BookingApp.WPF.Views.TouristGuide
         }
         private void ViewMore_Click(object sender, RoutedEventArgs e)
         {
-            SideBar.contentControlW.Content = new ViewMoreFinishedTour(SelectedTour, LoggedInUser);
+
+                SideBar.contentControlW.Content = new ViewMoreFinishedTour(SelectedTour, LoggedInUser);
         }
     }
 }

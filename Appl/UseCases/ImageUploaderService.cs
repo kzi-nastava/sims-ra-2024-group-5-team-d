@@ -59,7 +59,7 @@ namespace BookingApp.Appl.UseCases
                 Directory.CreateDirectory(tourFolderPath);
             }
             SaveImages(imagesPath, tourFolderPath);
-            return accommodationFolderPath;
+            return tourFolderPath;
         }
         public string CreateGuestFolder(List<string> imagesPath)
         {

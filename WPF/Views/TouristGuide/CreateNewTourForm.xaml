@@ -17,7 +17,7 @@
         <Style x:Key="TextBoxStyle" TargetType="TextBox" >
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="250"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
     </UserControl.Resources>
@@ -83,9 +83,9 @@
                       Width="250"  
                       HorizontalAlignment="Left" 
                       VerticalAlignment="Top" 
-                      FontSize="20"
+                      FontSize="18"
                       SelectedIndex="{Binding LocationId}"
-                      
+                      Margin="0,0,0,15"
                       >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="DropDownClosed">
@@ -114,8 +114,9 @@
                   Width="250"  
                   HorizontalAlignment="Left" 
                   VerticalAlignment="Top"
-                  FontSize="20"
-                  SelectedIndex="{Binding LanguageId}">
+                  FontSize="18"
+                  SelectedIndex="{Binding LanguageId}"
+                  Margin="0,0,0,15">
             <ComboBoxItem Content="English"/>
             <ComboBoxItem Content="German"/>
             <ComboBoxItem Content="Serbian"/>
@@ -123,13 +124,56 @@
         <TextBlock Grid.Row="3" Grid.Column="1" Text="Date and Time" Style="{StaticResource TextBlockStyle}"/>
 
         <!-- TimePicker for selecting the time (using WPF Toolkit) -->
-        <xctk:DateTimePicker Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="30" Width="250"/>
+        <xctk:DateTimePicker Value="{Binding DateTime}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="30" Width="250" Margin="0,0,0,15"/>
 
         <!-- TextBox for free-form time input -->
         <TextBlock Grid.Row="5" Grid.Column="1" Text="Upload a Picture" Style="{StaticResource TextBlockStyle}"/>
+        <Button Grid.Column="1" Grid.Row="5" Command="{Binding UploadCommand}" Content="+" Height="30" Width="30" Margin="185,0,0,0"/>
+        <Grid Grid.Column="1" Grid.Row="7" Grid.RowSpan="3">
+            <Button Grid.Column="1" Grid.Row="6" BorderThickness="0" HorizontalAlignment="Left" Background="Transparent" Command="{Binding BackwardCommand}">
+                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Left.png" Height="30"/>
+            </Button>
+            <Border Grid.Row="5" Grid.Column="1" Grid.RowSpan="3" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ListView BorderThickness="0" 
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      Grid.Column="1"
+                      Height="auto"
+                      x:Name="lista"
+                      ItemsSource="{Binding ImagesPaths}"
+                      Margin="0,-20,0,0"
+                      ScrollViewer.CanContentScroll="False">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black" 
+                                BorderThickness="3" 
+                                CornerRadius="2"
+                                Width="200"
+                                Height="148" VerticalAlignment="Center"  Margin="0 0 0 0">
+                                <Image Stretch="Fill" Source="{Binding}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="10 0 5 0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Border>
+            <Button Grid.Column="1" Grid.Row="6" Margin="0 0 20 0" BorderThickness="0" HorizontalAlignment="Right" Background="Transparent" Command="{Binding ForwardCommand}">
+                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Down.png" Height="30"/>
+            </Button>
+        </Grid>
         <TextBlock Grid.Row="9" Grid.Column="0" Text="Description" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Top"/>
         <TextBox Grid.Row="10" Grid.Column="0" Width="550" Height="110"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Text="{Binding Description}"/>
-        <Button Grid.Row="11" Grid.Column="2"  Content="Create" Margin="0,50,150,20" Height="40" Width="100" HorizontalAlignment="Right" />
+        <Button Grid.Row="11" Grid.Column="2"  Content="Create" Command="{Binding SaveCommand}" Margin="0,50,150,20" Height="40" Width="100" HorizontalAlignment="Right" />
         <Button Grid.Row="11" Grid.Column="2"  Content="Cancel" Margin="0,50,0,20" Height="40" Width="100" HorizontalAlignment="Right"/>
 
     </Grid>
