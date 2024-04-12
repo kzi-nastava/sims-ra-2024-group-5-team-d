@@ -67,7 +67,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private void MoveReservationClick(object sender, RoutedEventArgs e)
         {
             
-            MoveReservationAccommodation moveReservationWindow = new MoveReservationAccommodation();
+            MoveReservationAccommodation moveReservationWindow = new MoveReservationAccommodation(LoggedInUser,SelectedReservation.Id);
             moveReservationWindow.Show();
         }
 

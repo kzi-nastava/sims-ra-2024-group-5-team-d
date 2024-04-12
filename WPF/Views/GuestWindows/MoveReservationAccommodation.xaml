@@ -45,10 +45,12 @@
            Width="auto" 
            Margin="40,15,0,10" 
            FontSize="11"/>
-        <DatePicker Grid.Row="2"
+        <DatePicker 
+                 Grid.Row="2"
                  Height="25" 
                  Margin="100,13,46,13" 
-                 Grid.ColumnSpan="2"/>
+                 Grid.ColumnSpan="2"
+                 SelectedDate="{Binding NewReservedFrom}"/>
         <Label Content="From:" 
            HorizontalAlignment="Left"
            VerticalAlignment="Center" 
@@ -59,7 +61,10 @@
            Margin="40,15,0,10" 
            FontSize="11"/>
         <DatePicker Grid.Row="3"
-                 Height="25" Margin="100,13,46,13" Grid.ColumnSpan="2"/>
+                 Height="25" 
+                 Margin="100,13,46,13" 
+                 Grid.ColumnSpan="2"
+                 SelectedDate="{Binding NewReservedTo}"/>
         <Button Content="Send" 
               Grid.Row="4" 
               Grid.Column="0"
@@ -68,6 +73,7 @@
               Height="30"
               VerticalAlignment="Center" 
               HorizontalAlignment="Center"
-              Margin="0,10,0,10"/>
+              Margin="0,10,0,10"
+              Command="{Binding SendRequestCommand}"/>
     </Grid>
 </Window>
