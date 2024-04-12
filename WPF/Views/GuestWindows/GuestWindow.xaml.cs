@@ -46,7 +46,7 @@ namespace BookingApp.WPF.Views.GuestWindows
 
         private void InboxOpen_Button(object sender, MouseButtonEventArgs e)
         {
-            contentControl.Content = new InboxAccommodationUserControl();
+            contentControl.Content = new InboxAccommodationUserControl(LoggedInUser);
         }
 
         private void Search_MouseLeftBottonDown(object sender, MouseButtonEventArgs e)

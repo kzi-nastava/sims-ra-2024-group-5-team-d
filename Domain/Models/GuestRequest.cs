@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace BookingApp.Domain.Models
         public int Id { get; set; }
         public int ReservationId { get; set; }
         public DateTime NewReservedFrom { get; set; }
-        public DateTime NewReservedTo { get; set; }
+        public DateTime NewReservedTo {  get; set; }
         public string Comment {  get; set; }
         public STATUS Status { get; set; }
 
@@ -55,10 +56,10 @@ namespace BookingApp.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             ReservationId = Convert.ToInt32(values[1]);
-            NewReservedFrom = Convert.ToDateTime(values[2]);
-            NewReservedTo = Convert.ToDateTime(values[3]);
+            NewReservedFrom = DateTime.ParseExact(values[2], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            NewReservedTo = DateTime.ParseExact(values[3], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             Comment = values[4];
-            Status = (STATUS)Enum.Parse(typeof(TYPE), values[5]);
+            Status = (STATUS)Enum.Parse(typeof(STATUS), values[5]);
         }
         public bool IsApproved()
         {

@@ -12,10 +12,12 @@ namespace BookingApp.Appl.UseCases
     public class GuestRequestService
     {
         private IGuestRequestRepository guestRequestRepository;
+        private IAccommodationReservationRepository accommodationReservationRepository;
 
         public GuestRequestService()
         {
             guestRequestRepository = Injector.CreateInstance<IGuestRequestRepository>();
+            accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
         }
         public List<GuestRequest> GetAll()
         {
@@ -36,6 +38,12 @@ namespace BookingApp.Appl.UseCases
         public GuestRequest GetById(int id)
         {
             return guestRequestRepository.GetById(id);  
+        }
+        public List<GuestRequest> RequestsByUser(User user)
+        {
+            List<GuestRequest> requests = guestRequestRepository.GetAll();
+            List<GuestRequest> requestByUser = requests.Where(request => accommodationReservationRepository.GetById(request.ReservationId).UserId == user.Id).ToList();
+            return requestByUser;
         }
     }
 }
