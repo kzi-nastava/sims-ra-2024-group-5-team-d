@@ -44,11 +44,14 @@ namespace BookingApp.WPF.Views.OwnerView
         }
         private void ShowDetails(object sender, RoutedEventArgs e)
         {
-            ShowDetailedReviewWindow details = new ShowDetailedReviewWindow(SelectedOwnerRating.Id);
-            Window window = Window.GetWindow(this);
-            details.Owner = window;
-            details.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            details.ShowDialog();
+            if (SelectedOwnerRating != null)
+            {
+                ShowDetailedReviewWindow details = new ShowDetailedReviewWindow(SelectedOwnerRating.Id);
+                Window window = Window.GetWindow(this);
+                details.Owner = window;
+                details.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                details.ShowDialog();
+            }
         }
     }
 }

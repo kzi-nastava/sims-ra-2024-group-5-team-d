@@ -5,8 +5,10 @@ using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,6 +37,8 @@ namespace BookingApp.WPF.ViewModels
 
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
+        public ICommand ForwardCommand { get; private set; }
+        public ICommand BackwardCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
         public ICommand UploadCommand { get; private set; }
         public string Name { get; set; }
@@ -43,7 +47,7 @@ namespace BookingApp.WPF.ViewModels
         public int CancellationDeadline { get; set; }
         public int MaxCapacity { get; set; }
         public int MinDaysToStay { get; set; }
-        public string ImagesPath { get; set; }
+        public ObservableCollection<string> ImagesPaths { get; set; }
         public User Owner { get; set; }
         private ImageUploaderService imageUploaderService = new ImageUploaderService();
         private readonly IAccommodationRepository accommodationRepository;
@@ -51,8 +55,12 @@ namespace BookingApp.WPF.ViewModels
         private List<string> imagesPath;
         private AccommodationService accommodationService;
         private User loggedInUser;
+        private int PaginationIndex = 0;
         public RegisterAccommodationViewModel(User user)
         {
+            BackwardCommand = new RelayCommand(Backward);
+            ForwardCommand = new RelayCommand(Forward);
+            ImagesPaths = new ObservableCollection<string>();
             this.loggedInUser = user;
             imagesPath = new List<string>();
             accommodationService = new AccommodationService();
@@ -64,6 +72,19 @@ namespace BookingApp.WPF.ViewModels
             UploadCommand = new RelayCommand(UploadPicture);
 
         }
+        public void Backward()
+        {
+            PaginationIndex--;
+            ImagesPaths.Clear();
+            ImagesPaths.Add(imagesPath[PaginationIndex]);
+        }
+        public void Forward()
+        {
+            PaginationIndex++;
+            ImagesPaths.Clear();
+            ImagesPaths.Add(imagesPath[PaginationIndex]);
+        }
+
         private void Save()
         {
             string folderPath = imageUploaderService.CreateAccommodationFolder(imagesPath);
@@ -76,7 +97,12 @@ namespace BookingApp.WPF.ViewModels
         {
             string imagePath = imageUploaderService.UploadImage();
             if (imagePath != null)
+            {
                 imagesPath.Add(imagePath);
+                ImagesPaths.Clear();
+                ImagesPaths.Add(imagePath);
+                PaginationIndex = imagesPath.Count - 1;
+            }
         }
     }
 }

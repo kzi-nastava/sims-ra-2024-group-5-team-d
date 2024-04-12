@@ -36,5 +36,22 @@ namespace BookingApp.Repositories
             _guestOwnerNotifications = _serializer.FromCSV(FilePath);
             return _guestOwnerNotifications.Find(notification => notification.Id == id);
         }
+        public GuestOwnerNotifications Save(GuestOwnerNotifications guestOwnerNotifications)
+        {
+            guestOwnerNotifications.Id = NextId();
+            _guestOwnerNotifications = _serializer.FromCSV(FilePath);
+            _guestOwnerNotifications.Add(guestOwnerNotifications);
+            _serializer.ToCSV(FilePath, _guestOwnerNotifications);
+            return guestOwnerNotifications;
+        }
+        public int NextId()
+        {
+            _guestOwnerNotifications = _serializer.FromCSV(FilePath);
+            if (_guestOwnerNotifications.Count < 1)
+            {
+                return 1;
+            }
+            return _guestOwnerNotifications.Max(c => c.Id) + 1;
+        }
     }
 }
