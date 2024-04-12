@@ -105,6 +105,7 @@
             </ComboBox>
             <TextBlock Text="Cancellation deadline :"                 
                    Grid.Row="4"
+                       x:Name="GAS"
                    Style="{StaticResource TextBlockStyle}"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="4"

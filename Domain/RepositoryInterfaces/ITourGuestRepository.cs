@@ -12,5 +12,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public List<TourGuest> GetAllTourGuests();
         public TourGuest UpdateTourGuest(TourGuest tourGuest);
         public void SaveGuest(TourGuest guest);
+        public int NextIdForGuest();
     }
 }

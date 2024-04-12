@@ -13,6 +13,8 @@ namespace BookingApp.WPF.ViewModels
         public int Years { get; set; }
         public int TourReservationId { get; set; }
         public int CheckPointId { get; set; }
+        public string PersonalID { get; set; }
+        public string TouristHeader { get; set; }
         public TourGuestViewModel() { }
         public TourGuestViewModel(int id, string fullName, int years, int tourReservationId, int checkPointId)
         {
@@ -21,6 +23,18 @@ namespace BookingApp.WPF.ViewModels
             Years = years;
             TourReservationId = tourReservationId;
             CheckPointId = checkPointId;
+        }
+
+        public TourGuestViewModel(int id, int tourReservationId, string touristHeader)
+        {
+            Id = id;
+            TourReservationId = tourReservationId;
+            FullName = "";
+            Years = 0;
+            PersonalID = "";
+            TourReservationId = tourReservationId;
+            CheckPointId = -1;
+            TouristHeader = touristHeader;
         }
     }
 }

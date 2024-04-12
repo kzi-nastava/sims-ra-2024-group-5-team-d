@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views;
+using BookingApp.WPF.Views.OwnerView;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -67,7 +68,6 @@ namespace BookingApp.WPF.ViewModels
         private void Save()
         {
             string folderPath = imageUploaderService.CreateAccommodationFolder(imagesPath);
-
             Accommodation newAccommodation = new Accommodation(Name, locationRepository.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner, accommodationService.IsSuperOwner(loggedInUser));
             Accommodation savedAccommodation = accommodationRepository.Save(newAccommodation);
             notifier.ShowSuccess("Accommodation added SUCCESSFULLY!");

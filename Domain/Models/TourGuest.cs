@@ -15,6 +15,7 @@ namespace BookingApp.Domain.Models
         public int Years { get; set; }
         public int TourReservationId { get; set; }
         public int CheckPointId { get; set; }
+        public string PersonalID { get; set; }
         public TourGuest() { }
         public TourGuest(int id, string fullName, int years, int tourReservationId, int checkPointId)
         {
@@ -23,6 +24,16 @@ namespace BookingApp.Domain.Models
             Years = years;
             TourReservationId = tourReservationId;
             CheckPointId = checkPointId;
+        }
+
+        public TourGuest(int id, string fullName, int years, int tourReservationId, int checkPointId, string personalID)
+        {
+            Id = id;
+            FullName = fullName;
+            Years = years;
+            TourReservationId = tourReservationId;
+            CheckPointId = checkPointId;
+            PersonalID = personalID;
         }
         public void FromCSV(string[] values)
         {

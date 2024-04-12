@@ -26,7 +26,7 @@ namespace BookingApp.WPF.Views.TouristView
     /// <summary>
     /// Interaction logic for TouristHomeUserControl.xaml
     /// </summary>
-    public partial class TouristHomeUserControl : UserControl
+    public partial class TouristHomeUserControl : UserControl, INotifyPropertyChanged
     {
         public TourViewModel SelectedTour { get; set; }
         public ObservableCollection<TourViewModel> Tours { get; set; }
