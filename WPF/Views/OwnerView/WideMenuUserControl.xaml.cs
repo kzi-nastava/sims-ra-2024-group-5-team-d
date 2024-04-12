@@ -47,10 +47,10 @@ namespace BookingApp.WPF.Views.OwnerView
                     }
                 }
                 if (row != -1)
-                {/*
+                {
                     if (row == 0)
-                        OwnerMainWindow.contentControl.Content = new RequestsNoMenu();
-                    if (row == 1)
+                        OwnerMainWindow.contentControl.Content = new RequestsUserControl(loggedInUser);
+                   /* if (row == 1)
                         OwnerMainWindow.contentControl.Content = new Renovations();
                     */if (row == 2)
                         OwnerMainWindow.contentControl.Content = new OwnerReviewUserControl(loggedInUser);

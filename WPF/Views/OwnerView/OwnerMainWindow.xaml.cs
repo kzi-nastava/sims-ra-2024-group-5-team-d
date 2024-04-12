@@ -137,8 +137,8 @@ namespace BookingApp.WPF.Views.OwnerView
                 // Ako je pronađen red, prikazujemo njegov indeks
                 if (row != -1)
                 {
-                  //  if (row == 0)
-                     //   contentControl.Content = new RequestsNoMenu();
+                    if (row == 0)
+                        contentControl.Content = new RequestsUserControl(loggedInUser);
                     //if (row == 1)
                       //  contentControl.Content = new Renovations();
                     if (row == 2)
