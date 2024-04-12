@@ -28,8 +28,8 @@ namespace BookingApp.WPF.ViewModels
         public int CorrectnessRating { get; set; }
         public DateOnly RatingDate { get; set; }
         public string Comment { get; set; }
-        private IAccommodationRepository accommodationRepository;
-        private IUserRepository userRepository;
+        private AccommodationService accommodationService;
+        private UserService userService;
         private ImageUploaderService imageUploaderService;
         private List<string> imagesPaths;
         private int PaginationIndex = -3;
@@ -77,11 +77,11 @@ namespace BookingApp.WPF.ViewModels
             ReservationId = rating.ReservationId;
             CleanlinessRating = rating.Cleanliness;
             CorrectnessRating = rating.Correctness;
-            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
-            userRepository=Injector.CreateInstance<IUserRepository>();
-            Accommodation accommodation = accommodationRepository.GetById(rating.AccommodationId);
+            accommodationService = new AccommodationService();
+            userService =new UserService();
+            Accommodation accommodation = accommodationService.GetById(rating.AccommodationId);
             Id = rating.Id;
-            GuestName = userRepository.GetFullNameById(rating.GuestId);
+            GuestName = userService.GetFullNameById(rating.GuestId);
             Location = accommodation.Location;
             AccommodationName = accommodation.Name;
             RatingDate = rating.TimeOfRating;

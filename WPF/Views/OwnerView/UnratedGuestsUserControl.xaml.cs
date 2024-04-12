@@ -28,21 +28,21 @@ namespace BookingApp.WPF.Views.OwnerView
     {
         public static ObservableCollection<UnratedGuestViewModel> UnratedGuests { get; set; }
         public UnratedGuestViewModel SelectedGuest { get; set; }
-        private IUserRepository userRepository;
-        private IAccommodationRepository accommodationRepository;
+        private UserService userService;
+        private AccommodationService accommodationService;
         private User loggedInUser;
         private UnratedGuestService unratedGuestService;
         public UnratedGuestsUserControl(User user)
         {
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
-            userRepository = Injector.CreateInstance<IUserRepository>();
+            accommodationService = new AccommodationService();
+            userService = new UserService();
             unratedGuestService = new UnratedGuestService();
             loggedInUser = user;
             UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
             DataContext = this;
             unratedGuestService.GetUnratedGuests(loggedInUser)
                                 .ForEach(unratedGuest => UnratedGuests.Add
-                                (new UnratedGuestViewModel(unratedGuest.Id,userRepository.GetById(unratedGuest.UserId).FullName, unratedGuest.ReservedFrom, unratedGuest.ReservedTo, accommodationRepository.GetById(unratedGuest.AccommodationId).Location, accommodationRepository.GetAccommodationNameById(unratedGuest.AccommodationId)))
+                                (new UnratedGuestViewModel(unratedGuest.Id, userService.GetById(unratedGuest.UserId).FullName, unratedGuest.ReservedFrom, unratedGuest.ReservedTo, accommodationService.GetById(unratedGuest.AccommodationId).Location, accommodationService.GetAccommodationNameById(unratedGuest.AccommodationId)))
                                 );
             InitializeComponent();
         }

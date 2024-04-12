@@ -47,5 +47,33 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationRatingRepository.GetAll().Where(rating => rating.AccommodationId == accommodation.Id).Count();
         }
+        public List<AccommodationRating> GetAll()
+        {
+              return accommodationRatingRepository.GetAll();
+        }
+        public AccommodationRating GetByReservationId(int reservationId)
+        {
+            return accommodationRatingRepository.GetByReservationId(reservationId);
+        }
+        public AccommodationRating GetById(int id)
+        {
+            return accommodationRatingRepository.GetById(id);
+        }
+        public AccommodationRating Update(AccommodationRating accommodationRating)
+        {
+            return accommodationRatingRepository.Update(accommodationRating);
+        }
+        public AccommodationRating Save(AccommodationRating accommodationRating)
+        {
+            return accommodationRatingRepository.Save(accommodationRating);
+        }
+        public void Delete(AccommodationRating accommodationRating)
+        {
+            accommodationRatingRepository.Delete(accommodationRating);
+        }
+        public List<AccommodationRating> GetByGuest(User guest)
+        {
+            return accommodationRatingRepository.GetByGuest(guest);
+        }
     }
 }

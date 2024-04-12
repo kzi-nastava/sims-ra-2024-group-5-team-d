@@ -66,10 +66,10 @@ namespace BookingApp.Repositories
             return _accommodationRatings.Max(c => c.Id) + 1;
         }
 
-        public void Delete(GuestRating guestRating)
+        public void Delete(AccommodationRating accommodationRating)
         {
             _accommodationRatings = _serializer.FromCSV(FilePath);
-            AccommodationRating founded = _accommodationRatings.Find(g => g.Id == guestRating.Id);
+            AccommodationRating founded = _accommodationRatings.Find(g => g.Id == accommodationRating.Id);
             _accommodationRatings.Remove(founded);
             _serializer.ToCSV(FilePath, _accommodationRatings);
         }

@@ -80,7 +80,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         public AccommodationReservation AccommodationReservation;
         public int accommodationId;
         public DateTime dateTime;
-        private IAccommodationRatingRepository accommodationRatingRepository;
+        private AccommodationRatingService accommodationRatingService;
         private RateOwnerService rateOwnerService;
         private List<string> imagesPath;
         private ImageUploaderService imageUploaderService;
@@ -95,7 +95,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             AccommodationReservation = accommodationReservation;
             this.accommodationId = accommodationId;
             dateTime = DateTime.Now;
-            accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
+            accommodationRatingService = new AccommodationRatingService();
 
         }
 

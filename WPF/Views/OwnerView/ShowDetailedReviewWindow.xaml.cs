@@ -22,13 +22,13 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class ShowDetailedReviewWindow : Window
     {
-        private IAccommodationRatingRepository accommodationRatingRepository;
+        private AccommodationRatingService accommodationRatingService;
 
         public ShowDetailedReviewWindow(int ratingId)
         {
             InitializeComponent();
-            accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
-            DataContext = new OwnerRatingViewModel(accommodationRatingRepository.GetById(ratingId));
+            accommodationRatingService = new AccommodationRatingService();
+            DataContext = new OwnerRatingViewModel(accommodationRatingService.GetById(ratingId));
         }
         private void Close(object sender, RoutedEventArgs e)
         {

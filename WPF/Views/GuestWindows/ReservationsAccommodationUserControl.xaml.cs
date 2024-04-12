@@ -41,12 +41,12 @@ namespace BookingApp.WPF.Views.GuestWindows
         public UserReservationsService reservationsService { get; set; }
         public Accommodation accommodation;
         public AccommodationReservation accommodationReservation { get; set; }
-        private IAccommodationRepository accommodationRepository;
+        private AccommodationService accommodationService;
         private IAccommodationReservationRepository accommodationReservationRepository;
         public ReservationsAccommodationUserControl(User user)
         {
             accommodationReservationRepository=Injector.CreateInstance<IAccommodationReservationRepository>();
-            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
+            accommodationService = new AccommodationService();
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
@@ -58,11 +58,11 @@ namespace BookingApp.WPF.Views.GuestWindows
             CancelledReservations = new ObservableCollection<UserReservationsViewModel>();
  
             reservationsService.GetActiveReservationsForUser(LoggedInUser)
-                .ForEach(r => ActiveReservations.Add(new UserReservationsViewModel(r.Id,accommodationRepository.GetAccommodationNameById(r.AccommodationId) , accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo,r.IsCancellable(accommodationRepository.GetById(r.AccommodationId).CancellationDeadline),r.IsRateable())));
+                .ForEach(r => ActiveReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId) , accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo,r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline),r.IsRateable())));
             reservationsService.GetFinishedReservationsForUser(LoggedInUser)
-                .ForEach(r => FinishedReservations.Add(new UserReservationsViewModel(r.Id, accommodationRepository.GetAccommodationNameById(r.AccommodationId), accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationRepository.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable())));
+                .ForEach(r => FinishedReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId), accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable())));
             reservationsService.GetCancelledReservationsForUser(LoggedInUser)
-                .ForEach(r => CancelledReservations.Add(new UserReservationsViewModel(r.Id, accommodationRepository.GetAccommodationNameById(r.AccommodationId), accommodationRepository.GetById(r.AccommodationId).Location, accommodationRepository.GetById(r.AccommodationId).ImagesPath, accommodationRepository.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationRepository.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable())));
+                .ForEach(r => CancelledReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId), accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable())));
         }
         private void MoveReservationClick(object sender, RoutedEventArgs e)
         {

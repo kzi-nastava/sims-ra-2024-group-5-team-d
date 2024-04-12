@@ -29,16 +29,16 @@ namespace BookingApp.WPF.Views.OwnerView
         public static ObservableCollection<UnratedGuestViewModel>UnratedGuests { get; set; }
         private UnratedGuestService unratedGuestService;
         private User LoggedInUser;
-        private IUserRepository userRepository;
+        private UserService userService;
         public OwnerReviewUserControl(User user)
         {
-            userRepository = Injector.CreateInstance<IUserRepository>();
+            userService = new UserService();
             LoggedInUser = user;
             unratedGuestService = new UnratedGuestService();
             UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
             DataContext = this;
             unratedGuestService.GetUnratedGuests(LoggedInUser)
-                                .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userRepository.GetById(unratedGuest.UserId).FullName)));
+                                .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userService.GetById(unratedGuest.UserId).FullName)));
             InitializeComponent();
         }
         private void RateGuest(object sender, RoutedEventArgs e)
