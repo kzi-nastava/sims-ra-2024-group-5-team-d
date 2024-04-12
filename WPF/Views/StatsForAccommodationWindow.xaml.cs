@@ -28,7 +28,7 @@ namespace BookingApp.WPF.Views
     {
         public Accommodation Accommodation { get; set; }
         public User LoggedInUser { get; set; }
-        private readonly AccommodationReservationRepository _repository;
+        private readonly AccommodationReservationService _repositoryService;
         public ObservableCollection<string> Date { get; set; }
         public ObservableCollection<AccommodationStat> AccommodationStats { get; set; }
         private string selectedYear;
@@ -39,7 +39,7 @@ namespace BookingApp.WPF.Views
             accommodationStatsService = new AccommodationStatsService();
             LoggedInUser = loggedInUser;
             Accommodation = selectedAccommodation;
-            _repository = new AccommodationReservationRepository();
+            _repositoryService = new AccommodationReservationService();
             DataContext = this;
             Date = new ObservableCollection<string>();
             AccommodationStats = new ObservableCollection<AccommodationStat>();
@@ -68,7 +68,7 @@ namespace BookingApp.WPF.Views
         //DA LI ZA OVO NOVI SERVIS
         private void InitializeComboBox()
         {
-            List<AccommodationReservation> Reservations =new List<AccommodationReservation>(_repository.GetByAccommodation(Accommodation));
+            List<AccommodationReservation> Reservations =new List<AccommodationReservation>(_repositoryService.GetByAccommodation(Accommodation));
             Date.Add("All years");
             comboBox.SelectedIndex = 0;
             selectedYear = "All years";

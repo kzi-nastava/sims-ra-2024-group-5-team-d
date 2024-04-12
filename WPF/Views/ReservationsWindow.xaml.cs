@@ -102,7 +102,7 @@ namespace BookingApp.WPF.Views
                 }
             }
         }
-        private readonly AccommodationReservationRepository _reservationRepository;
+        private readonly AccommodationReservationService _reservationService;
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
         public ObservableCollection<KeyValuePair<DateTime, DateTime>> AvailableDates { get; set; }
@@ -112,7 +112,7 @@ namespace BookingApp.WPF.Views
         public ReservationsWindow(User user, Accommodation selectedAccommmodation)  
         {
 
-            _reservationRepository = new AccommodationReservationRepository();
+            _reservationService = new AccommodationReservationService();
             LoggedInUser = user;
             AvailableDatesForReservationService = new AvailableDatesForReservationService();
             AvailableDates = new ObservableCollection<KeyValuePair<DateTime, DateTime>>();
@@ -162,7 +162,7 @@ namespace BookingApp.WPF.Views
         private void ReserveAccommodation(object sender, RoutedEventArgs e)
         {
             AccommodationReservation newReservation = new AccommodationReservation(Accommodation.Id, LoggedInUser.Id, SelectedDate.Key, SelectedDate.Value);
-            AccommodationReservation savedAccommodation = _reservationRepository.Save(newReservation);
+            AccommodationReservation savedAccommodation = _reservationService.Save(newReservation);
             Close();
         }
 

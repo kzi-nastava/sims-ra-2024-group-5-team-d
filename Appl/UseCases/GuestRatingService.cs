@@ -27,5 +27,25 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == guestRating.AccommodationId);
         }
+        public List<GuestRating> GetAll()
+        {
+            return guestRatingRepository.GetAll();
+        }
+        public GuestRating Save(GuestRating guestRating)
+        {
+            return guestRatingRepository.Save(guestRating);
+        }
+        public void Delete(GuestRating guestRating)
+        {
+            guestRatingRepository.Delete(guestRating);
+        }
+        public GuestRating Update(GuestRating guestRating)
+        {
+            return guestRatingRepository.Update(guestRating);
+        }
+        public List<GuestRating> GetByGuest(User guest)
+        {
+            return guestRatingRepository.GetByGuest(guest);
+        }
     }
 }

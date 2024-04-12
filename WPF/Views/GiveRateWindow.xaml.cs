@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Models;
+﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.Models;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
 using System;
@@ -72,7 +73,7 @@ namespace BookingApp.WPF.Views
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        private GuestRatingRepository GuestRatingRepository;
+        private GuestRatingService GuestRatingService;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -82,7 +83,7 @@ namespace BookingApp.WPF.Views
 
         public GiveRateWindow(GuestRatingDTO guestRatingDTO)
         {
-            GuestRatingRepository = new GuestRatingRepository();
+            GuestRatingService = new GuestRatingService();
             GuestRatingDTO = guestRatingDTO;
             InitializeComponent();
             DataContext = this;
@@ -95,7 +96,7 @@ namespace BookingApp.WPF.Views
 
         private void RateGuestButton_Click(object sender, RoutedEventArgs e)
         {
-            GuestRatingRepository.Save(new GuestRating(GuestRatingDTO.AccommodatioId,GuestRatingDTO.GuestId,GuestRatingDTO.ReservationId,cleanlinessRating,ruleComplianceRating,comment));
+            GuestRatingService.Save(new GuestRating(GuestRatingDTO.AccommodatioId,GuestRatingDTO.GuestId,GuestRatingDTO.ReservationId,cleanlinessRating,ruleComplianceRating,comment));
             RateGuestsWindow.GuestRatingsObservable.Remove(GuestRatingDTO);
             Close();
         }

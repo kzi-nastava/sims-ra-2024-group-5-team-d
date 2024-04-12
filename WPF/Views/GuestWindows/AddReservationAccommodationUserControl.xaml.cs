@@ -102,7 +102,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
-        private readonly AccommodationReservationRepository _reservationRepository;
+        private readonly AccommodationReservationService _reservationService;
         public User LoggedInUser { get; set; }
         private readonly AccommodationRepository _repository;
         private readonly ContentControl contentControl;
@@ -114,7 +114,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         public AddReservationAccommodationUserControl(User user, AccommodationViewModel selectedAccommmodation)
         {
 
-            _reservationRepository = new AccommodationReservationRepository();
+            _reservationService = new AccommodationReservationService();
             _repository = new AccommodationRepository();
             LoggedInUser = user;
             AvailableDatesForReservationService = new AvailableDatesForReservationService();
@@ -186,7 +186,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private void ReserveAccommodation(object sender, RoutedEventArgs e)
         {
             AccommodationReservation newReservation = new AccommodationReservation(Accommodation.Id, LoggedInUser.Id, SelectedDate.Key, SelectedDate.Value);
-            AccommodationReservation savedAccommodation = _reservationRepository.Save(newReservation);
+            AccommodationReservation savedAccommodation = _reservationService.Save(newReservation);
             //Close(); ???????????????????????????????????????/ da me vrati na search prozor
             GuestWindow.contentControl.Content = new AccommodationUserControl(LoggedInUser, Accommodation);
         }
