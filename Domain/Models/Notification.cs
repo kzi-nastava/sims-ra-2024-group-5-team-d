@@ -60,6 +60,10 @@ namespace BookingApp.Domain.Models
             DateCreated = DateTime.ParseExact(values[4], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             IsRead = bool.Parse(values[5]);
         }
+        public bool IsRate()
+        {
+            return Type == Type.RATE;
+        }
     }
 
 }

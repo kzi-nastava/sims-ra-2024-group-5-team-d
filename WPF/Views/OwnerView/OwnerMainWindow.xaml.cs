@@ -47,10 +47,11 @@ namespace BookingApp.WPF.Views.OwnerView
         });
         User loggedInUser;
         private UnratedGuestService unratedGuestService;
-
+        private NotificationsService notificationService;
         public OwnerMainWindow(User user)
         {
 
+            notificationService = new NotificationsService();
             unratedGuestService = new UnratedGuestService();
             InitializeComponent();
             loggedInUser = user;
@@ -60,15 +61,8 @@ namespace BookingApp.WPF.Views.OwnerView
             contentControl = contentControl1;
             contentControl.Content = new OwnerMainWindowUserControl(user);
             contentMenu.Content = new SmallMenuUserControl(loggedInUser);
-            int numberOfUnratedGuests = unratedGuestService.GetUnratedGuests(loggedInUser).Count;
-            if (numberOfUnratedGuests != 0)
-            {
-                numberOfNotify.Text = numberOfUnratedGuests.ToString();
-            }
-            else
-            {
-                numberOfNotify.Text ="0";
-            }
+            notificationService.CreateNotificationForUnratedGuests(unratedGuestService.GetUnratedGuests(loggedInUser), user);
+            numberOfNotify.Text = notificationService.GetNumberOfUnreadNotificationsForUser(user).ToString();
         }
         private void OpenReview() {
             contentControl.Content = new OwnerReviewUserControl(loggedInUser);
