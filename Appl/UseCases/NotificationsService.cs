@@ -57,10 +57,6 @@ namespace BookingApp.Appl.UseCases
                 }
             });
         }
-        public int GetNumberOfUnreadNotificationsForUser(User user)
-        {
-          return GetUnreadNotificationsCountForUser(user).Count();
-        }
         public List<Notification> GetUnreadNotificationsCountForUser(User user)
         {
             return GetNotificationsForUser(user).Where(notification => notification.IsRead == false).ToList();
