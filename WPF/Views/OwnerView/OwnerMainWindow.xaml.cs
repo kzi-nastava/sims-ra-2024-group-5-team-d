@@ -31,7 +31,6 @@ namespace BookingApp.WPF.Views.OwnerView
 
         public ICommand ReviewCommand { get; private set; }
         public static ContentControl contentControl;
-        public static Popup popUp;
         Notifier notifier = new Notifier(cfg =>
         {
             cfg.PositionProvider = new WindowPositionProvider(
@@ -59,20 +58,16 @@ namespace BookingApp.WPF.Views.OwnerView
             ReviewCommand = new RelayCommand(OpenReview);
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             contentControl = contentControl1;
-            popUp = popup_uc;
             contentControl.Content = new OwnerMainWindowUserControl(user);
             contentMenu.Content = new SmallMenuUserControl(loggedInUser);
             int numberOfUnratedGuests = unratedGuestService.GetUnratedGuests(loggedInUser).Count;
             if (numberOfUnratedGuests != 0)
             {
-                Notifications.Review.Text = "You have unrated guests";
                 numberOfNotify.Text = numberOfUnratedGuests.ToString();
-                Debug.WriteLine("Unrated guests: " + numberOfUnratedGuests);
             }
             else
             {
                 numberOfNotify.Text ="0";
-               Notifications.Review.Text = "No unrated guests";
             }
         }
         private void OpenReview() {
@@ -186,17 +181,7 @@ namespace BookingApp.WPF.Views.OwnerView
 
         private void Border_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
         {
-            if (popUp.IsOpen == false)
-            {
-                popUp.PlacementTarget = sender as UIElement;
-                popUp.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-                popUp.IsOpen = true;;
-            }
-            else
-            {
-                popUp.Visibility = Visibility.Collapsed;
-                popUp.IsOpen = false;
-            }
+            contentControl.Content = new OwnerNotificationsUserControl(loggedInUser);
 
         }
     }
