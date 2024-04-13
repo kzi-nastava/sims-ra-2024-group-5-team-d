@@ -73,6 +73,7 @@ namespace BookingApp.Appl.UseCases
                 }
             }
             return null;
+        }
 
         public bool WasTouristOnTour(int tourReservationId)
         {
