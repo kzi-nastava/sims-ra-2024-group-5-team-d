@@ -132,7 +132,10 @@ namespace BookingApp.Appl.UseCases
         {
             return _repository.GetAllTours().Find(t => t.Id == tourRealisationTourId);
         }
-
+        public Tour GetById(int id)
+        {
+            return _repository.GetTourById(id);
+        }
 
     }
 }

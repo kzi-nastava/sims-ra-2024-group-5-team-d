@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="587" d:DesignWidth="1152">
     <UserControl.Resources>
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
         <Style TargetType="Label" x:Key="TabsLabelsStyle">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -89,7 +91,7 @@
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
-                       Content="Belgrade Odyssey: Unveiling the Soul of the White City - Live"
+                       Content="{Binding Tour.Name}"
                        FontSize="25"
                        Margin="36 0 0 0">
                 </Label>
@@ -120,7 +122,7 @@
                            VerticalAlignment="Top"
                            Grid.Column="2"
                            Margin="3 -1 0 0"/>
-                    <Label Content="Belgrade, Serbia"
+                    <Label Content="{Binding Tour.Location}"
                                FontSize="12"
                                Margin="-1 -5 0 0"/>
                 </StackPanel>
@@ -129,7 +131,7 @@
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\Korisnik\Desktop\ikone\tura.jpg"
+                    <Image Source="{Binding Tour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
                         Height="220"
                         Width="250"
                         HorizontalAlignment="Left"
@@ -155,6 +157,7 @@
                                        FontWeight="DemiBold"                               
                                        Margin="15 5 0 0"/>
                             <ListView Grid.Row="1"
+                                      ItemsSource="{Binding Attendees}"
                                       BorderThickness="0">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -169,31 +172,21 @@
                                             </Grid.RowDefinitions>
                                             <CheckBox Grid.Row="0"
                                                       Margin="10 4 0 0"
-                                                      VerticalAlignment="Center">
+                                                      IsEnabled="False"
+                                                      VerticalAlignment="Center"
+                                                      IsChecked="{Binding IsPresent}">
 
                                             </CheckBox>
                                             <Label  Margin="23 0 0 0"
                                                     VerticalAlignment="Center"
                                                     FontSize="15"
                                                     Grid.Row="1"
-                                                Content="Milana Lepotica">
-
+                                                    Content="{Binding FullName}">
                                             </Label>
                                         </Grid>
 
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
-                                <ListView.ItemsSource>
-                                    <x:Array Type="{x:Type sys:String}">
-                                        <sys:String>Ala</sys:String>
-                                        <sys:String>Bela</sys:String>
-                                        <sys:String>Ceca</sys:String>
-                                        <sys:String>Veca</sys:String>
-                                        <sys:String>Bela</sys:String>
-                                        <sys:String>Ceca</sys:String>
-                                        <sys:String>Veca</sys:String>
-                                    </x:Array>
-                                </ListView.ItemsSource>
                             </ListView>
                         </Grid>
 
@@ -215,7 +208,7 @@
                             BorderBrush="Black"
                             Grid.Row="1"
                             Margin="0 -1 0 8">
-                        <Label Content="3 hours"
+                        <Label Content="{Binding Tour.Duration}"
                                FontSize="12"
                                Margin="-1 -7 0 0"/>
                     </Border>
@@ -231,7 +224,7 @@
                             BorderBrush="Black"
                             Grid.Row="1"
                             Margin="0 -1 0 8">
-                        <Label Content="35 people"
+                        <Label Content="{Binding Tour.Capacity}"
                                FontSize="12"
                                Margin="-1 -7 0 0"/>
                     </Border>
@@ -242,7 +235,7 @@
                            VerticalAlignment="Top"
                            Grid.Column="2"
                            Margin="3 -2 0 0"/>
-                    <Label Content="English"
+                    <Label Content="{Binding Tour.Language}"
                                FontSize="12"
                                Margin="-1 -8 0 0"/>
                 </StackPanel>
@@ -259,11 +252,11 @@
                     </Label>
                 </Border>
                 <Grid Grid.Row="5">
-                    <ProgressBar x:Name="progressBar" Margin="100 10 10 80" HorizontalAlignment="Left" Height="30" Minimum="0" Maximum="100" Value="0" Width="760"/>
+                    <ProgressBar x:Name="progressBar2" Margin="100 10 10 80" HorizontalAlignment="Left" Height="30" Minimum="0" Maximum="100" Value="0" Width="760"/>
 
-                    <StackPanel x:Name="progressContainer" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60 0 0 0"/>
+                    <StackPanel x:Name="progressContainer2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60 0 0 0"/>
 
-                    <StackPanel x:Name="namesContainer" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60 0 0 0"/>
+                    <StackPanel x:Name="namesContainer2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60 0 0 0"/>
                 </Grid>
             </Grid>
         </Border>
