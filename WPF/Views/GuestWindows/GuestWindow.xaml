@@ -89,6 +89,24 @@
            Width="10"
            Height="10" 
            Margin="47,5,0,0"/>
+        <Border CornerRadius="900"
+           Background="Red"
+           Grid.Column="2" 
+           Grid.Row="2"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Top" 
+           Width="12"
+           Height="12" 
+           Margin="47,5,0,0">
+            <TextBlock Foreground="AntiqueWhite" 
+                                       Margin="0 0 0 0" 
+                                       Text="{Binding NumberOfNotifications}" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       FontSize="10" 
+                                       Height="15" 
+                                       Width="auto"/>
+        </Border>
         <Image Source="../../../Resources/Images/GuestImages/HelpIcon.png"
            Grid.Column="3" 
            Grid.Row="2"

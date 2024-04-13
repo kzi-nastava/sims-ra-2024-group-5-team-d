@@ -26,8 +26,22 @@
             <TabItem Width="130">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Approved" Width="80"/>
-                        <Image Source="ICON/NotificationIcon.png" Width="10" Height="10" Margin="0,0,5,0"/>
+                        <TextBlock Text="Approved" Margin="15,0,0,0"/>
+                        <Border CornerRadius="900"
+                                Background="Red"
+                                Width="12"
+                                Height="12"
+                                VerticalAlignment="Center" 
+                                Margin="0,0,5,0">
+                            <TextBlock Foreground="AntiqueWhite" 
+                                       Margin="0 0 0 0" 
+                                       Text="{Binding NumberOfApprovedNotifications}"
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       FontSize="10" 
+                                       Height="15" 
+                                       Width="auto"/>
+                        </Border>
                     </StackPanel>
                 </TabItem.Header>
                 <ListView BorderThickness="0" 
@@ -148,7 +162,7 @@
             <TabItem Width="130">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="In progress" Width="80"/>
+                        <TextBlock Text="In process"/>
                     </StackPanel>
                 </TabItem.Header>
                 <ListView BorderThickness="0" 
@@ -268,11 +282,22 @@
             <TabItem Width="130">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Rejected" Width="80"/>
-                        <Image Source="../../../Resources/Images/GuestImages/NotificationIcon.png" 
-                               Width="10" 
-                               Height="10" 
-                               Margin="0,0,5,0"/>
+                        <TextBlock Text="Rejected" Width="auto"/>
+                        <Border CornerRadius="900"
+                                Background="Red"
+                                Width="12"
+                                Height="12"
+                                VerticalAlignment="Center" 
+                                Margin="0,0,5,0">
+                            <TextBlock Foreground="AntiqueWhite" 
+                                       Margin="0 0 0 0" 
+                                       Text="{Binding NumberOfRejectedNotifications}" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       FontSize="10" 
+                                       Height="15" 
+                                       Width="auto"/>
+                        </Border>
                     </StackPanel>
                 </TabItem.Header>
                 <ListView BorderThickness="0" 
