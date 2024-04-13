@@ -39,22 +39,10 @@ namespace BookingApp.WPF.ViewModels
         public ITourRealisationRepository tourRealisationRepository { get; set; }
         public ITourGuestRepository tourGuestRepository { get; set; }
 
-        Notifier notifier = new Notifier(cfg =>
-        {
-            cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive),
-                corner: Corner.BottomRight,
-                offsetX: 0,
-                offsetY: 0);
-
-            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                notificationLifetime: TimeSpan.FromSeconds(3),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-            cfg.Dispatcher = Application.Current.Dispatcher;
-        });
+        NotifierService notifier;
         public BookingSectionViewModel(TourRealisationViewModel tourRealisation, TourViewModel tour, User user, int numberOfSeats) 
         {
+            notifier = new NotifierService();
             TourRealisation = tourRealisation;
             Tour = tour;
             User = user;
