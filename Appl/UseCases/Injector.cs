@@ -13,7 +13,7 @@ namespace BookingApp.Appl.UseCases
         private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
         {
         { typeof(IUserRepository), new UserRepository() },
-        { typeof(IGuestOwnerNotificationsRepository), new GuestOwnerNotificationsRepository() },
+        { typeof(INotificationRepository), new NotificationRepository() },
         { typeof(ITourRealisationRepository), new TourRealisationRepository() },
         { typeof(IAccommodationRepository), new AccommodationRepository() },
         { typeof(ICheckPointRepository), new CheckPointRepository() },
@@ -23,7 +23,7 @@ namespace BookingApp.Appl.UseCases
         { typeof(ILocationRepository), new LocationRepository() },
         { typeof(ITourGuestRepository), new TourGuestRepository() },
         { typeof(ITourRepository), new TourRepository() },
-         { typeof(ITourRatingRepository), new TourRatingRepository() },
+        { typeof(ITourRatingRepository), new TourRatingRepository() },
         { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
         { typeof(ITourReservationRepository), new TourReservationRepository() },
         { typeof(IGuestRequestRepository), new GuestRequestRepository() }
