@@ -125,6 +125,7 @@
                                 Height="auto"
                                 Width="auto"
                                 Padding="0 0 0 10"
+                                Visibility="{Binding IsRateable, Converter={StaticResource BoolToVisibilityConverter}}"
                                 Margin="35 10 30 10">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -170,7 +171,7 @@
                                                    Margin="4 4 0 0"/>
                                         </StackPanel>
                                         <StackPanel Grid.Row="1"
-                                                    Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
+                                                    Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}}"
                                                     Orientation="Horizontal"
                                                     Margin="2 10 0 0"
                                                     HorizontalAlignment="Left">
@@ -285,6 +286,7 @@
                                                     FontSize="15"
                                                     Margin="0 20 20 0"
                                                     Content="{Binding ButtonContent}"
+                                                    IsEnabled="{Binding NotRated}"
                                                     FontWeight="SemiBold"
                                                     BorderThickness="1"
                                                     Command="{Binding DataContext.RateSubmitButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
@@ -292,6 +294,7 @@
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\book.png"
                                                    Height="20"
                                                    Width="20"
+                                                   Visibility="Visible"
                                                    HorizontalAlignment="Left"
                                                    VerticalAlignment="Center"
                                                    Margin="-210 23 0 3"/>
@@ -303,12 +306,13 @@
                                                     Content="   Cancel"
                                                     FontWeight="SemiBold"
                                                     BorderThickness="1"
-                                                    Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
-                                                    Command="{Binding CancelCommand}">
+                                                    Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                    Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
 
                                             </Button>
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\cancel.png"
                                                    Height="20"
+                                                   Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}}"
                                                    Width="20"
                                                    HorizontalAlignment="Left"
                                                    VerticalAlignment="Center"
@@ -392,27 +396,27 @@
                                                         <ColumnDefinition Width="*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Border  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="1">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="1">
                                                             <TextBlock Text="1" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Top" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="1" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="2">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="2">
                                                             <TextBlock Text="2" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="2" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="3">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="3">
                                                             <TextBlock Text="3" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="3"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="4">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="4">
                                                             <TextBlock Text="4" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="4"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="5">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="5">
                                                             <TextBlock Text="5" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
@@ -435,27 +439,27 @@
                                                         <ColumnDefinition Width="*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Border  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="1">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="1">
                                                             <TextBlock Text="1" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Top" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="1" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="2">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="2">
                                                             <TextBlock Text="2" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="2" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="3">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="3">
                                                             <TextBlock Text="3" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="3"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="4">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="4">
                                                             <TextBlock Text="4" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="4"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="5">
+                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="5">
                                                             <TextBlock Text="5" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
@@ -471,7 +475,7 @@
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <Button BorderThickness="0" Background="Transparent" Command="{Binding DataContext.BackwardCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\down_arrow.png" Height="50"/>
+                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\previous.png" Height="50"/>
                                         </Button>
                                         <ListView BorderThickness="0" 
                                             Background="Transparent"
@@ -491,11 +495,11 @@
                                             </ListView.ItemsPanel>
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Border BorderBrush="Black" 
-                                             BorderThickness="3" 
-                                              CornerRadius="2"
-                                                Width="91"
-                                                Height="90" Margin="0 0 0 0">
+                                                    <Border BorderBrush="Green" 
+                                                             BorderThickness="3" 
+                                                              CornerRadius="2"
+                                                                Width="91"
+                                                                Height="90" Margin="0 0 0 0">
                                                         <Image Stretch="Fill" Source="{Binding}"/>
                                                     </Border>
                                                 </DataTemplate>
@@ -507,17 +511,17 @@
                                             </ListView.ItemContainerStyle>
                                         </ListView>
                                         <Button Grid.Column="2" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.ForwardCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\down_arrow.png" Height="50"/>
+                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\next.png" Height="50"/>
                                         </Button>
                                         <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.UploadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\dot.png" Height="50"/>
+                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\add.png" Height="50"/>
                                         </Button>
                                     </Grid>
 
                                 </Grid>
                                 <Grid Grid.Row="2" Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <Border BorderBrush="Black" BorderThickness="2" Margin="35 10 30 0" CornerRadius="5">
-                                        <TextBox Text="{Binding Comment}" FontSize="14" TextWrapping="WrapWithOverflow" MinHeight="60" Padding="5"/>
+                                        <TextBox Text="{Binding Comment}" MaxLength="50" FontSize="14" TextWrapping="WrapWithOverflow" MinHeight="60" Padding="5"/>
                                     </Border>
 
 
