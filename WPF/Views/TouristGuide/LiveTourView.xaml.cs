@@ -38,7 +38,9 @@ namespace BookingApp.WPF.Views.TouristGuide
         public TourGuestService tourGuestService { get; set; }
         private ICheckPointRepository checkPointRepository { get; set; }
         private ITourGuestRepository tourGuestRepository { get; set; }
+        private ITourRealisationRepository tourRealisationRepository { get; set; }
         private ObservableCollection<int> Numbers { get; set; }
+      
 
         public LiveTourView(User user, TourRealisationViewModel tourRealisationViewModel, TourViewModel tourViewModel)
         {
@@ -48,7 +50,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             tourRealisation = tourRealisationViewModel;
             tour = tourViewModel;
             CheckPoints = new ObservableCollection<CheckPointViewModel>();
-
+            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
             TourGuests = new ObservableCollection<TourGuestViewModel>();
             tourGuestService = new TourGuestService();
             checkPointRepository = Injector.CreateInstance<ICheckPointRepository>();
@@ -116,7 +118,20 @@ namespace BookingApp.WPF.Views.TouristGuide
                 RemoveTourGuestFromList(tourGuest);
             });
         }
-
+        private void FinishTourButton_Click(object sender, RoutedEventArgs e)
+        {
+            TourRealisation realisation = tourRealisationRepository.GetTourRealisationById(tourRealisation.Id);
+            realisation.IsFinished = true;
+            tourRealisationRepository.UpdateTourRealisation(realisation);
+            var allCheckPoints = checkPointRepository.GetAll();
+            foreach (var cp in allCheckPoints)
+            {
+                cp.IsChecked = false;
+                checkPointRepository.Update(cp);
+            }
+            CheckPoints.All(cp => cp.IsChecked = false);
+            BackButton_Click(sender, e);
+        }
         private void UpdateTourGuestCheckpoint(TourGuestViewModel tourGuest, int checkPointId)
         {
             tourGuest.CheckPointId = checkPointId;
@@ -132,23 +147,24 @@ namespace BookingApp.WPF.Views.TouristGuide
 
         private void Check_Click(object sender, MouseButtonEventArgs e)
         {
-            if(SelectedCheckPoint != null)
+            if (SelectedCheckPoint != null)
             {
-                Debug.WriteLine("AAAAAAAAaaaaaaaaaaaaa" +  SelectedCheckPoint.Id);
-                for(int i = 0; i < CheckPoints.Count; i++)
+                // Update the IsChecked property of the selected checkpoint directly
+                SelectedCheckPoint.IsChecked = true;
+
+                // Update the checkpoint in the repository
+                CheckPoint cp = checkPointRepository.GetCheckPointById(SelectedCheckPoint.Id);
+                cp.IsChecked = true;
+                checkPointRepository.Update(cp);
+
+                // Check if all checkpoints are checked
+                if (CheckPoints.All(cp => cp.IsChecked))
                 {
-                    if(CheckPoints[i].Id == SelectedCheckPoint.Id)
-                    {
-                        CheckPoints[i].IsChecked = true;
-                    }
+                    FinishTourButton_Click(sender, e);
                 }
             }
-
-
-            CheckPoint cp = checkPointRepository.GetCheckPointById(SelectedCheckPoint.Id);
-            cp.IsChecked = true;
-            checkPointRepository.Update(cp);
         }
+
 
         //KADA SE ZAVRSI TURA CP.ISCHECKED VRATITI SVE NA FALSE ZA NAREDNE REALIZACIJE
 

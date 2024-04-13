@@ -1,10 +1,19 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Repositories;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.Views.OwnerView;
 using BookingApp.WPF.Views.TouristGuide;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,20 +24,60 @@ namespace BookingApp.WPF.ViewModels
     public class FinishedTourViewModel
     {
         public TourViewModel SelectedTour { get; set; }
-        public AgeStatisticsViewModel AgeStatistics { get; set; }
+        //public AgeStatisticsViewModel AgeStatistics { get; set; }
+        public SeriesCollection AgeStatistics { get; set; }
         private User LoggedInUser { get; set; }
         public ICommand BackCommand { get; set; }
+        public ICommand ClickCommand { get; set; }
+        public ObservableCollection<TourGuestRatingViewModel> TourGuestRating { get; set;}
+        public TourGuestRatingViewModel SelectedRating { get; set; }
+        public TourRatingService tourRatingService { get; set; }
         
+        public TourReservationService tourReservationService { get; set; }
         public TourGuestService tourGuestService { get; set; }
+        public TourRealisationService tourRealisationService { get; set; }
+        public UserService userService { get; set; }
+        public CheckPointService checkPointService { get; set; }
+        public int Under18 { get; set; }
+        public int Between18And50 { get; set; }
+        public int Over50 { get; set; }
+        public int Sum { get; set; }
 
         public FinishedTourViewModel(TourViewModel tour, User user) 
         {
             LoggedInUser = user;
             SelectedTour = tour;
             BackCommand = new RelayCommand(BackButton);
-            AgeStatistics = new AgeStatisticsViewModel();
+            ClickCommand = new RelayCommand(Click);
             tourGuestService = new TourGuestService();
             CalculateAgeStatistics();
+            AgeStatistics = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Title = "<18",
+                    Values = new ChartValues<ObservableValue> {new ObservableValue (Under18)},
+                    DataLabels = true
+                },
+                new PieSeries
+                {
+                    Title = "18-50",
+                    Values = new ChartValues<ObservableValue> {new ObservableValue (Between18And50) },
+                    DataLabels = true
+                },
+                new PieSeries
+                {
+                    Title = "50>",
+                    Values = new ChartValues<ObservableValue> {new ObservableValue (Over50) },
+                    DataLabels = true
+                },
+            };
+            tourRatingService = new TourRatingService();
+            tourReservationService = new TourReservationService();
+            tourRealisationService = new TourRealisationService();
+            checkPointService = new CheckPointService();
+            userService = new UserService();
+            TourGuestRating = GetReviews();
         }
 
         private void BackButton()
@@ -36,36 +85,70 @@ namespace BookingApp.WPF.ViewModels
             SideBar.contentControlW.Content = new FinishedToursWindow(LoggedInUser);
         }
 
+        private void Click()
+        {
+            if (SelectedRating != null)
+            {
+                TourRating rating = tourRatingService.GetTourRatingById(SelectedRating.Id);
+                rating.IsValid = false;
+                tourRatingService.UpdateTourRating(rating);
+                {
+                    for (int i = 0; i < TourGuestRating.Count; i++)
+                    {
+                        if (TourGuestRating[i].Id == SelectedRating.Id)
+                        {
+                            TourGuestRating[i].IsNotValid = true;
+                        }
+                    }
+                }
+            }
+        }
+
         private void CalculateAgeStatistics()
         {
-            int under18Count = 0;
-            int age18To50Count = 0;
-            int over50Count = 0;
+            Under18 = 0;
+            Between18And50 = 0;
+            Over50 = 0;
 
-            var tourGuests = tourGuestService.GetTourGuestsOnTourRealisation(SelectedTour.Id);
+            var tourGuests = tourGuestService.GetTourGuestsOnTour(SelectedTour.Id);
 
             foreach (var guest in tourGuests)
             {
                 if (guest.Years < 18)
                 {
-                    under18Count++;
+                    Under18++;
                 }
-                else if (guest.Years >= 18 && guest.Years <= 50)
+                else if (guest.Years <= 50)
                 {
-                    age18To50Count++;
+                    Between18And50++;
                 }
                 else
                 {
-                    over50Count++;
+                    Over50++;
                 }
             }
-
-            AgeStatistics.Under18Count = under18Count;
-            AgeStatistics.Age18To50Count = age18To50Count;
-            AgeStatistics.Over50Count = over50Count;
+            Sum = Under18 + Between18And50 + Over50;
         }
 
+        public ObservableCollection<TourGuestRatingViewModel> GetReviews()
+        {
+            List<TourRating> tourRatings = tourRatingService.GetAllTourRatings();
+            ObservableCollection<TourGuestRatingViewModel> ratings = new ObservableCollection<TourGuestRatingViewModel>();
+            foreach (var rating in tourRatings)
+            {
+                TourReservation reservation = tourReservationService.GetById(rating.TourReservationId);
+                TourRealisation realisation = tourRealisationService.GetTourRealisationById(reservation.TourRealisationId);
+                TourGuest guest = tourGuestService.GetTourGuestByPersonalId(reservation.User.PersonalId);
+                if (realisation.TourId == SelectedTour.Id)
+                {
+                    TourGuestRatingViewModel tourGuestRating = new TourGuestRatingViewModel(rating.Id, guest.FullName, guest.Years, checkPointService.GetById(guest.CheckPointId).Name, realisation.StartTime, rating.TouristLanguage, rating.TouristKnowladge, rating.TourAmusement, rating.Comment,rating.IsValid);
+                    ratings.Add(tourGuestRating);
+                }
+            }
+            return ratings;
+        }
 
+        
 
 
     }

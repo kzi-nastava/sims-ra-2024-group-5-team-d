@@ -29,6 +29,11 @@ namespace BookingApp.Appl.UseCases
             return GetTourReservationsForTourist(tourist).Where(tourReservation => tourRealisationRepository.GetTourRealisationById(tourReservation.TourRealisationId).IsFinished == true).ToList();
         }
 
+        public TourReservation GetById(int id)
+        {
+            return _tourReservationRepository.GetTourReservationById(id);
+        }
+
         public bool WasTourRated(int tourReservationId)
         {
             foreach(TourRating rating in ratingRepository.GetAllTourRatings())

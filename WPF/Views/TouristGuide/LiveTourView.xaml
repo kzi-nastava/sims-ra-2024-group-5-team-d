@@ -59,7 +59,7 @@
                                         <TextBlock>Circle</TextBlock>
                                     </Ellipse.ToolTip>
                                 </Ellipse>
-                                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Play Circle.png" Visibility="{Binding IsChecked,Converter={StaticResource BoolToVisibilityConverter}}" Height="30" Width="30"/>
+                                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Check Circle.png" Visibility="{Binding IsChecked,Converter={StaticResource BoolToVisibilityConverter}}" Height="30" Width="30"/>
                                 <!-- NIJE DOBAR BINDING NA LISTU PAZI -->
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                             </Grid>
@@ -108,7 +108,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+        <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Click="FinishTourButton_Click" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
         <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Click ="SignUpButton_Click" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
     </Grid>
 </UserControl>

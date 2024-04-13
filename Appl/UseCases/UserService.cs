@@ -38,5 +38,10 @@ namespace BookingApp.Appl.UseCases
         {
             return userRepository.Save(user);
         }
+        public int GetAge(DateOnly dateTime)
+        {
+            int age = DateTime.Today.Year - dateTime.Year;
+            return age;
+        }
     }
 }

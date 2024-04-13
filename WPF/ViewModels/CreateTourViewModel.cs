@@ -131,7 +131,6 @@ namespace BookingApp.WPF.ViewModels
         }
         private void LocationChanged()
         {
-            Debug.WriteLine($"Location changed to {LocationId}");
             CheckPoints.Clear();
             SuggestCheckPoints().ForEach(cp =>  CheckPoints.Add(cp));
         }

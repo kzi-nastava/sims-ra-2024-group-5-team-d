@@ -8,7 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 
              mc:Ignorable="d" 
-                          d:DesignHeight="767" d:DesignWidth="950">
+             d:DesignHeight="767" d:DesignWidth="950">
     <UserControl.Resources>
         <Style x:Key="TextBlockStyle" TargetType="TextBlock" >
             <Setter Property="Height" Value="30"/>
@@ -129,11 +129,19 @@
         <!-- TextBox for free-form time input -->
         <TextBlock Grid.Row="5" Grid.Column="1" Text="Upload a Picture" Style="{StaticResource TextBlockStyle}"/>
         <Button Grid.Column="1" Grid.Row="5" Command="{Binding UploadCommand}" Content="+" Height="30" Width="30" Margin="185,0,0,0"/>
-        <Grid Grid.Column="1" Grid.Row="7" Grid.RowSpan="3">
-            <Button Grid.Column="1" Grid.Row="6" BorderThickness="0" HorizontalAlignment="Left" Background="Transparent" Command="{Binding BackwardCommand}">
-                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Left.png" Height="30"/>
+        <Grid Grid.Column="1" Grid.Row="6" Grid.RowSpan="3" Margin="0,0,0,-20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="Transparent" Command="{Binding BackwardCommand}" >
+                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Left.png" 
+                       Height="100" 
+                       Width="20"
+                       />
             </Button>
-            <Border Grid.Row="5" Grid.Column="1" Grid.RowSpan="3" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border Grid.Column="1" HorizontalAlignment="Left">
                 <ListView BorderThickness="0" 
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -142,8 +150,10 @@
                       Height="auto"
                       x:Name="lista"
                       ItemsSource="{Binding ImagesPaths}"
-                      Margin="0,-20,0,0"
-                      ScrollViewer.CanContentScroll="False">
+                      ScrollViewer.CanContentScroll="False"
+                      
+                      VerticalAlignment="Center"
+                      >
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Vertical" />
@@ -155,20 +165,20 @@
                                 BorderThickness="3" 
                                 CornerRadius="2"
                                 Width="200"
-                                Height="148" VerticalAlignment="Center"  Margin="0 0 0 0">
+                                Height="148" VerticalAlignment="Center"  Margin="-5 0 0 0">
                                 <Image Stretch="Fill" Source="{Binding}"/>
                             </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
-                            <Setter Property="Margin" Value="10 0 5 0"/>
+                            <Setter Property="Margin" Value="0 0 0 0"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
             </Border>
-            <Button Grid.Column="1" Grid.Row="6" Margin="0 0 20 0" BorderThickness="0" HorizontalAlignment="Right" Background="Transparent" Command="{Binding ForwardCommand}">
-                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Down.png" Height="30"/>
+            <Button Grid.Column="2"  BorderThickness="0" Background="Transparent" Command="{Binding ForwardCommand}" VerticalAlignment="Stretch"  Width="20">
+                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Right.png" Height="30"/>
             </Button>
         </Grid>
         <TextBlock Grid.Row="9" Grid.Column="0" Text="Description" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Top"/>

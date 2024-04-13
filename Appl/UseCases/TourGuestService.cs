@@ -63,6 +63,17 @@ namespace BookingApp.Appl.UseCases
             return guests;
         }
 
+        public TourGuest GetTourGuestByPersonalId(string id)
+        {
+            foreach (TourGuest guest in _repository.GetAllTourGuests())
+            {
+                if (guest.PersonalID == id)
+                {
+                    return guest;
+                }
+            }
+            return null;
+
         public bool WasTouristOnTour(int tourReservationId)
         {
             foreach (TourGuest guest in _repository.GetAllTourGuests())
