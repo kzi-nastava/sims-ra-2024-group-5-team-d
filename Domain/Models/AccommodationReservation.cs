@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -75,7 +76,9 @@ namespace BookingApp.Domain.Models
         }
         public bool IsRateable()
         {
-            return (DateTime.Now - ReservedTo).Days >= 0 && (DateTime.Now - ReservedTo).Days <= 5;
+            Debug.WriteLine(DateTime.Now > ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now);
+            Debug.WriteLine(ReservedTo+Id.ToString());
+            return DateTime.Now>ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now;
         }
         public bool IsCancellable(int cancellationDeadLine)
         {
