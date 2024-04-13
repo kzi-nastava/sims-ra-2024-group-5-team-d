@@ -1,5 +1,4 @@
 ﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModels;
 using BookingApp.WPF.ViewModels.OwnerViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,14 +18,14 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.OwnerView
 {
     /// <summary>
-    /// Interaction logic for RegisterAccommodationUserControl.xaml
+    /// Interaction logic for OwnerNotificationsUserControl.xaml
     /// </summary>
-    public partial class RegisterAccommodationUserControl : UserControl
+    public partial class OwnerNotificationsUserControl : UserControl
     {
-        public RegisterAccommodationUserControl(User user)
+        public OwnerNotificationsUserControl(User user)
         {
             InitializeComponent();
-            DataContext=new RegisterAccommodationViewModel(user);
+            DataContext = new NotificationsViewModel(user);
         }
     }
 }

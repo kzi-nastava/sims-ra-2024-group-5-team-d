@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -75,7 +76,9 @@ namespace BookingApp.Domain.Models
         }
         public bool IsRateable()
         {
-            return (DateTime.Now - ReservedTo).Days >= 0 && (DateTime.Now - ReservedTo).Days <= 5;
+            Debug.WriteLine(DateTime.Now > ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now);
+            Debug.WriteLine(ReservedTo+Id.ToString());
+            return DateTime.Now>ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now;
         }
         public bool IsCancellable(int cancellationDeadLine)
         {
@@ -106,7 +109,7 @@ namespace BookingApp.Domain.Models
         {
             return ReservedFrom.Month == month || ReservedTo.Month == month;
         }
-        public int CalculateNumberOfDaysInSelectedYear(int year)
+        /*public int CalculateNumberOfDaysInSelectedYear(int year)
         {
             if (ReservedFrom.Year == ReservedTo.Year)
                 return (ReservedTo - ReservedFrom).Days;
@@ -116,6 +119,53 @@ namespace BookingApp.Domain.Models
                 return (new DateTime(ReservedFrom.Year, 12, 31) - ReservedFrom).Days;
             else
                 return 0;
+        }*/
+        public int CalculateNumberOfDaysInSelectedYear(int year)
+        {
+            if (IsReservationInSameYear(year))
+            {
+                return CalculateDaysForSameYear();
+            }
+            else if (IsReservationStartingPreviousYear(year))
+            {
+                return CalculateDaysForReservationStartingPreviousYear(year);
+            }
+            else if (IsReservationEndingNextYear(year))
+            {
+                return CalculateDaysForReservationEndingNextYear(year);
+            }
+
+            return 0;
+        }
+
+        private bool IsReservationInSameYear(int year)
+        {
+            return ReservedFrom.Year == year && ReservedTo.Year == year;
+        }
+
+        private bool IsReservationStartingPreviousYear(int year)
+        {
+            return ReservedFrom.Year < year && ReservedTo.Year == year;
+        }
+
+        private bool IsReservationEndingNextYear(int year)
+        {
+            return ReservedFrom.Year == year && ReservedTo.Year > year;
+        }
+
+        private int CalculateDaysForSameYear()
+        {
+            return (ReservedTo - ReservedFrom).Days;
+        }
+
+        private int CalculateDaysForReservationStartingPreviousYear(int year)
+        {
+            return (ReservedTo - new DateTime(year, 1, 1)).Days;
+        }
+
+        private int CalculateDaysForReservationEndingNextYear(int year)
+        {
+            return (new DateTime(year, 12, 31) - ReservedFrom).Days;
         }
         public int CalculateNumberOfDaysInSelectedMonthInYear(int month, int year)
         {

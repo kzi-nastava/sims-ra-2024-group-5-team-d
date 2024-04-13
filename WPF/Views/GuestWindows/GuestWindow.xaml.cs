@@ -30,13 +30,17 @@ namespace BookingApp.WPF.Views.GuestWindows
         public User LoggedInUser { get; set; }
         public static ContentControl contentControl;
         public Accommodation Accommodation { get; set; }
+        public NotificationsService notificationsService { get; set; }
+        public int NumberOfNotifications { get; set; }
         public GuestWindow(User user)
         {
             InitializeComponent();
             LoggedInUser = user;
             DataContext = this;
             contentControl = ContentControl;
+            notificationsService = new NotificationsService();
             contentControl.Content = new SearchAccommodationUserControl(user, contentControl);
+            NumberOfNotifications = notificationsService.GetNumberOfUnreadNotificationsForUser(LoggedInUser);
 
         }
         private void TravelBagIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

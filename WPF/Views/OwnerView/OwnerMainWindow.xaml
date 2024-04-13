@@ -205,13 +205,5 @@
         </Grid>
         <!-- OVDE JE BIO KOD-->
         <ContentControl Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" x:Name="contentControl1" />
-        <Popup x:Name="popup_uc"
-                   AllowsTransparency="True"
-                   HorizontalOffset="-40"
-                   VerticalOffset="5">
-            <Grid>
-                <local:NotificationPopUpUserControl x:Name="Notifications" Foreground="#E0FFFF"/>
-            </Grid>
-        </Popup>
     </Grid>
 </Window>

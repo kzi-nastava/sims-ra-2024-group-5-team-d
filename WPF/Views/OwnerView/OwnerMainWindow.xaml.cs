@@ -31,27 +31,13 @@ namespace BookingApp.WPF.Views.OwnerView
 
         public ICommand ReviewCommand { get; private set; }
         public static ContentControl contentControl;
-        public static Popup popUp;
-        Notifier notifier = new Notifier(cfg =>
-        {
-            cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.MainWindow,
-                corner: Corner.BottomRight,
-                offsetX: 0,
-                offsetY: 0);
-
-            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                notificationLifetime: TimeSpan.FromSeconds(3),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-            cfg.Dispatcher = Application.Current.Dispatcher;
-        });
         User loggedInUser;
         private UnratedGuestService unratedGuestService;
-
+        private NotificationsService notificationService;
         public OwnerMainWindow(User user)
         {
 
+            notificationService = new NotificationsService();
             unratedGuestService = new UnratedGuestService();
             InitializeComponent();
             loggedInUser = user;
@@ -59,21 +45,10 @@ namespace BookingApp.WPF.Views.OwnerView
             ReviewCommand = new RelayCommand(OpenReview);
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             contentControl = contentControl1;
-            popUp = popup_uc;
             contentControl.Content = new OwnerMainWindowUserControl(user);
             contentMenu.Content = new SmallMenuUserControl(loggedInUser);
-            int numberOfUnratedGuests = unratedGuestService.GetUnratedGuests(loggedInUser).Count;
-            if (numberOfUnratedGuests != 0)
-            {
-                Notifications.Review.Text = "You have unrated guests";
-                numberOfNotify.Text = numberOfUnratedGuests.ToString();
-                Debug.WriteLine("Unrated guests: " + numberOfUnratedGuests);
-            }
-            else
-            {
-                numberOfNotify.Text ="0";
-               Notifications.Review.Text = "No unrated guests";
-            }
+            notificationService.CreateNotificationForUnratedGuests(unratedGuestService.GetUnratedGuests(loggedInUser), user);
+            numberOfNotify.Text = notificationService.GetNumberOfUnreadNotificationsForUser(user).ToString();
         }
         private void OpenReview() {
             contentControl.Content = new OwnerReviewUserControl(loggedInUser);
@@ -151,21 +126,7 @@ namespace BookingApp.WPF.Views.OwnerView
         }
 
         private void HamburgerClick(object sender, MouseButtonEventArgs e)
-        {/*
-            var options = new MessageOptions
-            {
-                FontSize = 30, // set notification font size
-                ShowCloseButton = false, // set the option to show or hide notification close button
-                Tag = "Any object or value which might matter in callbacks",
-                FreezeOnMouseEnter = true, // set the option to prevent notification dissapear automatically if user move cursor on it
-                NotificationClickAction = n => // set the callback for notification click event
-                {
-                    n.Close(); // call Close method to remove notification
-                    notifier.ShowSuccess("clicked!");
-                },
-            };
-            notifier.ShowSuccess("Success message",options);*/
-           // notifier.ShowSuccess("Message");
+        {
             if (contentMenu.Content is SmallMenuUserControl)
             {
                 Debug.WriteLine("HamburgerClick");
@@ -186,17 +147,7 @@ namespace BookingApp.WPF.Views.OwnerView
 
         private void Border_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
         {
-            if (popUp.IsOpen == false)
-            {
-                popUp.PlacementTarget = sender as UIElement;
-                popUp.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-                popUp.IsOpen = true;;
-            }
-            else
-            {
-                popUp.Visibility = Visibility.Collapsed;
-                popUp.IsOpen = false;
-            }
+            contentControl.Content = new OwnerNotificationsUserControl(loggedInUser);
 
         }
     }

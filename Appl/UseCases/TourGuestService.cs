@@ -2,6 +2,7 @@
 using BookingApp.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace BookingApp.Appl.UseCases
         private ITourGuestRepository _repository;
         private ITourRealisationRepository tourRealisationRepository;
         private ITourReservationRepository tourReservationRepository;
+        private IUserRepository userRepository;
+
         private TourService tourService;
 
         public TourGuestService()
@@ -20,6 +23,7 @@ namespace BookingApp.Appl.UseCases
             _repository = Injector.CreateInstance<ITourGuestRepository>();
             tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
             tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
+            userRepository = Injector.CreateInstance<IUserRepository>();
             tourService = new TourService();
         }
         public List<TourGuest>? GetTourGuestsOnTourRealisation(int tourRealisation)
@@ -58,6 +62,7 @@ namespace BookingApp.Appl.UseCases
             }
             return guests;
         }
+
         public TourGuest GetTourGuestByPersonalId(string id)
         {
             foreach (TourGuest guest in _repository.GetAllTourGuests())
@@ -68,6 +73,23 @@ namespace BookingApp.Appl.UseCases
                 }
             }
             return null;
+
+        public bool WasTouristOnTour(int tourReservationId)
+        {
+            foreach (TourGuest guest in _repository.GetAllTourGuests())
+            {
+                if(guest.TourReservationId == tourReservationId && guest.PersonalID == userRepository.GetById(tourReservationRepository.GetTourReservationById(tourReservationId).User.Id).PersonalId && guest.CheckPointId != -1)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public List<TourGuest> GetAllTourGuests()
+        {
+            return _repository.GetAllTourGuests();
         }
     }
 }
