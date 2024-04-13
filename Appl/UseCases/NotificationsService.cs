@@ -115,5 +115,10 @@ namespace BookingApp.Appl.UseCases
         {
             return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
         }
+        public void CreateNotification(int receiverId,int linkId, Domain.Models.Type type)
+        {
+            Notification notification = new Notification(receiverId,linkId, type, DateTime.Now, false);
+            Save(notification);
+        }
     }
 }

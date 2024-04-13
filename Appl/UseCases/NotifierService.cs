@@ -18,7 +18,7 @@ namespace BookingApp.Appl.UseCases
              notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    parentWindow: Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive),
                     corner: Corner.BottomRight,
                     offsetX: 0,
                     offsetY: 0);
