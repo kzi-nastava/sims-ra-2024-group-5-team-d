@@ -13,8 +13,12 @@ namespace BookingApp.Appl.UseCases
     {
         private INotificationRepository notificationRepository;
         private IAccommodationReservationRepository accommodationReservationRepository;
+        private IAccommodationRepository accommodationRepository;
+        private IUserRepository userRepository;
         public NotificationsService()
         {
+            userRepository = Injector.CreateInstance<IUserRepository>();
+            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
             notificationRepository = Injector.CreateInstance<INotificationRepository>();
         }
@@ -89,6 +93,31 @@ namespace BookingApp.Appl.UseCases
         {
             return GetAll().Where(notification => (notification.LinkId == reservationId && notification.IsRate())).FirstOrDefault();
         }
-
+        public List<Notification> GetByReceiverId(int receiverId)
+        {
+            return notificationRepository.GetByReceiverId(receiverId);
+        }
+        public string GenerateMessage(Notification notification)
+        {
+            switch (notification.Type)
+            {
+                case Domain.Models.Type.RATE:
+                    return "Rate your guest that stayed at " +accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
+                case Domain.Models.Type.REQUEST:
+                    return "You have a new request click to see more";
+                case Domain.Models.Type.FORUM:
+                    return "New forum oppened on location where you have accommodation";
+                case Domain.Models.Type.CANCEL:
+                    return "Your guest has cancelled reservation at "+ accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
+                case Domain.Models.Type.LIVETOUR:
+                    return "GAS";
+                default:
+                    return "";
+            }
+        }
+        public User GetSender(Notification notification)
+        {
+            return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
+        }
     }
 }

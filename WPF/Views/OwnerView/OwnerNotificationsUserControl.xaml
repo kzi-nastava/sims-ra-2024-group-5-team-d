@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              d:DesignHeight="572" d:DesignWidth="1108">
@@ -32,7 +33,13 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                   HorizontalAlignment="Center"
-                      ScrollViewer.CanContentScroll="False">
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Notifications}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
+                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Background" Value="Transparent" />
@@ -55,7 +62,7 @@
                                 <ColumnDefinition Width="500"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\dot.png" Width="30" Margin="0 0 15 0"/>
+                            <Image Source="C:\Users\lukai\Desktop\Resource\dot.png" Visibility="{Binding IsUnread, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=Hidden}" Width="30" Margin="0 0 15 0"/>
                             <Image Source="C:\Users\lukai\Desktop\Resource\profile.png" Width="70" Grid.Column="1"/>
                             <Grid Grid.Column="2" Margin="15 0 0 0" Width="auto">
                                 <Grid.RowDefinitions>
@@ -67,24 +74,18 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Luka Ivanisevic" FontWeight="DemiBold" Grid.Row="0" VerticalAlignment="Top" Width="auto" FontSize="20"/>
-                                    <TextBlock Grid.Column="1" Text="1.1.2002." VerticalAlignment="Center" Margin="10 -7 0 0"/>
+                                    <TextBlock Text="{Binding SenderName}" FontWeight="DemiBold" Grid.Row="0" VerticalAlignment="Top" Width="auto" FontSize="20"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Date}" VerticalAlignment="Center" Margin="10 -7 0 0"/>
                                 </Grid>
-                                <TextBlock Text="You didnt rate this guest" FontWeight="Normal" Grid.Row="1" FontSize="16"/>
+                                <TextBlock Text="{Binding Message}" FontWeight="Normal" Grid.Row="1" FontSize="16"/>
                             </Grid>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\enter.png" Grid.Column="3" Width="50" Margin="0 0 20 0"/>
+                            <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Width="50" Margin="0 0 20 0"  Command="{Binding DataContext.OpenNotification, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                <Image Source="C:\Users\lukai\Desktop\Resource\enter.png"/>
+                            </Button>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.ItemsSource>
-                <x:Array Type="{x:Type sys:String}">
-                    <sys:String>Ala</sys:String>
-                    <sys:String>Bela</sys:String>
-                    <sys:String>Ceca</sys:String>
-                    <sys:String>Veca</sys:String>
-                </x:Array>
-            </ListView.ItemsSource>
         </ListView>
     </Grid>
 </UserControl>
