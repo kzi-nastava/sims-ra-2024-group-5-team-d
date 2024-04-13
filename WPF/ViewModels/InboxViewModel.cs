@@ -12,18 +12,18 @@ namespace BookingApp.WPF.ViewModels
         public string ImagesPath { get; set; } 
         public DateTime NewReservedFrom { get; set; }
         public DateTime NewReservedTo { get; set; }
-        public string Commentar { get; set; }
+        public string Comment { get; set; }
         public string AccommodationName { get; set; }
         public InboxViewModel() 
         {
 
         }
-        public InboxViewModel(string imagesPath, DateTime newReservedFrom, DateTime newReservedTo, string commentar, string accommodationName)
+        public InboxViewModel(string imagesPath, DateTime newReservedFrom, DateTime newReservedTo, string comment, string accommodationName)
         {
             ImagesPath = imagesPath;
             NewReservedFrom = newReservedFrom;
             NewReservedTo = newReservedTo;
-            Commentar = commentar;
+            Comment = comment;
             AccommodationName = accommodationName;
         }
     }
