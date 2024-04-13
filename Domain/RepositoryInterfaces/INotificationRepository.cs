@@ -14,5 +14,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         Notification Update(Notification notification);
         void Delete(Notification notification);
         Notification Save(Notification notification);
+        List<Notification> GetByReceiverId(int receiverId);
     }
 }

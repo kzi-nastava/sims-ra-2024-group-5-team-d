@@ -65,5 +65,10 @@ namespace BookingApp.Repositories
             }
             return _notifications.Max(c => c.Id) + 1;
         }
+        public List<Notification>GetByReceiverId(int receiverId)
+        {
+            _notifications = _serializer.FromCSV(FilePath);
+            return _notifications.FindAll(notification => notification.ReceiverId == receiverId);
+        }
     }
 }
