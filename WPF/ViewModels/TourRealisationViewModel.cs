@@ -19,9 +19,10 @@ namespace BookingApp.WPF.ViewModels
         public User User { get; set; }
         public int AvailableSeats { get; set; }
         public bool IsCancellable { get; set; }
+        public bool IsStartable { get; set; }
         public TourRealisationViewModel() { }
 
-        public TourRealisationViewModel(int id, DateTime dateTime, int tourId, int availableSeats,bool cancel, User user)
+        public TourRealisationViewModel(int id, DateTime dateTime, int tourId, int availableSeats,bool cancel, User user,bool finished)
         {
             Id = id;
             DateTime = dateTime;
@@ -29,16 +30,9 @@ namespace BookingApp.WPF.ViewModels
             AvailableSeats = availableSeats;
             User = user;
             IsCancellable = cancel;
-        }         
-
-        public TourRealisationViewModel(int id, DateTime dateTime, int tourId, int availableSeats, User user)
-        {
-            Id = id;
-            DateTime = dateTime;
-            TourId = tourId;
-            AvailableSeats = availableSeats;
-            User = user;
+            IsStartable = !finished;
         }
+
 
         public TourRealisationViewModel(int id, DateTime dateTime, int tourId, int availableSeats, double duration, User user, int wantedNumberOfSeats)
         {

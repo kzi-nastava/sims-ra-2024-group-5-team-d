@@ -42,7 +42,6 @@ namespace BookingApp.WPF.ViewModels
         {
             Tour.Clear();
             string selectedValue = parameter as string;
-            Debug.WriteLine(selectedValue);
             if (selectedValue != null)
             {
                 if (selectedValue == "All Time")
@@ -56,7 +55,7 @@ namespace BookingApp.WPF.ViewModels
                     if (int.TryParse(selectedValue, out int selectedYear))
                     {
                         Tour tour = tourService.GetBestTourInAYear(selectedYear);
-                        if(tour == null) { Debug.WriteLine("LolMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"); return; }
+                        if(tour == null) {  return; }
                         Tour.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, locationRepository.GetById(tour.Location.Id), tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User));
                     }
                 }

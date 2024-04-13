@@ -40,7 +40,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             TourRealisationsToday = new ObservableCollection<TourRealisationViewModel>();
             SelectedTour = selectedTour;
             tourRealisationRepository = new TourRealisationRepository();
-            tourRealisationService.GetTourRealisationsForToday(SelectedTour.Id).ForEach(t => { TourRealisationsToday.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats, t.User)); });
+            tourRealisationService.GetTourRealisationsForToday(SelectedTour.Id).ForEach(t =>  TourRealisationsToday.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats, t.IsCancellable(),t.User, t.IsFinished)) );
             LoggedInUser = user;
         }
         private void HelpButton_Click(object sender, RoutedEventArgs e)

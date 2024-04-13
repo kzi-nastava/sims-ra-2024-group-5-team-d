@@ -52,7 +52,7 @@ namespace BookingApp.Appl.UseCases
             {
                 foreach (TourRealisation tR in tourRealisationRepository.GetTourRealisationsByTourId(t.Id))
                 {
-                    if (tR.StartTime.DayOfYear < DateTime.Now.DayOfYear && !finishedTours.Contains(t))
+                    if (tR.IsFinished && !finishedTours.Contains(t))
                     {
                         finishedTours.Add(t);
                     }
@@ -72,27 +72,19 @@ namespace BookingApp.Appl.UseCases
 
             foreach (Tour t in _repository.GetAllTours())
             {
-                int totalAttendees = 0;
-                int counter = 0;
+                double totalAttendees = tourRealisationRepository.GetTourRealisationsByTourId(t.Id)
+                    .Sum(tR => t.MaxCapacity - tR.AvailableSeats);
 
-                foreach (TourRealisation tR in tourRealisationRepository.GetTourRealisationsByTourId(t.Id))
+                if (totalAttendees > mostVisited)
                 {
-                    totalAttendees += t.MaxCapacity - tR.AvailableSeats;
-                    counter++; 
-                }
-
-                if (counter > 0)
-                {
-                    if (totalAttendees > mostVisited)
-                    {
-                        mostVisited = totalAttendees;
-                        mostVisitedTourId = t.Id;
-                    }
+                    mostVisited = totalAttendees;
+                    mostVisitedTourId = t.Id;
                 }
             }
 
             return _repository.GetTourById(mostVisitedTourId);
         }
+
         public Tour GetBestTourInAYear(int year)
         {
             double mostVisited = 0.00;
@@ -100,27 +92,20 @@ namespace BookingApp.Appl.UseCases
 
             foreach (Tour t in _repository.GetAllTours())
             {
-                int totalAttendees = 0; 
-                int counter = 0; 
+                double totalAttendees = tourRealisationRepository.GetTourRealisationsByTourId(t.Id)
+                    .Where(tR => tR.StartTime.Year == year)
+                    .Sum(tR => t.MaxCapacity - tR.AvailableSeats);
 
-                foreach (TourRealisation tR in tourRealisationRepository.GetTourRealisationsByTourId(t.Id).Where(tR => tR.StartTime.Year == year))
+                if (totalAttendees > mostVisited)
                 {
-                    totalAttendees += t.MaxCapacity - tR.AvailableSeats; 
-                    counter++; 
-                }
-
-                if (counter > 0)
-                {
-                    if (totalAttendees > mostVisited)
-                    {
-                        mostVisited = totalAttendees;
-                        mostVisitedTourId = t.Id;
-                    }
+                    mostVisited = totalAttendees;
+                    mostVisitedTourId = t.Id;
                 }
             }
 
             return _repository.GetTourById(mostVisitedTourId);
         }
+
 
 
 

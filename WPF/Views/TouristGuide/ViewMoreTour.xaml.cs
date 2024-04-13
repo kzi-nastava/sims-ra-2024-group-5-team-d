@@ -28,7 +28,6 @@ namespace BookingApp.WPF.Views.TouristGuide
     /// </summary>
     public partial class ViewMoreTour : UserControl, INotifyPropertyChanged
     {
-        public bool CancelEnabled { get; set; }
         public DateTime SelectedDateTime { get; set; }  
         public TourViewModel SelectedTour { get; set; }
         public TourRealisationViewModel SelectedTourRealisation { get; set; }
@@ -60,7 +59,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             SelectedTour = selectedTour;
             tourRealisationRepository = new TourRealisationRepository();
             tourRealisationRepository.GetTourRealisationsByTourId(SelectedTour.Id)
-                .ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User)); });
+                .ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User, t.IsFinished)); });
 
             // Initialize NewTourRealizationDateTime with current date and time
             LoggedInUser = user;
@@ -89,7 +88,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             DateTime selectedDateTime = SelectedDateTime;
             TourRealisation tourRealisation = new TourRealisation(selectedDateTime,SelectedTour.Id,SelectedTour.Capacity, LoggedInUser);
             tourRealisationRepository.SaveTourRealisation(tourRealisation);
-            TourRealisationViewModel tourRealisationViewModel = new TourRealisationViewModel(tourRealisation.Id,selectedDateTime, SelectedTour.Id, SelectedTour.Capacity, tourRealisation.IsCancellable(), LoggedInUser);
+            TourRealisationViewModel tourRealisationViewModel = new TourRealisationViewModel(tourRealisation.Id,selectedDateTime, SelectedTour.Id, SelectedTour.Capacity, tourRealisation.IsCancellable(), LoggedInUser,tourRealisation.IsFinished);
             TourRealisations.Add(tourRealisationViewModel);
             // For example, close the popup after saving
             NewTourRealizationPopup.IsOpen = false;
