@@ -28,8 +28,11 @@ namespace BookingApp.WPF.ViewModels
         private AccommodationService accommodationService;
         private AvailableDatesForReservationService availableDatesForReservationService;
         private RequestViewModel SelectedRequest;
+        private ProcessRequestService processRequestService;
+        private string message="";
         public RequestsViewModel(User user)
         {
+            processRequestService = new ProcessRequestService();
             availableDatesForReservationService= new AvailableDatesForReservationService();
             accommodationService = new AccommodationService();
             userService= new UserService();
@@ -47,9 +50,10 @@ namespace BookingApp.WPF.ViewModels
                 User guest = userService.GetById(reservation.UserId);
                 Accommodation accommodation = accommodationService.GetById(reservation.AccommodationId);
                 List<KeyValuePair<DateTime, DateTime>>found= availableDatesForReservationService.CheckAvailableDatesInGivenRange(guestRequest.NewReservedFrom, guestRequest.NewReservedTo, (guestRequest.NewReservedTo - guestRequest.NewReservedFrom).Days, accommodation);
-                string message = "";
-                if(found.Count==0)
-                 message= "No available dates for reservation";
+                if (found.Count == 0)
+                    message = "No available dates for reservation";
+                else
+                    message = "";
                 Requests.Add(new RequestViewModel(guestRequest.Id, guest.FullName, accommodation.Name, accommodation.Location,reservation.ReservedFrom,reservation.ReservedTo, guestRequest.NewReservedFrom, guestRequest.NewReservedTo,message));
             });
         }
@@ -69,11 +73,19 @@ namespace BookingApp.WPF.ViewModels
         {
             if (SelectedRequest != null)
             {
-                AcceptRequestWindow acceptRequest = new AcceptRequestWindow(loggedInUser, SelectedRequest);
-                //Window parentWindow = Window.GetWindow(this);
-                // acceptRequest.Owner = parentWindow;
-                acceptRequest.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                acceptRequest.ShowDialog();
+                if (message == "")
+                {
+                    Requests.Remove(SelectedRequest);
+                    processRequestService.AcceptRequest(guestRequestService.GetById(SelectedRequest.RequestId));
+                }
+                else
+                {
+                    AcceptRequestWindow acceptRequest = new AcceptRequestWindow(loggedInUser, SelectedRequest);
+                    //Window parentWindow = Window.GetWindow(this);
+                    // acceptRequest.Owner = parentWindow;
+                    acceptRequest.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    acceptRequest.ShowDialog();
+                }
             }
         }
         private void DenyRequest()
