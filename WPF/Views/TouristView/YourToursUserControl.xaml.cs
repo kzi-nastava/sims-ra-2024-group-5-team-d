@@ -22,10 +22,17 @@ namespace BookingApp.WPF.Views.TouristView
     /// </summary>
     public partial class YourToursUserControl : UserControl
     {
+        public static ProgressBar progressBar;
+        public static StackPanel progressContainer;
+        public static StackPanel namesContainer;
         public User User { get; set; }
         public YourToursUserControl(User user)
         {
             InitializeComponent();
+            progressBar = progressBar2;
+            progressContainer = progressContainer2;
+            namesContainer = namesContainer2;
+
             User = user;
             DataContext = new LiveTourViewModel(user);
         }

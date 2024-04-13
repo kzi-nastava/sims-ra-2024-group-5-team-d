@@ -20,8 +20,11 @@ namespace BookingApp.WPF.ViewModels
     {
         public ICommand UploadCommand { get; set; }
         public ICommand BackwardCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
         public ICommand ForwardCommand { get; set; }
         public ICommand GuidesKnowladgeRatingCommand { get; set; }
+        public ICommand GuidesLanguageRatingCommand { get; set; }
+        public ICommand TourAmusementRatingCommand { get; set; }
         public RateTourViewModel SelectedItem { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand RateSubmitButtonClickCommand { get; set; }
@@ -59,18 +62,29 @@ namespace BookingApp.WPF.ViewModels
             {
                 PastTourRealisations.Add(new RateTourViewModel(pastTourReservations[i].Id, pastTours[i].ImagesPath, pastTours[i].Name, pastTours[i].Location, pastTours[i].Duration,DateOnly.FromDateTime( pastTourRealisations[i].StartTime),TimeOnly.FromDateTime(pastTourRealisations[i].StartTime), TimeOnly.FromDateTime(pastTourRealisations[i].StartTime).AddHours(pastTours[i].Duration)));
             }
-            Debug.WriteLine("aaaaa dsad  " + PastTourRealisations.Count);
             imagesPath = new List<string>();
             LiveTourTabCommand = new RelayCommand(SwitchToLiveTour);
             RateSubmitButtonClickCommand = new RelayCommand(RateSubmitButtonClick);
             SelectionChangedCommand = new RelayParameterCommand(ListViewSelectionChanged);
             GuidesKnowladgeRatingCommand = new RelayParameterCommand(RateGuideKnowledge);
+            GuidesLanguageRatingCommand = new RelayParameterCommand(RateGuideLanguage);
+            TourAmusementRatingCommand = new RelayParameterCommand(RateTourAmusement);
+            CancelCommand = new RelayCommand(Cancel);
             UploadCommand = new RelayCommand(UploadPicture);
             ForwardCommand=new RelayCommand(Forward);
             BackwardCommand=new RelayCommand(Backward);
             User = user;
         }
 
+        public void Cancel()
+        {
+            PastTourRealisations[selectedItemIndex].ButtonContent = "Rate";
+            PastTourRealisations[selectedItemIndex].Comment = "";
+            PastTourRealisations[selectedItemIndex].ImagesPaths.Clear();
+            imagesPath.Clear();
+            paginationIndex = 0;
+            PastTourRealisations[selectedItemIndex].IsRatingEntered = false;
+        }
 
         public void SwitchToLiveTour()
         {
@@ -101,7 +115,6 @@ namespace BookingApp.WPF.ViewModels
                     }
                 }
             }
-            Debug.WriteLine("Ubica je lep");
         }
 
         public void ListViewSelectionChanged(object parameter)
@@ -109,7 +122,6 @@ namespace BookingApp.WPF.ViewModels
             if (parameter != null)
             {            
                 SelectedItem = parameter as RateTourViewModel;
-                Debug.WriteLine(SelectedItem.ReservationId);
             }
         }
 
@@ -117,7 +129,23 @@ namespace BookingApp.WPF.ViewModels
         {
             if(parameter != null)
             {
-                Debug.WriteLine(parameter as string);
+                knowledgeRating = Convert.ToInt32(parameter as string);
+            }
+        }
+
+        public void RateGuideLanguage(object parameter)
+        {
+            if(parameter != null)
+            {
+                languageRating = Convert.ToInt32(parameter as string);
+            }
+        }
+
+        public void RateTourAmusement(object parameter)
+        {
+            if (parameter != null)
+            {
+                tourAmusementRating = Convert.ToInt32(parameter as string);
             }
         }
         private void UploadPicture()
@@ -140,10 +168,10 @@ namespace BookingApp.WPF.ViewModels
             PastTourRealisations[selectedItemIndex].ImagesPaths.Clear();
             for(int i =paginationIndex; i<imagesPath.Count;i++)
             {
-                    PastTourRealisations[selectedItemIndex].ImagesPaths.Add(imagesPath[i]);
+                    
+                PastTourRealisations[selectedItemIndex].ImagesPaths.Add(imagesPath[i]);
                 if (PastTourRealisations[selectedItemIndex].ImagesPaths.Count == 3)
                     break;
-
             }
         }
         public void Forward()
@@ -155,12 +183,12 @@ namespace BookingApp.WPF.ViewModels
                     PastTourRealisations[selectedItemIndex].ImagesPaths.Add(imagesPath[i]);
                 if (PastTourRealisations[selectedItemIndex].ImagesPaths.Count ==3)
                     break;
-
             }
         }
 
         public void SubmitRating()
         {
+            PastTourRealisations[selectedItemIndex].NotRated = false;
             string folderPath = imageUploaderService.CreateTourRateFolder(imagesPath);
             TourRating rating = new TourRating(languageRating, knowledgeRating, tourAmusementRating,PastTourRealisations[selectedItemIndex].ReservationId, folderPath, PastTourRealisations[selectedItemIndex].Comment, true);
             tourRatingService.Save(rating);
