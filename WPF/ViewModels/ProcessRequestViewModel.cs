@@ -19,11 +19,11 @@ namespace BookingApp.WPF.ViewModels
         private User loggedInUser;
         private GuestRequestService guestRequestService;
         private GuestRequest guestRequest;
-        private AccommodationReservationService accommodationReservationService;
         private RequestViewModel guestRequestViewModel;
+        private ProcessRequestService processRequestService;
         public ProcessRequestViewModel(User user, RequestViewModel guestRequest)
         {
-            accommodationReservationService = new AccommodationReservationService();
+            processRequestService = new ProcessRequestService();
             DenyRequestCommand = new RelayCommand(DenyRequest);
             AcceptRequestCommand = new RelayCommand(AcceptRequest);
             loggedInUser = user;
@@ -34,21 +34,12 @@ namespace BookingApp.WPF.ViewModels
         private void DenyRequest()
         {
             RequestsViewModel.Requests.Remove(guestRequestViewModel);
-            guestRequest.Status = STATUS.REJECTED;
-            guestRequest.Comment = Comment;
-            guestRequestService.Update(guestRequest);
-
+            processRequestService.DenyRequest(guestRequest, Comment);
         }
         private void AcceptRequest()
         {
             RequestsViewModel.Requests.Remove(guestRequestViewModel);
-            guestRequest.Status = STATUS.APPROVED;
-            guestRequestService.Update(guestRequest);
-            AccommodationReservation reservation = accommodationReservationService.GetById(guestRequest.ReservationId);
-            reservation.ReservedFrom = guestRequest.NewReservedFrom;
-            reservation.ReservedTo = guestRequest.NewReservedTo;
-            reservation.RescheduledReservation = 1;
-            accommodationReservationService.Update(reservation);
+            processRequestService.AcceptRequest(guestRequest);
         }
     }
 }
