@@ -17,6 +17,8 @@ namespace BookingApp.Domain.Models
         public int TourId { get; set; }
         public int AvailableSeats { get; set; }
         public User User { get; set; }
+        public bool IsFinished { get; set; }
+        public bool IsLive { get; set; }
 
         public TourRealisation() { }
         public TourRealisation(DateTime startTime, int tourId, int availableSeats, User user)
@@ -29,16 +31,21 @@ namespace BookingApp.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            StartTime = DateTime.ParseExact(values[1], "dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None);
-
+            string[] formats = { "d/M/yyyy HH:mm:ss", "d.M.yyyy HH:mm:ss" };
+            if (DateTime.TryParseExact(values[1], formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime startTime))
+            {
+                StartTime = startTime;
+            }
             TourId = Convert.ToInt32(values[2]);
             AvailableSeats = Convert.ToInt32(values[3]);
             User = new User() { Id = Convert.ToInt32(values[4]) };
+            IsFinished = Convert.ToBoolean(values[5]);
+            IsLive = Convert.ToBoolean(values[6]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), StartTime.ToString(), TourId.ToString(), AvailableSeats.ToString(), User.Id.ToString() };
+            string[] csvValues = { Id.ToString(), StartTime.ToString("d/M/yyyy HH:mm:ss"), TourId.ToString(), AvailableSeats.ToString(), User.Id.ToString(), IsFinished.ToString(), IsLive.ToString() };
             return csvValues;
         }
 
@@ -55,7 +62,6 @@ namespace BookingApp.Domain.Models
         {
             return DateOnly.FromDateTime(StartTime) == date;
         }
-
         
     }
 }

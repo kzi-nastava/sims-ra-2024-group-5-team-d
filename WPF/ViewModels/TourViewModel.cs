@@ -13,7 +13,7 @@ namespace BookingApp.WPF.ViewModels
 
         public string Name { get; set; }
 
-       public User User { get; set; }
+        public User User { get; set; }
         public string Description { get; set; }
 
         public Location Location { get; set; }

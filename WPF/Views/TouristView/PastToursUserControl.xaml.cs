@@ -2,7 +2,6 @@
 using BookingApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,16 +18,16 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.TouristView
 {
     /// <summary>
-    /// Interaction logic for BookingSection.xaml
+    /// Interaction logic for PastToursUserControl.xaml
     /// </summary>
-    public partial class BookingSection : UserControl
+    public partial class PastToursUserControl : UserControl
     {
-        public User User;
-        public BookingSection(TourViewModel selectedTour, TourRealisationViewModel selectedRealisation, User user, int numberOfSeats)
+        public User User { get; set; }
+        public PastToursUserControl(User user)
         {
             InitializeComponent();
             User = user;
-            DataContext = new BookingSectionViewModel(selectedRealisation, selectedTour, user, numberOfSeats);
+            DataContext = new PastToursViewModel(user);
         }
     }
 }

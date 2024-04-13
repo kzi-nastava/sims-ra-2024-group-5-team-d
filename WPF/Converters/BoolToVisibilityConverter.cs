@@ -20,7 +20,7 @@ namespace BookingApp.WPF.Converters
             }
             else
             {
-                if(parameter != null && parameter is string && (string)parameter == "1")
+                if(parameter != null && parameter is string && (string)parameter == "Hidden")
                 {
                     return Visibility.Hidden;
                 }

@@ -39,6 +39,10 @@ namespace BookingApp.Appl.UseCases
             return guests;
         }
 
+        public int NextIdForGuest()
+        {
+            return _repository.NextIdForGuest();
+        }
         public List<TourGuest> GetTourGuestsOnTour(int tourId)
         {
             List<TourGuest> guests = new List<TourGuest>();
