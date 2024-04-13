@@ -431,7 +431,7 @@
                                                              FontWeight="DemiBold"
                                                              FontSize="10"
                                                              TextAlignment="Center"
-                                                             Visibility="{Binding NotEnoughSpace, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
+                                                             Visibility="{Binding NotEnoughSpace, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Hidden}"
                                                              Margin="0 -2 0 0">
                                                         <Run Text="{Binding AvailableSeats}" />
                                                         <Run Text=" place(s) left" />
@@ -460,7 +460,7 @@
                                                              Height="31"
                                                              Width="360"
                                                              FontSize="12"
-                                                             Visibility="{Binding IsRealisationSelected, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}">
+                                                             Visibility="{Binding IsRealisationSelected, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Hidden}">
                                                         <Run Text="Cancellation possible until " />
                                                         <Run Text="{Binding CancelationDue,  StringFormat='dd-MM-yyyy HH:mm', UpdateSourceTrigger=PropertyChanged}" />
                                     </TextBlock>

@@ -40,14 +40,14 @@ namespace BookingApp.Domain.Models
             Id = Convert.ToInt32(values[0]);
             FullName = values[1];
             Years = Convert.ToInt32(values[2]);
-            TourReservationId = Convert.ToInt32(values[3]);
-            CheckPointId = Convert.ToInt32(values[4]);
-
+            PersonalID = values[3];
+            TourReservationId = Convert.ToInt32(values[4]);
+            CheckPointId = Convert.ToInt32(values[5]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), FullName, Years.ToString(), TourReservationId.ToString(), CheckPointId.ToString() };
+            string[] csvValues = { Id.ToString(), FullName, Years.ToString(), PersonalID,  TourReservationId.ToString(), CheckPointId.ToString() };
             return csvValues;
         }
 

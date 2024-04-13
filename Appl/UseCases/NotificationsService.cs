@@ -22,6 +22,10 @@ namespace BookingApp.Appl.UseCases
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
             notificationRepository = Injector.CreateInstance<INotificationRepository>();
         }
+        public int GetNumberOfUnreadNotificationsForUser(User user)
+        {
+          return  GetUnreadNotificationsCountForUser(user).Count();
+        }
         public void CreateNotificationForUnratedGuests(List<AccommodationReservation>reservations,User owner)
         {
             reservations.ForEach(reservation=> {
