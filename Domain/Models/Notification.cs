@@ -13,7 +13,7 @@ namespace BookingApp.Domain.Models
         REQUEST,
         CANCEL,
         RATE,
-        FORUM
+        FORUM,
     }
     public class Notification :ISerializable
     {
@@ -59,6 +59,10 @@ namespace BookingApp.Domain.Models
             Type = (Type)Enum.Parse(typeof(Type), values[3]);
             DateCreated = DateTime.ParseExact(values[4], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             IsRead = bool.Parse(values[5]);
+        }
+        public bool isRequest()
+        {
+                return Type.REQUEST==Type;
         }
     }
 

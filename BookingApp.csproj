@@ -314,6 +314,7 @@
     <Folder Include="Resources\Images\GuestImages\" />
     <Folder Include="Resources\Images\GuideImages\" />
     <Folder Include="Resources\Images\TouristImages\" />
+    <Folder Include="WPF\ViewModels\GuestViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

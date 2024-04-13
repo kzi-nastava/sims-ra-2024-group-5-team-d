@@ -16,11 +16,11 @@ namespace BookingApp.Appl.UseCases
         {
             notificationRepository = Injector.CreateInstance<INotificationRepository>();
         }
-        public int GetNumberOfUnreadNotificationsForOwner(User owner)
+        public int GetNumberOfUnreadNotificationsForUser(User user)
         {
-          return  GetUnreadNotificationsCountForOWner(owner).Count();
+          return  GetUnreadNotificationsCountForUser(user).Count();
         }
-        public List<Notification> GetUnreadNotificationsCountForOWner(User user)
+        public List<Notification> GetUnreadNotificationsCountForUser(User user)
         {
             return GetNotificationsForUser(user).Where(notification => notification.IsRead == false).ToList();
         }
