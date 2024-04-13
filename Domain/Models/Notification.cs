@@ -64,6 +64,10 @@ namespace BookingApp.Domain.Models
         {
                 return Type.REQUEST==Type;
         }
+        public bool IsRate()
+        {
+            return Type == Type.RATE;
+        }
     }
 
 }
