@@ -24,20 +24,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     public class RegisterAccommodationViewModel
     {
 
-        Notifier notifier = new Notifier(cfg =>
-        {
-            cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive),
-                corner: Corner.BottomRight,
-                offsetX: 0,
-                offsetY: 0);
-
-            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                notificationLifetime: TimeSpan.FromSeconds(3),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-            cfg.Dispatcher = Application.Current.Dispatcher;
-        });
+        NotifierService notifier;
         public ICommand ForwardCommand { get; private set; }
         public ICommand BackwardCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
@@ -58,6 +45,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private int PaginationIndex = 0;
         public RegisterAccommodationViewModel(User user)
         {
+            notifier = new NotifierService();
             imageUploaderService = new ImageUploaderService();
             BackwardCommand = new RelayCommand(Backward);
             ForwardCommand = new RelayCommand(Forward);
