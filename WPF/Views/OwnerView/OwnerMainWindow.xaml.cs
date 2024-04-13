@@ -31,20 +31,6 @@ namespace BookingApp.WPF.Views.OwnerView
 
         public ICommand ReviewCommand { get; private set; }
         public static ContentControl contentControl;
-        Notifier notifier = new Notifier(cfg =>
-        {
-            cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.MainWindow,
-                corner: Corner.BottomRight,
-                offsetX: 0,
-                offsetY: 0);
-
-            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                notificationLifetime: TimeSpan.FromSeconds(3),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-            cfg.Dispatcher = Application.Current.Dispatcher;
-        });
         User loggedInUser;
         private UnratedGuestService unratedGuestService;
         private NotificationsService notificationService;
@@ -140,21 +126,7 @@ namespace BookingApp.WPF.Views.OwnerView
         }
 
         private void HamburgerClick(object sender, MouseButtonEventArgs e)
-        {/*
-            var options = new MessageOptions
-            {
-                FontSize = 30, // set notification font size
-                ShowCloseButton = false, // set the option to show or hide notification close button
-                Tag = "Any object or value which might matter in callbacks",
-                FreezeOnMouseEnter = true, // set the option to prevent notification dissapear automatically if user move cursor on it
-                NotificationClickAction = n => // set the callback for notification click event
-                {
-                    n.Close(); // call Close method to remove notification
-                    notifier.ShowSuccess("clicked!");
-                },
-            };
-            notifier.ShowSuccess("Success message",options);*/
-           // notifier.ShowSuccess("Message");
+        {
             if (contentMenu.Content is SmallMenuUserControl)
             {
                 Debug.WriteLine("HamburgerClick");
