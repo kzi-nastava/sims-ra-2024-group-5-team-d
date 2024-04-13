@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class RateGuestViewModel
     {
@@ -34,7 +34,7 @@ namespace BookingApp.WPF.ViewModels
         {
             accommodationReservationService = new AccommodationReservationService();
             guestRatingService = new GuestRatingService();
-            CleanlinessRatingCommand= new RelayParameterCommand(GetCleanlinessRating);
+            CleanlinessRatingCommand = new RelayParameterCommand(GetCleanlinessRating);
             RuleComplianceRatingCommand = new RelayParameterCommand(GetRuleComplianceRating);
             RateGuestCommand = new RelayCommand(RateGuest);
 
@@ -55,7 +55,7 @@ namespace BookingApp.WPF.ViewModels
         }
         private void RateGuest()
         {
-            guestRatingService.Save(new GuestRating(accommodationReservationService.GetById(Id).AccommodationId, accommodationReservationService.GetById(Id).UserId,Id,Cleanliness,RuleCompliance,Comment));
+            guestRatingService.Save(new GuestRating(accommodationReservationService.GetById(Id).AccommodationId, accommodationReservationService.GetById(Id).UserId, Id, Cleanliness, RuleCompliance, Comment));
             UnratedGuestsUserControl.UnratedGuests.Remove(unratedGuest);
         }
     }

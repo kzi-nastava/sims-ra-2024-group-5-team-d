@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class RequestsViewModel
     {
@@ -29,13 +29,13 @@ namespace BookingApp.WPF.ViewModels
         private AvailableDatesForReservationService availableDatesForReservationService;
         private RequestViewModel SelectedRequest;
         private ProcessRequestService processRequestService;
-        private string message="";
+        private string message = "";
         public RequestsViewModel(User user)
         {
             processRequestService = new ProcessRequestService();
-            availableDatesForReservationService= new AvailableDatesForReservationService();
+            availableDatesForReservationService = new AvailableDatesForReservationService();
             accommodationService = new AccommodationService();
-            userService= new UserService();
+            userService = new UserService();
             accommodationReservationService = new AccommodationReservationService();
             guestRequestService = new GuestRequestService();
             AcceptRequestCommand = new RelayCommand(AcceptRequest);
@@ -49,25 +49,23 @@ namespace BookingApp.WPF.ViewModels
                 AccommodationReservation reservation = accommodationReservationService.GetById(guestRequest.ReservationId);
                 User guest = userService.GetById(reservation.UserId);
                 Accommodation accommodation = accommodationService.GetById(reservation.AccommodationId);
-                List<KeyValuePair<DateTime, DateTime>>found= availableDatesForReservationService.CheckAvailableDatesInGivenRange(guestRequest.NewReservedFrom, guestRequest.NewReservedTo, (guestRequest.NewReservedTo - guestRequest.NewReservedFrom).Days, accommodation);
+                List<KeyValuePair<DateTime, DateTime>> found = availableDatesForReservationService.CheckAvailableDatesInGivenRange(guestRequest.NewReservedFrom, guestRequest.NewReservedTo, (guestRequest.NewReservedTo - guestRequest.NewReservedFrom).Days, accommodation);
                 if (found.Count == 0)
                     message = "No available dates for reservation";
                 else
                     message = "";
-                Requests.Add(new RequestViewModel(guestRequest.Id, guest.FullName, accommodation.Name, accommodation.Location,reservation.ReservedFrom,reservation.ReservedTo, guestRequest.NewReservedFrom, guestRequest.NewReservedTo,message));
+                Requests.Add(new RequestViewModel(guestRequest.Id, guest.FullName, accommodation.Name, accommodation.Location, reservation.ReservedFrom, reservation.ReservedTo, guestRequest.NewReservedFrom, guestRequest.NewReservedTo, message));
             });
         }
 
         private void OnSelectionChanged(object parameter)
         {
             Debug.WriteLine("Selection changed");
-            if(parameter!=null)
+            if (parameter != null)
             {
-                 SelectedRequest = parameter as RequestViewModel;
+                SelectedRequest = parameter as RequestViewModel;
                 Debug.WriteLine(SelectedRequest.RequestId);
             }
-               
-            // Implementirajte logiku koja treba da se izvrši kada se promeni selekcija
         }
         private void AcceptRequest()
         {
@@ -93,10 +91,10 @@ namespace BookingApp.WPF.ViewModels
             if (SelectedRequest != null)
             {
                 DenyRequest denyRequest = new DenyRequest(loggedInUser, SelectedRequest);
-            //Window parentWindow = Window.GetWindow(this);
-            //denyRequest.Owner = parentWindow;
-            denyRequest.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            denyRequest.ShowDialog();
+                //Window parentWindow = Window.GetWindow(this);
+                //denyRequest.Owner = parentWindow;
+                denyRequest.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                denyRequest.ShowDialog();
             }
         }
     }
