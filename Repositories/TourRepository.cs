@@ -104,6 +104,7 @@ namespace BookingApp.Repositories
             {
                 if (t.Id == id)
                 {
+                    t.Location = _locationRepository.GetById(t.Location.Id);
                     return t;
                 }
             }

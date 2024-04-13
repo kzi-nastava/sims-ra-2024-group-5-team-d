@@ -50,7 +50,7 @@ namespace BookingApp.WPF.ViewModels
         public int MinDaysToStay { get; set; }
         public ObservableCollection<string> ImagesPaths { get; set; }
         public User Owner { get; set; }
-        private ImageUploaderService imageUploaderService = new ImageUploaderService();
+        private ImageUploaderService imageUploaderService;
         private readonly LocationService locationService;
         private List<string> imagesPath;
         private AccommodationService accommodationService;
@@ -58,6 +58,7 @@ namespace BookingApp.WPF.ViewModels
         private int PaginationIndex = 0;
         public RegisterAccommodationViewModel(User user)
         {
+            imageUploaderService=new ImageUploaderService();
             BackwardCommand = new RelayCommand(Backward);
             ForwardCommand = new RelayCommand(Forward);
             ImagesPaths = new ObservableCollection<string>();

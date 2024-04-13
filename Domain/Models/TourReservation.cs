@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using ToastNotifications.Position;
 
 namespace BookingApp.Domain.Models
 {
@@ -29,11 +30,12 @@ namespace BookingApp.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             TourRealisationId = Convert.ToInt32(values[1]);
+            User = new User() { Id = Convert.ToInt32(values[2]) };
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), TourRealisationId.ToString() };
+            string[] csvValues = { Id.ToString(), TourRealisationId.ToString(), User.Id.ToString() };
             return csvValues;
         }
 

@@ -40,5 +40,10 @@ namespace BookingApp.WPF.Views.TouristView
         {
             contentControl.Content = new TouristHomeUserControl(User);
         }
+
+        private void YourTours_Click(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new YourToursUserControl(User);
+        }
     }
 }
