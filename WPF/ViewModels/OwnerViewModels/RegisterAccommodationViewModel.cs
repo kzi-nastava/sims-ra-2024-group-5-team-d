@@ -19,7 +19,7 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class RegisterAccommodationViewModel
     {
@@ -58,14 +58,14 @@ namespace BookingApp.WPF.ViewModels
         private int PaginationIndex = 0;
         public RegisterAccommodationViewModel(User user)
         {
-            imageUploaderService=new ImageUploaderService();
+            imageUploaderService = new ImageUploaderService();
             BackwardCommand = new RelayCommand(Backward);
             ForwardCommand = new RelayCommand(Forward);
             ImagesPaths = new ObservableCollection<string>();
-            this.loggedInUser = user;
+            loggedInUser = user;
             imagesPath = new List<string>();
             accommodationService = new AccommodationService();
-            locationService =new LocationService();
+            locationService = new LocationService();
             Owner = user;
             imageUploaderService = new ImageUploaderService();
             SaveCommand = new RelayCommand(Save);

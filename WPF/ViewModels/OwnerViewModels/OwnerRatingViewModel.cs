@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class OwnerRatingViewModel
     {
@@ -38,7 +38,7 @@ namespace BookingApp.WPF.ViewModels
         }
         public void Backward()
         {
-            PaginationIndex=PaginationIndex-3;
+            PaginationIndex = PaginationIndex - 3;
             ImagesPaths.Clear();
             for (int i = PaginationIndex; i < imagesPaths.Count; i++)
             {
@@ -47,12 +47,12 @@ namespace BookingApp.WPF.ViewModels
                     break;
             }
 
-        
+
         }
         public void Forward()
         {
-            PaginationIndex=PaginationIndex+3;
-           ImagesPaths.Clear();
+            PaginationIndex = PaginationIndex + 3;
+            ImagesPaths.Clear();
             for (int i = PaginationIndex; i < imagesPaths.Count; i++)
             {
                 ImagesPaths.Add(imagesPaths[i]);
@@ -60,7 +60,7 @@ namespace BookingApp.WPF.ViewModels
                     break;
             }
         }
-        public OwnerRatingViewModel(int id,string guestName, Location location, string accommodationName, DateOnly ratingDate, string comment)
+        public OwnerRatingViewModel(int id, string guestName, Location location, string accommodationName, DateOnly ratingDate, string comment)
         {
             Id = id;
             GuestName = guestName;
@@ -78,7 +78,7 @@ namespace BookingApp.WPF.ViewModels
             CleanlinessRating = rating.Cleanliness;
             CorrectnessRating = rating.Correctness;
             accommodationService = new AccommodationService();
-            userService =new UserService();
+            userService = new UserService();
             Accommodation accommodation = accommodationService.GetById(rating.AccommodationId);
             Id = rating.Id;
             GuestName = userService.GetFullNameById(rating.GuestId);

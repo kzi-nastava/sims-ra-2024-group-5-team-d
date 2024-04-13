@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class ProcessRequestViewModel
     {
@@ -29,7 +29,7 @@ namespace BookingApp.WPF.ViewModels
             loggedInUser = user;
             guestRequestService = new GuestRequestService();
             this.guestRequest = guestRequestService.GetById(guestRequest.RequestId);
-            this.guestRequestViewModel = guestRequest;
+            guestRequestViewModel = guestRequest;
         }
         private void DenyRequest()
         {

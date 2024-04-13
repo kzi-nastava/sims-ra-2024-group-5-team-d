@@ -1,6 +1,7 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.OwnerViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

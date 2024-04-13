@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class UnratedGuestViewModel
     {
@@ -26,7 +26,7 @@ namespace BookingApp.WPF.ViewModels
         {
             FullName = fullName;
         }
-        public UnratedGuestViewModel(int id,string name,DateTime reservedFrom, DateTime reservedTo,Location location, string accommodationName)
+        public UnratedGuestViewModel(int id, string name, DateTime reservedFrom, DateTime reservedTo, Location location, string accommodationName)
         {
             Id = id;
             FullName = name;

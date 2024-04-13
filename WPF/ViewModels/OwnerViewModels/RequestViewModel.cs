@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class RequestViewModel
     {
@@ -19,7 +19,7 @@ namespace BookingApp.WPF.ViewModels
         public DateTime NewCheckOut { get; set; }
         public string Message { get; set; }
 
-        public RequestViewModel(int requestId, string guestName, string accommodationName, Location location,DateTime previousCheckIn,DateTime previousCheckOut, DateTime newCheckIn, DateTime newCheckOut, string message)
+        public RequestViewModel(int requestId, string guestName, string accommodationName, Location location, DateTime previousCheckIn, DateTime previousCheckOut, DateTime newCheckIn, DateTime newCheckOut, string message)
         {
             RequestId = requestId;
             GuestName = guestName;
