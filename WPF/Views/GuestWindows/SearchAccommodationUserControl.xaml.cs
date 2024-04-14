@@ -108,6 +108,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private readonly SearchAccommodationService SearchService;
         private readonly ContentControl contentControl;
         public AccommodationViewModel SelectedAccommodation { get; set; }
+        List<Accommodation> accommodations;
         public SearchAccommodationUserControl(User user, ContentControl contentControl)
         {
             InitializeComponent();
@@ -116,14 +117,17 @@ namespace BookingApp.WPF.Views.GuestWindows
             SearchService = new SearchAccommodationService();
             _repository = new AccommodationRepository();
             Accommodations = new ObservableCollection<AccommodationViewModel>();
-            _repository.GetAll().ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity)));
+            accommodations = _repository.GetAll();
+            accommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
+            accommodations.ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity)));
             this.contentControl = contentControl;
         }
         private void SearchAccommodation(object sender, RoutedEventArgs e)
         {
             Accommodations.Clear();
-            SearchService.GetSearchedAccommodation(accommodationName, accommodationType, locationId, numberOfPeople, numberOfDays)
-                .ForEach(fA => Accommodations.Add(new AccommodationViewModel(fA.Id,fA.Name,fA.Location,fA.Type,fA.ImagesPath,fA.MinStay, fA.Capacity)));
+            accommodations = SearchService.GetSearchedAccommodation(accommodationName, accommodationType, locationId, numberOfPeople, numberOfDays);
+            accommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
+            accommodations.ForEach(fA => Accommodations.Add(new AccommodationViewModel(fA.Id,fA.Name,fA.Location,fA.Type,fA.ImagesPath,fA.MinStay, fA.Capacity)));
 
         }
 
