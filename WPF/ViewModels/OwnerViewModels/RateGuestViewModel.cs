@@ -37,8 +37,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             CleanlinessRatingCommand = new RelayParameterCommand(GetCleanlinessRating);
             RuleComplianceRatingCommand = new RelayParameterCommand(GetRuleComplianceRating);
             RateGuestCommand = new RelayCommand(RateGuest);
-
-
+            this.unratedGuest = unratedGuest;
             Cleanliness = 1;
             RuleCompliance = 1;
 
@@ -56,7 +55,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private void RateGuest()
         {
             guestRatingService.Save(new GuestRating(accommodationReservationService.GetById(Id).AccommodationId, accommodationReservationService.GetById(Id).UserId, Id, Cleanliness, RuleCompliance, Comment));
-            UnratedGuestsUserControl.UnratedGuests.Remove(unratedGuest);
+            UnratedGuestsViewModel.UnratedGuests.Remove(unratedGuest);
         }
     }
 }

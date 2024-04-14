@@ -20,6 +20,7 @@ using ToastNotifications.Messages;
 using BookingApp.Domain.Models;
 using BookingApp.Appl.UseCases;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.ViewModels.OwnerViewModels;
 
 namespace BookingApp.WPF.Views.OwnerView
 {
@@ -28,30 +29,16 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class OwnerMainWindow : Window
     {
-
-        public ICommand ReviewCommand { get; private set; }
         public static ContentControl contentControl;
         User loggedInUser;
-        private UnratedGuestService unratedGuestService;
-        private NotificationsService notificationService;
         public OwnerMainWindow(User user)
         {
-
-            notificationService = new NotificationsService();
-            unratedGuestService = new UnratedGuestService();
             InitializeComponent();
             loggedInUser = user;
-            DataContext = this;
-            ReviewCommand = new RelayCommand(OpenReview);
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            DataContext = new TopMenuViewModel(user);
             contentControl = contentControl1;
             contentControl.Content = new OwnerMainWindowUserControl(user);
-            contentMenu.Content = new SmallMenuUserControl(loggedInUser);
-            notificationService.CreateNotificationForUnratedGuests(unratedGuestService.GetUnratedGuests(loggedInUser), user);
-            numberOfNotify.Text = notificationService.GetNumberOfUnreadNotificationsForUser(user).ToString();
-        }
-        private void OpenReview() {
-            contentControl.Content = new OwnerReviewUserControl(loggedInUser);
+            contentMenu.Content = new SmallMenuUserControl(user);    
         }
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -87,42 +74,6 @@ namespace BookingApp.WPF.Views.OwnerView
         private void Border_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
         {
             contentControl.Content = new RegisterAccommodationUserControl(loggedInUser);
-        }
-
-        private void LeftMenu(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Grid clickedGrid)
-            {
-                // Pronalaženje pozicije na kojoj je kliknut
-                Point clickPoint = e.GetPosition(clickedGrid);
-
-                // Pronalaženje reda na kojem je kliknut
-                int row = -1;
-                double accumulatedHeight = 0.0;
-                foreach (var rowDefinition in clickedGrid.RowDefinitions)
-                {
-                    accumulatedHeight += rowDefinition.ActualHeight;
-                    if (accumulatedHeight >= clickPoint.Y)
-                    {
-                        row = clickedGrid.RowDefinitions.IndexOf(rowDefinition);
-                        break;
-                    }
-                }
-
-                // Ako je pronađen red, prikazujemo njegov indeks
-                if (row != -1)
-                {
-                    if (row == 0)
-                        contentControl.Content = new RequestsUserControl(loggedInUser);
-                    //if (row == 1)
-                      //  contentControl.Content = new Renovations();
-                    if (row == 2)
-                        contentControl.Content = new OwnerReviewUserControl(loggedInUser);
-                    //if (row == 3)
-                        //contentControl.Content = new ForumNoMenu();
-                }
-
-            }
         }
 
         private void HamburgerClick(object sender, MouseButtonEventArgs e)

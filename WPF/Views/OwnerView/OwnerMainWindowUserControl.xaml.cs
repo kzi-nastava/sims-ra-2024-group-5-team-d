@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.OwnerViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,19 +27,10 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class OwnerMainWindowUserControl : UserControl
     {
-        public static ObservableCollection<AccommodationViewModel> Accommodations { get; set; }
-        private readonly AccommodationService accommodationService;
-        private AccommodationRatingService accommodationRatingService;
         public OwnerMainWindowUserControl(User user)
         {
-            accommodationService =new AccommodationService();
             InitializeComponent();
-            accommodationRatingService = new AccommodationRatingService();
-            Accommodations = new ObservableCollection<AccommodationViewModel>();
-            List<Accommodation> ownerAccommodations = accommodationService.GetByUser(user);
-            ownerAccommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
-            ownerAccommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type,accommodation.ImagesPath,accommodation.IsSuperOwner,accommodation.AverageRating,accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
-            DataContext = this;
+            DataContext=new AccommodationsViewModel(user);
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

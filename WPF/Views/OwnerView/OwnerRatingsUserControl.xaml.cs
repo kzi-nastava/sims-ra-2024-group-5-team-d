@@ -25,28 +25,12 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class OwnerRatingsUserControl : UserControl
     {
-        public ObservableCollection<OwnerRatingViewModel> OwnerRatings { get; set; }
 
-        private AccommodationRatingService accommodationRatingService;
-        public OwnerRatingViewModel SelectedOwnerRating { get; set; }
         public OwnerRatingsUserControl(User user)
         {
             InitializeComponent();
-            accommodationRatingService = new AccommodationRatingService();
-            OwnerRatings = new ObservableCollection<OwnerRatingViewModel>();
-            accommodationRatingService.GetAllRatingsForOwner(user).ForEach(rating=>OwnerRatings.Add(new OwnerRatingViewModel(rating)));//NEKI KOORDINATORSKI SERVIS
-            DataContext = this;
+            DataContext =new OwnerRatingsViewModel(user);
         }
-        private void ShowDetails(object sender, RoutedEventArgs e)
-        {
-            if (SelectedOwnerRating != null)
-            {
-                ShowDetailedReviewWindow details = new ShowDetailedReviewWindow(SelectedOwnerRating.Id);
-                Window window = Window.GetWindow(this);
-                details.Owner = window;
-                details.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                details.ShowDialog();
-            }
-        }
+
     }
 }

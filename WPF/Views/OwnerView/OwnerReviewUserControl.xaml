@@ -71,7 +71,7 @@
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 Background="Transparent"
-                BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Height="50" Click="RateGuest">
+                BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Height="50" Command="{Binding RateGuestCommand}">
                     <Border  BorderBrush="#FFAF45"
                                              BorderThickness="3"
                                              CornerRadius="10"  
@@ -184,7 +184,7 @@
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 Background="Transparent"
-                BorderThickness="0" Grid.Row="4" HorizontalAlignment="Center" Height="50" Click="OwnerRates">
+                BorderThickness="0" Grid.Row="4" HorizontalAlignment="Center" Height="50" Command="{Binding OwnerRatesCommand}">
                     <Border  BorderBrush="#124076"
                                              BorderThickness="3"
                                              CornerRadius="10"  

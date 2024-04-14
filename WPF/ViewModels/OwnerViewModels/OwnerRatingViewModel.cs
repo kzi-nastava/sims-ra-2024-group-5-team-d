@@ -16,84 +16,31 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class OwnerRatingViewModel
     {
-        public ICommand ForwardCommand { get; private set; }
-        public ICommand BackwardCommand { get; private set; }
+       
         public int Id { get; set; }
         public string GuestName { get; set; }
         public Location Location { get; set; }
         public int ReservationId { get; set; }
-        public ObservableCollection<string> ImagesPaths { get; set; }
         public string AccommodationName { get; set; }
         public int CleanlinessRating { get; set; }
         public int CorrectnessRating { get; set; }
         public DateOnly RatingDate { get; set; }
         public string Comment { get; set; }
-        private AccommodationService accommodationService;
-        private UserService userService;
-        private ImageUploaderService imageUploaderService;
-        private List<string> imagesPaths;
-        private int PaginationIndex = -3;
+       
         public OwnerRatingViewModel()
         {
         }
-        public void Backward()
+        public OwnerRatingViewModel(User guest,AccommodationRating accommodationRating,Accommodation accommodation)
         {
-            PaginationIndex = PaginationIndex - 3;
-            ImagesPaths.Clear();
-            for (int i = PaginationIndex; i < imagesPaths.Count; i++)
-            {
-                ImagesPaths.Add(imagesPaths[i]);
-                if (ImagesPaths.Count > 2)
-                    break;
-            }
-
-
-        }
-        public void Forward()
-        {
-            PaginationIndex = PaginationIndex + 3;
-            ImagesPaths.Clear();
-            for (int i = PaginationIndex; i < imagesPaths.Count; i++)
-            {
-                ImagesPaths.Add(imagesPaths[i]);
-                if (ImagesPaths.Count > 2)
-                    break;
-            }
-        }
-        public OwnerRatingViewModel(int id, string guestName, Location location, string accommodationName, DateOnly ratingDate, string comment)
-        {
-            Id = id;
-            GuestName = guestName;
-            Location = location;
-            AccommodationName = accommodationName;
-            RatingDate = ratingDate;
-            Comment = comment;
-        }
-        public OwnerRatingViewModel(AccommodationRating rating)
-        {
-            BackwardCommand = new RelayCommand(Backward);
-            ForwardCommand = new RelayCommand(Forward);
-            imageUploaderService = new ImageUploaderService();
-            ReservationId = rating.ReservationId;
-            CleanlinessRating = rating.Cleanliness;
-            CorrectnessRating = rating.Correctness;
-            accommodationService = new AccommodationService();
-            userService = new UserService();
-            Accommodation accommodation = accommodationService.GetById(rating.AccommodationId);
-            Id = rating.Id;
-            GuestName = userService.GetFullNameById(rating.GuestId);
+            Id = accommodationRating.Id;
+            GuestName = guest.FullName;
             Location = accommodation.Location;
+            ReservationId = accommodationRating.ReservationId;
             AccommodationName = accommodation.Name;
-            RatingDate = rating.TimeOfRating;
-            Comment = rating.Comment;
-            imagesPaths = imageUploaderService.GetImagePaths(rating.ImagesPath);
-            ImagesPaths = new ObservableCollection<string>();
-            Forward();
-            //imagesPaths.ForEach(imagePath => ImagesPaths.Add(imagePath));
-            //foreach (string path in imagePaths)
-            //ImagesPath =accommodation.ImagesPath;
-            //Debug.WriteLine("ImagesPath: "+ImagesPath);
-            //ImagesPath = rating.ImagesPath;
+            CleanlinessRating = accommodationRating.Cleanliness;
+            CorrectnessRating = accommodationRating.Correctness;
+            RatingDate = accommodationRating.TimeOfRating;
+            Comment = accommodationRating.Comment;
         }
     }
 }

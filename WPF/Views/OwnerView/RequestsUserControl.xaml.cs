@@ -29,23 +29,5 @@ namespace BookingApp.WPF.Views.OwnerView
             InitializeComponent();
           
         }
-        private void AcceptRequest(object sender, RoutedEventArgs e)
-        {
-            /*AcceptRequestWindow acceptRequest = new AcceptRequestWindow();
-            Window parentWindow = Window.GetWindow(this);
-            acceptRequest.Owner = parentWindow;
-            acceptRequest.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            acceptRequest.ShowDialog();*/
-
-        }
-
-        private void DenyRequest(object sender, RoutedEventArgs e)
-        {
-          /*  DenyRequestWindow denyRequest = new DenyRequestWindow();
-            Window parentWindow = Window.GetWindow(this);
-            denyRequest.Owner = parentWindow;
-            denyRequest.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            denyRequest.ShowDialog();*/
-        }
     }
 }
