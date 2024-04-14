@@ -58,5 +58,9 @@ namespace BookingApp.Appl.UseCases
 
             return null;
         }
+        public void GetAll()
+        {
+            _tourReservationRepository.GetAllTourReservations();
+        }
     }
 }

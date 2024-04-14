@@ -34,6 +34,7 @@ namespace BookingApp.WPF.Views.TouristGuide
         public ObservableCollection<TourRealisationViewModel> TourRealisations { get; set; }
         private readonly ITourRealisationRepository tourRealisationRepository;
         private TourRealisationService tourRealisationService;
+        private TourReservationService tourReservationService;
         private User LoggedInUser { get; set; }
 
         private DateTime _newTourRealizationDateTime;
@@ -60,14 +61,12 @@ namespace BookingApp.WPF.Views.TouristGuide
             tourRealisationRepository = new TourRealisationRepository();
             tourRealisationRepository.GetTourRealisationsByTourId(SelectedTour.Id)
                 .ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User, t.IsFinished)); });
-
-            // Initialize NewTourRealizationDateTime with current date and time
+            tourReservationService = new TourReservationService();
             LoggedInUser = user;
             SelectedDateTime = DateTime.Now;
             
         }
 
-        // Implement INotifyPropertyChanged interface
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -75,22 +74,17 @@ namespace BookingApp.WPF.Views.TouristGuide
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        // Event handler for the "+" button click
         private void AddTourRealizationButton_Click(object sender, RoutedEventArgs e)
         {
             NewTourRealizationPopup.IsOpen = true;
         }
-
-        // Event handler for the "Save" button click
         private void SaveNewTourRealization_Click(object sender, RoutedEventArgs e)
         {
-            // Saving logic here using NewTourRealizationDateTime property
             DateTime selectedDateTime = SelectedDateTime;
             TourRealisation tourRealisation = new TourRealisation(selectedDateTime,SelectedTour.Id,SelectedTour.Capacity, LoggedInUser);
             tourRealisationRepository.SaveTourRealisation(tourRealisation);
             TourRealisationViewModel tourRealisationViewModel = new TourRealisationViewModel(tourRealisation.Id,selectedDateTime, SelectedTour.Id, SelectedTour.Capacity, tourRealisation.IsCancellable(), LoggedInUser,tourRealisation.IsFinished);
             TourRealisations.Add(tourRealisationViewModel);
-            // For example, close the popup after saving
             NewTourRealizationPopup.IsOpen = false;
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -106,8 +100,11 @@ namespace BookingApp.WPF.Views.TouristGuide
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-                tourRealisationService.DeleteTourRealisationById(SelectedTourRealisation.Id);
-                TourRealisations.Remove(SelectedTourRealisation);
+            tourRealisationService.DeleteTourRealisationById(SelectedTourRealisation.Id);
+            TourRealisations.Remove(SelectedTourRealisation);
+            
+
+
         }
     }
 }
