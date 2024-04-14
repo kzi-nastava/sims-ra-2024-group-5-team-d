@@ -44,17 +44,23 @@ namespace BookingApp.WPF.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public NotificationsService notificationsService;
+        public AccommodationReservationService reservationService;
+        public AccommodationService accommodationService;
         public CreateRequestViewModel(User user, int reservationId)
         {
             SendRequestCommand = new RelayCommand(SendRequest);
             this.reservationId = reservationId;
             guestRequestService = new GuestRequestService();
-
+            notificationsService = new NotificationsService();
+            accommodationService = new AccommodationService();
         } 
         public void SendRequest()
         {
             GuestRequest guestRequest = new GuestRequest(reservationId, NewReservedFrom, NewReservedTo, "" , STATUS.INPROCESS);
             guestRequestService.Save(guestRequest);
+            notificationsService.CreateNotification(accommodationService.GetById(reservationService.GetById(reservationId).AccommodationId).Owner.Id,reservationId,Domain.Models.Type.REQUEST);
+
         }
     }
 }
