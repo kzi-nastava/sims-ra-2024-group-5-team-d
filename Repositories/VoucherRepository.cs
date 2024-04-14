@@ -67,6 +67,5 @@ namespace BookingApp.Repositories
             _serializer.ToCSV(FilePath, _vouchers);
         }
 
-
     }
 }

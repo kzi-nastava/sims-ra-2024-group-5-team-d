@@ -58,9 +58,14 @@ namespace BookingApp.Appl.UseCases
 
             return null;
         }
-        public void GetAll()
+        public List<TourReservation> GetAll()
         {
-            _tourReservationRepository.GetAllTourReservations();
+            return _tourReservationRepository.GetAllTourReservations();
+        }
+        public void DeleteTourReservation(TourReservation id)
+        {
+            _tourReservationRepository.DeleteReservation(id);
+            return;
         }
     }
 }

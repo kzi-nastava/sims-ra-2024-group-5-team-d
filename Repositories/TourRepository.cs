@@ -66,7 +66,6 @@ namespace BookingApp.Repositories
             _serializerTours.ToCSV(FilePathTours, _tours);
         }
 
-
         public Tour UpdateTour(Tour tour)
         {
             _tours = _serializerTours.FromCSV(FilePathTours);

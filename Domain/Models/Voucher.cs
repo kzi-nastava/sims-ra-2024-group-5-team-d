@@ -28,7 +28,7 @@ namespace BookingApp.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             ExpireDate = Convert.ToDateTime(values[1]);
-            Type = (VOUCHERTYPE)Convert.ToInt32(values[2]);
+            Type = (VOUCHERTYPE)Enum.Parse(typeof(VOUCHERTYPE), values[2]);
             User = new User() { Id = Convert.ToInt32(values[3]) };
         }
 

@@ -54,5 +54,13 @@ namespace BookingApp.Repositories
             }
             return _tourReservations.Max(c => c.Id) + 1;
         }
+        public void DeleteReservation(TourReservation reservation)
+        {
+            _tourReservations = _serializerTourReservations.FromCSV(FilePathTourReservations);
+            TourReservation founded = _tourReservations.Find(c => c.Id == reservation.Id);
+            _tourReservations.Remove(founded);
+            _serializerTourReservations.ToCSV(FilePathTourReservations, _tourReservations);
+        }
+
     }
 }

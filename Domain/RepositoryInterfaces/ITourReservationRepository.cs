@@ -13,5 +13,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public TourReservation GetTourReservationById(int id);
         public void SaveReservation(TourReservation reservation);
         public int NextIdForReservation();
+        public void DeleteReservation(TourReservation reservation);
     }
 }

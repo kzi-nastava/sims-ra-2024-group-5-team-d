@@ -14,5 +14,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public Voucher Update(Voucher voucher);
         public Voucher GetById(int id);
         public void Delete(Voucher voucher);
+        public Voucher Save(Voucher voucher);   
     }
 }

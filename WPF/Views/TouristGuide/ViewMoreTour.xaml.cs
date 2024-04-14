@@ -35,6 +35,7 @@ namespace BookingApp.WPF.Views.TouristGuide
         private readonly ITourRealisationRepository tourRealisationRepository;
         private TourRealisationService tourRealisationService;
         private TourReservationService tourReservationService;
+        private VoucherService voucherService;
         private User LoggedInUser { get; set; }
 
         private DateTime _newTourRealizationDateTime;
@@ -64,7 +65,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             tourReservationService = new TourReservationService();
             LoggedInUser = user;
             SelectedDateTime = DateTime.Now;
-            
+            voucherService = new VoucherService();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -100,11 +101,12 @@ namespace BookingApp.WPF.Views.TouristGuide
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            List<TourReservation> tourReservations = tourReservationService.GetAll().Where(tourReservation => tourReservation.TourRealisationId == SelectedTourRealisation.Id).ToList();
+            tourReservations.ForEach(tourReservation => voucherService.Save(new Voucher(voucherService.NextId(), DateTime.Now.AddYears(1), VOUCHERTYPE.CANCELEDTOUR, tourReservation.User)));
+            tourReservations.ForEach(tourReservation => tourReservationService.DeleteTourReservation(tourReservation));
             tourRealisationService.DeleteTourRealisationById(SelectedTourRealisation.Id);
             TourRealisations.Remove(SelectedTourRealisation);
             
-
-
         }
     }
 }
