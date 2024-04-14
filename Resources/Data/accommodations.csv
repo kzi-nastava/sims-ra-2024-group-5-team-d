@@ -1,6 +1,6 @@
 2|Aleksa apartment|0|APARTMENT|1|5|1|../../../Resources/AccommodationImages/Accommodation2|3|4|False
 4|Flower|0|APARTMENT|1|21|11|../../../Resources/AccommodationImages/Accommodation4|3|0|False
-5|Hotel Aleksandar|7|HOUSE|5|3|5|../../../Resources/AccommodationImages/Accommodation5|3|0|False
+5|Hotel Aleksandar|7|HOUSE|5|3|5|../../../Resources/AccommodationImages/Accommodation5|3|0|True
 6|Hotel Ice|9|HOUSE|4|1|2|../../../Resources/AccommodationImages/Accommodation6|3|0|False
 7|Cozy cottage|3|COTTAGE|10|2|10|../../../Resources/AccommodationImages/Accommodation7|3|0|False
 8|Etno selo Kucerak|5|COTTAGE|7|1|4|../../../Resources/AccommodationImages/Accommodation8|3|0|False
@@ -10,6 +10,6 @@
 12|Star apartments|6|APARTMENT|5|3|1|../../../Resources/AccommodationImages/Accommodation12|3|0|False
 13|NAjjjace|4|HOUSE|2|1|18|../../../Resources/AccommodationImages/Accommodation13|3|0|False
 14|PRoba|3|HOUSE|2|3|1|../../../Resources/AccommodationImages/Accommodation14|3|0|False
-15|IDEGAS|6|HOUSE|2|3|1|../../../Resources/AccommodationImages/Accommodation15|3|0|False
+15|IDEGAS|6|HOUSE|2|3|1|../../../Resources/AccommodationImages/Accommodation15|3|0|True
 17||0|APARTMENT|0|0|0|../../../Resources/AccommodationImages/Accommodation17|3|0|False
 18||0|APARTMENT|0|0|0|../../../Resources/AccommodationImages/Accommodation18|3|0|False
