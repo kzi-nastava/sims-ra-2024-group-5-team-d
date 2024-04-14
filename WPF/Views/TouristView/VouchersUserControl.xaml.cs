@@ -18,24 +18,14 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.TouristView
 {
     /// <summary>
-    /// Interaction logic for YourToursUserControl.xaml
+    /// Interaction logic for VouchersUserControl.xaml
     /// </summary>
-    public partial class YourToursUserControl : UserControl
+    public partial class VouchersUserControl : UserControl
     {
-        public static ProgressBar progressBar;
-        public static StackPanel progressContainer;
-        public static StackPanel namesContainer;
-        public User User { get; set; }
-        public YourToursUserControl(User user)
+        public VouchersUserControl(User user)
         {
             InitializeComponent();
-            progressBar = progressBar2;
-            progressContainer = progressContainer2;
-            namesContainer = namesContainer2;
-
-            User = user;
-            DataContext = new LiveTourViewModel(user);
-
+            DataContext = new VouchersViewModel(user);
         }
     }
 }

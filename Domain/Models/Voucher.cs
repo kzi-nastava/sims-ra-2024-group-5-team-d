@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToastNotifications.Position;
 
 namespace BookingApp.Domain.Models
 {
@@ -13,12 +14,14 @@ namespace BookingApp.Domain.Models
         public int Id { get; set; }
         public DateTime ExpireDate { get; set; }
         public VOUCHERTYPE Type { get; set; }
+        public User User { get; set; }
 
-        public Voucher(int id, DateTime expireDate, VOUCHERTYPE type)
+        public Voucher(int id, DateTime expireDate, VOUCHERTYPE type, User user)
         {
             Id = id;
             ExpireDate = expireDate;
             Type = type;
+            User = user;
         }
         public Voucher() { }
         public void FromCSV(string[] values)
@@ -26,11 +29,12 @@ namespace BookingApp.Domain.Models
             Id = Convert.ToInt32(values[0]);
             ExpireDate = Convert.ToDateTime(values[1]);
             Type = (VOUCHERTYPE)Convert.ToInt32(values[2]);
+            User = new User() { Id = Convert.ToInt32(values[3]) };
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString() , ExpireDate.ToString(), Type.ToString()};
+            string[] csvValues = { Id.ToString() , ExpireDate.ToString(), Type.ToString(), User.Id.ToString()};
             return csvValues;
         }
     }

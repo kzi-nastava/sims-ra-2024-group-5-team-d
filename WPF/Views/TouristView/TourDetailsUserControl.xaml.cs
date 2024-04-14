@@ -365,8 +365,7 @@ namespace BookingApp.WPF.Views.TouristView
 
         private void BookNow_Click(object sender, RoutedEventArgs e)
         {
-            // izbrana realizacija, broj turista, user, 
-            if(SelectedRealisation != null)
+            if(SelectedRealisation != null && !SelectedRealisation.NotEnoughSpace)
                 TouristHomeWindow.contentControl.Content = new BookingSection(SelectedTour, SelectedRealisation, User, NumberOfSeats);
         }
 
@@ -382,14 +381,11 @@ namespace BookingApp.WPF.Views.TouristView
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine(IsRealisationSelected + " HIHI");
             if (SelectedRealisation != null)
             {
                 TourEndTime = SelectedRealisation.EndTime;
                 TourStartTime = SelectedRealisation.StartTime;
                 IsRealisationSelected = true;
-                Debug.WriteLine(IsRealisationSelected + " HIHI");
-                Debug.WriteLine(SelectedRealisation.Id + " HIHI");
                 CancelationDue = SelectedRealisation.DateTime.AddDays(-2);
             }
         }

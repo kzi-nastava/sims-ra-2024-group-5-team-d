@@ -66,7 +66,7 @@ namespace BookingApp.WPF.ViewModels
         {
             for (int i = 0; i < NumberOfTourists; i++)
             {
-                //Tourists.Add(new TourGuestViewModel(TourGuestService.NextIdForGuest(), TourReservation.Id, $"Tourist {i + 1}"));
+                Tourists.Add(new TourGuestViewModel(TourGuestService.NextIdForGuest(), TourReservation.Id, $"Tourist {i + 1}"));
             }
             FillUserInfo();
         }

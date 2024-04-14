@@ -84,7 +84,7 @@
             <Button Grid.Column="3"
                 Content="Vouchers"
                 Style="{StaticResource TabsButtonsStyle}"
-                Command="{Binding VouchersCommand}"/>
+                Command="{Binding VouchersTabCommand}"/>
         </Grid>
         <Border 
                 BorderThickness="1 1 1 1"
