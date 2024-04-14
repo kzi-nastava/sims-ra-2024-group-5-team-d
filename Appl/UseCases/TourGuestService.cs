@@ -92,5 +92,9 @@ namespace BookingApp.Appl.UseCases
         {
             return _repository.GetAllTourGuests();
         }
+        public TourGuest Update(TourGuest guest)
+        {
+            return _repository.UpdateTourGuest(guest);
+        }
     }
 }

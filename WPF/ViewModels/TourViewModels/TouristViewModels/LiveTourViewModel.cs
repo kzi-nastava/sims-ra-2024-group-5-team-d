@@ -34,14 +34,14 @@ namespace BookingApp.WPF.ViewModels
         private TourReservationService reservationService;
         private TourGuestService guestService;
         private TourService tourService;
-        private ICheckPointRepository checkPointRepository;
+        private CheckPointService checkPointService;
 
         public bool IsTourLive { get; set; }
         public LiveTourViewModel(User user) 
         {
             User = user;
             guestService = new TourGuestService();
-            checkPointRepository = Injector.CreateInstance<ICheckPointRepository>();
+            checkPointService = new CheckPointService();
             tourService = new TourService();
             Attendees = new ObservableCollection<TourAttendeeViewModel>();
             reservationService = new TourReservationService();
@@ -67,13 +67,13 @@ namespace BookingApp.WPF.ViewModels
                         else
                         {
                             attendee.IsPresent = true;
-                            attendee.CheckpointName = checkPointRepository.GetCheckPointById(guest.CheckPointId).Name;
+                            attendee.CheckpointName = checkPointService.GetById(guest.CheckPointId).Name;
                         }
                         Attendees.Add(attendee);
                     }
                 }               
                 Tour = tourService.GetById(realisationService.GetTourRealisationById(Reservation.TourRealisationId).TourId);
-                foreach (CheckPoint cp in checkPointRepository.GetAllCheckPointsByTourId(Tour.Id))
+                foreach (CheckPoint cp in checkPointService.GetAllCheckPointsByTourId(Tour.Id))
                 {
                     CheckPoints.Add(cp);
                 }

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
               d:DesignHeight="767" d:DesignWidth="950">
     <UserControl.Resources>
@@ -24,7 +25,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" HorizontalAlignment="Left"  Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click">
+        <Button Grid.Row="0" HorizontalAlignment="Left"  Background="Transparent" BorderBrush="Transparent" Command="{Binding DataContext.BackCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Icons/Card/Alt Arrow Left.png" Width="16" Height="16"/>
                 <Label Content="Back" Margin="5,0,0,0"/>
@@ -40,9 +41,14 @@
                   Margin="20,0,0,0" 
                   ItemsSource="{Binding CheckPoints}" 
                   BorderBrush="Transparent"
-                  x:Name="CheckPointsListView"
-                  SelectedItem="{Binding SelectedCheckPoint}" MouseDoubleClick="Check_Click"
+                  x:Name="checkPointsListView"
+                  SelectedItem="{Binding SelectedCheckPoint}"
                   >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding DataContext.CheckClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical" />
@@ -82,7 +88,7 @@
                     Grid.Row="3" Grid.Column="1" 
                     ItemsSource="{Binding TourGuests}"
                     SelectionMode="Multiple"
-                    x:Name="TourGuestsListView"
+                    x:Name="tourGuestsListView"
                     >
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -108,7 +114,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Click="FinishTourButton_Click" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
-        <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Click ="SignUpButton_Click" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+        <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Command="{Binding DataContext.FinishTourCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Command="{Binding DataContext.SignUpCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
     </Grid>
 </UserControl>

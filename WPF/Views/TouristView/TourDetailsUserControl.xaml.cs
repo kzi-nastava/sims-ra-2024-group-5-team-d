@@ -149,11 +149,13 @@ namespace BookingApp.WPF.Views.TouristView
 
         private readonly ILocationRepository locationRepository;
         private readonly ICheckPointRepository checkpointRepository;
+        public CheckPointService checkPointService { get; set; }
         public User User { get; set; }
 
         public TourDetailsUserControl(TourViewModel selectedTour, int numberOfPeople, User user)
         {
             InitializeComponent();
+            checkPointService = new CheckPointService();
             DataContext = this;
             User = user;
             IsRealisationSelected = true;
@@ -172,7 +174,7 @@ namespace BookingApp.WPF.Views.TouristView
             });
             checkpointRepository = Injector.CreateInstance<ICheckPointRepository>();
             Checkpoints = new ObservableCollection<CheckPointViewModel>();
-            checkpointRepository.GetAllCheckPointsByTourId(selectedTour.Id).ForEach(checkpoint => Checkpoints.Add(new CheckPointViewModel(checkpoint.Id, checkpoint.Name)));
+            checkPointService.GetAllCheckPointsByTourId(selectedTour.Id).ForEach(checkpoint => Checkpoints.Add(new CheckPointViewModel(checkpoint.Id, checkpoint.Name)));
             NumberOfCheckpoints = Checkpoints.Count();
 
             tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();

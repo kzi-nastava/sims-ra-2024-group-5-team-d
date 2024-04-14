@@ -38,6 +38,7 @@ namespace BookingApp.WPF.ViewModels
         public ICheckPointRepository checkPointRepository { get; set; }
         public ITourRealisationRepository tourRealisationRepository { get; set; }
         public ITourGuestRepository tourGuestRepository { get; set; }
+        public CheckPointService checkPointService { get; set; }
 
         NotifierService notifier;
         public BookingSectionViewModel(TourRealisationViewModel tourRealisation, TourViewModel tour, User user, int numberOfSeats) 
@@ -49,7 +50,8 @@ namespace BookingApp.WPF.ViewModels
             TourDate = DateOnly.FromDateTime(tourRealisation.DateTime);
             CancellationDue = tourRealisation.DateTime.AddDays(-2);
             checkPointRepository = Injector.CreateInstance<ICheckPointRepository>();
-            FirstCheckpointName = checkPointRepository.GetAllCheckPointsByTourId(Tour.Id).FirstOrDefault().Name;
+            checkPointService = new CheckPointService();
+            FirstCheckpointName = checkPointService.GetAllCheckPointsByTourId(Tour.Id).FirstOrDefault().Name;
             NumberOfTourists = numberOfSeats;
             Tourists = new ObservableCollection<TourGuestViewModel>();
             TourGuestService = new TourGuestService();
