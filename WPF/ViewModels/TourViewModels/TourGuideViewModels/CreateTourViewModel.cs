@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels;
 using BookingApp.WPF.Views.TouristGuide;
 using HarfBuzzSharp;
 using System;
@@ -17,7 +18,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using ToastNotifications.Position;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 {
     public class CreateTourViewModel
     {
@@ -25,49 +26,47 @@ namespace BookingApp.WPF.ViewModels
         public ICommand BackwardCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
         public ICommand LocationChangedCommand { get; private set; }
-
         public ICommand AddCheckPointCommand { get; private set; }
         public ICommand UploadCommand { get; private set; }
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int LocationId { get; set; }
-        public double Duration { get; set; }
-        public string Description { get; set; }
-        public int LanguageId { get; set; }
-        public int Capacity { get; set; }
-        public DateTime DateTime { get; set; }
-        public string ImagesPath { get; set; }
-        public User LoggedInUser {  get; set; }
-        public Tour SavedTour { get; set; }
+        
+
+        public TourFormViewModel tourFormViewModel { get; private set; }
         public ObservableCollection<CheckPoint> CheckPoints { get; set; }
-        private List<CheckPoint> checkPointsToSave { get; set; }
-        private ImageUploaderService imageUploaderService;
-        private readonly ILocationRepository locationRepository;
-        private ITourRepository tourRepository;
-        private ITourRealisationRepository tourRealisationRepository;
-        private ICheckPointRepository checkPointRepository;
+        public string ImagesPath { get; set; }
         private List<string> imagesPath;
-        private int PaginationIndex = 0;
         public ObservableCollection<string> ImagesPaths { get; set; }
+        private List<CheckPoint> checkPointsToSave { get; set; }
+
+        private ImageUploaderService imageUploaderService;
+        private CheckPointService checkPointService;
+        private TourRealisationService tourRealisationService;
+        private LocationService locationService;
+        private TourService tourService;
+
+        private int PaginationIndex = 0;
         public CreateTourViewModel(User user) 
         {
-            LoggedInUser = user;
-            imagesPath = new List<string>();
-            locationRepository = Injector.CreateInstance<ILocationRepository>();
-            tourRepository = Injector.CreateInstance<ITourRepository>();
-            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
-            checkPointRepository = Injector.CreateInstance<ICheckPointRepository>();
+            tourFormViewModel = new TourFormViewModel();
+            tourFormViewModel.User = user;
+            tourFormViewModel.StartTime = DateTime.Now;
+
+            tourRealisationService = new TourRealisationService();
+            checkPointService = new CheckPointService();
+            tourService = new TourService();
+            locationService = new LocationService();
             imageUploaderService = new ImageUploaderService();
+
             SaveCommand = new RelayCommand(Save);
             LocationChangedCommand = new RelayCommand(LocationChanged);
             AddCheckPointCommand = new RelayParameterCommand(AddCheckPoint);
             UploadCommand = new RelayCommand(UploadPicture);
             BackwardCommand = new RelayCommand(Backward);
             ForwardCommand = new RelayCommand(Forward);
-            CheckPoints = new ObservableCollection<CheckPoint>(SuggestCheckPoints());
+
+            CheckPoints = new ObservableCollection<CheckPoint>(checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId));
             checkPointsToSave = new List<CheckPoint>();
+            imagesPath = new List<string>();
             ImagesPaths = new ObservableCollection<string>();
-            DateTime = DateTime.Now;
         }
         public void Backward()
         {
@@ -97,42 +96,30 @@ namespace BookingApp.WPF.ViewModels
         {
             string folderPath = imageUploaderService.CreateTourFolder(imagesPath);
 
-            Tour newTour = new Tour(Name, locationRepository.GetById(LocationId), Description,(LANGUAGE)LanguageId, Capacity, Duration, folderPath, LoggedInUser);
-            SavedTour = tourRepository.SaveTour(newTour);
-            TourRealisation newTourRealisation = new TourRealisation(DateTime, SavedTour.Id, Capacity, LoggedInUser);
-            TourRealisation savedTourRealisation = tourRealisationRepository.SaveTourRealisation(newTourRealisation);
+            Tour newTour = new Tour(tourFormViewModel.Name, locationService.GetById(tourFormViewModel.LocationId), tourFormViewModel.Description, (LANGUAGE)tourFormViewModel.LanguageId, tourFormViewModel.Capacity, tourFormViewModel.Duration, folderPath, tourFormViewModel.User);
+            Tour SavedTour = tourService.Save(newTour);
+            TourRealisation newTourRealisation = new TourRealisation(tourFormViewModel.StartTime, SavedTour.Id, tourFormViewModel.Capacity, tourFormViewModel.User);
+            TourRealisation savedTourRealisation = tourRealisationService.Save(newTourRealisation);
             //proci kroz sve selektovane cp i dodati ih u checkPointsToSave
 
             checkPointsToSave = CheckPoints.Where(cp => cp.IsChecked == true).ToList();
 
             checkPointsToSave.ForEach(cp => cp.IsChecked = false);
             checkPointsToSave.ForEach(cp => cp.TourId = SavedTour.Id);
-            checkPointsToSave.ForEach(cp => checkPointRepository.Save(cp));
-            SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser);
+            checkPointsToSave.ForEach(cp => checkPointService.Save(cp));
+            SideBar.contentControlW.Content = new CreateNewTourForm(tourFormViewModel.User);
         }
 
         private void AddCheckPoint(object parameter)
         {
             string labelText = parameter as string;
-            Debug.WriteLine(labelText);
-            CheckPoint newCheckPoint = new CheckPoint(labelText, tourRepository.NextIdForTour(), true);
+            CheckPoint newCheckPoint = new CheckPoint(labelText, tourService.NextId(), true);
             CheckPoints.Insert(0, newCheckPoint);
-        }
-        private List<CheckPoint> SuggestCheckPoints()
-        {
-            var checkPointsInCity = checkPointRepository.GetAll()
-                                    .Where(cp => tourRepository.GetTourById(cp.TourId).Location.Id == LocationId)
-                                    .DistinctBy(cp => cp.Name)
-                                    .ToList();
-
-            checkPointsInCity.ForEach(cp => cp.IsChecked = false);
-
-            return checkPointsInCity;
         }
         private void LocationChanged()
         {
             CheckPoints.Clear();
-            SuggestCheckPoints().ForEach(cp =>  CheckPoints.Add(cp));
+            checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId).ForEach(cp =>  CheckPoints.Add(cp));
         }
 
     }

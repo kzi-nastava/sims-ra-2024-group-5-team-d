@@ -17,17 +17,16 @@ namespace BookingApp.WPF.ViewModels
     public class ProfileViewModel
     {
         public ICommand ComboBoxSelectionChangedCommand {  get; set; }
-        public string SelectedDate { get; set; }
+        public ObservableCollection<TourViewModel> Tour { get; set; }
+        public ObservableCollection<string> Date { get; set; }
+
         private User LoggedInUser { get; set; }
         public TourService tourService { get; set; }
         public TourRealisationService tourRealisationService { get; set; }
-        public ObservableCollection<TourViewModel> Tour { get; set; }
-        public ObservableCollection<string> Date { get; set; }
         private ILocationRepository locationRepository { get; set; }
         public ProfileViewModel(User user) 
         { 
             LoggedInUser = user;
-            Debug.WriteLine(LoggedInUser.Id);
             tourService = new TourService();
             tourRealisationService = new TourRealisationService();
             Tour = new ObservableCollection<TourViewModel>();

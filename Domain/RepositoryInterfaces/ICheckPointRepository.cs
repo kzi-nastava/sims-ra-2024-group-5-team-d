@@ -14,6 +14,5 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public void Delete(CheckPoint checkPoint);
         public CheckPoint Update(CheckPoint checkPoint);
         public CheckPoint GetCheckPointById(int? id);
-        public List<CheckPoint> GetAllCheckPointsByTourId(int tourId);
     }
 }

@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,141 +29,18 @@ namespace BookingApp.WPF.Views.TouristGuide
     /// <summary>
     /// Interaction logic for LiveTourView.xaml
     /// </summary>
-    public partial class LiveTourView : UserControl,INotifyPropertyChanged
+    public partial class LiveTourView : UserControl
     {
-        public User LoggedInUser { get; set; }
-        public TourRealisationViewModel tourRealisation { get; set; }
-        public TourViewModel tour { get; set; }
-        public ObservableCollection<TourGuestViewModel> TourGuests { get; set; }
-        public ObservableCollection<CheckPointViewModel> CheckPoints { get; set; }
-        public TourGuestService tourGuestService { get; set; }
-        private ICheckPointRepository checkPointRepository { get; set; }
-        private ITourGuestRepository tourGuestRepository { get; set; }
-        private ITourRealisationRepository tourRealisationRepository { get; set; }
-        private ObservableCollection<int> Numbers { get; set; }
-      
+        public static ListView CheckPointsListView;
+        public static ListView TourGuestsListView;
+
 
         public LiveTourView(User user, TourRealisationViewModel tourRealisationViewModel, TourViewModel tourViewModel)
         {
             InitializeComponent();
-            DataContext = this;
-            LoggedInUser = user;
-            tourRealisation = tourRealisationViewModel;
-            tour = tourViewModel;
-            CheckPoints = new ObservableCollection<CheckPointViewModel>();
-            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
-            TourGuests = new ObservableCollection<TourGuestViewModel>();
-            tourGuestService = new TourGuestService();
-            checkPointRepository = Injector.CreateInstance<ICheckPointRepository>();
-            tourGuestRepository = Injector.CreateInstance<ITourGuestRepository>();
-            tourGuestService.GetTourGuestsOnTourRealisation(tourRealisation.Id).ForEach(t => TourGuests.Add(new TourGuestViewModel(t.Id, t.FullName, t.Years, t.TourReservationId, t.CheckPointId)));
-            checkPointRepository.GetAllCheckPointsByTourId(tour.Id).ForEach(cp => CheckPoints.Add(new CheckPointViewModel(cp.Id, cp.Name, cp.TourId, cp.IsChecked)));
-            CheckPoints[0].IsChecked = true;
-            CheckPoint cp = checkPointRepository.GetCheckPointById(CheckPoints[0].Id);
-            cp.IsChecked = true;
-            checkPointRepository.Update(cp);
-            Numbers = new ObservableCollection<int>();
-            AssignNumbersToCheckPoints();
-            OnPropertyChanged(nameof(Numbers));
-        }
-
-        private CheckPointViewModel selectedCheckPoint;
-        public CheckPointViewModel SelectedCheckPoint
-        {
-            get => selectedCheckPoint;
-            set
-            {
-                if (value != selectedCheckPoint)
-                {
-                    selectedCheckPoint = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            SideBar.contentControlW.Content = new ViewMoreTourToday(tour, LoggedInUser);
-        }
-        private void AssignNumbersToCheckPoints()
-        {
-            for (int i = 0; i< CheckPoints.Count; i++)
-            {
-                Numbers.Add(i+1);
-            }
-        }
-
-
-        private void SignUpButton_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedCheckPoint = (CheckPointViewModel)CheckPointsListView.SelectedItem;
-
-            if (selectedCheckPoint == null)
-            {
-                MessageBox.Show("Please select a CheckPoint.");
-                return;
-            }
-
-            var selectedTourGuests = TourGuestsListView.SelectedItems.Cast<TourGuestViewModel>().ToList();
-
-            selectedTourGuests.ForEach(tourGuest =>
-            {
-                UpdateTourGuestCheckpoint(tourGuest, selectedCheckPoint.Id);
-                RemoveTourGuestFromList(tourGuest);
-            });
-        }
-        private void FinishTourButton_Click(object sender, RoutedEventArgs e)
-        {
-            TourRealisation realisation = tourRealisationRepository.GetTourRealisationById(tourRealisation.Id);
-            realisation.IsFinished = true;
-            tourRealisationRepository.UpdateTourRealisation(realisation);
-            var allCheckPoints = checkPointRepository.GetAll();
-            foreach (var cp in allCheckPoints)
-            {
-                cp.IsChecked = false;
-                checkPointRepository.Update(cp);
-            }
-            CheckPoints.All(cp => cp.IsChecked = false);
-            BackButton_Click(sender, e);
-        }
-        private void UpdateTourGuestCheckpoint(TourGuestViewModel tourGuest, int checkPointId)
-        {
-            tourGuest.CheckPointId = checkPointId;
-
-            TourGuest guest = new TourGuest(tourGuest.Id, tourGuest.FullName, tourGuest.Years, tourGuest.TourReservationId, tourGuest.CheckPointId);
-            tourGuestRepository.UpdateTourGuest(guest);
-        }
-
-        private void RemoveTourGuestFromList(TourGuestViewModel tourGuest)
-        {
-            TourGuests.Remove(tourGuest);
-        }
-
-        private void Check_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (SelectedCheckPoint != null)
-            {
-                // Update the IsChecked property of the selected checkpoint directly
-                SelectedCheckPoint.IsChecked = true;
-
-                // Update the checkpoint in the repository
-                CheckPoint cp = checkPointRepository.GetCheckPointById(SelectedCheckPoint.Id);
-                cp.IsChecked = true;
-                checkPointRepository.Update(cp);
-
-                // Check if all checkpoints are checked
-                if (CheckPoints.All(cp => cp.IsChecked))
-                {
-                    FinishTourButton_Click(sender, e);
-                }
-            }
+            DataContext = new TourLiveViewModel(user,tourRealisationViewModel,tourViewModel);
+            CheckPointsListView = checkPointsListView;
+            TourGuestsListView = tourGuestsListView;
         }
 
 

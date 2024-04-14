@@ -26,7 +26,7 @@ namespace BookingApp.WPF.Views.TouristGuide
     /// <summary>
     /// Interaction logic for ViewMoreTour.xaml
     /// </summary>
-    public partial class ViewMoreTour : UserControl, INotifyPropertyChanged
+    public partial class ViewMoreTour : UserControl
     {
         public DateTime SelectedDateTime { get; set; }  
         public TourViewModel SelectedTour { get; set; }
@@ -38,19 +38,6 @@ namespace BookingApp.WPF.Views.TouristGuide
         private VoucherService voucherService;
         private User LoggedInUser { get; set; }
 
-        private DateTime _newTourRealizationDateTime;
-        public DateTime NewTourRealizationDateTime
-        {
-            get { return _newTourRealizationDateTime; }
-            set
-            {
-                if (_newTourRealizationDateTime != value)
-                {
-                    _newTourRealizationDateTime = value;
-                    OnPropertyChanged(nameof(NewTourRealizationDateTime));
-                }
-            }
-        }
 
         public ViewMoreTour(TourViewModel selectedTour,User user)
         {
@@ -60,19 +47,11 @@ namespace BookingApp.WPF.Views.TouristGuide
             TourRealisations = new ObservableCollection<TourRealisationViewModel>();
             SelectedTour = selectedTour;
             tourRealisationRepository = new TourRealisationRepository();
-            tourRealisationRepository.GetTourRealisationsByTourId(SelectedTour.Id)
-                .ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User, t.IsFinished)); });
+            tourRealisationRepository.GetTourRealisationsByTourId(SelectedTour.Id).ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User, t.IsFinished)); });
             tourReservationService = new TourReservationService();
             LoggedInUser = user;
             SelectedDateTime = DateTime.Now;
             voucherService = new VoucherService();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void AddTourRealizationButton_Click(object sender, RoutedEventArgs e)

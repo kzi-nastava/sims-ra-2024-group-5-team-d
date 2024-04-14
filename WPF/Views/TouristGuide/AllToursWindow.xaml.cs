@@ -1,7 +1,8 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels;
+using BookingApp.WPF.ViewModels.TourViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,42 +26,11 @@ namespace BookingApp.WPF.Views.TouristGuide
     /// </summary>
     public partial class AllToursWindow : UserControl
     {
-        public TourViewModel SelectedTour { get; set; }
-        public ObservableCollection<TourViewModel> Tours { get; set; }
-        private readonly ITourRepository tourRepository;
-        private User LoggedInUser { get; set; }
+
         public AllToursWindow(User user)
         {
             InitializeComponent();
-            collapseGrid.Visibility = Visibility.Collapsed;
-            DataContext = this;
-            tourRepository = Injector.CreateInstance<ITourRepository>();
-            Tours = new ObservableCollection<TourViewModel>();
-            tourRepository.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath,tour.MaxCapacity,tour.Language, tour.User)));
-            LoggedInUser = user;
-        }
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ViewMore_Click(object sender, RoutedEventArgs e)
-        {
-            SideBar.contentControlW.Content = new ViewMoreTour(SelectedTour, LoggedInUser);
-
-        }
-        private void ToursTodayTab_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SideBar.contentControlW.Content = new ToursTodayWindow(LoggedInUser);
-        }
-        private void RequestsTab_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //SideBar.contentControlW.Content = new RequestsWindow(LoggedInUser);
-        }
-
-        private void FinishedToursTab_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SideBar.contentControlW.Content = new FinishedToursWindow(LoggedInUser);
+            DataContext = new AllToursViewModel(user);
         }
     }
 }

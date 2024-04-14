@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="950">
     <UserControl.Resources>
-        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <!-- Style for the tabs -->
         <Style TargetType="Label" x:Key="TabsLabelsStyle">
             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -45,16 +47,28 @@
             <!-- Border around the tabs -->
             <Border BorderThickness="1 1 1 1" BorderBrush="Black" Grid.ColumnSpan="4"/>
 
-            <Label x:Name="allToursTab" Grid.Column="0" Content="All tours" Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="AllToursTab_MouseDown"/>
 
-            <Label x:Name="toursTodayTab" Grid.Column="1" Content="Tours today" Background="LightGray" Style="{StaticResource TabsLabelsStyle}"/>
+            <Label Grid.Column="1" Content="Tours today" Background="LightGray" Style="{StaticResource TabsLabelsStyle}"/>
 
-            <Label x:Name="finishedToursTab" Grid.Column="2" Content="Finished tours" Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="FinishedToursTab_MouseDown"/>
+            <Label Grid.Column="0" Content="All tours" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding AllToursTabCommand}" />
+                </Label.InputBindings>
+            </Label>
 
-            <Label x:Name="requestsTab" Grid.Column="3" Content="Requests"  Style="{StaticResource TabsLabelsStyle}" MouseLeftButtonUp="RequestsTab_MouseDown"/>
+            <Label Grid.Column="2" Content="Finished tours" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding FinishedToursTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+            <Label Grid.Column="3" Content="Requests"  Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding RequestTabCommand}" />
+                </Label.InputBindings>
+            </Label>
         </Grid>
         <!-- Content Area -->
-        <Grid Grid.Row="1" x:Name="collapseGrid">
+        <Grid Grid.Row="1"  Visibility="{Binding IsGridVisible, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -132,10 +146,10 @@
         <ListView BorderThickness="0"
           Background="Transparent"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-          ScrollViewer.VerticalScrollBarVisibility="Visible"
+          ScrollViewer.VerticalScrollBarVisibility="Hidden"
           ItemsSource="{Binding ToursToday}"
           SelectedItem="{Binding SelectedTour}"
-          ScrollViewer.CanContentScroll="False" Grid.Row="2" SelectionChanged="ListView_SelectionChanged">
+          ScrollViewer.CanContentScroll="False" Grid.Row="2">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" />
@@ -213,7 +227,7 @@
                             <Label Grid.Row="2">
                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="10,0,10,0"/>
                             </Label>
-                            <Button Grid.Row="3" Content="View More" Click="ViewMore_Click" Height="34" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15"/>
+                            <Button Grid.Row="3" Content="View More" Command="{Binding DataContext.ViewMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Height="34" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

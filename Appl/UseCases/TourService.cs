@@ -13,57 +13,52 @@ namespace BookingApp.Appl.UseCases
     {
         private ITourRepository _repository;
         private TourRealisationService tourRealisationService;
-        private ITourRealisationRepository tourRealisationRepository; 
 
         public TourService()
         {
-            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
             _repository = Injector.CreateInstance<ITourRepository>();
             tourRealisationService = new TourRealisationService();
         }
         public void DeleteTour(Tour tour)
         {
-            foreach (TourRealisation tourRealisation in tourRealisationRepository.GetTourRealisationsByTourId(tour.Id))
+            foreach (TourRealisation tourRealisation in tourRealisationService.GetTourRealisationsByTourId(tour.Id))
             {
-                tourRealisationRepository.DeleteTourRealisation(tourRealisation);
+                tourRealisationService.DeleteTourRealisation(tourRealisation);
             }
             _repository.DeleteTour(tour);
         }
         public List<Tour> GetToursForToday()
         {
-            List<Tour> toursToday = new List<Tour>();
-            foreach (Tour t in _repository.GetAllTours())
+            var toursToday = new HashSet<Tour>();
+            var today = DateTime.Today;
+            foreach (var tour in _repository.GetAllTours())
             {
-                foreach (TourRealisation tR in tourRealisationRepository.GetTourRealisationsByTourId(t.Id))
+                if (tourRealisationService.GetTourRealisationsByTourId(tour.Id)
+                    .Any(tR => tR.StartTime.Date == today))
                 {
-                    if (tR.StartTime.Day == DateTime.Now.Day && !toursToday.Contains(t))
-                    {
-                        toursToday.Add(t);
-                    }
+                    toursToday.Add(tour);
                 }
             }
-            return toursToday;
+            return toursToday.ToList();
         }
 
         public List<Tour> GetFinishedTours()
         {
-            List<Tour> finishedTours = new List<Tour>();
-            foreach (Tour t in _repository.GetAllTours())
+            var finishedTours = new HashSet<Tour>();
+            foreach (var tour in _repository.GetAllTours())
             {
-                foreach (TourRealisation tR in tourRealisationRepository.GetTourRealisationsByTourId(t.Id))
+                if (tourRealisationService.GetTourRealisationsByTourId(tour.Id)
+                    .Any(tR => tR.IsFinished))
                 {
-                    if (tR.IsFinished && !finishedTours.Contains(t))
-                    {
-                        finishedTours.Add(t);
-                    }
+                    finishedTours.Add(tour);
                 }
             }
-            return finishedTours;
+            return finishedTours.ToList();
         }
 
         public bool HasAvailableSeatsInAnyRealisation(int tourId)
         {
-            return tourRealisationRepository.GetTourRealisationsByTourId(tourId).Any(tR => tR.AvailableSeats > 0);
+            return tourRealisationService.GetTourRealisationsByTourId(tourId).Any(tR => tR.AvailableSeats > 0);
         }
         public Tour GetBestTourOfAllTime()
         {
@@ -72,7 +67,7 @@ namespace BookingApp.Appl.UseCases
 
             foreach (Tour t in _repository.GetAllTours())
             {
-                double totalAttendees = tourRealisationRepository.GetTourRealisationsByTourId(t.Id)
+                double totalAttendees = tourRealisationService.GetTourRealisationsByTourId(t.Id)
                     .Sum(tR => t.MaxCapacity - tR.AvailableSeats);
 
                 if (totalAttendees > mostVisited)
@@ -92,7 +87,7 @@ namespace BookingApp.Appl.UseCases
 
             foreach (Tour t in _repository.GetAllTours())
             {
-                double totalAttendees = tourRealisationRepository.GetTourRealisationsByTourId(t.Id)
+                double totalAttendees = tourRealisationService.GetTourRealisationsByTourId(t.Id)
                     .Where(tR => tR.StartTime.Year == year)
                     .Sum(tR => t.MaxCapacity - tR.AvailableSeats);
 
@@ -106,9 +101,6 @@ namespace BookingApp.Appl.UseCases
             return _repository.GetTourById(mostVisitedTourId);
         }
 
-
-
-
         public List<Tour> GetAllTours()
         {
             return _repository.GetAllTours();
@@ -120,6 +112,14 @@ namespace BookingApp.Appl.UseCases
         public Tour GetById(int id)
         {
             return _repository.GetTourById(id);
+        }
+        public Tour Save(Tour tour)
+        {
+            return _repository.SaveTour(tour);
+        }
+        public int NextId()
+        {
+            return _repository.NextIdForTour();
         }
 
     }

@@ -76,21 +76,6 @@ namespace BookingApp.Repositories
         }
 
 
-        // FUNKCIJA U CPREPOSITORYSERVICE??????
-        public List<CheckPoint> GetAllCheckPointsByTourId(int tourId)
-        {
-            List<CheckPoint> checkPointsForTour = new List<CheckPoint>();
-            _checkPoints = _serializer.FromCSV(FilePath);
-            foreach (CheckPoint checkPoint in _checkPoints)
-            {
-                if (checkPoint.TourId == tourId)
-                {
-                    checkPointsForTour.Add(checkPoint);
-                }
-            }
-            return checkPointsForTour;
-        }
-
         public CheckPoint GetCheckPointById(int? id)
         {
             _checkPoints = _serializer.FromCSV(FilePath);
@@ -99,7 +84,6 @@ namespace BookingApp.Repositories
             {
                 if (id == checkPoint.Id)
                 {
-                    Debug.WriteLine(checkPoint.IsChecked);
                     return checkPoint;
                 }
             }

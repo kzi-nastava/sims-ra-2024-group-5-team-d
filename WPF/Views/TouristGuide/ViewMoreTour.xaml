@@ -86,7 +86,7 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Select date and time:"/>
-                            <xctk:DateTimePicker x:Name="NewTourRealizationDateTimePicker" Value="{Binding SelectedDateTime}" Width="200"/>
+                            <xctk:DateTimePicker Value="{Binding SelectedDateTime}" Width="200"/>
                         </StackPanel>
                         <Button Content="Save" Click="SaveNewTourRealization_Click" Margin="5,10,0,0"/>
                     </StackPanel>
