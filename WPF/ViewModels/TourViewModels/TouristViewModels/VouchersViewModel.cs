@@ -33,7 +33,7 @@ namespace BookingApp.WPF.ViewModels
             repository = Injector.CreateInstance<IVoucherRepository>();
             foreach(Voucher v in repository.GetAll())
             {
-                if(v.User.Id == user.Id)
+                if(v.User.Id == user.Id && v.ExpireDate > DateTime.Now)
                     Vouchers.Add(new VoucherViewModel(v));
             }
             PastToursTabCommand = new RelayCommand(SwitchToPastTours);

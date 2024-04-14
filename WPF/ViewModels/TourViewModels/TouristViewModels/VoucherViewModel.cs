@@ -32,7 +32,7 @@ namespace BookingApp.WPF.ViewModels
             }
 
             ExpireDate = v.ExpireDate;
-
+            VoucherId = v.Id;
         }
 
 

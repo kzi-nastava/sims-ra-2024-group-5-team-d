@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="587"
              d:DesignWidth="1152">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -178,6 +184,7 @@
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <TextBlock Margin="25 10 25 10"
                             Grid.Row="0"
@@ -258,8 +265,17 @@
                                 <Run Text="{Binding CancellationDue, StringFormat='dd-MM-yyyy HH:mm'}" />
                             </TextBlock>
                         </StackPanel>
-                        <TextBlock Text="Use the Voucher"
+                        <Button Grid.Row="4"
+                                Visibility="{Binding VoucherNotInUse, Converter={StaticResource BoolToVisibilityConverter}}"
+                                BorderThickness="0"
+                                Command="{Binding UseVoucherCommand}"
+                                Background="White"
+                                Width="145"
+                                HorizontalAlignment="Left"
+                                Margin="55 0 0 0">
+                            <TextBlock Text="Use the Voucher"
                             FontSize="18"
+                                       Visibility="{Binding VoucherNotInUse}"
                              Grid.Row="4"
                             TextAlignment="Left"
                              FontWeight="DemiBold"
@@ -268,30 +284,77 @@
                             Width="360"
                             TextDecorations="Underline"
                                
-                            Margin="-5 -3 0 0"
-                            Padding="0 2 1 7">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Foreground" Value="Green"/>
-                                            <Setter Property="TextDecorations" Value="Underline"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
+                            Margin="0 0 0 0"
+                            Padding="0 0 0 0">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="Green"/>
+                                                <Setter Property="TextDecorations" Value="Underline"/>
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Button>
+
+
+
+                        <ListView Name="listView" Grid.Row="5"
+                                  Visibility="{Binding IsUseVoucherClicked, Converter={StaticResource BoolToVisibilityConverter}}"
+                                  ItemsSource="{Binding Vouchers}"
+                                  SelectedItem="{Binding SelectedVoucher}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Border BorderBrush="Gray"
+                                                            BorderThickness="1.5"
+                                                            CornerRadius="20"
+                                                            Height="60"
+                                                            Width="200"
+                                                            Margin="35 10 30 10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\voucher.png"
+                                                                   Height="45"
+                                                                   Width="45"
+                                                                   HorizontalAlignment="Right"
+                                                                   VerticalAlignment="Top"
+                                                                   Grid.Column="0"
+                                                                   Margin="10 0 0 0"/>
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0" FontSize="12"  Margin="0 0 0 0" Text="{Binding VoucherTitle}">
+
+                                                </TextBlock>
+                                                <TextBlock Grid.Row="1"  Margin="0 0 0 0" Text="{Binding ExpireDate, StringFormat='yyyy-MM-dd HH:mm'}" FontSize="12">
+
+                                                </TextBlock>
+                                                <Button Grid.Row="2"
+                                                        Content="Use"
+                                                    Command="{Binding DataContext.UseCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <TextBlock Margin="30 0 0 0" Grid.Row="6" Visibility="{Binding IsVoucherInUse, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Image Margin="0 -5 0 0" Source="C:\Users\Korisnik\Desktop\ikone\voucher.png" Width="20" Height="20"></Image>
+                            <Run Text="Voucher is used" FontWeight="DemiBold"></Run>
                         </TextBlock>
-                        <Grid Grid.Row="5">
-
-
-
-
-
-
-
-
-                        </Grid>
                     </Grid>
                 </Border>
                 <Border BorderBrush="Gray"
