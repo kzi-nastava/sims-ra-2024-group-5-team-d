@@ -1,6 +1,6 @@
 1|Tvrdjava|1|True
 2|Centar|1|True
-3|Fax|1|False
+3|Fax|1|True
 5|knez mihajlova|7|True
 6|Tvrdjava|7|False
 7|ivanova kuca|8|False
@@ -9,3 +9,6 @@
 10|ivanova kuca|11|False
 11|statua|12|False
 12|suboticki trg|12|False
+13|molim|3|False
+14|te|3|False
+15|radi|3|False

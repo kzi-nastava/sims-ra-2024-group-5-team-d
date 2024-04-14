@@ -16,6 +16,7 @@ using System.Windows;
 using System.ComponentModel;
 using System.Windows.Controls;
 using BookingApp.WPF.Commands;
+using System.Diagnostics;
 
 namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 {
@@ -46,6 +47,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             TourGuests = new ObservableCollection<TourGuestViewModel>();
             tourGuestService = new TourGuestService();
             checkPointService = new CheckPointService();
+            tourRealisationService = new TourRealisationService();
             tourGuestService.GetTourGuestsOnTourRealisation(tourRealisation.Id).ForEach(t => TourGuests.Add(new TourGuestViewModel(t.Id, t.FullName, t.Years, t.TourReservationId, t.CheckPointId)));
             checkPointService.GetAllCheckPointsByTourId(tour.Id).ForEach(cp => CheckPoints.Add(new CheckPointViewModel(cp.Id, cp.Name, cp.TourId, cp.IsChecked)));
             CheckPoints[0].IsChecked = true;
@@ -101,17 +103,19 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         }
         public void FinishTourButton_Click()
         {
+            Debug.WriteLine(tourRealisation.Id);
             TourRealisation realisation = tourRealisationService.GetTourRealisationById(tourRealisation.Id);
             realisation.IsFinished = true;
             tourRealisationService.Update(realisation);
-            var allCheckPoints = checkPointService.GetAll();
-            foreach (var cp in allCheckPoints)
-            {
-                cp.IsChecked = false;
-                checkPointService.Update(cp);
-            }
             CheckPoints.All(cp => cp.IsChecked = false);
+            ClearCheckPoints();
             BackButton_Click();
+        }
+        public void ClearCheckPoints()
+        {
+            List<CheckPoint> checkpoints = new List<CheckPoint>();
+            checkPointService.GetAllCheckPointsByTourId(tourRealisation.TourId).ForEach(cp => { cp.IsChecked = false; checkpoints.Add(cp); });
+            checkpoints.ForEach(cp =>  checkPointService.Update(cp) );
         }
         private void UpdateTourGuestCheckpoint(TourGuestViewModel tourGuest, int checkPointId)
         {
