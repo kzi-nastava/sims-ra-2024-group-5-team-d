@@ -39,7 +39,7 @@ namespace BookingApp.Appl.UseCases
         }
         private void UpdateReservation(GuestRequest guestRequest)
         {
-            AccommodationReservation reservation = accommodationReservationService.GetById(guestRequest.ReservationId);
+            AccommodationReservation reservation = accommodationReservationService.GetById(guestRequest.Id);
             reservation.ReservedFrom = guestRequest.NewReservedFrom;
             reservation.ReservedTo = guestRequest.NewReservedTo;
             reservation.RescheduledReservation = 1;
@@ -48,7 +48,7 @@ namespace BookingApp.Appl.UseCases
         private void SendNotification(GuestRequest guestRequest)
         {
             int receiverId = accommodationReservationService.GetById(guestRequest.ReservationId).UserId;
-            notificationService.CreateNotification(receiverId, guestRequest.ReservationId, Domain.Models.Type.REQUEST);
+            notificationService.CreateNotification(receiverId, guestRequest.Id, Domain.Models.Type.REQUEST);
         }
     }
 }

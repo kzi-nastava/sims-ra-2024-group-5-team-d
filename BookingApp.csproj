@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Services\**" />
+    <Compile Remove="WPF\ViewModels\GuestViewModel\**" />
     <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="WPF\ViewModels\GuestViewModel\**" />
     <None Remove="Services\**" />
+    <None Remove="WPF\ViewModels\GuestViewModel\**" />
     <Page Remove="Services\**" />
+    <Page Remove="WPF\ViewModels\GuestViewModel\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -317,7 +321,6 @@
   <ItemGroup>
     <Folder Include="Resources\Images\GuestImages\" />
     <Folder Include="Resources\Images\TouristImages\" />
-    <Folder Include="WPF\ViewModels\GuestViewModel\" />
   </ItemGroup>
 
   <ItemGroup>
