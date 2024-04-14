@@ -76,8 +76,11 @@ namespace BookingApp.Domain.Models
         }
         public bool IsRateable()
         {
-            Debug.WriteLine(DateTime.Now > ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now);
-            Debug.WriteLine(ReservedTo+Id.ToString());
+            Debug.WriteLine("ReservedTo: " + ReservedTo);
+            Debug.WriteLine("DateTime.Now: " + DateTime.Now);
+            Debug.WriteLine("ReservedTo.AddDays(5): " + ReservedTo.AddDays(5));
+            Debug.WriteLine(Id);
+            Debug.WriteLine("IsRateable: " + (DateTime.Now > ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now));
             return DateTime.Now>ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now;
         }
         public bool IsCancellable(int cancellationDeadLine)

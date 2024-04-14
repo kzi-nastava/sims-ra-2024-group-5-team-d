@@ -19,7 +19,6 @@
               VerticalAlignment="Top" 
               Cursor="Hand" 
               Background="Transparent" 
-              MouseLeftButtonDown="LeftMenu"
               Margin="10 6 10 6">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -28,64 +27,72 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Border BorderBrush="Black" BorderThickness="2" Height="70" Margin="0 0 0 6">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\inbox1.png" 
+                <Button Background="Transparent" BorderThickness="0" Command="{Binding SwitchViewCommand}" CommandParameter="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="C:\Users\lukai\Desktop\Resource\inbox1.png" 
                             Height="32" 
                             Width="32"
                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
-                    <TextBlock Text="Requests" 
+                        <TextBlock Text="Requests" 
                        FontSize="20"
                                HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center"/>
-                </Grid>
+                    </Grid>
+                </Button>
             </Border>
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2" Height="70" Margin="0 0 0 6">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\renovations.png" 
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding SwitchViewCommand}" CommandParameter="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="C:\Users\lukai\Desktop\Resource\renovations.png" 
                             Height="32" 
                             Width="32"
                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
-                    <TextBlock Text="Renovations" 
+                        <TextBlock Text="Renovations" 
                        FontSize="20"
                                HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center"/>
-                </Grid>
+                    </Grid>
+                </Button>
             </Border>
             <Border Grid.Row="2" BorderBrush="Black" BorderThickness="2" Height="70" Margin="0 0 0 6">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\star.png" 
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding SwitchViewCommand}" CommandParameter="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="C:\Users\lukai\Desktop\Resource\star.png" 
                             Height="32" 
                             Width="32"
                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
-                    <TextBlock Text="Reviews" 
+                        <TextBlock Text="Reviews" 
                        FontSize="20"
                                HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center"/>
-                </Grid>
+                    </Grid>
+                </Button>
             </Border>
             <Border Grid.Row="3" BorderBrush="Black" BorderThickness="2" Height="70">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\forum.png" 
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding SwitchViewCommand}" CommandParameter="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="C:\Users\lukai\Desktop\Resource\forum.png" 
                             Height="32" 
                             Width="32"
                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
-                    <TextBlock Text="Forum" 
+                        <TextBlock Text="Forum" 
                        FontSize="20"
                                HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center"/>
-                </Grid>
+                    </Grid>
+                </Button>
             </Border>
         </Grid>
     </Grid>

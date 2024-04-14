@@ -21,6 +21,18 @@ namespace BookingApp.Appl.UseCases
             guestRequestRepository = Injector.CreateInstance<IGuestRequestRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
         }
+        public List<GuestRequest> RequestsByUser(User user)
+        {
+            List<GuestRequest> requests = guestRequestRepository.GetAll();
+            List<GuestRequest> requestByUser = requests.Where(request => accommodationReservationRepository.GetById(request.ReservationId).UserId == user.Id).ToList();
+            return requestByUser;
+        }
+        public List<GuestRequest> GetAllRequestsForOwner(User owner)
+        {
+            List<GuestRequest> guestRequestsInProgress = guestRequestRepository.GetAll().Where(guestRequests => guestRequests.IsInProcess()).ToList();
+            List<AccommodationReservation> ownerReservations = accommodationReservationService.GetAllReservationsForOwner(owner);
+            return guestRequestsInProgress.Where(guestRequests => ownerReservations.Any(reservation => guestRequests.ReservationId == reservation.Id)).ToList();
+        }
         public List<GuestRequest> GetAll()
         {
             return guestRequestRepository.GetAll();
@@ -41,17 +53,6 @@ namespace BookingApp.Appl.UseCases
         {
             return guestRequestRepository.GetById(id);  
         }
-        public List<GuestRequest> RequestsByUser(User user)
-        {
-            List<GuestRequest> requests = guestRequestRepository.GetAll();
-            List<GuestRequest> requestByUser = requests.Where(request => accommodationReservationRepository.GetById(request.ReservationId).UserId == user.Id).ToList();
-            return requestByUser;
-        }
-        public List<GuestRequest> GetAllRequestsForOwner(User owner)
-        {
-            List<GuestRequest> guestRequestsInProgress = guestRequestRepository.GetAll().Where(guestRequests=>guestRequests.IsInProcess()).ToList();
-            List<AccommodationReservation> ownerReservations = accommodationReservationService.GetAllReservationsForOwner(owner);
-            return guestRequestsInProgress.Where(guestRequests => ownerReservations.Any(reservation => guestRequests.ReservationId == reservation.Id)).ToList();
-        }
+
     }
 }

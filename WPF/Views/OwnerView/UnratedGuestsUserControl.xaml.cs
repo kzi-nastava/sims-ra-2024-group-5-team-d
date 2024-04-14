@@ -26,40 +26,10 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class UnratedGuestsUserControl : UserControl
     {
-        public static ObservableCollection<UnratedGuestViewModel> UnratedGuests { get; set; }
-        public UnratedGuestViewModel SelectedGuest { get; set; }
-        private UserService userService;
-        private AccommodationService accommodationService;
-        private User loggedInUser;
-        private UnratedGuestService unratedGuestService;
         public UnratedGuestsUserControl(User user)
-        {
-            accommodationService = new AccommodationService();
-            userService = new UserService();
-            unratedGuestService = new UnratedGuestService();
-            loggedInUser = user;
-            UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
-            DataContext = this;
-            unratedGuestService.GetUnratedGuests(loggedInUser)
-                                .ForEach(unratedGuest => UnratedGuests.Add
-                                (new UnratedGuestViewModel(unratedGuest.Id, userService.GetById(unratedGuest.UserId).FullName, unratedGuest.ReservedFrom, unratedGuest.ReservedTo, accommodationService.GetById(unratedGuest.AccommodationId).Location, accommodationService.GetAccommodationNameById(unratedGuest.AccommodationId)))
-                                );
+        {     
             InitializeComponent();
+            DataContext = new UnratedGuestsViewModel(user);
         }
-
-
-         private void RateGuest(object sender, RoutedEventArgs e)
-         {
-            if(SelectedGuest!=null)
-            {
-                RateGuestFormWindow rateFormWindow = new RateGuestFormWindow(SelectedGuest);
-                Window parentWindow = Window.GetWindow(this);
-                rateFormWindow.Owner = parentWindow;
-                rateFormWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                rateFormWindow.ShowDialog();
-            }    
-
-
-         }
     }
 }

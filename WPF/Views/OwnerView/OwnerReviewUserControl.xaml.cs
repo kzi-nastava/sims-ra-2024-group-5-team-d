@@ -26,32 +26,10 @@ namespace BookingApp.WPF.Views.OwnerView
     /// </summary>
     public partial class OwnerReviewUserControl : UserControl
     {
-        public static ObservableCollection<UnratedGuestViewModel>UnratedGuests { get; set; }
-        private UnratedGuestService unratedGuestService;
-        private User LoggedInUser;
-        private UserService userService;
         public OwnerReviewUserControl(User user)
         {
-            userService = new UserService();
-            LoggedInUser = user;
-            unratedGuestService = new UnratedGuestService();
-            UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
-            DataContext = this;
-            unratedGuestService.GetUnratedGuests(LoggedInUser)
-                                .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userService.GetById(unratedGuest.UserId).FullName)));
+            DataContext=new OwnerReviewViewModel(user);
             InitializeComponent();
-        }
-        private void RateGuest(object sender, RoutedEventArgs e)
-        {
-            UnratedGuestsUserControl unratedGuestsWindow = new UnratedGuestsUserControl(LoggedInUser);
-            OwnerMainWindow.contentControl.Content = unratedGuestsWindow;
-
-        }
-
-        private void OwnerRates(object sender, RoutedEventArgs e)
-        {
-            OwnerRatingsUserControl ownerRatingsUserControl = new OwnerRatingsUserControl(LoggedInUser);
-            OwnerMainWindow.contentControl.Content = ownerRatingsUserControl;
         }
     }
 }

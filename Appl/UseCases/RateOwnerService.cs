@@ -39,8 +39,6 @@ namespace BookingApp.Appl.UseCases
             accommodation.AverageRating = accommodationAverageRating;
             accommodationRatingRepository.Save(accommodationRating);
             accommodationRepository.Update(accommodation);
-            Debug.WriteLine("Accommodation average rating: " + accommodationAverageRating);
-            Debug.WriteLine("Owner average rating: " + ownerAverageRating);
             accommodationService.UpdateOwnerStatus(ownerAverageRating, accommodation.Owner);
         }
 

@@ -65,6 +65,41 @@ namespace BookingApp.Appl.UseCases
         {
            return GetAll().Where(notification => notification.ReceiverId == user.Id).ToList();
         }
+        public Notification GetRateNotificationByReservationId(int reservationId)
+        {
+            return GetAll().Where(notification => (notification.LinkId == reservationId && notification.IsRate())).FirstOrDefault();
+        }
+        public List<Notification> GetByReceiverId(int receiverId)
+        {
+            return notificationRepository.GetByReceiverId(receiverId);
+        }
+        public string GenerateMessage(Notification notification)
+        {
+            switch (notification.Type)
+            {
+                case Domain.Models.Type.RATE:
+                    return "Rate your guest that stayed at " + accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
+                case Domain.Models.Type.REQUEST:
+                    return "You have a new request click to see more";
+                case Domain.Models.Type.FORUM:
+                    return "New forum oppened on location where you have accommodation";
+                case Domain.Models.Type.CANCEL:
+                    return "Your guest has cancelled reservation at " + accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
+                case Domain.Models.Type.LIVETOUR:
+                    return "GAS";
+                default:
+                    return "";
+            }
+        }
+        public User GetSender(Notification notification)
+        {
+            return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
+        }
+        public void CreateNotification(int receiverId, int linkId, Domain.Models.Type type)
+        {
+            Notification notification = new Notification(receiverId, linkId, type, DateTime.Now, false);
+            Save(notification);
+        }
         public List<Notification>GetAll()
         {
             return notificationRepository.GetAll();
@@ -84,41 +119,6 @@ namespace BookingApp.Appl.UseCases
         public Notification Update(Notification notification)
         {
             return notificationRepository.Update(notification);
-        }
-        public Notification GetRateNotificationByReservationId(int reservationId)
-        {
-            return GetAll().Where(notification => (notification.LinkId == reservationId && notification.IsRate())).FirstOrDefault();
-        }
-        public List<Notification> GetByReceiverId(int receiverId)
-        {
-            return notificationRepository.GetByReceiverId(receiverId);
-        }
-        public string GenerateMessage(Notification notification)
-        {
-            switch (notification.Type)
-            {
-                case Domain.Models.Type.RATE:
-                    return "Rate your guest that stayed at " +accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
-                case Domain.Models.Type.REQUEST:
-                    return "You have a new request click to see more";
-                case Domain.Models.Type.FORUM:
-                    return "New forum oppened on location where you have accommodation";
-                case Domain.Models.Type.CANCEL:
-                    return "Your guest has cancelled reservation at "+ accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
-                case Domain.Models.Type.LIVETOUR:
-                    return "GAS";
-                default:
-                    return "";
-            }
-        }
-        public User GetSender(Notification notification)
-        {
-            return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
-        }
-        public void CreateNotification(int receiverId,int linkId, Domain.Models.Type type)
-        {
-            Notification notification = new Notification(receiverId,linkId, type, DateTime.Now, false);
-            Save(notification);
         }
     }
 }

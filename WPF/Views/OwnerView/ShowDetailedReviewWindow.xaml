@@ -22,7 +22,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding GuestName}" FontSize="32" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="{Binding OwnerRatingsViewModel.GuestName}" FontSize="32" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -38,7 +38,7 @@
                                                Height="32"
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center"  Margin="0 0 10 0"/>
-                <TextBlock Grid.Column="1" Text="{Binding AccommodationName}" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding OwnerRatingsViewModel.AccommodationName}" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Column="1" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -50,7 +50,7 @@
                                                Height="24"
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center" Margin="0 0 5 0"/>
-                <TextBlock Grid.Column="1" Text="{Binding Location}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding OwnerRatingsViewModel.Location}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="2" Margin="30 10 30 0">
@@ -64,7 +64,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="{Binding CleanlinessRating}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24"/>
+                <Label Grid.Column="0" Content="{Binding OwnerRatingsViewModel.CleanlinessRating}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24"/>
                 <Image Grid.Column="1" Source="C:\Users\lukai\Desktop\Resource\star.png" 
                                                Width="32" 
                                                Height="32"
@@ -83,7 +83,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="{Binding CorrectnessRating}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24"/>
+                <Label Grid.Column="0" Content="{Binding OwnerRatingsViewModel.CorrectnessRating}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24"/>
                 <Image Grid.Column="1" Source="C:\Users\lukai\Desktop\Resource\star.png" 
                                                Width="32" 
                                                Height="32"
@@ -137,7 +137,7 @@
             </Button>
         </Grid>
         <TextBlock Grid.Row="5" Text="Additional comment :" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Margin="0 0 0 10"/>
-        <TextBox IsReadOnly="True" FontSize="20" Text="{Binding Comment}" Grid.Row="6" Padding="10" BorderBrush="Black" BorderThickness="2" Margin="20 0 20 0" TextWrapping="WrapWithOverflow"/>
+        <TextBox IsReadOnly="True" FontSize="20" Text="{Binding OwnerRatingsViewModel.Comment}" Grid.Row="6" Padding="10" BorderBrush="Black" BorderThickness="2" Margin="20 0 20 0" TextWrapping="WrapWithOverflow"/>
         <Button Margin="0 10 0 10" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Click="Close">
             <Border BorderBrush="Black" BorderThickness="2" Padding="2">
                 <TextBlock Text="OK" FontSize="24" Margin="5 0 5 0"/>

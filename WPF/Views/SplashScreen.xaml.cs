@@ -26,16 +26,12 @@ namespace BookingApp.WPF.Views
         {
             InitializeComponent();
 
-            // Postavljanje prozora da bude proziran
             this.WindowStyle = WindowStyle.None;
             this.AllowsTransparency = true;
             this.Background = null;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            // Postavljanje logotipa i imena aplikacije
-            // Ovde dodajte logotip i ime aplikacije
 
-            // Postavljanje tajmera za kašnjenje
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);//TREBA 5 ili 4 sekunde
             timer.Tick += Timer_Tick;
@@ -44,15 +40,12 @@ namespace BookingApp.WPF.Views
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // Zaustavljanje tajmera
             timer.Stop();
 
-            // Otvaranje glavnog prozora ili početka aplikacije
             LoginScreen loginScreen = new LoginScreen();
             loginScreen.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             loginScreen.Show();
 
-            // Zatvaranje SplashScreen prozora
             this.Close();
         }
     }

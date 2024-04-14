@@ -89,7 +89,7 @@
                 </Grid>
             </Border>
             <Border BorderBrush="Black" 
-                    Grid.Row="0" 
+                    Grid.Row="0"
                     BorderThickness="1" 
                     Grid.Column="1" 
                     CornerRadius="20"
@@ -143,7 +143,7 @@
                                Style="{StaticResource TextBlockPaddingStyle}">
                     </TextBlock>
                     <Border CornerRadius="900" Grid.Column="2" Background="Red" Width="15" Height="15" VerticalAlignment="Center" Margin="-20 -10 10 0">
-                        <TextBlock Foreground="AntiqueWhite" Margin="0 0 0 0" x:Name="numberOfNotify" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" Height="15" Width="auto"/>
+                        <TextBlock Foreground="AntiqueWhite" Margin="0 0 0 0" Text="{Binding NumberOfNotifications}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" Height="15" Width="auto"/>
                     </Border>
 
                 </Grid>
