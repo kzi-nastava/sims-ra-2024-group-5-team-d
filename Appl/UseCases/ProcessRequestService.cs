@@ -39,7 +39,7 @@ namespace BookingApp.Appl.UseCases
         }
         private void UpdateReservation(GuestRequest guestRequest)
         {
-            AccommodationReservation reservation = accommodationReservationService.GetById(guestRequest.Id);
+            AccommodationReservation reservation = accommodationReservationService.GetById(guestRequest.ReservationId);
             reservation.ReservedFrom = guestRequest.NewReservedFrom;
             reservation.ReservedTo = guestRequest.NewReservedTo;
             reservation.RescheduledReservation = 1;
