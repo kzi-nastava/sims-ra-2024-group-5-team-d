@@ -24,6 +24,8 @@ namespace BookingApp.WPF.ViewModels
         User User { get; set; }
         public ICommand PastToursTabCommand { get; private set; }
 
+        public ICommand VouchersTabCommand { get; private set; }
+
         public List<CheckPoint> CheckPoints { get; set; }
         public TourReservation Reservation { get; set; }
         public Tour Tour { get; set; }
@@ -46,6 +48,7 @@ namespace BookingApp.WPF.ViewModels
             realisationService = new TourRealisationService();
             CheckPoints = new List<CheckPoint>();
             PastToursTabCommand = new RelayCommand(SwitchToPastTours);
+            VouchersTabCommand = new RelayCommand(SwitchToVouchers);
             Reservation = reservationService.GetLiveTourReservation(user.Id);
             if(Reservation != null )
             {
@@ -82,6 +85,11 @@ namespace BookingApp.WPF.ViewModels
         public void SwitchToPastTours()
         {
             TouristHomeWindow.contentControl.Content = new PastToursUserControl(User);
+        }
+
+        public void SwitchToVouchers()
+        {
+            TouristHomeWindow.contentControl.Content = new VouchersUserControl(User);
         }
 
         private void CreateProgressSteps()

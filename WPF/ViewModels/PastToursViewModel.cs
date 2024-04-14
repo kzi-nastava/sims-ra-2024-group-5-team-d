@@ -29,6 +29,8 @@ namespace BookingApp.WPF.ViewModels
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand RateSubmitButtonClickCommand { get; set; }
         public ICommand LiveTourTabCommand { get; private set; }
+        public ICommand VouchersTabCommand { get; private set; }
+
         public User User;
         public ObservableCollection<RateTourViewModel> PastTourRealisations { get; set; }
         private RateTourService tourRateService;
@@ -64,6 +66,7 @@ namespace BookingApp.WPF.ViewModels
             }
             imagesPath = new List<string>();
             LiveTourTabCommand = new RelayCommand(SwitchToLiveTour);
+            VouchersTabCommand = new RelayCommand(SwitchToVouchers);
             RateSubmitButtonClickCommand = new RelayCommand(RateSubmitButtonClick);
             SelectionChangedCommand = new RelayParameterCommand(ListViewSelectionChanged);
             GuidesKnowladgeRatingCommand = new RelayParameterCommand(RateGuideKnowledge);
@@ -89,6 +92,11 @@ namespace BookingApp.WPF.ViewModels
         public void SwitchToLiveTour()
         {
             TouristHomeWindow.contentControl.Content = new YourToursUserControl(User);
+        }
+
+        public void SwitchToVouchers()
+        {
+            TouristHomeWindow.contentControl.Content = new VouchersUserControl(User);
         }
 
         public void RateSubmitButtonClick()
