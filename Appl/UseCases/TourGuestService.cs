@@ -63,11 +63,11 @@ namespace BookingApp.Appl.UseCases
             return guests;
         }
 
-        public TourGuest GetTourGuestByPersonalId(string id)
+        public TourGuest GetTourGuestByPersonalId(string id, int reservationId)
         {
             foreach (TourGuest guest in _repository.GetAllTourGuests())
             {
-                if (guest.PersonalID == id)
+                if (guest.PersonalID == id && guest.TourReservationId == reservationId)
                 {
                     return guest;
                 }

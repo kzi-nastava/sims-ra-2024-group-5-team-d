@@ -25,6 +25,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public ICommand BackCommand { get; set; }
         public ICommand FinishTourCommand { get; set; }
         public ICommand CheckClickCommand { get; set; }
+        public ICommand SignUpCommand { get; set; }
         public User LoggedInUser { get; set; }
         public TourRealisationViewModel tourRealisation { get; set; }
         public TourViewModel tour { get; set; }
@@ -41,6 +42,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             BackCommand = new RelayCommand(BackButton_Click);
             FinishTourCommand = new RelayCommand(FinishTourButton_Click);
             CheckClickCommand = new RelayCommand(Check_Click);
+            SignUpCommand = new RelayCommand(SignUpButton_Click);
             tourRealisation = tourRealisationViewModel;
             tour = tourViewModel;
             CheckPoints = new ObservableCollection<CheckPointViewModel>();
@@ -83,7 +85,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         }
 
 
-        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        private void SignUpButton_Click()
         {
             var selectedCheckPoint = (CheckPointViewModel)LiveTourView.CheckPointsListView.SelectedItem;
 
@@ -121,7 +123,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         {
             tourGuest.CheckPointId = checkPointId;
 
-            TourGuest guest = new TourGuest(tourGuest.Id, tourGuest.FullName, tourGuest.Years, tourGuest.TourReservationId, tourGuest.CheckPointId);
+            TourGuest guest = new TourGuest(tourGuest.Id, tourGuest.FullName, tourGuest.Years, tourGuest.TourReservationId, tourGuest.CheckPointId, tourGuest.PersonalID);
             tourGuestService.Update(guest);
         }
 

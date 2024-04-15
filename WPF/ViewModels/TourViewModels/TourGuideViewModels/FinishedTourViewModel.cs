@@ -139,8 +139,8 @@ namespace BookingApp.WPF.ViewModels
                 TourReservation reservation = tourReservationService.GetById(rating.TourReservationId);
                 TourRealisation realisation = tourRealisationService.GetTourRealisationById(reservation.TourRealisationId);
                 User user = userService.GetById(reservation.User.Id);
-                TourGuest guest = tourGuestService.GetTourGuestByPersonalId(user.PersonalId);
-                if (realisation.TourId == SelectedTour.Id)
+                TourGuest guest = tourGuestService.GetTourGuestByPersonalId(user.PersonalId,reservation.Id);
+                if (realisation.TourId == SelectedTour.Id && guest.TourReservationId == reservation.Id)
                 {
                     TourGuestRatingViewModel tourGuestRating = new TourGuestRatingViewModel(rating.Id, guest.FullName, guest.Years, checkPointService.GetById(guest.CheckPointId).Name, realisation.StartTime, rating.TouristLanguage, rating.TouristKnowladge, rating.TourAmusement, rating.Comment,rating.IsValid);
                     ratings.Add(tourGuestRating);
