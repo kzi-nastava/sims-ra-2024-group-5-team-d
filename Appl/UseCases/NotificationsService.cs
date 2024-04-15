@@ -30,22 +30,20 @@ namespace BookingApp.Appl.UseCases
         {
             reservations.ForEach(reservation=> {
                Notification notification= GetRateNotificationByReservationId(reservation.Id);
-                if (notification != null)
+                if (NotificationExists(notification))
                 {
                     if (reservation.IsRateable())
                     {
-                        if (notification.IsRead == true)
+                        if (notification.IsRead)
                         {
-                            notification.IsRead = false;
-                            Update(notification);
+                            UnReadNotification(notification);
                         }
                     }
                     else
                     {
                         if(notification.IsRead==false)
                         {
-                            notification.IsRead = true;
-                            Update(notification);
+                           ReadNotification(notification);
                         }
                     }
 
@@ -56,6 +54,32 @@ namespace BookingApp.Appl.UseCases
                     Save(notification);
                 }
             });
+        }
+        private bool NotificationExists(Notification notification)
+        {
+            return notification != null;
+        }
+        public List<Notification> GetSortedNotificationsForUser(User user)
+        {
+            List<Notification> notificationsForUser = GetByReceiverId(user.Id);
+            return SortNotifications(notificationsForUser);
+  
+        }
+        public List<Notification> SortNotifications(List<Notification> notifications)
+        {
+            notifications.Sort((x, y) =>
+            {
+                int isReadComparison = x.IsRead.CompareTo(y.IsRead);
+                if (isReadComparison != 0)
+                {
+                    return isReadComparison;
+                }
+                else
+                {
+                    return y.DateCreated.CompareTo(x.DateCreated);
+                }
+            });
+            return notifications;
         }
         public List<Notification> GetUnreadNotificationsCountForUser(User user)
         {
@@ -99,6 +123,16 @@ namespace BookingApp.Appl.UseCases
         {
             Notification notification = new Notification(receiverId, linkId, type, DateTime.Now, false);
             Save(notification);
+        }
+        public void ReadNotification(Notification notification)
+        {
+            notification.IsRead = true;
+            Update(notification);
+        }
+        public void UnReadNotification(Notification notification)
+        {
+            notification.IsRead = false;
+            Update(notification);
         }
         public List<Notification>GetAll()
         {

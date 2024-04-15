@@ -49,11 +49,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 AccommodationReservation reservation = accommodationReservationService.GetById(guestRequest.ReservationId);
                 User guest = userService.GetById(reservation.UserId);
                 Accommodation accommodation = accommodationService.GetById(reservation.AccommodationId);
-                List<KeyValuePair<DateTime, DateTime>> found = availableDatesForReservationService.CheckAvailableDatesInGivenRange(guestRequest.NewReservedFrom, guestRequest.NewReservedTo, (guestRequest.NewReservedTo - guestRequest.NewReservedFrom).Days, accommodation);
-                if (found.Count == 0)
-                    message = "No available dates for reservation";
-                else
-                    message = "";
+                message = availableDatesForReservationService.GenerateMessageForAvailableDates(guestRequest,accommodation);
                 Requests.Add(new RequestViewModel(guestRequest.Id, guest.FullName, accommodation.Name, accommodation.Location, reservation.ReservedFrom, reservation.ReservedTo, guestRequest.NewReservedFrom, guestRequest.NewReservedTo, message));
             });
         }

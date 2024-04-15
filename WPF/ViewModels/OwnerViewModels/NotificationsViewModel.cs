@@ -28,25 +28,12 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         {
             notificationsService = new NotificationsService();
             loggedInUser = user;
-            Notifications = new ObservableCollection<NotificationViewModel>();
-            List<Notification>notificationsForUser = notificationsService.GetByReceiverId(user.Id);
-            notificationsForUser.Sort((x, y) =>
-            {
-                int isReadComparison = x.IsRead.CompareTo(y.IsRead);
-                if (isReadComparison != 0)
-                {
-                    return isReadComparison;
-                }
-                else
-                {
-                    return y.DateCreated.CompareTo(x.DateCreated);
-                }
-            });
-            notificationsForUser.ForEach(notification =>
+            Notifications = new ObservableCollection<NotificationViewModel>();           
+            notificationsService.GetSortedNotificationsForUser(user).ForEach(notification =>
             {
                 message=notificationsService.GenerateMessage(notification);
                 User sender= notificationsService.GetSender(notification);
-                Notifications.Add(new NotificationViewModel(message, notification.DateCreated, notification.Id, notification.IsRead, sender.FullName));
+                Notifications.Add(new NotificationViewModel(message,notification,sender));
             });
             SelectionChangedCommand = new RelayParameterCommand(ListViewSelectionChanged);
             OpenNotification = new RelayCommand(OpenNotificationWindow);
@@ -72,8 +59,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                         OwnerMainWindow.contentControl.Content = new RequestsUserControl(loggedInUser);
                         break;
                 }
-                notification.IsRead= true;
-                notificationsService.Update(notification);
+                notificationsService.ReadNotification(notification);
             }
         }
     }

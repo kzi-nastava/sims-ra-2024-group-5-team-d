@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Domain.Models;
+using System;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
@@ -19,6 +20,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             Message = message;
             Date = date;
             SenderName = senderName;
+        }
+        public NotificationViewModel(string message,Notification notification, User user)
+        {
+            IsUnread = !notification.IsRead;
+            NotificationId = notification.Id;
+            Message = message;
+            Date = notification.DateCreated;
+            SenderName = user.FullName;
         }
     }
 }

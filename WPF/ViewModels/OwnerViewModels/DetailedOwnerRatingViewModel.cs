@@ -41,26 +41,29 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         }
         public void Backward()
         {
-            PaginationIndex = PaginationIndex - 3;
-            ImagesPaths.Clear();
+            if (PaginationIndex > 2)
+            {
+                PaginationIndex = PaginationIndex - 3;
+                ImagesPaths.Clear();
+                ShowImages();
+
+            }
+        }
+        private void ShowImages() {
             for (int i = PaginationIndex; i < imagesPaths.Count; i++)
             {
                 ImagesPaths.Add(imagesPaths[i]);
                 if (ImagesPaths.Count > 2)
                     break;
             }
-
-
         }
         public void Forward()
         {
-            PaginationIndex = PaginationIndex + 3;
-            ImagesPaths.Clear();
-            for (int i = PaginationIndex; i < imagesPaths.Count; i++)
+            if(PaginationIndex + 3 < imagesPaths.Count)
             {
-                ImagesPaths.Add(imagesPaths[i]);
-                if (ImagesPaths.Count > 2)
-                    break;
+                PaginationIndex = PaginationIndex + 3;
+                ImagesPaths.Clear();
+                ShowImages();
             }
         }
     }
