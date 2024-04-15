@@ -97,6 +97,14 @@ namespace BookingApp.Appl.UseCases
         {
             return reservation.Cancelled == 1;
         }
+        public string GenerateMessageForAvailableDates(GuestRequest guestRequest,Accommodation accommodation)
+        {
+            List<KeyValuePair<DateTime, DateTime>> found = CheckAvailableDatesInGivenRange(guestRequest.NewReservedFrom, guestRequest.NewReservedTo, (guestRequest.NewReservedTo - guestRequest.NewReservedFrom).Days, accommodation);
+            if (found.Count == 0)
+                return "No available dates for reservation";
+            else
+                return "";
+        }
 
 
     }
