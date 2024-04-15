@@ -34,7 +34,7 @@ namespace BookingApp.Appl.UseCases
             accommodationRepository.GetByUser(user).ForEach(accommodation => { accommodation.IsSuperOwner = false; accommodationRepository.Update(accommodation); });
         }
         public void UpdateOwnerStatus(double averageOwnerRating,User owner) {
-            if (averageOwnerRating > 4.5 && !IsSuperOwner(owner))
+            if (averageOwnerRating >= 4.5 && !IsSuperOwner(owner))
                 UpgradeToSuperOwner(owner);
             else if (averageOwnerRating < 4.5 && IsSuperOwner(owner))
                 DowngradeFromSuperOwner(owner);
