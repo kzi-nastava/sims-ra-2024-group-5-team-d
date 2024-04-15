@@ -19,25 +19,36 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\AccommodationImages\Accommodation11\13.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation13\hero-image.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation17\PROBAAAAAAA.png" />
-    <None Remove="Resources\AccommodationImages\Accommodation2\13.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation2\hero-image - Copy.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation2\hero-image.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation4\sadsadsa.jpeg" />
-    <None Remove="Resources\AccommodationImages\Accommodation5\image268.png" />
-    <None Remove="Resources\AccommodationImages\Accommodation6\2857hotel-na-kopaoniku.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation7\Oakford.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation8\a.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation9\b.jpg" />
-    <None Remove="Resources\AccommodationImages\Accommodation10\12.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation10\3337-Crocker-Dr-1.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation10\smestaj2.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation10\sobica.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation10\sobicak.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation1\3337-Crocker-Dr-1.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation1\smestaj1.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation2\image.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation2\smestaj1.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation2\smestaj2.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation2\thumbnail.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation3\glavnaZlatibor.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation4\snegg.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation4\soba.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation4\thumbnail.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation5\505136c2d097587b15efff78031c1d60-full.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation6\download.jpeg" />
+    <None Remove="Resources\AccommodationImages\Accommodation7\bazen.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation8\smestaj.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation8\smestaj1.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation8\smestaj2.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation8\smestaj3.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation9\image.jpg" />
     <None Remove="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf" />
     <None Remove="Resources\Fonts\OpenSans-VariableFont_wdth,wght.ttf" />
     <None Remove="Resources\Fonts\OpenSans_Condensed-Regular.ttf" />
-    <None Remove="Resources\GuestRatingImages\GuestRating1\primerTeorija2022.jpeg" />
-    <None Remove="Resources\GuestRatingImages\GuestRating1\smestaj.jpg" />
-    <None Remove="Resources\GuestRatingImages\GuestRating2\smestaj.jpg" />
+    <None Remove="Resources\GuestRatingImages\GuestRating1\3337-Crocker-Dr-1.jpg" />
+    <None Remove="Resources\GuestRatingImages\GuestRating1\download.jpeg" />
+    <None Remove="Resources\GuestRatingImages\GuestRating1\soba.jpg" />
+    <None Remove="Resources\GuestRatingImages\GuestRating1\thumbnail.jpg" />
+    <None Remove="Resources\GuestRatingImages\GuestRating2\jezerce.jpg" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
@@ -97,19 +108,85 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\AccommodationImages\Accommodation17\PROBAAAAAAA.png">
+    <Content Include="Resources\AccommodationImages\Accommodation10\3337-Crocker-Dr-1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation2\13.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation10\smestaj2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\GuestRatingImages\GuestRating1\primerTeorija2022.jpeg">
+    <Content Include="Resources\AccommodationImages\Accommodation10\sobica.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\GuestRatingImages\GuestRating1\smestaj.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation10\sobicak.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\GuestRatingImages\GuestRating2\smestaj.jpg">
+    <Content Include="Resources\AccommodationImages\Accommodation1\3337-Crocker-Dr-1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation1\smestaj1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation2\image.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation2\smestaj1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation2\smestaj2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation2\thumbnail.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation3\glavnaZlatibor.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation4\snegg.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation4\soba.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation4\thumbnail.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation5\505136c2d097587b15efff78031c1d60-full.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation6\download.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation7\bazen.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation8\smestaj.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation8\smestaj1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation8\smestaj2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation8\smestaj3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation9\image.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GuestRatingImages\GuestRating1\3337-Crocker-Dr-1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GuestRatingImages\GuestRating1\download.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GuestRatingImages\GuestRating1\soba.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GuestRatingImages\GuestRating1\thumbnail.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GuestRatingImages\GuestRating2\jezerce.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuideImages\RedFlag.png">
@@ -130,36 +207,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\AccommodationImages\Accommodation11\13.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation13\hero-image.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation2\hero-image.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation8\a.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation9\b.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation10\12.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation4\sadsadsa.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation5\image268.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation6\2857hotel-na-kopaoniku.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AccommodationImages\Accommodation7\Oakford.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -325,9 +372,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
-     <Content Include="Resources\AccommodationImages\Accommodation2\hero-image - Copy.jpg">
-       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-     </Content>
      <Resource Include="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -341,11 +385,5 @@
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resources\AccommodationImages\Accommodation18\AHHAHAHHAHHAHA.jpg" />
-    <Content Include="Resources\AccommodationImages\Accommodation18\AHHAHAHHAHHAHA.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 </Project>

@@ -71,7 +71,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         {
             if (SelectedRequest != null)
             {
-                if (message == "")
+                if (SelectedRequest.Message == "")
                 {
                     Requests.Remove(SelectedRequest);
                     processRequestService.AcceptRequest(guestRequestService.GetById(SelectedRequest.RequestId));
