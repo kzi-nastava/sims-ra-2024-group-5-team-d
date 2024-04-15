@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,13 +47,13 @@ namespace BookingApp.Domain.Models
             Cleanliness = Convert.ToInt32(values[4]);
             Correctness = Convert.ToInt32(values[5]);
             Comment = values[6];
-            TimeOfRating = DateOnly.Parse(values[7]);
+            TimeOfRating = DateOnly.ParseExact(values[7], "M/d/yyyy", CultureInfo.InvariantCulture);
             ImagesPath = values[8];
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString(), ImagesPath };
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString("M/d/yyyy"), ImagesPath };
             return csvValues;
         }
         public double GetAverageRating()
