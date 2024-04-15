@@ -1,15 +1,10 @@
-2|Aleksa apartment|0|APARTMENT|1|5|1|../../../Resources/AccommodationImages/Accommodation2|3|4|False
-4|Flower|0|APARTMENT|1|21|11|../../../Resources/AccommodationImages/Accommodation4|3|0|False
-5|Hotel Aleksandar|7|HOUSE|5|3|5|../../../Resources/AccommodationImages/Accommodation5|3|0|True
-6|Hotel Ice|9|HOUSE|4|1|2|../../../Resources/AccommodationImages/Accommodation6|3|0|False
-7|Cozy cottage|3|COTTAGE|10|2|10|../../../Resources/AccommodationImages/Accommodation7|3|0|False
-8|Etno selo Kucerak|5|COTTAGE|7|1|4|../../../Resources/AccommodationImages/Accommodation8|3|0|False
-9|Villager cottage|8|COTTAGE|12|3|15|../../../Resources/AccommodationImages/Accommodation9|3|1.5|False
-10|Maja apartments|9|APARTMENT|4|1|2|../../../Resources/AccommodationImages/Accommodation10|3|0|False
-11|Top hill|2|APARTMENT|3|5|11|../../../Resources/AccommodationImages/Accommodation11|3|0|False
-12|Star apartments|6|APARTMENT|5|3|1|../../../Resources/AccommodationImages/Accommodation12|3|0|False
-13|NAjjjace|4|HOUSE|2|1|18|../../../Resources/AccommodationImages/Accommodation13|3|0|False
-14|PRoba|3|HOUSE|2|3|1|../../../Resources/AccommodationImages/Accommodation14|3|0|False
-15|IDEGAS|6|HOUSE|2|3|1|../../../Resources/AccommodationImages/Accommodation15|3|0|True
-17||0|APARTMENT|0|0|0|../../../Resources/AccommodationImages/Accommodation17|3|0|False
-18||0|APARTMENT|0|0|0|../../../Resources/AccommodationImages/Accommodation18|3|0|False
+1|Sunset Villa|0|COTTAGE|5|1|3|../../../Resources/AccommodationImages/Accommodation1|3|0|False
+2|Seaside Retreat|3|COTTAGE|2|3|10|../../../Resources/AccommodationImages/Accommodation2|3|0|False
+3|Mountain Haven|9|HOUSE|5|1|90|../../../Resources/AccommodationImages/Accommodation3|3|0|False
+4|Lakeside Lodge|5|COTTAGE|10|2|7|../../../Resources/AccommodationImages/Accommodation4|3|0|False
+5|Forest Hideaway|4|APARTMENT|5|10|1|../../../Resources/AccommodationImages/Accommodation5|3|0|False
+6|Ocean Breeze Inn|6|HOUSE|4|1|2|../../../Resources/AccommodationImages/Accommodation6|3|3.5|False
+7|Alpine Chalet|7|APARTMENT|1|1|1|../../../Resources/AccommodationImages/Accommodation7|3|0|False
+8|Riverfront Cottage|2|COTTAGE|4|1|2|../../../Resources/AccommodationImages/Accommodation8|3|1.5|False
+9|Desert Oasis Resort|2|APARTMENT|4|1|4|../../../Resources/AccommodationImages/Accommodation9|3|0|False
+10|Urban Loft Apartments|0|HOUSE|2|4|15|../../../Resources/AccommodationImages/Accommodation10|3|0|False

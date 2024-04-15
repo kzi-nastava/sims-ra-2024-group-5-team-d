@@ -29,6 +29,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             loggedInUser = user;
             guestRequestService = new GuestRequestService();
             this.guestRequest = guestRequestService.GetById(guestRequest.RequestId);
+            GuestName = guestRequest.GuestName;
             guestRequestViewModel = guestRequest;
         }
         private void DenyRequest()
