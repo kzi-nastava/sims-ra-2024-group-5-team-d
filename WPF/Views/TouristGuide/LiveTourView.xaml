@@ -25,7 +25,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" HorizontalAlignment="Left"  Background="Transparent" BorderBrush="Transparent" Command="{Binding DataContext.BackCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+        <Button Grid.Row="0" HorizontalAlignment="Left"  Background="Transparent" BorderBrush="Transparent" Command="{Binding BackCommand}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Icons/Card/Alt Arrow Left.png" Width="16" Height="16"/>
                 <Label Content="Back" Margin="5,0,0,0"/>
@@ -114,7 +114,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Command="{Binding DataContext.FinishTourCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
-        <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Command="{Binding DataContext.SignUpCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+        <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Command="{Binding FinishTourCommand}" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Command="{Binding SignUpCommand}" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
     </Grid>
 </UserControl>

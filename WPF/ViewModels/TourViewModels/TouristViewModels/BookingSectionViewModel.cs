@@ -178,8 +178,11 @@ namespace BookingApp.WPF.ViewModels
         public void SaveReservation()
         {
             Voucher toBeDeleted = new Voucher();
-            toBeDeleted.Id = SelectedVoucher.VoucherId;
-            voucherRepository.Delete(toBeDeleted);
+            if(SelectedVoucher != null)
+            {
+                toBeDeleted.Id = SelectedVoucher.VoucherId;
+                voucherRepository.Delete(toBeDeleted);
+            }
             tourReservationRepository.SaveReservation(TourReservation);
             TourRealisation tR = tourRealisationRepository.GetTourRealisationById(TourRealisation.Id);
             tR.AvailableSeats -= NumberOfTourists;

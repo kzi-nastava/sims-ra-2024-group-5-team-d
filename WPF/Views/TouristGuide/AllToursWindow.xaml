@@ -223,7 +223,7 @@
                             </Grid>
                             <Label Grid.Row="1" Content="{Binding Name}" HorizontalAlignment="Left" FontSize="20" Margin="10,0,0,0"/>
                             <Label Grid.Row="2">
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="10,0,10,0"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" MaxHeight="50"  Margin="10,0,10,0"/>
                             </Label>
                             <Button Grid.Row="3" Content="View More" Command="{Binding DataContext.ViewMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Height="34" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15"/>
                         </Grid>

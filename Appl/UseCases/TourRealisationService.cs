@@ -77,5 +77,9 @@ namespace BookingApp.Appl.UseCases
         {
             return _repository.UpdateTourRealisation(tourRealisation);
         }
+        public TourRealisation GetById(int id) 
+        {
+            return _repository.GetTourRealisationById(id);
+        }
     }
 }

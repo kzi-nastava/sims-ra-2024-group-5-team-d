@@ -28,6 +28,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public ICommand LocationChangedCommand { get; private set; }
         public ICommand AddCheckPointCommand { get; private set; }
         public ICommand UploadCommand { get; private set; }
+        public ICommand CancelCommand { get; private set; }
         
 
         public TourFormViewModel tourFormViewModel { get; private set; }
@@ -62,6 +63,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             UploadCommand = new RelayCommand(UploadPicture);
             BackwardCommand = new RelayCommand(Backward);
             ForwardCommand = new RelayCommand(Forward);
+            CancelCommand = new RelayCommand(Cancel);
 
             CheckPoints = new ObservableCollection<CheckPoint>(checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId));
             checkPointsToSave = new List<CheckPoint>();
@@ -121,6 +123,9 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             CheckPoints.Clear();
             checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId).ForEach(cp =>  CheckPoints.Add(cp));
         }
-
+        public void Cancel()
+        {
+            SideBar.contentControlW.Content = new CreateNewTourForm(tourFormViewModel.User);
+        }
     }
 }

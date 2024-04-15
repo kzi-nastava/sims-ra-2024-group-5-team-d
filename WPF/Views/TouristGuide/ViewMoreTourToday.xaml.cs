@@ -29,7 +29,6 @@ namespace BookingApp.WPF.Views.TouristGuide
         public TourViewModel SelectedTour { get; set; }
         public TourRealisationViewModel SelectedTourRealisation { get; set; }
         public ObservableCollection<TourRealisationViewModel> TourRealisationsToday { get; set; }
-        private readonly ITourRealisationRepository tourRealisationRepository;
         private TourRealisationService tourRealisationService;
         private User LoggedInUser { get; set; }
         public ViewMoreTourToday(TourViewModel selectedTour,User user)
@@ -39,7 +38,6 @@ namespace BookingApp.WPF.Views.TouristGuide
             tourRealisationService = new TourRealisationService();
             TourRealisationsToday = new ObservableCollection<TourRealisationViewModel>();
             SelectedTour = selectedTour;
-            tourRealisationRepository = new TourRealisationRepository();
             tourRealisationService.GetTourRealisationsForToday(SelectedTour.Id).ForEach(t =>  TourRealisationsToday.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats, t.IsCancellable(),t.User, t.IsFinished)) );
             LoggedInUser = user;
         }
@@ -58,6 +56,9 @@ namespace BookingApp.WPF.Views.TouristGuide
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
+            TourRealisation realisation = tourRealisationService.GetTourRealisationById(SelectedTourRealisation.Id);
+            realisation.IsLive = true;
+            tourRealisationService.Update(realisation);
             SideBar.contentControlW.Content = new LiveTourView(LoggedInUser,SelectedTourRealisation, SelectedTour);
         }
 
