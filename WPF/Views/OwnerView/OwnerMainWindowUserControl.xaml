@@ -31,7 +31,7 @@
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
-                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Accommodations}">
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Background" Value="Transparent" />
@@ -185,7 +185,7 @@
                                         Margin="0 -2 0 0"
                                         Width="142"
                                         Height="38"
-                                        Click="RenovateClick">
+                                    Command="{Binding DataContext.RenovateCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding DataContext.SelectedAccommodation, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                 <Border  BorderBrush="Black"
                                              BorderThickness="2"
                                              CornerRadius="8"
