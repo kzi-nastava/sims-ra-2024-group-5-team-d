@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,10 @@ namespace BookingApp.Appl.UseCases
     public class AccommodationRenovationService
     {
         private IAccommodationRenovationRepository accommodationRenovationRepository;
+        private IAccommodationRepository accommodationRepository;
         public AccommodationRenovationService()
         {
+            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationRenovationRepository =Injector.CreateInstance<IAccommodationRenovationRepository>();
         }
         public AccommodationRenovation Save(AccommodationRenovation accommodationRenovation)
@@ -23,7 +26,7 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationRenovationRepository.GetById(id);
         }
-        public List<AccommodationRenovation> GetAllAccommodationRenovations()
+        public List<AccommodationRenovation> GetAll()
         {
             return accommodationRenovationRepository.GetAll();
         }
@@ -34,6 +37,18 @@ namespace BookingApp.Appl.UseCases
         public void Delete(AccommodationRenovation accommodationRenovation)
         {
             accommodationRenovationRepository.Delete(accommodationRenovation);
+        }
+        public void DeleteById(int accommodationRenovationId)
+        {
+            accommodationRenovationRepository.DeleteById(accommodationRenovationId);
+        }
+        public List<AccommodationRenovation> GetRenovationsForOwner(User owner)
+        {
+            return GetAll().Where(accommodationRenovation=> IsReservationForOwnerAccommodation(accommodationRenovation,owner)).ToList();
+        }
+        public bool IsReservationForOwnerAccommodation(AccommodationRenovation renovation, User owner)
+        {
+            return accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == renovation.AccommodationId);
         }
     }
 }

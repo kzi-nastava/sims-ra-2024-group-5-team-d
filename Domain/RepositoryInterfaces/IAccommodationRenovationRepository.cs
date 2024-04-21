@@ -14,5 +14,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         AccommodationRenovation Update(AccommodationRenovation accommodationRenovation);
         AccommodationRenovation Save(AccommodationRenovation accommodationRenovation);
         void Delete(AccommodationRenovation accommodationRenovation);
+        void DeleteById(int accommodationRenovationId);
     }
 }

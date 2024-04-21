@@ -32,7 +32,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                         }
                         case 1:
                         {
-                            //OwnerMainWindow.contentControl.Content = new Renovations();
+                            OwnerMainWindow.contentControl.Content = new RenovationsUserControl(loggedInUser);
                             break;
                         }
                         case 2:

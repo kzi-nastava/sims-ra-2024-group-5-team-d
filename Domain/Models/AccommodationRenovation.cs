@@ -42,7 +42,10 @@ namespace BookingApp.Domain.Models
 
         }
 
-
+        public bool IsCancelable()
+        {
+            return DateTime.Now.AddDays(5) <= RenovateFrom;
+        }
         public string[] ToCSV()
         {
             return new string[] { Id.ToString(), AccommodationId.ToString(), RenovateFrom.ToString("M/d/yyyy h:mm:ss tt"), RenovateTo.ToString("M/d/yyyy h:mm:ss tt") };

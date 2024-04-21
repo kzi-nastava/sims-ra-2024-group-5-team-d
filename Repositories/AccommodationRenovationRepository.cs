@@ -60,6 +60,14 @@ namespace BookingApp.Repositories
             }
             return _accommodationRenovations.Max(c => c.Id) + 1;
         }
+        public void DeleteById(int accommodationRenovationId) {
+
+            _accommodationRenovations = _serializer.FromCSV(FilePath);
+            AccommodationRenovation founded = _accommodationRenovations.Find(g => g.Id == accommodationRenovationId);
+            _accommodationRenovations.Remove(founded);
+            _serializer.ToCSV(FilePath, _accommodationRenovations);
+        }
+    
 
         public void Delete(AccommodationRenovation accommodationRenovation)
         {
