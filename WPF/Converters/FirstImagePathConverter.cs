@@ -15,19 +15,25 @@ namespace BookingApp.WPF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string imagesPath && !string.IsNullOrEmpty(imagesPath))
+            if (value is string path && !string.IsNullOrEmpty(path))
             {
-                string[] imagePaths = Directory.GetFiles(imagesPath, "*.*");
-                if (imagePaths.Length > 0)
+                if (Directory.Exists(path))
                 {
-                    return imagePaths[0];
+                    string[] imagePaths = Directory.GetFiles(path, "*.*");
+                    if (imagePaths.Length > 0)
+                    {
+                        return imagePaths[0]; // Vrati prvu sliku iz foldera
+                    }
+                    else
+                    {
+                        return "C:/Users/lukai/Desktop/Resource/house.png"; // Ako folder ne sadrži slike, vrati podrazumevanu sliku
+                    }
                 }
-                else
+                else if (File.Exists(path))
                 {
-                    return "C:/Users/lukai/Desktop/Resource/house.png";
+                    return path; // Ako je putanja do slike, vrati tu putanju
                 }
             }
-
             return null;
         }
 
