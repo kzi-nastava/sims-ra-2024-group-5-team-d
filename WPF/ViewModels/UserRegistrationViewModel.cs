@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -25,12 +26,30 @@ namespace BookingApp.WPF.ViewModels
         public string Password { get; set; }
         private UserService userService;
         private string avatarPath;
+        private string macAddress;
         public UserRegistrationViewModel(string avatarPath)
         {
             this.avatarPath = avatarPath;
             userService =new UserService();
             TypeCommand = new RelayParameterCommand(TypeClick);
             RegisterCommand = new RelayParameterCommand(RegisterUser);
+            macAddress = GetMacAddress();
+        }
+        private string GetMacAddress()
+        {
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            string macAddress = string.Empty;
+
+            foreach (NetworkInterface nic in nics)
+            {
+                if (nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    macAddress = nic.GetPhysicalAddress().ToString();
+                    break;
+                }
+            }
+
+            return macAddress;
         }
         private void TypeClick(object parameter)
         {
@@ -42,7 +61,7 @@ namespace BookingApp.WPF.ViewModels
             var passwordBox = parameter as PasswordBox;
             Password = passwordBox.Password;
             Type= UserType.Guest;
-            userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate),avatarPath));
+            userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate),avatarPath,macAddress));
         }
 
     }

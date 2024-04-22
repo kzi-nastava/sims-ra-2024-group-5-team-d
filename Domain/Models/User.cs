@@ -21,11 +21,12 @@ namespace BookingApp.Domain.Models
         public DateOnly BirthDate { get; set; }
         public UserType Type { get; set; }
         public string AvatarPath { get; set; }
+        public string MacAddress { get; set; }
 
 
         public User() { }
 
-        public User(string username, string password, UserType type, string fullName, string personalId,DateOnly birthDate, string avatarPath)
+        public User(string username, string password, UserType type, string fullName, string personalId,DateOnly birthDate, string avatarPath, string macAddress)
         {
             BirthDate = birthDate;
             Username = username;
@@ -34,11 +35,12 @@ namespace BookingApp.Domain.Models
             FullName = fullName;
             PersonalId = personalId;
             AvatarPath = avatarPath;
+            MacAddress = macAddress;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, Type.ToString(),FullName,PersonalId,BirthDate.ToString(),AvatarPath};
+            string[] csvValues = { Id.ToString(), Username, Password, Type.ToString(),FullName,PersonalId,BirthDate.ToString(),AvatarPath,MacAddress};
             return csvValues;
         }
 
@@ -52,6 +54,7 @@ namespace BookingApp.Domain.Models
             PersonalId = values[5];
             BirthDate = DateOnly.Parse(values[6]);
             AvatarPath = values[7];
+            MacAddress = values[8];
         }
     }
 }

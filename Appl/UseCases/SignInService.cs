@@ -28,30 +28,7 @@ namespace BookingApp.Appl.UseCases
             {
                 if (user.Password == password)
                 {
-                    if (user.Type.ToString().Equals("Guest"))
-                    {
-                        GuestWindow guestWindow = new GuestWindow(user);
-                        guestWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                        guestWindow.ShowDialog();
-                    }
-                    else if (user.Type.ToString().Equals("Owner"))
-                    {
-                        OwnerMainWindow ownerWindow = new OwnerMainWindow(user);
-                        ownerWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                        ownerWindow.ShowDialog();
-                    }
-                    else if (user.Type.ToString().Equals("Tourist"))
-                    {
-                        TouristHomeWindow touristWindow = new TouristHomeWindow(user);
-                        touristWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                        touristWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        SideBar touristGuideWindow = new SideBar(user);
-                        touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                        touristGuideWindow.ShowDialog();
-                    }
+                    MacLogin(user);
                     return "Success";
                 }
                 else
@@ -62,6 +39,34 @@ namespace BookingApp.Appl.UseCases
             else
             {
                 return "Wrong username!";
+            }
+        }
+
+        internal void MacLogin(User user)
+        {
+            if (user.Type.ToString().Equals("Guest"))
+            {
+                GuestWindow guestWindow = new GuestWindow(user);
+                guestWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                guestWindow.ShowDialog();
+            }
+            else if (user.Type.ToString().Equals("Owner"))
+            {
+                OwnerMainWindow ownerWindow = new OwnerMainWindow(user);
+                ownerWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                ownerWindow.ShowDialog();
+            }
+            else if (user.Type.ToString().Equals("Tourist"))
+            {
+                TouristHomeWindow touristWindow = new TouristHomeWindow(user);
+                touristWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                touristWindow.ShowDialog();
+            }
+            else
+            {
+                SideBar touristGuideWindow = new SideBar(user);
+                touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                touristGuideWindow.ShowDialog();
             }
         }
     }
