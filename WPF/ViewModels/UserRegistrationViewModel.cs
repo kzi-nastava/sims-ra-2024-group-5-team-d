@@ -24,8 +24,10 @@ namespace BookingApp.WPF.ViewModels
         public string Username { get; set; }
         public string Password { get; set; }
         private UserService userService;
-        public UserRegistrationViewModel()
+        private string avatarPath;
+        public UserRegistrationViewModel(string avatarPath)
         {
+            this.avatarPath = avatarPath;
             userService =new UserService();
             TypeCommand = new RelayParameterCommand(TypeClick);
             RegisterCommand = new RelayParameterCommand(RegisterUser);
@@ -40,7 +42,7 @@ namespace BookingApp.WPF.ViewModels
             var passwordBox = parameter as PasswordBox;
             Password = passwordBox.Password;
             Type= UserType.Guest;
-            userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate)));
+            userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate),avatarPath));
         }
 
     }

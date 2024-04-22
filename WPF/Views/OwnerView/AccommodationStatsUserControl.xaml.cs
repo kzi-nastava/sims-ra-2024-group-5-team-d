@@ -1,12 +1,7 @@
-﻿using BookingApp.Appl.UseCases;
-using BookingApp.Domain.Models;
-using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repositories;
-using BookingApp.WPF.ViewModels;
+﻿using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels.OwnerViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,14 +18,14 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.OwnerView
 {
     /// <summary>
-    /// Interaction logic for OwnerMainWindowUserControl.xaml
+    /// Interaction logic for AccommodationStatsUserControl.xaml
     /// </summary>
-    public partial class OwnerMainWindowUserControl : UserControl
+    public partial class AccommodationStatsUserControl : UserControl
     {
-        public OwnerMainWindowUserControl(User user)
+        public AccommodationStatsUserControl(int accommodationId,User user)
         {
             InitializeComponent();
-            DataContext =new AccommodationsViewModel(user);
+            DataContext = new AccommodationStatsViewModel(accommodationId, user);
         }
     }
 }

@@ -13,14 +13,14 @@ namespace BookingApp.Domain.Models
         public int NumberOfCancelledReservations { get; set; }
         public int NumberOfRescheduledReservations { get; set; }
         public int NumberOfRecommendedRenovations { get; set; }
-        public string RowHeader { get; set; }
+        public string Year { get; set; }
         public double Busyness { get; set; }
         public AccommodationStat() { }
-        public AccommodationStat(int numberOfReservations, int numberOfCancelledReservations, string rowHeader, int nUmberOfRescheduledReservations, int numberOfRecommendedRenovations)
+        public AccommodationStat(int numberOfReservations, int numberOfCancelledReservations, string year, int nUmberOfRescheduledReservations, int numberOfRecommendedRenovations)
         {
             NumberOfReservations = numberOfReservations;
             NumberOfCancelledReservations = numberOfCancelledReservations;
-            RowHeader = rowHeader;
+            Year = year;
             NumberOfRescheduledReservations = nUmberOfRescheduledReservations;
             NumberOfRecommendedRenovations = numberOfRecommendedRenovations;
         }

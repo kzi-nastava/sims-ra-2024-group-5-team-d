@@ -185,7 +185,7 @@
                                         Margin="0 -2 0 0"
                                         Width="142"
                                         Height="38"
-                                    Command="{Binding DataContext.RenovateCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding DataContext.SelectedAccommodation, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                    Command="{Binding DataContext.RenovateCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
                                 <Border  BorderBrush="Black"
                                              BorderThickness="2"
                                              CornerRadius="8"
@@ -209,7 +209,7 @@
                                         Margin="0 0 0 -2"
                                         FontWeight="Bold"
                                         BorderThickness="0"
-                                        VerticalAlignment="Bottom" Click="ShowStats">
+                                        VerticalAlignment="Bottom" Command="{Binding DataContext.ShowStatsCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
                                 <Border BorderBrush="Black" 
                                             BorderThickness="2" 
                                             CornerRadius="8" 

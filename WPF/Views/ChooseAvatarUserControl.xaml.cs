@@ -17,19 +17,14 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for CreateAnAccountUserControl.xaml
+    /// Interaction logic for ChooseAvatarUserControl.xaml
     /// </summary>
-    public partial class CreateAnAccountUserControl : UserControl
+    public partial class ChooseAvatarUserControl : UserControl
     {
-        public CreateAnAccountUserControl(string avatarPath)
+        public ChooseAvatarUserControl()
         {
             InitializeComponent();
-            DataContext= new UserRegistrationViewModel(avatarPath);
-        }
-
-        private void LogIn(object sender, MouseButtonEventArgs e)
-        {
-            LoginScreen.contentControl.Content = new LoginUserControl();
+            DataContext = new ChooseAvatarViewModel();
         }
     }
 }

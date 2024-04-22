@@ -16,6 +16,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     public class AccommodationsViewModel
     {
         public ICommand RenovateCommand { get; set; }
+        public ICommand ShowStatsCommand { get; set; }
         public static ObservableCollection<AccommodationViewModel> Accommodations { get; set; }
         private readonly AccommodationService accommodationService;
         private AccommodationRatingService accommodationRatingService;
@@ -31,6 +32,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ownerAccommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
             ownerAccommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type, accommodation.ImagesPath, accommodation.IsSuperOwner, accommodation.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
             RenovateCommand = new RelayParameterCommand(Renovate);
+            ShowStatsCommand = new RelayParameterCommand(ShowStats);
         }
         private void Renovate(object obj)
         {
@@ -39,6 +41,12 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             {
                 OwnerMainWindow.contentControl.Content = new RenovateAccommodationUserControl(loggedInUser,accommodation.Id);
             }
+        }
+        private void ShowStats(object obj)
+        {
+            AccommodationViewModel accommodation= (AccommodationViewModel)obj;
+            if(accommodation!=null)
+            OwnerMainWindow.contentControl.Content = new AccommodationStatsUserControl(accommodation.Id,loggedInUser); 
         }
     }
 }
