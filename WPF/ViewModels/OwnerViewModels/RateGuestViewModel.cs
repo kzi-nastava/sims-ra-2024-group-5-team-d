@@ -18,7 +18,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public ICommand RateGuestCommand { get; set; }
         public ICommand RuleComplianceRatingCommand { get; set; }
         public ICommand CleanlinessRatingCommand { get; set; }
-        public int Id { get; set; }
+        public int ReservationId { get; set; }
         public string Name { get; set; }
         public string Comment { get; set; }
         public int Cleanliness { get; set; }
@@ -27,11 +27,13 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private AccommodationReservationService accommodationReservationService;
         private GuestRatingService guestRatingService;
         private UnratedGuestViewModel unratedGuest;
+        private NotificationsService notificationsService;
         public RateGuestViewModel()
         {
         }
         public RateGuestViewModel(UnratedGuestViewModel unratedGuest)
         {
+            notificationsService = new NotificationsService();
             accommodationReservationService = new AccommodationReservationService();
             guestRatingService = new GuestRatingService();
             CleanlinessRatingCommand = new RelayParameterCommand(GetCleanlinessRating);
@@ -41,7 +43,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             Cleanliness = 1;
             RuleCompliance = 1;
 
-            Id = unratedGuest.Id;
+            ReservationId = unratedGuest.ReservationId;
             Name = unratedGuest.FullName;
         }
         private void GetCleanlinessRating(object parameter)
@@ -54,8 +56,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         }
         private void RateGuest()
         {
-            guestRatingService.Save(new GuestRating(accommodationReservationService.GetById(Id).AccommodationId, accommodationReservationService.GetById(Id).UserId, Id, Cleanliness, RuleCompliance, Comment));
+            guestRatingService.Save(new GuestRating(accommodationReservationService.GetById(ReservationId).AccommodationId, accommodationReservationService.GetById(ReservationId).UserId, ReservationId, Cleanliness, RuleCompliance, Comment));
             UnratedGuestsViewModel.UnratedGuests.Remove(unratedGuest);
+            notificationsService.RemoveNotification(ReservationId);
         }
     }
 }
