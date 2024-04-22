@@ -24,19 +24,20 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public RenovationsViewModel(User user) {
         loggedInUser = user;
             Renovations = new ObservableCollection<RenovationViewModel>();
-            CancelRenovationCommand=new RelayCommand(CancelRenovation);
+            CancelRenovationCommand=new RelayParameterCommand(CancelRenovation);
             accommodationRenovationService = new AccommodationRenovationService();
             accommodationService = new AccommodationService();
             List<AccommodationRenovation> renovations=accommodationRenovationService.GetRenovationsForOwner(loggedInUser);
             foreach (AccommodationRenovation renovation in renovations)
             {
                 Accommodation accommodation=accommodationService.GetById(renovation.AccommodationId);
-                Renovations.Add(new RenovationViewModel(renovation.Id,accommodation.Name,accommodation.Type,accommodation.Location,renovation.RenovateFrom,renovation.RenovateTo,accommodation.ImagesPath,accommodation.AverageRating,renovation.IsCancelable()));
+                Renovations.Add(new RenovationViewModel(renovation.Id,accommodation.Name,accommodation.Type,accommodation.Location,renovation.RenovateFrom,renovation.RenovateTo,accommodation.ImagesPath,accommodation.AverageRating,renovation.IsCancelable(), accommodation.IsSuperOwner));
             }
         }
-        public void CancelRenovation()
+        public void CancelRenovation(object parameter)
         {
-            if(SelectedRenovation!=null)
+            RenovationViewModel renovation = (RenovationViewModel)parameter;
+            if (renovation != null)
             {
                 CancelRenovationWindow cancelRenovation = new CancelRenovationWindow(SelectedRenovation);
                 cancelRenovation.WindowStartupLocation = WindowStartupLocation.CenterScreen;
