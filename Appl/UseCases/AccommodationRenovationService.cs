@@ -52,5 +52,10 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationService.IsUserOwnerOfAccommodation(owner, renovation.AccommodationId);
         }
+
+        public List<AccommodationRenovation> GetByAccommodation(Accommodation accommodation)
+        {
+            return accommodationRenovationRepository.GetAll().Where(renovation => renovation.AccommodationId == accommodation.Id).ToList();
+        }
     }
 }

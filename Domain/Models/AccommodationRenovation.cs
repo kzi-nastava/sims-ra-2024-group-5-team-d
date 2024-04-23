@@ -50,5 +50,10 @@ namespace BookingApp.Domain.Models
         {
             return new string[] { Id.ToString(), AccommodationId.ToString(), RenovateFrom.ToString("M/d/yyyy h:mm:ss tt"), RenovateTo.ToString("M/d/yyyy h:mm:ss tt") };
         }
+
+        public bool IsInRange(DateTime from, DateTime to)
+        {
+            return from<RenovateTo && to>RenovateFrom;
+        }
     }
 }
