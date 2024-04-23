@@ -14,8 +14,10 @@ namespace BookingApp.Appl.UseCases
     {
         private IAccommodationReservationRepository accommodationReservationRepository;
         private IAccommodationRepository accommodationRepository;
+        private AccommodationService accommodationService;
         public AccommodationReservationService() {
 
+            accommodationService = new AccommodationService();
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
             
@@ -63,7 +65,7 @@ namespace BookingApp.Appl.UseCases
         }
         public bool IsReservationForOwnerAccommodation(AccommodationReservation reservation, User owner)
         {
-            return accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == reservation.AccommodationId);
+            return accommodationService.IsUserOwnerOfAccommodation(owner, reservation.AccommodationId);
         }
         public List<AccommodationReservation> GetAll()
         {

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -25,6 +26,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     {
 
         NotifierService notifier;
+        public ICommand SetMainPictureCommand { get; private set; }
         public ICommand ForwardCommand { get; private set; }
         public ICommand BackwardCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
@@ -43,12 +45,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private AccommodationService accommodationService;
         private User loggedInUser;
         private int PaginationIndex = 0;
+        private string mainImagePath;
         public RegisterAccommodationViewModel(User user)
         {
             notifier = new NotifierService();
             imageUploaderService = new ImageUploaderService();
             BackwardCommand = new RelayCommand(Backward);
             ForwardCommand = new RelayCommand(Forward);
+            SetMainPictureCommand = new RelayParameterCommand(SetMainPicture);
             ImagesPaths = new ObservableCollection<string>();
             loggedInUser = user;
             imagesPath = new List<string>();
@@ -60,6 +64,15 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             UploadCommand = new RelayCommand(UploadPicture);
 
         }
+        private void SetMainPicture(object obj)
+        {
+            string ImagePath = obj as string;
+            if (ImagePath != null)
+            {
+                mainImagePath = @"\"+Path.GetFileName(ImagePath);
+                Debug.WriteLine(mainImagePath);
+            }
+        }
         public void Backward()
         {
             if (PaginationIndex > 0)
@@ -70,7 +83,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         }
         public void Forward()
         {
-            if (PaginationIndex < imagesPath.Count)
+            if (PaginationIndex < imagesPath.Count-1)
             {
                 PaginationIndex++;
                 ShowImage();
@@ -85,6 +98,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private void Save()
         {
             string folderPath = imageUploaderService.CreateAccommodationFolder(imagesPath);
+            folderPath = folderPath + mainImagePath;
             Accommodation newAccommodation = new Accommodation(Name, locationService.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner, accommodationService.IsSuperOwner(loggedInUser));
             Accommodation savedAccommodation = accommodationService.Save(newAccommodation);
             notifier.ShowSuccess("Accommodation added SUCCESSFULLY!");

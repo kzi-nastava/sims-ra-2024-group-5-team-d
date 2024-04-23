@@ -10,25 +10,27 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class UnratedGuestViewModel
     {
-        public int Id { get; set; }
+        public int ReservationId { get; set; }
         public string FullName { get; set; }
         public string Surname { get; set; }
         public DateTime ReservedFrom { get; set; }
         public DateTime ReservedTo { get; set; }
         public Location Location { get; set; }
         public string AccommodationName { get; set; }
+        public string AvatarPath { get; set; }
 
         public UnratedGuestViewModel()
         {
 
         }
-        public UnratedGuestViewModel(string fullName)
+        public UnratedGuestViewModel(string fullName, string avatarPath)
         {
             FullName = fullName;
+            AvatarPath = avatarPath;
         }
-        public UnratedGuestViewModel(int id, string name, DateTime reservedFrom, DateTime reservedTo, Location location, string accommodationName)
+        public UnratedGuestViewModel(int reservationId, string name, DateTime reservedFrom, DateTime reservedTo, Location location, string accommodationName)
         {
-            Id = id;
+            ReservationId = reservationId;
             FullName = name;
             ReservedFrom = reservedFrom;
             ReservedTo = reservedTo;

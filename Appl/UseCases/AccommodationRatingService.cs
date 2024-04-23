@@ -16,8 +16,10 @@ namespace BookingApp.Appl.UseCases
         private IAccommodationRatingRepository accommodationRatingRepository;
         private IAccommodationRepository accommodationRepository;
         private GuestRatingService guestRatingService;
+        private AccommodationService accommodationService;
         public AccommodationRatingService()
         {
+            accommodationService = new AccommodationService();
             guestRatingService = new GuestRatingService();
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
@@ -41,7 +43,7 @@ namespace BookingApp.Appl.UseCases
         }
         private List<AccommodationRating> FindAllRatingsForOwner(User owner)
         {
-            return accommodationRatingRepository.GetAll().Where(aR => accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == aR.AccommodationId)).ToList();
+            return accommodationRatingRepository.GetAll().Where(aR => accommodationService.IsUserOwnerOfAccommodation(owner,aR.AccommodationId)).ToList();
         }
         public int GetNumberOfRatingsForAccommodation(Accommodation accommodation)
         {

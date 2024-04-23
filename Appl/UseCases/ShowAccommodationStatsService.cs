@@ -67,10 +67,7 @@ namespace BookingApp.Appl.UseCases
         public string FindMostBusy(string selectedYear,ObservableCollection<AccommodationStat>accommodationStats)
         {
             AccommodationStat mostBusy = GetMostBusy(accommodationStats);
-            if (selectedYear == "All years")
-                return "Most visited year is: " + mostBusy.RowHeader.Split(' ')[1] + "   with busyness of: " + mostBusy.Busyness;
-            else
-                return "Most visited month is: " + mostBusy.RowHeader.Split(' ')[1] + " with busyness of: " + mostBusy.Busyness;
+            return "";
 
            
         }
@@ -111,7 +108,7 @@ namespace BookingApp.Appl.UseCases
                 NumberOfRecommendedRenovations = reservations.Where(r => r.IsMadeInSelectedYear(year)).Sum(r => r.RecommendedRenovation),
                 NumberOfRescheduledReservations = reservations.Where(r => r.IsMadeInSelectedYear(year)).Sum(r => r.RescheduledReservation),
                 Busyness = CalculateYearlyBusyness(year,reservations),
-                RowHeader = $"Year: {year}"
+                Year = $"{year}"
             };
 
             return accommodationStat;
@@ -121,11 +118,11 @@ namespace BookingApp.Appl.UseCases
             AccommodationStat accommodationStat = new AccommodationStat
             {
                 NumberOfReservations = reservations.Where(r => r.ReservedFrom.Year == selectedYear).Count(r => r.ReservedFrom.Month == month),
-                NumberOfCancelledReservations = reservations.Where(r => r.IsMadeInSelectedYear(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.Cancelled),
-                NumberOfRecommendedRenovations = reservations.Where(r => r.IsMadeInSelectedYear(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.RecommendedRenovation),
-                NumberOfRescheduledReservations = reservations.Where(r => r.IsMadeInSelectedYear(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.RescheduledReservation),
+                NumberOfCancelledReservations = reservations.Where(r => r.IsMadeInSelectedMonth(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.Cancelled),
+                NumberOfRecommendedRenovations = reservations.Where(r => r.IsMadeInSelectedMonth(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.RecommendedRenovation),
+                NumberOfRescheduledReservations = reservations.Where(r => r.IsMadeInSelectedMonth(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.RescheduledReservation),
                 Busyness = CalculateMonthlyBusyness(month,selectedYear,reservations),
-                RowHeader = $"Month: {CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}"
+                Year = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}"
             };
 
             return accommodationStat;

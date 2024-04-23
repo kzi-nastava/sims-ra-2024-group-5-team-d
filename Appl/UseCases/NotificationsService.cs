@@ -124,6 +124,11 @@ namespace BookingApp.Appl.UseCases
             Notification notification = new Notification(receiverId, linkId, type, DateTime.Now, false);
             Save(notification);
         }
+        public void RemoveNotification(int reservationId)
+        {
+            Notification notification = GetRateNotificationByReservationId(reservationId);
+            ReadNotification(notification);
+        }
         public void ReadNotification(Notification notification)
         {
             notification.IsRead = true;

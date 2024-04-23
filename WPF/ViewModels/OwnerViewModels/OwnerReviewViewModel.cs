@@ -30,7 +30,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             unratedGuestService = new UnratedGuestService();
             UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
             unratedGuestService.GetUnratedGuests(LoggedInUser)
-                                .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userService.GetById(unratedGuest.UserId).FullName)));
+                                .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userService.GetById(unratedGuest.UserId).FullName, userService.GetById(unratedGuest.UserId).AvatarPath)));
         }
         private void RateGuest()
         {

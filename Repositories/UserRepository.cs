@@ -20,6 +20,11 @@ namespace BookingApp.Repositories
             _users = _serializer.FromCSV(FilePath);
         }
 
+        public List<User> GetAll()
+        {
+            _users = _serializer.FromCSV(FilePath);
+            return _users;
+        }
         public User GetByUsername(string username)
         {
             _users = _serializer.FromCSV(FilePath);

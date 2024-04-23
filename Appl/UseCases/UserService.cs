@@ -18,9 +18,9 @@ namespace BookingApp.Appl.UseCases
             userRepository = Injector.CreateInstance<IUserRepository>();
 
         }
-        public bool IsUserSuperOwner(User user)
+        public List<User> GetUsersWithSameMacAdress(string macAdress)
         {
-            return accommodationRepository.GetByUser(user).Any(accommodation => accommodation.IsSuperOwner);
+            return userRepository.GetAll().Where(user=>user.MacAddress==macAdress).ToList();
         }
         public User GetById(int id)
         {

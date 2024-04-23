@@ -23,6 +23,11 @@
     <None Remove="Resources\AccommodationImages\Accommodation10\smestaj2.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation10\sobica.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation10\sobicak.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation11\1111.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation11\339036922.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation11\395641436.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation11\Grand-Salon_6-1.png" />
+    <None Remove="Resources\AccommodationImages\Accommodation11\Hotel-Grand-28819.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation1\3337-Crocker-Dr-1.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation1\smestaj1.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation2\image.jpg" />
@@ -41,6 +46,19 @@
     <None Remove="Resources\AccommodationImages\Accommodation8\smestaj2.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation8\smestaj3.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation9\image.jpg" />
+    <None Remove="Resources\Avatars\bussiness-man.png" />
+    <None Remove="Resources\Avatars\gamer %281%29.png" />
+    <None Remove="Resources\Avatars\gamer.png" />
+    <None Remove="Resources\Avatars\girl.png" />
+    <None Remove="Resources\Avatars\little-red-riding-hood.png" />
+    <None Remove="Resources\Avatars\LukaIvan.png" />
+    <None Remove="Resources\Avatars\LukaVrana.png" />
+    <None Remove="Resources\Avatars\man %281%29.png" />
+    <None Remove="Resources\Avatars\man.png" />
+    <None Remove="Resources\Avatars\Milana.png" />
+    <None Remove="Resources\Avatars\Tanja.png" />
+    <None Remove="Resources\Avatars\woman %281%29.png" />
+    <None Remove="Resources\Avatars\woman %282%29.png" />
     <None Remove="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf" />
     <None Remove="Resources\Fonts\OpenSans-VariableFont_wdth,wght.ttf" />
     <None Remove="Resources\Fonts\OpenSans_Condensed-Regular.ttf" />
@@ -105,6 +123,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\AccommodationImages\Accommodation11\395641436.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\AccommodationImages\Accommodation10\3337-Crocker-Dr-1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -115,6 +139,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\AccommodationImages\Accommodation10\sobicak.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation11\1111.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation11\339036922.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation11\Grand-Salon_6-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation11\Hotel-Grand-28819.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\AccommodationImages\Accommodation1\3337-Crocker-Dr-1.jpg">
@@ -169,6 +205,33 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\AccommodationImages\Accommodation9\image.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\bussiness-man.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\gamer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\LukaIvan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\LukaVrana.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\man.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\Milana.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\Tanja.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\woman (1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Avatars\woman (2).png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\GuestRatingImages\GuestRating1\3337-Crocker-Dr-1.jpg">

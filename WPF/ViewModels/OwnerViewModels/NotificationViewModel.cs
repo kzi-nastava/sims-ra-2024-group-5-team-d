@@ -10,6 +10,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public int NotificationId { get; set; }
         public bool IsUnread { get; set; }
         public string SenderName { get; set; }
+        public string AvatarPath { get; set; }
         public NotificationViewModel()
         {
         }
@@ -28,6 +29,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             Message = message;
             Date = notification.DateCreated;
             SenderName = user.FullName;
+            AvatarPath = user.AvatarPath;
         }
     }
 }
