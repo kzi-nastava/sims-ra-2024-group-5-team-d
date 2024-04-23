@@ -21,16 +21,61 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private UnratedGuestService unratedGuestService;
         private User LoggedInUser;
         private UserService userService;
+        private AccommodationRatingService accommodationRatingService;
+        public string Star1 { get; set; }
+        public string Star2 { get; set; }
+        public string Star3 { get; set; }
+        public string Star4 { get; set; }
+        public string Star5 { get; set; }
+
+
+        public int Stars5 { get; set; }
+        public int Stars4 { get; set; }
+        public int Stars3 { get; set; }       
+        public int Stars2 { get; set; }
+        public int Stars1 { get; set; }
+        public int NumberOfReviews { get; set; }
+        public double AverageRating { get; set; }
+        private List<string> starPaths;
         public OwnerReviewViewModel(User user) 
         {
             userService = new UserService();
             RateGuestCommand = new RelayCommand(RateGuest);
             OwnerRatesCommand = new RelayCommand(OwnerRates);
             LoggedInUser = user;
+            starPaths = new List<string>();
             unratedGuestService = new UnratedGuestService();
+            accommodationRatingService = new AccommodationRatingService();
             UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
             unratedGuestService.GetUnratedGuests(LoggedInUser)
                                 .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userService.GetById(unratedGuest.UserId).FullName, userService.GetById(unratedGuest.UserId).AvatarPath)));
+            NumberOfReviews=accommodationRatingService.GetNumberOfRatingsForOwner(user);
+            Stars5=accommodationRatingService.NumberOf5StarRatingsForOwner(user);
+            Stars4=accommodationRatingService.NumberOf4StarRatingsForOwner(user);
+            Stars3=accommodationRatingService.NumberOf3StarRatingsForOwner(user);
+            Stars2=accommodationRatingService.NumberOf2StarRatingsForOwner(user);
+            Stars1=accommodationRatingService.NumberOf1StarRatingsForOwner(user);
+            Stars5=Stars5*100/NumberOfReviews;
+            Stars4=Stars4*100/NumberOfReviews;
+            Stars3=Stars3*100/NumberOfReviews;
+            Stars2=Stars2*100/NumberOfReviews;
+            Stars1=Stars1*100/NumberOfReviews;
+            AverageRating=accommodationRatingService.GetAverageRatingForOwner(user);
+            double averageRating = AverageRating;
+            while (averageRating >= 1)
+            {
+                starPaths.Add("../../../Resources/Images/OwnerImages/StarFull.png");
+                averageRating--;
+            }
+            if (averageRating > 0.25)
+                starPaths.Add("../../../Resources/Images/OwnerImages/StarHalfFull.png");
+            while (starPaths.Count < 5)
+                starPaths.Add("../../../Resources/Images/OwnerImages/idemo.png");
+            Star1 = starPaths[0];
+            Star2 = starPaths[1];
+            Star3 = starPaths[2];
+            Star4 = starPaths[3];
+            Star5 = starPaths[4];
         }
         private void RateGuest()
         {
