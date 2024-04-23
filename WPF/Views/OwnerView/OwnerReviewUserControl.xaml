@@ -115,46 +115,49 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\StarFull.png" 
+                            <Image Source="{Binding Star1}" 
                                            Width="24" 
                                            Height="24" 
                                            Grid.Column="0"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\StarHalfFull.png" 
+                            <Image  Source="{Binding Star2}" 
                                            Width="24" 
                                            Height="24" 
                                            Grid.Column="1"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
+                            <Image  Source="{Binding Star3}" 
                                            Width="24" 
                                            Height="24" 
                                            Grid.Column="2"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
+                            <Image  Source="{Binding Star4}"
                                            Width="22" 
                                            Height="22" 
                                            Grid.Column="3"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
+                            <Image  Source="{Binding Star5}"
                                            Width="22" 
                                            Height="22" 
                                            Grid.Column="4"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
                         </Grid>
-                        <TextBlock Text="3.5" Grid.Column="1" VerticalAlignment="Center" Margin="15 0 0 0" HorizontalAlignment="Left" FontSize="20"/>
+                        <TextBlock Text="{Binding AverageRating, StringFormat={}{0:N1}}" Grid.Column="1" VerticalAlignment="Center" Margin="15 0 0 0" HorizontalAlignment="Left" FontSize="20"/>
                         <TextBlock Text="of 5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20"/>
                     </Grid>
                 </Border>
-                <TextBlock Grid.Row="2" Text="100 guest reviews" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17"/>
+                <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17">  <Run Text="{Binding NumberOfReviews}" />
+             <Run Text=" guest reviews" /> 
+                </TextBlock>
                 <Grid Grid.Row="3" Margin="25 0 25 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="89*"/>
+                        <ColumnDefinition Width="57*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -163,20 +166,19 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="5 stars" FontSize="17" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="1" Text="4 stars" FontSize="17" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="2" Text="3 stars" FontSize="17" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="3" Text="2 stars" FontSize="17" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="4" Text="1 star" FontSize="17"  VerticalAlignment="Center"/>
-                    <ProgressBar Grid.Column="1"  Grid.Row="0" Height="20" VerticalAlignment="Center" Width="230">
+                    <TextBlock Text="5 stars" FontSize="17" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+                    <TextBlock Grid.Row="1" Text="4 stars" FontSize="17" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+                    <TextBlock Grid.Row="2" Text="3 stars" FontSize="17" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+                    <TextBlock Grid.Row="3" Text="2 stars" FontSize="17" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+                    <TextBlock Grid.Row="4" Text="1 star" FontSize="17"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+                    <ProgressBar Grid.Column="1" Height="20" VerticalAlignment="Center" Width="230" Value="{Binding Stars5}" Grid.ColumnSpan="2" Margin="60,0,31,0"/>
+                    <ProgressBar Grid.Column="1"  Grid.Row="1" Height="20" VerticalAlignment="Center" Width="230" Value="{Binding Stars4}" Grid.ColumnSpan="2" Margin="60,0,31,0">
                     </ProgressBar>
-                    <ProgressBar Grid.Column="1"  Grid.Row="1" Height="20" VerticalAlignment="Center" Width="230">
+                    <ProgressBar Grid.Column="1"  Grid.Row="2" Height="20" VerticalAlignment="Center" Width="230" Value="{Binding Stars3}" Grid.ColumnSpan="2" Margin="60,0,31,0">
                     </ProgressBar>
-                    <ProgressBar Grid.Column="1"  Grid.Row="2" Height="20" VerticalAlignment="Center" Width="230">
+                    <ProgressBar Grid.Column="1"  Grid.Row="3" Height="20" VerticalAlignment="Center" Width="230" Value="{Binding Stars2}" Grid.ColumnSpan="2" Margin="60,0,31,0">
                     </ProgressBar>
-                    <ProgressBar Grid.Column="1"  Grid.Row="3" Height="20" VerticalAlignment="Center" Width="230">
-                    </ProgressBar>
-                    <ProgressBar Grid.Column="1"  Grid.Row="4" Height="20" VerticalAlignment="Center" Width="230">
+                    <ProgressBar Grid.Column="1"  Grid.Row="4" Height="20" VerticalAlignment="Center" Width="230" Value="{Binding Stars1}" Grid.ColumnSpan="2" Margin="60,0,31,0">
                     </ProgressBar>
                 </Grid>
                 <Button Grid.Column="0"

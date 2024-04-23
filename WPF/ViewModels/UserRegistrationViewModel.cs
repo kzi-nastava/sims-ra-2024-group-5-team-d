@@ -60,7 +60,6 @@ namespace BookingApp.WPF.ViewModels
         {
             var passwordBox = parameter as PasswordBox;
             Password = passwordBox.Password;
-            Type= UserType.Guest;
             userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate),avatarPath,macAddress));
         }
 
