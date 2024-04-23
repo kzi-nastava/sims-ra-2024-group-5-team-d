@@ -24,6 +24,10 @@ namespace BookingApp.Appl.UseCases
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
         }
+        public double GetAverageRatingForOwner(User user)
+        {
+            return GetAllRatingsForOwner(user).Sum(rating => rating.GetAverageRating()) / GetNumberOfRatingsForOwner(user);
+        }
         public List<AccommodationRating> GetAllRatingsForOwner(User owner) {
             List<AccommodationRating> allOwnerRatings = FindAllRatingsForOwner(owner);
             List<AccommodationRating> filteredOwnerRatings = filterOwnerRatings(allOwnerRatings,owner);
@@ -32,6 +36,26 @@ namespace BookingApp.Appl.UseCases
         public int GetNumberOfRatingsForOwner(User owner)
         {
             return FindAllRatingsForOwner(owner).Count;
+        }
+        public int NumberOf5StarRatingsForOwner(User owner)
+        {
+            return FindAllRatingsForOwner(owner).Where(rating => rating.GetAverageRating()>=4.5).Count();
+        }
+        public int NumberOf4StarRatingsForOwner(User owner)
+        {
+            return FindAllRatingsForOwner(owner).Where(rating => rating.GetAverageRating() >= 3.5 && rating.GetAverageRating() < 4.5).Count();
+        }
+        public int NumberOf3StarRatingsForOwner(User owner)
+        {
+            return FindAllRatingsForOwner(owner).Where(rating => rating.GetAverageRating() >= 2.5 && rating.GetAverageRating() < 3.5).Count();
+        }
+        public int NumberOf2StarRatingsForOwner(User owner)
+        {
+            return FindAllRatingsForOwner(owner).Where(rating => rating.GetAverageRating() >= 1.5 && rating.GetAverageRating()<2.5).Count();
+        }
+        public int NumberOf1StarRatingsForOwner(User owner)
+        {
+            return FindAllRatingsForOwner(owner).Where(rating => rating.GetAverageRating() < 1.5).Count();
         }
         private List<AccommodationRating> filterOwnerRatings(List<AccommodationRating>  allOwnerRatings,User owner)
         {
