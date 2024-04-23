@@ -107,16 +107,11 @@
                     </Setter>
                 </Style>
             </StackPanel.Resources>
-            <RadioButton Name="radioButton1" Content="Level 1 (renovate small things, but is ok)" 
-                 Style="{StaticResource RoundRadioButton}" />
-            <RadioButton Name="radioButton2" Content="Level 2 (need small changes)" 
-                 Style="{StaticResource RoundRadioButton}" />
-            <RadioButton Name="radioButton3" Content="Level 3 (few things should be renovated)" 
-                 Style="{StaticResource RoundRadioButton}"  />
-            <RadioButton Name="radioButton4" Content="Level 4 (lots of bad things, need renovation)" 
-                 Style="{StaticResource RoundRadioButton}"  />
-            <RadioButton Name="radioButton5" Content="Level 5 (very bad condition, big renovation)" 
-                 Style="{StaticResource RoundRadioButton}" />
+            <RadioButton Name="radioButton1" GroupName="Rating" Content="Level 1 (renovate small things, but is ok)"/>
+            <RadioButton Name="radioButton2" GroupName="Rating" Content="Level 2 (need small changes)"/>
+            <RadioButton Name="radioButton3" GroupName="Rating" Content="Level 3 (few things should be renovated)"/>
+            <RadioButton Name="radioButton4" GroupName="Rating" Content="Level 4 (lots of bad things, need renovation)"/>
+            <RadioButton Name="radioButton5" GroupName="Rating" Content="Level 5 (very bad condition, big renovation)"/>
         </StackPanel>
 
 

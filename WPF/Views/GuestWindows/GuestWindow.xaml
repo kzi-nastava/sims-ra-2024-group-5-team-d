@@ -27,13 +27,15 @@
                      Grid.Row="1"
                      Grid.Column="0"
                      Grid.ColumnSpan="5"/>
-
+        <Border Background="{StaticResource PrimaryBlack}" Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Border Background="{StaticResource PrimaryBlack}" Grid.Row="2" Grid.ColumnSpan="5"/>
         <Label Content="Booking.com" 
             HorizontalAlignment="Center"
             VerticalAlignment="Center" 
             Grid.Column="2"
             Height="26" 
-            Width="auto" />
+            Width="auto"
+            Foreground="{StaticResource WhiteWhite}"/>
         <Image Source="../../../Resources/Images/GuestImages/HelpIcon.png"
             Grid.Column="4"
             HorizontalAlignment="Right"
@@ -90,7 +92,7 @@
            Height="10" 
            Margin="47,5,0,0"/>
         <Border CornerRadius="900"
-           Background="Red"
+           Background="Black"
            Grid.Column="2" 
            Grid.Row="2"
            HorizontalAlignment="Left"
@@ -126,31 +128,38 @@
            HorizontalAlignment="Center"
            VerticalAlignment="Bottom" 
            Grid.Row="2"
-           FontSize="8"/>
+           FontSize="8"
+           Foreground="{StaticResource WhiteWhite}"/>
         <Label Content="Bookings" 
            HorizontalAlignment="Center"
            VerticalAlignment="Bottom" 
            Grid.Column="1" 
            Grid.Row="2"
-           FontSize="8" />
+           FontSize="8"
+           Foreground="{StaticResource WhiteWhite}"/>
         <Label Content="Requests" 
            HorizontalAlignment="Center"
            VerticalAlignment="Bottom" 
            Grid.Column="2" 
            Grid.Row="2"
-           FontSize="8" Height="NaN"/>
+           FontSize="8" 
+           Height="NaN"
+           Foreground="{StaticResource WhiteWhite}"/>
         <Label Content="Help" 
            HorizontalAlignment="Center"
            VerticalAlignment="Bottom" 
            Grid.Column="3" 
            Grid.Row="2"
-           FontSize="8" Width="NaN"/>
+           FontSize="8" 
+           Width="NaN"
+           Foreground="{StaticResource WhiteWhite}"/>
         <Label Content="Profile" 
            HorizontalAlignment="Center"
            VerticalAlignment="Bottom" 
            Grid.Column="4" 
            Grid.Row="2"
-           FontSize="8"/>
+           FontSize="8"
+           Foreground="{StaticResource WhiteWhite}"/>
 
     </Grid>
 </Window>
