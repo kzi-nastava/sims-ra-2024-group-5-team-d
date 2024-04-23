@@ -14,8 +14,10 @@ namespace BookingApp.Appl.UseCases
     public class AvailableDatesForReservationService
     {
         private readonly IAccommodationReservationRepository reservationRepository;
+        private AccommodationRenovationService accommodationRenovationService;
         public AvailableDatesForReservationService()
         {
+            accommodationRenovationService = new AccommodationRenovationService();
             reservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
 
 
@@ -30,7 +32,11 @@ namespace BookingApp.Appl.UseCases
                 AvailableDates=FindAndShowAvailableDates(fromDate,toDate, reservedDatesForAccommodation,numberOfDays);
             else
                 AvailableDates=ShowAvailableDates(fromDate, toDate,numberOfDays);
-
+            List<AccommodationRenovation> renovations= accommodationRenovationService.GetByAccommodation(accommodation);
+            foreach (AccommodationRenovation renovation in renovations)
+            {
+                AvailableDates.RemoveAll(pair => renovation.IsInRange(pair.Key, pair.Value));
+            }
             return AvailableDates;
 
         }
