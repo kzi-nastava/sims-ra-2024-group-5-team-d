@@ -29,7 +29,7 @@ namespace BookingApp.WPF.Views
 
         private void Register(object sender, MouseButtonEventArgs e)
         {
-            LoginScreen.contentControl.Content = new CreateAnAccountUserControl();
+            LoginScreen.contentControl.Content = new ChooseAvatarUserControl();
         }
     }
 }

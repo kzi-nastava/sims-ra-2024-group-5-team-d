@@ -13,11 +13,13 @@ namespace BookingApp.Appl.UseCases
     public class RateOwnerService
     {
         private IAccommodationRatingRepository accommodationRatingRepository;
+        private AccommodationRatingService accommodationRatingService;
         private AccommodationReservationService accommodationReservationService;
         private IAccommodationRepository accommodationRepository;
         private AccommodationService accommodationService;
         public RateOwnerService()
         {
+            accommodationRatingService = new AccommodationRatingService();
             accommodationService = new AccommodationService();
             accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
             accommodationReservationService = new AccommodationReservationService();
@@ -39,9 +41,13 @@ namespace BookingApp.Appl.UseCases
             accommodation.AverageRating = accommodationAverageRating;
             accommodationRatingRepository.Save(accommodationRating);
             accommodationRepository.Update(accommodation);
-            accommodationService.UpdateOwnerStatus(ownerAverageRating, accommodation.Owner);
+            if (HasEnoughReviews(accommodation.Owner))
+                accommodationService.UpdateOwnerStatus(ownerAverageRating, accommodation.Owner);
         }
-
+        private bool HasEnoughReviews(User owner)
+        {
+            return accommodationRatingService.GetNumberOfRatingsForOwner(owner) >= 50;
+        }
         private double GetAverageRatingSum(List<AccommodationReservation> ReservationsForAccommodation,double newRating) {
             double ratingSum = newRating;
             int count = 1;

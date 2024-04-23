@@ -14,10 +14,8 @@ namespace BookingApp.Appl.UseCases
     public class AccommodationService
     {
         private IAccommodationRepository accommodationRepository;
-        private AccommodationRatingService accommodationRatingService;
         public AccommodationService() 
         {
-            accommodationRatingService = new AccommodationRatingService();
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
         }
         public bool IsSuperOwner(User user)
@@ -26,7 +24,6 @@ namespace BookingApp.Appl.UseCases
         }
         public void UpgradeToSuperOwner(User user)
         {
-            if(accommodationRatingService.GetNumberOfRatingsForOwner(user)>=50) //OVAJ USLOV OVDE PREBACITI 
                 accommodationRepository.GetByUser(user).ForEach(accommodation =>{ accommodation.IsSuperOwner = true;accommodationRepository.Update(accommodation); });
         }
         public void DowngradeFromSuperOwner(User user)
@@ -66,6 +63,10 @@ namespace BookingApp.Appl.UseCases
         public string GetAccommodationNameById(int accommodationId)
         {
             return accommodationRepository.GetById(accommodationId).Name;
+        }
+        public bool IsUserOwnerOfAccommodation(User user, int accommodationId)
+        {
+            return accommodationRepository.GetByUser(user).Any(accommodation => accommodation.Id == accommodationId);
         }
     }
 }

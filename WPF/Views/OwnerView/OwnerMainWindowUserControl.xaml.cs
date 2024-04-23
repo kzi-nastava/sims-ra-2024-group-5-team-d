@@ -30,27 +30,7 @@ namespace BookingApp.WPF.Views.OwnerView
         public OwnerMainWindowUserControl(User user)
         {
             InitializeComponent();
-            DataContext=new AccommodationsViewModel(user);
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RenovateClick(object sender, RoutedEventArgs e)
-        {
-            /*RenovateDialogue renovate = new RenovateDialogue();
-            Window parentWindow = Window.GetWindow(this);
-            renovate.Owner = parentWindow;
-            renovate.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            renovate.ShowDialog();*/
-
-        }
-
-
-        private void ShowStats(object sender, RoutedEventArgs e)
-        {
-           // MainWindow.contentControl.Content = new StatsWindow();
+            DataContext =new AccommodationsViewModel(user);
         }
     }
 }

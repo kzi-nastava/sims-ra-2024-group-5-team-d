@@ -21,10 +21,10 @@ namespace BookingApp.WPF.Views
     /// </summary>
     public partial class CreateAnAccountUserControl : UserControl
     {
-        public CreateAnAccountUserControl()
+        public CreateAnAccountUserControl(string avatarPath)
         {
             InitializeComponent();
-            DataContext= new UserRegistrationViewModel();
+            DataContext= new UserRegistrationViewModel(avatarPath);
         }
 
         private void LogIn(object sender, MouseButtonEventArgs e)
