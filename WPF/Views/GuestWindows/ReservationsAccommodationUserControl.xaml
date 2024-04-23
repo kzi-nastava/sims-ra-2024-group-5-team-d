@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="657.04" d:DesignWidth="430">
+             d:DesignHeight="600" d:DesignWidth="430">
     <UserControl.Resources>
         <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
     </UserControl.Resources>
@@ -23,9 +23,25 @@
 
         <TabControl Grid.Column="0" 
          Grid.Row="0" 
-         Grid.ColumnSpan="4">
-            <TabItem Header="Active" 
-              Width="100" >
+         Grid.ColumnSpan="4"
+         Background="{StaticResource PrimaryBlack3}">
+            <TabItem  Width="100" 
+                Background="{StaticResource PrimaryBlack3}">
+                <TabItem.Header>
+                    <Border Background="{StaticResource PrimaryBlack3}">
+                        <Border BorderBrush="{StaticResource PrimaryColor}" 
+                            BorderThickness="3" 
+                            CornerRadius="10"
+                            Background="{StaticResource PrimaryColor2}"
+                            Width="80">
+                            <TextBlock Text="Active" 
+                                   Padding="5"
+                                   Foreground="{StaticResource WhiteWhite}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </Border>
+                    </Border>
+                </TabItem.Header>
                 <ListView BorderThickness="0" 
                      Background="Transparent"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -37,12 +53,13 @@
                      SelectedItem="{Binding SelectedReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" 
+                            <Border BorderBrush="{StaticResource PrimaryColor}" 
+                             Background="{StaticResource PrimaryColor2}"
                              BorderThickness="2" 
                              CornerRadius="10"
                              Width="380"
-                             Height="114">
-                                <Grid Margin="15,8,15,8">
+                             Height="auto">
+                                <Grid Margin="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
@@ -51,58 +68,59 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="120"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Border BorderBrush="Black" 
-                                     BorderThickness="1" 
-                                     Grid.RowSpan="5"
-                                     HorizontalAlignment="Right"/>
-
                                     <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
-                                        Width="50" 
-                                        Height="50"                                      
+                                        Width="120" 
+                                        Height="100"                                      
                                         Grid.RowSpan="5" 
                                         VerticalAlignment="Center" 
-                                        HorizontalAlignment="Center"/>
+                                        HorizontalAlignment="Center"
+                                        Margin="10,0,0,0"/>
                                     <TextBlock Text="{Binding Name}"
                                         Grid.Column="1"
                                         Grid.ColumnSpan="2"
                                         FontSize="13" 
                                         FontWeight="Bold"
                                         VerticalAlignment="Top"
-                                        HorizontalAlignment="Left" 
-                                        Margin="94,-11,0,0"/>
+                                        HorizontalAlignment="Center" 
+                                        Margin="0,5,0,0"
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="From:" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
+                                        Grid.Row="1"
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="9" 
-                                        Margin="26,4,0,0" 
+                                        Margin="15,0,0,0" 
                                         Grid.RowSpan="2" 
-                                        HorizontalContentAlignment="Center"/>
+                                        HorizontalContentAlignment="Center"
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding ReservedFrom}" 
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
+                                        Grid.Row="1"
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="9" 
-                                        Margin="16,4,0,0" 
-                                        Grid.RowSpan="2"/>
+                                        Margin="16,0,0,0" 
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="To:" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
+                                        Grid.Row="1"
                                         Height="auto" 
                                         Width="auto"
-                                        FontSize="9" 
-                                        Margin="0,4,0,0" 
-                                        Grid.RowSpan="2"/>
+                                        FontSize="9"  
+                                        Grid.RowSpan="2"
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding ReservedTo}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
@@ -110,56 +128,82 @@
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="9" 
-                                        Margin="15,4,0,0" 
-                                        Grid.RowSpan="2"/>
+                                        Margin="15,0,0,0" 
+                                        Grid.RowSpan="2"
+                                        Grid.Row="1"
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="Number of people:" 
-                                        HorizontalAlignment="Center"
+                                        HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="9" 
-                                        Margin="0,17,0,0" 
-                                        Grid.RowSpan="3"/>
+                                        Grid.Row="2"
+                                        Margin="16,0,0,0"
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding Capacity}" 
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
+                                        Grid.Row="2"
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="9" 
-                                        Margin="90,17,0,0" 
-                                        Grid.RowSpan="3"/>
+                                        Margin="90,0,0,0" 
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="Cancel or move reservation" 
-                                        HorizontalAlignment="Left"
+                                        HorizontalAlignment="Center"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1" 
                                         Grid.ColumnSpan="2"
-                                        Grid.Row="1"
+                                        Grid.Row="3"
                                         FontWeight="Bold"
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="11" 
-                                        Margin="69,18,0,0" 
-                                        Grid.RowSpan="3"/>
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Button x:Name="CancelledButton" 
-                                     Content="Cancel" 
                                      Grid.Row="4" 
                                      Grid.Column="1" 
-                                     Width="50" 
                                      HorizontalAlignment="Center" 
                                      VerticalAlignment="Center"
                                      Click="CancelledReservationButton"
-                                     IsEnabled="{Binding isReseravtionCancellable}"/>
+                                     Background="Transparent"
+                                     IsEnabled="{Binding isReseravtionCancellable}">
+                                        <Border  Background="DarkOrange"
+                                                 BorderBrush="DarkOrange"
+                                                  CornerRadius="5"
+                                                   Height="25"
+                                                   Width="60">
+                                                <TextBlock  Text="Cancel"
+                                                             Foreground="{StaticResource  WhiteGrey}" 
+                                                             FontWeight="Bold" 
+                                                             FontSize="11" 
+                                                             HorizontalAlignment="Center" 
+                                                             VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Button>
+
                                     <Button x:Name="MoveButton" 
-                                     Content="Move" 
                                      Grid.Row="4" 
                                      Grid.Column="2" 
-                                     Width="50" 
                                      VerticalAlignment="Center" 
                                      HorizontalAlignment="Center"
+                                     Background="Transparent"
                                      Click="MoveReservationClick"
-                                     IsEnabled="True"/>
+                                     IsEnabled="True">
+                                        <Border  Background="DarkOrange"
+                                                  CornerRadius="5"
+                                                   Height="25" Width="60">
+                                            <TextBlock  Text="Move" 
+                                                             Foreground="{StaticResource  WhiteGrey}" 
+                                                             FontWeight="Bold" 
+                                                             FontSize="11" 
+                                                             HorizontalAlignment="Center" 
+                                                             VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Button>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -168,8 +212,23 @@
 
             </TabItem>
 
-            <TabItem Header="Cancelled" 
-                  Width="100">
+            <TabItem   Width="100"                
+                       Background="{StaticResource PrimaryBlack3}">
+                <TabItem.Header>
+                    <Border Background="{StaticResource PrimaryBlack3}">
+                        <Border BorderBrush="{StaticResource PrimaryColor}" 
+                            BorderThickness="3" 
+                            CornerRadius="10"
+                            Background="{StaticResource PrimaryColor2}"
+                            Width="80">
+                            <TextBlock Text="Canceled" 
+                                   Padding="5"
+                                   Foreground="{StaticResource WhiteWhite}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </Border>
+                    </Border>
+                </TabItem.Header>
                 <ListView BorderThickness="0" 
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -181,34 +240,31 @@
                       SelectedItem="{Binding SelectedReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" 
+                            <Border  BorderBrush="{StaticResource PrimaryColor}" 
+                             Background="{StaticResource PrimaryColor2}"
                           BorderThickness="2" 
                           CornerRadius="10"
                           Width="380"
-                          Height="77">
-                                <Grid Margin="15,8,15,8">
+                          Height="auto">
+                                <Grid Margin="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Border BorderBrush="Black" 
-                                  BorderThickness="1" 
-                                  Grid.RowSpan="5"
-                                  HorizontalAlignment="Right"/>
-
                                     <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
-                                     Width="40" 
-                                     Height="40"                                      
+                                     Width="70" 
+                                     Height="70"                                      
                                      Grid.RowSpan="3" 
                                      VerticalAlignment="Center" 
-                                     HorizontalAlignment="Center"/>
+                                     HorizontalAlignment="Center"
+                                     Margin="10,0,0,0"/>
                                     <TextBlock Text="{Binding Name}" 
                                      Grid.Column="1"
                                      Grid.ColumnSpan="2"
@@ -217,65 +273,67 @@
                                      VerticalAlignment="Top"
                                      HorizontalAlignment="Center" 
                                      Height="18" 
-                                     Width="auto"/>
+                                     Width="auto"
+                                     Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="From:" 
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Top" 
                                      Grid.Row="1"
-                                     Grid.RowSpan="2"
                                      Grid.Column="1"
                                      Height="auto" 
                                      Width="auto"
                                      FontSize="9"
-                                     Margin="27,0,0,10"/>
+                                     Margin="27,0,0,0"
+                                     Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding ReservedFrom}" 
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Top" 
                                      Grid.Row="1"
-                                     Grid.RowSpan="2"
                                      Grid.Column="1"
                                      Height="auto" 
                                      Width="auto"
                                      FontSize="9"
-                                     Margin="60,0,0,10"/>
+                                     Margin="60,0,0,0"
+                                     Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="To:" 
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Top" 
                                      Grid.Row="1"
-                                     Grid.RowSpan="2"
                                      Grid.Column="2"
                                      Height="auto" 
                                      Width="auto"
-                                     FontSize="9"/>
+                                     FontSize="9"
+                                     Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding ReservedTo}" 
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Top" 
                                      Grid.Row="1"
-                                     Grid.RowSpan="2"
                                      Grid.Column="2"
                                      Height="auto" 
                                      Width="auto"
-                                     FontSize="9" Margin="20,0,0,0"/>
+                                     FontSize="9" 
+                                     Margin="20,0,0,0"
+                                     Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="Number of people:" 
-                                     HorizontalAlignment="Center"
+                                     HorizontalAlignment="Left"
                                      VerticalAlignment="Top" 
-                                     Grid.Row="1"
-                                     Grid.RowSpan="2"
+                                     Grid.Row="2"
                                      Grid.Column="1"
                                      Height="auto" 
                                      Width="auto"
                                      FontSize="9"
-                                     Margin="0,16,0,0"/>
+                                     Margin="27,0,0,0"
+                                     Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding Capacity}" 
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Top" 
-                                     Grid.Row="1"
-                                     Grid.RowSpan="2"
+                                     Grid.Row="2"
                                      Grid.Column="1"
                                      Height="auto" 
                                      Width="auto"
                                      FontSize="9"
-                                     Margin="90,16,0,0"/>
+                                     Margin="90,0,0,0"
+                                     Foreground="{StaticResource WhiteWhite}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -284,8 +342,23 @@
 
             </TabItem>
 
-            <TabItem Header="Past" 
-                  Width="100">
+            <TabItem Width="100"
+                Background="{StaticResource PrimaryBlack3}">
+                <TabItem.Header>
+                    <Border Background="{StaticResource PrimaryBlack3}">
+                        <Border BorderBrush="{StaticResource PrimaryColor}" 
+                            BorderThickness="3" 
+                            CornerRadius="10"
+                            Background="{StaticResource PrimaryColor2}"
+                            Width="80">
+                            <TextBlock Text="Past" 
+                                   Padding="5"
+                                   Foreground="{StaticResource WhiteWhite}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </Border>
+                    </Border>
+                </TabItem.Header>
                 <ListView BorderThickness="0" 
                      Background="Transparent"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -297,12 +370,13 @@
                      SelectedItem="{Binding SelectedReservation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" 
+                            <Border BorderBrush="{StaticResource PrimaryColor}"
+                             Background="{StaticResource PrimaryColor2}"
                              BorderThickness="2" 
                              CornerRadius="10"
                              Width="380"
-                             Height="114">
-                                <Grid Margin="15,8,15,8">
+                             Height="auto">
+                                <Grid Margin="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="*"/>
@@ -311,39 +385,36 @@
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Border BorderBrush="Black" 
-                                     BorderThickness="1" 
-                                     Grid.RowSpan="5"
-                                     HorizontalAlignment="Right"/>
-
                                     <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
-                                        Width="50" 
-                                        Height="50"                                      
+                                        Width="100" 
+                                        Height="100"                                      
                                         Grid.RowSpan="5" 
                                         VerticalAlignment="Center" 
-                                        HorizontalAlignment="Center"/>
+                                        HorizontalAlignment="Center"
+                                        Margin="10,0,0,0"/>
                                     <TextBlock Text="{Binding Name}" 
                                         Grid.Column="1"
                                         Grid.ColumnSpan="2"
                                         FontSize="13" 
                                         FontWeight="Bold"
                                         VerticalAlignment="Top"
-                                        HorizontalAlignment="Center"/>
+                                        HorizontalAlignment="Center"
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="From:" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
                                         Grid.Row="1"
-                                        Height="24" 
+                                        Height="auto" 
                                         Width="auto"
                                         FontSize="9" 
-                                        Margin="26,1,0,0" 
-                                        Grid.RowSpan="2"/>
+                                        Margin="20,0,0,0" 
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding ReservedFrom}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
@@ -353,7 +424,7 @@
                                         Width="auto"
                                         FontSize="9" 
                                         Margin="52,1,0,0" 
-                                        Grid.RowSpan="2"/>
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="To:" 
                                          HorizontalAlignment="Left"
                                          VerticalAlignment="Top" 
@@ -362,60 +433,70 @@
                                          Height="24" 
                                          Width="auto"
                                          FontSize="9" 
-                                         Margin="26,1,0,0" 
-                                         Grid.RowSpan="2"/>
+                                         Margin="20,1,0,0" 
+                                         Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding ReservedTo}" 
                                          HorizontalAlignment="Left"
                                          VerticalAlignment="Top" 
                                          Grid.Column="2"
                                          Grid.Row="1"
-                                         Height="24" 
+                                         Height="auto" 
                                          Width="auto"
                                          FontSize="9" 
                                          Margin="41,1,0,0" 
-                                         Grid.RowSpan="2"/>
+                                         Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="Number of people:" 
-                                        HorizontalAlignment="Center"
+                                        HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
-                                        Grid.Row="1"
+                                        Grid.Row="2"
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="9" 
-                                        Margin="0,14,0,0" 
-                                        Grid.RowSpan="2"/>
+                                        Margin="20,-5,0,0" 
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding Capacity}" 
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
-                                        Grid.Row="1"
+                                        Grid.Row="2"
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="9" 
-                                        Margin="88,14,0,0" 
-                                        Grid.RowSpan="2"/>
+                                        Margin="88,-5,0,0" 
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="Rate owner and accommodation" 
-                                        HorizontalAlignment="Left"
+                                        HorizontalAlignment="Center"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1" 
                                         Grid.ColumnSpan="2"
-                                        Grid.Row="2"
+                                        Grid.Row="3"
                                         FontWeight="Bold"
                                         Height="auto" 
                                         Width="auto"
                                         FontSize="11"
-                                        Margin="49,15,0,0" 
-                                        Grid.RowSpan="2" />
+                                        Margin="0,-5,0,0"
+                                        Foreground="{StaticResource WhiteWhite}"/>
                                     <Button x:Name="RateButton"
-                                            Content="Rate" 
                                             Grid.Row="4" 
                                             Grid.Column="1" 
-                                            Width="50" 
                                             HorizontalAlignment="Center" 
                                             VerticalAlignment="Center"
                                             Grid.ColumnSpan="2"
                                             Click="RateTheOwnerClick"
+                                            Background="Transparent"
                                             IsEnabled="{Binding isReservationRateable}">
+                                        <Border  Background="DarkOrange"
+                                                CornerRadius="5"
+                                                Height="25" 
+                                                Width="60">
+                                            <TextBlock  Text="Rate"
+                                            Foreground="{StaticResource  WhiteGrey}" 
+                                            FontWeight="Bold" 
+                                            FontSize="11" 
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                                        </Border>
                                     </Button>
                                 </Grid>
                             </Border>
@@ -424,8 +505,23 @@
                 </ListView>
 
             </TabItem>
-            <TabItem Header="Statistics" 
-                  Width="100">
+            <TabItem Width="100"
+                   Background="{StaticResource PrimaryBlack3}">
+                <TabItem.Header>
+                    <Border Background="{StaticResource PrimaryBlack3}">
+                        <Border BorderBrush="{StaticResource PrimaryColor}" 
+                            BorderThickness="3" 
+                            CornerRadius="10"
+                            Background="{StaticResource PrimaryColor2}"
+                            Width="80">
+                            <TextBlock Text="Statistics" 
+                                   Padding="5"
+                                   Foreground="{StaticResource WhiteWhite}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </Border>
+                    </Border>
+                </TabItem.Header>
                 <Grid Margin="15">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>

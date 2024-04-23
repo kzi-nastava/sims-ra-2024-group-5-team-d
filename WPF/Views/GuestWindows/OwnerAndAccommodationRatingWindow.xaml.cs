@@ -69,6 +69,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
+        public int LevelOfRenovation { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -102,7 +103,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private void RateOwnerAndAccommodation(object sender, RoutedEventArgs e)
         {
             string folderPath = imageUploaderService.CreateGuestFolder(imagesPath);
-            rateOwnerService.RateOwner(new AccommodationRating(accommodationId, LoggedInUser.Id, AccommodationReservation.Id, Cleanliness, Correctness, Comment, DateOnly.FromDateTime(dateTime), folderPath));
+            rateOwnerService.RateOwner(new AccommodationRating(accommodationId, LoggedInUser.Id, AccommodationReservation.Id, Cleanliness, Correctness, Comment, DateOnly.FromDateTime(dateTime), folderPath, LevelOfRenovation));
             OwnerRateGuestWindow ownerRatingGuestWindow = new OwnerRateGuestWindow();
             ownerRatingGuestWindow.Show();
         }
@@ -111,6 +112,14 @@ namespace BookingApp.WPF.Views.GuestWindows
             string imagePath = imageUploaderService.UploadImage();
             if (imagePath != null)
                 imagesPath.Add(imagePath);
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton radioButton && radioButton.Tag != null && int.TryParse(radioButton.Tag.ToString(), out int level))
+            {
+                LevelOfRenovation = level;
+            }
         }
     }
 }

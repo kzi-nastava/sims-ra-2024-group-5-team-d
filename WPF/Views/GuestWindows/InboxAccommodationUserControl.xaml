@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:sys="clr-namespace:System;assembly=System.Runtime" xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="657.04" d:DesignWidth="430">
+             d:DesignHeight="600" d:DesignWidth="430">
     <UserControl.Resources>
         <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
     </UserControl.Resources>

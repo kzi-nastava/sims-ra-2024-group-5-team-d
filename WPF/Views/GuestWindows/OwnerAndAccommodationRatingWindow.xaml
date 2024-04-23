@@ -93,25 +93,11 @@
             Margin="10,0,0,0"/>
 
         <StackPanel Grid.Row="7" Margin="0,0,0,10">
-            <StackPanel.Resources>
-                <Style TargetType="RadioButton" x:Key="RoundRadioButton">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="RadioButton">
-                                <Grid>
-                                    <Ellipse Width="15" Height="15" Stroke="Black" Fill="{TemplateBinding Background}" HorizontalAlignment="Left" Margin="10,0,0,4"/>
-                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0"/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </StackPanel.Resources>
-            <RadioButton Name="radioButton1" GroupName="Rating" Content="Level 1 (renovate small things, but is ok)"/>
-            <RadioButton Name="radioButton2" GroupName="Rating" Content="Level 2 (need small changes)"/>
-            <RadioButton Name="radioButton3" GroupName="Rating" Content="Level 3 (few things should be renovated)"/>
-            <RadioButton Name="radioButton4" GroupName="Rating" Content="Level 4 (lots of bad things, need renovation)"/>
-            <RadioButton Name="radioButton5" GroupName="Rating" Content="Level 5 (very bad condition, big renovation)"/>
+            <RadioButton Name="radioButton1" GroupName="Rating" Content="Level 1 (renovate small things, but is ok)" Tag="1" Checked="RadioButton_Checked"/>
+            <RadioButton Name="radioButton2" GroupName="Rating" Content="Level 2 (need small changes)" Tag="2" Checked="RadioButton_Checked"/>
+            <RadioButton Name="radioButton3" GroupName="Rating" Content="Level 3 (few things should be renovated)" Tag="3" Checked="RadioButton_Checked"/>
+            <RadioButton Name="radioButton4" GroupName="Rating" Content="Level 4 (lots of bad things, need renovation)" Tag="4" Checked="RadioButton_Checked"/>
+            <RadioButton Name="radioButton5" GroupName="Rating" Content="Level 5 (very bad condition, big renovation)" Tag="5" Checked="RadioButton_Checked"/>
         </StackPanel>
 
 
