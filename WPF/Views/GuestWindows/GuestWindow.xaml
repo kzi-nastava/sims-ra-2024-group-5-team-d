@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
         mc:Ignorable="d"
-        Title="GuestWindow" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+        Title="GuestWindow" Height="720" Width="430" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
     </Window.Resources>
@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="657.04"/>
+            <RowDefinition Height="600"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
@@ -27,8 +27,12 @@
                      Grid.Row="1"
                      Grid.Column="0"
                      Grid.ColumnSpan="5"/>
-        <Border Background="{StaticResource PrimaryBlack}" Grid.Row="0" Grid.ColumnSpan="5"/>
-        <Border Background="{StaticResource PrimaryBlack}" Grid.Row="2" Grid.ColumnSpan="5"/>
+        <Border Background="#303030"
+                Grid.Row="0" 
+                Grid.ColumnSpan="5"/>
+        <Border Background="#303030"
+                Grid.Row="2"
+                Grid.ColumnSpan="5" Margin="0,0,0,-7"/>
         <Label Content="Booking.com" 
             HorizontalAlignment="Center"
             VerticalAlignment="Center" 
@@ -36,29 +40,14 @@
             Height="26" 
             Width="auto"
             Foreground="{StaticResource WhiteWhite}"/>
-        <Image Source="../../../Resources/Images/GuestImages/HelpIcon.png"
+        <Image Source="../../../Resources/Images/GuestImages/help.png"
             Grid.Column="4"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Height="18" 
-            Width="18" Margin="0,0,10,0" />
-        <Border BorderThickness="0,0,0,2" 
-             BorderBrush="Black"
-             Grid.Column="0"
-             Grid.Row="0"
-             Grid.ColumnSpan="5"
-             HorizontalAlignment="Stretch"
-             VerticalAlignment="Bottom">
-        </Border>
+            Height="19" 
+            Width="19" Margin="0,0,10,0" />
 
-        <Border BorderThickness="0,0,0,2" 
-            BorderBrush="Black"
-            Grid.Column="0" 
-            Grid.Row="2" 
-            Grid.ColumnSpan="5"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"/>
-        <Image Source="../../../Resources/Images/GuestImages/SearchIcon.png"
+        <Image Source="../../../Resources/Images/GuestImages/search.png"
            Grid.Column="0" 
            Grid.Row="2"
            HorizontalAlignment="Center"
@@ -66,33 +55,24 @@
            Width="24" 
            Margin="0,7,0,14"
            MouseLeftButtonDown="Search_MouseLeftBottonDown"/>
-        <Image Source="../../../Resources/Images/GuestImages/TravelBagIcon.png"
+        <Image Source="../../../Resources/Images/GuestImages/suitcase.png"
            Grid.Column="1" 
            Grid.Row="2"
            HorizontalAlignment="Center"
            VerticalAlignment="Top" 
-           Width="24"
-           Margin="0,7,0,14"
-           MouseLeftButtonDown="TravelBagIcon_MouseLeftButtonDown"/>
-        <Image Source="../../../Resources/Images/GuestImages/InboxIcon.png"
+           Width="28"
+           MouseLeftButtonDown="TravelBagIcon_MouseLeftButtonDown" Margin="0,3,0,0"/>
+        <Image Source="../../../Resources/Images/GuestImages/mail.png"
            Grid.Column="2" 
            Grid.Row="2"
            HorizontalAlignment="Center"
            VerticalAlignment="Top" 
            Width="28"
            Height="30" 
-           Margin="0,5,0,0"
+           Margin="0,7,0,0"
            MouseLeftButtonDown="InboxOpen_Button"/>
-        <Image Source="../../../Resources/Images/GuestImages/NotificationIcon.png"
-           Grid.Column="2" 
-           Grid.Row="2"
-           HorizontalAlignment="Left"
-           VerticalAlignment="Top" 
-           Width="10"
-           Height="10" 
-           Margin="47,5,0,0"/>
         <Border CornerRadius="900"
-           Background="Black"
+           Background="DarkOrange"
            Grid.Column="2" 
            Grid.Row="2"
            HorizontalAlignment="Left"
@@ -100,7 +80,7 @@
            Width="12"
            Height="12" 
            Margin="47,5,0,0">
-            <TextBlock Foreground="AntiqueWhite" 
+            <TextBlock Foreground="Black"
                                        Margin="0 0 0 0" 
                                        Text="{Binding NumberOfNotifications}" 
                                        VerticalAlignment="Center" 
@@ -109,17 +89,17 @@
                                        Height="15" 
                                        Width="auto"/>
         </Border>
-        <Image Source="../../../Resources/Images/GuestImages/HelpIcon.png"
+        <Image Source="../../../Resources/Images/GuestImages/help.png"
            Grid.Column="3" 
            Grid.Row="2"
            HorizontalAlignment="Center"
            VerticalAlignment="Top"
            Width="25" 
            Margin="0,7,0,14"/>
-        <Image Source="../../../Resources/Images/GuestImages/UserIcon.png"
+        <Image Source="../../../Resources/Images/GuestImages/user.png"
            Grid.Column="4" 
            Grid.Row="2"
-           Width="24"
+           Width="26"
            HorizontalAlignment="Center"
            VerticalAlignment="Top" 
            Margin="0,7,0,14"/>
@@ -129,7 +109,7 @@
            VerticalAlignment="Bottom" 
            Grid.Row="2"
            FontSize="8"
-           Foreground="{StaticResource WhiteWhite}"/>
+           Foreground="{StaticResource WhiteWhite}" Margin="0,30,0,0"/>
         <Label Content="Bookings" 
            HorizontalAlignment="Center"
            VerticalAlignment="Bottom" 

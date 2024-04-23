@@ -18,7 +18,7 @@ namespace BookingApp.Domain.Models
         public int Cleanliness { get; set; }
         public int Correctness {  get; set; }
         public DateOnly TimeOfRating { get; set; }
-        //public int Renovation { get; set; }
+        public int LevelOfRenovation { get; set; }
         public string Comment { get; set; }
         public string ImagesPath { get; set; }
 
@@ -26,17 +26,17 @@ namespace BookingApp.Domain.Models
         {
         
         }
-        public AccommodationRating(int accommodationId, int guestId, int reservationId, int cleanlinessRating, int correctness, string comment, DateOnly timeOfRating, string imagesPath)
+        public AccommodationRating(int accommodationId, int guestId, int reservationId, int cleanlinessRating, int correctness, string comment, DateOnly timeOfRating, string imagesPath, int levelOfRenovation)
         {
             AccommodationId = accommodationId;
             GuestId = guestId;
             ReservationId = reservationId;
             Cleanliness = cleanlinessRating;
             Correctness = correctness;
-            //Renovation = renovation;
             Comment = comment;
             TimeOfRating = timeOfRating;
             ImagesPath = imagesPath;
+            LevelOfRenovation = levelOfRenovation;
         }
         public void FromCSV(string[] values)
         {
@@ -49,11 +49,12 @@ namespace BookingApp.Domain.Models
             Comment = values[6];
             TimeOfRating = DateOnly.ParseExact(values[7], "M/d/yyyy", CultureInfo.InvariantCulture);
             ImagesPath = values[8];
+            LevelOfRenovation = Convert.ToInt32(values[9]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString("M/d/yyyy"), ImagesPath };
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString("M/d/yyyy"), ImagesPath, LevelOfRenovation.ToString() };
             return csvValues;
         }
         public double GetAverageRating()
