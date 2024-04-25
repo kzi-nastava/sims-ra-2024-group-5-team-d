@@ -3,9 +3,11 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace BookingApp.Appl.UseCases
 {
@@ -13,10 +15,23 @@ namespace BookingApp.Appl.UseCases
     {
         private IGuestRatingRepository guestRatingRepository;
         private IAccommodationRepository accommodationRepository;
+        private AccommodationService accommodationService;
         public GuestRatingService()
         {
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             guestRatingRepository = Injector.CreateInstance<IGuestRatingRepository>();
+            accommodationService = new AccommodationService();
+        }
+        public List<GuestRating> GetAllRatingsForGuest(User user)
+        {
+            
+            List<GuestRating> guestRatings = GetByGuest(user);
+            List<GuestRating> filteredRating = guestRatings.Where(gs=>IsGuestRatedByOwner(gs, accommodationService.GetById( gs.AccommodationId).Owner)).ToList();
+            Debug.WriteLine("aaaaaaaaaaaaa");
+            Debug.WriteLine(guestRatings.Count());
+            Debug.WriteLine(filteredRating.Count());
+            return filteredRating;
+
         }
         public List<GuestRating> GetAllGuestRatingsByOwner(User owner)
         {

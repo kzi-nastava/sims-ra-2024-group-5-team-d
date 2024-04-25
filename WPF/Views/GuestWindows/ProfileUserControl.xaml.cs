@@ -1,7 +1,4 @@
-﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModels;
-using BookingApp.WPF.ViewModels.GuestViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.Views.GuestWindows
 {
     /// <summary>
-    /// Interaction logic for OwnerRateGuestWindow.xaml
+    /// Interaction logic for ProfileUserControl.xaml
     /// </summary>
-    public partial class OwnerRateGuestWindow : Window
+    public partial class ProfileUserControl : UserControl
     {
-        public OwnerRateGuestWindow(OwnerRatingGuestViewModel ownerRatingGuest)
+        public ProfileUserControl()
         {
             InitializeComponent();
-            DataContext = new OwnerRateGuestViewModel(ownerRatingGuest);
         }
     }
 }
