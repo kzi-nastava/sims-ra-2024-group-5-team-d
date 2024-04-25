@@ -104,8 +104,6 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             string folderPath = imageUploaderService.CreateGuestFolder(imagesPath);
             rateOwnerService.RateOwner(new AccommodationRating(accommodationId, LoggedInUser.Id, AccommodationReservation.Id, Cleanliness, Correctness, Comment, DateOnly.FromDateTime(dateTime), folderPath, LevelOfRenovation));
-            OwnerRateGuestWindow ownerRatingGuestWindow = new OwnerRateGuestWindow();
-            ownerRatingGuestWindow.Show();
         }
         private void UploadPhotoClick(object sender, RoutedEventArgs e)
         {
