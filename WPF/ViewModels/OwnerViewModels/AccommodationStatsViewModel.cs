@@ -19,6 +19,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class AccommodationStatsViewModel
     {
+        public ICommand ShowReccommendationCommand { get; set; }
         public ICommand ChangeStatsCommand { get; set; }
         private User loggedInUser;
         public SeriesCollection YearlyBussinessStats { get; set; }
@@ -30,6 +31,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private AccommodationStatsService accommodationStatsService;
         private AccommodationService accommodationService;
         private Accommodation accommodation;
+        private LocationService locationService;
         private AccommodationReservationService accommodationReservationService;
         public AccommodationStatsViewModel(int accommodationId, User user)
         {
@@ -37,6 +39,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             accommodationService = new AccommodationService();
             accommodationStatsService = new AccommodationStatsService();
             accommodationReservationService = new AccommodationReservationService();
+            locationService = new LocationService();
 
             YearLabels = new ObservableCollection<string>();
             YearlyBussinessStats = new SeriesCollection();
@@ -44,6 +47,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             Years = new ObservableCollection<string>();
             YearlyReccommendedrenovations = new SeriesCollection();
 
+            ShowReccommendationCommand = new RelayCommand(ShowReccommendation);
             ChangeStatsCommand = new RelayCommand(ChangeStats);
 
             accommodation = accommodationService.GetById(accommodationId);
@@ -75,14 +79,16 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         }
         private void ShowYearlyStats(string selectedYear)
         {
-            accommodationStatsService.GetAccommodationStats(selectedYear, accommodation).ForEach(stat => {
-                Debug.WriteLine(stat.NumberOfReservations);
+                List<AccommodationStat> sortedStats = GetSortedStats(selectedYear);
+                 sortedStats.ForEach(stat => {
                 YearlyBussinessStats.Add(new PieSeries
                 {
                     Title = stat.Year,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(stat.Busyness) },
                     DataLabels = true
                 });
+
+
                 var movedReservations = new ChartValues<double> { stat.NumberOfRescheduledReservations };
                 var finishedReservations = new ChartValues<double> { stat.NumberOfReservations };
                 var canceledReservations = new ChartValues<double> { stat.NumberOfCancelledReservations };
@@ -107,19 +113,53 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                     Values = canceledReservations,
                     Fill = Brushes.Red
                 };
-
-                YearlyGeneralStats.Add(columnSeriesMoved);
-                YearlyGeneralStats.Add(columnSeriesFinished);
-                YearlyGeneralStats.Add(columnSeriesCanceled);
-                YearLabels.Add(stat.Year);
-                var values = new ChartValues<double> { 0, stat.NumberOfRecommendedRenovations };
-                var lineSeries = new LineSeries
+                if (YearlyGeneralStats.Count == 0)
                 {
-                    Title = $"Renovations in {stat.Year}",
-                    Values = values,
-                };
-                YearlyReccommendedrenovations.Add(lineSeries);
+                    YearlyGeneralStats.Add(columnSeriesMoved);
+                    YearlyGeneralStats.Add(columnSeriesFinished);
+                    YearlyGeneralStats.Add(columnSeriesCanceled);
+                }
+                else
+                {
+                    YearlyGeneralStats[0].Values.Add((double)stat.NumberOfRescheduledReservations);
+                    YearlyGeneralStats[1].Values.Add((double)stat.NumberOfReservations);
+                    YearlyGeneralStats[2].Values.Add((double)stat.NumberOfCancelledReservations);
+                }
+
+
+                YearLabels.Add(stat.Year);
+
+                     if (YearlyReccommendedrenovations.Count == 0)
+                     {
+                         var values = new ChartValues<double> { 0, stat.NumberOfRecommendedRenovations };
+                         var lineSeries = new LineSeries
+                         {
+                             Title = $"Renovations in {stat.Year}",
+                             Values = values,
+                         };
+                         YearlyReccommendedrenovations.Add(lineSeries);
+                     }
+                     else {
+                         YearlyReccommendedrenovations[0].Values.Add((double)stat.NumberOfRecommendedRenovations);
+                     }
+               
             });
+        }
+        private List<AccommodationStat> GetSortedStats(string selectedYear)
+        {
+            List<AccommodationStat> accommodationStats = accommodationStatsService.GetAccommodationStats(selectedYear, accommodation);
+            if (selectedYear == "All years")
+            {
+                Comparison<AccommodationStat> comparison = (stat1, stat2) => stat1.Year.CompareTo(stat2.Year);
+                accommodationStats.Sort(comparison);
+            }
+           
+            return accommodationStats;
+        }
+        public void ShowReccommendation()
+        {
+            List<Location>location=locationService.GetMostPopularLocations();
+            location.ForEach(loc => Debug.WriteLine(loc));
         }
     }
 }

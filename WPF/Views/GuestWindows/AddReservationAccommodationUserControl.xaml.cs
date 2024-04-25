@@ -185,7 +185,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         }
         private void ReserveAccommodation(object sender, RoutedEventArgs e)
         {
-            AccommodationReservation newReservation = new AccommodationReservation(Accommodation.Id, LoggedInUser.Id, SelectedDate.Key, SelectedDate.Value);
+            AccommodationReservation newReservation = new AccommodationReservation(Accommodation.Id, LoggedInUser.Id, SelectedDate.Key, SelectedDate.Value,numberOfPeople);
             AccommodationReservation savedAccommodation = _reservationService.Save(newReservation);
             //Close(); ???????????????????????????????????????/ da me vrati na search prozor
             GuestWindow.contentControl.Content = new AccommodationUserControl(LoggedInUser, Accommodation);
