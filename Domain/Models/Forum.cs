@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using ToastNotifications.Position;
 
 namespace BookingApp.Domain.Models
 {
@@ -14,32 +16,37 @@ namespace BookingApp.Domain.Models
         public string Description { get; set; }
         public Location Location { get; set; }
         public int IdUser { get; set; }
-        public DateTime CreatedForum{ get; set; }
+        public DateTime DateCreated{ get; set; }
         public bool Active { get; set; }
         public Forum()
         {
 
         }
-        public Forum(int id, string title, string description, Location location, int idUser, DateTime createdForum, bool active)
+        public Forum(int id, string title, string description, Location location, int idUser, DateTime dateCreated, bool active)
         {
             Id = id;
             Title = title;
             Description = description;
             Location = location;
             IdUser = idUser;
-            CreatedForum = createdForum;
+            DateCreated = dateCreated;
             Active = active;
-
         }
-
         public string[] ToCSV()
         {
-            throw new NotImplementedException();
+            string[] csvValues = { Id.ToString(), Title, Description, Location.ToString(), IdUser.ToString(), DateCreated.ToString(), Active.ToString() };
+            return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            throw new NotImplementedException();
+            Id = Convert.ToInt32(values[0]);
+            Title = values[1];
+            Description = values[2];
+            Location = new Location() { Id = Convert.ToInt32(values[3]) };
+            IdUser = Convert.ToInt32(values[4]);
+            DateCreated = Convert.ToDateTime(values[5]);
+            Active = Convert.ToBoolean(values[6]);
         }
     }
 }

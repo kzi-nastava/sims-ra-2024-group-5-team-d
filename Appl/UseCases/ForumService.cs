@@ -24,5 +24,17 @@ namespace BookingApp.Appl.UseCases
         {
             return forumRepository.GetById(Id);
         }
+        public Forum Update(Forum forum)
+        {
+            return forumRepository.Update(forum);
+        }
+        public void Delete(Forum forum)
+        {
+            forumRepository.Delete(forum);
+        }
+        public Forum Save(Forum forum)
+        {
+            return forumRepository.Save(forum);
+        }
     }
 }
