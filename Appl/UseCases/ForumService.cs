@@ -1,0 +1,28 @@
+﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BookingApp.Appl.UseCases
+{
+    public class ForumService
+    {
+        private IForumRepository forumRepository;
+        public ForumService() 
+        {
+            forumRepository = Injector.CreateInstance<IForumRepository>();
+        }
+        public List<Forum> GetAll()
+        {
+            return forumRepository.GetAll();
+        }
+        public Forum GetById(int Id)
+        {
+            return forumRepository.GetById(Id);
+        }
+    }
+}

@@ -40,7 +40,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
-        private int locationId = 0;
+        private int locationId = 10;
         public int LocationId
         {
             get => locationId;
@@ -53,7 +53,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
-        private int accommodationType = 0;
+        private int accommodationType = 3;
         public int AccommodationType
         {
             get => accommodationType;
@@ -93,6 +93,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
+        private bool IsSuperOwner;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -106,6 +107,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private readonly AccommodationRepository _repository;
 
         private readonly SearchAccommodationService SearchService;
+        private AccommodationRatingService accommodationRatingService;
         private readonly ContentControl contentControl;
         public AccommodationViewModel SelectedAccommodation { get; set; }
         List<Accommodation> accommodations;
@@ -116,18 +118,20 @@ namespace BookingApp.WPF.Views.GuestWindows
             DataContext = this;
             SearchService = new SearchAccommodationService();
             _repository = new AccommodationRepository();
+            accommodationRatingService = new AccommodationRatingService();
             Accommodations = new ObservableCollection<AccommodationViewModel>();
             accommodations = _repository.GetAll();
             accommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
-            accommodations.ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity)));
+            accommodations.ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity, a.IsSuperOwner, a.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(a))));
             this.contentControl = contentControl;
+            
         }
         private void SearchAccommodation(object sender, RoutedEventArgs e)
         {
             Accommodations.Clear();
             accommodations = SearchService.GetSearchedAccommodation(accommodationName, accommodationType, locationId, numberOfPeople, numberOfDays);
             accommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
-            accommodations.ForEach(fA => Accommodations.Add(new AccommodationViewModel(fA.Id,fA.Name,fA.Location,fA.Type,fA.ImagesPath,fA.MinStay, fA.Capacity)));
+            accommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type, accommodation.ImagesPath, accommodation.MinStay, accommodation.Capacity, accommodation.IsSuperOwner, accommodation.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
 
         }
 
@@ -138,6 +142,13 @@ namespace BookingApp.WPF.Views.GuestWindows
 
                 GuestWindow.contentControl.Content = new AccommodationUserControl(LoggedInUser, SelectedAccommodation);
             }
+        }
+
+        private void AnytimeAnywhereSearch_Click(object sender, RoutedEventArgs e)
+        {
+            Accommodations.Clear();
+            accommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
+
         }
     }
 }

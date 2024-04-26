@@ -57,5 +57,10 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             contentControl.Content = new SearchAccommodationUserControl(LoggedInUser, contentControl);
         }
+
+        private void ProfileIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            contentControl.Content = new ProfileUserControl(LoggedInUser);
+        }
     }
 }

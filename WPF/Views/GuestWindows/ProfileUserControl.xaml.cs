@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace BookingApp.WPF.Views.GuestWindows
     /// </summary>
     public partial class ProfileUserControl : UserControl
     {
-        public ProfileUserControl()
+        public ProfileUserControl(User user)
         {
             InitializeComponent();
         }

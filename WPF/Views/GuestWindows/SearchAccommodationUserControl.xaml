@@ -17,7 +17,6 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -44,23 +43,37 @@
                         </Border>
                     </Border>
                 </TabItem.Header>
-                <Grid Width="240" 
-                        Height="260" 
-                        Margin="80,10,80,10">
+                <Grid Width="auto" 
+                        Height="auto" >
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Border Width="240"
+                    
+                    <Grid Width="240" 
+                        Height="260" 
+                        Margin="80,10,80,10"
+                        Grid.ColumnSpan="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Width="240"
                  Height="260"
                  BorderThickness="4" 
                  CornerRadius="15"
@@ -73,14 +86,14 @@
                  Grid.RowSpan="6"
                  Background="{StaticResource PrimaryBlack}"/>
 
-                    <Image Source="../../../Resources/Images/GuestImages/abc.png"
+                        <Image Source="../../../Resources/Images/GuestImages/abc.png"
                  Grid.Column="0" 
                  Grid.Row="0"
                  Width="20" 
                  HorizontalAlignment="Left" 
                  VerticalAlignment="Center" 
                  Margin="10,0,0,0"/>
-                    <Label Content="Name" 
+                        <Label Content="Name" 
                  Grid.Row="0"
                  Grid.Column="0"
                  Height="24" 
@@ -88,126 +101,126 @@
                  FontSize="11"
                  Margin="20,0,0,0"
                  Foreground="{StaticResource WhiteGrey}"/>
-                    <TextBox Grid.Row="0"
+                        <TextBox Grid.Row="0"
                    Grid.Column="1"
                    Height="25"
                    Grid.ColumnSpan="2" 
                    Margin="10,9,10,9"
                    Text="{Binding AccommodationName, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Border BorderThickness="0,0,0,2" 
+                        <Border BorderThickness="0,0,0,2" 
                   BorderBrush="{StaticResource PrimaryColor}"
                   Grid.Column="0"
                   Grid.Row="0"
                   Grid.ColumnSpan="3"
                   VerticalAlignment="Bottom">
-                    </Border>
+                        </Border>
 
-                    <Image Source="../../../Resources/Images/GuestImages/search.png"
+                        <Image Source="../../../Resources/Images/GuestImages/search.png"
                  Grid.Column="0"
                  Grid.Row="1"
                  Width="25" 
                  HorizontalAlignment="Left" 
                  VerticalAlignment="Center" 
                  Height="16" Margin="10,0,0,0"/>
-                    <Label Content="Location"
+                        <Label Content="Location"
                  Grid.Column="0"
                  Grid.Row="1"
                  HorizontalAlignment="Right"
                  Height="24"
                  FontSize="11"
                  Foreground="{StaticResource WhiteGrey}"/>
-                    <ComboBox Grid.ColumnSpan="2"
+                        <ComboBox Grid.ColumnSpan="2"
                     Height="25" 
                     x:Name="locationTextBox" 
                     IsReadOnly="True"
-                    Text="Novi Sad, Serbia" 
                     Grid.Column="1"
                     Grid.Row="1" Margin="10,10,10,9" 
                     SelectedIndex="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}">
-                        <ComboBoxItem Content="Serbia, Novi Sad"/>
-                        <ComboBoxItem Content="Serbia, Beograd"/>
-                        <ComboBoxItem Content="Serbia, Smederevo"/>
-                        <ComboBoxItem Content="Serbia, Požega"/>
-                        <ComboBoxItem Content="Serbia, Kragujevac"/>
-                        <ComboBoxItem Content="Serbia, Niš"/>
-                        <ComboBoxItem Content="Serbia, Subotica"/>
-                        <ComboBoxItem Content="Serbia, Pančevo"/>
-                        <ComboBoxItem Content="Serbia, Čačak"/>
-                        <ComboBoxItem Content="Serbia, Užice"/>
-                    </ComboBox>
-                    <Border BorderThickness="0,0,0,2" 
+                            <ComboBoxItem Content="Serbia, Novi Sad"/>
+                            <ComboBoxItem Content="Serbia, Beograd"/>
+                            <ComboBoxItem Content="Serbia, Smederevo"/>
+                            <ComboBoxItem Content="Serbia, Požega"/>
+                            <ComboBoxItem Content="Serbia, Kragujevac"/>
+                            <ComboBoxItem Content="Serbia, Niš"/>
+                            <ComboBoxItem Content="Serbia, Subotica"/>
+                            <ComboBoxItem Content="Serbia, Pančevo"/>
+                            <ComboBoxItem Content="Serbia, Čačak"/>
+                            <ComboBoxItem Content="Serbia, Užice"/>
+                            <ComboBoxItem Content="Any"/>
+                        </ComboBox>
+                        <Border BorderThickness="0,0,0,2" 
                   BorderBrush="{StaticResource PrimaryColor}"
                   Grid.Column="0"
                   Grid.Row="1"
                   Grid.ColumnSpan="3"
                   VerticalAlignment="Bottom">
-                    </Border>
+                        </Border>
 
 
-                    <Image Source="../../../Resources/Images/GuestImages/people.png"
+                        <Image Source="../../../Resources/Images/GuestImages/people.png"
                  Grid.Column="0"
                  Grid.Row="2"
                  Width="22"
                  HorizontalAlignment="Left" 
                  VerticalAlignment="Center" Margin="10,0,0,0"/>
-                    <Label Content="Number of people"
+                        <Label Content="Number of people"
                  Height="24"
                  FontSize="11" 
                  Grid.Row="2"
                  Grid.ColumnSpan="2"
                  HorizontalAlignment="Center"
                            Foreground="{StaticResource WhiteGrey}"/>
-                    <TextBox Grid.Column="1"
+                        <TextBox Grid.Column="1"
                  Grid.ColumnSpan="2"
                  Grid.Row="2"
                  Height="25" 
                  Margin="55,9,10,9" 
                  Text="{Binding NumberOfPeople}"/>
-                    <Border BorderThickness="0,0,0,2" 
+                        <Border BorderThickness="0,0,0,2" 
                   BorderBrush="{StaticResource PrimaryColor}"
                   Grid.Column="0"
                   Grid.Row="2"
                   Grid.ColumnSpan="3"
                   VerticalAlignment="Bottom">
-                    </Border>
+                        </Border>
 
-                    <Image Source="../../../Resources/Images/GuestImages/calendar.png"
+                        <Image Source="../../../Resources/Images/GuestImages/calendar.png"
                  Grid.Column="0"
                  Grid.Row="3"
                  Width="22"
                  HorizontalAlignment="Left" 
                  VerticalAlignment="Center" 
                  Margin="10,0,0,0"/>
-                    <Label Content="Number of days"
+                        <Label Content="Number of days"
                  Height="24"
                  FontSize="11" 
                  Grid.Row="3"
                  Grid.ColumnSpan="2"
                  HorizontalAlignment="Center"
                            Foreground="{StaticResource WhiteGrey}"/>
-                    <TextBox Grid.Column="1"
+                        <TextBox Grid.Column="1"
                  Grid.ColumnSpan="2"
                  Grid.Row="3"
                  Height="25" 
                  Margin="55,9,10,9" 
                  Text="{Binding NumberOfDays}"/>
-                    <Border BorderThickness="0,0,0,2" 
+                        <Border BorderThickness="0,0,0,2" 
                   BorderBrush="{StaticResource PrimaryColor}"
                   Grid.Column="0"
                   Grid.Row="3"
                   Grid.ColumnSpan="3"
                   VerticalAlignment="Bottom">
 
-                    </Border>
+                        </Border>
 
-                    <Image Source="../../../Resources/Images/GuestImages/house.png"
+                        <Image Source="../../../Resources/Images/GuestImages/house.png"
                          Grid.Column="0" 
                          Grid.Row="4"
                          Width="20" 
                          HorizontalAlignment="Left"  
                          Height="20" Margin="10,0,0,0" 
                          VerticalAlignment="Center"/>
-                    <Label Content="Type"
+                        <Label Content="Type"
                          Height="24"
                          Grid.Row="4"
                          FontSize="11"  
@@ -217,25 +230,26 @@
                          Margin="30,0,0,0"
                            Foreground="{StaticResource WhiteGrey}"/>
 
-                    <ComboBox Grid.ColumnSpan="2" 
+                        <ComboBox Grid.ColumnSpan="2" 
                               Grid.Column="1"
                               Grid.Row="4" 
                               Margin="10,9,10,9"
                               SelectedIndex="{Binding AccommodationType, UpdateSourceTrigger=PropertyChanged}">
-                        <ComboBoxItem Content="Apartament"/>
-                        <ComboBoxItem Content="House"/>
-                        <ComboBoxItem Content="Cottage"/>
-                    </ComboBox>
+                            <ComboBoxItem Content="Apartament"/>
+                            <ComboBoxItem Content="Hotel"/>
+                            <ComboBoxItem Content="Cottage"/>
+                            <ComboBoxItem Content="Any"/>
+                        </ComboBox>
 
-                    <Border BorderThickness="0,0,0,2" 
+                        <Border BorderThickness="0,0,0,2" 
                   BorderBrush="{StaticResource PrimaryColor2}"
                   Grid.Column="0"
                   Grid.Row="4"
                   Grid.ColumnSpan="3"
                   VerticalAlignment="Bottom">
-                    </Border>
+                        </Border>
 
-                    <Button Grid.Row="5"
+                        <Button Grid.Row="5"
                                     FontSize="20" 
                                     Background="Transparent"
                                     Height="27"
@@ -258,6 +272,136 @@
                                             VerticalAlignment="Center"/>
                             </Border>
                         </Button>
+                    </Grid>
+                    <ListView BorderThickness="0" 
+                                Background="{StaticResource PrimaryBlack3}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="4"
+                                ScrollViewer.CanContentScroll="False"
+                                ItemsSource="{Binding Accommodations}"
+                                SelectedItem="{Binding SelectedAccommodation}" 
+                                MouseDoubleClick="ListView_MouseDoubleClick"
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource PrimaryColor}"
+                                          BorderThickness="2" 
+                                          CornerRadius="10"
+                                          Width="380"
+                                          Background="{StaticResource PrimaryColor2}">
+                                    <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border BorderBrush="{StaticResource PrimaryColor2}"
+                                                  BorderThickness="1" 
+                                                  Grid.RowSpan="2"
+                                                  HorizontalAlignment="Right"/>
+                                        <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
+                                                 Width="90" 
+                                                 Height="75"                                      
+                                                 Grid.RowSpan="2"
+                                                 VerticalAlignment="Center" 
+                                                 HorizontalAlignment="Center"
+                                                 Margin="5,0,0,0"/>
+
+                                        <Grid Grid.Row="0"
+                                              Grid.Column="1"
+                                              Grid.ColumnSpan="3">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="{Binding Name}" 
+                                                 Grid.Column="0"
+                                                 FontSize="18" 
+                                                 FontWeight="Bold"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center"
+                                                 Foreground="{StaticResource WhiteWhite}"
+                                                 Margin="15,0,0,0"/>
+                                            <Image   Source="../../../Resources/Images/GuestImages/ok.png"
+                                                 Visibility="{Binding IsSuperOwner}"
+                                                 Width="15" 
+                                                 Height="15"                                      
+                                                 Grid.Column="1"
+                                                 VerticalAlignment="Center" 
+                                                 HorizontalAlignment="Left"
+                                                 Margin="10,0,0,0"/>
+                                            
+                                        </Grid>
+                                    <Label Content="{Binding Location}"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Center" 
+                                                 Grid.Column="1" 
+                                                 Grid.ColumnSpan="2"
+                                                 Grid.Row="1"
+                                                 Height="auto" 
+                                                 Width="auto"
+                                                 FontSize="11" 
+                                                 Margin="23,0,0,0"
+                                                   Foreground="{StaticResource WhiteWhite}"/>
+                                        <Image Source="../../../Resources/Images/GuestImages/location.png" 
+                                                 Width="auto" 
+                                                 Height="20" 
+                                                 HorizontalAlignment="Left" 
+                                                 VerticalAlignment="Center"                                      
+                                                 Grid.Row="1"
+                                                 Grid.Column="1"
+                                                 Margin="7,0,0,0"/>
+                                        <Image Source="../../../Resources/Images/GuestImages/star.png" 
+                                                 Width="20" 
+                                                 Height="20" 
+                                                 HorizontalAlignment="Right" 
+                                                 VerticalAlignment="Center"                                      
+                                                 Grid.Row="1"
+                                                 Grid.Column="2"
+                                                 Margin="0,0,15,0"/>
+                                        <Label Content="{Binding Rating}"
+                                                 HorizontalAlignment="Right"
+                                                 VerticalAlignment="Center" 
+                                                 Grid.Column="2" 
+                                                 Grid.Row="1"
+                                                 Height="22" 
+                                                 Width="61"
+                                                 FontSize="11" 
+                                                 Margin="0,0,5,0"
+                                                   Foreground="{StaticResource WhiteWhite}"/>
+                                        <Image Source="../../../Resources/Images/GuestImages/people.png" 
+                                                 Width="20" 
+                                                 Height="20" 
+                                                 HorizontalAlignment="Center" 
+                                                 VerticalAlignment="Center"                                      
+                                                 Grid.Row="1"
+                                                 Grid.Column="3"/>
+                                        <Label Content="{Binding Capacity}"
+                                                 VerticalAlignment="Center" 
+                                                 Grid.Column="3" 
+                                                 Grid.Row="1"
+                                                 Height="22" 
+                                                 Width="61"
+                                                 FontSize="11" 
+                                                 Margin="55,0,0,0"
+                                                   Foreground="{StaticResource WhiteWhite}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </TabItem>
 
@@ -278,22 +422,38 @@
                         </Border>
                     </Border>
                 </TabItem.Header>
-                <Grid Width="240" 
-                        Height="200" 
-                        Margin="80,10,80,10">
+                <Grid Width="auto" 
+                        Height="auto" >
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Rectangle Width="240"
-                 Height="200"
+
+                    <Grid Width="240" 
+                        Margin="80,20,80,20"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Rectangle Width="240"
+                 Height="180"
                  Stroke="Black"
                  StrokeThickness="2"
                  RadiusX="10"
@@ -303,223 +463,221 @@
                  Grid.Column="0"
                  Grid.Row="0"
                  Grid.ColumnSpan="3"
-                 Grid.RowSpan="4"/>
+                 Grid.RowSpan="5"/>
 
-                    <Image Source="../../../Resources/Images/GuestImages/PersonIcon.png"
+                        <Image Source="../../../Resources/Images/GuestImages/PersonIcon.png"
                       Grid.Column="0"
                       Grid.Row="0"
                       Width="22"
                       HorizontalAlignment="Left" 
                       VerticalAlignment="Center" 
                       Margin="10,0,0,0"/>
-                    <Label Content="Number of people"
+                        <Label Content="Number of people"
                       Height="24"
                       FontSize="11" 
                       Grid.Row="0"
                       Grid.ColumnSpan="2"
-                      HorizontalAlignment="Center"/>
-                    <TextBox Grid.Column="1"
+                      HorizontalAlignment="Left" Margin="34,10,0,10"/>
+                        <TextBox Grid.Column="1"
                       Grid.ColumnSpan="2"
                       Grid.Row="0"
                       Height="25" 
-                      Margin="55,9,10,9" />
-                    <Border BorderThickness="0,0,0,2" 
+                      Margin="58,10,10,10" />
+                        <Border BorderThickness="0,0,0,2" 
                        BorderBrush="Black"
                        Grid.Column="0"
                        Grid.Row="0"
                        Grid.ColumnSpan="3"
                        VerticalAlignment="Bottom">
-                    </Border>
+                        </Border>
 
-                    <Image Source="../../../Resources/Images/GuestImages/DaysIcon.png"
+                        <Image Source="../../../Resources/Images/GuestImages/DaysIcon.png"
                       Grid.Column="0"
                       Grid.Row="1"
                       Width="22"
                       HorizontalAlignment="Left" 
                       VerticalAlignment="Center" 
                       Margin="10,0,0,0"/>
-                    <Label Content="Number of days"
+                        <Label Content="Number of days"
                       Height="24"
                       FontSize="11" 
                       Grid.Row="1"
                       Grid.ColumnSpan="2"
                       HorizontalAlignment="Center"/>
-                    <TextBox Grid.Column="1"
+                        <TextBox Grid.Column="1"
                       Grid.ColumnSpan="2"
                       Grid.Row="1"
                       Height="25" 
-                      Margin="55,9,10,9" />
-                    <Border BorderThickness="0,0,0,2" 
+                      Margin="58,10,10,10" />
+                        <Border BorderThickness="0,0,0,2" 
                        BorderBrush="Black"
                        Grid.Column="0"
                        Grid.Row="1"
                        Grid.ColumnSpan="3"
                        VerticalAlignment="Bottom">
-                    </Border>
+                        </Border>
 
-                    <Image Source="../../../Resources/Images/GuestImages/CalendarIcon.png"
+                        <Image Source="../../../Resources/Images/GuestImages/CalendarIcon.png"
                  Grid.Column="0"
                  Grid.Row="2"
                  Width="22" 
                  Height="22"
                  HorizontalAlignment="Left"
                  Margin="10,0,0,0"/>
-                    <Label Content="From"
+                        <Label Content="From:"
                       Height="24"
                       FontSize="11" 
-                      Grid.Row="2"
-                      Grid.Column="0" 
-                      VerticalAlignment="Center" 
-                      Margin="46,0,79,0" 
-                      Grid.ColumnSpan="2"/>
-                    <DatePicker Grid.Row="2"
+                      Grid.Row="2" Width="42" Margin="34,10,4,10"/>
+                        <DatePicker Grid.Row="2"
                       Grid.Column="1"
                       Height="25" 
-                      Margin="6,14,0,11" 
+                      Margin="1,9,0,10" 
                       HorizontalAlignment="Left"
-                      Width="34"/>
-                    <Label Content="To"
+                      Width="30"/>
+                        <Label Content="To:"
                       Height="24"
                       FontSize="11" 
                       Grid.Row="2"
                       Grid.Column="1"
                       HorizontalAlignment="Left" 
-                      Margin="76,13,0,13" 
-                      Grid.ColumnSpan="2"
+                      Margin="54,0,0,0"
                       VerticalAlignment="Center"/>
-                    <DatePicker Grid.Row="2"
+                        <DatePicker Grid.Row="2"
                       Grid.Column="2"
-                      Height="25" Margin="0,14,26,11" 
-                      HorizontalAlignment="Right" 
+                      Height="25" Margin="9,9,0,10" 
+                      HorizontalAlignment="Left" 
                       Width="32"/>
-                    <Border BorderThickness="0,0,0,2" 
+                        <Border BorderThickness="0,0,0,2" 
                  BorderBrush="Black"
                  Grid.Column="0"
                  Grid.Row="2"
                  Grid.ColumnSpan="3"
                  VerticalAlignment="Bottom">
-                    </Border>
+                        </Border>
 
-                    <Button Content="Search"
+                        <Button Content="Search"
                              Grid.Column="1" 
                              Grid.Row="3"
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              Width="60"
-                             Click="SearchAccommodation"/>
+                             Click="AnytimeAnywhereSearch_Click" Margin="0,8.5,0,8.5"/>
+                    </Grid>
+                    <ListView BorderThickness="0" 
+                            Background="{StaticResource PrimaryBlack3}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="4"
+                            ScrollViewer.CanContentScroll="False"
+                            ItemsSource="{Binding Accommodations}"
+                            SelectedItem="{Binding SelectedAccommodation}" 
+                            MouseDoubleClick="ListView_MouseDoubleClick"
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource PrimaryColor}"
+                                  BorderThickness="2" 
+                                  CornerRadius="10"
+                                  Width="380"
+                                  Background="{StaticResource PrimaryColor2}">
+                                    <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border BorderBrush="{StaticResource PrimaryColor2}"
+                                                  BorderThickness="1" 
+                                                  Grid.RowSpan="2"
+                                                  HorizontalAlignment="Right"/>
+
+                                        <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
+                                                 Width="90" 
+                                                 Height="75"                                      
+                                                 Grid.RowSpan="2"
+                                                 VerticalAlignment="Center" 
+                                                 HorizontalAlignment="Center"
+                                                 Margin="5,0,0,0"/>
+                                        <TextBlock Text="{Binding Name}" 
+                                                 Grid.Column="1"
+                                                 Grid.ColumnSpan="3"
+                                                 FontSize="20" 
+                                                 FontWeight="Bold"
+                                                 VerticalAlignment="Top"
+                                                 HorizontalAlignment="Center"
+                                                 Margin="22,0,0,0"
+                                                 Foreground="{StaticResource WhiteWhite}"/>
+                                        <Label Content="{Binding Location}"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Center" 
+                                                 Grid.Column="1" 
+                                                 Grid.ColumnSpan="2"
+                                                 Grid.Row="1"
+                                                 Height="auto" 
+                                                 Width="auto"
+                                                 FontSize="11" 
+                                                 Margin="23,0,0,0"
+                                                   Foreground="{StaticResource WhiteWhite}"/>
+                                        <Image Source="../../../Resources/Images/GuestImages/location.png" 
+                                                 Width="auto" 
+                                                 Height="20" 
+                                                 HorizontalAlignment="Left" 
+                                                 VerticalAlignment="Center"                                      
+                                                 Grid.Row="1"
+                                                 Grid.Column="1"
+                                                 Margin="7,0,0,0"/>
+                                        <Image Source="../../../Resources/Images/GuestImages/star.png" 
+                                                 Width="20" 
+                                                 Height="20" 
+                                                 HorizontalAlignment="Right" 
+                                                 VerticalAlignment="Center"                                      
+                                                 Grid.Row="1"
+                                                 Grid.Column="2"
+                                                 Margin="0,0,15,0"/>
+                                        <Label Content="{Binding Rating}"
+                                                 HorizontalAlignment="Right"
+                                                 VerticalAlignment="Center" 
+                                                 Grid.Column="2" 
+                                                 Grid.Row="1"
+                                                 Height="22" 
+                                                 Width="61"
+                                                 FontSize="11" 
+                                                 Margin="0,0,5,0"
+                                                   Foreground="{StaticResource WhiteWhite}"/>
+                                        <Image Source="../../../Resources/Images/GuestImages/people.png" 
+                                                 Width="20" 
+                                                 Height="20" 
+                                                 HorizontalAlignment="Center" 
+                                                 VerticalAlignment="Center"                                      
+                                                 Grid.Row="1"
+                                                 Grid.Column="3"/>
+                                        <Label Content="{Binding Capacity}"
+                                                 VerticalAlignment="Center" 
+                                                 Grid.Column="3" 
+                                                 Grid.Row="1"
+                                                 Height="22" 
+                                                 Width="61"
+                                                 FontSize="11" 
+                                                 Margin="55,0,0,0"
+                                                 Foreground="{StaticResource WhiteWhite}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
                 </Grid>
             </TabItem>
         </TabControl>
 
-        <ListView BorderThickness="0" 
-            Background="{StaticResource PrimaryBlack3}"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            Grid.Row="1"
-            Grid.ColumnSpan="4"
-            ScrollViewer.CanContentScroll="False"
-            ItemsSource="{Binding Accommodations}"
-            SelectedItem="{Binding SelectedAccommodation}" 
-            MouseDoubleClick="ListView_MouseDoubleClick"
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="{StaticResource PrimaryColor}"
-                      BorderThickness="2" 
-                      CornerRadius="10"
-                      Width="380"
-                      Background="{StaticResource PrimaryColor2}">
-                        <Grid Margin="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Border BorderBrush="{StaticResource PrimaryColor2}"
-                      BorderThickness="1" 
-                      Grid.RowSpan="2"
-                      HorizontalAlignment="Right"/>
-
-                            <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
-                             Width="90" 
-                             Height="75"                                      
-                             Grid.RowSpan="2"
-                             VerticalAlignment="Center" 
-                             HorizontalAlignment="Center"
-                             Margin="5,0,0,0"/>
-                            <TextBlock Text="{Binding Name}" 
-                                 Grid.Column="1"
-                                 Grid.ColumnSpan="3"
-                                 FontSize="20" 
-                                 FontWeight="Bold"
-                                 VerticalAlignment="Top"
-                                 HorizontalAlignment="Center"
-                                 Margin="22,0,0,0"
-                                 Foreground="{StaticResource WhiteWhite}"/>
-                            <Label Content="{Binding Location}"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center" 
-                                 Grid.Column="1" 
-                                 Grid.ColumnSpan="2"
-                                 Grid.Row="1"
-                                 Height="auto" 
-                                 Width="auto"
-                                 FontSize="11" 
-                                 Margin="23,0,0,0"
-                                   Foreground="{StaticResource WhiteWhite}"/>
-                            <Image Source="../../../Resources/Images/GuestImages/location.png" 
-                             Width="auto" 
-                             Height="20" 
-                             HorizontalAlignment="Left" 
-                             VerticalAlignment="Center"                                      
-                             Grid.Row="1"
-                             Grid.Column="1"
-                             Margin="7,0,0,0"/>
-                            <Image Source="../../../Resources/Images/GuestImages/star.png" 
-                             Width="20" 
-                             Height="20" 
-                             HorizontalAlignment="Right" 
-                             VerticalAlignment="Center"                                      
-                             Grid.Row="1"
-                             Grid.Column="2"
-                             Margin="0,0,15,0"/>
-                            <Label Content="{Binding Rating}"
-                                 HorizontalAlignment="Right"
-                                 VerticalAlignment="Center" 
-                                 Grid.Column="2" 
-                                 Grid.Row="1"
-                                 Height="22" 
-                                 Width="61"
-                                 FontSize="11" 
-                                 Margin="0,0,5,0"
-                                   Foreground="{StaticResource WhiteWhite}"/>
-                            <Image Source="../../../Resources/Images/GuestImages/people.png" 
-                             Width="20" 
-                             Height="20" 
-                             HorizontalAlignment="Center" 
-                             VerticalAlignment="Center"                                      
-                             Grid.Row="1"
-                             Grid.Column="3"/>
-                            <Label Content="{Binding Capacity}"
-                                 VerticalAlignment="Center" 
-                                 Grid.Column="3" 
-                                 Grid.Row="1"
-                                 Height="22" 
-                                 Width="61"
-                                 FontSize="11" 
-                                 Margin="55,0,0,0"
-                                   Foreground="{StaticResource WhiteWhite}"/>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+       
 
     </Grid>
 </UserControl>
