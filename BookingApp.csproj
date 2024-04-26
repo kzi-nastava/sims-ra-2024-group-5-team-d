@@ -72,10 +72,13 @@
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\GuestImages\abc.png" />
     <None Remove="Resources\Images\GuestImages\calendar.png" />
+    <None Remove="Resources\Images\GuestImages\clock.png" />
+    <None Remove="Resources\Images\GuestImages\fullStar.png" />
     <None Remove="Resources\Images\GuestImages\help.png" />
     <None Remove="Resources\Images\GuestImages\house.png" />
     <None Remove="Resources\Images\GuestImages\location.png" />
     <None Remove="Resources\Images\GuestImages\mail.png" />
+    <None Remove="Resources\Images\GuestImages\ok.png" />
     <None Remove="Resources\Images\GuestImages\people.png" />
     <None Remove="Resources\Images\GuestImages\search.png" />
     <None Remove="Resources\Images\GuestImages\star.png" />
@@ -138,6 +141,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\clock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\fullStar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\help.png">
@@ -279,6 +288,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\ok.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\people.png">
