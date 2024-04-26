@@ -23,11 +23,11 @@ namespace BookingApp.Domain.Models
         public LANGUAGE Language { get; set; }
         public DateTime RangeFrom { get; set; }
         public DateTime RangeTo { get; set; }
-
-        // TourRealisationId = -1 ???
+        public int TourRealisationId { get; set; }
+        public int Capacity { get; set; }
 
         public TourRequest() { }
-        public TourRequest(int id, int userId, STATE status, Location location, string description, LANGUAGE language, DateTime rangeFrom, DateTime rangeTo)
+        public TourRequest(int id, int userId, STATE status, Location location, string description, LANGUAGE language, DateTime rangeFrom, DateTime rangeTo, int capacity)
         {
             Id = id;
             TouristId = userId;
@@ -37,11 +37,13 @@ namespace BookingApp.Domain.Models
             Language = language;
             RangeFrom = rangeFrom;
             RangeTo = rangeTo;
+            TourRealisationId = -1;
+            Capacity = capacity;
         }
 
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(), TouristId.ToString(), Status.ToString(), Location.Id.ToString(), Description, Language.ToString(), RangeFrom.ToString("dd/MM/yyyy"), RangeTo.ToString("dd/MM/yyyy") };
+            return new string[] { Id.ToString(), TouristId.ToString(), Status.ToString(), Location.Id.ToString(), Description, Language.ToString(), RangeFrom.ToString("dd/MM/yyyy"), RangeTo.ToString("dd/MM/yyyy"), TourRealisationId.ToString(), Capacity.ToString() };
         }
 
         public void FromCSV(string[] values)
@@ -54,6 +56,8 @@ namespace BookingApp.Domain.Models
             Language = (LANGUAGE)Enum.Parse(typeof(LANGUAGE), values[5]);
             RangeFrom = Convert.ToDateTime(values[6]);
             RangeTo = Convert.ToDateTime(values[7]);
+            TourRealisationId = Convert.ToInt32(values[8]);
+            Capacity = Convert.ToInt32(values[9]);
         }
     }
 }
