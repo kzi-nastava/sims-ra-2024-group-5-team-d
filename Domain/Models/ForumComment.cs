@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -39,7 +40,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(), ForumId.ToString(), CreatorId.ToString(), Comment, NumberOfReports.ToString(), DateCreated.ToString() };
+            return new string[] { Id.ToString(), ForumId.ToString(), CreatorId.ToString(), Comment, NumberOfReports.ToString(), DateCreated.ToString("M/d/yyyy h:mm:ss tt") };
         }
 
         public void FromCSV(string[] values)
@@ -49,7 +50,7 @@ namespace BookingApp.Domain.Models
             CreatorId = int.Parse(values[2]);
             Comment = values[3];
             NumberOfReports = int.Parse(values[4]);
-            DateCreated = DateTime.Parse(values[5]);
+            DateCreated = DateTime.ParseExact(values[5], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
         }
     }
 }
