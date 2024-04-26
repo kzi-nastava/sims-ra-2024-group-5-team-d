@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.Domain.Models;
+using BookingApp.Appl.UseCases;
 
 namespace BookingApp.WPF.Views.TouristView
 {
@@ -25,6 +26,8 @@ namespace BookingApp.WPF.Views.TouristView
         public static ContentControl contentControl;
 
         User User { get; set; }
+
+        private NotifierService notifier;
        
         public TouristHomeWindow(User user)
         {
@@ -33,7 +36,9 @@ namespace BookingApp.WPF.Views.TouristView
             User = user;
             contentControl = contentControl1;
             contentControl.Content = new TouristHomeUserControl(user);
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;            
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            notifier = new NotifierService();
+            notifier.ShowInformation("You have been added to a tour!");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,6 +49,11 @@ namespace BookingApp.WPF.Views.TouristView
         private void YourTours_Click(object sender, RoutedEventArgs e)
         {
             contentControl.Content = new YourToursUserControl(User);
+        }
+
+        private void Requests_Click(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new YourRequestsUserControl(User);
         }
     }
 }

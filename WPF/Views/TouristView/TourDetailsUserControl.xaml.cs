@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.ViewModels;
 using BookingApp.WPF.Views.OwnerView;
+using BookingApp.WPF.Views.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -103,6 +104,22 @@ namespace BookingApp.WPF.Views.TouristView
             }
         }
 
+        private DateTime minAvailDate;
+        public DateTime MinAvailDate
+        {
+            get => minAvailDate;
+            set
+            {
+                if (value != minAvailDate)
+                {
+                    minAvailDate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        
+
         private DateTime cancelationDue;
         public DateTime CancelationDue
         {
@@ -143,41 +160,40 @@ namespace BookingApp.WPF.Views.TouristView
 
         private TourRealisationService tourRealisationService;
         private TourService tourService;
-        private readonly ITourRealisationRepository tourRealisationRepository;
 
-        private readonly ITourRepository tourRepository;
+        private LocationService locationService;
 
-        private readonly ILocationRepository locationRepository;
-        private readonly ICheckPointRepository checkpointRepository;
         public CheckPointService checkPointService { get; set; }
         public User User { get; set; }
 
         public TourDetailsUserControl(TourViewModel selectedTour, int numberOfPeople, User user)
         {
             InitializeComponent();
+
+            locationService = new LocationService();
             checkPointService = new CheckPointService();
+            tourRealisationService = new TourRealisationService();
+            tourService = new TourService();
+            MinAvailDate = DateTime.UtcNow;
             DataContext = this;
+
             User = user;
             IsRealisationSelected = true;
             Date = DateTime.UtcNow;
-            tourRealisationService = new TourRealisationService();
-            tourService = new TourService();
-            locationRepository = Injector.CreateInstance<ILocationRepository>();
-            LocationName = locationRepository.GetById(selectedTour.Location.Id).ToString();
+            LocationName = locationService.GetById(selectedTour.Location.Id).ToString();
             numberOfTourists = numberOfPeople;
             SelectedTour = selectedTour;
-            tourRepository = Injector.CreateInstance<ITourRepository>();
+
             ToursOnSameLocation = new ObservableCollection<TourViewModel>();
-            tourRepository.GetAllTours().ForEach(tour => { 
+            tourService.GetAllTours().ForEach(tour => { 
                 if(tour.Location.Id == selectedTour.Location.Id && tour.Id != selectedTour.Id)
                     ToursOnSameLocation.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User));
             });
-            checkpointRepository = Injector.CreateInstance<ICheckPointRepository>();
+
             Checkpoints = new ObservableCollection<CheckPointViewModel>();
             checkPointService.GetAllCheckPointsByTourId(selectedTour.Id).ForEach(checkpoint => Checkpoints.Add(new CheckPointViewModel(checkpoint.Id, checkpoint.Name)));
             NumberOfCheckpoints = Checkpoints.Count();
 
-            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
             TourRealisations = new ObservableCollection<TourRealisationViewModel>();
 
             
@@ -204,7 +220,6 @@ namespace BookingApp.WPF.Views.TouristView
             if (numberOfTourists > 1)
             {
                 --NumberOfTourists;
-                Debug.WriteLine(numberOfTourists);
             }
         }
 
@@ -212,120 +227,72 @@ namespace BookingApp.WPF.Views.TouristView
         {
             int numberOfSteps = NumberOfCheckpoints;
             double stepWidth = (progressBar.Width - (numberOfSteps - 1) * 40) / (double)(numberOfSteps - 1);
-
             double textBoxStep = (progressBar.Width - (numberOfSteps - 1) * 25) / (double)(numberOfSteps - 1);
 
             Debug.WriteLine(stepWidth);
+
             for (int i = 0; i < numberOfSteps; i++)
             {
+                Ellipse ellipse = new Ellipse
+                {
+                    Width = 40,
+                    Height = 40,
+                    Fill = Brushes.Green,
+                    Cursor = Cursors.Hand
+                };
+
+                TextBox textbox1 = new TextBox
+                {
+                    Text = $"{i + 1}",
+                    IsReadOnly = true,
+                    Width = 25,
+                    Height = 25,
+                    BorderThickness = new Thickness(0),
+                    FontSize = 20,
+                    VerticalContentAlignment = VerticalAlignment.Top,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    Foreground = Brushes.Yellow,
+                    Background = Brushes.Green,
+                    FontWeight = FontWeights.Bold,
+                    FontStyle = FontStyles.Normal,
+                    FontFamily = new FontFamily("Segoe UI")
+                };
+
+                TextBox textbox = new TextBox
+                {
+                    Text = Checkpoints[i].Name,
+                    IsReadOnly = true,
+                    Width = 200,
+                    Height = 40,
+                    BorderBrush = Brushes.White,
+                    FontSize = 18,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    Foreground = Brushes.Black,
+                    FontWeight = FontWeights.DemiBold,
+                    FontStyle = FontStyles.Normal,
+                    FontFamily = new FontFamily("Segoe UI")
+                };
+
                 if (i == 0)
                 {
-                    Ellipse ellipse = new Ellipse
-                    {
-                        Width = 40,
-                        Height = 40,
-                        Fill = Brushes.Green,
-                        Margin = new Thickness(200, 20, 0, 0),
-                        Cursor = Cursors.Hand
-                    };
-
-                    TextBox textbox1 = new TextBox
-                    {
-                        Text = $"{i + 1}",
-                        IsReadOnly = true,
-                        Width = 25,
-                        Height = 25,
-                        BorderThickness = new Thickness(0),
-                        FontSize = 20,
-                        VerticalContentAlignment = VerticalAlignment.Top,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        Foreground = Brushes.Yellow,
-                        Background = Brushes.Green,
-                        FontWeight = FontWeights.Bold,
-                        FontStyle = FontStyles.Normal,
-                        FontFamily = new FontFamily("Segoe UI"),
-                        Margin = new Thickness(207, 25, 0, 0)
-                    };
-
-                    TextBox textbox = new TextBox
-                    {
-                        Text = Checkpoints[i].Name,
-                        BorderBrush = Brushes.White,
-                        IsReadOnly = true,
-                        Width = 200,
-                        Height = 40,
-                        FontSize = 18,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        HorizontalContentAlignment = HorizontalAlignment.Left,
-                        FontWeight = FontWeights.DemiBold,
-                        FontStyle = FontStyles.Normal,
-                        FontFamily = new FontFamily("Segoe UI"),
-                        Margin = new Thickness(250, 20, 0, 0)
-                    };
-
-                    numberContainer.Children.Add(textbox1);
-
-                    namesContainer.Children.Add(textbox);
-
-                    progressContainer.Children.Add(ellipse);
+                    ellipse.Margin = new Thickness(200, 20, 0, 0);
+                    textbox1.Margin = new Thickness(207, 25, 0, 0);
+                    textbox.Margin = new Thickness(250, 20, 0, 0);
                 }
                 else
                 {
-                    Ellipse ellipse = new Ellipse
-                    {
-                        Width = 40,
-                        Height = 40,
-                        Fill = Brushes.Green,
-
-                        Margin = new Thickness(200, stepWidth, 0, 0),
-                        Cursor = Cursors.Hand
-                    };
-
-                    TextBox textbox1 = new TextBox
-                    {
-                        Text = $"{i + 1}",
-                        IsReadOnly = true,
-                        Width = 25,
-                        Height = 25,
-                        BorderThickness = new Thickness(0),
-                        FontSize = 20,
-                        VerticalContentAlignment = VerticalAlignment.Top,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        Foreground = Brushes.Yellow,
-                        Background = Brushes.Green,
-                        FontWeight = FontWeights.Bold,
-                        FontStyle = FontStyles.Normal,
-                        FontFamily = new FontFamily("Segoe UI"),
-                        Margin = new Thickness(207, textBoxStep, 0, 0)
-                    };
-
-
-                    TextBox textbox = new TextBox
-                    {
-                        Text = Checkpoints[i].Name,
-                        IsReadOnly = true,
-                        Width = 200,
-                        Height = 40,
-                        BorderBrush = Brushes.White,
-                        FontSize = 18,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        HorizontalContentAlignment = HorizontalAlignment.Left,
-                        Foreground = Brushes.Black,
-                        FontWeight = FontWeights.DemiBold,
-                        FontStyle = FontStyles.Normal,
-                        FontFamily = new FontFamily("Segoe UI"),
-                        Margin = new Thickness(250, stepWidth, 0, 0)
-                    };
-
-                    numberContainer.Children.Add(textbox1);
-
-                    namesContainer.Children.Add(textbox);
-
-                    progressContainer.Children.Add(ellipse);
+                    ellipse.Margin = new Thickness(200, stepWidth, 0, 0);
+                    textbox1.Margin = new Thickness(207, textBoxStep, 0, 0);
+                    textbox.Margin = new Thickness(250, stepWidth, 0, 0);
                 }
 
+                numberContainer.Children.Add(textbox1);
+                namesContainer.Children.Add(textbox);
+                progressContainer.Children.Add(ellipse);
             }
         }
+
 
         private void ScrollToPosition(int position)
         {
@@ -347,11 +314,15 @@ namespace BookingApp.WPF.Views.TouristView
         {
             if (tourService.HasAvailableSeatsInAnyRealisation(SelectedTour.Id))
             {
-                //TourStartTime = 
                 TourRealisations.Clear();
                 SelectedDate = Date;
                 NumberOfSeats = NumberOfTourists;
-                tourRealisationService.GetRealisationsForTourOnGivenDate(SelectedTour.Id, DateOnly.FromDateTime(Date)).ForEach(tR => TourRealisations.Add(new TourRealisationViewModel(tR.Id, tR.StartTime, tR.TourId, tR.AvailableSeats, SelectedTour.Duration, tR.User, NumberOfTourists)));
+                tourRealisationService.GetRealisationsForTourOnGivenDate(SelectedTour.Id, DateOnly.FromDateTime(Date))
+                    .ForEach(tR => 
+                    {
+                        if(tR.IsFinished == false && tR.IsLive == false)                            
+                            TourRealisations.Add(new TourRealisationViewModel(tR.Id, tR.StartTime, tR.TourId, tR.AvailableSeats, SelectedTour.Duration, tR.User, NumberOfTourists));                    
+                    });
                 onClickVisible.Visibility = Visibility.Visible;
             }
             else
@@ -389,32 +360,6 @@ namespace BookingApp.WPF.Views.TouristView
                 TourStartTime = SelectedRealisation.StartTime;
                 IsRealisationSelected = true;
                 CancelationDue = SelectedRealisation.DateTime.AddDays(-2);
-            }
-        }
-    }
-
-    public static class ScrollViewerBehavior
-    {
-        public static readonly DependencyProperty VerticalOffsetProperty =
-            DependencyProperty.RegisterAttached("VerticalOffset", typeof(double), typeof(ScrollViewerBehavior),
-                new PropertyMetadata(OnVerticalOffsetChanged));
-
-        public static double GetVerticalOffset(DependencyObject obj)
-        {
-            return (double)obj.GetValue(VerticalOffsetProperty);
-        }
-
-        public static void SetVerticalOffset(DependencyObject obj, double value)
-        {
-            obj.SetValue(VerticalOffsetProperty, value);
-        }
-
-        private static void OnVerticalOffsetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var scrollViewer = d as ScrollViewer;
-            if (scrollViewer != null)
-            {
-                scrollViewer.ScrollToVerticalOffset((double)e.NewValue);
             }
         }
     }

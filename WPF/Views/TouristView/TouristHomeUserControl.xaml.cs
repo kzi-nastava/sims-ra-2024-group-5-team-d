@@ -31,17 +31,17 @@ namespace BookingApp.WPF.Views.TouristView
         public TourViewModel SelectedTour { get; set; }
         public ObservableCollection<TourViewModel> Tours { get; set; }
 
-        private readonly ITourRepository tourRepository;
+        private TourService tourService { get; set; }
         public User User { get; set; }
 
         public TouristHomeUserControl(User user)
         {
             InitializeComponent();
+            tourService = new TourService();
             DataContext = this;
             User = user;
-            tourRepository = Injector.CreateInstance<ITourRepository>();
             Tours = new ObservableCollection<TourViewModel>();
-            tourRepository.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
+            tourService.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
            
         }
 
@@ -128,10 +128,9 @@ namespace BookingApp.WPF.Views.TouristView
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            //TouristHomeWindow.contentControl.Content = new YourToursWindow();
             Tours.Clear();
 
-            foreach (Tour tour in tourRepository.GetAllTours())
+            foreach (Tour tour in tourService.GetAllTours())
             {
                 bool languageMatch = pickedLanguage == 3 || tour.Language == (LANGUAGE)pickedLanguage;
                 bool durationMatch = pickedDuration == 5 || (tour.Duration >= pickedDuration && tour.Duration <= pickedDuration + 1);

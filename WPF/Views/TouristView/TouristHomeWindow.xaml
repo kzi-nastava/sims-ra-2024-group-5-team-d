@@ -131,6 +131,14 @@
             <Grid>
                 <Button Width="150"
                         Height="30"
+                        Margin="-400 0 0 0"
+                        Content="Your Requests"
+                        FontWeight="DemiBold"
+                        Click="Requests_Click">
+
+                </Button>
+                <Button Width="150"
+                        Height="30"
                         Content="H O M E"
                         FontWeight="DemiBold"
                         Click="Button_Click">

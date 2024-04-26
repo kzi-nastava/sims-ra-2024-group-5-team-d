@@ -88,47 +88,52 @@ namespace BookingApp.WPF.ViewModels
         public ObservableCollection<VoucherViewModel> Vouchers { get; set; }
         public User User { get; set; }
         public TourGuestService TourGuestService { get; set; }
+        public TourReservationService tourReservationService { get; set; }
         public TourReservation TourReservation { get; set; }
-        public ITourReservationRepository tourReservationRepository { get; set; }
-        public ICheckPointRepository checkPointRepository { get; set; }
-        public ITourRealisationRepository tourRealisationRepository { get; set; }
-        public ITourGuestRepository tourGuestRepository { get; set; }
+        public TourRealisationService tourRealisationService { get; set; }
+        public TourGuestService tourGuestService { get; set; }
+
         public CheckPointService checkPointService;
-        public IVoucherRepository voucherRepository;
+
+        public VoucherService voucherService { get; set; }
 
         NotifierService notifier;
         public BookingSectionViewModel(TourRealisationViewModel tourRealisation, TourViewModel tour, User user, int numberOfSeats) 
         {
+            tourReservationService = new TourReservationService();
+            tourRealisationService = new TourRealisationService();
+            tourGuestService = new TourGuestService();
+            voucherService = new VoucherService();
+            TourGuestService = new TourGuestService();
+            checkPointService = new CheckPointService();
             notifier = new NotifierService();
+
             TourRealisation = tourRealisation;
             Tour = tour;
             User = user;
             TourDate = DateOnly.FromDateTime(tourRealisation.DateTime);
             CancellationDue = tourRealisation.DateTime.AddDays(-2);
-            checkPointRepository = Injector.CreateInstance<ICheckPointRepository>();
-            checkPointService = new CheckPointService();
             FirstCheckpointName = checkPointService.GetAllCheckPointsByTourId(Tour.Id).FirstOrDefault().Name;
             NumberOfTourists = numberOfSeats;
             Tourists = new ObservableCollection<TourGuestViewModel>();
-            TourGuestService = new TourGuestService();
-            tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
-            TourReservation = new TourReservation(tourReservationRepository.NextIdForReservation(), tourRealisation.Id, user);
+            TourReservation = new TourReservation(tourReservationService.NextId(), tourRealisation.Id, user);
+
             CreateTouristsFormular();
+
             BookCommand = new RelayCommand(SaveReservation);
             CancelCommand = new RelayCommand(CancelReservation);
-            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
-            tourGuestRepository = Injector.CreateInstance<ITourGuestRepository>();
+            UseVoucherCommand = new RelayCommand(UseVoucheClick);
+            UseCommand = new RelayCommand(UseClick);
+
             Vouchers = new ObservableCollection<VoucherViewModel>();
-            voucherRepository = Injector.CreateInstance<IVoucherRepository>();
-            foreach (Voucher v in voucherRepository.GetAll())
+            foreach (Voucher v in voucherService.GetAAll())
             {
                 if (v.User.Id == user.Id && v.ExpireDate > DateTime.Now)
                 {
                     Vouchers.Add(new VoucherViewModel(v));
                 }                    
             }
-            UseVoucherCommand = new RelayCommand(UseVoucheClick);
-            UseCommand = new RelayCommand(UseClick);
+
             IsUseVoucherClicked = false;
             VoucherNotInUse = true;
             IsVoucherInUse = false;
@@ -181,15 +186,16 @@ namespace BookingApp.WPF.ViewModels
             if(SelectedVoucher != null)
             {
                 toBeDeleted.Id = SelectedVoucher.VoucherId;
-                voucherRepository.Delete(toBeDeleted);
+                voucherService.Delete(toBeDeleted);
             }
-            tourReservationRepository.SaveReservation(TourReservation);
-            TourRealisation tR = tourRealisationRepository.GetTourRealisationById(TourRealisation.Id);
+            tourReservationService.Save(TourReservation);
+            TourRealisation tR = tourRealisationService.GetTourRealisationById(TourRealisation.Id);
             tR.AvailableSeats -= NumberOfTourists;
-            tourRealisationRepository.UpdateTourRealisation(tR);
+
+            tourRealisationService.Update(tR);
             foreach(TourGuestViewModel tG in Tourists)
             {
-                tourGuestRepository.SaveGuest(new TourGuest(tG.Id, tG.FullName, tG.Years, TourReservation.Id,-1, tG.PersonalID));
+                tourGuestService.Save(new TourGuest(tG.Id, tG.FullName, tG.Years, TourReservation.Id,-1, tG.PersonalID));
             }
             notifier.ShowSuccess("Tour booked successfully");
             TouristHomeWindow.contentControl.Content = new TouristHomeUserControl(User);

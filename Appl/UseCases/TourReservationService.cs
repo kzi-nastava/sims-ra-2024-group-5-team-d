@@ -34,6 +34,15 @@ namespace BookingApp.Appl.UseCases
             return _tourReservationRepository.GetTourReservationById(id);
         }
 
+        public void Save(TourReservation reservation)
+        {
+            _tourReservationRepository.SaveReservation(reservation);
+        }
+
+        public int NextId()
+        {
+            return _tourReservationRepository.NextIdForReservation();
+        }
         public bool WasTourRated(int tourReservationId)
         {
             foreach(TourRating rating in ratingRepository.GetAllTourRatings())

@@ -43,6 +43,11 @@ namespace BookingApp.Appl.UseCases
             return guests;
         }
 
+        public void Save(TourGuest guest) 
+        {
+            _repository.SaveGuest(guest);
+        }
+
         public int NextIdForGuest()
         {
             return _repository.NextIdForGuest();

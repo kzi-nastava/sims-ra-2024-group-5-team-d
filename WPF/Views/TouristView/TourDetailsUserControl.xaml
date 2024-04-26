@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+             xmlns:utils="clr-namespace:BookingApp.WPF.Views.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="587"
              d:DesignWidth="1152">
@@ -16,7 +17,7 @@
     <ScrollViewer x:Name="MainScroll"
                   VerticalScrollBarVisibility="Visible"
                   HorizontalScrollBarVisibility="Disabled"
-                  local:ScrollViewerBehavior.VerticalOffset="{Binding ElementName=MainScroll, Path=VerticalOffset, Mode=OneWay}">
+                  utils:ScrollViewerBehavior.VerticalOffset="{Binding ElementName=MainScroll, Path=VerticalOffset, Mode=OneWay}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -212,9 +213,11 @@
                                             Width="375"
                                             VerticalContentAlignment="Center"
                                             Padding="0 0 0 0"
-                                            SelectedDate="{Binding Date,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                            />
-
+                                            DisplayDateStart="{Binding MinAvailDate}"                                            
+                                            SelectedDate="{Binding Date,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                    <DatePicker.BlackoutDates>
+                                    </DatePicker.BlackoutDates>
+                                </DatePicker>
                             </StackPanel>
                         </Border>
                         <StackPanel Grid.Row="2"

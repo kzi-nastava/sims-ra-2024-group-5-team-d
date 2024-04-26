@@ -40,15 +40,19 @@ namespace BookingApp.WPF.ViewModels
         public LiveTourViewModel(User user) 
         {
             User = user;
+
             guestService = new TourGuestService();
             checkPointService = new CheckPointService();
             tourService = new TourService();
-            Attendees = new ObservableCollection<TourAttendeeViewModel>();
             reservationService = new TourReservationService();
             realisationService = new TourRealisationService();
+
+            Attendees = new ObservableCollection<TourAttendeeViewModel>();
             CheckPoints = new List<CheckPoint>();
+
             PastToursTabCommand = new RelayCommand(SwitchToPastTours);
             VouchersTabCommand = new RelayCommand(SwitchToVouchers);
+
             Reservation = reservationService.GetLiveTourReservation(user.Id);
             if(Reservation != null )
             {
@@ -72,6 +76,7 @@ namespace BookingApp.WPF.ViewModels
                         Attendees.Add(attendee);
                     }
                 }               
+
                 Tour = tourService.GetById(realisationService.GetTourRealisationById(Reservation.TourRealisationId).TourId);
                 foreach (CheckPoint cp in checkPointService.GetAllCheckPointsByTourId(Tour.Id))
                 {
@@ -95,101 +100,43 @@ namespace BookingApp.WPF.ViewModels
         private void CreateProgressSteps()
         {
             int numberOfSteps = CheckPoints.Count;
-
             double stepValue = YourToursUserControl.progressBar.Maximum / (double)(numberOfSteps - 1);
-
             double stepWidth = (YourToursUserControl.progressBar.Width - (numberOfSteps - 1) * 40) / (double)(numberOfSteps - 1);
-
             double textBoxStep = (YourToursUserControl.progressBar.Width - (numberOfSteps - 1) * 135) / (double)(numberOfSteps - 1);
 
-            Debug.WriteLine(stepWidth);
             for (int i = 0; i < numberOfSteps; i++)
             {
-                if (i == 0)
+                Ellipse ellipse = new Ellipse
                 {
-                    Ellipse ellipse = new Ellipse
-                    {
-                        Width = 40,
-                        Height = 40,
-                        Fill = Brushes.AntiqueWhite,
-                        Margin = new Thickness(20, 5, 0, 0),
-                        Cursor = Cursors.Hand
-                    };
+                    Width = 40,
+                    Height = 40,
+                    Fill = CheckPoints[i].IsChecked ? Brushes.DarkGreen : Brushes.AntiqueWhite,
+                    Margin = new Thickness(i == 0 ? 20 : stepWidth, 5, 0, 0),
+                    Cursor = Cursors.Hand
+                };
 
-                    if (CheckPoints[i].IsChecked)
-                    {
-                        ellipse.Fill = Brushes.DarkGreen;
+                if (CheckPoints[i].IsChecked)
+                    YourToursUserControl.progressBar.Value = i * stepValue;
 
-                        YourToursUserControl.progressBar.Value = i * stepValue;
-                    }
-
-                    TextBox textbox = new TextBox
-                    {
-                        Text = CheckPoints[i].Name,
-                        BorderBrush = Brushes.White,
-                        IsReadOnly = true,
-                        Width = 135,
-                        Height = 40,
-                        FontSize = 12,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        FontWeight = FontWeights.DemiBold,
-                        FontStyle = FontStyles.Normal,
-                        FontFamily = new FontFamily("Segoe UI"),
-                        Margin = new Thickness(-25, 45, 0, 10)
-                    };
-
-                    
-
-                    YourToursUserControl.namesContainer.Children.Add(textbox);
-
-                    YourToursUserControl.progressContainer.Children.Add(ellipse);
-                }
-                else
+                TextBox textbox = new TextBox
                 {
-                    Ellipse ellipse = new Ellipse
-                    {
-                        Width = 40,
-                        Height = 40,
-                        Fill = Brushes.AntiqueWhite,
+                    Text = CheckPoints[i].Name,
+                    BorderBrush = Brushes.White,
+                    IsReadOnly = true,
+                    Width = 135,
+                    Height = 40,
+                    FontSize = 12,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    FontWeight = FontWeights.DemiBold,
+                    FontStyle = FontStyles.Normal,
+                    FontFamily = new FontFamily("Segoe UI"),
+                    Margin = new Thickness(i == 0 ? -25 : textBoxStep, 45, 0, 10)
+                };
 
-                        Margin = new Thickness(stepWidth, 5, 0, 0),
-                        Cursor = Cursors.Hand
-                    };
-
-                    if (CheckPoints[i].IsChecked)
-                    {
-                        ellipse.Fill = Brushes.DarkGreen;
-
-                        YourToursUserControl.progressBar.Value = i * stepValue;
-                    }
-                        
-
-                    TextBox textbox = new TextBox
-                    {
-                        Text = CheckPoints[i].Name,
-                        IsReadOnly = true,
-                        Width = 135,
-                        Height = 40,
-                        BorderBrush = Brushes.White,
-                        FontSize = 12,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        Foreground = Brushes.Black,
-                        FontWeight = FontWeights.DemiBold,
-                        FontStyle = FontStyles.Normal,
-                        FontFamily = new FontFamily("Segoe UI"),
-                        Margin = new Thickness(textBoxStep, 45, 0, 10)
-                    };
-
-
-                    YourToursUserControl.namesContainer.Children.Add(textbox);
-
-                    YourToursUserControl.progressContainer.Children.Add(ellipse);
-                }
-
+                YourToursUserControl.namesContainer.Children.Add(textbox);
+                YourToursUserControl.progressContainer.Children.Add(ellipse);
             }
         }
-
     }
 }

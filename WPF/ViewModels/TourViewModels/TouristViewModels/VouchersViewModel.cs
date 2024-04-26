@@ -19,7 +19,7 @@ namespace BookingApp.WPF.ViewModels
         public ObservableCollection<VoucherViewModel> Vouchers { get; set; }
 
         public User User { get; set; }
-        private IVoucherRepository repository { get; set; }
+        private VoucherService service { get; set; }
 
         public ICommand PastToursTabCommand { get; private set; }
 
@@ -30,8 +30,8 @@ namespace BookingApp.WPF.ViewModels
         {
             User = user;
             Vouchers = new ObservableCollection<VoucherViewModel>();
-            repository = Injector.CreateInstance<IVoucherRepository>();
-            foreach(Voucher v in repository.GetAll())
+            service = new VoucherService();
+            foreach(Voucher v in service.GetAAll())
             {
                 if(v.User.Id == user.Id && v.ExpireDate > DateTime.Now)
                     Vouchers.Add(new VoucherViewModel(v));
