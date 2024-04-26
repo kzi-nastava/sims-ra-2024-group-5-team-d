@@ -79,6 +79,6 @@
 
             </Grid>
         </Grid>
-        <Button Content="Show reccommended actions" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 50"/>
+        <Button Content="Show reccommended actions" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 50" Command="{Binding ShowReccommendationCommand}"/>
     </Grid>
 </UserControl>

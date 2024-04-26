@@ -28,6 +28,7 @@ namespace BookingApp.WPF.ViewModels
         private SignInService signInService;
         public ObservableCollection<UserViewModel> Users { get; set; }
         private UserService userService;
+        private string variable="";
         public LogInViewModel() {
             signInService = new SignInService();
             LogInCommand = new RelayParameterCommand(LogIn);
@@ -35,6 +36,8 @@ namespace BookingApp.WPF.ViewModels
             Users = new ObservableCollection<UserViewModel>();
             userService = new UserService();
             userService.GetUsersWithSameMacAdress(GetMacAddress()).ForEach(user=>Users.Add(new UserViewModel(user)));
+           // Environment.GetEnvironmentVariable(variable);
+            Debug.WriteLine(variable);
         }
         private string GetMacAddress()
         {

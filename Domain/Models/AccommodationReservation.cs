@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -20,6 +21,7 @@ namespace BookingApp.Domain.Models
         public int Cancelled { get; set; }
         public int RescheduledReservation { get; set; }
         public int RecommendedRenovation { get; set; }
+        public int NumberOfPeople { get; set; }
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
@@ -30,12 +32,13 @@ namespace BookingApp.Domain.Models
             Cancelled = Convert.ToInt32(values[5]);
             RescheduledReservation = Convert.ToInt32(values[6]);
             RecommendedRenovation = Convert.ToInt32(values[7]);
+            NumberOfPeople = Convert.ToInt32(values[8]);
         }
         public AccommodationReservation()
         {
         }
 
-        public AccommodationReservation(int accommodationId, int userId, DateTime reservedFrom, DateTime reservedTo, int cancelled, int rescheduledReservation, int recommendedRenovation)
+        public AccommodationReservation(int accommodationId, int userId, DateTime reservedFrom, DateTime reservedTo, int cancelled, int rescheduledReservation, int recommendedRenovation,int numberOfPeople)
         {
             AccommodationId = accommodationId;
             UserId = userId;
@@ -44,8 +47,10 @@ namespace BookingApp.Domain.Models
             Cancelled = cancelled;
             RescheduledReservation = rescheduledReservation;
             RecommendedRenovation = recommendedRenovation;
+            NumberOfPeople = numberOfPeople;
+
         }
-        public AccommodationReservation(int accommodationId, int userId, DateTime reservedFrom, DateTime reservedTo)
+        public AccommodationReservation(int accommodationId, int userId, DateTime reservedFrom, DateTime reservedTo,int numberOfPeople)
         {
             AccommodationId = accommodationId;
             UserId = userId;
@@ -54,10 +59,11 @@ namespace BookingApp.Domain.Models
             Cancelled = 0;
             RescheduledReservation = 0;
             RecommendedRenovation = 0;
+            NumberOfPeople = numberOfPeople;
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString("M/d/yyyy h:mm:ss tt"), ReservedTo.ToString("M/d/yyyy h:mm:ss tt"), Cancelled.ToString(), RescheduledReservation.ToString(), RecommendedRenovation.ToString() };
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString("M/d/yyyy h:mm:ss tt"), ReservedTo.ToString("M/d/yyyy h:mm:ss tt"), Cancelled.ToString(), RescheduledReservation.ToString(), RecommendedRenovation.ToString(),NumberOfPeople.ToString() };
             return csvValues;
         }
         public bool IsCanceled()
@@ -76,11 +82,6 @@ namespace BookingApp.Domain.Models
         }
         public bool IsRateable()
         {
-            Debug.WriteLine("ReservedTo: " + ReservedTo);
-            Debug.WriteLine("DateTime.Now: " + DateTime.Now);
-            Debug.WriteLine("ReservedTo.AddDays(5): " + ReservedTo.AddDays(5));
-            Debug.WriteLine(Id);
-            Debug.WriteLine("IsRateable: " + (DateTime.Now > ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now));
             return DateTime.Now>ReservedTo && ReservedTo.AddDays(5) >= DateTime.Now;
         }
         public bool IsCancellable(int cancellationDeadLine)

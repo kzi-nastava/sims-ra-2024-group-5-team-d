@@ -25,6 +25,7 @@ namespace BookingApp.Appl.UseCases
         { typeof(ITourGuestRepository), new TourGuestRepository() },
         { typeof(ITourRepository), new TourRepository() },
         { typeof(ITourRatingRepository), new TourRatingRepository() },
+        { typeof(IForumCommentRepository), new ForumCommentRepository() },
         { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
         { typeof(ITourReservationRepository), new TourReservationRepository() },
         { typeof(IGuestRequestRepository), new GuestRequestRepository() },
