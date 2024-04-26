@@ -12,13 +12,17 @@ namespace BookingApp.Appl.UseCases
     public class ForumService
     {
         private IForumRepository forumRepository;
+        private LocationService locationService;
         public ForumService() 
         {
+            locationService = new LocationService();
             forumRepository = Injector.CreateInstance<IForumRepository>();
         }
         public List<Forum> GetAll()
         {
-            return forumRepository.GetAll();
+            List<Forum> forums = forumRepository.GetAll();
+            forums.ForEach(forum => forum.Location = locationService.GetById(forum.Location.Id));
+            return forums;
         }
         public Forum GetById(int Id)
         {

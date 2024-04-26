@@ -12,7 +12,7 @@ namespace BookingApp.Repositories
     public class ForumRepository : IForumRepository
     {
 
-        private const string FilePath = "../../../Resources/Data/forum.csv";
+        private const string FilePath = "../../../Resources/Data/forums.csv";
 
         private readonly Serializer<Forum> serializer;
         private List<Forum> forums;

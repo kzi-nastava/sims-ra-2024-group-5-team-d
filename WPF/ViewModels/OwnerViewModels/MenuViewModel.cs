@@ -42,7 +42,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                         }
                         case 3:
                         {
-                           // OwnerMainWindow.contentControl.Content = new ForumNoMenu();
+                            OwnerMainWindow.contentControl.Content = new ForumUserControl(loggedInUser);
                             break;
                         }
                 } 
