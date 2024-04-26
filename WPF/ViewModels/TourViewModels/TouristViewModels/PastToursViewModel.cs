@@ -25,46 +25,54 @@ namespace BookingApp.WPF.ViewModels
         public ICommand GuidesKnowladgeRatingCommand { get; set; }
         public ICommand GuidesLanguageRatingCommand { get; set; }
         public ICommand TourAmusementRatingCommand { get; set; }
-        public RateTourViewModel SelectedItem { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand RateSubmitButtonClickCommand { get; set; }
         public ICommand LiveTourTabCommand { get; private set; }
         public ICommand VouchersTabCommand { get; private set; }
 
         public User User;
+        public RateTourViewModel SelectedItem { get; set; }
         public ObservableCollection<RateTourViewModel> PastTourRealisations { get; set; }
+
+        private TourRatingService tourRatingService;
         private RateTourService tourRateService;
+        private TourReservationService tourReservationService;
+        private TourService tourService;
+        private ImageUploaderService imageUploaderService;
+
         private List<TourRealisation> pastTourRealisations;
         private List<TourReservation> pastTourReservations;
-        private TourReservationService tourReservationService;
-        private TourRatingService tourRatingService;
-        private List<string> imagesPath;
-        private ImageUploaderService imageUploaderService;
         private List<Tour> pastTours;
-        private ITourRepository tourRepository;
+        private List<string> imagesPath;
+
         private int selectedItemIndex=-1;
         private int paginationIndex = 0;
         private int languageRating;
         private int knowledgeRating;
-        private int tourAmusementRating;
+        private int tourAmusementRating;       
+
         public PastToursViewModel(User user)
         {
-
-            tourRepository = Injector.CreateInstance<ITourRepository>();
+            User = user;
+            tourService = new TourService();
             tourRateService = new RateTourService();
-            pastTours = new List<Tour>();
             tourReservationService=new TourReservationService();
             imageUploaderService=new ImageUploaderService();
             tourRatingService=new TourRatingService();
+
             PastTourRealisations = new ObservableCollection<RateTourViewModel>();
             pastTourReservations = tourReservationService.GetPastTourReservationsForTourist(user);
             pastTourRealisations = tourRateService.GetAllPastTourRealisationsForTourist(user);
-            pastTourRealisations.ForEach(tourRealisation=> pastTours.Add(tourRepository.GetTourById(tourRealisation.TourId)));
+
+            imagesPath = new List<string>();
+            pastTours = new List<Tour>();
+            pastTourRealisations.ForEach(tourRealisation=> pastTours.Add(tourService.GetById(tourRealisation.TourId)));
+
             for(int i=0;i<pastTourRealisations.Count;i++)
             {
                 PastTourRealisations.Add(new RateTourViewModel(pastTourReservations[i].Id, pastTours[i].ImagesPath, pastTours[i].Name, pastTours[i].Location, pastTours[i].Duration,DateOnly.FromDateTime( pastTourRealisations[i].StartTime),TimeOnly.FromDateTime(pastTourRealisations[i].StartTime), TimeOnly.FromDateTime(pastTourRealisations[i].StartTime).AddHours(pastTours[i].Duration)));
             }
-            imagesPath = new List<string>();
+
             LiveTourTabCommand = new RelayCommand(SwitchToLiveTour);
             VouchersTabCommand = new RelayCommand(SwitchToVouchers);
             RateSubmitButtonClickCommand = new RelayCommand(RateSubmitButtonClick);
@@ -76,7 +84,6 @@ namespace BookingApp.WPF.ViewModels
             UploadCommand = new RelayCommand(UploadPicture);
             ForwardCommand=new RelayCommand(Forward);
             BackwardCommand=new RelayCommand(Backward);
-            User = user;
         }
 
         public void Cancel()

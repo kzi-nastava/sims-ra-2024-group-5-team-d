@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,21 +19,14 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.TouristView
 {
     /// <summary>
-    /// Interaction logic for YourToursUserControl.xaml
+    /// Interaction logic for YourRequestsUserControl.xaml
     /// </summary>
-    public partial class YourToursUserControl : UserControl
+    public partial class YourRequestsUserControl : UserControl
     {
-        public static ProgressBar progressBar;
-        public static StackPanel progressContainer;
-        public static StackPanel namesContainer;
-        public YourToursUserControl(User user)
+        public YourRequestsUserControl(User user)
         {
             InitializeComponent();
-            progressBar = progressBar2;
-            progressContainer = progressContainer2;
-            namesContainer = namesContainer2;
-            DataContext = new LiveTourViewModel(user);
-
-        }
+            DataContext = new SimpleRequestsViewModel(user);
+        }        
     }
 }

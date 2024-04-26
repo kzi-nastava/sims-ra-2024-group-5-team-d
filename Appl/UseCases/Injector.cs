@@ -30,7 +30,8 @@ namespace BookingApp.Appl.UseCases
         { typeof(ITourReservationRepository), new TourReservationRepository() },
         { typeof(IGuestRequestRepository), new GuestRequestRepository() },
         { typeof(IVoucherRepository), new VoucherRepository() },
-        { typeof(IForumRepository), new ForumRepository() }
+        { typeof(IForumRepository), new ForumRepository() },
+        { typeof(ITourRequestRepository), new TourRequestRepository()},
         };
 
         public static T CreateInstance<T>()
