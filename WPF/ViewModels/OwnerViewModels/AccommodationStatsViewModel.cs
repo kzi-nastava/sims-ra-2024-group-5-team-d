@@ -1,6 +1,7 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.Views.OwnerView;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -158,8 +159,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         }
         public void ShowReccommendation()
         {
-            List<Location>location=locationService.GetMostPopularLocations();
-            location.ForEach(loc => Debug.WriteLine(loc));
+            ReccommendationsWindow reccommendationsWindow = new ReccommendationsWindow();
+            reccommendationsWindow.Show();
+            reccommendationsWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
     }
 }

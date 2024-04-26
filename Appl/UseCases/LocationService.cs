@@ -20,7 +20,7 @@ namespace BookingApp.Appl.UseCases
             accommodationReservationService = new AccommodationReservationService();
             locationRepository = Injector.CreateInstance<ILocationRepository>();
         }
-        public List<Location> GetMostPopularLocations()
+        public List<KeyValuePair<Location, double>> GetMostPopularLocations()
         { 
             List<Location>allLocations=locationRepository.GetAll();
             List<KeyValuePair<Location, double>> mostPopularLocation = new List<KeyValuePair<Location, double>>();
@@ -28,32 +28,23 @@ namespace BookingApp.Appl.UseCases
               double busyness=CalculateBusynessForLocation(location);
                 mostPopularLocation.Add(new KeyValuePair<Location, double>(location, busyness));
             });
-            mostPopularLocation.Sort((l1, l2) => l1.Value.CompareTo(l2.Value));
+            mostPopularLocation.Sort((l1, l2) => l2.Value.CompareTo(l1.Value));
             mostPopularLocation.ForEach(location => Debug.WriteLine(location.Key + " " + location.Value));
-            return mostPopularLocation.Select(location => location.Key).ToList();
+            return mostPopularLocation;
         }
         private double CalculateBusynessForLocation(Location location)
         {
-            int GlobalnumberOfReservations = 0;
-            double Globaloccupancy = 0;
-            int numberOfAccommodations = 0;
-            accommodationService.GetAllAccommodationOnSameLocation(location).ForEach(accommodation => {
-                    List<AccommodationReservation> allReservationsForAccommodation = accommodationReservationService.GetAllReservationsForAccommodation(accommodation.Id).Where(reservation => reservation.IsFinished()).ToList();
-                    if (allReservationsForAccommodation.Count != 0)
-                    {
-                        numberOfAccommodations+= 1;
-                        int numberOfReservations = allReservationsForAccommodation.Count();
-                        double occupancy = 0;
-                        allReservationsForAccommodation.ForEach(reservation => {
-                            occupancy+=(double)reservation.NumberOfPeople / accommodation.Capacity;
-                        });                      
-                        occupancy = occupancy / numberOfReservations;
-                        GlobalnumberOfReservations += numberOfReservations;
-                        Globaloccupancy += occupancy;
-                    }
-                });
-            Globaloccupancy = Globaloccupancy / numberOfAccommodations;
-            return GlobalnumberOfReservations*Globaloccupancy;
+            List<Accommodation>accommodationsOnsameLocation=accommodationService.GetAllAccommodationOnSameLocation(location);
+            List<AccommodationReservation>reservations=new List<AccommodationReservation>();
+            accommodationsOnsameLocation.ForEach(accommodation =>
+            {
+                reservations.AddRange(accommodationReservationService
+                    .GetAllReservationsForAccommodation(accommodation.Id)
+                    .Where(reservation => reservation.IsFinished())
+                    .ToList());
+            });
+            double occupancy = reservations.Sum(reservation => (double)reservation.NumberOfPeople / accommodationService.GetById(reservation.AccommodationId).Capacity);
+            return occupancy;
         }   
         public List<Location> GetAll()
         {
