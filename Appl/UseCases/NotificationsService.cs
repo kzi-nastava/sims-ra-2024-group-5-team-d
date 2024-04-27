@@ -128,6 +128,24 @@ namespace BookingApp.Appl.UseCases
             Notification notification = new Notification(receiverId, linkId, type, DateTime.Now, false);
             Save(notification);
         }
+
+
+        public void CreateForumNotifications(Forum forum)
+        {
+            accommodationRepository.GetAll().ForEach(accommodation =>
+            {
+                if (accommodation.Location.Id == forum.Location.Id)
+                {
+                    Notification notification = GetForumNotificationByForumId(forum.Id);
+                    if(!NotificationExists(notification))
+                    CreateNotification(accommodation.Owner.Id, forum.Id,Domain.Models.Type.FORUM);
+                }
+            });
+        }
+        private Notification GetForumNotificationByForumId(int forumId)
+        {
+            return GetAll().Where(notification => (notification.LinkId == forumId && notification.isForum())).FirstOrDefault();
+        }
         public void RemoveNotification(int reservationId)
         {
             Notification notification = GetRateNotificationByReservationId(reservationId);

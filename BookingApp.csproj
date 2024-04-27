@@ -76,6 +76,7 @@
     <None Remove="Resources\Images\GuestImages\fullStar.png" />
     <None Remove="Resources\Images\GuestImages\help.png" />
     <None Remove="Resources\Images\GuestImages\house.png" />
+    <None Remove="Resources\Images\GuestImages\left.png" />
     <None Remove="Resources\Images\GuestImages\location.png" />
     <None Remove="Resources\Images\GuestImages\mail.png" />
     <None Remove="Resources\Images\GuestImages\ok.png" />
@@ -282,6 +283,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\house.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\location.png">

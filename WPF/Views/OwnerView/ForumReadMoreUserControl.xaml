@@ -62,7 +62,7 @@
                    VerticalAlignment="Center"
                    Margin="20 0 20 0"
                    Grid.Row="1"/>
-                <Button Grid.Column="2" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Command="{Binding AddCommentCommand}">
+                <Button Grid.Column="2" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Command="{Binding AddCommentCommand}" Visibility="{Binding IsAddingCommentEnabled,Converter={StaticResource BoolToVisibilityConverter}}">
                     <Image Source="C:\Users\lukai\Desktop\Resource\plusgreat.png" Height="40" Width="40"/>
                 </Button>
             </Grid>
@@ -133,27 +133,31 @@
                                                 <ColumnDefinition Width="auto "/>
                                             </Grid.ColumnDefinitions>
                                             <Image Grid.Column="0"  
-                   Source="C:\Users\lukai\Desktop\Resource\home.png" 
-                   Height="24" 
-                   Width="24" 
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   Margin="20 0 5 0"
-                   Grid.Row="1"/>
-                                            <TextBlock Text="(has a property on location)" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                               Source="{Binding IconPath}" 
+                                               Height="24" 
+                                               Width="24" 
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="20 0 5 0"
+                                               Grid.Row="1"/>
+                                            <!--<TextBlock Text="(has a property on location)" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
                                         </Grid>
                                     </Grid>
                                     <TextBlock Grid.Row="1" Text="{Binding Comment}" TextWrapping="WrapWithOverflow" FontSize="18" MaxWidth="700"/>
 
                                 </Grid>
-                                <Image Grid.Column="1"  
-                   Source="C:\Users\lukai\Desktop\Resource\flag.png" 
-                   Height="24" 
-                   Width="24" 
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Margin="20 0 20 0"
-                   Grid.Row="1"/>
+                                <Grid Visibility="{Binding IsReportable,Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding Reports}"  HorizontalAlignment="Right" Margin="10"/>
+                                    <Button  Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="{Binding IsReported}" Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                        <Image  
+                                       Source="C:\Users\lukai\Desktop\Resource\flag.png" 
+                                       Height="24" 
+                                       Width="24" 
+                                       VerticalAlignment="Center"
+                                       Margin="20 0 20 0"
+                                      />
+                                    </Button>
+                                </Grid>
                             </Grid>
                         </Border>
                     </DataTemplate>

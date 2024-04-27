@@ -95,5 +95,11 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationReservationRepository.GetByAccommodation(accommodation);
         }
+
+        public bool HasReservationOnLocation(User user, Location location)
+        {
+            List<AccommodationReservation> reservations = GetByUser(user).Where(reservation=>reservation.IsFinished()).ToList();
+            return reservations.Any(reservation=>accommodationService.GetById(reservation.AccommodationId).Location.Id==location.Id);
+        }
     }
 }

@@ -13,8 +13,16 @@ namespace BookingApp.Appl.UseCases
     {
         private IForumRepository forumRepository;
         private LocationService locationService;
+        private ForumCommentService forumCommentService;
+        private UserService userService;
+        private AccommodationReservationService accommodationReservationService;
+        private AccommodationService accommodationService;
         public ForumService() 
         {
+            accommodationService = new AccommodationService();
+            accommodationReservationService = new AccommodationReservationService();
+            userService = new UserService();
+            forumCommentService = new ForumCommentService();
             locationService = new LocationService();
             forumRepository = Injector.CreateInstance<IForumRepository>();
         }
@@ -24,6 +32,23 @@ namespace BookingApp.Appl.UseCases
             forums.ForEach(forum => forum.Location = locationService.GetById(forum.Location.Id));
             return forums;
         }
+        public bool IsSuperForum(Forum forum)
+        {
+            List<ForumComment> forumComments = forumCommentService.GetByForumId(forum.Id);
+            int ownerComments = GetNumberOfOwnerComments(forumComments,forum.Location);
+            int userComments = GetNumberOfUserComments(forumComments,forum.Location);
+            return ownerComments >= 10 && userComments >= 20;
+        }
+
+        private int GetNumberOfUserComments(List<ForumComment>forumComments,Location location)
+        {
+            return forumComments.Where(comment =>accommodationReservationService.HasReservationOnLocation(userService.GetById(comment.CreatorId), location)).Count();
+        }
+        private int GetNumberOfOwnerComments(List<ForumComment> forumComments, Location location)
+        {
+            return forumComments.Where(comment =>accommodationService.HasAccommodationOnLocation(userService.GetById(comment.CreatorId), location)).Count();
+        }
+
         public Forum GetById(int Id)
         {
             Forum forum = forumRepository.GetById(Id);
@@ -41,6 +66,11 @@ namespace BookingApp.Appl.UseCases
         public Forum Save(Forum forum)
         {
             return forumRepository.Save(forum);
+        }
+        public bool IsUserCreateForum(User user, Forum forum)
+        {
+            return forum.IdUser == user.Id;
+                
         }
     }
 }

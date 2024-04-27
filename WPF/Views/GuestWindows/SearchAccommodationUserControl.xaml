@@ -303,10 +303,6 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Border BorderBrush="{StaticResource PrimaryColor2}"
-                                                  BorderThickness="1" 
-                                                  Grid.RowSpan="2"
-                                                  HorizontalAlignment="Right"/>
                                         <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
                                                  Width="90" 
                                                  Height="75"                                      
