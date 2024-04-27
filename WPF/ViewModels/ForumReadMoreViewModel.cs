@@ -39,7 +39,7 @@ namespace BookingApp.WPF.ViewModels
                 });
             CommentCommand = new RelayCommand(SaveComment);
             AddCommentCommand = new RelayCommand(AddComment);
-            
+
         }
         public void SaveComment()
         {

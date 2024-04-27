@@ -42,5 +42,10 @@ namespace BookingApp.Appl.UseCases
         {
             return forumRepository.Save(forum);
         }
+        public bool IsUserCreateForum(User user, Forum forum)
+        {
+            return forum.IdUser == user.Id;
+                
+        }
     }
 }

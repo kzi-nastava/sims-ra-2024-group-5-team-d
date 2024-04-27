@@ -14,6 +14,16 @@ namespace BookingApp.WPF.ViewModels
         public string Description { get; set; }
         public Location Location { get; set; }
         public DateTime DateCreated { get; set; }
+        public bool IsVisible {  get; set; }
+        public ForumViewModel(Forum forum, bool isVisible)
+        {
+            ForumId = forum.Id;
+            Title = forum.Title;
+            Description = forum.Description;
+            Location = forum.Location;
+            DateCreated = forum.DateCreated;
+            IsVisible = isVisible;
+        }
         public ForumViewModel(Forum forum)
         {
             ForumId = forum.Id;
