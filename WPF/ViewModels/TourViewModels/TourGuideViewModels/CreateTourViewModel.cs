@@ -45,11 +45,45 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private TourService tourService;
 
         private int PaginationIndex = 0;
+        public bool IsRequest { get; set; }
         public CreateTourViewModel(User user) 
         {
+            IsRequest = false;
             tourFormViewModel = new TourFormViewModel();
             tourFormViewModel.User = user;
             tourFormViewModel.StartTime = DateTime.Now;
+
+            tourRealisationService = new TourRealisationService();
+            checkPointService = new CheckPointService();
+            tourService = new TourService();
+            locationService = new LocationService();
+            imageUploaderService = new ImageUploaderService();
+
+            SaveCommand = new RelayCommand(Save);
+            LocationChangedCommand = new RelayCommand(LocationChanged);
+            AddCheckPointCommand = new RelayParameterCommand(AddCheckPoint);
+            UploadCommand = new RelayCommand(UploadPicture);
+            BackwardCommand = new RelayCommand(Backward);
+            ForwardCommand = new RelayCommand(Forward);
+            CancelCommand = new RelayCommand(Cancel);
+
+            CheckPoints = new ObservableCollection<CheckPoint>(checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId));
+            checkPointsToSave = new List<CheckPoint>();
+            imagesPath = new List<string>();
+            ImagesPaths = new ObservableCollection<string>();
+        }
+
+        public CreateTourViewModel(User user,RequestViewModel request)
+        {
+            IsRequest = true;
+            tourFormViewModel = new TourFormViewModel();
+            tourFormViewModel.User = user;
+            tourFormViewModel.StartTime = DateTime.Now;
+            tourFormViewModel.Capacity = request.Capacity;
+            tourFormViewModel.Description = request.Description;
+            tourFormViewModel.LanguageId = Convert.ToInt32(request.Language);
+            Debug.WriteLine(tourFormViewModel.LanguageId);
+            tourFormViewModel.LocationId = request.Location.Id;
 
             tourRealisationService = new TourRealisationService();
             checkPointService = new CheckPointService();

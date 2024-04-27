@@ -27,11 +27,11 @@ namespace BookingApp.Appl.UseCases
             }
             _repository.DeleteTour(tour);
         }
-        public List<Tour> GetToursForToday()
+        public List<Tour> GetToursForToday(User user)
         {
             var toursToday = new HashSet<Tour>();
             var today = DateTime.Today;
-            foreach (var tour in _repository.GetAllTours())
+            foreach (var tour in _repository.GetAllTours(user))
             {
                 if (tourRealisationService.GetTourRealisationsByTourId(tour.Id)
                     .Any(tR => tR.StartTime.Date == today))
@@ -42,10 +42,10 @@ namespace BookingApp.Appl.UseCases
             return toursToday.ToList();
         }
 
-        public List<Tour> GetFinishedTours()
+        public List<Tour> GetFinishedTours(User user)
         {
             var finishedTours = new HashSet<Tour>();
-            foreach (var tour in _repository.GetAllTours())
+            foreach (var tour in _repository.GetAllTours(user))
             {
                 if (tourRealisationService.GetTourRealisationsByTourId(tour.Id)
                     .Any(tR => tR.IsFinished))
@@ -101,6 +101,10 @@ namespace BookingApp.Appl.UseCases
             return _repository.GetTourById(mostVisitedTourId);
         }
 
+        public List<Tour> GetAllTours(User user)
+        {
+            return _repository.GetAllTours(user);
+        }
         public List<Tour> GetAllTours()
         {
             return _repository.GetAllTours();

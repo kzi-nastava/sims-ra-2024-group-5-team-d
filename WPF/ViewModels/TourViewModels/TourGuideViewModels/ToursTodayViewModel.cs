@@ -33,7 +33,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             RequestTabCommand = new RelayCommand(RequestsTab);
             tourService = new TourService();
             ToursToday = new ObservableCollection<TourViewModel>();
-            tourService.GetToursForToday().ForEach(tour => ToursToday.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
+            tourService.GetToursForToday(user).ForEach(tour => ToursToday.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
             LoggedInUser = user;
         }
         private void AllToursTab()
@@ -50,7 +50,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         }
         private void RequestsTab()
         {
-            //SideBar.contentControlW.Content = new RequestsWindow(LoggedInUser);
+            SideBar.contentControlW.Content = new RequestsWindow(LoggedInUser);
         }
     }
 }

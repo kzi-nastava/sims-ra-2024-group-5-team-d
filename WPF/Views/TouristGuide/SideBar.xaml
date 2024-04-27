@@ -29,7 +29,7 @@
                     <Image Source=" C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Play Circle.png" Width="24" Height="24"/>
                     <TextBlock Text="Play demo" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,330,0,0">
+                <StackPanel Orientation="Vertical" Margin="0,330,0,0" MouseLeftButtonUp="LogOut_Click">
                     <Image Source=" C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Arrows ALogout 2.png" Width="24" Height="24"/>
                     <TextBlock Text="Log out" HorizontalAlignment="Center"/>
                 </StackPanel>

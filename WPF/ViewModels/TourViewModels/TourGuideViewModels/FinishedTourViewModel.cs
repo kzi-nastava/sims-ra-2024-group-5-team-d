@@ -24,7 +24,6 @@ namespace BookingApp.WPF.ViewModels
     public class FinishedTourViewModel
     {
         public TourViewModel SelectedTour { get; set; }
-        //public AgeStatisticsViewModel AgeStatistics { get; set; }
         public SeriesCollection AgeStatistics { get; set; }
         private User LoggedInUser { get; set; }
         public ICommand BackCommand { get; set; }
@@ -51,27 +50,7 @@ namespace BookingApp.WPF.ViewModels
             ClickCommand = new RelayCommand(Click);
             tourGuestService = new TourGuestService();
             CalculateAgeStatistics();
-            AgeStatistics = new SeriesCollection
-            {
-                new PieSeries
-                {
-                    Title = "<18",
-                    Values = new ChartValues<ObservableValue> {new ObservableValue (Under18)},
-                    DataLabels = true
-                },
-                new PieSeries
-                {
-                    Title = "18-50",
-                    Values = new ChartValues<ObservableValue> {new ObservableValue (Between18And50) },
-                    DataLabels = true
-                },
-                new PieSeries
-                {
-                    Title = "50>",
-                    Values = new ChartValues<ObservableValue> {new ObservableValue (Over50) },
-                    DataLabels = true
-                },
-            };
+            InitializeAgeStatistics();
             tourRatingService = new TourRatingService();
             tourReservationService = new TourReservationService();
             tourRealisationService = new TourRealisationService();
@@ -129,7 +108,30 @@ namespace BookingApp.WPF.ViewModels
             }
             Sum = Under18 + Between18And50 + Over50;
         }
-
+        private void InitializeAgeStatistics()
+        {
+            AgeStatistics = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Title = "<18",
+                    Values = new ChartValues<ObservableValue> {new ObservableValue (Under18)},
+                    DataLabels = true
+                },
+                new PieSeries
+                {
+                    Title = "18-50",
+                    Values = new ChartValues<ObservableValue> {new ObservableValue (Between18And50) },
+                    DataLabels = true
+                },
+                new PieSeries
+                {
+                    Title = "50>",
+                    Values = new ChartValues<ObservableValue> {new ObservableValue (Over50) },
+                    DataLabels = true
+                },
+            };
+        }
         public ObservableCollection<TourGuestRatingViewModel> GetReviews()
         {
             List<TourRating> tourRatings = tourRatingService.GetAllTourRatings();

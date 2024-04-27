@@ -35,6 +35,7 @@ namespace BookingApp.WPF.ViewModels
             FastLogInCommand = new RelayParameterCommand(FastLogIn);
             Users = new ObservableCollection<UserViewModel>();
             userService = new UserService();
+            Debug.WriteLine(GetMacAddress());
             userService.GetUsersWithSameMacAdress(GetMacAddress()).ForEach(user=>Users.Add(new UserViewModel(user)));
            // Environment.GetEnvironmentVariable(variable);
             Debug.WriteLine(variable);

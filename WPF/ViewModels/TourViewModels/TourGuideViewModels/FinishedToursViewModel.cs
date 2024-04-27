@@ -34,7 +34,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             LoggedInUser = user;
             tourService = new TourService();
             FinishedTours = new ObservableCollection<TourViewModel>();
-            tourService.GetFinishedTours().ForEach(tour => FinishedTours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
+            tourService.GetFinishedTours(user).ForEach(tour => FinishedTours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
         }
         private void ViewMore()
         {
@@ -54,7 +54,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         }
         private void RequestsTab()
         {
-            //SideBar.contentControlW.Content = new RequestsWindow(LoggedInUser);
+            SideBar.contentControlW.Content = new RequestsWindow(LoggedInUser);
         }
     }
 }

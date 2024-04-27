@@ -44,5 +44,9 @@ namespace BookingApp.WPF.Views.TouristGuide
         {
             contentControlW.Content = new Profile(LoggedInUser);
         }
+        private void LogOut_Click(object sender, MouseButtonEventArgs e)
+        {
+            Close();
+        }
     }
 }
