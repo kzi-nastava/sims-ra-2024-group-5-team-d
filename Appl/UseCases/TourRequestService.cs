@@ -12,9 +12,11 @@ namespace BookingApp.Appl.UseCases
     public class TourRequestService
     {
         private ITourRequestRepository _repository;
+        private TourRealisationService tourRealisationService;
         public TourRequestService()
         {
             _repository = Injector.CreateInstance<ITourRequestRepository>();
+            tourRealisationService = new TourRealisationService();
         }
         public List<TourRequest> GetAll()
         {
@@ -48,6 +50,16 @@ namespace BookingApp.Appl.UseCases
         public List<TourRequest> GetRequestsForTourist(User tourist)
         {
             return _repository.GetRequestsForTourist(tourist);
+        }
+        public TourRequest GetFirstTourRequest()
+        {
+            List<TourRequest> tourRequest = _repository.GetAll().ToList();
+            return tourRequest.MinBy(x => tourRealisationService.GetById(x.TourRealisationId).StartTime);
+        }
+        public TourRequest GetLastTourRequest()
+        {
+            List<TourRequest> tourRequest = _repository.GetAll().ToList();
+            return tourRequest.MaxBy(x => tourRealisationService.GetById(x.TourRealisationId).StartTime);
         }
     }
 }
