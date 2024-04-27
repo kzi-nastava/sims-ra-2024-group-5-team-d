@@ -22,27 +22,41 @@
 
         <TabControl Grid.Column="0" 
                         Grid.Row="0" 
-                        Grid.ColumnSpan="4">
-            <TabItem Width="100">
+                        Grid.ColumnSpan="4"
+                        Background="{StaticResource PrimaryBlack3}">
+            <TabItem Width="100"
+                     Background="{StaticResource PrimaryBlack3}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Approved" Margin="15,0,0,0"/>
-                        <Border CornerRadius="900"
-                                Background="Red"
-                                Width="12"
-                                Height="12"
-                                VerticalAlignment="Center" 
-                                Margin="0,0,5,0">
-                            <TextBlock Foreground="AntiqueWhite" 
-                                       Margin="0 0 0 0" 
-                                       Text="{Binding NumberOfApprovedNotifications}"
-                                       VerticalAlignment="Center" 
-                                       HorizontalAlignment="Center" 
-                                       FontSize="10" 
-                                       Height="15" 
-                                       Width="auto"/>
+                    <Border Background="{StaticResource PrimaryBlack3}">
+                        <Border BorderBrush="{StaticResource PrimaryColor}" 
+                            BorderThickness="3" 
+                            CornerRadius="10"
+                            Background="{StaticResource PrimaryColor2}"
+                            Width="auto">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Approved" 
+                                   Padding="5"
+                                   Foreground="{StaticResource WhiteWhite}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                                <Border CornerRadius="900"
+                                                 Background="DarkOrange"
+                                                 Width="12"
+                                                 Height="12"
+                                                 VerticalAlignment="Center" 
+                                                 Margin="0,0,5,0">
+                                    <TextBlock Foreground="AntiqueWhite" 
+                                                Margin="0 0 0 0" 
+                                                Text="{Binding NumberOfApprovedNotifications}"
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Center" 
+                                                FontSize="10" 
+                                                Height="15" 
+                                                Width="auto"/>
+                                </Border>
+                            </StackPanel>
                         </Border>
-                    </StackPanel>
+                    </Border>
                 </TabItem.Header>
                 <ListView BorderThickness="0" 
                 Background="Transparent"
@@ -159,11 +173,22 @@
 
             </TabItem>
 
-            <TabItem Width="100">
+            <TabItem Width="100"
+                     Background="{StaticResource PrimaryBlack3}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="In process"/>
-                    </StackPanel>
+                    <Border Background="{StaticResource PrimaryBlack3}">
+                        <Border BorderBrush="{StaticResource PrimaryColor}" 
+                                 BorderThickness="3" 
+                                 CornerRadius="10"
+                                 Background="{StaticResource PrimaryColor2}"
+                                 Width="auto">
+                            <TextBlock Text="In process" 
+                                Padding="5"
+                                Foreground="{StaticResource WhiteWhite}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Border>
+                    </Border>
                 </TabItem.Header>
                 <ListView BorderThickness="0" 
                         Background="Transparent"
@@ -278,27 +303,40 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </TabItem>
-            
-            <TabItem Width="100">
+
+            <TabItem Width="100"
+                     Background="{StaticResource PrimaryBlack3}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Rejected" Width="auto"/>
-                        <Border CornerRadius="900"
-                                Background="Red"
-                                Width="12"
-                                Height="12"
-                                VerticalAlignment="Center" 
-                                Margin="0,0,5,0">
-                            <TextBlock Foreground="AntiqueWhite" 
-                                       Margin="0 0 0 0" 
-                                       Text="{Binding NumberOfRejectedNotifications}" 
-                                       VerticalAlignment="Center" 
-                                       HorizontalAlignment="Center" 
-                                       FontSize="10" 
-                                       Height="15" 
-                                       Width="auto"/>
+                    <Border Background="{StaticResource PrimaryBlack3}">
+                        <Border BorderBrush="{StaticResource PrimaryColor}" 
+                                 BorderThickness="3" 
+                                 CornerRadius="10"
+                                 Background="{StaticResource PrimaryColor2}"
+                                 Width="auto">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Rejected" 
+                                    Padding="5"
+                                    Foreground="{StaticResource WhiteWhite}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                                <Border CornerRadius="900"
+                                  Background="DarkOrange"
+                                  Width="12"
+                                  Height="12"
+                                  VerticalAlignment="Center" 
+                                  Margin="0,0,5,0">
+                                    <TextBlock Foreground="AntiqueWhite" 
+                                 Margin="0 0 0 0" 
+                                 Text="{Binding NumberOfRejectedNotifications}"
+                                 VerticalAlignment="Center" 
+                                 HorizontalAlignment="Center" 
+                                 FontSize="10" 
+                                 Height="15" 
+                                 Width="auto"/>
+                                </Border>
+                            </StackPanel>
                         </Border>
-                    </StackPanel>
+                    </Border>
                 </TabItem.Header>
                 <ListView BorderThickness="0" 
                     Background="Transparent"
@@ -442,126 +480,281 @@
                 </ListView>
             </TabItem>
 
-            <TabItem Width="100">
+            <TabItem Width="100"
+                     Background="{StaticResource PrimaryBlack3}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Forum"/>
                     </StackPanel>
                 </TabItem.Header>
-                <ListView BorderThickness="0" 
-             Background="Transparent"
-             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             Grid.Row="2"
-             Grid.ColumnSpan="4"
-             ScrollViewer.CanContentScroll="False"
-             ItemsSource="{Binding InProcessRequests}"
-             SelectedItem="{Binding SelectedRequest}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="Black" 
-                     BorderThickness="2" 
-                     CornerRadius="10"
-                     Width="380"
-                     Height="80">
-                                <Grid Margin="10,10,10,5">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                                    <Border BorderBrush="Black" 
-                    BorderThickness="1" 
-                    Grid.RowSpan="5"
-                    HorizontalAlignment="Right"/>
+                        <Grid Margin="55,20,55,20"
+                          Grid.Row="0"
+                          Height="360">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Width="300"
+                            Height="330"
+                            BorderThickness="4" 
+                            CornerRadius="15"
+                            BorderBrush="{StaticResource PrimaryColor}"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Center" 
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2"
+                            Grid.RowSpan="5"
+                            Background="{StaticResource PrimaryBlack}"/>
 
-                                    <Image  Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
-                       Width="30" 
-                       Height="30" 
-                       VerticalAlignment="Center" 
-                       HorizontalAlignment="Center" 
-                       Grid.Column="0"
-                       Grid.Row="0"
-                       Grid.RowSpan="5"/>
-                                    <TextBlock Text="{Binding AccommodationName}" 
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       Grid.ColumnSpan="2"
-                       HorizontalAlignment="Center"
-                       FontSize="13" 
-                       FontWeight="Bold"
-                       VerticalAlignment="Top"/>
-                                    <Label Content="New date time" 
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top" 
-                       Grid.Column="1"
-                       FontSize="9"
-                       Grid.Row="1"
-                       Width="74"
-                       Height="21" 
-                       Margin="22,1,0,0"/>
-                                    <Label Content="From:" 
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top" 
-                       Grid.Column="1"
-                       Grid.Row="1"
-                       Height="21" 
-                       Width="92"
-                       FontSize="9" 
-                       Margin="22,15,0,0" 
-                       Grid.RowSpan="2"/>
-                                    <Label Content="{Binding NewReservedFrom,StringFormat='dd/MM/yyyy'}" 
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top" 
-                       Grid.Column="1"
-                       Grid.Row="1"
-                       Height="21" 
-                       Width="92"
-                       FontSize="9" 
-                       Margin="53,15,0,0" 
-                       Grid.RowSpan="2"/>
-                                    <Label Content="To:" 
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top" 
-                       Grid.Column="1"
-                       Grid.Row="1"
-                       Height="21" 
-                       Width="92"
-                       FontSize="9" 
-                       Margin="114,15,0,0" 
-                       Grid.RowSpan="2"/>
-                                    <Label Content="{Binding NewReservedTo,StringFormat='dd/MM/yyyy'}"  
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top" 
-                      Grid.Column="1"
-                      Grid.ColumnSpan="2"
-                      Grid.Row="1"
-                      Height="21" 
-                      Width="92"
-                      FontSize="9" 
-                      Margin="135,15,0,0" 
-                      Grid.RowSpan="2"/>
-                                    <Image Source="../../../Resources/Images/GuestImages/WaitingIcon.png" 
-                       Width="55" 
-                       Height="49" 
-                       VerticalAlignment="Top" 
-                       HorizontalAlignment="Left" 
-                       Grid.Column="2"
-                       Grid.RowSpan="3" Margin="79,9,0,0"/>
-                                </Grid>
+
+                            <Image Source="../../../Resources/Images/GuestImages/search.png"
+                            Width="24" 
+                            VerticalAlignment="Center"
+                            Height="18" Margin="34,0,99,0"/>
+                            <Label Content="Location"
+                            Grid.Row="0"
+                            Height="24"
+                            Foreground="{StaticResource WhiteGrey}" 
+                            Margin="57,0,0,0" 
+                            Width="NaN" 
+                            HorizontalAlignment="Left"/>
+                            <ComboBox 
+                           x:Name="locationTextBox" 
+                           IsReadOnly="True"
+                           Grid.Row="0" Margin="120,0,25,0" 
+                           SelectedIndex="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Width="160" Height="30">
+                                <ComboBoxItem Content="Serbia, Novi Sad"/>
+                                <ComboBoxItem Content="Serbia, Beograd"/>
+                                <ComboBoxItem Content="Serbia, Smederevo"/>
+                                <ComboBoxItem Content="Serbia, Požega"/>
+                                <ComboBoxItem Content="Serbia, Kragujevac"/>
+                                <ComboBoxItem Content="Serbia, Niš"/>
+                                <ComboBoxItem Content="Serbia, Subotica"/>
+                                <ComboBoxItem Content="Serbia, Pančevo"/>
+                                <ComboBoxItem Content="Serbia, Čačak"/>
+                                <ComboBoxItem Content="Serbia, Užice"/>
+                                <ComboBoxItem Content="Any"/>
+                            </ComboBox>
+                            <Border 
+                             BorderBrush="{StaticResource PrimaryColor}"
+                             Grid.Column="0"
+                             Grid.Row="0"
+                             Grid.ColumnSpan="2"
+                             VerticalAlignment="Bottom" 
+                             BorderThickness="0,0,0,2"/>
+
+                            <Label Content="Title" 
+                            Grid.Row="1"
+                            HorizontalAlignment="Left"
+                            Foreground="{StaticResource WhiteGrey}" 
+                            VerticalAlignment="Center" Margin="55,0,0,0"/>
+                            <TextBox Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Grid.Row="1"
+                            Height="30"
+                            Width="200"
+                            Text="{Binding Title}"
+                            Margin="92,0,0,0"
+                            TextWrapping="Wrap"
+                            FlowDirection="LeftToRight" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <Border BorderThickness="0,0,0,2" 
+                             BorderBrush="{StaticResource PrimaryColor}"
+                             Grid.Column="0"
+                             Grid.Row="1"
+                             Grid.ColumnSpan="2"
+                             VerticalAlignment="Bottom">
                             </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
 
+                            <Label Content="Comment" 
+                            Grid.Row="2"
+                            HorizontalAlignment="Center"
+                            Foreground="{StaticResource WhiteGrey}" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,-15"/>
+                            <TextBox Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Grid.Row="3"
+                            Height="90" 
+                            Text="{Binding Comment}"
+                            Margin="15,0,15,0"
+                            TextWrapping="Wrap"
+                            FlowDirection="LeftToRight" VerticalAlignment="Center"/>
+                            <Border BorderThickness="0,0,0,2" 
+                             BorderBrush="{StaticResource PrimaryColor}"
+                             Grid.Column="0"
+                             Grid.Row="3"
+                             Grid.ColumnSpan="2"
+                             VerticalAlignment="Bottom">
+                            </Border>
+
+                            <Button Grid.Row="4"
+                                       FontSize="20" 
+                                       Background="Transparent"
+                                       Height="33"
+                                       Width="auto"
+                                       Cursor="Hand"
+                                       VerticalAlignment="Center"
+                                       BorderThickness="0" 
+                                       HorizontalAlignment="Center"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                    Command="{Binding CreateForumCommand}">
+                                <Border  Background="DarkOrange"
+                            CornerRadius="2"
+                             Height="25" Width="auto">
+                                    <TextBlock  Text="Create forum"
+                           Margin="20 0 20 0" 
+                           Foreground="{StaticResource  WhiteGrey}" 
+                           FontWeight="Bold" 
+                           FontSize="14" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"/>
+                                </Border>
+                            </Button>
+
+                        </Grid>
+
+                        <ListView BorderThickness="0" 
+                                 Background="Transparent"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 Grid.Row="1"
+                                 ScrollViewer.CanContentScroll="False"
+                                 ItemsSource="{Binding Forums}"
+                                 SelectedItem="{Binding SelectedForum}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" 
+                                     BorderThickness="2" 
+                                     CornerRadius="10"
+                                     Width="380"
+                                     Height="auto">
+                                        <Grid Margin="10,10,10,5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label  Content="{Binding Title}"
+                                           Width="auto" 
+                                           Height="auto" 
+                                           VerticalAlignment="Top" 
+                                           HorizontalAlignment="Center" 
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           FontSize="16" 
+                                           FontWeight="Bold"/>
+                                            <Label Content="IME PREZIME" 
+                                           Grid.Row="1"
+                                           HorizontalAlignment="Left"
+                                           FontSize="13" 
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Top"/>
+                                            <Image Source="../../../Resources/Images/GuestImages/location.png" 
+                                           Grid.Row="1"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Top"
+                                           Margin="0,0,40,0"
+                                           Width="20"
+                                           Height="20"/>
+                                            <Label Content="{Binding Location}" 
+                                           Grid.Row="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="13" 
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Top"/>
+                                            <Border
+                                            Grid.Row="2"
+                                            BorderBrush="Black"
+                                            BorderThickness="2"
+                                            Height="auto"
+                                            Width="300"
+                                            Margin="30,0,0,0">
+                                                <TextBlock Text="{Binding Description}" 
+                                                    HorizontalAlignment="Left"
+                                                    FontSize="10"
+                                                    TextWrapping="Wrap"
+                                                    Margin="5"/>
+                                            </Border>
+
+                                            <ListView BorderThickness="0" 
+                                                 Background="Transparent"
+                                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                 Grid.Row="3"
+                                                 ScrollViewer.CanContentScroll="False"
+                                                 ItemsSource="{Binding Forums}"
+                                                 SelectedItem="{Binding SelectedForum}">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border BorderBrush="Black" 
+                                                             BorderThickness="2" 
+                                                             CornerRadius="10"
+                                                             Width="250"
+                                                             Height="auto">
+                                                            <Grid Margin="10,10,10,5">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="auto"/>
+                                                                    <RowDefinition Height="auto"/>
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <Label Content="{Binding Description}" 
+                                                                           Grid.Row="0"
+                                                                           HorizontalAlignment="Left"
+                                                                           FontSize="13" 
+                                                                           FontWeight="Bold"
+                                                                           VerticalAlignment="Top"/>
+                                                                <Border Grid.Row="1"
+                                                                            BorderBrush="Black"
+                                                                            BorderThickness="2"
+                                                                            Width="200"
+                                                                            Height="auto"
+                                                                            HorizontalAlignment="Left"
+                                                                            VerticalAlignment="Center">
+
+                                                                    <TextBlock Text="Zlatibor je jako lep!!!" 
+                                                                           HorizontalAlignment="Left"
+                                                                           FontSize="10"
+                                                                           TextWrapping="Wrap"/>
+                                                                </Border>
+                                                            </Grid>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
+
         </TabControl>
 
     </Grid>

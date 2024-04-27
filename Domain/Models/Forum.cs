@@ -33,6 +33,16 @@ namespace BookingApp.Domain.Models
             DateCreated = dateCreated;
             Active = active;
         }
+        public Forum( string title, string description, Location location, int idUser, DateTime dateCreated, bool active)
+        {
+            
+            Title = title;
+            Description = description;
+            Location = location;
+            IdUser = idUser;
+            DateCreated = dateCreated;
+            Active = active;
+        }
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), Title, Description, Location.Id.ToString(), IdUser.ToString(), DateCreated.ToString("M/d/yyyy h:mm:ss tt"), Active.ToString() };
