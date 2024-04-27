@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ToastNotifications.Position;
+using Xceed.Wpf.Toolkit;
 
 namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 {
@@ -33,22 +34,31 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 
         public TourFormViewModel tourFormViewModel { get; private set; }
         public ObservableCollection<CheckPoint> CheckPoints { get; set; }
+        public RequestViewModel Request { get; set; }
         public string ImagesPath { get; set; }
         private List<string> imagesPath;
         public ObservableCollection<string> ImagesPaths { get; set; }
         private List<CheckPoint> checkPointsToSave { get; set; }
+        public DateTime MinDate { get; set; }
+        public DateTime MaxDate { get; set; }
+        public User LoggedInUser { get; set; }
 
         private ImageUploaderService imageUploaderService;
         private CheckPointService checkPointService;
         private TourRealisationService tourRealisationService;
         private LocationService locationService;
         private TourService tourService;
+        private TourRequestService tourRequestService;
+        private TourReservationService tourReservationService;
 
         private int PaginationIndex = 0;
         public bool IsRequest { get; set; }
         public CreateTourViewModel(User user) 
         {
             IsRequest = false;
+            MinDate = DateTime.Now;
+            MaxDate = DateTime.Now.AddYears(1);
+            LoggedInUser = user;
             tourFormViewModel = new TourFormViewModel();
             tourFormViewModel.User = user;
             tourFormViewModel.StartTime = DateTime.Now;
@@ -76,6 +86,12 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public CreateTourViewModel(User user,RequestViewModel request)
         {
             IsRequest = true;
+            Request = request;
+            MinDate = request.DateFrom; 
+            MaxDate = request.DateTo;
+            LoggedInUser = user;
+            tourReservationService = new TourReservationService();
+            tourRequestService = new TourRequestService();
             tourFormViewModel = new TourFormViewModel();
             tourFormViewModel.User = user;
             tourFormViewModel.StartTime = DateTime.Now;
@@ -84,6 +100,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourFormViewModel.LanguageId = Convert.ToInt32(request.Language);
             Debug.WriteLine(tourFormViewModel.LanguageId);
             tourFormViewModel.LocationId = request.Location.Id;
+
 
             tourRealisationService = new TourRealisationService();
             checkPointService = new CheckPointService();
@@ -130,6 +147,11 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         }
         private void Save()
         {
+            if (!tourService.AmIAvailable(LoggedInUser, tourFormViewModel.StartTime, tourFormViewModel.Duration))
+            {
+                MessageBox.Show("You are busy on this term");
+                return;
+            }
             string folderPath = imageUploaderService.CreateTourFolder(imagesPath);
 
             Tour newTour = new Tour(tourFormViewModel.Name, locationService.GetById(tourFormViewModel.LocationId), tourFormViewModel.Description, (LANGUAGE)tourFormViewModel.LanguageId, tourFormViewModel.Capacity, tourFormViewModel.Duration, folderPath, tourFormViewModel.User);
@@ -144,6 +166,16 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             checkPointsToSave.ForEach(cp => cp.TourId = SavedTour.Id);
             checkPointsToSave.ForEach(cp => checkPointService.Save(cp));
             SideBar.contentControlW.Content = new CreateNewTourForm(tourFormViewModel.User);
+            if(IsRequest == true)
+            {
+                TourRequest request = tourRequestService.GetById(Request.Id);
+                TourReservation tourReservation = tourReservationService.GetById(request.TourReservationId);
+                tourReservation.TourRealisationId = savedTourRealisation.Id;
+                tourReservationService.Update(tourReservation);
+                request.Status = STATE.ACCEPTED;
+                tourRequestService.Update(request);
+            }
+            IsRequest = false;
         }
 
         private void AddCheckPoint(object parameter)

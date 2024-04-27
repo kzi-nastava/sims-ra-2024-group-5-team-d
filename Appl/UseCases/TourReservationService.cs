@@ -22,11 +22,15 @@ namespace BookingApp.Appl.UseCases
 
         public List<TourReservation> GetTourReservationsForTourist(User tourist)
         {
-            return _tourReservationRepository.GetAllTourReservations().Where(reservation => reservation.User.Id == tourist.Id).ToList();
+            return _tourReservationRepository.GetAllTourReservations().Where(reservation => reservation.TourRealisationId != -1 && reservation.User.Id == tourist.Id).ToList();
         }
         public List<TourReservation> GetPastTourReservationsForTourist(User tourist)
         {
-            return GetTourReservationsForTourist(tourist).Where(tourReservation => tourRealisationRepository.GetTourRealisationById(tourReservation.TourRealisationId).IsFinished == true).ToList();
+            return GetTourReservationsForTourist(tourist)
+                    .Where(tourReservation =>
+                        tourReservation.TourRealisationId != -1 &&
+                        tourRealisationRepository.GetTourRealisationById(tourReservation.TourRealisationId).IsFinished == true)
+                    .ToList();
         }
 
         public TourReservation GetById(int id)
@@ -34,9 +38,9 @@ namespace BookingApp.Appl.UseCases
             return _tourReservationRepository.GetTourReservationById(id);
         }
 
-        public void Save(TourReservation reservation)
+        public TourReservation Save(TourReservation reservation)
         {
-            _tourReservationRepository.SaveReservation(reservation);
+            return _tourReservationRepository.SaveReservation(reservation);
         }
 
         public int NextId()
@@ -59,7 +63,7 @@ namespace BookingApp.Appl.UseCases
         {
             foreach (TourReservation reservation in _tourReservationRepository.GetAllTourReservations())
             {
-                if(reservation.User.Id == userId && tourRealisationRepository.GetTourRealisationById(reservation.TourRealisationId).IsLive)
+                if(reservation.User.Id == userId && reservation.TourRealisationId != -1 && tourRealisationRepository.GetTourRealisationById(reservation.TourRealisationId).IsLive)
                 {
                     return reservation;
                 }
@@ -75,6 +79,10 @@ namespace BookingApp.Appl.UseCases
         {
             _tourReservationRepository.DeleteReservation(id);
             return;
+        }
+        public TourReservation Update(TourReservation tourReservation)
+        {
+            return _tourReservationRepository.Update(tourReservation);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 {
     public class RequestViewModel
     {
+        public int Id { get; set; }
         public string Description { get; set; }
         public Location Location { get; set; }
         public DateTime DateFrom { get; set; }
@@ -19,8 +20,9 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public bool IsAcceptable { get; set; }
 
         public RequestViewModel() { }
-        public RequestViewModel(string description, Location location, DateTime dateFrom, DateTime dateTo, int capacity, LANGUAGE language, bool isAcceptable)
+        public RequestViewModel(int id,string description, Location location, DateTime dateFrom, DateTime dateTo, int capacity, LANGUAGE language, bool isAcceptable)
         {
+            Id = id;
             Description = description;
             Location = location;
             DateFrom = dateFrom;
