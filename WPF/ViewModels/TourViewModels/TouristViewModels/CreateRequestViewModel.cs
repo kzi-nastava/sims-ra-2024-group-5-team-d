@@ -78,6 +78,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
         private NotifierService notifier;
         private LocationService locationService { get; set; }
         private TourRequestService tourRequestService { get; set; }
+        private TourReservationService tourReservationService { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -104,6 +105,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             RangeFrom = (DateTime.UtcNow).AddDays(3);
             RangeTo = (DateTime.UtcNow).AddDays(3);
             tourRequestService = new TourRequestService();
+            tourReservationService = new TourReservationService();
         }
 
         public void IncreaseCount()
@@ -123,11 +125,12 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 
         public void CreateRequest()
         {
+            TourReservation tourReservation = tourReservationService.Save(new TourReservation(tourReservationService.NextId(),-1,Tourist));
             foreach (TourGuestViewModel tG in Tourists)
             {
-                tourGuestService.Save(new TourGuest(tG.Id, tG.FullName, tG.Years, -1, -1, tG.PersonalID));
+                tourGuestService.Save(new TourGuest(tG.Id, tG.FullName, tG.Years, tourReservation.Id, -1, tG.PersonalID));
             }
-            tourRequestService.Save(new TourRequest(tourGuestService.NextIdForGuest(), Tourist.Id, STATE.PENDING, locationService.GetById(Location), Description, (LANGUAGE)Language, RangeFrom, RangeTo, Tourists.Count));
+            tourRequestService.Save(new TourRequest(tourGuestService.NextIdForGuest(), Tourist.Id, STATE.PENDING, locationService.GetById(Location), Description, (LANGUAGE)Language, RangeFrom, RangeTo, tourReservation.Id,Tourists.Count));
             notifier.ShowSuccess("Reqest created successfully");
             TouristHomeWindow.contentControl.Content = new YourRequestsUserControl(Tourist);
         }

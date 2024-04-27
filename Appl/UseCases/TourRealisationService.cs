@@ -53,6 +53,10 @@ namespace BookingApp.Appl.UseCases
         {
             return _repository.GetAllTourRealisations();
         }
+        public List<TourRealisation> GetAllTourRealisations(User user)
+        {
+            return _repository.GetAllTourRealisations(user);
+        }
 
         public TourRealisation GetFirstTourRealisationMadeByUser(User user)
         {
@@ -81,5 +85,6 @@ namespace BookingApp.Appl.UseCases
         {
             return _repository.GetTourRealisationById(id);
         }
+
     }
 }

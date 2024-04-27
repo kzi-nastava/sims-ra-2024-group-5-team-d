@@ -25,6 +25,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public RelayCommand LanguageComboBoxGotFocusCommand { get; }
         public TourRequestService tourRequestService { get; set; }
         public TourRealisationService tourRealisationService { get; set; }
+        public TourReservationService tourReservationService { get; set; }
 
 
         public ObservableCollection<string> Years { get; set; }
@@ -61,6 +62,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public RequestsStatisticsViewModel(User user) 
         {
             LoggedInUser = user;
+            tourReservationService = new TourReservationService();
             HelpCommand = new RelayCommand(HelpButton_Click);
             BackCommand = new RelayCommand(Back);
             LocationComboBoxGotFocusCommand = new RelayCommand(LocationComboBoxGotFocus);
@@ -121,7 +123,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             TourRequest first = tourRequestService.GetFirstTourRequest();
             TourRequest last = tourRequestService.GetLastTourRequest();
             Years.Add("All Time");
-            for (int i = tourRealisationService.GetById(last.TourRealisationId).StartTime.Year; i >= tourRealisationService.GetById(first.TourRealisationId).StartTime.Year; i--)
+            for (int i = tourRealisationService.GetById(tourReservationService.GetById(last.TourReservationId).TourRealisationId).StartTime.Year; i >= tourRealisationService.GetById(tourReservationService.GetById(first.TourReservationId).TourRealisationId).StartTime.Year; i--)
                 Years.Add(i.ToString());
         }
     }

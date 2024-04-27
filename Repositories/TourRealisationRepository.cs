@@ -27,6 +27,10 @@ namespace BookingApp.Repositories
         {
             return _serializerTourRealisations.FromCSV(FilePathTourRealisations);
         }
+        public List<TourRealisation> GetAllTourRealisations(User user)
+        {
+            return _tourRealisations.Where(tR => tR.User.Id == user.Id).ToList();
+        }
 
         public TourRealisation SaveTourRealisation(TourRealisation tourRealisation)
         {

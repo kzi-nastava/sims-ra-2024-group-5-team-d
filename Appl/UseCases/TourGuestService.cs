@@ -58,7 +58,7 @@ namespace BookingApp.Appl.UseCases
             foreach (TourGuest guest in _repository.GetAllTourGuests())
             {
                 TourReservation reservation = tourReservationRepository.GetTourReservationById(guest.TourReservationId);
-                TourRealisation tourRealisation = tourRealisationRepository.GetTourRealisationById(reservation.TourRealisationId);
+                //TourRealisation tourRealisation = tourRealisationRepository.GetTourRealisationById(reservation.TourRealisationId);
                 Tour tour = tourService.FindTourForTourRealisation(reservation.TourRealisationId);
                 if (tour != null && tour.Id == tourId)
                 {

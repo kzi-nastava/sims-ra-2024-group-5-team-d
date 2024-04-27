@@ -13,10 +13,12 @@ namespace BookingApp.Appl.UseCases
     {
         private ITourRequestRepository _repository;
         private TourRealisationService tourRealisationService;
+        private TourReservationService tourReservationService;
         public TourRequestService()
         {
             _repository = Injector.CreateInstance<ITourRequestRepository>();
             tourRealisationService = new TourRealisationService();
+            tourReservationService = new TourReservationService();
         }
         public List<TourRequest> GetAll()
         {
@@ -53,13 +55,20 @@ namespace BookingApp.Appl.UseCases
         }
         public TourRequest GetFirstTourRequest()
         {
-            List<TourRequest> tourRequest = _repository.GetAll().ToList();
-            return tourRequest.MinBy(x => tourRealisationService.GetById(x.TourRealisationId).StartTime);
+            List<TourRequest> tourRequests = _repository.GetAll().ToList();
+
+            return tourRequests
+                .Where(x => tourReservationService.GetById(x.TourReservationId).TourRealisationId != -1)
+                .MinBy(x => tourRealisationService.GetById(tourReservationService.GetById(x.TourReservationId).TourRealisationId).StartTime);
         }
+
         public TourRequest GetLastTourRequest()
         {
-            List<TourRequest> tourRequest = _repository.GetAll().ToList();
-            return tourRequest.MaxBy(x => tourRealisationService.GetById(x.TourRealisationId).StartTime);
+            List<TourRequest> tourRequests = _repository.GetAll().ToList();
+
+            return tourRequests
+                .Where(x => tourReservationService.GetById(x.TourReservationId).TourRealisationId != -1)
+                .MaxBy(x => tourRealisationService.GetById(tourReservationService.GetById(x.TourReservationId).TourRealisationId).StartTime);
         }
     }
 }

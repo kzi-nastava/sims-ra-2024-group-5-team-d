@@ -37,12 +37,13 @@ namespace BookingApp.Repositories
             }
             return null;
         }
-        public void SaveReservation(TourReservation reservation)
+        public TourReservation SaveReservation(TourReservation reservation)
         {
             reservation.Id = NextIdForReservation();
             _tourReservations = _serializerTourReservations.FromCSV(FilePathTourReservations);
             _tourReservations.Add(reservation);
             _serializerTourReservations.ToCSV(FilePathTourReservations, _tourReservations);
+            return reservation;
         }
 
         public int NextIdForReservation()
@@ -61,6 +62,15 @@ namespace BookingApp.Repositories
             _tourReservations.Remove(founded);
             _serializerTourReservations.ToCSV(FilePathTourReservations, _tourReservations);
         }
-
+        public TourReservation Update(TourReservation tourReservation)
+        {
+            _tourReservations = _serializerTourReservations.FromCSV(FilePathTourReservations);
+            TourReservation current = _tourReservations.Find(c => c.Id == tourReservation.Id);
+            int index = _tourReservations.IndexOf(current);
+            _tourReservations.Remove(current);
+            _tourReservations.Insert(index, tourReservation);       // keep ascending order of ids in file 
+            _serializerTourReservations.ToCSV(FilePathTourReservations, _tourReservations);
+            return tourReservation;
+        }
     }
 }

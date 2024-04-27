@@ -125,6 +125,19 @@ namespace BookingApp.Appl.UseCases
         {
             return _repository.NextIdForTour();
         }
-
+        public bool AmIAvailable(User user, DateTime start, double duration)
+        {
+            foreach (var tourRealisation in tourRealisationService.GetAllTourRealisations(user))
+            {
+                var tour = GetById(tourRealisation.TourId);
+                bool IsBefore = start.AddHours(duration) < tourRealisation.StartTime;
+                bool IsAfter = start > tourRealisation.StartTime.AddHours(tour.Duration);
+                if (!(IsBefore || IsAfter))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

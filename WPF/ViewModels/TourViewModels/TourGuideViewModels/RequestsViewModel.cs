@@ -147,9 +147,9 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 Debug.WriteLine(durationMatch.ToString());
                 Debug.WriteLine(locationMatch.ToString());
                 Debug.WriteLine(capacityMatch.ToString());
-                if (languageMatch && durationMatch && locationMatch && capacityMatch)
+                if (languageMatch && durationMatch && locationMatch && capacityMatch && tourRequest.Status == STATE.PENDING)
                 {
-                    TourRequests.Add(new RequestViewModel(tourRequest.Description, locationService.GetById(tourRequest.Location.Id), tourRequest.RangeFrom, tourRequest.RangeTo, tourRequest.Capacity, tourRequest.Language, tourRequest.IsAcceptable()));
+                    TourRequests.Add(new RequestViewModel(tourRequest.Id,tourRequest.Description, locationService.GetById(tourRequest.Location.Id), tourRequest.RangeFrom, tourRequest.RangeTo, tourRequest.Capacity, tourRequest.Language, tourRequest.IsAcceptable()));
                 }
             }
         }
