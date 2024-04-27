@@ -72,7 +72,7 @@ namespace BookingApp.Appl.UseCases
         {
             foreach (TourGuest guest in _repository.GetAllTourGuests())
             {
-                if (guest.PersonalID == id && guest.TourReservationId == reservationId)
+                if (guest.PersonalID == id && guest.TourReservationId != -1 && guest.TourReservationId == reservationId)
                 {
                     return guest;
                 }
