@@ -110,7 +110,11 @@ namespace BookingApp.Appl.UseCases
                 case Domain.Models.Type.CANCEL:
                     return "Your guest has cancelled reservation at " + accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
                 case Domain.Models.Type.LIVETOUR:
-                    return "GAS";
+                    return "NEKO" + " je dodat na turu";
+                case Domain.Models.Type.TOURREQUEST:
+                    return  "DOBAVI IME VODICA" + " has just accepted your request " + "(Location: DOBAVI LOKACIJU)";
+                case Domain.Models.Type.NEWTOUR:
+                    return "A new tour has been created on " + "NEKOM JEZIKU / NEKA LOKACIJA";
                 default:
                     return "";
             }

@@ -26,7 +26,9 @@ namespace BookingApp.Appl.UseCases
         }
         public Forum GetById(int Id)
         {
-            return forumRepository.GetById(Id);
+            Forum forum = forumRepository.GetById(Id);
+            forum.Location = locationService.GetById(forum.Location.Id);
+            return forum;
         }
         public Forum Update(Forum forum)
         {

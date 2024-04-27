@@ -177,12 +177,15 @@
                                                       IsChecked="{Binding IsPresent}">
 
                                             </CheckBox>
-                                            <Label  Margin="23 0 0 0"
+                                            <TextBlock Margin="28 0 0 0"
                                                     VerticalAlignment="Center"
                                                     FontSize="15"
-                                                    Grid.Row="1"
-                                                    Content="{Binding FullName}">
-                                            </Label>
+                                                    Grid.Row="1">
+                                                <Run Text="{Binding FullName}"></Run>
+                                                <Run Text=" ("></Run>
+                                                <Run Text="{Binding CheckpointName}"></Run>
+                                                <Run Text=")"></Run>
+                                            </TextBlock>
                                         </Grid>
 
                                     </DataTemplate>

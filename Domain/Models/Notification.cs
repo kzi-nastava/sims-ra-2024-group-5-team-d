@@ -14,6 +14,8 @@ namespace BookingApp.Domain.Models
         CANCEL,
         RATE,
         FORUM,
+        NEWTOUR,
+        TOURREQUEST
     }
     public class Notification :ISerializable
     {

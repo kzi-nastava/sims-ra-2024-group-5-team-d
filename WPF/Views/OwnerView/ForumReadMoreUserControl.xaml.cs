@@ -15,24 +15,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views.TouristView
+namespace BookingApp.WPF.Views.OwnerView
 {
     /// <summary>
-    /// Interaction logic for YourToursUserControl.xaml
+    /// Interaction logic for ForumReadMoreUserControl.xaml
     /// </summary>
-    public partial class YourToursUserControl : UserControl
+    public partial class ForumReadMoreUserControl : UserControl
     {
-        public static ProgressBar progressBar;
-        public static StackPanel progressContainer;
-        public static StackPanel namesContainer;
-        public YourToursUserControl(User user)
+        public ForumReadMoreUserControl(int forumId,User user)
         {
             InitializeComponent();
-            progressBar = progressBar2;
-            progressContainer = progressContainer2;
-            namesContainer = namesContainer2;
-            DataContext = new LiveTourViewModel(user);
-
+            DataContext = new ForumReadMoreViewModel(forumId, user);
+        }
+        private void ListView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            e.Handled = true;
+            Scroller.ScrollToVerticalOffset(Scroller.VerticalOffset - e.Delta);
         }
     }
 }
