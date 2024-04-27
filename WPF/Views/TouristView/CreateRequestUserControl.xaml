@@ -52,6 +52,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
     <Grid Margin="90 20 100 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -75,16 +76,16 @@
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding ComplexRequestsTabCommand}"/>
         </Grid>
+        
         <Grid Grid.Row="1"
               Margin="0">
-            <Border 
+                <Border 
                 BorderThickness="1 1 1 1"
                 CornerRadius="5"
                 BorderBrush="Gray"
                 Padding="0 0 0 10"
                 Grid.Row="1"
                 Margin="0 -1 0 0">
-                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -105,25 +106,86 @@
                                     <RowDefinition Height="auto"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Border BorderBrush="Gray"
-                        BorderThickness="0 0 0 1"
-                        CornerRadius="0"
-                        Height="auto"
-                        Width="auto"
-                        Grid.Row="0">
-                                    
-                                    <Label Content="Personal Information"
-                           FontFamily="Verdana"
-                           FontSize="24"
-                           Margin="20 5 0 10"
-                           FontWeight="DemiBold">
+                                        BorderThickness="0 0 0 1"
+                                        CornerRadius="0"
+                                        Height="auto"
+                                        Width="auto"
+                                        Grid.Row="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Content="Personal Information"
+                                           FontFamily="Verdana"
+                                           FontSize="24"
+                                           Margin="10 5 10 10"
+                                           Grid.Column="0"
+                                           FontWeight="DemiBold">
+                                        </Label>
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal"
+                                                    Margin="0 16 0 16"
+                                                    HorizontalAlignment="Left">
+                                            <Border BorderThickness="1"
+                                                    CornerRadius="2"
+                                                    BorderBrush="Gray">
+                                                <TextBlock
+                                                     FontSize="16"
+                                                     TextAlignment="Left"
+                                                     Height="31"
+                                                     Width="145"
+                                                     x:Name="PeopleCounter"
+                                                     Margin="2 0 0 0"
+                                                     Padding="40 5 1 7">
+                                                    <Run Text="{Binding Capacity, UpdateSourceTrigger=PropertyChanged}" />
+                                                    <Run Text="Tourist(s)" />
+                                                </TextBlock>
+                                            </Border>
 
-                                    </Label>
+                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\person.png"
+                                                   Height="22"
+                                                   Width="22"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Margin="-140 0 0 0"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <Button Content="▲"
+                                                        Width="20"
+                                                        Height="16"
+                                                        Margin="0 0 0 0"
+                                                        VerticalContentAlignment="Top"                                       
+                                                        FontSize="9.5"
+                                                        HorizontalContentAlignment="Center"
+                                                        Command="{Binding IncreaseCountCommand}"/>
+                                                <Button Content="▼"
+                                                        VerticalContentAlignment="Bottom"
+                                                        Width="20"
+                                                        Height="17"
+                                                        Margin="0 0 0 0"
+                                                        FontSize="9.5"
+                                                        HorizontalContentAlignment="Center"
+                                                        Command="{Binding DecreaseCountCommand}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+
+
+
+
+
+
+
+
+
+                                    </Grid>
                                 </Border>
                                 <ListView BorderThickness="0"
                                           Background="Transparent"
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                           ScrollViewer.CanContentScroll="False"
+                                          Height="auto"
                                           Margin="10 5 10 10"
                                           Grid.Row="1"
                                           ItemsSource="{Binding Tourists}">
@@ -271,7 +333,7 @@
                                                     Width="170"
                                                     Height="30"
                                                     FontSize="15"
-                                                    SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}">
+                                                    SelectedIndex="{Binding Location, UpdateSourceTrigger=PropertyChanged}">
                                             <ComboBoxItem Content="Serbia, Novi Sad"/>
                                             <ComboBoxItem Content="Serbia, Beograd"/>
                                             <ComboBoxItem Content="Serbia, Smederevo"/>
@@ -291,7 +353,7 @@
                                                     Width="148"
                                                     Height="30"
                                                     FontSize="15" Margin="50,0,0,0"
-                                                    SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}">
+                                                    SelectedIndex="{Binding Language, UpdateSourceTrigger=PropertyChanged}">
                                             <ComboBoxItem Content="English"></ComboBoxItem>
                                             <ComboBoxItem Content="Serbian"></ComboBoxItem>
                                             <ComboBoxItem Content="German"></ComboBoxItem>
@@ -321,6 +383,7 @@
                                         <TextBox Height="120"
                                                  Padding="5"
                                                  FontSize="16"
+                                                 Text="{Binding Description}"
                                                  BorderThickness="0"
                                                  TextAlignment="Justify"
                                                  TextWrapping="Wrap">
@@ -377,7 +440,7 @@
                                                                             VerticalContentAlignment="Center"
                                                                             Padding="0 0 0 0"
                                                                             DisplayDateStart="{Binding MinAvailDate}"                                            
-                                                                            SelectedDate="{Binding Date,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                                                            SelectedDate="{Binding RangeFrom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                                                                     <DatePicker.BlackoutDates>
                                                                     </DatePicker.BlackoutDates>
                                                                 </DatePicker>
@@ -414,8 +477,8 @@
                                                                             Width="120"
                                                                             VerticalContentAlignment="Center"
                                                                             Padding="0 0 0 0"
-                                                                            DisplayDateStart="{Binding MinAvailDate}"                                            
-                                                                            SelectedDate="{Binding Date,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                                                            DisplayDateStart="{Binding RangeFrom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                                            
+                                                                            SelectedDate="{Binding RangeTo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                                                                     <DatePicker.BlackoutDates>
                                                                     </DatePicker.BlackoutDates>
                                                                 </DatePicker>
@@ -465,13 +528,15 @@
                                                     <Button Grid.Row="2"
                                                             Height="30"
                                                             Content="Create Request"
+                                                            Command="{Binding CreateRequestCommand}"
                                                             Width="200">
                                                         
                                                     </Button>
                                                     <Button Grid.Row="3"
                                                             Height="30"
                                                             Margin="0 10 0 0"
-                                                            Content="Create Request"
+                                                            Content="Cancel"
+                                                            Command="{Binding CancelCommand}"
                                                             Width="200">
 
                                                     </Button>
@@ -495,12 +560,14 @@
                         </Grid>
 
                     </Grid>
-                </ScrollViewer>
+                
 
 
 
 
             </Border>
         </Grid>
+        
     </Grid>
+    </ScrollViewer>
 </UserControl>

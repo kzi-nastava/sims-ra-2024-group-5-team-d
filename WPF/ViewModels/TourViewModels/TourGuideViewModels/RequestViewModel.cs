@@ -16,9 +16,10 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public DateTime DateTo { get; set; }
         public int Capacity { get; set; }
         public LANGUAGE Language { get; set; }
+        public bool IsAcceptable { get; set; }
 
         public RequestViewModel() { }
-        public RequestViewModel(string description, Location location, DateTime dateFrom, DateTime dateTo, int capacity, LANGUAGE language)
+        public RequestViewModel(string description, Location location, DateTime dateFrom, DateTime dateTo, int capacity, LANGUAGE language, bool isAcceptable)
         {
             Description = description;
             Location = location;
@@ -26,6 +27,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             DateTo = dateTo;
             Capacity = capacity;
             Language = language;
+            IsAcceptable = isAcceptable;
         }
     }
 }

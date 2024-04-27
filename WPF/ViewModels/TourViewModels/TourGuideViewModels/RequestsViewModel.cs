@@ -149,7 +149,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 Debug.WriteLine(capacityMatch.ToString());
                 if (languageMatch && durationMatch && locationMatch && capacityMatch)
                 {
-                    TourRequests.Add(new RequestViewModel(tourRequest.Description, locationService.GetById(tourRequest.Location.Id), tourRequest.RangeFrom, tourRequest.RangeTo, tourRequest.Capacity, tourRequest.Language));
+                    TourRequests.Add(new RequestViewModel(tourRequest.Description, locationService.GetById(tourRequest.Location.Id), tourRequest.RangeFrom, tourRequest.RangeTo, tourRequest.Capacity, tourRequest.Language, tourRequest.IsAcceptable()));
                 }
             }
         }

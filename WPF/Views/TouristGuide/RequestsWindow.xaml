@@ -268,7 +268,7 @@
                             <Label Grid.Row="0">
                                 <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" MaxHeight="50"  Margin="10,0,10,0"/>
                             </Label>
-                            <Button Grid.Row="1" Grid.Column="4" Content="Accept" Command="{Binding DataContext.AcceptCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Height="34" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15"/>
+                            <Button Grid.Row="1" Grid.Column="4" Content="Accept" Command="{Binding DataContext.AcceptCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" IsEnabled="{Binding IsAcceptable}" Height="34" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

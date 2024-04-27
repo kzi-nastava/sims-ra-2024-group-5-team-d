@@ -75,6 +75,7 @@ namespace BookingApp.WPF.ViewModels
             }
         }
         private LocationService locationService;
+        private NotificationsService notificationsService;
         public CreateInboxViewModel(User user)
         {
             CreateForumCommand = new RelayCommand(CreateForum);
@@ -87,6 +88,7 @@ namespace BookingApp.WPF.ViewModels
             LoggedInUser = user;
             guestInboxService = new GuestInboxService();
             accommodationReservationService = new AccommodationReservationService();
+            notificationsService = new NotificationsService();
             accommodationService = new AccommodationService();
             forumService = new ForumService();
             locationService = new LocationService();
@@ -108,16 +110,16 @@ namespace BookingApp.WPF.ViewModels
 
             forumService.GetAll().ForEach(forum => 
             {
-                bool isUserCreateForum = forumService.IsUserCreateForum(LoggedInUser, forum);
-                Forums.Add(new ForumViewModel(forum, isUserCreateForum));
+                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum);
+                Forums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser,forumService.IsSuperForum(forum)));
             
             });
-
         }
         public void CreateForum()
         {
             Forum forum = new Forum(Title, Comment, locationService.GetById(LocationId), LoggedInUser.Id, DateTime.UtcNow, true);
-            forumService.Save(forum);
+            forum=forumService.Save(forum);
+            notificationsService.CreateForumNotifications(forum);
         }
         public void CloseForum(Object param)
         {

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="767" d:DesignWidth="950">
     <Grid Margin="40,15,40,0">
@@ -41,7 +42,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\WPF\Views\TouristGuide\Icons\SideMenu\Map Point Add.png" Width="20" Margin="5,0,0,0"/>
-                <ComboBox x:Name ="LocationComboBox" Grid.Column="1" VerticalAlignment="Center" Width="108" SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox x:Name ="locationComboBox" Grid.Column="1" VerticalAlignment="Center" Width="108" SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}">
                     <ComboBoxItem Content="Serbia, Novi Sad"/>
                     <ComboBoxItem Content="Serbia, Beograd"/>
                     <ComboBoxItem Content="Serbia, Smederevo"/>
@@ -53,6 +54,11 @@
                     <ComboBoxItem Content="Serbia, Čačak"/>
                     <ComboBoxItem Content="Serbia, Užice"/>
                     <ComboBoxItem IsEnabled="False" Visibility="Collapsed">Location</ComboBoxItem>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding LocationComboBoxGotFocusCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ComboBox>
             </Grid>
         </Border>
@@ -70,12 +76,17 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\WPF\Views\TouristGuide\Icons\Card\Chat Round Line.png" Width="20" Margin="10,0,0,0"/>
-                <ComboBox x:Name ="LanguageComboBox" Grid.Column="1" VerticalAlignment="Center" SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Width="102">
+                <ComboBox x:Name ="languageComboBox" Grid.Column="1" VerticalAlignment="Center" SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Width="102">
                     <ComboBoxItem Content="English"/>
                     <ComboBoxItem Content="Serbian"/>
                     <ComboBoxItem Content="German"/>
                     <ComboBoxItem IsEnabled="False" Visibility="Collapsed">Language</ComboBoxItem>
                 </ComboBox>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding LanguageComboBoxGotFocusCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </Grid>
         </Border>
         <Image Grid.Row="1" Grid.Column="1" Source="Icons/Card/Lightbulb Minimalistic.png" HorizontalAlignment="Right" Height="24" Width="24" Margin="0,0,25,0" />
@@ -96,18 +107,31 @@
         <ComboBox Grid.Row="2"
                   Width="100"
                   HorizontalAlignment="Left"
-                  Margin="0,25,0,0">
-            <ComboBoxItem IsSelected="True">All</ComboBoxItem>
-            <ComboBoxItem>2024</ComboBoxItem>
-            <ComboBoxItem>2023</ComboBoxItem>
-            <ComboBoxItem>2022</ComboBoxItem>
+                  Margin="0,25,0,0"
+                  ItemsSource="{Binding Years}"
+                  SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
+                  SelectedIndex="0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ComboBoxSelectionChangedCommand}"
+                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </ComboBox>
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" Grid.Row="3" Grid.ColumnSpan="2" LegendLocation="Left" Width="600" Height="400">
+        <lvc:CartesianChart Series="{Binding YearlyStats}" Grid.Row="3" Grid.ColumnSpan="2" LegendLocation="None" Width="600" Height="400">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Salesman" Labels="{Binding Labels}"></lvc:Axis>
+                <lvc:Axis Title="Years" Labels="{Binding Labels}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Sold Apps" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                <lvc:Axis Title="Requests" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+        <lvc:CartesianChart Series="{Binding MonthlyStats}" Grid.Row="3" Grid.ColumnSpan="2" LegendLocation="None" Width="600" Height="400" Visibility="Hidden">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Months" Labels="{Binding YearLabels}" />
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Requests" />
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
     </Grid>

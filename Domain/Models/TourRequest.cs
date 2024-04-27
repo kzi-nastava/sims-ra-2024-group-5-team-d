@@ -59,5 +59,10 @@ namespace BookingApp.Domain.Models
             TourRealisationId = Convert.ToInt32(values[8]);
             Capacity = Convert.ToInt32(values[9]);
         }
+
+        public bool IsAcceptable()
+        {
+            return DateTime.Now <= RangeFrom.AddDays(-3);
+        }
     }
 }

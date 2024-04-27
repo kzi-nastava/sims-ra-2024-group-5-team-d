@@ -70,6 +70,11 @@ namespace BookingApp.Domain.Models
         {
             return Type == Type.RATE;
         }
+
+        internal bool isForum()
+        {
+            return Type == Type.FORUM;
+        }
     }
 
 }
