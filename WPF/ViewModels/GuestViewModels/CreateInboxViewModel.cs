@@ -2,9 +2,12 @@
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.Views.GuestWindows;
+using BookingApp.WPF.Views.OwnerView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +19,8 @@ namespace BookingApp.WPF.ViewModels
     public class CreateInboxViewModel 
     {
         public ICommand CreateForumCommand { get; set; }
+        public ICommand CloseForumCommand {  get; set; }
+        public ICommand OpenMoreCommand { get; set; }
         public ObservableCollection<InboxViewModel> ApprovedRequests { get; set; }
         public ObservableCollection<InboxViewModel> InProcessRequests { get; set; }
         public ObservableCollection<InboxViewModel> RejectedRequests { get; set; }
@@ -74,6 +79,8 @@ namespace BookingApp.WPF.ViewModels
         public CreateInboxViewModel(User user)
         {
             CreateForumCommand = new RelayCommand(CreateForum);
+            CloseForumCommand = new RelayParameterCommand(CloseForum);
+            OpenMoreCommand = new RelayParameterCommand(OpenComments);
             ApprovedRequests = new ObservableCollection<InboxViewModel>();
             InProcessRequests = new ObservableCollection<InboxViewModel>();
             RejectedRequests = new ObservableCollection<InboxViewModel>();
@@ -101,14 +108,38 @@ namespace BookingApp.WPF.ViewModels
             guestInboxService.GetInProcessRequests(LoggedInUser)
                             .ForEach(r => InProcessRequests.Add(new InboxViewModel(accommodationService.GetById(accommodationReservationService.GetById(r.ReservationId).AccommodationId).ImagesPath, r.NewReservedFrom, r.NewReservedTo, r.Comment, accommodationService.GetAccommodationNameById(accommodationReservationService.GetById(r.ReservationId).AccommodationId))));
 
-            forumService.GetAll().ForEach(forum => Forums.Add(new ForumViewModel(forum, forumService.IsSuperForum(forum))));
-
+            forumService.GetAll().ForEach(forum => 
+            {
+                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum);
+                Forums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser,forumService.IsSuperForum(forum)));
+            
+            });
         }
         public void CreateForum()
         {
             Forum forum = new Forum(Title, Comment, locationService.GetById(LocationId), LoggedInUser.Id, DateTime.UtcNow, true);
             forum=forumService.Save(forum);
             notificationsService.CreateForumNotifications(forum);
+        }
+        public void CloseForum(Object param)
+        {
+            ForumViewModel forumViewModel = param as ForumViewModel;
+            if(forumViewModel!=null )
+            {
+                
+                Forum forum = forumService.GetById(forumViewModel.ForumId);
+                forum.Active = false;
+                forumService.Update(forum);
+
+            }
+        }
+        private void OpenComments(object forum)
+        {
+            ForumViewModel forumViewModel = (ForumViewModel)forum;
+            if (forumViewModel != null)
+            {
+                GuestWindow.contentControl.Content = new ForumCommentsUserControl(forumViewModel.ForumId, LoggedInUser);
+            }
         }
 
     }

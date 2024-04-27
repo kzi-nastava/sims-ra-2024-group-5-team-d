@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:sys="clr-namespace:System;assembly=System.Runtime" xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:sys="clr-namespace:System;assembly=System.Runtime" xmlns:local1="clr-namespace:BookingApp.WPF.Converters" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="430">
     <UserControl.Resources>
         <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+        <local1:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -32,7 +34,7 @@
                             BorderThickness="3" 
                             CornerRadius="10"
                             Background="{StaticResource PrimaryColor2}"
-                            Width="auto">
+                            Width="90">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Approved" 
                                    Padding="5"
@@ -181,7 +183,7 @@
                                  BorderThickness="3" 
                                  CornerRadius="10"
                                  Background="{StaticResource PrimaryColor2}"
-                                 Width="auto">
+                                 Width="90">
                             <TextBlock Text="In process" 
                                 Padding="5"
                                 Foreground="{StaticResource WhiteWhite}"
@@ -312,7 +314,7 @@
                                  BorderThickness="3" 
                                  CornerRadius="10"
                                  Background="{StaticResource PrimaryColor2}"
-                                 Width="auto">
+                                 Width="90">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Rejected" 
                                     Padding="5"
@@ -483,13 +485,24 @@
             <TabItem Width="100"
                      Background="{StaticResource PrimaryBlack3}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Forum"/>
-                    </StackPanel>
+                    <Border Background="{StaticResource PrimaryBlack3}">
+                        <Border BorderBrush="{StaticResource PrimaryColor}" 
+                            BorderThickness="3" 
+                            CornerRadius="10"
+                            Background="{StaticResource PrimaryColor2}"
+                            Width="90">
+                            <TextBlock Text="Forum" 
+                                   Padding="5"
+                                   Foreground="{StaticResource WhiteWhite}"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center" Margin="0,0,14,0"/>
+                        </Border>
+                    </Border>
                 </TabItem.Header>
                 <ScrollViewer>
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
@@ -497,7 +510,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Grid Margin="55,20,55,20"
+                        <Grid Margin="45,20,45,20"
                           Grid.Row="0"
                           Height="360">
                             <Grid.RowDefinitions>
@@ -631,7 +644,7 @@
                         </Grid>
 
                         <ListView BorderThickness="0" 
-                                 Background="Transparent"
+                                 Background="{StaticResource PrimaryBlack3}"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                  Grid.Row="1"
                                  ScrollViewer.CanContentScroll="False"
@@ -639,7 +652,8 @@
                                  SelectedItem="{Binding SelectedForum}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderBrush="Black" 
+                                    <Border BorderBrush="{StaticResource PrimaryColor}"
+                                            Background="{StaticResource PrimaryColor2}"
                                      BorderThickness="2" 
                                      CornerRadius="10"
                                      Width="380"
@@ -664,29 +678,26 @@
                                            Grid.Column="0"
                                            Grid.Row="0"
                                            FontSize="16" 
-                                           FontWeight="Bold"/>
+                                           FontWeight="Bold"
+                                           Foreground="{StaticResource WhiteWhite}"/>
                                             <Label Content="IME PREZIME" 
                                            Grid.Row="1"
                                            HorizontalAlignment="Left"
                                            FontSize="13" 
                                            FontWeight="Bold"
-                                           VerticalAlignment="Top"/>
-                                            <Image Source="../../../Resources/Images/GuestImages/location.png" 
-                                           Grid.Row="1"
-                                           HorizontalAlignment="Right"
                                            VerticalAlignment="Top"
-                                           Margin="0,0,40,0"
-                                           Width="20"
-                                           Height="20"/>
+                                           Foreground="{StaticResource WhiteWhite}"/>
                                             <Label Content="{Binding Location}" 
                                            Grid.Row="1"
                                            HorizontalAlignment="Right"
-                                           FontSize="13" 
+                                           FontSize="11" 
                                            FontWeight="Bold"
-                                           VerticalAlignment="Top"/>
+                                           VerticalAlignment="Top"
+                                           Foreground="{StaticResource WhiteWhite}"/>
                                             <Border
                                             Grid.Row="2"
-                                            BorderBrush="Black"
+                                            BorderBrush="{StaticResource PrimaryColor}"
+                                            Background="{StaticResource PrimaryBlack}"
                                             BorderThickness="2"
                                             Height="auto"
                                             Width="300"
@@ -695,57 +706,45 @@
                                                     HorizontalAlignment="Left"
                                                     FontSize="10"
                                                     TextWrapping="Wrap"
-                                                    Margin="5"/>
+                                                    Margin="5"
+                                                    Foreground="{StaticResource WhiteWhite}"/>
                                             </Border>
-
-                                            <ListView BorderThickness="0" 
-                                                 Background="Transparent"
-                                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                                 Grid.Row="3"
-                                                 ScrollViewer.CanContentScroll="False"
-                                                 ItemsSource="{Binding Forums}"
-                                                 SelectedItem="{Binding SelectedForum}">
-                                                <ListView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Border BorderBrush="Black" 
-                                                             BorderThickness="2" 
-                                                             CornerRadius="10"
-                                                             Width="250"
-                                                             Height="auto">
-                                                            <Grid Margin="10,10,10,5">
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="auto"/>
-                                                                    <RowDefinition Height="auto"/>
-                                                                </Grid.RowDefinitions>
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                </Grid.ColumnDefinitions>
-
-                                                                <Label Content="{Binding Description}" 
-                                                                           Grid.Row="0"
-                                                                           HorizontalAlignment="Left"
-                                                                           FontSize="13" 
-                                                                           FontWeight="Bold"
-                                                                           VerticalAlignment="Top"/>
-                                                                <Border Grid.Row="1"
-                                                                            BorderBrush="Black"
-                                                                            BorderThickness="2"
-                                                                            Width="200"
-                                                                            Height="auto"
-                                                                            HorizontalAlignment="Left"
-                                                                            VerticalAlignment="Center">
-
-                                                                    <TextBlock Text="Zlatibor je jako lep!!!" 
-                                                                           HorizontalAlignment="Left"
-                                                                           FontSize="10"
-                                                                           TextWrapping="Wrap"/>
-                                                                </Border>
-                                                            </Grid>
-                                                        </Border>
-                                                    </DataTemplate>
-                                                </ListView.ItemTemplate>
-                                            </ListView>
-
+                                            <Button Content="See all comments" 
+                                                   Grid.Row="3"
+                                                   HorizontalAlignment="Right"
+                                                   FontSize="11" 
+                                                   FontWeight="Bold"
+                                                   VerticalAlignment="Top"
+                                                   Background="Transparent"
+                                                   Command="{Binding DataContext.OpenMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"
+                                                   Foreground="DarkOrange" />
+                                            <Button Grid.Row="4"
+                                                   FontSize="20" 
+                                                   Background="Transparent"
+                                                   Height="33"
+                                                   Width="auto"
+                                                   Cursor="Hand"
+                                                   VerticalAlignment="Center"
+                                                   BorderThickness="0" 
+                                                   Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                   HorizontalAlignment="Center"
+                                                   Grid.Column="0"
+                                                   Grid.ColumnSpan="2"
+                                                   Command="{Binding DataContext.CloseForumCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                   CommandParameter="{Binding}">
+                                                <Border  Background="DarkOrange"
+                                                     CornerRadius="2"
+                                                     Height="25" 
+                                                     Width="auto">
+                                                    <TextBlock  Text="Close forum"
+                                                       Margin="20 0 20 0" 
+                                                       Foreground="{StaticResource  WhiteGrey}" 
+                                                       FontWeight="Bold" 
+                                                       FontSize="14" 
+                                                       HorizontalAlignment="Center" 
+                                                       VerticalAlignment="Center"/>
+                                                </Border>
+                                            </Button>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>

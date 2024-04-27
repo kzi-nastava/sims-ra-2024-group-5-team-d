@@ -14,9 +14,10 @@ namespace BookingApp.WPF.ViewModels
         public string Description { get; set; }
         public Location Location { get; set; }
         public DateTime DateCreated { get; set; }
+        public bool IsVisible {  get; set; }
         public bool IsSuperForum { get; set; }
         public string SuperForum { get; set; }
-        public ForumViewModel(Forum forum, bool isSuperForum)
+        public ForumViewModel(Forum forum, bool isVisible, bool isSuperForum)
         {
             ForumId = forum.Id;
             Title = forum.Title;
@@ -25,6 +26,7 @@ namespace BookingApp.WPF.ViewModels
             DateCreated = forum.DateCreated;
             SuperForum = "../../../Resources/Images/OwnerImages/StarFull.png";
             IsSuperForum = isSuperForum;
+            IsVisible = isVisible;
         }
     }
 
