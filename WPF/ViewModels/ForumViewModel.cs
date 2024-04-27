@@ -14,13 +14,17 @@ namespace BookingApp.WPF.ViewModels
         public string Description { get; set; }
         public Location Location { get; set; }
         public DateTime DateCreated { get; set; }
-        public ForumViewModel(Forum forum)
+        public bool IsSuperForum { get; set; }
+        public string SuperForum { get; set; }
+        public ForumViewModel(Forum forum, bool isSuperForum)
         {
             ForumId = forum.Id;
             Title = forum.Title;
             Description = forum.Description;
             Location = forum.Location;
             DateCreated = forum.DateCreated;
+            SuperForum = "../../../Resources/Images/OwnerImages/StarFull.png";
+            IsSuperForum = isSuperForum;
         }
     }
 

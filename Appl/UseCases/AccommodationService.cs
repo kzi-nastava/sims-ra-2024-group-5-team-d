@@ -40,6 +40,11 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationRepository.GetAll().Where(accommodation=>accommodation.Location.Id==location.Id).ToList();
         }
+        public bool HasAccommodationOnLocation(User owner,Location location)
+        {
+            List<Accommodation> accomodations = accommodationRepository.GetByUser(owner);
+            return accomodations.Any(accommodation => accommodation.Location.Id == location.Id);
+        }
         public List<Accommodation> GetAll()
         {
             return accommodationRepository.GetAll();
