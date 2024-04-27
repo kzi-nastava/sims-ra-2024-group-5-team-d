@@ -28,6 +28,13 @@ namespace BookingApp.WPF.ViewModels
             IsSuperForum = isSuperForum;
             IsVisible = isVisible;
         }
+        public ForumViewModel(Forum forum) {        
+            ForumId = forum.Id;
+            Title = forum.Title;
+            Description = forum.Description;
+            Location = forum.Location;
+            DateCreated = forum.DateCreated;
+        }
     }
 
 }

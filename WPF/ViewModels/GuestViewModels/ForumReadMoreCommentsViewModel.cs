@@ -31,7 +31,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ForumId = forumId;
             loggedInUser = user;
             forumCommentService = new ForumCommentService();
-            Forum = new ForumViewModel(forumService.GetById(forumId), false);
+            Forum = new ForumViewModel(forumService.GetById(forumId));
             Comments = new ObservableCollection<ForumCommentViewModel>();
             forumCommentService.GetByForumId(forumId).ForEach(comment => {
                 Comments.Add(new ForumCommentViewModel(comment, "Kuca", user));
@@ -43,7 +43,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
 
         public void AddCommentGuest()
         {
-            ForumComment comment = new ForumComment(forumId, loggedInUser.Id, Comment, 0, DateTime.Now);
+            ForumComment comment = new ForumComment(forumId, loggedInUser.Id, Comment, DateTime.Now);
             comment = forumCommentService.Save(comment);
             Comments.Add(new ForumCommentViewModel(comment, "Kuca", loggedInUser));
         }
