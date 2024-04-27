@@ -24,10 +24,14 @@ namespace BookingApp.WPF.Views.TouristGuide
     public partial class RequestsStatistics : UserControl
     {
         public static Popup HelpPopUp { get; set; }
+        public static ComboBox LanguageComboBox { get; set; }
+        public static ComboBox LocationComboBox { get; set; }
         public RequestsStatistics(User user)
         {
             InitializeComponent();
             HelpPopUp = HelpPopup;
+            LanguageComboBox = languageComboBox;
+            LocationComboBox = locationComboBox;
             DataContext = new RequestsStatisticsViewModel(user);
         }
     }
