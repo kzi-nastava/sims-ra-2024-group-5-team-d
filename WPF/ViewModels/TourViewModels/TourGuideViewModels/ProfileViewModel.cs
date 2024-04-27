@@ -23,16 +23,16 @@ namespace BookingApp.WPF.ViewModels
         private User LoggedInUser { get; set; }
         public TourService tourService { get; set; }
         public TourRealisationService tourRealisationService { get; set; }
-        private ILocationRepository locationRepository { get; set; }
+        public LocationService locationService { get; set; }
         public ProfileViewModel(User user) 
         { 
             LoggedInUser = user;
             tourService = new TourService();
             tourRealisationService = new TourRealisationService();
+            locationService = new LocationService();
             Tour = new ObservableCollection<TourViewModel>();
             Date = new ObservableCollection<string>();
             ComboBoxSelectionChangedCommand = new RelayParameterCommand(OnComboBoxSelectionChanged);
-            locationRepository = Injector.CreateInstance<ILocationRepository>();
             InitializeComboBox();
             OnComboBoxSelectionChanged("All Time");
         }
@@ -47,7 +47,7 @@ namespace BookingApp.WPF.ViewModels
                 {
                     
                     Tour tour = tourService.GetBestTourOfAllTime();
-                    Tour.Add(new TourViewModel(tour.Id, tour.Name, tour.Description,locationRepository.GetById(tour.Location.Id), tour.Duration, tour.ImagesPath, tour.MaxCapacity,tour.Language, tour.User));
+                    Tour.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, locationService.GetById(tour.Location.Id), tour.Duration, tour.ImagesPath, tour.MaxCapacity,tour.Language, tour.User));
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace BookingApp.WPF.ViewModels
                     {
                         Tour tour = tourService.GetBestTourInAYear(selectedYear);
                         if(tour == null) {  return; }
-                        Tour.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, locationRepository.GetById(tour.Location.Id), tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User));
+                        Tour.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, locationService.GetById(tour.Location.Id), tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User));
                     }
                 }
             }

@@ -32,7 +32,6 @@ namespace BookingApp.WPF.Views.TouristGuide
         public TourViewModel SelectedTour { get; set; }
         public TourRealisationViewModel SelectedTourRealisation { get; set; }
         public ObservableCollection<TourRealisationViewModel> TourRealisations { get; set; }
-        private readonly ITourRealisationRepository tourRealisationRepository;
         private TourRealisationService tourRealisationService;
         private TourReservationService tourReservationService;
         private VoucherService voucherService;
@@ -46,8 +45,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             tourRealisationService = new TourRealisationService();
             TourRealisations = new ObservableCollection<TourRealisationViewModel>();
             SelectedTour = selectedTour;
-            tourRealisationRepository = new TourRealisationRepository();
-            tourRealisationRepository.GetTourRealisationsByTourId(SelectedTour.Id).ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User, t.IsFinished)); });
+            tourRealisationService.GetTourRealisationsByTourId(SelectedTour.Id).ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User, t.IsFinished)); });
             tourReservationService = new TourReservationService();
             LoggedInUser = user;
             SelectedDateTime = DateTime.Now;
@@ -62,7 +60,7 @@ namespace BookingApp.WPF.Views.TouristGuide
         {
             DateTime selectedDateTime = SelectedDateTime;
             TourRealisation tourRealisation = new TourRealisation(selectedDateTime,SelectedTour.Id,SelectedTour.Capacity, LoggedInUser);
-            tourRealisationRepository.SaveTourRealisation(tourRealisation);
+            tourRealisationService.Save(tourRealisation);
             TourRealisationViewModel tourRealisationViewModel = new TourRealisationViewModel(tourRealisation.Id,selectedDateTime, SelectedTour.Id, SelectedTour.Capacity, tourRealisation.IsCancellable(), LoggedInUser,tourRealisation.IsFinished);
             TourRealisations.Add(tourRealisationViewModel);
             NewTourRealizationPopup.IsOpen = false;

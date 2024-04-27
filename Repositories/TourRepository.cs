@@ -36,6 +36,18 @@ namespace BookingApp.Repositories
             _tours.ForEach(tour => tour.Location = _locationRepository.GetById(tour.Location.Id));
             return _tours;
         }
+        public List<Tour> GetAllTours(User user)
+        {
+            List<Tour> tours = _serializerTours.FromCSV(FilePathTours);
+            foreach (Tour tour in tours)
+            {
+                if (tour.User.Id == user.Id)
+                {
+                    tour.Location = _locationRepository.GetById(tour.Location.Id);
+                }
+            }
+            return tours;
+        }
 
         public Tour SaveTour(Tour tour)
         {

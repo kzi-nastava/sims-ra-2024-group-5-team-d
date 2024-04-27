@@ -9,6 +9,7 @@ namespace BookingApp.Domain.RepositoryInterfaces
 {
     public interface ITourRepository
     {
+        public List<Tour> GetAllTours(User user);
         public List<Tour> GetAllTours();
         public Tour SaveTour(Tour tour);
         public void DeleteTour(Tour tour);

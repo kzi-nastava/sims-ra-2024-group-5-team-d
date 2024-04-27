@@ -6,10 +6,11 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="767" d:DesignWidth="950">
     <UserControl.Resources>
+        <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         <Style x:Key="TextBlockStyle" TargetType="TextBlock" >
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="18"/>
@@ -81,6 +82,7 @@
                       Height="30"
                       Width="250"  
                       HorizontalAlignment="Left" 
+                      IsEnabled="{Binding IsRequest, Converter={StaticResource InverseBooleanConverter}}"
                       VerticalAlignment="Top" 
                       FontSize="18"
                       SelectedIndex="{Binding tourFormViewModel.LocationId}"
@@ -105,7 +107,7 @@
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Duration" Style="{StaticResource TextBlockStyle}"/>
         <TextBox Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding tourFormViewModel.Duration}"/>
         <TextBlock Grid.Row="7" Grid.Column="0" Text="Capacity" Style="{StaticResource TextBlockStyle}"/>
-        <TextBox Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding tourFormViewModel.Capacity}"/>
+        <TextBox Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding tourFormViewModel.Capacity}" IsReadOnly="{Binding IsRequest}"/>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Language" Style="{StaticResource TextBlockStyle}"/>
         <ComboBox Grid.Column="1" 
                   Grid.Row="2"
@@ -115,10 +117,11 @@
                   VerticalAlignment="Top"
                   FontSize="18"
                   SelectedIndex="{Binding tourFormViewModel.LanguageId}"
+                  IsEnabled="{Binding IsRequest, Converter={StaticResource InverseBooleanConverter}}"
                   Margin="0,0,0,15">
             <ComboBoxItem Content="English"/>
-            <ComboBoxItem Content="German"/>
             <ComboBoxItem Content="Serbian"/>
+            <ComboBoxItem Content="German"/>
         </ComboBox>
         <TextBlock Grid.Row="3" Grid.Column="1" Text="Date and Time" Style="{StaticResource TextBlockStyle}"/>
 
@@ -181,7 +184,7 @@
             </Button>
         </Grid>
         <TextBlock Grid.Row="9" Grid.Column="0" Text="Description" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Top"/>
-        <TextBox Grid.Row="10" Grid.Column="0" Width="550" Height="110"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Text="{Binding tourFormViewModel.Description}" TextWrapping="WrapWithOverflow"/>
+        <TextBox Grid.Row="10" Grid.Column="0" Width="550" Height="110"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Text="{Binding tourFormViewModel.Description}" TextWrapping="WrapWithOverflow" IsReadOnly="{Binding IsRequest}"/>
         <Button Grid.Row="11" Grid.Column="2"  Content="Create" Command="{Binding SaveCommand}" Margin="0,50,150,20" Height="40" Width="100" HorizontalAlignment="Right" />
         <Button Grid.Row="11" Grid.Column="2"  Content="Cancel"  Command="{Binding CancelCommand}" Margin="0,50,0,20" Height="40" Width="100" HorizontalAlignment="Right"/>
 

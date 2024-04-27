@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
-             xmlns:local1="clr-namespace:BookingApp.WPF.Converters" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local1="clr-namespace:BookingApp.WPF.Converters" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="950">
     <UserControl.Resources>
@@ -86,8 +88,10 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Select date and time:"/>
-                            <xctk:DateTimePicker Value="{Binding SelectedDateTime}" Width="200"/>
-                        </StackPanel>
+                        <xctk:DateTimePicker Value="{Binding SelectedDateTime}" Width="200" Minimum="{x:Static sys:DateTime.Today}">
+                        </xctk:DateTimePicker>
+
+                    </StackPanel>
                         <Button Content="Save" Click="SaveNewTourRealization_Click" Margin="5,10,0,0"/>
                     </StackPanel>
                 </Border>
