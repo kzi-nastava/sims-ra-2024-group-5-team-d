@@ -15,32 +15,29 @@ namespace BookingApp.Domain.Models
         public int ForumId { get; set; }
         public int CreatorId { get; set; }
         public string Comment { get; set; }
-        public int NumberOfReports { get; set; }
         public DateTime DateCreated { get; set; }
         public ForumComment() { 
         
         }
-        public ForumComment(int id, int forumId, int creatorId, string comment, int numberOfReports, DateTime dateCreated)
+        public ForumComment(int id, int forumId, int creatorId, string comment, DateTime dateCreated)
         {
             Id = id;
             ForumId = forumId;
             CreatorId = creatorId;
             Comment = comment;
-            NumberOfReports = numberOfReports;
             DateCreated = dateCreated;
         }
-        public ForumComment(int forumId, int creatorId, string comment, int numberOfReports, DateTime dateCreated)
+        public ForumComment(int forumId, int creatorId, string comment, DateTime dateCreated)
         {
             ForumId = forumId;
             CreatorId = creatorId;
             Comment = comment;
-            NumberOfReports = numberOfReports;
             DateCreated = dateCreated;
         }
 
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(), ForumId.ToString(), CreatorId.ToString(), Comment, NumberOfReports.ToString(), DateCreated.ToString("M/d/yyyy h:mm:ss tt") };
+            return new string[] { Id.ToString(), ForumId.ToString(), CreatorId.ToString(), Comment, DateCreated.ToString("M/d/yyyy h:mm:ss tt") };
         }
 
         public void FromCSV(string[] values)
@@ -49,8 +46,7 @@ namespace BookingApp.Domain.Models
             ForumId = int.Parse(values[1]);
             CreatorId = int.Parse(values[2]);
             Comment = values[3];
-            NumberOfReports = int.Parse(values[4]);
-            DateCreated = DateTime.ParseExact(values[5], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateCreated = DateTime.ParseExact(values[4], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
         }
     }
 }

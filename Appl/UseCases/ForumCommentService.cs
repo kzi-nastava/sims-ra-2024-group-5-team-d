@@ -19,20 +19,6 @@ namespace BookingApp.Appl.UseCases
             accommodationService = new AccommodationService();
             forumCommentRepository = Injector.CreateInstance<IForumCommentRepository>();
         }
-        public void ReportComment(int commentId)
-        {
-            ForumComment comment = GetById(commentId);
-            comment.NumberOfReports++;
-            Update(comment);
-        }
-        public void CreateOwnerComment(int forumId, int creatorId, string comment,Location location)
-        {
-            if (OwnerHasAccommodation(location,creatorId))
-            {
-                ForumComment forumComment = new ForumComment(forumId, creatorId, comment, 0, DateTime.Now);
-                Save(forumComment);
-            }
-        }
         private bool OwnerHasAccommodation(Location location,int ownerId)
         {
             User owner=userService.GetById(ownerId);

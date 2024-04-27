@@ -23,7 +23,7 @@ namespace BookingApp.WPF.ViewModels
             loggedInUser = user;
             Forums = new ObservableCollection<ForumViewModel>();
             forumService = new ForumService();
-            forumService.GetAll().ForEach(forum=>Forums.Add(new ForumViewModel(forum)));
+            forumService.GetAll().ForEach(forum=>Forums.Add(new ForumViewModel(forum, forumService.IsSuperForum(forum)))); 
             ReadMoreCommand = new RelayParameterCommand(ReadMore);
         }
         private void ReadMore(object forum)

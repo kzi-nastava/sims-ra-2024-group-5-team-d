@@ -56,5 +56,10 @@ namespace BookingApp.Domain.Models
             AvatarPath = values[7];
             MacAddress = values[8];
         }
+
+        internal bool IsOwner()
+        {
+            return Type==UserType.Owner;
+        }
     }
 }
