@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ToastNotifications.Core;
 using Xceed.Wpf.Toolkit.Primitives;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
@@ -57,6 +58,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                         break;
                     case Domain.Models.Type.REQUEST:
                         OwnerMainWindow.contentControl.Content = new RequestsUserControl(loggedInUser);
+                        break;
+                    case Domain.Models.Type.FORUM:
+                        OwnerMainWindow.contentControl.Content = new ForumReadMoreUserControl(notification.LinkId, loggedInUser);
                         break;
                 }
                 notificationsService.ReadNotification(notification);
