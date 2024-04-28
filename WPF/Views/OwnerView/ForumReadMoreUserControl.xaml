@@ -13,10 +13,10 @@
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-        <Grid Margin="0 0 0 30" HorizontalAlignment="Center">
+        <Grid Margin="0 0 10 30" HorizontalAlignment="Right">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="830"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="770"/>
+                <ColumnDefinition Width="160"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.7*"/>
@@ -26,10 +26,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding Forum.Title}" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin="15 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">
-            <Run Text="{Binding Forum.DateCreated, Converter={StaticResource DateConverter}}" />
-            <Run Text=" days ago"/>
-            </TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Forum.DateCreated, Converter={StaticResource DateConverter}}" Margin="15 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
             <Grid HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -43,10 +40,10 @@
                                                VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Forum.Location}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1"/>
             </Grid>
-            <Border BorderThickness="3" BorderBrush="Black" Grid.Row="1">
+            <Border BorderThickness="3" BorderBrush="Black" Grid.Row="1" Grid.ColumnSpan="2" Margin="0 0 30 0" CornerRadius="15">
                 <TextBlock Text="{Binding Forum.Description}" Padding="10" FontSize="18"  MinHeight="220" TextWrapping="WrapWithOverflow"/>
             </Border>
-            <Grid HorizontalAlignment="Left" Grid.Row="2" Margin="0 5 0 5">
+            <Grid HorizontalAlignment="Left" Grid.Row="2" Margin="0 5 30 5" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -66,7 +63,7 @@
                     <Image Source="C:\Users\lukai\Desktop\Resource\plusgreat.png" Height="40" Width="40"/>
                 </Button>
             </Grid>
-            <Grid Grid.Row="3" Visibility="{Binding AddForumCommentViewModel.IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid Grid.Row="3" Visibility="{Binding AddForumCommentViewModel.IsVisible, Converter={StaticResource BoolToVisibilityConverter}}" Grid.ColumnSpan="2" Margin="0 0 30 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
@@ -78,9 +75,9 @@
                                                Grid.Column="0" 
                                                HorizontalAlignment="Left" 
                                                VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" Text="{Binding AddForumCommentViewModel.Comment}" BorderThickness="0 0 0 5" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Width="700" Height="40" Margin="10 0 0 0">
+                <TextBox Grid.Column="1" Text="{Binding AddForumCommentViewModel.Comment}" BorderThickness="0 0 0 5" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Width="760" Height="40" Margin="10 0 0 0">
                 </TextBox>
-                <Border BorderBrush="DimGray" BorderThickness="2" CornerRadius="10" Grid.Column="2" Margin="20 0 0 0">
+                <Border BorderBrush="DimGray" BorderThickness="2" CornerRadius="10" Grid.Column="2" Margin="25 0 0 0">
                     <Button Grid.Column="2" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Command="{Binding CommentCommand}">
                         <TextBlock Text="Comment"/>
                     </Button>
@@ -95,7 +92,7 @@
                       ScrollViewer.CanContentScroll="False"
                       PreviewMouseWheel="ListView_PreviewMouseWheel"
                       Grid.Row="4"
-                      ItemsSource="{Binding Comments}">
+                      ItemsSource="{Binding Comments}" Grid.ColumnSpan="2" Margin="0 10 25 0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="Background" Value="Transparent" />
@@ -110,7 +107,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border  BorderBrush="Black" BorderThickness="3" Padding="5" Margin="0 0 0 5">
+                        <Border  BorderBrush="Black" BorderThickness="3" Padding="5" Margin="0 0 0 5" CornerRadius="10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
@@ -148,13 +145,13 @@
                                 </Grid>
                                 <Grid Visibility="{Binding IsReportable,Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
                                     <TextBlock Text="{Binding Reports}"  HorizontalAlignment="Right" Margin="10"/>
-                                    <Button  Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="{Binding IsReported}" Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                    <Button  Background="Transparent" Width="26 " Margin="0 0 20 0" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="{Binding IsReported}" Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
                                         <Image  
                                        Source="C:\Users\lukai\Desktop\Resource\flag.png" 
                                        Height="24" 
                                        Width="24" 
                                        VerticalAlignment="Center"
-                                       Margin="20 0 20 0"
+                                       Margin="0 0 0 0"
                                       />
                                     </Button>
                                 </Grid>

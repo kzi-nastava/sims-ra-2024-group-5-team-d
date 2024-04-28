@@ -65,10 +65,7 @@
                                                HorizontalAlignment="Left" 
                                                VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding Location}" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" FontSize="17" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <Run Text="{Binding DateCreated, Converter={StaticResource DateConverter}}"></Run>
-                                <Run Text=" days ago"/>
-                            </TextBlock>
+                            <TextBlock Text="{Binding DateCreated, Converter={StaticResource DateConverter}}" Grid.Column="2" FontSize="17" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding Description}" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1" FontSize="18" VerticalAlignment="Center"/>
                             <Image Grid.Column="2" Grid.Row="1" Source="C:\Users\lukai\Desktop\Resource\chat.png" Height="32" Width="32" HorizontalAlignment="Right" />
                             <Button Grid.Column="3"
