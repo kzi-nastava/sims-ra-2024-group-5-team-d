@@ -46,7 +46,7 @@
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
-                    <Image  Source="C:\Users\lukai\Desktop\Resource\accommodation.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
+                    <Image  Source="./../../Resources/Images/accommodation.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
                 </Button>
                 <Button Grid.Column="1" Command="{Binding TypeCommand}" CommandParameter="1">
                     <Button.Template>
@@ -67,7 +67,7 @@
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
-                    <Image  Source="C:\Users\lukai\Desktop\Resource\travel.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
+                    <Image  Source="./../../Resources/Images/travel.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
                 </Button>
                 <Button Grid.Column="2" Command="{Binding TypeCommand}" CommandParameter="2">
                     <Button.Template>
@@ -88,7 +88,7 @@
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
-                    <Image  Source="C:\Users\lukai\Desktop\Resource\traveler.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
+                    <Image  Source="./../../Resources/Images/traveler.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
                 </Button>
                 <Button Grid.Column="3" Command="{Binding TypeCommand}" CommandParameter="3">
                     <Button.Template>
@@ -109,7 +109,7 @@
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
-                    <Image  Source="C:\Users\lukai\Desktop\Resource\tourist1.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
+                    <Image  Source="./../../Resources/Images/tourist1.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
                 </Button>
             </Grid>
         </Border>
