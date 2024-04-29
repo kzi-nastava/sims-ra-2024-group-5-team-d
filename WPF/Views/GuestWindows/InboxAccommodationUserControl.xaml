@@ -70,11 +70,12 @@
                 SelectedItem="{Binding SelectedRequest}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" 
+                            <Border BorderBrush="{StaticResource PrimaryColor}"
+                                    Background="{StaticResource PrimaryColor2}"
                         BorderThickness="2" 
                         CornerRadius="10"
                         Width="380"
-                        Height="80">
+                        Height="auto">
                                 <Grid Margin="10,10,10,5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
@@ -84,19 +85,14 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Border BorderBrush="Black" 
-                                BorderThickness="1" 
-                                Grid.RowSpan="5"
-                                HorizontalAlignment="Right"/>
-
                                     <Image  Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
-                                   Width="30" 
-                                   Height="30" 
+                                   Width="80" 
+                                   Height="80" 
                                    VerticalAlignment="Center" 
                                    HorizontalAlignment="Center" 
                                    Grid.Column="0"
@@ -109,7 +105,8 @@
                                    HorizontalAlignment="Center"
                                    FontSize="13" 
                                    FontWeight="Bold"
-                                   VerticalAlignment="Top"/>
+                                   VerticalAlignment="Top"
+                                   Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="New date time" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -118,7 +115,8 @@
                                    Grid.Row="1"
                                    Width="74"
                                    Height="21" 
-                                   Margin="22,1,0,0"/>
+                                   Margin="22,1,0,0"
+                                   Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="From:" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -128,7 +126,8 @@
                                    Width="92"
                                    FontSize="9" 
                                    Margin="22,15,0,0" 
-                                   Grid.RowSpan="2"/>
+                                   Grid.RowSpan="2"
+                                   Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding NewReservedFrom,StringFormat='dd/MM/yyyy'}" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -138,7 +137,8 @@
                                    Width="92"
                                    FontSize="9" 
                                    Margin="53,15,0,0" 
-                                   Grid.RowSpan="2"/>
+                                   Grid.RowSpan="2"
+                                   Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="To:" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -148,7 +148,8 @@
                                    Width="92"
                                    FontSize="9" 
                                    Margin="114,15,0,0" 
-                                   Grid.RowSpan="2"/>
+                                   Grid.RowSpan="2"
+                                   Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding NewReservedTo,StringFormat='dd/MM/yyyy'}"  
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Top" 
@@ -159,8 +160,9 @@
                                   Width="92"
                                   FontSize="9" 
                                   Margin="135,15,0,0" 
-                                  Grid.RowSpan="2"/>
-                                    <Image Source="../../../Resources/Images/GuestImages/ApprovedIcon.png" 
+                                  Grid.RowSpan="2"
+                                  Foreground="{StaticResource WhiteWhite}"/>
+                                    <Image Source="../../../Resources/Images/GuestImages/accepted.png" 
                                    Width="55" 
                                    Height="49" 
                                    VerticalAlignment="Top" 
@@ -202,11 +204,12 @@
                         SelectedItem="{Binding SelectedRequest}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" 
+                            <Border BorderBrush="{StaticResource PrimaryColor}"
+                                    Background="{StaticResource PrimaryColor2}"
                                 BorderThickness="2" 
                                 CornerRadius="10"
                                 Width="380"
-                                Height="80">
+                                Height="auto">
                                 <Grid Margin="10,10,10,5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
@@ -216,19 +219,14 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Border BorderBrush="Black" 
-                               BorderThickness="1" 
-                               Grid.RowSpan="5"
-                               HorizontalAlignment="Right"/>
-
                                     <Image  Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
-                                  Width="30" 
-                                  Height="30" 
+                                  Width="80" 
+                                  Height="80" 
                                   VerticalAlignment="Center" 
                                   HorizontalAlignment="Center" 
                                   Grid.Column="0"
@@ -241,7 +239,8 @@
                                   HorizontalAlignment="Center"
                                   FontSize="13" 
                                   FontWeight="Bold"
-                                  VerticalAlignment="Top"/>
+                                  VerticalAlignment="Top"
+                                  Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="New date time" 
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Top" 
@@ -250,6 +249,7 @@
                                   Grid.Row="1"
                                   Width="74"
                                   Height="21" 
+                                  Foreground="{StaticResource WhiteWhite}"
                                   Margin="22,1,0,0"/>
                                     <Label Content="From:" 
                                   HorizontalAlignment="Left"
@@ -260,7 +260,8 @@
                                   Width="92"
                                   FontSize="9" 
                                   Margin="22,15,0,0" 
-                                  Grid.RowSpan="2"/>
+                                  Grid.RowSpan="2"
+                                  Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding NewReservedFrom,StringFormat='dd/MM/yyyy'}" 
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Top" 
@@ -270,7 +271,8 @@
                                   Width="92"
                                   FontSize="9" 
                                   Margin="53,15,0,0" 
-                                  Grid.RowSpan="2"/>
+                                  Grid.RowSpan="2"
+                                  Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="To:" 
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Top" 
@@ -280,7 +282,8 @@
                                   Width="92"
                                   FontSize="9" 
                                   Margin="114,15,0,0" 
-                                  Grid.RowSpan="2"/>
+                                  Grid.RowSpan="2"
+                                  Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding NewReservedTo,StringFormat='dd/MM/yyyy'}"  
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top" 
@@ -291,7 +294,8 @@
                                  Width="92"
                                  FontSize="9" 
                                  Margin="135,15,0,0" 
-                                 Grid.RowSpan="2"/>
+                                 Grid.RowSpan="2"
+                                 Foreground="{StaticResource WhiteWhite}"/>
                                     <Image Source="../../../Resources/Images/GuestImages/WaitingIcon.png" 
                                   Width="55" 
                                   Height="49" 
@@ -350,11 +354,12 @@
                     SelectedItem="{Binding SelectedRequest}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" 
+                            <Border BorderBrush="{StaticResource PrimaryColor}"
+                                    Background="{StaticResource PrimaryColor2}" 
                                 BorderThickness="2" 
                                 CornerRadius="10"
                                 Width="380"
-                                Height="120">
+                                Height="auto">
                                 <Grid Margin="10,10,10,5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
@@ -364,19 +369,14 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Border BorderBrush="Black" 
-                                        BorderThickness="1" 
-                                        Grid.RowSpan="5"
-                                        HorizontalAlignment="Right"/>
-
                                     <Image  Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
-                                       Width="30" 
-                                       Height="30" 
+                                       Width="80" 
+                                       Height="80" 
                                        VerticalAlignment="Center" 
                                        HorizontalAlignment="Center" 
                                        Grid.Column="0"
@@ -389,7 +389,8 @@
                                        HorizontalAlignment="Center"
                                        FontSize="13" 
                                        FontWeight="Bold"
-                                       VerticalAlignment="Top"/>
+                                       VerticalAlignment="Top"
+                                       Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="New date time" 
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top" 
@@ -398,7 +399,8 @@
                                        Grid.Row="1"
                                        Width="74"
                                        Height="21" 
-                                       Margin="22,1,0,0"/>
+                                       Margin="22,1,0,0"
+                                       Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="From:" 
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top" 
@@ -408,7 +410,8 @@
                                        Width="92"
                                        FontSize="9" 
                                        Margin="22,15,0,0" 
-                                       Grid.RowSpan="2"/>
+                                       Grid.RowSpan="2"
+                                       Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding NewReservedFrom,StringFormat='dd/MM/yyyy'}"  
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top" 
@@ -418,7 +421,8 @@
                                        Width="92"
                                        FontSize="9" 
                                        Margin="53,15,0,0" 
-                                       Grid.RowSpan="2"/>
+                                       Grid.RowSpan="2"
+                                       Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="To:" 
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top" 
@@ -428,7 +432,8 @@
                                        Width="92"
                                        FontSize="9" 
                                        Margin="114,15,0,0" 
-                                       Grid.RowSpan="2"/>
+                                       Grid.RowSpan="2"
+                                       Foreground="{StaticResource WhiteWhite}"/>
                                     <Label Content="{Binding NewReservedTo,StringFormat='dd/MM/yyyy'}" 
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Top" 
@@ -439,14 +444,15 @@
                                       Width="92"
                                       FontSize="9" 
                                       Margin="135,15,0,0" 
-                                      Grid.RowSpan="2"/>
-                                    <Image Source="../../../Resources/Images/GuestImages/RejectedIcon.png" 
+                                      Grid.RowSpan="2"
+                                      Foreground="{StaticResource WhiteWhite}"/>
+                                    <Image Source="../../../Resources/Images/GuestImages/rejected.png" 
                                        Width="57" 
                                        Height="50" 
                                        VerticalAlignment="Top" 
                                        HorizontalAlignment="Left" 
                                        Grid.Column="2"
-                                       Grid.RowSpan="3" Margin="92,9,0,0"/>
+                                       Grid.RowSpan="3" Margin="80,9,0,0"/>
 
                                     <Label Content="Comments of the owner" 
                                           HorizontalAlignment="Left"
@@ -457,9 +463,11 @@
                                           Margin="28,9,0,0"
                                           FontSize="9" 
                                           HorizontalContentAlignment="Center" 
-                                          VerticalContentAlignment="Center"/>
-                                    <Border BorderThickness="2,2,2,2" 
-                                           BorderBrush="Black"
+                                          VerticalContentAlignment="Center"
+                                          Foreground="{StaticResource WhiteWhite}"/>
+                                    <Border BorderThickness="2" 
+                                           BorderBrush="{StaticResource PrimaryColor}"
+                                           Background="{StaticResource PrimaryBlack}"
                                            Grid.Column="1"
                                            Grid.Row="2"
                                            Grid.ColumnSpan="2"
@@ -474,7 +482,8 @@
                                             Grid.ColumnSpan="2" 
                                             Width="280" 
                                             Height="26" 
-                                            Grid.RowSpan="3"/>
+                                            Grid.RowSpan="3"
+                                            Foreground="{StaticResource WhiteWhite}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
