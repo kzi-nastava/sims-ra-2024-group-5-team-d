@@ -67,6 +67,7 @@
     <None Remove="Resources\GuestRatingImages\GuestRating1\soba.jpg" />
     <None Remove="Resources\GuestRatingImages\GuestRating1\thumbnail.jpg" />
     <None Remove="Resources\GuestRatingImages\GuestRating2\jezerce.jpg" />
+    <None Remove="Resources\Images\accommodation.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
@@ -130,6 +131,9 @@
     <None Remove="Resources\Images\OwnerImages\idemo.png" />
     <None Remove="Resources\Images\OwnerImages\StarFull.png" />
     <None Remove="Resources\Images\OwnerImages\StarHalfFull.png" />
+    <None Remove="Resources\Images\tourist1.png" />
+    <None Remove="Resources\Images\travel.png" />
+    <None Remove="Resources\Images\traveler.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\TourImages\Tour1\beograd-na-vodi.jpg" />
     <None Remove="Resources\TourImages\Tour2\download.jpeg" />
@@ -138,6 +142,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Images\accommodation.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\GuestImages\abc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -463,6 +470,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\OwnerImages\StarHalfFull.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\tourist1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\travel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\traveler.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\view.png">

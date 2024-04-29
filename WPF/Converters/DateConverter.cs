@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,24 +13,41 @@ namespace BookingApp.WPF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            string resultDays = " days ago";
+            string resultMonths = " months ago";
+            string resultYears = " years ago";
             if (value is DateTime)
             {
                 DateTime time=(DateTime)value;
-                if ((DateTime.Now.Date-time).Days<30)
-                {       
-                    return (DateTime.Now-time).Days;
-                }
-                else if ((DateTime.Now.Date-time).Days<365)
+                if ((DateTime.Now.Date - time).Days == 0)
                 {
-                    return ((DateTime.Now-time).Days/30).ToString();
+                    return "Today";
                 }
-                else if((DateTime.Now.Date-time).Days>365)
+                else if((DateTime.Now.Date - time).Days == 1)
                 {
-                    return ((DateTime.Now-time).Days/365).ToString();
+                    return "Yesterday";
                 }
-                else
+                if (DateTime.Now.Year == time.Year)
                 {
-                    return ((DateTime)value).ToString("dd/MM/yyyy HH:mm");
+                   if ((DateTime.Now.Date - time).Days < 30)
+                    {
+                        return (DateTime.Now - time).Days + resultDays;
+                    }
+                    else if (DateTime.Now.Month - time.Month == 1)
+                    {
+                        return "month ago";
+                    }
+                    else
+                    {
+                        return (DateTime.Now.Month - time.Month).ToString() + resultMonths;
+                    }
+                }
+                else 
+                {
+                    if (DateTime.Now.Year - time.Year == 1)
+                        return "year ago";
+                    else
+                        return (DateTime.Now.Year-time.Year).ToString() + resultYears;
                 }
             }
             else

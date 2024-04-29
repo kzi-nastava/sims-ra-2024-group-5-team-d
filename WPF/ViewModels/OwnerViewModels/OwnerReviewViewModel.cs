@@ -55,12 +55,17 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             Stars3=accommodationRatingService.NumberOf3StarRatingsForOwner(user);
             Stars2=accommodationRatingService.NumberOf2StarRatingsForOwner(user);
             Stars1=accommodationRatingService.NumberOf1StarRatingsForOwner(user);
-            Stars5=Stars5*100/NumberOfReviews;
-            Stars4=Stars4*100/NumberOfReviews;
-            Stars3=Stars3*100/NumberOfReviews;
-            Stars2=Stars2*100/NumberOfReviews;
-            Stars1=Stars1*100/NumberOfReviews;
+            if (NumberOfReviews != 0)
+            {
+                Stars5 = Stars5 * 100 / NumberOfReviews;
+                Stars4 = Stars4 * 100 / NumberOfReviews;
+                Stars3 = Stars3 * 100 / NumberOfReviews;
+                Stars2 = Stars2 * 100 / NumberOfReviews;
+                Stars1 = Stars1 * 100 / NumberOfReviews;
+            }
             AverageRating=accommodationRatingService.GetAverageRatingForOwner(user);
+            if(AverageRating is double.NaN)
+                AverageRating=0;
             double averageRating = AverageRating;
             while (averageRating >= 1)
             {

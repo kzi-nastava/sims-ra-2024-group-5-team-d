@@ -120,6 +120,7 @@ namespace BookingApp.WPF.ViewModels
             Forum forum = new Forum(Title, Comment, locationService.GetById(LocationId), LoggedInUser.Id, DateTime.UtcNow, true);
             forum=forumService.Save(forum);
             notificationsService.CreateForumNotifications(forum);
+            Forums.Add(new ForumViewModel(forum, true,forumService.IsSuperForum(forum)));
         }
         public void CloseForum(Object param)
         {
