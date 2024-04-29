@@ -22,11 +22,12 @@ namespace BookingApp.Domain.Models
         public UserType Type { get; set; }
         public string AvatarPath { get; set; }
         public string MacAddress { get; set; }
+        public bool? IsSuperUser { get; set; }
 
 
         public User() { }
 
-        public User(string username, string password, UserType type, string fullName, string personalId,DateOnly birthDate, string avatarPath, string macAddress)
+        public User(string username, string password, UserType type, string fullName, string personalId,DateOnly birthDate, string avatarPath, string macAddress,bool? isSuperUser)
         {
             BirthDate = birthDate;
             Username = username;
@@ -36,11 +37,12 @@ namespace BookingApp.Domain.Models
             PersonalId = personalId;
             AvatarPath = avatarPath;
             MacAddress = macAddress;
+            IsSuperUser = isSuperUser;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, Type.ToString(),FullName,PersonalId,BirthDate.ToString(),AvatarPath,MacAddress};
+            string[] csvValues = { Id.ToString(), Username, Password, Type.ToString(),FullName,PersonalId,BirthDate.ToString(),AvatarPath,MacAddress,IsSuperUser.ToString()};
             return csvValues;
         }
 
@@ -55,11 +57,16 @@ namespace BookingApp.Domain.Models
             BirthDate = DateOnly.Parse(values[6]);
             AvatarPath = values[7];
             MacAddress = values[8];
+            IsSuperUser = (values[9] == "") ? (bool?)null : Convert.ToBoolean(values[9]);
         }
 
         internal bool IsOwner()
         {
             return Type==UserType.Owner;
+        }
+        public bool IsSuper()
+        {
+            return IsSuperUser == true;
         }
     }
 }
