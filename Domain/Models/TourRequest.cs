@@ -11,7 +11,7 @@ namespace BookingApp.Domain.Models
     public enum STATE{
         PENDING,
         ACCEPTED,
-        UNVALID
+        INVALID
     }
     public class TourRequest : ISerializable
     {
