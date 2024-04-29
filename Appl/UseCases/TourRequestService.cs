@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,6 +70,36 @@ namespace BookingApp.Appl.UseCases
             return tourRequests
                 .Where(x => tourReservationService.GetById(x.TourReservationId).TourRealisationId != -1)
                 .MaxBy(x => tourRealisationService.GetById(tourReservationService.GetById(x.TourReservationId).TourRealisationId).StartTime);
+        }
+        public int GetRequestsInAYear(int year, int LanguageId, int LocationId)
+        {
+            if(LocationId != 10)
+            {
+                return _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Location.Id == LocationId).Count();
+            }
+            return _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Language == (LANGUAGE)LanguageId).Count();
+
+        }
+        public Dictionary<int, int> GetRequestsInAYearByMonths(int year, int LanguageId, int LocationId)
+        {
+            // Initialize the dictionary to store month counts
+            var monthCounts = new Dictionary<int, int>();
+            for (int month = 1; month <= 12; month++)
+            {
+                monthCounts[month] = 0;
+            }
+
+            // Get all tour requests based on location and language
+            var tourRequests = LocationId != 10 ?
+                _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Location.Id == LocationId) :
+                _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Language == (LANGUAGE)LanguageId);
+
+            // Iterate over tour requests and count them for each month
+            foreach (var request in tourRequests)
+            {
+                monthCounts[request.RangeFrom.Month]++;
+            }
+            return monthCounts;
         }
     }
 }
