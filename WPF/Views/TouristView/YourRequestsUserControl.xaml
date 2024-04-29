@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         <Style TargetType="Label" x:Key="TabsLabelsStyle">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -134,6 +135,7 @@
                               Background="Transparent"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              ItemsSource="{Binding Requests}"
                               ScrollViewer.CanContentScroll="False">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -141,15 +143,15 @@
                                 BorderThickness="1.5"
                                 CornerRadius="20"
                                 Height="auto"
-                                Width="auto"
+                                Width="865"
                                 Padding="0 0 0 10"
                                 Margin="35 10 30 10">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="240"></ColumnDefinition>
+                                        <ColumnDefinition Width="200"></ColumnDefinition>
+                                        <ColumnDefinition Width="260"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" BorderThickness="0 0 1 0" Height="auto"  Margin="0 10 20 0"  BorderBrush="Gray">
                                         <Grid Margin="10 10 10 0">
@@ -177,7 +179,7 @@
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Center"
                                                        Margin="10 0 5 -6"/>
-                                                <Run Text="Smederevo, Serbia" FontSize="14"></Run>
+                                                <Run Text="{Binding LocationName}" FontSize="14"></Run>
                                             </TextBlock>
                                             <TextBlock Grid.Row="2"
                                                        Margin="0 0 0 10">
@@ -188,9 +190,10 @@
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Center"
                                                        Margin="10 0 5 -6"/>
-                                                <Run Text="ENGLISH" FontSize="14"></Run>
+                                                <Run Text="{Binding Language}" FontSize="14"></Run>
                                             </TextBlock>
                                             <TextBlock Grid.Row="3"
+                                                       Visibility="{Binding NotAccepted, Converter={StaticResource BoolToVisibilityConverter}}"
                                                        Margin="0 0 0 0">
                                                 <Image Source="C:\Users\Korisnik\Desktop\ikone\date.png"
                                                        Height="20"
@@ -199,7 +202,21 @@
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Center"
                                                        Margin="10 0 5 -6"/>
-                                                <Run Text="DATE" FontSize="14"></Run>
+                                                <Run Text="{Binding RangeFrom,  StringFormat='dd-MM-yyyy'}" FontSize="14"></Run>
+                                                <Run Text=" - " FontSize="14"></Run>
+                                                <Run Text="{Binding RangeTo,  StringFormat=d}" FontSize="14"></Run>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="3"
+                                                       Visibility="{Binding IsAccepted, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                       Margin="0 0 0 0">
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\date.png"
+                                                       Height="20"
+                                                       Width="20"
+                                                       Visibility="Visible"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10 0 5 -6"/>
+                                                <Run Text="{Binding StartTime, StringFormat='dd-MM-yyyy HH:mm'}" FontSize="14"></Run>
                                             </TextBlock>
                                         </Grid>
                                     </Border>
@@ -218,7 +235,7 @@
                                                        VerticalAlignment="Center"
                                                        Margin="0 0 5 10"/>
                                                 <TextBlock>
-                                                    <Run Text="4" FontWeight="SemiBold" FontSize="18"></Run>
+                                                    <Run Text="{Binding Capacity}" FontWeight="SemiBold" FontSize="18"></Run>
                                                     <Run Text=" Tourist(s) :" FontWeight="SemiBold" FontSize="18"></Run>
                                                 </TextBlock>
                                             </StackPanel>
@@ -228,27 +245,22 @@
                                                       BorderThickness="0"
                                                       ScrollViewer.CanContentScroll="False"
                                                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                      ItemsSource="{Binding Attendees}"
                                                       ScrollViewer.VerticalScrollBarVisibility="Hidden">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock>                                                            
                                                             <Run Text="- " FontSize="16"></Run>
-                                                            <Run Text="Luka Vranjesevic" FontSize="16"></Run>
+                                                            <Run Text="{Binding FullName}" FontSize="16"></Run>
                                                         </TextBlock>
                                                     </DataTemplate>
                                                 </ListView.ItemTemplate>
-                                                <sys:String>Ala</sys:String>
-                                                <sys:String>Bela</sys:String>
-                                                <sys:String>Ceca</sys:String>
-                                                <sys:String>Ceca</sys:String>
-                                                <sys:String>Ceca</sys:String>
-                                                <sys:String>Ceca</sys:String>
                                             </ListView>
                                         </Grid>
 
                                     </Border>
                                     <Border Grid.Column="2" BorderThickness="0 0 1 0" Height="120" Padding="0 0 15 0" Margin="0 10 20 0"  BorderBrush="Gray">
-                                        <Grid Margin="0 10 10 0" Width="250">
+                                        <Grid Margin="0 10 10 0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="auto"></RowDefinition>
                                                 <RowDefinition Height="auto"></RowDefinition>
@@ -257,9 +269,10 @@
                                                 <Run Text="Additional info:" FontWeight="SemiBold" FontSize="18"></Run>
                                             </TextBlock>
                                             <TextBlock Grid.Row="1" 
+                                                       Width="auto"
                                                        TextWrapping="Wrap"
                                                        TextAlignment="Justify">
-                                                <Run Text="Opis ture opis ture hehe haha hihi Opis ture opis ture hehe haha hihi Opis ture opis ture hehe haha hihi Opis ture opis ture hehe haha hihi"></Run>
+                                                <Run Text="{Binding Description}"></Run>
                                             </TextBlock>
                                         </Grid>
 
@@ -278,8 +291,8 @@
                                                        FontSize="18"
                                                        FontWeight="SemiBold"
                                                        Margin="0 0 0 10"></TextBlock>
-                                            <TextBlock Grid.Row="1" FontSize="12">
-                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\person.png"
+                                            <TextBlock Grid.Row="3" FontSize="12" Visibility="{Binding IsPending, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\pending.png"
                                                        Height="20"
                                                        Width="20"
                                                        Visibility="Visible"
@@ -288,25 +301,26 @@
                                                        Margin="0 0 5 -5"/>
                                                 <Run Text="On Pending" FontSize="14"></Run>
                                             </TextBlock>
-                                            <TextBlock Grid.Row="2" FontSize="12" Visibility="Collapsed">
-                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\person.png"
+                                            <TextBlock Grid.Row="3" FontSize="12" Visibility="{Binding IsAccepted, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\accept.png"
                                                        Height="20"
                                                        Width="20"
                                                        Visibility="Visible"
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Center"
                                                        Margin="0 0 5 -5"/>
-                                                <Run Text="On Pending" FontSize="14"></Run>
+                                                <Run Text="Accepted" FontSize="14"></Run>
                                             </TextBlock>
-                                            <TextBlock Grid.Row="3" FontSize="12" Visibility="Collapsed">
-                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\person.png"
+                                            <TextBlock Grid.Row="3" FontSize="12"
+                                                       Visibility="{Binding IsInvalid, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\invalid.png"
                                                        Height="20"
                                                        Width="20"
                                                        Visibility="Visible"
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Center"
                                                        Margin="0 0 5 -5"/>
-                                                <Run Text="On Pending" FontSize="14"></Run>
+                                                <Run Text="Invalid" FontSize="14"></Run>
                                             </TextBlock>
                                             <Border CornerRadius="5"
                                                     BorderThickness="1"          
@@ -316,7 +330,7 @@
                                                     BorderBrush="Gray">
                                                 <Button Content="Cancel Request"
                                                         FontWeight="DemiBold"                                
-                                                        FontSize="18"
+                                                        FontSize="16"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
                                                         Background="White"
@@ -337,16 +351,6 @@
                             </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    <ListView.ItemsSource>
-                        <x:Array Type="{x:Type sys:String}">
-                            <sys:String>Ala</sys:String>
-                            <sys:String>Bela</sys:String>
-                            <sys:String>Ceca</sys:String>
-                            <sys:String>Veca</sys:String>
-                            <sys:String>Veca</sys:String>
-                            <sys:String>Veca</sys:String>
-                        </x:Array>
-                    </ListView.ItemsSource>
                 </ListView>
             </Grid>
         </Border>
