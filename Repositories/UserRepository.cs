@@ -58,5 +58,13 @@ namespace BookingApp.Repositories
             _serializer.ToCSV(FilePath, _users);
             return user;
         }
+        public User Update(User user)
+        {
+            _users = _serializer.FromCSV(FilePath);
+            var index = _users.FindIndex(u => u.Id == user.Id);
+            _users[index] = user;
+            _serializer.ToCSV(FilePath, _users);
+            return user;
+        }
     }
 }

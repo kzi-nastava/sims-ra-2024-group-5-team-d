@@ -22,11 +22,11 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public DateTime RenovationFrom { get; set; }
         public DateTime RenovationTo { get; set; }
         public string ImagesPath { get; set; }
-        public bool IsSuperOwner { get; set; }
+        public bool? IsSuperOwner { get; set; }
         public RenovationViewModel()
         {
         }
-        public RenovationViewModel(int renovationId,string name, TYPE type, Location location, DateTime renovationFrom, DateTime renovationTo, string imagesPath,double averageRating,bool isCancelable,bool isSuperOwner)
+        public RenovationViewModel(int renovationId,string name, TYPE type, Location location, DateTime renovationFrom, DateTime renovationTo, string imagesPath,double averageRating,bool isCancelable,bool? isSuperOwner)
         {
             IsCancelable = isCancelable;
             RenovationId = renovationId;
