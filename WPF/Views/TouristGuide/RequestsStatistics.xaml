@@ -11,6 +11,14 @@
              d:DesignHeight="767" d:DesignWidth="950">
     <UserControl.Resources>
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="Border" x:Key="SearchBorder">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor2}"/>
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="40,15,40,0">
         <Grid.RowDefinitions>
@@ -25,28 +33,23 @@
         </Grid.ColumnDefinitions>
         <Button Grid.Row="0" HorizontalAlignment="Left" Command="{Binding BackCommand}" Background="Transparent" BorderBrush="Transparent">
             <StackPanel Orientation="Horizontal">
-                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
+                <Image Source="/../../../Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
                 <Label Content="Back" Margin="5,0,0,0" />
             </StackPanel>
         </Button>
         <Border     Grid.Row="1"
                     Grid.Column="0"
-                    BorderThickness="2"
-                    BorderBrush="Black"
-                    CornerRadius="20"
-                    Width="150"
-                    Height="30"
-                    HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    Margin="0,40,0,0">
+                    Style="{StaticResource SearchBorder}"
+                    Margin="80 40 0 0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\WPF\Views\TouristGuide\Icons\SideMenu\Map Point Add.png" Width="20" Margin="5,0,0,0"/>
-                <ComboBox x:Name ="locationComboBox" Grid.Column="1" VerticalAlignment="Center" Width="108" SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}">
+                <Image Source="/../../../Resources\Images\GuideImages\Map Point.png" Width="18" Margin="5,0,0,0"/>
+                <ComboBox x:Name ="locationComboBox" Grid.Column="1" VerticalAlignment="Center" Width="108" SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0">
                     <ComboBoxItem Content="Serbia, Novi Sad"/>
                     <ComboBoxItem Content="Serbia, Beograd"/>
                     <ComboBoxItem Content="Serbia, Smederevo"/>
@@ -68,19 +71,17 @@
         </Border>
         <Border     Grid.Column="0"
                     Grid.Row="1"
-                    BorderThickness="2"
-                    BorderBrush="Black"
-                    CornerRadius="20"
-                    Width="150"
-                    Margin="90,40,0,0">
+                    Style="{StaticResource SearchBorder}"
+                    HorizontalAlignment="Left"
+                    Margin="0 40 0 0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\WPF\Views\TouristGuide\Icons\Card\Chat Round Line.png" Width="20" Margin="10,0,0,0"/>
-                <ComboBox x:Name ="languageComboBox" Grid.Column="1" VerticalAlignment="Center" SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Width="102">
+                <Image Source="/../../../Resources\Images\GuideImages\Chat Round Line.png" Width="18" Margin="10,0,0,0"/>
+                <ComboBox x:Name ="languageComboBox" Grid.Column="1" VerticalAlignment="Center" SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Width="108">
                     <ComboBoxItem Content="English"/>
                     <ComboBoxItem Content="Serbian"/>
                     <ComboBoxItem Content="German"/>
@@ -96,8 +97,8 @@
         <Image Grid.Row="1" Grid.Column="1" Source="Icons/Card/Lightbulb Minimalistic.png" HorizontalAlignment="Right" Height="24" Width="24" Margin="0,0,25,0" />
         <!--<Button Grid.Row="2" Grid.Column="0" Content="Show Requests"  Height="34" Width="140" HorizontalAlignment="Left" Margin="0,25,0,0"/>-->
 
-        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="HelpButton" Width="16" Height="16" HorizontalAlignment="Right" Command="{Binding HelpCommand}">
-            <Image Source="Icons/Card/Question Circle.png" />
+        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="HelpButton" Width="18" Height="18" HorizontalAlignment="Right" Command="{Binding HelpCommand}" Background="{StaticResource PrimaryBlack3}">
+            <Image Source="/../../../Resources\Images\GuideImages\Question Circle.png" />
         </ToggleButton>
         <!-- Popover Content -->
         <Popup x:Name="HelpPopup" PlacementTarget="{Binding ElementName=HelpButton}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="-120" VerticalOffset="15" VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -108,20 +109,35 @@
                 </Grid>
             </Border>
         </Popup>
-        <ComboBox Grid.Row="2"
-                  Width="100"
-                  HorizontalAlignment="Left"
-                  Margin="0,25,0,0"
-                  ItemsSource="{Binding Years}"
-                  SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
-                  SelectedIndex="0">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding ComboBoxSelectionChangedCommand}"
-                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ComboBox>
+        <Border Grid.Row="2"
+                Style="{StaticResource SearchBorder}"
+                HorizontalAlignment="Left"
+                Margin="0,25,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Clock Circle.png" Width="18" Margin="10,0,0,0"/>
+                <ComboBox
+                      ItemsSource="{Binding Years}"
+                      SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
+                      SelectedIndex="0"
+                      VerticalAlignment="Center"
+                      Width="108"
+                      BorderThickness="0"
+                      Grid.Column="1">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="DropDownClosed">
+                            <i:InvokeCommandAction Command="{Binding ComboBoxSelectionChangedCommand}"
+                                       CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </Grid>
+        </Border>
+
         <lvc:CartesianChart Series="{Binding YearlyStats}" Grid.Row="3" Grid.ColumnSpan="2" LegendLocation="None" Width="600" Height="400" Visibility="{Binding IsYearly, Converter={StaticResource BoolToVisibilityConverter}}">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Years" Labels="{Binding YearLabels}">

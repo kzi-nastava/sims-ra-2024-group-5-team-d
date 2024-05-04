@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -116,19 +117,22 @@ namespace BookingApp.WPF.ViewModels
                 {
                     Title = "<18",
                     Values = new ChartValues<ObservableValue> {new ObservableValue (Under18)},
-                    DataLabels = true
+                    DataLabels = true,
+                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6A9A"))
                 },
                 new PieSeries
                 {
                     Title = "18-50",
                     Values = new ChartValues<ObservableValue> {new ObservableValue (Between18And50) },
-                    DataLabels = true
+                    DataLabels = true,
+                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A375E1"))
                 },
                 new PieSeries
                 {
                     Title = "50>",
                     Values = new ChartValues<ObservableValue> {new ObservableValue (Over50) },
-                    DataLabels = true
+                    DataLabels = true,
+                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD900"))
                 },
             };
         }

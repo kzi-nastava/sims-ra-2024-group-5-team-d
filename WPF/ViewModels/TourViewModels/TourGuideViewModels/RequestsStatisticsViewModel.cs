@@ -105,7 +105,6 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             YearlyStats = new SeriesCollection();
             YearLabels = new ObservableCollection<string>();
             MonthLabels = new ObservableCollection<string>();
-            //InitializeMonths();
             ComboBoxSelectionChangedCommand = new RelayParameterCommand(OnComboBoxSelectionChanged);
             InitializeComboBox();
             OnComboBoxSelectionChanged("All Time");
@@ -167,24 +166,6 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 YearLabels.Add(year.ToString());
             }
         }
-        /*
-        private void InitializeMonths()
-        {
-            MonthLabels = new ObservableCollection<string>();
-
-            string[] monthNames = CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
-
-            foreach (var monthName in monthNames)
-            {
-                if (!string.IsNullOrEmpty(monthName))
-                {
-                    string abbreviatedMonthName = monthName.Substring(0, 3);
-                    string capitalizedAbbreviation = char.ToUpper(abbreviatedMonthName[0]) + abbreviatedMonthName.Substring(1).ToLower();
-                    MonthLabels.Add(capitalizedAbbreviation);
-                }
-            }
-        }
-        */
         private void InitializeYearlyStats()
         {
             YearlyStats.Clear();
@@ -192,7 +173,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             {
                 Title = "Years",
                 Values = new ChartValues<int>(),
-                Fill = Brushes.Red
+                Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6A9A"))
             });
             for(int i=0; i < Years.Count -1 ; i++) 
             {
@@ -207,7 +188,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             {
                 Title = "Months",
                 Values = new ChartValues<int> (),
-                Fill = Brushes.Red
+                Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A375E1"))
             });
             Dictionary<int,int> dictionary = tourRequestService.GetRequestsInAYearByMonths(year, PickedLanguage, PickedLocationId);
             Debug.WriteLine($"{dictionary.Count} months");

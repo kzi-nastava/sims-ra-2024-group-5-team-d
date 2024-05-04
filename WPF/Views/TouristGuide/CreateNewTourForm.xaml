@@ -15,12 +15,23 @@
         <Style x:Key="TextBlockStyle" TargetType="TextBlock" >
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
         </Style>
         <Style x:Key="TextBoxStyle" TargetType="TextBox" >
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="Label" x:Key="LabelDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
     </UserControl.Resources>
 
@@ -43,21 +54,33 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Create New Tour" HorizontalAlignment="Center" FontSize="28" Grid.ColumnSpan="4" Margin="0,30,0,50"/>
+        <TextBlock Grid.Row="0" Text="Create New Tour" HorizontalAlignment="Center" FontSize="28" Grid.ColumnSpan="4" Margin="0,30,0,50" Style="{StaticResource TextBlockStyle}" FontWeight="SemiBold"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" Style="{StaticResource TextBlockStyle}"/>
-        <TextBox Grid.Row="2" Grid.Column="0"  Style="{StaticResource TextBoxStyle}" Text="{Binding tourFormViewModel.Name}"/>
-
+        <Border Grid.Row="2" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Height="30"  Width="250" HorizontalAlignment="Left" >
+            <TextBox  Text="{Binding tourFormViewModel.Name}" IsReadOnly="{Binding IsRequest}" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Style="{StaticResource TextBoxStyle}" />
+        </Border>
         <TextBlock Text="Add CheckPoints:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Style="{StaticResource TextBlockStyle}"/>
-        <TextBox x:Name="itemInput" Grid.Column="2" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Width="220"/>
-        <Button Content="+" Margin="0,0,30,0" Grid.Column="2"  Grid.Row="2" Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding AddCheckPointCommand}" CommandParameter="{Binding Text, ElementName=itemInput}"/>
+
+        <Border Grid.Column="2" Grid.Row="2" CornerRadius="8" Background="{StaticResource WhiteWhite}" Height="30" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBox x:Name="itemInput" Text="{Binding tourFormViewModel.Name}" IsReadOnly="{Binding IsRequest}" BorderThickness="0" Background="Transparent" FontSize="14" VerticalAlignment="Center" Style="{StaticResource TextBoxStyle}"/>
+        </Border>
+
+        <Button Grid.Column="2"  Grid.Row="2" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding AddCheckPointCommand}" CommandParameter="{Binding Text, ElementName=itemInput}" BorderThickness="0" Style="{StaticResource ButtonDesign}">
+            <Border CornerRadius="8" BorderBrush="{StaticResource PrimaryColor}" Height="30" Width="30" BorderThickness="1">
+                <TextBlock Text="+" Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource PrimaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+            </Border>
+        </Button>
         <ListView BorderThickness="0"
           Background="Transparent"
+          ItemsSource="{Binding CheckPoints}"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
           ScrollViewer.VerticalScrollBarVisibility="Hidden"
-          ItemsSource="{Binding CheckPoints}"
-          ScrollViewer.CanContentScroll="False" Grid.Row="3" Grid.Column="2" Grid.RowSpan="7">
+          ScrollViewer.CanContentScroll="False" 
+          Grid.Row="3" 
+          Grid.Column="2" 
+          Grid.RowSpan="7">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical" />
@@ -70,8 +93,8 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1" Text="{Binding Name}"/>
-                        <CheckBox IsChecked="{Binding IsChecked}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" FontFamily="{StaticResource CustomFont}" Foreground="{StaticResource PrimaryBlack}" FontSize="16" VerticalAlignment="Top"/>
+                        <CheckBox IsChecked="{Binding IsChecked}" VerticalAlignment="Center" FontSize="16"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -87,7 +110,6 @@
                       VerticalAlignment="Top" 
                       FontSize="18"
                       SelectedIndex="{Binding tourFormViewModel.LocationId}"
-                      Margin="0,0,0,15"
                       >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="DropDownClosed">
@@ -106,9 +128,13 @@
             <ComboBoxItem Content="Serbia, Užice"/>
         </ComboBox>
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Duration" Style="{StaticResource TextBlockStyle}"/>
-        <TextBox Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding tourFormViewModel.Duration}"/>
+        <Border Grid.Row="6" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Height="30" Width="250" HorizontalAlignment="Left">
+            <TextBox Text="{Binding tourFormViewModel.Duration}" Style="{StaticResource TextBoxStyle}"/>
+        </Border>
         <TextBlock Grid.Row="7" Grid.Column="0" Text="Capacity" Style="{StaticResource TextBlockStyle}"/>
-        <TextBox Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="{Binding tourFormViewModel.Capacity}" IsReadOnly="{Binding IsRequest}"/>
+        <Border Grid.Row="8" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Height="30" Width="250" HorizontalAlignment="Left">
+            <TextBox Text="{Binding tourFormViewModel.Capacity}" IsReadOnly="{Binding IsRequest}" Style="{StaticResource TextBoxStyle}"/>
+        </Border>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Language" Style="{StaticResource TextBlockStyle}"/>
         <ComboBox Grid.Column="1" 
                   Grid.Row="2"
@@ -119,7 +145,7 @@
                   FontSize="18"
                   SelectedIndex="{Binding tourFormViewModel.LanguageId}"
                   IsEnabled="{Binding IsRequest, Converter={StaticResource InverseBooleanConverter}}"
-                  Margin="0,0,0,15">
+                  >
             <ComboBoxItem Content="English"/>
             <ComboBoxItem Content="Serbian"/>
             <ComboBoxItem Content="German"/>
@@ -127,11 +153,15 @@
         <TextBlock Grid.Row="3" Grid.Column="1" Text="Date and Time" Style="{StaticResource TextBlockStyle}"/>
 
         <!-- TimePicker for selecting the time (using WPF Toolkit) -->
-        <xctk:DateTimePicker Value="{Binding tourFormViewModel.StartTime}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="30" Width="250" Margin="0,0,0,15" Minimum="{Binding MinDate}" Maximum="{Binding MaxDate}"/>
+        <xctk:DateTimePicker Value="{Binding tourFormViewModel.StartTime}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="30" Width="250"  Minimum="{Binding MinDate}" Maximum="{Binding MaxDate}"/>
 
         <!-- TextBox for free-form time input -->
         <TextBlock Grid.Row="5" Grid.Column="1" Text="Upload a Picture" Style="{StaticResource TextBlockStyle}"/>
-        <Button Grid.Column="1" Grid.Row="5" Command="{Binding UploadCommand}" Content="+" Height="30" Width="30" Margin="185,0,0,0"/>
+        <Button Grid.Column="1" Grid.Row="5" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding UploadCommand}" CommandParameter="{Binding Text, ElementName=itemInput}" BorderThickness="0" Style="{StaticResource ButtonDesign}">
+            <Border CornerRadius="8" BorderBrush="{StaticResource PrimaryColor}" Height="30" Width="30" BorderThickness="1">
+                <TextBlock Text="+" Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource PrimaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+            </Border>
+        </Button>
         <Grid Grid.Column="1" Grid.Row="6" Grid.RowSpan="3" Margin="0,0,0,-20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -154,7 +184,6 @@
                       x:Name="lista"
                       ItemsSource="{Binding ImagesPaths}"
                       ScrollViewer.CanContentScroll="False"
-                      
                       VerticalAlignment="Center"
                       >
                     <ListView.ItemsPanel>
@@ -185,9 +214,20 @@
             </Button>
         </Grid>
         <TextBlock Grid.Row="9" Grid.Column="0" Text="Description" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Top"/>
-        <TextBox Grid.Row="10" Grid.Column="0" Width="550" Height="110"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Text="{Binding tourFormViewModel.Description}" TextWrapping="WrapWithOverflow" IsReadOnly="{Binding IsRequest}"/>
-        <Button Grid.Row="11" Grid.Column="2"  Content="Create" Command="{Binding SaveCommand}" Margin="0,50,150,20" Height="40" Width="100" HorizontalAlignment="Right" />
-        <Button Grid.Row="11" Grid.Column="2"  Content="Cancel"  Command="{Binding CancelCommand}" Margin="0,50,0,20" Height="40" Width="100" HorizontalAlignment="Right"/>
+        <Border Grid.Row="10" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Width="550" Height="110"  HorizontalAlignment="Left" Grid.ColumnSpan="2">
+            <TextBox  IsReadOnly="{Binding IsRequest}" Style="{StaticResource TextBoxStyle}" TextWrapping="WrapWithOverflow"/>
+        </Border>
+
+        <Button Grid.Row="11" Grid.Column="2" Command="{Binding SaveCommand}"  Margin="0,85,0,20" HorizontalAlignment="Left" VerticalAlignment="Top"  Style="{StaticResource ButtonDesign}" BorderThickness="0">
+            <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
+                <TextBlock Text="Create" Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource WhiteWhite}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" Margin="0 0 0 -4"/>
+            </Border>
+        </Button>
+        <Button Grid.Row="11" Grid.Column="2" Command="{Binding CancelCommand}" Margin="0,85,0,20" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+            <Border CornerRadius="4" Height="34" Width="100" BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2" >
+                <TextBlock Text="Cancel" Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource PrimaryColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" Margin="0 0 0 -5"/>
+            </Border>
+        </Button>
 
     </Grid>
 </UserControl>
