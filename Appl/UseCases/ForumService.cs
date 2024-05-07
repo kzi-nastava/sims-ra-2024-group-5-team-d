@@ -32,6 +32,11 @@ namespace BookingApp.Appl.UseCases
             forums.ForEach(forum => forum.Location = locationService.GetById(forum.Location.Id));
             return forums;
         }
+        public List<Forum> GetAllByUser(User user)
+        {
+            List<Forum> forums = forumRepository.GetAll().Where(forum=> forum.IdUser==user.Id).ToList();
+            return forums;
+        }
         public bool IsSuperForum(Forum forum)
         {
             List<ForumComment> forumComments = forumCommentService.GetByForumId(forum.Id);
