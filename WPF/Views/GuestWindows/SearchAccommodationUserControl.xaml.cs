@@ -105,7 +105,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         public ObservableCollection<AccommodationViewModel> Accommodations { get; set; }
         public User LoggedInUser { get; set; }
         private readonly AccommodationService accommodationService;
-
+        private readonly SuperGuestService superGuestService;
+        private readonly NotifierService notifierService;
         private readonly SearchAccommodationService SearchService;
         private AccommodationRatingService accommodationRatingService;
         private readonly ContentControl contentControl;
@@ -120,11 +121,22 @@ namespace BookingApp.WPF.Views.GuestWindows
             accommodationService = new AccommodationService();
             accommodationRatingService = new AccommodationRatingService();
             Accommodations = new ObservableCollection<AccommodationViewModel>();
+            superGuestService = new SuperGuestService();
+            notifierService = new NotifierService();
             accommodations = accommodationService.GetAll();
             SortAccommodation();
             accommodations.ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity, a.Owner.IsSuperUser, a.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(a))));
             this.contentControl = contentControl;
-            
+            bool IsUpdated = superGuestService.UpdateUserStatus(LoggedInUser);
+            if(IsUpdated)
+            {
+                if(LoggedInUser.IsSuper())
+                {
+                    notifierService.ShowSuccess("Congratulations you have become super guest!");
+                }
+                else
+                notifierService.ShowWarning("You have been demoted from super guest!");
+            }
         }
         private void SearchAccommodation(object sender, RoutedEventArgs e)
         {

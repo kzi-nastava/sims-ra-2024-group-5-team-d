@@ -215,6 +215,10 @@ namespace BookingApp.Domain.Models
         {
             return reservationId == Id;
         }*/
+        public bool IsInLastYear()
+        {
+            return ReservedFrom<DateTime.UtcNow && ReservedFrom>DateTime.UtcNow.AddYears(-1) && ReservedTo<DateTime.UtcNow;
+        }
     }
 
 }

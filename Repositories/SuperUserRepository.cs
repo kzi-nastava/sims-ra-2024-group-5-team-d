@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repositories
 {
-    public class SuperUserRepository
+    public class SuperUserRepository:ISuperUserRepository
     {
         private const string FilePath = "../../../Resources/Data/superUser.csv";
 
