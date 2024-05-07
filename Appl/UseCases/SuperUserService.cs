@@ -16,6 +16,22 @@ namespace BookingApp.Appl.UseCases
         {
             superUserRepository = Injector.CreateInstance<ISuperUserRepository>();
         }
+        public bool IsDiscountUsed(User user)
+        {
+            SuperUser superUser = GetByUser(user).Last();
+            if(superUser.BonusPoints>0)
+            {
+                superUser.BonusPoints-=1;
+                Update(superUser);
+                return true;
+            }
+            return false;
+        }
+        public bool IsStillSuperUser(User user)
+        {
+            SuperUser superUser = GetByUser(user).Last();
+            return superUser.IsStillValid();
+        }
         public List<SuperUser> GetAll()
         {
             return superUserRepository.GetAll();
