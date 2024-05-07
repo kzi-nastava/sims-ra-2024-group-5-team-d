@@ -62,5 +62,10 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             contentControl.Content = new ProfileUserControl(LoggedInUser);
         }
+
+        private void ForumOpen_Button(object sender, MouseButtonEventArgs e)
+        {
+            contentControl.Content = new ForumUserControl(LoggedInUser);
+        }
     }
 }
