@@ -23,7 +23,7 @@ namespace BookingApp.WPF.ViewModels
         public TYPE Type { get; set; }
         public  int Capacity { get; set; }
         public int MinStay { get; set; }
-        public bool IsSuperOwner { get; set; }
+        public bool? IsSuperOwner { get; set; }
         public int NumberOfRatings { get; set; }
         /*private int CancellationDeadline { get; set; }
         public string ImagesPath { get; set; }
@@ -33,10 +33,7 @@ namespace BookingApp.WPF.ViewModels
         {
 
         }
-        public Accommodation ViewModelToModel() {
-            return null;
-        }
-        public AccommodationViewModel(int id,string name,Location location,TYPE type,string imagesPath, int minStay, int capacity, bool isSuperOwner, double averageRating, int numberOfRatings)
+        public AccommodationViewModel(int id,string name,Location location,TYPE type,string imagesPath, int minStay, int capacity, bool? isSuperOwner, double averageRating, int numberOfRatings)
         {
             ImagesPath = imagesPath;
             Id = id;
@@ -75,14 +72,14 @@ namespace BookingApp.WPF.ViewModels
             Capacity = capacity;
 
         }
-        public AccommodationViewModel(int id, string name, Location location, TYPE type, string imagesPath, bool isSuperOwner,double averageRating, int numberOfRatings)
+        public AccommodationViewModel(int id, string name, Location location, TYPE type, string imagesPath, bool? isSuperOwner,double averageRating, int numberOfRatings)
         {
             ImagesPath = imagesPath;
             Id = id;
             Name = name;
             Location = location;
             Type = type;
-            IsSuperOwner = isSuperOwner;
+            IsSuperOwner =isSuperOwner;
             List<string> starPaths = new List<string>();
             while (averageRating >= 1)
             {

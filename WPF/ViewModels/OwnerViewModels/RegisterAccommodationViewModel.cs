@@ -99,7 +99,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         {
             string folderPath = imageUploaderService.CreateAccommodationFolder(imagesPath);
             folderPath = folderPath + mainImagePath;
-            Accommodation newAccommodation = new Accommodation(Name, locationService.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner, accommodationService.IsSuperOwner(loggedInUser));
+            Accommodation newAccommodation = new Accommodation(Name, locationService.GetById(LocationId), (TYPE)Type, MinDaysToStay, CancellationDeadline, MaxCapacity, folderPath, Owner);
             Accommodation savedAccommodation = accommodationService.Save(newAccommodation);
             notifier.ShowSuccess("Accommodation added SUCCESSFULLY!");
         }

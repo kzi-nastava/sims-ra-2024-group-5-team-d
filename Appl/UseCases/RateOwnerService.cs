@@ -17,8 +17,10 @@ namespace BookingApp.Appl.UseCases
         private AccommodationReservationService accommodationReservationService;
         private IAccommodationRepository accommodationRepository;
         private AccommodationService accommodationService;
+        private UserService userService;
         public RateOwnerService()
         {
+            userService = new UserService();
             accommodationRatingService = new AccommodationRatingService();
             accommodationService = new AccommodationService();
             accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
@@ -42,7 +44,7 @@ namespace BookingApp.Appl.UseCases
             accommodationRatingRepository.Save(accommodationRating);
             accommodationRepository.Update(accommodation);
             if (HasEnoughReviews(accommodation.Owner))
-                accommodationService.UpdateOwnerStatus(ownerAverageRating, accommodation.Owner);
+                UpdateOwnerStatus(ownerAverageRating, accommodation.Owner);
         }
         private bool HasEnoughReviews(User owner)
         {
@@ -61,6 +63,13 @@ namespace BookingApp.Appl.UseCases
             }
            );
             return ratingSum / count;
+        }
+        public void UpdateOwnerStatus(double averageOwnerRating, User owner)
+        {
+            if (averageOwnerRating >= 4.5)
+                userService.PromoteUser(owner);
+            else if (averageOwnerRating < 4.5)
+                userService.DemoteUser(owner);
         }
     }
 }
