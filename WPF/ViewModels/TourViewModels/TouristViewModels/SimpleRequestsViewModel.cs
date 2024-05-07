@@ -22,12 +22,12 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
         public SimpleRequestsViewModel(User tourist)
         {
             tourRequestService = new TourRequestService();
+            tourRequestService.Validate();
             Tourist = tourist;
             CreateNewRequestCommand = new RelayCommand(CreateNewRequest);
             ShowStatisticsCommand = new RelayCommand(ShowStatistics);
             Requests = new ObservableCollection<SimpleRequestViewModel>();
             tourRequestService.GetRequestsForTourist(tourist).ForEach(request => Requests.Add(new SimpleRequestViewModel(request)));
-
         }
 
         public void CreateNewRequest()
@@ -37,7 +37,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 
         public void ShowStatistics() 
         {
-
+            TouristHomeWindow.contentControl.Content = new RequestStatisticsUserControl(Tourist);
         }
     }
 }

@@ -36,6 +36,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         { 
             LoggedInUser = user;
             tourRequestService = new TourRequestService();
+            tourRequestService.Validate();
             ToursTodayTabCommand = new RelayCommand(ToursTodayTab);
             FinishedToursTabCommand = new RelayCommand(FinishedToursTab);
             RequestTabCommand = new RelayCommand(RequestsTab);

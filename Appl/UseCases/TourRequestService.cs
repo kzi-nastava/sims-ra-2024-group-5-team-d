@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Domain.Serializer;
+using HarfBuzzSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -82,24 +83,33 @@ namespace BookingApp.Appl.UseCases
         }
         public Dictionary<int, int> GetRequestsInAYearByMonths(int year, int LanguageId, int LocationId)
         {
-            // Initialize the dictionary to store month counts
             var monthCounts = new Dictionary<int, int>();
             for (int month = 1; month <= 12; month++)
             {
                 monthCounts[month] = 0;
             }
 
-            // Get all tour requests based on location and language
             var tourRequests = LocationId != 10 ?
                 _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Location.Id == LocationId) :
                 _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Language == (LANGUAGE)LanguageId);
 
-            // Iterate over tour requests and count them for each month
             foreach (var request in tourRequests)
             {
                 monthCounts[request.RangeFrom.Month]++;
             }
             return monthCounts;
+        }
+
+        public void Validate()
+        {
+            GetAll().ForEach(req =>
+            {
+                if(!req.IsAcceptable() && req.Status == STATE.PENDING)
+                {
+                    req.Status = STATE.INVALID;
+                    Update(req);
+                }
+            });
         }
     }
 }
