@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows"
         mc:Ignorable="d"
         Title="OwnerRateGuestWindow" Height="330" Width="280" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="{StaticResource PrimaryBlack}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -27,7 +27,8 @@
                  FontSize="15"
                  Grid.ColumnSpan="2" 
                  HorizontalAlignment="Center" 
-                 VerticalAlignment="Center"/>
+                 VerticalAlignment="Center"
+                 Foreground="{StaticResource WhiteWhite}"/>
         <Label Content="Cleanliness (1-5):" 
                  Grid.Row="1"
                  Grid.Column="0"
@@ -36,9 +37,11 @@
                  FontSize="13"
                  HorizontalAlignment="Center" 
                  VerticalAlignment="Center" 
-                 Margin="20,0,0,0"/>
-        <Border BorderThickness="1" 
-                  BorderBrush="Black"
+                 Margin="20,0,0,0"
+                 Foreground="{StaticResource WhiteWhite}"/>
+        <Border BorderThickness="2" 
+                  BorderBrush="{StaticResource PrimaryColor}"
+                  Background="{StaticResource PrimaryColor2}"
                   CornerRadius="10,10,10,10"
                   Grid.Column="1"
                   Grid.Row="1"
@@ -47,7 +50,9 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextWrapping="Wrap"
-                       FontSize="13"/>
+                       FontSize="13"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource WhiteWhite}"/>
         </Border>
         <Label Content="Correctness (1-5):" 
                  Grid.Row="2"
@@ -57,9 +62,11 @@
                  FontSize="13"
                  HorizontalAlignment="Center" 
                  VerticalAlignment="Center" 
-                 Margin="20,0,0,0"/>
-        <Border BorderThickness="1" 
-                  BorderBrush="Black"
+                 Margin="20,0,0,0"
+                 Foreground="{StaticResource WhiteWhite}"/>
+        <Border BorderThickness="2" 
+                  BorderBrush="{StaticResource PrimaryColor}"
+                  Background="{StaticResource PrimaryColor2}"
                   CornerRadius="10,10,10,10"
                   Grid.Column="1"
                   Grid.Row="2"
@@ -68,7 +75,9 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextWrapping="Wrap"
-                       FontSize="13"/>
+                       FontSize="13"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource WhiteWhite}"/>
         </Border>
         <Label Content="Comments:" 
                  Grid.Row="3"
@@ -77,9 +86,11 @@
                  Width="auto"
                  FontSize="13"
                  HorizontalAlignment="Center" 
-                 VerticalAlignment="Center"/>
-        <Border BorderThickness="1" 
-                  BorderBrush="Black"
+                 VerticalAlignment="Center"
+                 Foreground="{StaticResource WhiteWhite}"/>
+        <Border BorderThickness="2" 
+                  BorderBrush="{StaticResource PrimaryColor}"
+                  Background="{StaticResource PrimaryColor2}"
                   CornerRadius="10,10,10,10"
                   Grid.Column="0"
                   Grid.Row="4"
@@ -88,15 +99,29 @@
             <TextBlock Text="{Binding OwnerRatingGuestViewModel.Comment}"
                        Margin="10"
                        TextWrapping="Wrap"
-                       FontSize="11"/>
+                       FontSize="11"
+                       Foreground="{StaticResource WhiteWhite}"/>
         </Border>
-        <Button Content="Close"
+        
+        <Button Background="Transparent"
                 Grid.Row="5"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Width="50"/>
+                Width="50">
+            <Border  Background="DarkOrange"
+                    CornerRadius="5"
+                    Height="25" Width="124">
+                <TextBlock  Text="Search"
+                       Margin="20 0 20 0" 
+                       Foreground="{StaticResource  WhiteGrey}" 
+                       FontWeight="Bold" 
+                       FontSize="14" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"/>
+            </Border>
+        </Button>
 
 
     </Grid>

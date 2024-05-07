@@ -72,6 +72,7 @@
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\GuestImages\abc.png" />
+    <None Remove="Resources\Images\GuestImages\accepted.png" />
     <None Remove="Resources\Images\GuestImages\calendar.png" />
     <None Remove="Resources\Images\GuestImages\clock.png" />
     <None Remove="Resources\Images\GuestImages\fullStar.png" />
@@ -82,6 +83,7 @@
     <None Remove="Resources\Images\GuestImages\mail.png" />
     <None Remove="Resources\Images\GuestImages\ok.png" />
     <None Remove="Resources\Images\GuestImages\people.png" />
+    <None Remove="Resources\Images\GuestImages\rejected.png" />
     <None Remove="Resources\Images\GuestImages\search.png" />
     <None Remove="Resources\Images\GuestImages\star.png" />
     <None Remove="Resources\Images\GuestImages\suitcase.png" />
@@ -146,6 +148,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\abc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\accepted.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\calendar.png">
@@ -305,6 +310,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\people.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\rejected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuestImages\search.png">
