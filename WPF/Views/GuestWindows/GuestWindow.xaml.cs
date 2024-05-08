@@ -40,7 +40,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             contentControl = ContentControl;
             notificationsService = new NotificationsService();
             NumberOfNotifications = notificationsService.GetNumberOfUnreadNotificationsForUser(LoggedInUser);
-            contentControl.Content = new SearchAccommodationUserControl(user, contentControl);
+            contentControl.Content = new SearchAccommodationUserControl(user);
 
         }
         private void TravelBagIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -55,7 +55,7 @@ namespace BookingApp.WPF.Views.GuestWindows
 
         private void Search_MouseLeftBottonDown(object sender, MouseButtonEventArgs e)
         {
-            contentControl.Content = new SearchAccommodationUserControl(LoggedInUser, contentControl);
+            contentControl.Content = new SearchAccommodationUserControl(LoggedInUser);
         }
 
         private void ProfileIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

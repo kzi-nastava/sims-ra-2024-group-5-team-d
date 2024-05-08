@@ -46,7 +46,8 @@ namespace BookingApp.Appl.UseCases
             while (AvailableDates.Count < 5)
             {
                 AvailableDates.Clear();
-                fromDate = fromDate.AddDays(-1);
+                if(fromDate>DateTime.UtcNow)
+                    fromDate = fromDate.AddDays(-1);
                 toDate = toDate.AddDays(+1);
                 AvailableDates=CheckAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, accommodation);
             }
