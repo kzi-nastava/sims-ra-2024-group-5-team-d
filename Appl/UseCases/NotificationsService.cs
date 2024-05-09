@@ -1,10 +1,12 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
+using ExCSS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using ToastNotifications.Core;
 
 namespace BookingApp.Appl.UseCases
@@ -15,8 +17,18 @@ namespace BookingApp.Appl.UseCases
         private IAccommodationReservationRepository accommodationReservationRepository;
         private IAccommodationRepository accommodationRepository;
         private IUserRepository userRepository;
+        private TourRealisationService tourRealisationService;
+        private TourService tourService;
+        private TourRequestService tourRequestService;
+        private TourReservationService tourReservationService;
+        private TourGuestService tourGuestService;
         public NotificationsService()
         {
+            tourGuestService = new TourGuestService();
+            tourReservationService = new TourReservationService();
+            tourRequestService = new TourRequestService();
+            tourService = new TourService();
+            tourRealisationService = new TourRealisationService();
             userRepository = Injector.CreateInstance<IUserRepository>();
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
@@ -110,18 +122,38 @@ namespace BookingApp.Appl.UseCases
                 case Domain.Models.Type.CANCEL:
                     return "Your guest has cancelled reservation at " + accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
                 case Domain.Models.Type.LIVETOUR:
-                    return "NEKO" + " je dodat na turu";
+                    foreach(User user in userRepository.GetAll())
+                    {
+                        if(user.PersonalId == tourGuestService.GetById(notification.LinkId).PersonalID)
+                        {
+                            return "You are currently on a live tour!";
+                        }
+                    }
+                    return tourGuestService.GetById(notification.LinkId).FullName + " is currrently on a live tour with you! ";
                 case Domain.Models.Type.TOURREQUEST:
-                    return  "DOBAVI IME VODICA" + " has just accepted your request " + "(Location: DOBAVI LOKACIJU)";
+                    return  userRepository.GetFullNameById(tourRealisationService.GetById(notification.LinkId).User.Id) + " has just accepted your request " + "for tour in " + tourService.GetById(tourRealisationService.GetById(notification.LinkId).TourId).Location + " !";
                 case Domain.Models.Type.NEWTOUR:
-                    return "A new tour has been created on " + "NEKOM JEZIKU / NEKA LOKACIJA";
+                    return "A new tour has been created by " + userRepository.GetFullNameById(tourService.GetById(notification.LinkId).User.Id) + " (Location: " + tourService.GetById(notification.LinkId).Location + ", " + "Language: " + tourService.GetById(notification.LinkId).Language + ")";
+                case Domain.Models.Type.VOUCHER:
+                    return "You have been gifted a new voucher!";
                 default:
                     return "";
             }
         }
         public User GetSender(Notification notification)
         {
-            return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
+            switch (notification.Type)
+            {
+                case Domain.Models.Type.LIVETOUR:
+                    return userRepository.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourGuestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id);
+                case Domain.Models.Type.TOURREQUEST:
+                    return userRepository.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id);
+                case Domain.Models.Type.NEWTOUR:
+                    return userRepository.GetById(tourService.GetById(notification.LinkId).User.Id);
+                default:
+                    return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
+            }
+
         }
         public void CreateNotification(int receiverId, int linkId, Domain.Models.Type type)
         {
@@ -180,6 +212,38 @@ namespace BookingApp.Appl.UseCases
         public Notification Update(Notification notification)
         {
             return notificationRepository.Update(notification);
+        }
+
+        public void MarkAllAsRead(int userId)
+        {
+            GetAll().ForEach(notification =>
+            {
+                if(notification.ReceiverId == userId)
+                {
+                    notification.IsRead = true;
+                    Update(notification);
+                }
+            });
+        }
+
+        public void SendLiveTourNotification(int receiverId, int tourGuestId)
+        {
+            Save(new Notification(receiverId, tourGuestId, Domain.Models.Type.LIVETOUR, DateTime.UtcNow, false));
+        }
+
+        public void SendVoucherNotification(int receiverId, int voucherId)
+        {
+            Save(new Notification(receiverId, voucherId, Domain.Models.Type.VOUCHER, DateTime.UtcNow, false));
+        }
+
+        public void SendAcceptedRequestNotification(int receiverId, int requestId)
+        {
+            Save(new Notification(receiverId, requestId, Domain.Models.Type.TOURREQUEST, DateTime.UtcNow, false));
+        }
+
+        public void SendNewTourNotification(int receiverId, int tourId)
+        {
+            Save(new Notification(receiverId, tourId, Domain.Models.Type.NEWTOUR, DateTime.UtcNow, false));
         }
     }
 }

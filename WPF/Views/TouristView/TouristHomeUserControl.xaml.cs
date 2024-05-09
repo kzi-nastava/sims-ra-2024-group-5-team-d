@@ -144,7 +144,7 @@ namespace BookingApp.WPF.Views.TouristView
             }
         }
 
-        private void TourDetails_Click(object sender, MouseButtonEventArgs e)
+        private void TourDetails_Click(object sender, SelectionChangedEventArgs e)
         {
             if (SelectedTour != null)
             {

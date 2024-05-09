@@ -9,14 +9,15 @@
                 <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PrimaryColor" Color="#2FC8BF" />
-            <SolidColorBrush x:Key="SecondaryColor" Color="#CEFFFD" />
+            <SolidColorBrush x:Key="SecondaryColor" Color="#a8eae7" />
             <SolidColorBrush x:Key="ThirdColor" Color="#F1FEFD" />
             <SolidColorBrush x:Key="WhiteWhite" Color="#FBFCFD" />
             <SolidColorBrush x:Key="PrimaryColor2" Color="#218C89" />
-            <SolidColorBrush x:Key="PrimaryBlack" Color="#555555" />
+            <SolidColorBrush x:Key="PrimaryBlack" Color="#424242" />
             <SolidColorBrush x:Key="PrimaryBlack2" Color="#838383" />
             <SolidColorBrush x:Key="PrimaryBlack3" Color="#C8C8C8" />
             <SolidColorBrush x:Key="WhiteGrey" Color="#EEEEEE" />
+            <SolidColorBrush x:Key="LightGray" Color="#F0F3F3" />
             <FontFamily x:Key="CustomFont">/Resources/Fonts/#Open Sans</FontFamily>
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="{StaticResource CustomFont}" />

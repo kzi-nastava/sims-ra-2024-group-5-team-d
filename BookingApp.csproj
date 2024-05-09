@@ -99,6 +99,7 @@
     <None Remove="Resources\Images\GuideImages\Home.png" />
     <None Remove="Resources\Images\GuideImages\Lightbulb Minimalistic.png" />
     <None Remove="Resources\Images\GuideImages\Map Point Add.png" />
+    <None Remove="Resources\Images\GuideImages\Map Point.png" />
     <None Remove="Resources\Images\GuideImages\ns.jpeg" />
     <None Remove="Resources\Images\GuideImages\Play Circle.png" />
     <None Remove="Resources\Images\GuideImages\Question Circle.png" />
@@ -142,6 +143,12 @@
     <None Remove="Resources\TourImages\Tour2\download.jpeg" />
     <None Remove="Resources\TourImages\Tour3\GFS_smederevo-trg-25-09-09-04.jpg" />
     <None Remove="Resources\TourImages\Tour4\caption.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\GuideImages\Map Point.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

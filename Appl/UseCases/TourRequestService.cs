@@ -16,11 +16,15 @@ namespace BookingApp.Appl.UseCases
         private ITourRequestRepository _repository;
         private TourRealisationService tourRealisationService;
         private TourReservationService tourReservationService;
+        private TourGuestService tourGuestService;
+        private UserService userService;
         public TourRequestService()
         {
             _repository = Injector.CreateInstance<ITourRequestRepository>();
             tourRealisationService = new TourRealisationService();
             tourReservationService = new TourReservationService();
+            tourGuestService = new TourGuestService();
+            userService = new UserService();
         }
         public List<TourRequest> GetAll()
         {
@@ -54,23 +58,6 @@ namespace BookingApp.Appl.UseCases
         public List<TourRequest> GetRequestsForTourist(User tourist)
         {
             return _repository.GetRequestsForTourist(tourist);
-        }
-        public TourRequest GetFirstTourRequest()
-        {
-            List<TourRequest> tourRequests = _repository.GetAll().ToList();
-
-            return tourRequests
-                .Where(x => tourReservationService.GetById(x.TourReservationId).TourRealisationId != -1)
-                .MinBy(x => tourRealisationService.GetById(tourReservationService.GetById(x.TourReservationId).TourRealisationId).StartTime);
-        }
-
-        public TourRequest GetLastTourRequest()
-        {
-            List<TourRequest> tourRequests = _repository.GetAll().ToList();
-
-            return tourRequests
-                .Where(x => tourReservationService.GetById(x.TourReservationId).TourRealisationId != -1)
-                .MaxBy(x => tourRealisationService.GetById(tourReservationService.GetById(x.TourReservationId).TourRealisationId).StartTime);
         }
         public int GetRequestsInAYear(int year, int LanguageId, int LocationId)
         {
@@ -110,6 +97,143 @@ namespace BookingApp.Appl.UseCases
                     Update(req);
                 }
             });
+        }
+
+
+        public LANGUAGE GetMostWantedLanguage()
+        {
+            var requests = GetAll(); // Assuming this method returns a list of requests
+
+            // Group requests by language and count occurrences of each language
+            var languageCounts = requests
+                .Where(req => req.RangeFrom >= DateTime.Now.AddYears(-1))
+                .GroupBy(req => req.Language)
+                .Select(group => new
+                {
+                    Language = group.Key,
+                    Count = group.Count()
+                })
+                .OrderByDescending(x => x.Count); // Order by count in descending order
+
+            // Now you can access the most chosen language
+            var mostChosenLanguage = languageCounts.FirstOrDefault().Language;
+
+            return mostChosenLanguage;
+        }
+
+        public Location GetMostWantedLocation()
+        {
+            var requests = GetAll(); // Assuming this method returns a list of requests
+
+            // Group requests by location and count occurrences of each location
+            var locationCounts = requests
+                .Where(req => req.RangeFrom >= DateTime.Now.AddYears(-1))
+                .GroupBy(req => req.Location)
+                .Select(group => new
+                {
+                    Location = group.Key,
+                    Count = group.Count()
+                })
+                .OrderByDescending(x => x.Count); // Order by count in descending order
+
+            // Now you can access the most chosen location
+            var mostChosenLocation = locationCounts.FirstOrDefault().Location;
+            return mostChosenLocation;
+        }
+      
+        public double AverageNumberOfGuestsOnAcceptedRequests(int year)
+        {
+            int totalNumberOfGuests = 0;
+            int numberOfRequests = 0;
+
+            GetAll().ForEach(req =>
+            {
+                if (req.RangeFrom.Year == year && req.Status == STATE.ACCEPTED)
+                {
+                    tourGuestService.GetAllTourGuests().ForEach(x =>
+                    {
+                        if(x.TourReservationId == req.TourReservationId)
+                        {
+                            totalNumberOfGuests++;
+                        }
+                    });
+                    numberOfRequests++;
+                }
+            });
+
+
+            return (totalNumberOfGuests/(double)numberOfRequests);
+        }
+
+        public double AllTimeAverageNumberOfPeopleOnAcceptedRequests()
+        {
+            int totalNumberOfGuests = 0;
+            int numberOfRequests = 0;
+
+            GetAll().ForEach(req =>
+            {
+                if (req.Status == STATE.ACCEPTED)
+                {
+                    tourGuestService.GetAllTourGuests().ForEach(x =>
+                    {
+                        if (x.TourReservationId == req.TourReservationId)
+                        {
+                            totalNumberOfGuests++;
+                        }
+                    });
+                    numberOfRequests++;
+                }
+            });
+
+
+            return (totalNumberOfGuests / (double)numberOfRequests);
+        }
+
+        public bool IsLocationRequestFulfilled(int locationId, int touristId)
+        {
+            bool anyNotFulfilledRequestsOnGivenLocation = false;
+            bool anyAcceptedRequestOnGivenLocation = false;
+
+            GetAll().ForEach(request =>
+            {
+                if(request.TouristId == touristId)
+                {
+                    if(request.Location.Id == locationId && request.Status != STATE.ACCEPTED)
+                    {
+                        anyNotFulfilledRequestsOnGivenLocation = true;
+                    }
+                    else if (request.Location.Id == locationId && request.Status == STATE.ACCEPTED)
+                    {
+                        anyAcceptedRequestOnGivenLocation = true;
+                    }
+                }
+            });
+
+            return (anyNotFulfilledRequestsOnGivenLocation && !anyAcceptedRequestOnGivenLocation);
+        }
+
+        public bool IsLangaugeRequestFulfilled(LANGUAGE language, int touristId)
+        {
+            bool anyNotFulfilledRequestsOnGivenLanguage = false;
+            bool anyAcceptedRequestOnGivenLanguage = false;
+
+            GetAll().ForEach(request =>
+            {
+                if (request.TouristId == touristId)
+                {
+                    if (request.Language == language && request.Status != STATE.ACCEPTED)
+                    {
+                        anyNotFulfilledRequestsOnGivenLanguage = true;
+                    }
+                    else if (request.Language == language && request.Status == STATE.ACCEPTED)
+                    {
+                        anyAcceptedRequestOnGivenLanguage = true;
+                    }
+                }
+            });
+
+            return (anyNotFulfilledRequestsOnGivenLanguage && !anyAcceptedRequestOnGivenLanguage);
+        
         }
     }
 }

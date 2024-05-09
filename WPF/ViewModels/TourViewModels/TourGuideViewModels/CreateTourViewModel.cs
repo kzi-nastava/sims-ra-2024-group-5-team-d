@@ -38,7 +38,6 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public string ImagesPath { get; set; }
         private List<string> imagesPath;
         public ObservableCollection<string> ImagesPaths { get; set; }
-        private List<CheckPoint> checkPointsToSave { get; set; }
         public DateTime MinDate { get; set; }
         public DateTime MaxDate { get; set; }
         public User LoggedInUser { get; set; }
@@ -53,11 +52,55 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 
         private int PaginationIndex = 0;
         public bool IsRequest { get; set; }
-        public CreateTourViewModel(User user) 
+        public bool IsLanguageStats { get; set; }
+        public bool IsLocationsStats { get; set; }
+        public CreateTourViewModel(User user) : this(user, null) { }
+
+        public CreateTourViewModel(User user, RequestViewModel request)
         {
-            IsRequest = false;
-            MinDate = DateTime.Now;
+            InitializeCommon(user);
+            if (request != null)
+            {
+                IsRequest = true;
+                IsLocationsStats = true;
+                IsLanguageStats = true;
+                Request = request;
+                MinDate = request.DateFrom;
+                MaxDate = request.DateTo;
+                InitializeFromRequest(request);
+            }
+            else
+            {
+                IsRequest = false;
+                IsLocationsStats = false;
+                IsLanguageStats = false;
+                MinDate = DateTime.Now.AddMinutes(-1);
+                MaxDate = DateTime.Now.AddYears(1);
+            }
+        }
+
+        public CreateTourViewModel(User user, int locationId, int languageId) 
+        {
+            InitializeCommon(user);
+            if(locationId != -1)
+            {
+                tourFormViewModel.LocationId = locationId;
+                IsLocationsStats = true;
+                LocationChanged();
+
+            }
+            else
+            {
+                tourFormViewModel.LanguageId = languageId;
+                IsLanguageStats = true;
+            }
+            MinDate = DateTime.Now.AddMinutes(-1);
             MaxDate = DateTime.Now.AddYears(1);
+
+        }
+
+        private void InitializeCommon(User user)
+        {
             LoggedInUser = user;
             tourFormViewModel = new TourFormViewModel();
             tourFormViewModel.User = user;
@@ -78,48 +121,19 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             CancelCommand = new RelayCommand(Cancel);
 
             CheckPoints = new ObservableCollection<CheckPoint>(checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId));
-            checkPointsToSave = new List<CheckPoint>();
             imagesPath = new List<string>();
             ImagesPaths = new ObservableCollection<string>();
         }
 
-        public CreateTourViewModel(User user,RequestViewModel request)
+        private void InitializeFromRequest(RequestViewModel request)
         {
-            IsRequest = true;
-            Request = request;
-            MinDate = request.DateFrom; 
-            MaxDate = request.DateTo;
-            LoggedInUser = user;
             tourReservationService = new TourReservationService();
             tourRequestService = new TourRequestService();
-            tourFormViewModel = new TourFormViewModel();
-            tourFormViewModel.User = user;
-            tourFormViewModel.StartTime = DateTime.Now;
             tourFormViewModel.Capacity = request.Capacity;
             tourFormViewModel.Description = request.Description;
             tourFormViewModel.LanguageId = Convert.ToInt32(request.Language);
-            Debug.WriteLine(tourFormViewModel.LanguageId);
             tourFormViewModel.LocationId = request.Location.Id;
-
-
-            tourRealisationService = new TourRealisationService();
-            checkPointService = new CheckPointService();
-            tourService = new TourService();
-            locationService = new LocationService();
-            imageUploaderService = new ImageUploaderService();
-
-            SaveCommand = new RelayCommand(Save);
-            LocationChangedCommand = new RelayCommand(LocationChanged);
-            AddCheckPointCommand = new RelayParameterCommand(AddCheckPoint);
-            UploadCommand = new RelayCommand(UploadPicture);
-            BackwardCommand = new RelayCommand(Backward);
-            ForwardCommand = new RelayCommand(Forward);
-            CancelCommand = new RelayCommand(Cancel);
-
-            CheckPoints = new ObservableCollection<CheckPoint>(checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId));
-            checkPointsToSave = new List<CheckPoint>();
-            imagesPath = new List<string>();
-            ImagesPaths = new ObservableCollection<string>();
+            LocationChanged();
         }
         public void Backward()
         {
@@ -158,22 +172,32 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             Tour SavedTour = tourService.Save(newTour);
             TourRealisation newTourRealisation = new TourRealisation(tourFormViewModel.StartTime, SavedTour.Id, tourFormViewModel.Capacity, tourFormViewModel.User);
             TourRealisation savedTourRealisation = tourRealisationService.Save(newTourRealisation);
-            //proci kroz sve selektovane cp i dodati ih u checkPointsToSave
-
-            checkPointsToSave = CheckPoints.Where(cp => cp.IsChecked == true).ToList();
-
-            checkPointsToSave.ForEach(cp => cp.IsChecked = false);
-            checkPointsToSave.ForEach(cp => cp.TourId = SavedTour.Id);
-            checkPointsToSave.ForEach(cp => checkPointService.Save(cp));
+            SaveCheckPoints(SavedTour.Id);
+            UpdateTourRequestStatus(savedTourRealisation.Id);
             SideBar.contentControlW.Content = new CreateNewTourForm(tourFormViewModel.User);
-            if(IsRequest == true)
+        }
+        private void SaveCheckPoints(int tourId)
+        {
+            List<CheckPoint> selectedCheckPoints = CheckPoints.Where(cp => cp.IsChecked).ToList();
+            selectedCheckPoints.ForEach(cp => cp.IsChecked = false);
+            selectedCheckPoints.ForEach(cp => cp.TourId = tourId);
+            selectedCheckPoints.ForEach(cp => checkPointService.Save(cp));
+        }
+
+        private void UpdateTourRequestStatus(int tourRealisationId)
+        {
+            if (IsRequest)
             {
                 TourRequest request = tourRequestService.GetById(Request.Id);
                 TourReservation tourReservation = tourReservationService.GetById(request.TourReservationId);
-                tourReservation.TourRealisationId = savedTourRealisation.Id;
+                tourReservation.TourRealisationId = tourRealisationId;
                 tourReservationService.Update(tourReservation);
                 request.Status = STATE.ACCEPTED;
+                TourRealisation savedTourRealisation = tourRealisationService.GetById(tourRealisationId);
+                savedTourRealisation.AvailableSeats = 0;
+                tourRealisationService.Update(savedTourRealisation);
                 tourRequestService.Update(request);
+
             }
             IsRequest = false;
         }

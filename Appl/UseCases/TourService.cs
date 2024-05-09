@@ -13,11 +13,15 @@ namespace BookingApp.Appl.UseCases
     {
         private ITourRepository _repository;
         private TourRealisationService tourRealisationService;
+        private TourRatingService tourRatingService;
+        private TourReservationService tourReservationService;
 
         public TourService()
         {
             _repository = Injector.CreateInstance<ITourRepository>();
             tourRealisationService = new TourRealisationService();
+            tourRatingService = new TourRatingService();
+            tourReservationService = new TourReservationService();
         }
         public void DeleteTour(Tour tour)
         {
@@ -138,6 +142,35 @@ namespace BookingApp.Appl.UseCases
                 }
             }
             return true;
+        }
+
+        public int GetNumberOfVotes(int tourId)
+        {
+            int numberOfVotes = 0;
+
+            tourRatingService.GetAllTourRatings().ForEach(rating =>
+            {
+                if(tourId == tourRealisationService.GetById(tourReservationService.GetById(rating.TourReservationId).TourRealisationId).TourId)
+                {
+                    numberOfVotes++;
+                }
+            });
+
+            return numberOfVotes;
+        }
+
+        public double GetRating(int tourId)
+        {
+            double sumOfRating = 0.0;
+
+            tourRatingService.GetAllTourRatings().ForEach(rating =>
+            {
+                if (tourId == tourRealisationService.GetById(tourReservationService.GetById(rating.TourReservationId).TourRealisationId).TourId)
+                {
+                    sumOfRating += sumOfRating + (rating.TouristLanguage + rating.TouristKnowladge + rating.TourAmusement) / 3.0;
+                }
+            });
+            return sumOfRating/GetNumberOfVotes(tourId);
         }
     }
 }

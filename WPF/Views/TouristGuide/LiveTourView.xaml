@@ -12,6 +12,19 @@
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="Label" x:Key="LabelDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="40,15,40,0">
         <Grid.ColumnDefinitions>
@@ -23,26 +36,27 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" HorizontalAlignment="Left"  Background="Transparent" BorderBrush="Transparent" Command="{Binding BackCommand}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="Icons/Card/Alt Arrow Left.png" Width="16" Height="16"/>
-                <Label Content="Back" Margin="5,0,0,0"/>
+                <Image Source="/../../../Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
+                <Label Content="Back" Margin="5,0,0,0" Style="{StaticResource LabelDesign}"/>
             </StackPanel>
         </Button>
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding tour.Name}" Margin="0,40,0,0" FontSize="35"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding tourRealisation.DateTime}" FontSize="15"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding tour.Name}" Margin="0,30,0,0" FontSize="35" Style="{StaticResource TextBlockDesign}" FontWeight="SemiBold"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding tourRealisation.DateTime}" FontSize="15" Style="{StaticResource TextBlockDesign}" />
         <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" BorderBrush="DarkGray" BorderThickness="2,0,0,0"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Attendees" Margin="20,40,0,0" FontSize="35"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Attendees" Margin="20,40,0,0" FontSize="25" Style="{StaticResource TextBlockDesign}" FontWeight="SemiBold" />
         <ListView Grid.Row="3" 
                   Grid.Column="0"
-                  Height="500" 
+                  Height="400" 
                   Margin="20,0,0,0" 
                   ItemsSource="{Binding CheckPoints}" 
                   BorderBrush="Transparent"
                   x:Name="checkPointsListView"
                   SelectedItem="{Binding SelectedCheckPoint}"
+                  Background="{StaticResource LightGray}"
                   >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
@@ -56,23 +70,20 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Height="90" Width="200" BorderThickness="0,0,0,0" BorderBrush="Transparent">
+                    <Border Height="70" Width="200" BorderThickness="0" >
                         <StackPanel Orientation="Horizontal">
-                            <!-- Circle -->
                             <Grid>
                                 <Ellipse x:Name="CircleEllipse" Width="30" Height="30" Fill="White" Margin="10,0" >
                                     <Ellipse.ToolTip>
                                         <TextBlock>Circle</TextBlock>
                                     </Ellipse.ToolTip>
                                 </Ellipse>
-                                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Check Circle.png" Visibility="{Binding IsChecked,Converter={StaticResource BoolToVisibilityConverter}}" Height="30" Width="30"/>
-                                <!-- NIJE DOBAR BINDING NA LISTU PAZI -->
+                                <Image Source="/../../../Resources\Images\GuideImages\Check Circle.png" Visibility="{Binding IsChecked,Converter={StaticResource BoolToVisibilityConverter}}" Height="30" Width="30"/>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                             </Grid>
-                            <TextBlock Text="{Binding Name}" Margin="10,0" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding Name}" FontSize="16" Margin="10,0" VerticalAlignment="Center" Style="{StaticResource TextBlockDesign}" />
                         </StackPanel>
                     </Border>
-
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -85,7 +96,8 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     ScrollViewer.CanContentScroll="False"
-                    Grid.Row="3" Grid.Column="1" 
+                    Grid.Row="3" 
+                    Grid.Column="1" 
                     ItemsSource="{Binding TourGuests}"
                     SelectionMode="Multiple"
                     x:Name="tourGuestsListView"
@@ -114,7 +126,17 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="5" Grid.Column="0" Content="Finish Tour" Command="{Binding FinishTourCommand}" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
-        <Button Grid.Row="5" Grid.Column="1" Content="Sign Up" Command="{Binding SignUpCommand}" Width="120" Height="24" HorizontalAlignment="Right" Margin="0,40,15,0"/>
+        <Button Grid.Row="4" Grid.Column="0" Command="{Binding FinishTourCommand}" Margin="0,0,40,0" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+            <Border CornerRadius="4" Height="34" Width="100" BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2" >
+                <TextBlock Text="Finish Tour" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource PrimaryColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13" />
+            </Border>
+        </Button>
+
+
+        <Button Grid.Row="4" Grid.Column="1" Command="{Binding SignUpCommand}"  HorizontalAlignment="Right"  VerticalAlignment="Top" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+            <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
+                <TextBlock Text="Sign Up" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="13"/>
+            </Border>
+        </Button>
     </Grid>
 </UserControl>
