@@ -140,14 +140,6 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 bool durationMatch = (pickedDateFrom.DayOfYear == DateTime.Now.DayOfYear && pickedDateTo.DayOfYear == DateTime.Now.DayOfYear) || (tourRequest.RangeFrom >= pickedDateFrom && tourRequest.RangeTo <= pickedDateTo); //PROVERI AKO NE IZABERE DATUM DA BUDE TRUE SVAKAKO
                 bool locationMatch = pickedLocationId == 10 || tourRequest.Location.Id == pickedLocationId;
                 bool capacityMatch = tourRequest.Capacity >= Convert.ToInt32(pickedMaxCapacity);
-
-                Debug.WriteLine(pickedDateFrom == DateTime.Now);
-                Debug.WriteLine(pickedDateTo == DateTime.Now);
-
-                Debug.WriteLine(languageMatch.ToString());
-                Debug.WriteLine(durationMatch.ToString());
-                Debug.WriteLine(locationMatch.ToString());
-                Debug.WriteLine(capacityMatch.ToString());
                 if (languageMatch && durationMatch && locationMatch && capacityMatch && tourRequest.Status == STATE.PENDING)
                 {
                     TourRequests.Add(new RequestViewModel(tourRequest.Id,tourRequest.Description, locationService.GetById(tourRequest.Location.Id), tourRequest.RangeFrom, tourRequest.RangeTo, tourRequest.Capacity, tourRequest.Language, tourRequest.IsAcceptable()));

@@ -57,15 +57,15 @@
         </Grid.RowDefinitions>
         <Button Grid.Row="0" HorizontalAlignment="Left" Click="BackButton_Click" Background="Transparent" BorderBrush="Transparent">
             <StackPanel Orientation="Horizontal">
-                <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
+                <Image Source="/../../../Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
                 <Label Content="Back" Margin="5,0,0,0" Style="{StaticResource LabelDesign}"/>
             </StackPanel>
         </Button>
-        <ToggleButton x:Name="HelpButton" Grid.Row="0" Width="16" Height="16" HorizontalAlignment="Right" Click="HelpButton_Click">
-            <Image Source="Icons/Card/Question Circle.png" />
+        <ToggleButton x:Name="HelpButton" Grid.Row="0" Width="16" Height="16" HorizontalAlignment="Right" Click="HelpButton_Click" Background="Transparent" BorderThickness="0">
+            <Image Source="/../../../Resources\Images\GuideImages\Question Circle.png" />
         </ToggleButton>
         <!-- Popover Content -->
-        <Popup x:Name="HelpPopup" PlacementTarget="{Binding ElementName=HelpButton}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="-120" VerticalOffset="15" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <Popup x:Name="HelpPopup" PlacementTarget="{Binding ElementName=HelpButton}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="-120" VerticalOffset="15" VerticalAlignment="Bottom" HorizontalAlignment="Right" >
             <Border BorderBrush="Gray" BorderThickness="1" Background="White" CornerRadius="5" Height="90" Width="140">
                 <Grid>
                     <Polygon Points="0,10 10,0 20,10" Fill="White" Stroke="Gray" StrokeThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,10" />
@@ -104,27 +104,27 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Map Point.png" Height="16" Width="16"/>
+            <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Map Point.png" Height="16" Width="16"/>
             <Label Grid.Column="1" Content="{Binding SelectedTour.Location}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}" Margin="0 0 20 0"/>
-            <Image Grid.Column="2" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Clock Circle.png" Height="16" Width="16"/>
+            <Image Grid.Column="2" Source="/../../../Resources\Images\GuideImages\Clock Circle.png" Height="16" Width="16"/>
             <Label Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 20 0">
                 <TextBlock Style="{StaticResource TextBlockDesign}">
                     <Run Text="{Binding SelectedTour.Duration}" />
                     <Run Text=" hours" />
                 </TextBlock>
             </Label>
-            <Image Grid.Column="4" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
+            <Image Grid.Column="4" Source="/../../../Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
             <Label Grid.Column="5" HorizontalAlignment="Left" Margin="0 0 20 0">
                 <TextBlock Style="{StaticResource TextBlockDesign}">
                     <Run Text="{Binding SelectedTour.Capacity}" />
                     <Run Text=" seats" />
                 </TextBlock>
             </Label>
-            <Image Grid.Column="6" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
+            <Image Grid.Column="6" Source="/../../../Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
             <Label Grid.Column="7" Content="{Binding SelectedTour.Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}" Margin="0 0 20 0"/>
         </Grid>
         <Label Grid.Row="3" Content="{Binding SelectedTour.Name}" FontSize="35" Style="{StaticResource LabelDesign}" FontWeight="SemiBold" Margin="0 0 0 15"/>
-        <TextBlock Grid.Row="4" Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" Style="{StaticResource TextBlockDesign}" Margin="0 0 0 15"/>
+        <TextBlock Grid.Row="4" Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" Style="{StaticResource TextBlockDesign}" Margin="0 0 0 15" FontSize="14"/>
         <DataGrid 
             Grid.Row="5"
             Grid.Column="1"

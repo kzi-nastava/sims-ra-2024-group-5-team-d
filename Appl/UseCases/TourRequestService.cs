@@ -99,6 +99,48 @@ namespace BookingApp.Appl.UseCases
             });
         }
 
+
+        public LANGUAGE GetMostWantedLanguage()
+        {
+            var requests = GetAll(); // Assuming this method returns a list of requests
+
+            // Group requests by language and count occurrences of each language
+            var languageCounts = requests
+                .Where(req => req.RangeFrom >= DateTime.Now.AddYears(-1))
+                .GroupBy(req => req.Language)
+                .Select(group => new
+                {
+                    Language = group.Key,
+                    Count = group.Count()
+                })
+                .OrderByDescending(x => x.Count); // Order by count in descending order
+
+            // Now you can access the most chosen language
+            var mostChosenLanguage = languageCounts.FirstOrDefault().Language;
+
+            return mostChosenLanguage;
+        }
+
+        public Location GetMostWantedLocation()
+        {
+            var requests = GetAll(); // Assuming this method returns a list of requests
+
+            // Group requests by location and count occurrences of each location
+            var locationCounts = requests
+                .Where(req => req.RangeFrom >= DateTime.Now.AddYears(-1))
+                .GroupBy(req => req.Location)
+                .Select(group => new
+                {
+                    Location = group.Key,
+                    Count = group.Count()
+                })
+                .OrderByDescending(x => x.Count); // Order by count in descending order
+
+            // Now you can access the most chosen location
+            var mostChosenLocation = locationCounts.FirstOrDefault().Location;
+            return mostChosenLocation;
+        }
+      
         public double AverageNumberOfGuestsOnAcceptedRequests(int year)
         {
             int totalNumberOfGuests = 0;
@@ -191,7 +233,7 @@ namespace BookingApp.Appl.UseCases
             });
 
             return (anyNotFulfilledRequestsOnGivenLanguage && !anyAcceptedRequestOnGivenLanguage);
-
+        
         }
     }
 }

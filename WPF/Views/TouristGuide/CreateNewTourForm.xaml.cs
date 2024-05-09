@@ -39,5 +39,12 @@ namespace BookingApp.WPF.Views.TouristGuide
             DataContext = new CreateTourViewModel(LoggedInUser,request);
 
         }
+        public CreateNewTourForm(User user, int locationId,int languageId)
+        {
+            InitializeComponent();
+            LoggedInUser = user;
+            DataContext = new CreateTourViewModel(LoggedInUser, locationId, languageId);
+
+        }
     }
 }

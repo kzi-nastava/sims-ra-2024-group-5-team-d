@@ -52,6 +52,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 
         private int PaginationIndex = 0;
         public bool IsRequest { get; set; }
+        public bool IsLanguageStats { get; set; }
+        public bool IsLocationsStats { get; set; }
         public CreateTourViewModel(User user) : this(user, null) { }
 
         public CreateTourViewModel(User user, RequestViewModel request)
@@ -60,6 +62,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             if (request != null)
             {
                 IsRequest = true;
+                IsLocationsStats = true;
+                IsLanguageStats = true;
                 Request = request;
                 MinDate = request.DateFrom;
                 MaxDate = request.DateTo;
@@ -68,9 +72,31 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             else
             {
                 IsRequest = false;
+                IsLocationsStats = false;
+                IsLanguageStats = false;
                 MinDate = DateTime.Now.AddMinutes(-1);
                 MaxDate = DateTime.Now.AddYears(1);
             }
+        }
+
+        public CreateTourViewModel(User user, int locationId, int languageId) 
+        {
+            InitializeCommon(user);
+            if(locationId != -1)
+            {
+                tourFormViewModel.LocationId = locationId;
+                IsLocationsStats = true;
+                LocationChanged();
+
+            }
+            else
+            {
+                tourFormViewModel.LanguageId = languageId;
+                IsLanguageStats = true;
+            }
+            MinDate = DateTime.Now.AddMinutes(-1);
+            MaxDate = DateTime.Now.AddYears(1);
+
         }
 
         private void InitializeCommon(User user)

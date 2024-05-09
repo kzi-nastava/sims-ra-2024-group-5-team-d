@@ -106,7 +106,7 @@
                       Height="30"
                       Width="250"  
                       HorizontalAlignment="Left" 
-                      IsEnabled="{Binding IsRequest, Converter={StaticResource InverseBooleanConverter}}"
+                      IsEnabled="{Binding IsLocationsStats, Converter={StaticResource InverseBooleanConverter}}"
                       VerticalAlignment="Top" 
                       FontSize="18"
                       SelectedIndex="{Binding tourFormViewModel.LocationId}"
@@ -144,7 +144,7 @@
                   VerticalAlignment="Top"
                   FontSize="18"
                   SelectedIndex="{Binding tourFormViewModel.LanguageId}"
-                  IsEnabled="{Binding IsRequest, Converter={StaticResource InverseBooleanConverter}}"
+                  IsEnabled="{Binding IsLanguageStats, Converter={StaticResource InverseBooleanConverter}}"
                   >
             <ComboBoxItem Content="English"/>
             <ComboBoxItem Content="Serbian"/>
