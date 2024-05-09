@@ -12,6 +12,12 @@
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
 
     </UserControl.Resources>
     <Grid 
@@ -25,7 +31,7 @@
                    Grid.Row="0" 
                    Text="Notifications" 
                    FontSize="36" 
-                   FontWeight="Bold"
+                   FontWeight="DemiBold"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
         <ListView BorderThickness="0" 
@@ -54,7 +60,7 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="2" Padding="10" CornerRadius="10" Margin="0 0 20 10">
+                    <Border Padding="10" CornerRadius="10" Margin="0 0 20 10" Background="{StaticResource WhiteWhite}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -74,10 +80,10 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding SenderName}" FontWeight="DemiBold" Grid.Row="0" VerticalAlignment="Top" Width="auto" FontSize="20"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Date}" VerticalAlignment="Center" Margin="10 -7 0 0"/>
+                                    <TextBlock Text="{Binding SenderName}" FontWeight="DemiBold" Grid.Row="0" VerticalAlignment="Top" Width="auto" FontSize="20" Style="{StaticResource FontColor}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Date}" VerticalAlignment="Center" Margin="10 -7 0 0" Style="{StaticResource FontColor}"/>
                                 </Grid>
-                                <TextBlock Text="{Binding Message}" FontWeight="Normal" Grid.Row="1" FontSize="16"/>
+                                <TextBlock Text="{Binding Message}" FontWeight="Normal" Grid.Row="1" FontSize="16" Style="{StaticResource FontColor}"/>
                             </Grid>
                             <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Width="50" Margin="0 0 20 0"  Command="{Binding DataContext.OpenNotification, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                 <Image Source="C:\Users\lukai\Desktop\Resource\enter.png"/>
