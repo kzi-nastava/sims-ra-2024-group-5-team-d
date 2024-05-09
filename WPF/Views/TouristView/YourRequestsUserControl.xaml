@@ -68,6 +68,8 @@
                     BorderBrush="Gray"
                     Grid.ColumnSpan="4"/>
             <Button Grid.Column="0"
+                    
+                Background="LightSlateGray"
                 Content="Simple Requests"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding SimpleRequestsTabCommand}"/>

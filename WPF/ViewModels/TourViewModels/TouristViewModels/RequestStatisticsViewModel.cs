@@ -8,8 +8,10 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -19,28 +21,59 @@ using System.Windows.Media;
 namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 {
     
-    public class RequestStatisticsViewModel
+    public class RequestStatisticsViewModel : INotifyPropertyChanged
     {
         public ICommand ComboBoxSelectionChangedCommand { get; set; }   
         public User Tourist { get; set; }
         public SeriesCollection RequestsStatistics { get; set; }
         public SeriesCollection LanguageStats { get; set; }
+        public SeriesCollection LocationStats { get; set; }
         public int AcceptedRequests { get; set; }
+
+        private double avgNumberOfPeople;
+        public double AvgNumberOfPeople
+        {
+            get => avgNumberOfPeople;
+            set
+            {
+                if (value != avgNumberOfPeople)
+                {
+                    avgNumberOfPeople = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public int NotAcceptedRequests { get; set; }
         public TourRequestService tourRequestService { get; set; }
         public ObservableCollection<string> LanguageLabels { get; set; }
         public ObservableCollection<string> Years { get; set; }
+        public ObservableCollection<string> LocationLabels { get; set; } 
         public int SelectedYear { get; set; }
+
+        private LocationService locationService { get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public RequestStatisticsViewModel(User tourist) 
         {
+            locationService = new LocationService();
             Tourist = tourist;
             LanguageStats = new SeriesCollection();
+            LocationStats = new SeriesCollection();
             tourRequestService = new TourRequestService();
             LanguageLabels = new ObservableCollection<string>();
+            LocationLabels = new ObservableCollection<string>();
             for (int i = 0; i < Enum.GetNames(typeof(LANGUAGE)).Length; i++)
             {
                 LanguageLabels.Add(Enum.GetNames(typeof(LANGUAGE))[i]);
             }
+
+            locationService.GetAll().ForEach(loc => LocationLabels.Add(loc.City.ToString()));
 
             RequestsStatistics = new SeriesCollection();
 
@@ -49,11 +82,41 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             InitializeYears();
 
 
-            OnComboBoxSelectionChanged("All Time");
-
-            
+            OnComboBoxSelectionChanged("All Time");            
         }
 
+        public void InitializeLocationStatistics()
+        {
+            LocationStats.Clear();
+            LocationStats.Add(new ColumnSeries
+            {
+                Title = "Locations",
+                Values = new ChartValues<int>(),
+                Fill = Brushes.Green
+            });
+            for (int i = 0; i < LocationLabels.Count; i++)
+            {
+                int counter = tourRequestService.GetAll().Where(x => locationService.GetById(x.Location.Id).City.ToString() == LocationLabels[i]).Count();
+                LocationStats[0].Values.Add(counter);
+            }
+        }
+
+        public void InitializeLocationStatistics(int year)
+        {
+            LocationStats.Clear();
+            LocationStats.Add(new ColumnSeries
+            {
+                Title = "Locations",
+                Values = new ChartValues<int>(),
+                Fill = Brushes.Green
+            });
+            for (int i = 0; i < LocationLabels.Count; i++)
+            {
+                int counter = tourRequestService.GetAll().Where(x => locationService.GetById(x.Location.Id).City.ToString() == LocationLabels[i] && 
+            x.RangeFrom.Year == year).Count();
+                LocationStats[0].Values.Add(counter);
+            }
+        }
 
         public void OnComboBoxSelectionChanged(object parameter)
         {
@@ -68,15 +131,21 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
                     {
                         InitializeRequestsStatistics(SelectedYear);
                         InitializeLanguageStatistics(SelectedYear);
+                        InitializeLocationStatistics(SelectedYear);
+                        AvgNumberOfPeople = tourRequestService.AverageNumberOfGuestsOnAcceptedRequests(SelectedYear);
                     }
                 }
                 else
                 {
                     InitializeRequestsStatistics();
                     InitializeLanguageStatistics();
+                    InitializeLocationStatistics();
+                    AvgNumberOfPeople = tourRequestService.AllTimeAverageNumberOfPeopleOnAcceptedRequests();
                 }
             }
         }
+
+        
 
         public void InitializeRequestsStatistics()
         {

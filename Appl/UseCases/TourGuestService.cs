@@ -93,6 +93,18 @@ namespace BookingApp.Appl.UseCases
             return false;
         }
 
+        public TourGuest GetById(int id)
+        {
+            foreach (TourGuest t in GetAllTourGuests())
+            {
+                if (t.Id == id)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
         public List<TourGuest> GetAllTourGuests()
         {
             return _repository.GetAllTourGuests();

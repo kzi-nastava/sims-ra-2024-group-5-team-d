@@ -69,6 +69,7 @@
                     Grid.ColumnSpan="4"/>
             <Button Grid.Column="0"
                 Content="Simple Requests"
+                Background="LightSlateGray"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding SimpleRequestsTabCommand}"/>
             <Button Grid.Column="1"
@@ -76,46 +77,109 @@
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding ComplexRequestsTabCommand}"/>
         </Grid>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0"
+        <Border 
+                BorderThickness="1 1 1 1"
+                CornerRadius="5"
+                BorderBrush="Gray"
+                Grid.Row="1"
+                Margin="0 -1 0 0">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0"
                           Width="150"
-                          Margin="20 20 300 100"
+                          FontSize="24"
+                          FontWeight="DemiBold"
+                          Margin="30 60 300 100"
                           ItemsSource="{Binding Years}"
                           SelectedItem="{Binding item, Mode=TwoWay}"
                           SelectedIndex="0">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding ComboBoxSelectionChangedCommand}"
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ComboBoxSelectionChangedCommand}"
                                    CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 
-                </ComboBox>
-                <lvc:PieChart Grid.Column="1" LegendLocation="Left" Width="300" VerticalAlignment="Top" Height="100" InnerRadius="10" Series="{Binding RequestsStatistics}">
-                </lvc:PieChart>
+                    </ComboBox>
+                    <lvc:PieChart Grid.Column="0"
+                              Margin="200 40 30 0"
+                              LegendLocation="Left"
+                              Width="150"
+                              VerticalAlignment="Top"
+                              Height="100"
+                              InnerRadius="10"
+                              Series="{Binding RequestsStatistics}">
+                    </lvc:PieChart>
+                    <TextBlock Grid.Column="1"
+                           FontSize="18"
+                           FontWeight="DemiBold"
+                           Margin="50 60 0 0">
+                    <Run Text="Avg. Num. of People on Accepted Requests: ">                        
+                    </Run>
+                    <LineBreak/>
+                    <Run Text="                              "></Run>
+                    <Run FontWeight="SemiBold"                         
+                         Foreground="Blue"
+                         FontSize="30"
+                         Text="{Binding AvgNumberOfPeople}">                        
+                    </Run>
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Row="1"
+                      Margin="0 -30 0 50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <lvc:CartesianChart Series="{Binding LanguageStats}"
+                                        Grid.Column="0" 
+                                        LegendLocation="None"
+                                        Margin="10 0 0 0"
+                                        Width="300"
+                                        Height="200"
+                                        Visibility="Visible">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Languages" Labels="{Binding LanguageLabels}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="No.Requests" />
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                    <lvc:CartesianChart Series="{Binding LocationStats}"
+                                    Grid.Column="1"
+                                    LegendLocation="None"
+                                    Width="600"
+                                    Height="200"
+                                    Margin="30 0 0 0"
+                                    Visibility="Visible">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Locations"
+                                  FontSize="13"
+                                  Labels="{Binding LocationLabels}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="No.Requests" />
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Grid>
+
             </Grid>
-            <lvc:CartesianChart Series="{Binding LanguageStats}" Grid.Row="1" LegendLocation="None" Width="300" Height="200" Visibility="Visible">
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Languages" Labels="{Binding LanguageLabels}">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1" />
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Requests" />
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-        </Grid>
-        
+        </Border>
     </Grid>
 </UserControl>

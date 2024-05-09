@@ -202,7 +202,7 @@
                       ScrollViewer.CanContentScroll="False"
                       ItemsSource="{Binding Tours}"
                       SelectedItem="{Binding SelectedTour}"
-                      MouseDoubleClick="TourDetails_Click">
+                      SelectionChanged="TourDetails_Click">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="Background" Value="Transparent" />
@@ -266,47 +266,50 @@
                                                     Orientation="Horizontal"
                                                     Margin="2 10 0 0"
                                                     HorizontalAlignment="Left">
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                                            <Image Source="{Binding Star1Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="8 0 0 0"/>
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                                            <Image Source="{Binding Star2Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="0 0 0 0"/>
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                                            <Image Source="{Binding Star3Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="0 0 0 0"/>
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                                            <Image Source="{Binding Star4Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="0 0 0 0"/>
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\half_star.png"
+                                            <Image Source="{Binding Star5Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="0 0 0 0"/>
-                                            <Label Margin="0 -3 0 0"
+                                            
+                                            <TextBlock Margin="5 0 0 0"
                                                Grid.Row="0"
                                                FontSize="10"
                                                FontFamily="Verdana"
-                                                   Width="500"
-                                               Content="69 votes"/>
+                                               Width="500">
+                                                <Run Text="{Binding NumberOfVotes}"></Run>
+                                                <Run Text="vote(s)"></Run>
+                                            </TextBlock>
                                             
                                         </StackPanel>
 
