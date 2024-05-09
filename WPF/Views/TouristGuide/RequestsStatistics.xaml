@@ -19,6 +19,10 @@
             <Setter Property="Width" Value="150"/>
             <Setter Property="Height" Value="30"/>
         </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="40,15,40,0">
         <Grid.RowDefinitions>
@@ -94,18 +98,50 @@
                 </i:Interaction.Triggers>
             </Grid>
         </Border>
-        <Image Grid.Row="1" Grid.Column="1" Source="Icons/Card/Lightbulb Minimalistic.png" HorizontalAlignment="Right" Height="24" Width="24" Margin="0,0,25,0" />
+        
+            <!-- Main content of your window or UserControl -->
+
+        <!-- Button with the dropdown functionality -->
+        <ToggleButton x:Name="DropDownButton" Grid.Row="1" Grid.Column="1" Width="24" Height="24" Margin="0,0,25,0" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0">
+            <Image Source="/../../../Resources/Images/GuideImages/Lightbulb Minimalistic.png" Stretch="Uniform"/>
+        </ToggleButton>
+        <Popup PlacementTarget="{Binding ElementName=DropDownButton}" IsOpen="{Binding IsChecked, ElementName=DropDownButton, Mode=TwoWay}" StaysOpen="False" Placement="Bottom" HorizontalOffset="-95" AllowsTransparency="True" PopupAnimation="Fade">
+            <Border BorderBrush="{StaticResource PrimaryBlack2}" BorderThickness="1" Background="{StaticResource WhiteWhite}" CornerRadius="4">
+                <StackPanel Width="120" Cursor="Hand" Background="Transparent" HorizontalAlignment="Center">
+                    <TextBlock Text="Language" Margin="5" Style="{StaticResource TextBlockDesign}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding LanguageSelectedCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    </TextBlock>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="5"/>
+                    <TextBlock Text="Location" Margin="5" Style="{StaticResource TextBlockDesign}" VerticalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding LocationSelectedCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </Popup>
+
+
+
+
+
         <!--<Button Grid.Row="2" Grid.Column="0" Content="Show Requests"  Height="34" Width="140" HorizontalAlignment="Left" Margin="0,25,0,0"/>-->
 
-        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="HelpButton" Width="18" Height="18" HorizontalAlignment="Right" Command="{Binding HelpCommand}" Background="{StaticResource PrimaryBlack3}">
+        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="HelpButton" Width="18" Height="18" HorizontalAlignment="Right" Command="{Binding HelpCommand}" Background="Transparent" BorderThickness="0">
             <Image Source="/../../../Resources\Images\GuideImages\Question Circle.png" />
         </ToggleButton>
         <!-- Popover Content -->
         <Popup x:Name="HelpPopup" PlacementTarget="{Binding ElementName=HelpButton}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="-120" VerticalOffset="15" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Border BorderBrush="Gray" BorderThickness="1" Background="White" CornerRadius="5" Height="90" Width="140">
+            <Border BorderBrush="Gray" BorderThickness="1" Background="White" CornerRadius="4" Height="auto" Width="140">
                 <Grid>
                     <Polygon Points="0,10 10,0 20,10" Fill="White" Stroke="Gray" StrokeThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,10" />
-                    <TextBlock Text="By clicking the lightbulb symbol you can create a tour with statistically best options." Padding="10" TextWrapping="WrapWithOverflow"/>
+                    <TextBlock Text="By clicking the lightbulb symbol you can create a tour with statistically best options." Padding="10" TextWrapping="Wrap"/>
                 </Grid>
             </Border>
         </Popup>
