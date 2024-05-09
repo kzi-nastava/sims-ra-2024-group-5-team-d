@@ -43,7 +43,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private void ShowAvailableDates()
         {
             AvailableDates.Clear();
-            List<KeyValuePair<DateTime, DateTime>> availableDatesForRenovations = availableDatesForReservationService.CheckAvailableDatesInGivenRange(SelectDate.RenovateFrom, SelectDate.RenovateTo, SelectDate.DaysForRenovation, accommodationService.GetById(accommodationId));
+            List<KeyValuePair<DateTime, DateTime>> availableDatesForRenovations = availableDatesForReservationService.GetAvailableDatesInGivenRange(SelectDate.RenovateFrom, SelectDate.RenovateTo, SelectDate.DaysForRenovation, accommodationService.GetById(accommodationId));
             availableDatesForRenovations.ForEach(date => AvailableDates.Add(new AvailableRenovationDateViewModel(date.Key, date.Value)));
             SelectDate.ShowRenovationDates = true;  
 
