@@ -18,12 +18,21 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Padding" Value="10,5"/>
-            <Style.Triggers>
-                <!-- Trigger to change the background color when label is selected -->
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightGray"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Setter Property="Content" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="LabelDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
     </UserControl.Resources>
 
@@ -45,10 +54,11 @@
             </Grid.ColumnDefinitions>
 
             <!-- Border around the tabs -->
-            <Border BorderThickness="1 1 1 1" BorderBrush="Black" Grid.ColumnSpan="4"/>
+            <Border Grid.ColumnSpan="4"/>
 
-
-            <Label Grid.Column="1" Content="Tours today" Background="LightGray" Style="{StaticResource TabsLabelsStyle}"/>
+            <Border BorderBrush="{StaticResource PrimaryColor}" Grid.Column="1" BorderThickness="0 0 0 2">
+                <Label Grid.Column="1" Content="Tours today" Style="{StaticResource TabsLabelsStyle}"/>
+            </Border>
 
             <Label Grid.Column="0" Content="All tours" Style="{StaticResource TabsLabelsStyle}">
                 <Label.InputBindings>
@@ -67,82 +77,6 @@
                 </Label.InputBindings>
             </Label>
         </Grid>
-        <!-- Content Area -->
-        <Grid Grid.Row="1"  Visibility="{Binding IsGridVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"
-                    BorderThickness="2"
-                    BorderBrush="Black"
-                    CornerRadius="20"
-                    Width="150"
-                    HorizontalAlignment="Left">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="Icons/SideMenu/Map Point Add.png" Margin="5,0,0,0"/>
-                    <Label Content="Location" Grid.Column="1" VerticalAlignment="Center"/>
-                    <Image Source="Icons/Card/Alt Arrow Down.png" Grid.Column="3" HorizontalAlignment="Center" Height="24"/>
-                </Grid>
-            </Border>
-            <Border Grid.Column="1"
-                    BorderThickness="2"
-                    BorderBrush="Black"
-                    CornerRadius="20"
-                    Width="150"
-                    HorizontalAlignment="Left"
-                    Margin="10,0,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="Icons/Card/User.png" Margin="10,0,0,0"/>
-                    <Label Content="Capacity" Grid.Column="1" VerticalAlignment="Center"/>
-                </Grid>
-            </Border>
-            <Border Grid.Column="2"
-                    BorderThickness="2"
-                    BorderBrush="Black"
-                    CornerRadius="20"
-                    Width="150"
-                    HorizontalAlignment="Left"
-                    Margin="20,0,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="Icons/Card/Chat Round Line.png" Margin="10,0,0,0"/>
-                    <Label Content="Language" Grid.Column="1" VerticalAlignment="Center"/>
-                    <Image Source="Icons/Card/Alt Arrow Down.png" Grid.Column="3" HorizontalAlignment="Center" Height="24"/>
-                </Grid>
-            </Border>
-            <Border Grid.Column="3"
-                    BorderThickness="2"
-                    BorderBrush="Black"
-                    CornerRadius="20"
-                    Width="150"
-                    HorizontalAlignment="Left"
-                    Margin="20,0,0,0">
-                <DatePicker IsTodayHighlighted="True" />
-            </Border>
-            <Button Grid.Column="4" BorderBrush="Black" BorderThickness="2" Background="Transparent" Content="Search" Height="34" Width="140" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-            <Button Grid.Row="1" BorderBrush="Black" BorderThickness="2" Background="Transparent" Content="Show statistics" Margin="0,10,0,0" Height="34" Width="140" HorizontalAlignment="Left"/>
-        </Grid>
         <ListView BorderThickness="0"
           Background="Transparent"
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -157,7 +91,7 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Height="278" Width="371" BorderThickness="2" BorderBrush="Black" CornerRadius="15" Margin="-5,25,35,0">
+                    <Border Height="278" Width="371" BorderThickness="2" BorderBrush="Transparent" CornerRadius="8" Margin="-5,25,35,0" Background="{StaticResource WhiteWhite}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
@@ -183,7 +117,7 @@
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="Icons/SideMenu/Map Point Add.png" Height="16" Width="16"/>
+                                        <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Map Point.png" Height="16" Width="16"/>
                                         <Label Grid.Column="1" Content="{Binding Location}" HorizontalAlignment="Left" />
                                     </Grid>
                                     <Grid Grid.Row="1">
@@ -191,9 +125,9 @@
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="Icons/Card/Clock Circle.png" Height="16" Width="16"/>
+                                        <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Clock Circle.png" Height="16" Width="16"/>
                                         <Label Grid.Column="1" HorizontalAlignment="Left">
-                                            <TextBlock>
+                                            <TextBlock Style="{StaticResource TextBlockDesign}">
                                                 <Run Text="{Binding Duration}" />
                                                 <Run Text=" hours" />
                                             </TextBlock>
@@ -204,9 +138,9 @@
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="Icons/Card/User.png" Height="16" Width="16"/>
+                                        <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
                                         <Label Grid.Column="1" HorizontalAlignment="Left">
-                                            <TextBlock>
+                                            <TextBlock Style="{StaticResource TextBlockDesign}">
                                                 <Run Text="{Binding Capacity}" />
                                                 <Run Text=" seats" />
                                             </TextBlock>
@@ -218,16 +152,20 @@
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="Icons/Card/Chat Round Line.png" Height="16" Width="16"/>
-                                        <Label Grid.Column="1" Content="{Binding Language}" HorizontalAlignment="Left"/>
+                                        <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
+                                        <Label Grid.Column="1" Content="{Binding Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}"/>
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Label Grid.Row="1" Content="{Binding Name}" HorizontalAlignment="Left" FontSize="20" Margin="10,0,0,0"/>
+                            <Label Grid.Row="1" Content="{Binding Name}" HorizontalAlignment="Left" FontSize="20" Margin="10,0,0,0" FontWeight="SemiBold" Style="{StaticResource LabelDesign}"/>
                             <Label Grid.Row="2">
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="10,0,10,0" MaxHeight="50"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="10,0,10,0" MaxHeight="50" Style="{StaticResource TextBlockDesign}"/>
                             </Label>
-                            <Button Grid.Row="3" Content="View More" Command="{Binding DataContext.ViewMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Height="34" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15"/>
+                            <Button Grid.Row="3" Command="{Binding DataContext.ViewMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                                <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
+                                    <TextBlock Text="View More" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </Button>
                         </Grid>
                     </Border>
                 </DataTemplate>

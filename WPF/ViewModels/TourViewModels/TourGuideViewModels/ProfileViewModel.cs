@@ -62,11 +62,15 @@ namespace BookingApp.WPF.ViewModels
         }
         private void InitializeComboBox()
         {
-            TourRealisation first = tourRealisationService.GetFirstTourRealisationMadeByUser(LoggedInUser);
-            TourRealisation last = tourRealisationService.GetLastTourRealisationMadeByUser(LoggedInUser);
             Date.Add("All Time");
-            for (int i = last.StartTime.Year; i >= first.StartTime.Year; i--)
-                Date.Add(i.ToString());
+
+            var uniqueYears = tourRealisationService.GetAllTourRealisations()
+                .SelectMany(realisation => new[] { realisation.StartTime.Year })
+                .Distinct();
+            foreach (var year in uniqueYears)
+            {
+                Date.Add(year.ToString());
+            }
         }
 
     }

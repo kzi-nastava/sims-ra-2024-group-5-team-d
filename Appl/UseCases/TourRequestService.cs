@@ -55,23 +55,6 @@ namespace BookingApp.Appl.UseCases
         {
             return _repository.GetRequestsForTourist(tourist);
         }
-        public TourRequest GetFirstTourRequest()
-        {
-            List<TourRequest> tourRequests = _repository.GetAll().ToList();
-
-            return tourRequests
-                .Where(x => tourReservationService.GetById(x.TourReservationId).TourRealisationId != -1)
-                .MinBy(x => tourRealisationService.GetById(tourReservationService.GetById(x.TourReservationId).TourRealisationId).StartTime);
-        }
-
-        public TourRequest GetLastTourRequest()
-        {
-            List<TourRequest> tourRequests = _repository.GetAll().ToList();
-
-            return tourRequests
-                .Where(x => tourReservationService.GetById(x.TourReservationId).TourRealisationId != -1)
-                .MaxBy(x => tourRealisationService.GetById(tourReservationService.GetById(x.TourReservationId).TourRealisationId).StartTime);
-        }
         public int GetRequestsInAYear(int year, int LanguageId, int LocationId)
         {
             if(LocationId != 10)

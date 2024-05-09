@@ -13,6 +13,14 @@
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="Label" x:Key="LabelDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="40,15,40,0">
@@ -27,8 +35,8 @@
             </Grid.RowDefinitions>
             <Button Grid.Row="0" HorizontalAlignment="Left" Command="{Binding BackCommand}" Background="Transparent" BorderBrush="Transparent">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
-                    <Label Content="Back" Margin="5,0,0,0" />
+                    <Image Source="/../../../Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
+                    <Label Content="Back" Margin="5,0,0,0" Style="{StaticResource LabelDesign}" />
                 </StackPanel>
             </Button>
             <!-- Popover Content -->
@@ -63,19 +71,29 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Map Point Add.png" Height="16" Width="16"/>
-                <Label Grid.Column="1" Content="{Binding SelectedTour.Location}" HorizontalAlignment="Left"/>
+                <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Map Point.png" Height="16" Width="16"/>
+                <Label Grid.Column="1" Content="{Binding SelectedTour.Location}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}" Margin="0 0 20 0"/>
                 <Image Grid.Column="2" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Clock Circle.png" Height="16" Width="16"/>
-                <Label Grid.Column="3" Content="{Binding SelectedTour.Duration}" HorizontalAlignment="Left"/>
-                <Image Grid.Column="4" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
-                <Label Grid.Column="5" Content="{Binding SelectedTour.Capacity}" HorizontalAlignment="Left"/>
-                <Image Grid.Column="6" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
-                <Label Grid.Column="7" Content="{Binding SelectedTour.Language}" HorizontalAlignment="Left"/>
+                <Label Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 20 0">
+                    <TextBlock Style="{StaticResource TextBlockDesign}">
+                        <Run Text="{Binding SelectedTour.Duration}" />
+                        <Run Text=" hours" />
+                    </TextBlock>
+                </Label>
+                <Image Grid.Column="4" Source="/../../../Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
+                <Label Grid.Column="5" HorizontalAlignment="Left" Margin="0 0 20 0">
+                    <TextBlock Style="{StaticResource TextBlockDesign}">
+                        <Run Text="{Binding SelectedTour.Capacity}" />
+                        <Run Text=" seats" />
+                    </TextBlock>
+                </Label>
+                <Image Grid.Column="6" Source="/../../../Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
+                <Label Grid.Column="7" Content="{Binding SelectedTour.Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}" Margin="0 0 20 0"/>
             </Grid>
-            <Label Grid.Row="3" Content="{Binding SelectedTour.Name}" FontSize="35" FontWeight="SemiBold" Margin="0,20,0,0"/>
-            <TextBlock Grid.Row="4" Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" Margin="0,10,0,30"/>
-            <TextBlock Grid.Row="5" Text="Rewiews" HorizontalAlignment="Left" FontSize="20" FontWeight="SemiBold"/>
-            <TextBlock Grid.Row="5" Text="Age Statistics" HorizontalAlignment="Right" Margin="0,0,130,0" FontSize="20" FontWeight="SemiBold"/>
+            <Label Grid.Row="3" Content="{Binding SelectedTour.Name}" FontSize="35" FontWeight="SemiBold" Margin="0,20,0,0" Style="{StaticResource LabelDesign}"/>
+            <TextBlock Grid.Row="4" Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" Margin="0,10,0,30" Style="{StaticResource TextBlockDesign}"/>
+            <TextBlock Grid.Row="5" Text="Rewiews" HorizontalAlignment="Left" FontSize="20" FontWeight="SemiBold" Style="{StaticResource TextBlockDesign}"/>
+            <TextBlock Grid.Row="5" Text="Age Statistics" HorizontalAlignment="Right" Margin="0,0,120,0" FontSize="20" FontWeight="SemiBold" Style="{StaticResource TextBlockDesign}"/>
             <Grid Grid.Row="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -87,6 +105,7 @@
                       Grid.Column="0" 
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       SelectedItem="{Binding SelectedRating}"
+                      Margin="0 10 0 0"
                       >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
@@ -101,7 +120,7 @@
                     
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border Height="180" Width="550" BorderThickness="2" BorderBrush="Black" CornerRadius="15" Margin="0,10,30,0">
+                            <Border Height="auto" Width="580" BorderThickness="0" Background="{StaticResource WhiteWhite}" CornerRadius="15" >
                                 <Grid Margin="15">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
@@ -110,31 +129,31 @@
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Image Grid.Row="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\User Circle.png" Height="30" Width="30" HorizontalAlignment="Left" Grid.RowSpan="2"/>
-                                    <TextBlock Grid.Row="0" Margin="35,0,0,0">
+                                    <Image Grid.Row="0" Source="/../../../Resources\Images\GuideImages\User.png" Height="30" Width="30" HorizontalAlignment="Left" Grid.RowSpan="2"/>
+                                    <TextBlock Grid.Row="0" Margin="35,0,0,0" Style="{StaticResource TextBlockDesign}">
                                         <Run Text="{Binding FullName}"/>
                                         <Run Text=","/>
                                         <Run Text="{Binding Age}"/>
                                     </TextBlock>
 
-                                    <TextBlock Grid.Row="1" Margin="35,0,0,0">
+                                    <TextBlock Grid.Row="1" Margin="35,0,0,0" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource PrimaryBlack2}">
                                         <Run Text="Joined:"/>
                                         <Run Text="{Binding JoinedOn}"/>
                                     </TextBlock>
-                                    <TextBlock Grid.Row="0" Text="{Binding TourRealisationStartTime}" Margin="375,0,0,0"/>
-                                    <TextBlock Grid.Row="2" Text="Language" Margin="0,10,0,0" />
-                                    <TextBlock Grid.Row="2" Text="{Binding LanguageRate}" Margin="80,10,0,0" />
-                                    <TextBlock Grid.Row="3" Text="Knowledge" />
-                                    <TextBlock Grid.Row="3" Text="{Binding KnowledgeRate}" Margin="80,0,0,0" />
-                                    <TextBlock Grid.Row="4" Text="Amusement" />
-                                    <TextBlock Grid.Row="4" Text="{Binding AmusementRate}" Margin="80,0,0,0" />
-                                    <TextBlock Grid.Row="5" Text="{Binding Comment}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                                    <Button Grid.Row="6" Width="40" BorderThickness="0" Background="Transparent" HorizontalAlignment="Right" Command="{Binding DataContext.ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                    <TextBlock Grid.Row="0" Text="{Binding TourRealisationStartTime}" HorizontalAlignment="Right" Style="{StaticResource TextBlockDesign}"/>
+                                    <TextBlock Grid.Row="2" Text="Language" Margin="0,15,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <TextBlock Grid.Row="2" Text="{Binding LanguageRate}" Margin="80,15,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <TextBlock Grid.Row="3" Text="Knowledge" Margin="0,4,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <TextBlock Grid.Row="3" Text="{Binding KnowledgeRate}" Margin="80,4,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <TextBlock Grid.Row="4" Text="Amusement" Margin="0,4,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <TextBlock Grid.Row="4" Text="{Binding AmusementRate}" Margin="80,4,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <TextBlock Grid.Row="5" Text="{Binding Comment}" TextWrapping="Wrap" Margin="0,15,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <Button Grid.Row="6" Width="40" BorderThickness="0" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding DataContext.ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                         <Grid>
-                                            <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Flag.png" Height="20" Width="20" HorizontalAlignment="Right" />
-                                            <Image Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\RedFlag.png" Height="20" Width="20" HorizontalAlignment="Right" Visibility="{Binding IsNotValid,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <Image Source="/../../../Resources\Images\GuideImages\Flag.png" Height="20" Width="20" HorizontalAlignment="Right" />
+                                            <Image Source="/../../../Resources\Images\GuideImages\RedFlag.png" Height="20" Width="20" HorizontalAlignment="Right" Visibility="{Binding IsNotValid,Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         </Grid>
                                     </Button>
                                 </Grid>
@@ -142,8 +161,8 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <TextBlock Grid.Row="6" Grid.Column="1" Margin="68,74,0,0" Text="{Binding Sum}" FontSize="39"/>
-                <lvc:PieChart Grid.Row="6" Grid.Column="1" LegendLocation="Right" VerticalAlignment="Top" Height="200" InnerRadius="50" Series="{Binding AgeStatistics}">
+                <!--<TextBlock Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Sum}" Margin="-70 0 0 0" FontSize="39" Style="{StaticResource TextBlockDesign}"/>-->
+                <lvc:PieChart Grid.Row="6" Grid.Column="1" LegendLocation="Right" VerticalAlignment="Top" Height="200" InnerRadius="45" Series="{Binding AgeStatistics}">
                 </lvc:PieChart>
 
             </Grid>
