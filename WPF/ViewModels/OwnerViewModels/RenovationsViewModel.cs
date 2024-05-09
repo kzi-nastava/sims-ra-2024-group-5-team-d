@@ -31,7 +31,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             foreach (AccommodationRenovation renovation in renovations)
             {
                 Accommodation accommodation=accommodationService.GetById(renovation.AccommodationId);
-                Renovations.Add(new RenovationViewModel(renovation.Id,accommodation.Name,accommodation.Type,accommodation.Location,renovation.RenovateFrom,renovation.RenovateTo,accommodation.ImagesPath,accommodation.AverageRating,renovation.IsCancelable(), accommodation.IsSuperOwner));
+                Renovations.Add(new RenovationViewModel(renovation.Id,accommodation.Name,accommodation.Type,accommodation.Location,renovation.RenovateFrom,renovation.RenovateTo,accommodation.ImagesPath,accommodation.AverageRating,renovation.IsCancelable(), accommodation.Owner.IsSuperUser));
             }
         }
         public void CancelRenovation(object parameter)

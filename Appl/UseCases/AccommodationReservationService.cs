@@ -101,5 +101,9 @@ namespace BookingApp.Appl.UseCases
             List<AccommodationReservation> reservations = GetByUser(user).Where(reservation=>reservation.IsFinished()).ToList();
             return reservations.Any(reservation=>accommodationService.GetById(reservation.AccommodationId).Location.Id==location.Id);
         }
+        public int GetNumberOfReservationsLastYear(User user)
+        {
+            return GetByUser(user).Where(reservation=>reservation.IsInLastYear() && !reservation.IsCanceled()).Count();
+        }
     }
 }

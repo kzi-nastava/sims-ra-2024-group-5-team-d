@@ -32,7 +32,8 @@
              VerticalAlignment="Center"
              BorderThickness="0" 
              HorizontalAlignment="Left"
-             Grid.Column="0">
+             Grid.Column="0"
+             Command="{Binding BackCommand}">
             <Border  Background="Transparent"
                       CornerRadius="2"
                        Height="25" 

@@ -110,7 +110,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         public ObservableCollection<KeyValuePair<DateTime, DateTime>> AvailableDates { get; set; }
         public KeyValuePair<DateTime, DateTime> SelectedDate { get; set; }
         private AvailableDatesForReservationService AvailableDatesForReservationService;
-
+        private readonly SuperUserService superUserService;
         public AddReservationAccommodationUserControl(User user, AccommodationViewModel selectedAccommmodation)
         {
 
@@ -120,6 +120,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             AvailableDatesForReservationService = new AvailableDatesForReservationService();
             AvailableDates = new ObservableCollection<KeyValuePair<DateTime, DateTime>>();
             Accommodation = selectedAccommmodation;
+            superUserService = new SuperUserService();
             DataContext = this;
             InitializeComponent();
 
@@ -187,6 +188,10 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             AccommodationReservation newReservation = new AccommodationReservation(Accommodation.Id, LoggedInUser.Id, SelectedDate.Key, SelectedDate.Value,numberOfPeople);
             AccommodationReservation savedAccommodation = _reservationService.Save(newReservation);
+            if (LoggedInUser.IsSuper())
+            {
+                superUserService.IsDiscountUsed(LoggedInUser);
+            }
             //Close(); ???????????????????????????????????????/ da me vrati na search prozor
             GuestWindow.contentControl.Content = new AccommodationUserControl(LoggedInUser, Accommodation);
         }

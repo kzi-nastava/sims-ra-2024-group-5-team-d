@@ -14,27 +14,11 @@ namespace BookingApp.Appl.UseCases
     public class AccommodationService
     {
         private IAccommodationRepository accommodationRepository;
+        private UserService userService;
         public AccommodationService() 
         {
+            userService = new UserService();
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
-        }
-        public bool IsSuperOwner(User user)
-        {
-            return accommodationRepository.GetByUser(user).Any(accommodation => accommodation.IsSuperOwner);
-        }
-        public void UpgradeToSuperOwner(User user)
-        {
-                accommodationRepository.GetByUser(user).ForEach(accommodation =>{ accommodation.IsSuperOwner = true;accommodationRepository.Update(accommodation); });
-        }
-        public void DowngradeFromSuperOwner(User user)
-        {
-            accommodationRepository.GetByUser(user).ForEach(accommodation => { accommodation.IsSuperOwner = false; accommodationRepository.Update(accommodation); });
-        }
-        public void UpdateOwnerStatus(double averageOwnerRating,User owner) {
-            if (averageOwnerRating >= 4.5 && !IsSuperOwner(owner))
-                UpgradeToSuperOwner(owner);
-            else if (averageOwnerRating < 4.5 && IsSuperOwner(owner))
-                DowngradeFromSuperOwner(owner);
         }
         public List<Accommodation>GetAllAccommodationOnSameLocation(Location location)
         {
@@ -47,7 +31,9 @@ namespace BookingApp.Appl.UseCases
         }
         public List<Accommodation> GetAll()
         {
-            return accommodationRepository.GetAll();
+            List<Accommodation>accommodations=accommodationRepository.GetAll();
+            accommodations.ForEach(accommodation => accommodation.Owner = userService.GetById(accommodation.Owner.Id));
+            return accommodations;
         }
         public Accommodation Save(Accommodation accommodation)
         {
@@ -63,11 +49,15 @@ namespace BookingApp.Appl.UseCases
         }
         public Accommodation GetById(int id)
         {
-            return accommodationRepository.GetById(id);
+            Accommodation accommodation = accommodationRepository.GetById(id);
+            accommodation.Owner=userService.GetById(accommodation.Owner.Id);
+            return accommodation;
         }
         public List<Accommodation> GetByUser(User user)
         {
-            return accommodationRepository.GetByUser(user);
+            List<Accommodation> accommodations = accommodationRepository.GetByUser(user);
+            accommodations.ForEach(accommodation => accommodation.Owner = userService.GetById(accommodation.Owner.Id));
+            return accommodations;
         }
         public string GetAccommodationNameById(int accommodationId)
         {
