@@ -104,8 +104,9 @@ namespace BookingApp.WPF.Views.GuestWindows
         }
         public ObservableCollection<AccommodationViewModel> Accommodations { get; set; }
         public User LoggedInUser { get; set; }
-        private readonly AccommodationRepository _repository;
-
+        private readonly AccommodationService accommodationService;
+        private readonly SuperGuestService superGuestService;
+        private readonly NotifierService notifierService;
         private readonly SearchAccommodationService SearchService;
         private AccommodationRatingService accommodationRatingService;
         private readonly ContentControl contentControl;
@@ -117,21 +118,32 @@ namespace BookingApp.WPF.Views.GuestWindows
             LoggedInUser = user;
             DataContext = this;
             SearchService = new SearchAccommodationService();
-            _repository = new AccommodationRepository();
+            accommodationService = new AccommodationService();
             accommodationRatingService = new AccommodationRatingService();
             Accommodations = new ObservableCollection<AccommodationViewModel>();
-            accommodations = _repository.GetAll();
-            accommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
-            accommodations.ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity, a.IsSuperOwner, a.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(a))));
+            superGuestService = new SuperGuestService();
+            notifierService = new NotifierService();
+            accommodations = accommodationService.GetAll();
+            SortAccommodation();
+            accommodations.ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity, a.Owner.IsSuperUser, a.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(a))));
             this.contentControl = contentControl;
-            
+            bool IsUpdated = superGuestService.UpdateUserStatus(LoggedInUser);
+            if(IsUpdated)
+            {
+                if(LoggedInUser.IsSuper())
+                {
+                    notifierService.ShowSuccess("Congratulations you have become super guest!");
+                }
+                else
+                notifierService.ShowWarning("You have been demoted from super guest!");
+            }
         }
         private void SearchAccommodation(object sender, RoutedEventArgs e)
         {
             Accommodations.Clear();
             accommodations = SearchService.GetSearchedAccommodation(accommodationName, accommodationType, locationId, numberOfPeople, numberOfDays);
-            accommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
-            accommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type, accommodation.ImagesPath, accommodation.MinStay, accommodation.Capacity, accommodation.IsSuperOwner, accommodation.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
+            SortAccommodation();
+            accommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type, accommodation.ImagesPath, accommodation.MinStay, accommodation.Capacity, accommodation.Owner.IsSuperUser, accommodation.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
 
         }
 
@@ -147,8 +159,27 @@ namespace BookingApp.WPF.Views.GuestWindows
         private void AnytimeAnywhereSearch_Click(object sender, RoutedEventArgs e)
         {
             Accommodations.Clear();
-            accommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
+            SortAccommodation();
 
+        }
+        private void SortAccommodation()
+        {
+            accommodations.Sort((x, y) =>
+            {
+                // Provera za x.Owner.IsSuperUser
+                if (x.Owner.IsSuperUser == true && y.Owner.IsSuperUser == false)
+                {
+                    return -1; // x ispred y
+                }
+                else if (x.Owner.IsSuperUser == false && y.Owner.IsSuperUser == true)
+                {
+                    return 1; // y ispred x
+                }
+                else
+                {
+                    return 0; // Oba su true, ne menjamo redosled
+                }
+            });
         }
     }
 }

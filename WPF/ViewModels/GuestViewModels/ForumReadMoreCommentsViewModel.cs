@@ -2,6 +2,7 @@
 using BookingApp.Domain.Models;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.ViewModels.OwnerViewModels;
+using BookingApp.WPF.Views.GuestWindows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
     {
 
         public ICommand AddCommentGuestCommand { get; set; }
+        public ICommand BackCommand { get; set; }
         public int ForumId { get; set; }
         public ForumViewModel Forum { get; set; }
         private ForumService forumService;
@@ -38,7 +40,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             });
 
             AddCommentGuestCommand = new RelayCommand(AddCommentGuest);
-
+            BackCommand = new RelayCommand(BackPage);
         }
 
         public void AddCommentGuest()
@@ -46,6 +48,10 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ForumComment comment = new ForumComment(forumId, loggedInUser.Id, Comment, DateTime.Now);
             comment = forumCommentService.Save(comment);
             Comments.Add(new ForumCommentViewModel(comment, "Kuca", loggedInUser));
+        }
+        public void BackPage()
+        {
+                GuestWindow.contentControl.Content = new InboxAccommodationUserControl(loggedInUser);
         }
     }
 }

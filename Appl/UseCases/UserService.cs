@@ -18,6 +18,29 @@ namespace BookingApp.Appl.UseCases
             userRepository = Injector.CreateInstance<IUserRepository>();
 
         }
+        public void DemoteUser(User user)
+        {
+            User found = GetById(user.Id);
+            if (found.IsSuperUser == true)
+            {
+                found.IsSuperUser = false;
+                Update(found);
+            }
+        }
+        public void PromoteUser(User user)
+        {
+            User found = GetById(user.Id);
+            if (found.IsSuperUser == false)
+            {
+                found.IsSuperUser = true;
+                Update(found);
+            }
+        }
+        public bool IsSuperOwner(User user)
+        {
+            User found=GetById(user.Id);
+            return found.IsSuper()&& found.IsOwner();
+        }
         public List<User> GetUsersWithSameMacAdress(string macAdress)
         {
             return userRepository.GetAll().Where(user=>user.MacAddress==macAdress).ToList();
@@ -43,5 +66,10 @@ namespace BookingApp.Appl.UseCases
             int age = DateTime.Today.Year - dateTime.Year;
             return age;
         }
+        public User Update(User user)
+        {
+            return userRepository.Update(user);
+        }
+
     }
 }

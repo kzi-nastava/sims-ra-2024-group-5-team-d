@@ -14,5 +14,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public User Save(User user);
         public string GetFullNameById(int id);
         public List<User> GetAll();
+        public User Update(User user);
     }
 }

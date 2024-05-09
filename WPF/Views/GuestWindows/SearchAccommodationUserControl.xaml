@@ -242,7 +242,7 @@
                         </ComboBox>
 
                         <Border BorderThickness="0,0,0,2" 
-                  BorderBrush="{StaticResource PrimaryColor2}"
+                  BorderBrush="{StaticResource PrimaryColor}"
                   Grid.Column="0"
                   Grid.Row="4"
                   Grid.ColumnSpan="3"
@@ -261,7 +261,7 @@
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3">
                             <Border  Background="DarkOrange"
-                                             CornerRadius="2"
+                                             CornerRadius="5"
                                               Height="25" Width="124">
                                 <TextBlock  Text="Search"
                                             Margin="20 0 20 0" 
@@ -430,135 +430,152 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
-                    <Grid Width="240" 
+                    <Border Width="240" 
+                        Height="180"
                         Margin="80,20,80,20"
+                        BorderThickness="2"
+                        CornerRadius="10"
                         Grid.Column="0"
                         Grid.Row="0"
-                        Grid.ColumnSpan="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Rectangle Width="240"
-                 Height="180"
-                 Stroke="Black"
-                 StrokeThickness="2"
-                 RadiusX="10"
-                 RadiusY="10"  
-                 VerticalAlignment="Top"
-                 HorizontalAlignment="Center" 
-                 Grid.Column="0"
-                 Grid.Row="0"
-                 Grid.ColumnSpan="3"
-                 Grid.RowSpan="5"/>
+                        Grid.ColumnSpan="4"
+                        BorderBrush="{StaticResource PrimaryColor}"
+                        Background="{StaticResource PrimaryBlack}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
 
-                        <Image Source="../../../Resources/Images/GuestImages/PersonIcon.png"
-                      Grid.Column="0"
-                      Grid.Row="0"
-                      Width="22"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Center" 
-                      Margin="10,0,0,0"/>
-                        <Label Content="Number of people"
-                      Height="24"
-                      FontSize="11" 
-                      Grid.Row="0"
-                      Grid.ColumnSpan="2"
-                      HorizontalAlignment="Left" Margin="34,10,0,10"/>
-                        <TextBox Grid.Column="1"
-                      Grid.ColumnSpan="2"
-                      Grid.Row="0"
-                      Height="25" 
-                      Margin="58,10,10,10" />
-                        <Border BorderThickness="0,0,0,2" 
-                       BorderBrush="Black"
-                       Grid.Column="0"
-                       Grid.Row="0"
-                       Grid.ColumnSpan="3"
-                       VerticalAlignment="Bottom">
-                        </Border>
+                            <Image Source="../../../Resources/Images/GuestImages/people.png"
+                                      Grid.Column="0"
+                                      Grid.Row="0"
+                                      Width="22"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Center" 
+                                      Margin="10,0,0,0"/>
+                            <Label Content="Number of people"
+                                  Height="24"
+                                  FontSize="11" 
+                                  Grid.Row="0"
+                                  Grid.ColumnSpan="2"
+                                  HorizontalAlignment="Left" 
+                                  Margin="34,10,0,10"
+                                  Foreground="{StaticResource WhiteWhite}"/>
+                            <TextBox Grid.Column="1"
+                                  Grid.ColumnSpan="2"
+                                  Grid.Row="0"
+                                  Height="25" 
+                                  Margin="58,10,10,10" />
+                            <Border BorderThickness="0,0,0,2" 
+                                   BorderBrush="{StaticResource PrimaryColor}"
+                                   Grid.Column="0"
+                                   Grid.Row="0"
+                                   Grid.ColumnSpan="3"
+                                   VerticalAlignment="Bottom">
+                            </Border>
 
-                        <Image Source="../../../Resources/Images/GuestImages/DaysIcon.png"
-                      Grid.Column="0"
-                      Grid.Row="1"
-                      Width="22"
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Center" 
-                      Margin="10,0,0,0"/>
-                        <Label Content="Number of days"
-                      Height="24"
-                      FontSize="11" 
-                      Grid.Row="1"
-                      Grid.ColumnSpan="2"
-                      HorizontalAlignment="Center"/>
-                        <TextBox Grid.Column="1"
-                      Grid.ColumnSpan="2"
-                      Grid.Row="1"
-                      Height="25" 
-                      Margin="58,10,10,10" />
-                        <Border BorderThickness="0,0,0,2" 
-                       BorderBrush="Black"
-                       Grid.Column="0"
-                       Grid.Row="1"
-                       Grid.ColumnSpan="3"
-                       VerticalAlignment="Bottom">
-                        </Border>
+                            <Image Source="../../../Resources/Images/GuestImages/clock.png"
+                                  Grid.Column="0"
+                                  Grid.Row="1"
+                                  Width="22"
+                                  HorizontalAlignment="Left" 
+                                  VerticalAlignment="Center" 
+                                  Margin="10,0,0,0"/>
+                            <Label Content="Number of days"
+                                  Height="24"
+                                  FontSize="11" 
+                                  Grid.Row="1"
+                                  Grid.ColumnSpan="2"
+                                  HorizontalAlignment="Center"
+                                  Foreground="{StaticResource WhiteWhite}"/>
+                            <TextBox Grid.Column="1"
+                                  Grid.ColumnSpan="2"
+                                  Grid.Row="1"
+                                  Height="25" 
+                                  Margin="58,10,10,10" />
+                            <Border BorderThickness="0,0,0,2" 
+                                   BorderBrush="{StaticResource PrimaryColor}"
+                                   Grid.Column="0"
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="3"
+                                   VerticalAlignment="Bottom">
+                            </Border>
 
-                        <Image Source="../../../Resources/Images/GuestImages/CalendarIcon.png"
-                 Grid.Column="0"
-                 Grid.Row="2"
-                 Width="22" 
-                 Height="22"
-                 HorizontalAlignment="Left"
-                 Margin="10,0,0,0"/>
-                        <Label Content="From:"
-                      Height="24"
-                      FontSize="11" 
-                      Grid.Row="2" Width="42" Margin="34,10,4,10"/>
-                        <DatePicker Grid.Row="2"
-                      Grid.Column="1"
-                      Height="25" 
-                      Margin="1,9,0,10" 
-                      HorizontalAlignment="Left"
-                      Width="30"/>
-                        <Label Content="To:"
-                      Height="24"
-                      FontSize="11" 
-                      Grid.Row="2"
-                      Grid.Column="1"
-                      HorizontalAlignment="Left" 
-                      Margin="54,0,0,0"
-                      VerticalAlignment="Center"/>
-                        <DatePicker Grid.Row="2"
-                      Grid.Column="2"
-                      Height="25" Margin="9,9,0,10" 
-                      HorizontalAlignment="Left" 
-                      Width="32"/>
-                        <Border BorderThickness="0,0,0,2" 
-                 BorderBrush="Black"
-                 Grid.Column="0"
-                 Grid.Row="2"
-                 Grid.ColumnSpan="3"
-                 VerticalAlignment="Bottom">
-                        </Border>
+                            <Image Source="../../../Resources/Images/GuestImages/calendar.png"
+                                 Grid.Column="0"
+                                 Grid.Row="2"
+                                 Width="22" 
+                                 Height="22"
+                                 HorizontalAlignment="Left"
+                                 Margin="10,0,0,0"/>
+                            <Label Content="From:"
+                                  Height="24"
+                                  FontSize="11" 
+                                  Grid.Row="2" 
+                                   Width="42" 
+                                   Margin="34,10,4,10"
+                                   Foreground="{StaticResource WhiteWhite}"/>
+                            <DatePicker Grid.Row="2"
+                                  Grid.Column="1"
+                                  Height="25" 
+                                  Margin="1,9,0,10" 
+                                  HorizontalAlignment="Left"
+                                  Width="30"/>
+                            <Label Content="To:"
+                                  Height="24"
+                                  FontSize="11" 
+                                  Grid.Row="2"
+                                  Grid.Column="1"
+                                  HorizontalAlignment="Left" 
+                                  Margin="54,0,0,0"
+                                  VerticalAlignment="Center"
+                                  Foreground="{StaticResource WhiteWhite}"/>
+                            <DatePicker Grid.Row="2"
+                                  Grid.Column="2"
+                                  Height="25" Margin="9,9,0,10" 
+                                  HorizontalAlignment="Left" 
+                                  Width="32"/>
+                            <Border BorderThickness="0,0,0,2" 
+                                 BorderBrush="{StaticResource PrimaryColor}"
+                                 Grid.Column="0"
+                                 Grid.Row="2"
+                                 Grid.ColumnSpan="3"
+                                 VerticalAlignment="Bottom">
+                            </Border>
 
-                        <Button Content="Search"
-                             Grid.Column="1" 
-                             Grid.Row="3"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             Width="60"
-                             Click="AnytimeAnywhereSearch_Click" Margin="0,8.5,0,8.5"/>
-                    </Grid>
+                            <Button Grid.Row="3"
+                                     FontSize="20" 
+                                     Background="Transparent"
+                                        Grid.Column="0" 
+                                        Grid.ColumnSpan="3"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Width="auto"
+                                        Height="auto"
+                                        Click="AnytimeAnywhereSearch_Click" >
+                                <Border  Background="DarkOrange"
+                                          CornerRadius="5"
+                                           Height="25" Width="auto">
+                                    <TextBlock  Text="Search"
+                                             Margin="20 0 20 0" 
+                                             Foreground="{StaticResource  WhiteGrey}" 
+                                             FontWeight="Bold" 
+                                             FontSize="14" 
+                                             HorizontalAlignment="Center" 
+                                             VerticalAlignment="Center"/>
+                                </Border>
+                            </Button>
+
+                        </Grid>
+                    </Border>
                     <ListView BorderThickness="0" 
                             Background="{StaticResource PrimaryBlack3}"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"

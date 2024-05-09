@@ -26,17 +26,15 @@ namespace BookingApp.Domain.Models
         public int CancellationDeadline { get; set; }
         public string ImagesPath { get; set; }
         public double AverageRating { get; set; }
-        public bool IsSuperOwner { get; set; }
         public User Owner { get; set; }
 
         public Accommodation()
         {
         }
 
-        public Accommodation(string name, Location location, TYPE type, int minStay, int cancellationDeadline, int capacity, string imagesPath, User owner,bool isSuperOwner)
+        public Accommodation(string name, Location location, TYPE type, int minStay, int cancellationDeadline, int capacity, string imagesPath, User owner)
         {
             AverageRating = 0;
-            IsSuperOwner = isSuperOwner;
             Name = name;
             Location = location;
             Type = type;
@@ -49,7 +47,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Location.Id.ToString(), Type.ToString(), Capacity.ToString(), MinStay.ToString(), CancellationDeadline.ToString(), ImagesPath, Owner.Id.ToString(),AverageRating.ToString(),IsSuperOwner.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Location.Id.ToString(), Type.ToString(), Capacity.ToString(), MinStay.ToString(), CancellationDeadline.ToString(), ImagesPath, Owner.Id.ToString(),AverageRating.ToString() };
             return csvValues;
         }
 
@@ -65,7 +63,6 @@ namespace BookingApp.Domain.Models
             ImagesPath = values[7];
             Owner = new User() { Id = Convert.ToInt32(values[8]) };
             AverageRating = Convert.ToDouble(values[9]);
-            IsSuperOwner = Convert.ToBoolean(values[10]);
         }
     }
 

@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,7 +45,7 @@ namespace BookingApp.Repositories
         public void Delete(Notification notification)
         {
             _notifications = _serializer.FromCSV(FilePath);
-            Notification founded = _notifications.Find(notification => notification.Id == notification.Id);
+            Notification founded = _notifications.Find(notf => notf.Id == notification.Id);
             _notifications.Remove(founded);
             _serializer.ToCSV(FilePath, _notifications);
         }

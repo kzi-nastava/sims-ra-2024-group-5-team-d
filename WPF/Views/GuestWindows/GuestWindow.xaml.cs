@@ -39,8 +39,8 @@ namespace BookingApp.WPF.Views.GuestWindows
             DataContext = this;
             contentControl = ContentControl;
             notificationsService = new NotificationsService();
-            contentControl.Content = new SearchAccommodationUserControl(user, contentControl);
             NumberOfNotifications = notificationsService.GetNumberOfUnreadNotificationsForUser(LoggedInUser);
+            contentControl.Content = new SearchAccommodationUserControl(user, contentControl);
 
         }
         private void TravelBagIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -61,6 +61,11 @@ namespace BookingApp.WPF.Views.GuestWindows
         private void ProfileIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             contentControl.Content = new ProfileUserControl(LoggedInUser);
+        }
+
+        private void ForumOpen_Button(object sender, MouseButtonEventArgs e)
+        {
+            contentControl.Content = new ForumUserControl(LoggedInUser);
         }
     }
 }

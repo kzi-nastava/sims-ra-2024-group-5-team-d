@@ -15,7 +15,8 @@ namespace BookingApp.Domain.Models
         RATE,
         FORUM,
         NEWTOUR,
-        TOURREQUEST
+        TOURREQUEST,
+        VOUCHER
     }
     public class Notification :ISerializable
     {
@@ -49,7 +50,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(),ReceiverId.ToString(),LinkId.ToString(), Type.ToString(), DateCreated.ToString("M/d/yyyy h:mm:ss tt"), IsRead.ToString() };
+            return new string[] { Id.ToString(),ReceiverId.ToString(),LinkId.ToString(), Type.ToString(), DateCreated.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), IsRead.ToString() };
         }
 
         public void FromCSV(string[] values)

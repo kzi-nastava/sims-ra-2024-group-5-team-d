@@ -29,8 +29,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             accommodationRatingService = new AccommodationRatingService();
             Accommodations = new ObservableCollection<AccommodationViewModel>();
             List<Accommodation> ownerAccommodations = accommodationService.GetByUser(user);
-            ownerAccommodations.Sort((x, y) => y.IsSuperOwner.CompareTo(x.IsSuperOwner));
-            ownerAccommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type, accommodation.ImagesPath, accommodation.IsSuperOwner, accommodation.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
+            ownerAccommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type, accommodation.ImagesPath, accommodation.Owner.IsSuperUser, accommodation.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
             RenovateCommand = new RelayParameterCommand(Renovate);
             ShowStatsCommand = new RelayParameterCommand(ShowStats);
         }
