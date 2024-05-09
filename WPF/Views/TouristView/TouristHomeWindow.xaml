@@ -37,16 +37,10 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"
-                           Text="LIMiT"
-                           FontFamily="Verdana"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontSize="38"/>
-                <Image Source="C:\Users\Korisnik\Desktop\ikone\limit.png"
+                <Image Source="C:\Users\Korisnik\Desktop\ikone\logo.png"
                        Grid.Column="1"
-                       Height="32"
-                       Width="32"
+                       Height="120"
+                       Width="120"
                        VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Column="1"
@@ -150,6 +144,14 @@
                         FontWeight="DemiBold"
                         Margin="400 0 0 0"
                         Click="YourTours_Click">
+
+                </Button>
+                <Button Width="150"
+                        Height="30"
+                        Content="Notifications"
+                        FontWeight="DemiBold"
+                        Margin="800 0 0 0"
+                        Click="Notifications_Click">
 
                 </Button>
             </Grid>

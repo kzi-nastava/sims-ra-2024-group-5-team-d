@@ -74,46 +74,49 @@
                         Orientation="Horizontal"
                         Margin="0 0 0 0"
                         HorizontalAlignment="Left">
-                    <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                    <Image Source="{Binding SelectedTour.Star1Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="8 0 0 0"/>
-                    <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                    <Image Source="{Binding SelectedTour.Star2Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"  
                                                Grid.Column="2"
                                                Margin="0 0 0 0"/>
-                    <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                    <Image Source="{Binding SelectedTour.Star3Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="0 0 0 0"/>
-                    <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                    <Image Source="{Binding SelectedTour.Star4Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="0 0 0 0"/>
-                    <Image Source="C:\Users\Korisnik\Desktop\ikone\half_star.png"
+                    <Image Source="{Binding SelectedTour.Star5Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="2"
                                                Margin="0 0 0 0"/>
-                    <Label Margin="0 -3 0 0"
+                    <TextBlock Margin="5 0 0 0"
                                                Grid.Row="0"
                                                FontSize="10"
                                                FontFamily="Verdana"
-                                               Content="69 votes"/>
+                                               Width="500">
+                                                <Run Text="{Binding SelectedTour.NumberOfVotes}"></Run>
+                                                <Run Text="vote(s)"></Run>
+                    </TextBlock>
                 </StackPanel>
             </StackPanel>
             <Grid Grid.Row="2" Margin="23 -5 0 0">

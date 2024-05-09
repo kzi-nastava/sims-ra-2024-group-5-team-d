@@ -27,7 +27,7 @@ namespace BookingApp.WPF.Views.TouristView
 
         User User { get; set; }
 
-        private NotifierService notifier;
+        //private NotifierService notifier;
        
         public TouristHomeWindow(User user)
         {
@@ -37,8 +37,8 @@ namespace BookingApp.WPF.Views.TouristView
             contentControl = contentControl1;
             contentControl.Content = new TouristHomeUserControl(user);
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            notifier = new NotifierService();
-            notifier.ShowInformation("You have been added to a tour!");
+            //notifier = new NotifierService();
+            //notifier.ShowInformation("You have been added to a tour!");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -54,6 +54,11 @@ namespace BookingApp.WPF.Views.TouristView
         private void Requests_Click(object sender, RoutedEventArgs e)
         {
             contentControl.Content = new YourRequestsUserControl(User);
+        }
+
+        private void Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new NotificationsUserControl(User);
         }
     }
 }

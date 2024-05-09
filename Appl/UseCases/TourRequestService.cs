@@ -16,11 +16,15 @@ namespace BookingApp.Appl.UseCases
         private ITourRequestRepository _repository;
         private TourRealisationService tourRealisationService;
         private TourReservationService tourReservationService;
+        private TourGuestService tourGuestService;
+        private UserService userService;
         public TourRequestService()
         {
             _repository = Injector.CreateInstance<ITourRequestRepository>();
             tourRealisationService = new TourRealisationService();
             tourReservationService = new TourReservationService();
+            tourGuestService = new TourGuestService();
+            userService = new UserService();
         }
         public List<TourRequest> GetAll()
         {
@@ -93,6 +97,101 @@ namespace BookingApp.Appl.UseCases
                     Update(req);
                 }
             });
+        }
+
+        public double AverageNumberOfGuestsOnAcceptedRequests(int year)
+        {
+            int totalNumberOfGuests = 0;
+            int numberOfRequests = 0;
+
+            GetAll().ForEach(req =>
+            {
+                if (req.RangeFrom.Year == year && req.Status == STATE.ACCEPTED)
+                {
+                    tourGuestService.GetAllTourGuests().ForEach(x =>
+                    {
+                        if(x.TourReservationId == req.TourReservationId)
+                        {
+                            totalNumberOfGuests++;
+                        }
+                    });
+                    numberOfRequests++;
+                }
+            });
+
+
+            return (totalNumberOfGuests/(double)numberOfRequests);
+        }
+
+        public double AllTimeAverageNumberOfPeopleOnAcceptedRequests()
+        {
+            int totalNumberOfGuests = 0;
+            int numberOfRequests = 0;
+
+            GetAll().ForEach(req =>
+            {
+                if (req.Status == STATE.ACCEPTED)
+                {
+                    tourGuestService.GetAllTourGuests().ForEach(x =>
+                    {
+                        if (x.TourReservationId == req.TourReservationId)
+                        {
+                            totalNumberOfGuests++;
+                        }
+                    });
+                    numberOfRequests++;
+                }
+            });
+
+
+            return (totalNumberOfGuests / (double)numberOfRequests);
+        }
+
+        public bool IsLocationRequestFulfilled(int locationId, int touristId)
+        {
+            bool anyNotFulfilledRequestsOnGivenLocation = false;
+            bool anyAcceptedRequestOnGivenLocation = false;
+
+            GetAll().ForEach(request =>
+            {
+                if(request.TouristId == touristId)
+                {
+                    if(request.Location.Id == locationId && request.Status != STATE.ACCEPTED)
+                    {
+                        anyNotFulfilledRequestsOnGivenLocation = true;
+                    }
+                    else if (request.Location.Id == locationId && request.Status == STATE.ACCEPTED)
+                    {
+                        anyAcceptedRequestOnGivenLocation = true;
+                    }
+                }
+            });
+
+            return (anyNotFulfilledRequestsOnGivenLocation && !anyAcceptedRequestOnGivenLocation);
+        }
+
+        public bool IsLangaugeRequestFulfilled(LANGUAGE language, int touristId)
+        {
+            bool anyNotFulfilledRequestsOnGivenLanguage = false;
+            bool anyAcceptedRequestOnGivenLanguage = false;
+
+            GetAll().ForEach(request =>
+            {
+                if (request.TouristId == touristId)
+                {
+                    if (request.Language == language && request.Status != STATE.ACCEPTED)
+                    {
+                        anyNotFulfilledRequestsOnGivenLanguage = true;
+                    }
+                    else if (request.Language == language && request.Status == STATE.ACCEPTED)
+                    {
+                        anyAcceptedRequestOnGivenLanguage = true;
+                    }
+                }
+            });
+
+            return (anyNotFulfilledRequestsOnGivenLanguage && !anyAcceptedRequestOnGivenLanguage);
+
         }
     }
 }
