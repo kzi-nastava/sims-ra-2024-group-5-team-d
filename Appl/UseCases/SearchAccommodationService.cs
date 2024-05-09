@@ -55,7 +55,7 @@ namespace BookingApp.Appl.UseCases
                     {
                         foundAccommodation.Add(accommodation);
                     }
-                    else if (availableDatesForReservationService.CheckAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, accommodation).Count() != 0)
+                    else if (availableDatesForReservationService.GetAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, accommodation).Count() != 0)
                     {
                          foundAccommodation.Add(accommodation);
                     }

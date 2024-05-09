@@ -155,7 +155,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             AvailableDates.Clear();
             NotAvailableLabel.Visibility = Visibility.Collapsed;
-            AvailableDatesForReservationService.CheckAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, _repository.GetById(Accommodation.Id)).ForEach(availableDate => AvailableDates.Add(availableDate));
+            AvailableDatesForReservationService.GetAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, _repository.GetById(Accommodation.Id)).ForEach(availableDate => AvailableDates.Add(availableDate));
             if (AvailableDates.Count() != 0)
                 ShowReservationControls();
             else

@@ -69,7 +69,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ReserveCommand = new RelayCommand(ReserveAccommodation);
             CancelCommand = new RelayCommand(Cancel);
 
-            availableDatesForReservationService.CheckAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, accommodationService.GetById(selectedAccommmodation.Id))
+            availableDatesForReservationService.GetAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, accommodationService.GetById(selectedAccommmodation.Id))
                 .ForEach(date =>AvailableDates.Add(date));
             if(AvailableDates.Count()==0)
             {
