@@ -25,21 +25,28 @@ namespace BookingApp.Appl.UseCases
         
         public List<KeyValuePair<DateTime, DateTime>> CheckAvailableDatesInGivenRange(DateTime fromDate,DateTime toDate,int numberOfDays,Accommodation accommodation)
         {
-                List<AccommodationReservation> reservedDatesForAccommodation= reservationRepository.GetByAccommodation(accommodation);
-            List<KeyValuePair<DateTime, DateTime>> AvailableDates=new List<KeyValuePair<DateTime, DateTime>>();
-           reservedDatesForAccommodation =FindReservedDatesInRange(accommodation,reservedDatesForAccommodation,fromDate,toDate);
+            List<AccommodationReservation> reservedDatesForAccommodation = reservationRepository.GetByAccommodation(accommodation);
+            List<KeyValuePair<DateTime, DateTime>> AvailableDates = new List<KeyValuePair<DateTime, DateTime>>();
+            reservedDatesForAccommodation = FindReservedDatesInRange(accommodation, reservedDatesForAccommodation, fromDate, toDate);
             if (reservedDatesForAccommodation.Count != 0)
-                AvailableDates=FindAndShowAvailableDates(fromDate,toDate, reservedDatesForAccommodation,numberOfDays);
+                AvailableDates = FindAndShowAvailableDates(fromDate, toDate, reservedDatesForAccommodation, numberOfDays);
             else
-                AvailableDates=ShowAvailableDates(fromDate, toDate,numberOfDays);
-            List<AccommodationRenovation> renovations= accommodationRenovationService.GetByAccommodation(accommodation);
+                AvailableDates = ShowAvailableDates(fromDate, toDate, numberOfDays);
+            List<AccommodationRenovation> renovations = accommodationRenovationService.GetByAccommodation(accommodation);
+            AvailableDates= RemoveRenovationDates(AvailableDates, renovations);
+            return AvailableDates;
+
+        }
+
+        private List<KeyValuePair<DateTime, DateTime>> RemoveRenovationDates(List<KeyValuePair<DateTime, DateTime>> AvailableDates, List<AccommodationRenovation> renovations)
+        {
             foreach (AccommodationRenovation renovation in renovations)
             {
                 AvailableDates.RemoveAll(pair => renovation.IsInRange(pair.Key, pair.Value));
             }
             return AvailableDates;
-
         }
+
         public List<KeyValuePair<DateTime, DateTime>> FindandShowAvailableDatesForExtendendRange(DateTime fromDate,DateTime toDate, int numberOfDays, Accommodation accommodation)
         {
             List<KeyValuePair<DateTime, DateTime>> AvailableDates = new List<KeyValuePair<DateTime, DateTime>>();
@@ -96,7 +103,6 @@ namespace BookingApp.Appl.UseCases
             reservedDatesForAccommodation = reservationRepository.GetByAccommodation(accommodation);
             reservedDatesForAccommodation.RemoveAll(reservation => reservation.IsOutOfRange(fromDate,toDate) || IsReservationCancelled(reservation));
             reservedDatesForAccommodation.Sort((r1, r2) => r1.ReservedFrom.CompareTo(r2.ReservedFrom));
-            Debug.WriteLine(reservedDatesForAccommodation.Count + "GAAAAAS");
             return reservedDatesForAccommodation;
         }
         private static bool IsReservationCancelled(AccommodationReservation reservation)
