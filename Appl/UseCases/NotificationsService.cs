@@ -22,12 +22,16 @@ namespace BookingApp.Appl.UseCases
         private TourRequestService tourRequestService;
         private TourReservationService tourReservationService;
         private TourGuestService tourGuestService;
+        private ForumService forumService;
+        private GuestRequestService guestRequestService;
         public NotificationsService()
         {
             tourGuestService = new TourGuestService();
             tourReservationService = new TourReservationService();
             tourRequestService = new TourRequestService();
             tourService = new TourService();
+            forumService = new ForumService();
+            guestRequestService = new GuestRequestService();
             tourRealisationService = new TourRealisationService();
             userRepository = Injector.CreateInstance<IUserRepository>();
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
@@ -150,6 +154,12 @@ namespace BookingApp.Appl.UseCases
                     return userRepository.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id);
                 case Domain.Models.Type.NEWTOUR:
                     return userRepository.GetById(tourService.GetById(notification.LinkId).User.Id);
+                case Domain.Models.Type.FORUM:
+                    return userRepository.GetById(forumService.GetById(notification.LinkId).IdUser);
+                case Domain.Models.Type.REQUEST:
+                    return userRepository.GetById(accommodationReservationRepository.GetById(guestRequestService.GetById(notification.LinkId).ReservationId).UserId);
+                case Domain.Models.Type.RATE:
+                    return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
                 default:
                     return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
             }
