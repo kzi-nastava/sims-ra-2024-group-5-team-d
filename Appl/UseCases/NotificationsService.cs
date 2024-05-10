@@ -241,9 +241,26 @@ namespace BookingApp.Appl.UseCases
             Save(new Notification(receiverId, requestId, Domain.Models.Type.TOURREQUEST, DateTime.UtcNow, false));
         }
 
-        public void SendNewTourNotification(int receiverId, int tourId)
+        public void SendNotificationForWantedLocation(Tour tour)
         {
-            Save(new Notification(receiverId, tourId, Domain.Models.Type.NEWTOUR, DateTime.UtcNow, false));
+            foreach(User tourist in userRepository.GetAll())
+            {
+                if(tourist.Type == UserType.Tourist && tourRequestService.IsLocationRequestFulfilled(tour.Location.Id, tourist.Id))
+                {
+                    Save(new Notification(tourist.Id, tour.Id, Domain.Models.Type.NEWTOUR, DateTime.UtcNow, false));
+                }
+            }
+        }
+
+        public void SendNotificationForWantedLanguage(Tour tour)
+        {
+            foreach (User tourist in userRepository.GetAll())
+            {
+                if (tourist.Type == UserType.Tourist && tourRequestService.IsLangaugeRequestFulfilled(tour.Language, tourist.Id))
+                {
+                    Save(new Notification(tourist.Id, tour.Id, Domain.Models.Type.NEWTOUR, DateTime.UtcNow, false));
+                }
+            }
         }
     }
 }

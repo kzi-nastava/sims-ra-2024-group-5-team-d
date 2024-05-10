@@ -49,6 +49,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private TourService tourService;
         private TourRequestService tourRequestService;
         private TourReservationService tourReservationService;
+        private NotificationsService notificationsService;
 
         private int PaginationIndex = 0;
         public bool IsRequest { get; set; }
@@ -68,6 +69,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 MinDate = request.DateFrom;
                 MaxDate = request.DateTo;
                 InitializeFromRequest(request);
+                
             }
             else
             {
@@ -87,7 +89,6 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 tourFormViewModel.LocationId = locationId;
                 IsLocationsStats = true;
                 LocationChanged();
-
             }
             else
             {
@@ -111,6 +112,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourService = new TourService();
             locationService = new LocationService();
             imageUploaderService = new ImageUploaderService();
+            notificationsService = new NotificationsService();
 
             SaveCommand = new RelayCommand(Save);
             LocationChangedCommand = new RelayCommand(LocationChanged);
@@ -174,6 +176,13 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             TourRealisation savedTourRealisation = tourRealisationService.Save(newTourRealisation);
             SaveCheckPoints(SavedTour.Id);
             UpdateTourRequestStatus(savedTourRealisation.Id);
+            if (IsLanguageStats)
+            {
+                notificationsService.SendNotificationForWantedLanguage(SavedTour);
+            }else if (IsLocationsStats)
+            {
+                notificationsService.SendNotificationForWantedLocation(SavedTour);
+            }
             SideBar.contentControlW.Content = new CreateNewTourForm(tourFormViewModel.User);
         }
         private void SaveCheckPoints(int tourId)
@@ -197,7 +206,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 savedTourRealisation.AvailableSeats = 0;
                 tourRealisationService.Update(savedTourRealisation);
                 tourRequestService.Update(request);
-
+                notificationsService.SendAcceptedRequestNotification(request.TouristId, request.Id);
             }
             IsRequest = false;
         }

@@ -194,10 +194,8 @@ namespace BookingApp.Appl.UseCases
             bool anyNotFulfilledRequestsOnGivenLocation = false;
             bool anyAcceptedRequestOnGivenLocation = false;
 
-            GetAll().ForEach(request =>
+            GetRequestsForTourist(userService.GetById(touristId)).ForEach(request =>
             {
-                if(request.TouristId == touristId)
-                {
                     if(request.Location.Id == locationId && request.Status != STATE.ACCEPTED)
                     {
                         anyNotFulfilledRequestsOnGivenLocation = true;
@@ -206,7 +204,6 @@ namespace BookingApp.Appl.UseCases
                     {
                         anyAcceptedRequestOnGivenLocation = true;
                     }
-                }
             });
 
             return (anyNotFulfilledRequestsOnGivenLocation && !anyAcceptedRequestOnGivenLocation);
@@ -217,10 +214,8 @@ namespace BookingApp.Appl.UseCases
             bool anyNotFulfilledRequestsOnGivenLanguage = false;
             bool anyAcceptedRequestOnGivenLanguage = false;
 
-            GetAll().ForEach(request =>
-            {
-                if (request.TouristId == touristId)
-                {
+            GetRequestsForTourist(userService.GetById(touristId)).ForEach(request =>
+            {                
                     if (request.Language == language && request.Status != STATE.ACCEPTED)
                     {
                         anyNotFulfilledRequestsOnGivenLanguage = true;
@@ -229,7 +224,6 @@ namespace BookingApp.Appl.UseCases
                     {
                         anyAcceptedRequestOnGivenLanguage = true;
                     }
-                }
             });
 
             return (anyNotFulfilledRequestsOnGivenLanguage && !anyAcceptedRequestOnGivenLanguage);
