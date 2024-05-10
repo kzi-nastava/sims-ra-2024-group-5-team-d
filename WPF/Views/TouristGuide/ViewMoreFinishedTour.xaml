@@ -121,7 +121,7 @@
                     
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border Height="auto" Width="580" BorderThickness="0" Background="{StaticResource WhiteWhite}" CornerRadius="15" >
+                            <Border Height="auto" Width="550" BorderThickness="0" Background="{StaticResource WhiteWhite}" CornerRadius="15" >
                                 <Grid Margin="15">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
@@ -163,7 +163,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <!--<TextBlock Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Sum}" Margin="-70 0 0 0" FontSize="39" Style="{StaticResource TextBlockDesign}"/>-->
-                <lvc:PieChart Grid.Row="6" Grid.Column="1" LegendLocation="Right" VerticalAlignment="Top" Height="200" InnerRadius="45" Series="{Binding AgeStatistics}">
+                <lvc:PieChart Grid.Row="6" Grid.Column="1" LegendLocation="Right" VerticalAlignment="Top" Height="200" InnerRadius="45" Series="{Binding AgeStatistics}" Margin="30 0 0 0">
                 </lvc:PieChart>
 
             </Grid>

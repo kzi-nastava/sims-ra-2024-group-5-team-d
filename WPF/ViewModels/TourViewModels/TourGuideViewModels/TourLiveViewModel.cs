@@ -35,6 +35,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 
         public TourRealisationService tourRealisationService;
         public CheckPointService checkPointService;
+        public NotificationsService notificationsService { get; set; }
+        public TourReservationService tourReservationService { get; set; }
 
         public TourLiveViewModel(User user, TourRealisationViewModel tourRealisationViewModel, TourViewModel tourViewModel)
         {
@@ -50,6 +52,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourGuestService = new TourGuestService();
             checkPointService = new CheckPointService();
             tourRealisationService = new TourRealisationService();
+            notificationsService = new NotificationsService();
+            tourReservationService = new TourReservationService();
             tourGuestService.GetTourGuestsOnTourRealisation(tourRealisation.Id).ForEach(t => TourGuests.Add(new TourGuestViewModel(t.Id, t.FullName, t.Years, t.TourReservationId, t.CheckPointId)));
             checkPointService.GetAllCheckPointsByTourId(tour.Id).ForEach(cp => CheckPoints.Add(new CheckPointViewModel(cp.Id, cp.Name, cp.TourId, cp.IsChecked)));
             CheckPoints[0].IsChecked = true;
@@ -101,6 +105,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             {
                 UpdateTourGuestCheckpoint(tourGuest, selectedCheckPoint.Id);
                 RemoveTourGuestFromList(tourGuest);
+                notificationsService.SendLiveTourNotification(tourReservationService.GetById(tourGuest.TourReservationId).User.Id,tourGuest.Id);
             });
         }
         public void FinishTourButton_Click()

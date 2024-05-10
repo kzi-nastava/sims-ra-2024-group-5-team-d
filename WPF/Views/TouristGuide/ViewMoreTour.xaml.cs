@@ -35,6 +35,7 @@ namespace BookingApp.WPF.Views.TouristGuide
         private TourRealisationService tourRealisationService;
         private TourReservationService tourReservationService;
         private VoucherService voucherService;
+        private NotificationsService notificationService;
         private User LoggedInUser { get; set; }
 
 
@@ -47,6 +48,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             SelectedTour = selectedTour;
             tourRealisationService.GetTourRealisationsByTourId(SelectedTour.Id).ForEach(t => { TourRealisations.Add(new TourRealisationViewModel(t.Id, t.StartTime, t.TourId, t.AvailableSeats,t.IsCancellable(), t.User, t.IsFinished)); });
             tourReservationService = new TourReservationService();
+            notificationService = new NotificationsService();
             LoggedInUser = user;
             SelectedDateTime = DateTime.Now;
             voucherService = new VoucherService();
@@ -78,12 +80,13 @@ namespace BookingApp.WPF.Views.TouristGuide
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            Voucher voucher = new Voucher();
             List<TourReservation> tourReservations = tourReservationService.GetAll().Where(tourReservation => tourReservation.TourRealisationId == SelectedTourRealisation.Id).ToList();
-            tourReservations.ForEach(tourReservation => voucherService.Save(new Voucher(voucherService.NextId(), DateTime.Now.AddYears(1), VOUCHERTYPE.CANCELEDTOUR, tourReservation.User)));
+            tourReservations.ForEach(tourReservation => voucher = voucherService.Save(new Voucher(voucherService.NextId(), DateTime.Now.AddYears(1), VOUCHERTYPE.CANCELEDTOUR, tourReservation.User)));
             tourReservations.ForEach(tourReservation => tourReservationService.DeleteTourReservation(tourReservation));
             tourRealisationService.DeleteTourRealisationById(SelectedTourRealisation.Id);
             TourRealisations.Remove(SelectedTourRealisation);
-            
+            notificationService.SendVoucherNotification(voucher.User.Id,voucher.Id);   
         }
     }
 }

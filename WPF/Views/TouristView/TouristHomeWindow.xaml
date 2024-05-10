@@ -20,7 +20,7 @@
                     Value="Center"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Background="{StaticResource LightGray}">
         <Grid.RowDefinitions>
             <RowDefinition Height="83"/>
             <RowDefinition Height="50"/>

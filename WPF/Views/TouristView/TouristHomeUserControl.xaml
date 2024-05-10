@@ -11,6 +11,9 @@
              d:DesignWidth="1152">
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -42,7 +45,8 @@
                                        FontFamily="Verdana"
                                        HorizontalAlignment="Center"
                                        FontSize="20"
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource TextBlockStyle}"/>
                 <TextBlock         Grid.Row="0"
                                        Grid.Column="1"
                                        Text="Duration:"
@@ -50,6 +54,7 @@
                                        FontFamily="Verdana"
                                        HorizontalAlignment="Center"
                                        FontSize="20"
+                                   Style="{StaticResource TextBlockStyle}"
                                        VerticalAlignment="Center"/>
                 <TextBlock
                                        Grid.Column="2"
@@ -59,6 +64,7 @@
                                        HorizontalAlignment="Left"
                                        FontSize="20"
                                        VerticalAlignment="Center"
+                    Style="{StaticResource TextBlockStyle}"
                                        Margin="31,0,0,0"/>
                 <TextBlock         Grid.Row="0"
                                        Grid.Column="3"
@@ -66,6 +72,7 @@
                                        Margin="0 5 0 0"
                                        Padding="0 15 30 0"
                                        FontFamily="Verdana"
+                                   Style="{StaticResource TextBlockStyle}"
                                        HorizontalAlignment="Center"
                                        FontSize="20"
                                        VerticalAlignment="Center"/>
@@ -75,6 +82,7 @@
                             VerticalAlignment="Top"
                             Margin="35,5,0,0"
                             Width="170"
+                            Foreground="{StaticResource PrimaryBlack}"
                             Height="30"
                             FontSize="15"
                             SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}">
@@ -94,6 +102,7 @@
                             Grid.Column="1"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            Foreground="{StaticResource PrimaryBlack}"
                             Width="155"
                             Height="30"
                             FontSize="15"
@@ -108,6 +117,7 @@
                 <ComboBox   Grid.Row="1"
                             Grid.Column="2"
                             HorizontalAlignment="Left"
+                            Foreground="{StaticResource PrimaryBlack}"
                             VerticalAlignment="Center"
                             Width="148"
                             Height="30"
@@ -129,6 +139,7 @@
                              TextAlignment="Right"
                              VerticalContentAlignment="Center"
                              Height="32"
+                             Foreground="{StaticResource PrimaryBlack}"
                              Width="160"
                              x:Name="PeopleCounter"
                              IsReadOnly="True"
@@ -145,7 +156,7 @@
                         <Button Content="▲"
                                 Width="20"
                                 Height="16"
-                                Margin="0 2 0 0"
+                                Margin="0 0 0 0"
                                 VerticalContentAlignment="Top"
                                 FontSize="9.5"
                                 HorizontalContentAlignment="Center"
@@ -160,28 +171,41 @@
                                 Click="DecreaseCount_Click"/>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Grid.Row="1"
-                            Grid.Column="4"
-                            Orientation="Horizontal"
-                            Margin="0 3 0 0"
-                            HorizontalAlignment="Left">
-                    <Button Grid.Row="1"
+
+                <Button Grid.Row="1"
                         Grid.Column="4"
-                        Width="160"
-                        Height="35"
-                        Margin="20 0 15 0"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Right"
-                        Content="Search    "
-                        FontSize="24"
-                        FontFamily="Veradana" Click="Search_Click"/>
-                    <Image Source="C:\Users\Korisnik\Desktop\ikone\search.png"
-                           Height="24"
-                           Width="24"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           Margin="-165 0 0 0"/>
-                </StackPanel>
+                            BorderThickness="0"
+                            Width="162"
+                            Height="auto"
+                            Margin="10 0 50 0"
+                            Background="Transparent"
+                            VerticalContentAlignment="Bottom"
+                            HorizontalContentAlignment="Left"
+                            Click="Search_Click">
+                    <Border
+                            CornerRadius="4"
+                            Width="160"
+                            Height="32"
+                            HorizontalAlignment="Left"
+                            BorderThickness="0"
+                            Background="{StaticResource PrimaryColor}">
+                            <StackPanel 
+                                    Orientation="Horizontal"
+                                    
+                                    >
+
+                                <Image Source="C:\Users\Korisnik\Desktop\ikone\search.png"
+                                    Height="24"
+                                    Width="24"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                       Margin="5 0 20 0"
+                                    />
+                                <TextBlock Text="Search" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource WhiteWhite}" FontSize="24" FontFamily="Verdana"></TextBlock>
+
+                            </StackPanel>
+                    </Border>
+                </Button>
             </Grid>
 
         </Border>
@@ -217,8 +241,9 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Gray"
-                                BorderThickness="1.5"
+                        <Border Background="{StaticResource WhiteWhite}"
+                                BorderThickness="1.2"
+                                BorderBrush="{StaticResource PrimaryColor}"
                                 CornerRadius="20"
                                 Height="280"
                                 Width="1050"
