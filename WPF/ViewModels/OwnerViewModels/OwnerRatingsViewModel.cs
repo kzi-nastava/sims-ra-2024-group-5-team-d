@@ -27,21 +27,18 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 
             accommodationService = new AccommodationService();
             userService = new UserService();
-            ShowDetailsCommand = new RelayCommand(ShowDetails);
+            ShowDetailsCommand = new RelayParameterCommand(ShowDetails);
             accommodationRatingService = new AccommodationRatingService();
             OwnerRatings = new ObservableCollection<OwnerRatingViewModel>();
             accommodationRatingService.GetAllRatingsForOwner(user).ForEach(rating => 
                 OwnerRatings.Add(new OwnerRatingViewModel(userService.GetById(rating.GuestId), rating, accommodationService.GetById(rating.AccommodationId))));
         }
-        public void ShowDetails()
+        public void ShowDetails(object parameter)
         {
-
-
-            if (SelectedOwnerRating != null)
+            if (parameter != null)
             {
+                SelectedOwnerRating = (OwnerRatingViewModel)parameter;
                 ShowDetailedReviewWindow details = new ShowDetailedReviewWindow(SelectedOwnerRating.Id);
-               // Window window = Window.GetWindow(this);
-                //details.Owner = window;
                 details.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 details.ShowDialog();
             }

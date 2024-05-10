@@ -25,7 +25,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private UnratedGuestService unratedGuestService;
         public UnratedGuestsViewModel(User user)
         {
-            RateGuestCommand = new RelayCommand(RateGuest);
+            RateGuestCommand = new RelayParameterCommand(RateGuest);
             accommodationService = new AccommodationService();
             userService = new UserService();
             unratedGuestService = new UnratedGuestService();
@@ -33,16 +33,15 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
             unratedGuestService.GetUnratedGuests(loggedInUser)
                                 .ForEach(unratedReservation => UnratedGuests.Add
-                                (new UnratedGuestViewModel(unratedReservation.Id, userService.GetById(unratedReservation.UserId).FullName, unratedReservation.ReservedFrom, unratedReservation.ReservedTo, accommodationService.GetById(unratedReservation.AccommodationId).Location, accommodationService.GetAccommodationNameById(unratedReservation.AccommodationId)))
+                                (new UnratedGuestViewModel(unratedReservation.Id, userService.GetById(unratedReservation.UserId).FullName, unratedReservation.ReservedFrom, unratedReservation.ReservedTo, accommodationService.GetById(unratedReservation.AccommodationId).Location, accommodationService.GetAccommodationNameById(unratedReservation.AccommodationId),userService.GetById(unratedReservation.UserId).AvatarPath))
                                 );
         }
-        private void RateGuest()
+        private void RateGuest(object parameter)
         {
-            if (SelectedGuest != null)
+            if (parameter != null)
             {
+                SelectedGuest = parameter as UnratedGuestViewModel;
                 RateGuestFormWindow rateFormWindow = new RateGuestFormWindow(SelectedGuest);
-               // Window parentWindow = Window.GetWindow(this);
-                //rateFormWindow.Owner = parentWindow;
                 rateFormWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 rateFormWindow.ShowDialog();
             }

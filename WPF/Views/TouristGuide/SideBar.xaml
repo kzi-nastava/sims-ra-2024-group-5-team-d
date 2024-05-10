@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
         mc:Ignorable="d"
-        Title="SideBar" Height="768" Width="1024">
+        Title="Limit" Height="768" Width="1024">
+    <Window.Icon>
+        <BitmapImage UriSource="C:\Users\lukai\Desktop\Resource\logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
+    </Window.Icon>
     <Grid Background="{StaticResource LightGray}">
         <Grid.Resources>
             <Style TargetType="TextBlock" x:Key="TextBlockDesign">

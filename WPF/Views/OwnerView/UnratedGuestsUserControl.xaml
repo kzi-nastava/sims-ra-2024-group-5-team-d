@@ -7,6 +7,18 @@
               xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="572" d:DesignWidth="1108">
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+    </UserControl.Resources>
     <Grid 
               Width="980"
               Margin="0 0 0 30" HorizontalAlignment="Center">
@@ -18,20 +30,21 @@
                    Grid.Row="0" 
                    Text="Review guest"
                    FontSize="32" 
-                   FontWeight="Bold"
+                   FontWeight="DemiBold"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
         <ListView BorderThickness="0" 
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
-                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding UnratedGuests}" SelectedItem="{Binding SelectedGuest}">
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding UnratedGuests}" SelectedItem="{Binding SelectedGuest}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" 
-                                BorderThickness="3" 
+                    <Border Background="{StaticResource WhiteWhite}" 
                                 CornerRadius="10"
-                                Width="auto" Margin="0 0 0 15">
+                                Width="auto" Margin="20 0 0 20"
+                                HorizontalAlignment="Center"
+                             Style="{StaticResource BorderHoverAnimation}">
                         <Grid Margin="10" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -41,13 +54,15 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Row="0">
+                            <Image Source="{Binding AvatarPath}" Width="70" Grid.Column="0" Grid.RowSpan="2" Margin="0 0 10 0"/>
+                            <Grid Grid.Row="0" Grid.Column="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding FullName}" Foreground="#124076" MinWidth="250" Grid.Column="0" FontSize="28" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding FullName}" Style="{StaticResource FontColor}" FontFamily="{StaticResource CustomFont}" MinWidth="250" Grid.Column="0" FontSize="28" FontWeight="DemiBold"/>
                                 <Grid Grid.Column="1" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
@@ -59,11 +74,11 @@
                                                Grid.Column="0" 
                                                HorizontalAlignment="Left" 
                                                VerticalAlignment="Center" Margin="0 0 10 0"/>
-                                    <TextBlock Text="{Binding AccommodationName}" Width="auto" FontWeight="Bold" MinWidth="210" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding AccommodationName}" Width="auto" FontWeight="SemiBold" MinWidth="210" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
 
                                 </Grid>
                             </Grid>
-                            <Grid Grid.Column="1" Margin="0 0 0 0" HorizontalAlignment="Right">
+                            <Grid Grid.Column="2" Margin="0 0 0 0" HorizontalAlignment="Right">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
@@ -74,34 +89,34 @@
                                                Grid.Column="0" 
                                                HorizontalAlignment="Left" 
                                                VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding Location}" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Location}" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
                             </Grid>
-                            <Grid Grid.Column="0" Grid.Row="1">
+                            <Grid Grid.Column="1" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="180"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Reservation dates :" Grid.Column="0" Grid.Row="1" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <Grid Grid.Column="1" Grid.Row="1">
+                                <TextBlock Text="Reservation dates :" Grid.Column="0" Grid.Row="1" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource FontColor}"/>
+                                <Grid Grid.Column="1" Grid.Row="1" Margin="35 0 0 0">
                                     <Grid.ColumnDefinitions >
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding ReservedFrom,StringFormat={}{0:dd.MM.yyyy}}" Grid.Column="0" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-                                    <TextBlock Text=" - " Grid.Column="1" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding ReservedTo,StringFormat={}{0:dd.MM.yyyy}}" Grid.Column="2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding ReservedFrom,StringFormat={}{0:dd.MM.yyyy}}" Grid.Column="0" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                                    <TextBlock Text=" - " Grid.Column="1" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                                    <TextBlock Text="{Binding ReservedTo,StringFormat={}{0:dd.MM.yyyy}}" Grid.Column="2" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
                                 </Grid>
                             </Grid>
-                            <Button Grid.Column="2"
+                            <Button Grid.Column="3"
                                     FontSize="20" 
                                     Background="Transparent"
                                     Height="70"
                                     VerticalAlignment="Center"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Right" Margin="20 0 0 0" Command="{Binding DataContext.RateGuestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
-                                <Border  BorderBrush="Yellow"
-                                             BorderThickness="3"
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Right" Margin="20 0 0 0" Command="{Binding DataContext.RateGuestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"
+                                    Template="{StaticResource CustomButtonTemplate}">
+                                <Border Style="{StaticResource BorderHover}"
                                              CornerRadius="10"
                                              Height="68" Padding="10"
                                              >
@@ -110,7 +125,7 @@
                                                Width="32" 
                                                Height="32"
                                                Margin="0 0 5 0" />
-                                        <TextBlock Margin="0 2 0 0" Foreground="Yellow" FontWeight="Normal" Text="Rate guest"></TextBlock>
+                                        <TextBlock Margin="0 2 0 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal" Text="Rate guest"></TextBlock>
                                     </StackPanel>
                                 </Border>
                             </Button>

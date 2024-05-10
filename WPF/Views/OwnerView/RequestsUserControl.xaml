@@ -9,6 +9,17 @@
 
              mc:Ignorable="d" 
              d:DesignHeight="572" d:DesignWidth="1108">
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
+    </UserControl.Resources>
     <Grid 
               Width="920"
               Margin="0 0 0 30">
@@ -26,19 +37,13 @@
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
-                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Requests}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
-                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Requests}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" 
-                                BorderThickness="3" 
-                                CornerRadius="10"
-                                Width="880" Padding="15" Margin="0 0 10 0">
+                    <Border  Background="{StaticResource WhiteWhite}"
+                             CornerRadius="10"
+                              Style="{StaticResource BorderHoverAnimation}"
+                              Width="880" Padding="15" Margin="8 0 10 0">
                         <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -56,7 +61,7 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding GuestName}" Foreground="#124076" Grid.Column="0" MinWidth="250" FontSize="24" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding GuestName}" Grid.Column="0" MinWidth="250" FontSize="24" FontWeight="DemiBold" Style="{StaticResource FontColor}"/>
                                 <Grid Grid.Column="1" MinWidth="220">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
@@ -66,7 +71,7 @@
                                                Width="25" 
                                                Height="25"
                                                Margin="15 0 5 3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding AccommodationName}" Grid.Column="1" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding AccommodationName}" Grid.Column="1" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
                                 </Grid>
                                 <Grid Grid.Column="2" VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
@@ -77,7 +82,7 @@
                                                Width="25" 
                                                Height="25"
                                                Margin="18 -4 0 0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding Location}" Grid.Column="1" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                    <TextBlock Text="{Binding Location}" Grid.Column="1" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource FontColor}"/>
                                 </Grid>
                             </Grid>
                             <Grid Grid.Row="1" Height="30" Margin="0 10 0 0">
@@ -87,10 +92,10 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Previous reservation dates :" Grid.Column="0" FontSize="20" VerticalAlignment="Center"/>
-                                <TextBlock HorizontalAlignment="Left" Text="{Binding PreviousCheckIn,StringFormat='dd/MM/yyyy'}" VerticalAlignment="Center" Grid.Column="1" FontSize="20" FontWeight="Bold" Margin="10 0 0 0"/>
-                                <TextBlock Text="- " Grid.Column="2" FontSize="32" VerticalAlignment="Center" Padding="0 0 0 7"/>
-                                <TextBlock HorizontalAlignment="Left" Text="{Binding PreviousCheckOut,StringFormat='dd/MM/yyyy'}" Grid.Column="3" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                                <TextBlock Text="Previous reservation dates :" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding PreviousCheckIn,StringFormat='dd/MM/yyyy'}" VerticalAlignment="Center" Grid.Column="1" FontSize="20" FontWeight="SemiBold" Margin="10 0 0 0" Style="{StaticResource FontColor}"/>
+                                <TextBlock Text=" - " Grid.Column="2" FontSize="32" VerticalAlignment="Center" Padding="0 0 0 7" Style="{StaticResource FontColor}"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding PreviousCheckOut,StringFormat='dd/MM/yyyy'}" Grid.Column="3" FontWeight="SemiBold" FontSize="20" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
                             </Grid>
                             <Grid Grid.Row="2" Height="30">
                                 <Grid.ColumnDefinitions>
@@ -99,12 +104,12 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="New reservation dates :" Grid.Column="0" FontSize="20" VerticalAlignment="Center"/>
-                                <TextBlock HorizontalAlignment="Left" Text="{Binding NewCheckIn,StringFormat='dd/MM/yyyy'}" VerticalAlignment="Center" Grid.Column="1" FontSize="20" FontWeight="Bold" Margin="10 0 0 0"/>
-                                <TextBlock Text="- " Grid.Column="2" FontSize="32" VerticalAlignment="Center" Padding="0 0 0 7"/>
-                                <TextBlock HorizontalAlignment="Left" Text="{Binding NewCheckOut,StringFormat='dd/MM/yyyy'}" Grid.Column="3" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                                <TextBlock Text="New reservation dates :" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding NewCheckIn,StringFormat='dd/MM/yyyy'}" VerticalAlignment="Center" Grid.Column="1" FontSize="20" FontWeight="SemiBold" Margin="10 0 0 0" Style="{StaticResource FontColor}"/>
+                                <TextBlock Text=" - " Grid.Column="2" FontSize="32" VerticalAlignment="Center" Padding="0 0 0 7" Style="{StaticResource FontColor}"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding NewCheckOut,StringFormat='dd/MM/yyyy'}" Grid.Column="3" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
                             </Grid>
-                            <TextBlock Text="{Binding Message}" Visibility="Visible" Grid.Row="3" FontSize="17" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Message}" Visibility="Visible" Grid.Row="3" FontSize="17" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold" Style="{StaticResource FontColor}"/>
                             <Grid Grid.Column="0" Grid.RowSpan="4" HorizontalAlignment="Right" VerticalAlignment="Top">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50"/>
@@ -116,39 +121,39 @@
                                     Height="50"
                                     VerticalAlignment="Top"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center"  Command="{Binding DataContext.AcceptRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
-                                    <Border  BorderBrush="DarkGreen"
-                                             BorderThickness="3"
-                                             CornerRadius="10"
-                                         Height="48"
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center"  Command="{Binding DataContext.AcceptRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" Template="{StaticResource CustomButtonTemplate}">
+                                    <Border Style="{StaticResource BorderHover}"
+                                        CornerRadius="10"
+                                            Height="48"
                                              Width="140">
                                         <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
                                             <Image  Source="C:\Users\lukai\Desktop\Resource\Check.png" 
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                                            <TextBlock  Text="Accept" Margin="0 2 0 0" Foreground="DarkGreen" FontWeight="Normal"/>
+                                            <TextBlock  Text="Accept" Margin="0 2 0 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                                         </StackPanel>
                                     </Border>
                                 </Button>
-                                <Button Grid.Column="1"
-                                    FontSize="20" 
+                                <Button
                                     Background="Transparent"
+                                    Grid.Column="1"
+                                    FontSize="20" 
                                     Height="50"
                                     VerticalAlignment="Bottom"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="1" HorizontalAlignment="Center" Command="{Binding DataContext.DenyRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" >
-                                    <Border  BorderBrush="DarkRed"
-                                             BorderThickness="3"
-                                             CornerRadius="10"
-                                         Height="48"
+                                    BorderThickness="0" Grid.Row="1" HorizontalAlignment="Center" Command="{Binding DataContext.DenyRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" Template="{StaticResource CustomButtonTemplate}">
+                                    <Border 
+                                        Style="{StaticResource BorderHover}"
+                                        CornerRadius="10"
+                                             Height="48"
                                              Width="140">
                                         <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
                                             <Image  Source="C:\Users\lukai\Desktop\Resource\X.png" 
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                                            <TextBlock  Text="Deny" Margin="5 1 0 0" Foreground="DarkRed" FontWeight="Normal"/>
+                                            <TextBlock  Text="Deny" Margin="5 1 0 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                                         </StackPanel>
                                     </Border>
                                 </Button>

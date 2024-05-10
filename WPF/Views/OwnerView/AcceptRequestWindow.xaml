@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         WindowStyle="None"
          Title="AcceptRequestWindow" Height="280" Width="430">
-    <Grid>
+    <Grid Background="{StaticResource WhiteGrey}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock VerticalAlignment="Center" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center"><Run Text="You already have a"/><LineBreak/><Run Text=" reservation for requested"/><LineBreak/><Run Text=" date!"/></TextBlock>
-        <TextBlock VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Grid.Row="1" TextAlignment="Center" HorizontalAlignment="Center"><Run Text="Are you sure  you want to"/><LineBreak/><Run Text=" accept request!"/></TextBlock>
+        <TextBlock VerticalAlignment="Center" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource PrimaryBlack}"><Run Text="You already have a"/><LineBreak/><Run Text=" reservation for requested"/><LineBreak/><Run Text=" date!"/></TextBlock>
+        <TextBlock VerticalAlignment="Center" FontSize="20" FontWeight="DemiBold" Grid.Row="1" TextAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource PrimaryBlack}"><Run Text="Are you sure  you want to"/><LineBreak/><Run Text=" accept request!"/></TextBlock>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -26,9 +26,8 @@
                                     Background="Transparent"
                                     Height="50"
                                     VerticalAlignment="Center"
-                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding AcceptRequestCommand}">
-                <Border  BorderBrush="DarkGreen"
-                                             BorderThickness="3"
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding AcceptRequestCommand}" Template="{StaticResource CustomButtonTemplate}">
+                <Border  Style="{StaticResource BorderHover}"
                                              CornerRadius="10"
                                          Height="48"
                                              Width="140">
@@ -37,7 +36,7 @@
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                        <TextBlock  Text="Accept" Margin="0 2 0 0" Foreground="DarkGreen" FontWeight="Normal"/>
+                        <TextBlock  Text="Accept" Margin="0 2 0 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                     </StackPanel>
                 </Border>
             </Button>
@@ -47,9 +46,8 @@
                                     Height="50"
                                     VerticalAlignment="Center"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Click="Close" >
-                <Border  BorderBrush="DarkRed"
-                                             BorderThickness="3"
+                                    BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Click="Close" Template="{StaticResource CustomButtonTemplate}">
+                <Border  Style="{StaticResource BorderHover}"
                                              CornerRadius="10"
                                          Height="48"
                                              Width="140">
@@ -58,7 +56,7 @@
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                        <TextBlock  Text="Deny" Margin="5 1 0 0" Foreground="DarkRed" FontWeight="Normal"/>
+                        <TextBlock  Text="Deny" Margin="5 1 0 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                     </StackPanel>
                 </Border>
             </Button>

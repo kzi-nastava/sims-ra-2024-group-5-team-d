@@ -6,8 +6,22 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              d:DesignHeight="572" d:DesignWidth="1108">
-    <Grid Width="950">
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <converter:DateConverter x:Key="DateConverter" />
+    </UserControl.Resources>
+    <Grid Width="960">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -17,15 +31,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Your reviews" Grid.ColumnSpan="2" FontSize="40" Margin="10" HorizontalAlignment="Center"/>
-            <Button Grid.Column="1" HorizontalAlignment="Right" Margin="0 0 33 0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
-                <Border BorderBrush="DarkRed" BorderThickness="3" Padding="5" CornerRadius="15">
+            <TextBlock Grid.Column="0" Text="Your reviews" Grid.ColumnSpan="2" FontSize="40" Margin="10" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
+            <Button Grid.Column="1" HorizontalAlignment="Right" Margin="0 0 33 0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Template="{StaticResource CustomButtonTemplate}">
+                <Border Style="{StaticResource BorderHover}" Padding="5" CornerRadius="15">
                     <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Image  Source="C:\Users\lukai\Desktop\Resource\pdf.png" 
                                                Width="32" 
                                                Height="32"
                                                Margin="0 0 5 0" VerticalAlignment="Center"/>
-                        <TextBlock  Text="Download pdf" Margin="5 1 5 0" Foreground="DarkRed" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"/>
+                        <TextBlock  Text="Download pdf" Margin="5 1 5 0" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"/>
                     </StackPanel>
                 </Border>
             </Button>
@@ -34,13 +48,13 @@
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
-                      ScrollViewer.CanContentScroll="False" Margin="0,73,0,0" Grid.RowSpan="2" ItemsSource="{Binding OwnerRatings}" SelectedItem="{Binding SelectedOwnerRating}">
+                      ScrollViewer.CanContentScroll="False" Margin="0,73,5,0" Grid.RowSpan="2" ItemsSource="{Binding OwnerRatings}" SelectedItem="{Binding SelectedOwnerRating}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" 
-                                BorderThickness="3" 
+                    <Border Background="{StaticResource WhiteWhite}"
                                 CornerRadius="10"
-                                Width="910" Margin="0 0 0 15">
+                                Width="910" Margin="8 0 0 15"
+                             Style="{StaticResource BorderHoverAnimation}">
                         <Grid Margin="10" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -51,21 +65,20 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="140"/>
                             </Grid.ColumnDefinitions>
-                            <Image  Source="C:\Users\lukai\Desktop\Resource\profile.png" 
-                                               Width="78" 
-                                               Height="78"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center" 
-                                    Grid.RowSpan="2"/>
+                            <Image  Source="{Binding AvatarPath}" 
+                                    Grid.RowSpan="2" Margin="0 0 20 0"/>
                             <Grid Grid.Column="1" VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding GuestName}" Foreground="#124076" Grid.Column="0" FontSize="24" FontWeight="Bold"/>
-                                <Grid Grid.Column="1" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding GuestName}" MinWidth="300" Style="{StaticResource FontColor}" Grid.Column="0" FontSize="24" FontWeight="Bold"/>
+                                <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Background="{StaticResource WhiteWhite}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
@@ -73,39 +86,39 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="C:\Users\lukai\Desktop\Resource\StarFull.png" 
-                                           Width="32" 
-                                           Height="32" 
+                                    <Image Source="{Binding Star1}" 
+                                           Width="24" 
+                                           Height="24" 
                                            Grid.Column="0"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                                    <Image Source="C:\Users\lukai\Desktop\Resource\StarHalfFull.png" 
-                                           Width="32" 
-                                           Height="32" 
+                                    <Image Source="{Binding Star2}" 
+                                           Width="24" 
+                                           Height="24" 
                                            Grid.Column="1"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                                    <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
-                                           Width="32" 
-                                           Height="32" 
+                                    <Image Source="{Binding Star3}" 
+                                           Width="24" 
+                                           Height="24" 
                                            Grid.Column="2"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                                    <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
-                                           Width="32" 
-                                           Height="32" 
+                                    <Image Source="{Binding Star4}"  
+                                           Width="24" 
+                                           Height="24" 
                                            Grid.Column="3"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                                    <Image Source="C:\Users\lukai\Desktop\Resource\idemo.png" 
-                                           Width="32" 
-                                           Height="32" 
+                                    <Image Source="{Binding Star5}"  
+                                           Width="24" 
+                                           Height="24" 
                                            Grid.Column="4"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
 
                                 </Grid>
-                                <Grid Grid.Column="2" >
+                                <Grid Grid.Column="1" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
@@ -116,9 +129,9 @@
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center"
                                             Margin="10 0 10 0"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding AccommodationName}" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding AccommodationName}" FontSize="16" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
                                 </Grid>
-                                <Grid Grid.Column="3" >
+                                <Grid Grid.Column="2" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
@@ -129,21 +142,24 @@
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center"
                                             Margin="10 0 5 0"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Location}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Location}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
                                 </Grid>
                             </Grid>
-                            <Border Grid.Row="1" MaxHeight="69" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Margin="0 10 0 0" CornerRadius="10">
-                                <TextBlock  Text="{Binding Comment}" FontSize="17" TextWrapping="WrapWithOverflow" Padding="10"/>
+                            <Border Grid.Row="1" MaxHeight="50" Grid.Column="1" Margin="0 0 0 0" CornerRadius="10">
+                                <TextBlock  Text="{Binding Comment}" FontSize="17" TextWrapping="WrapWithOverflow" Padding="2 5 10 0" Style="{StaticResource FontColor}"/>
                             </Border>
-                            <Label Grid.Column="2" Content="2 months ago" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
-                            <Button Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Margin="0 10 0 0"  Command="{Binding DataContext.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
-                                <Border BorderBrush="CadetBlue" BorderThickness="3" Padding="5" CornerRadius="15">
+                            <Label Grid.Column="2" Content="{Binding RatingDate, Converter={StaticResource DateConverter}}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="15" FontFamily="{StaticResource CustomFont}"
+                                   Foreground="{StaticResource PrimaryBlack}"/>
+                            <Button
+                                Template="{StaticResource CustomButtonTemplate}"
+                                Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Margin="0 30 0 0"   Command="{Binding DataContext.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                <Border Style="{StaticResource BorderHover}" Padding="5" CornerRadius="15">
                                     <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                         <Image  Source="C:\Users\lukai\Desktop\Resource\info2.png" 
                                                Width="32" 
                                                Height="32"
                                                Margin="0 0 5 0" VerticalAlignment="Center"/>
-                                        <TextBlock TextAlignment="Center" Margin="5 1 5 0" Foreground="CadetBlue" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"><Run Text="Show "/><LineBreak/><Run Text="details"/></TextBlock>
+                                        <TextBlock TextAlignment="Center" Margin="5 1 5 0" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"><Run Text="Show "/><LineBreak/><Run Text="details"/></TextBlock>
                                     </StackPanel>
                                 </Border>
                             </Button>

@@ -34,30 +34,18 @@
                    FontSize="36" 
                    FontWeight="DemiBold"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                   VerticalAlignment="Center" Style="{StaticResource FontColor}" FontFamily="{StaticResource CustomFont}"/>
         <ListView BorderThickness="0" 
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
-                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <ContentPresenter HorizontalAlignment="Left" Margin="2,3,2,3" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border
                                 CornerRadius="10"
                                  Height="150"
-                                Width="880" Background="{StaticResource WhiteWhite}" Margin="0 0 0 15">
+                                Width="870"  Background="{StaticResource WhiteWhite}" Margin="8 0 0 15" Style="{StaticResource BorderHoverAnimation}">
                         <Grid Margin="15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -192,14 +180,7 @@
                                         Margin="0 -2 0 0"
                                         Width="152"
                                         Height="38"
-                                    Command="{Binding DataContext.RenovateCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
+                                    Command="{Binding DataContext.RenovateCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" Template="{StaticResource CustomButtonTemplate}">
                                 <Border CornerRadius="8"
                                             Height="36"
                                              Width="150" Style="{StaticResource BorderHover}">
@@ -221,14 +202,7 @@
                                         Margin="0 0 0 -2"
                                         FontWeight="SemiBold"
                                         BorderThickness="0"
-                                        VerticalAlignment="Bottom" Command="{Binding DataContext.ShowStatsCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
+                                        VerticalAlignment="Bottom" Command="{Binding DataContext.ShowStatsCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" Template="{StaticResource CustomButtonTemplate}">
                                 <Border     CornerRadius="8" 
                                             Height="36"
                                             Width="150" Style="{StaticResource BorderHover}">
