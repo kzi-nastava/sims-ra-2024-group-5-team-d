@@ -16,7 +16,10 @@ namespace BookingApp.WPF.Converters
             string resultDays = " days ago";
             string resultMonths = " months ago";
             string resultYears = " years ago";
-            if (value is DateTime)
+            if(value is DateOnly) { 
+            value= ((DateOnly)value).ToDateTime(new TimeOnly(0, 0));
+            }
+            if (value is DateTime )
             {
                 DateTime time=(DateTime)value;
                 if ((DateTime.Now.Date - time).Days == 0)

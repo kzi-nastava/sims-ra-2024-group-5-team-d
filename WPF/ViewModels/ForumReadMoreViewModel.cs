@@ -45,7 +45,7 @@ namespace BookingApp.WPF.ViewModels
             commentReportService = new CommentReportService();
             userService = new UserService();
             accommodationService = new AccommodationService();
-            Forum= new ForumViewModel(forumService.GetById(forumId));
+            Forum= new ForumViewModel(forumService.GetById(forumId),forumCommentService.GetNumberOfCommentsForForum(forumId));
             Comments = new ObservableCollection<ForumCommentViewModel>();
             forumCommentService.GetByForumId(forumId).ForEach(comment => {
                 bool reportable=!accommodationReservationService.HasReservationOnLocation(userService.GetById(comment.CreatorId),Forum.Location) && !userService.GetById(comment.CreatorId).IsOwner();
@@ -53,7 +53,7 @@ namespace BookingApp.WPF.ViewModels
                     icon = @"C:\Users\lukai\Desktop\Resource\home.png";
                 else if (accommodationReservationService.HasReservationOnLocation(userService.GetById(comment.CreatorId), forumService.GetById(comment.ForumId).Location))
                 {
-                    icon = @"C:\Users\lukai\Desktop\Resource\home.png";
+                    icon = @"C:\Users\lukai\Desktop\Resource\verified.png";
                 }
                 else
                     icon = "";

@@ -16,7 +16,19 @@ namespace BookingApp.WPF.ViewModels
         public string CreatorFullName { get; set; }
         public string AvatarPath { get; set; }
         public string IconPath { get; set; }
-        public int Reports { get; set; }
+        private int reports { get; set; }
+        public int Reports
+        {
+            get => reports;
+            set
+            {
+                if (value != reports)
+                {
+                    reports = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public bool IsReportable { get; set; }
         private bool isReported;
         public bool IsReported

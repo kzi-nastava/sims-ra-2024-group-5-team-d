@@ -5,22 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
         mc:Ignorable="d"
+        WindowStyle="None"
          Title="DenyRequestWindow" Height="360" Width="470">
-    <Grid>
+    <Grid Background="{StaticResource WhiteGrey}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Margin="0 10 0 10" FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock Foreground="{StaticResource PrimaryBlack}" Margin="0 10 0 10" FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center">
     <Run Text="Deny "/>
     <Run Text="{Binding GuestName}"/>
             <Run Text=" request"/>
         </TextBlock>
 
-        <TextBlock Text="Explanation (OPTIONAL) :" Grid.Row="1"  Margin="0 10 0 10" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox Grid.Row="2" BorderBrush="Black" Text="{Binding Comment}" BorderThickness="3" Margin="10 0 10 0" FontSize="20" TextWrapping="Wrap"/>
+        <TextBlock Foreground="{StaticResource PrimaryBlack}" Text="Explanation (OPTIONAL) :" Grid.Row="1"  Margin="0 10 0 10" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Foreground="{StaticResource PrimaryBlack}" Grid.Row="2" BorderBrush="{StaticResource PrimaryColor}" Text="{Binding Comment}" BorderThickness="3" Margin="10 0 10 0" Padding="5" FontSize="20" TextWrapping="Wrap"/>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -32,9 +33,8 @@
                                     Height="50"
                                     VerticalAlignment="Center"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding DenyRequestCommand}">
-                <Border  BorderBrush="DarkGreen"
-                                             BorderThickness="3"
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding DenyRequestCommand}" Template="{StaticResource CustomButtonTemplate}">
+                <Border  Style="{StaticResource BorderHover}"
                                              CornerRadius="10"
                                          Height="48"
                                              Width="140">
@@ -44,7 +44,7 @@
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                        <TextBlock  Text="Deny" Margin="0 2 0 0" Foreground="DarkGreen" FontWeight="Normal"/>
+                        <TextBlock  Text="Deny" Margin="0 2 0 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                     </StackPanel>
                 </Border>
             </Button>
@@ -54,9 +54,8 @@
                                     Height="50"
                                     VerticalAlignment="Center"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Click="Close" >
-                <Border  BorderBrush="DarkRed"
-                                             BorderThickness="3"
+                                    BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Click="Close" Template="{StaticResource CustomButtonTemplate}">
+                <Border Style="{StaticResource BorderHover}"
                                              CornerRadius="10"
                                          Height="48"
                                              Width="140">
@@ -65,7 +64,7 @@
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                        <TextBlock  Text="Cancel" Margin="5 1 0 0" Foreground="DarkRed" FontWeight="Normal"/>
+                        <TextBlock  Text="Cancel" Margin="5 1 0 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                     </StackPanel>
                 </Border>
             </Button>

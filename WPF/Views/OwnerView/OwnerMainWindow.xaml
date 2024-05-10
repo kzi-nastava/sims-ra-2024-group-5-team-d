@@ -50,11 +50,13 @@
                 Grid.Row="0" 
                 Grid.ColumnSpan="3"/>
         <ContentControl Grid.Column="0" Grid.Row="1" x:Name="contentMenu"/>
-        <Image Source="C:\Users\lukai\Desktop\Resource\hamburger2.png" 
+        <Border Style="{StaticResource BorderHoverAnimation}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="C:\Users\lukai\Desktop\Resource\hamburger2.png" 
                Height="42" 
                Width="42" 
                MouseLeftButtonDown="HamburgerClick" 
                Cursor="Hand"/>
+        </Border>
         <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="2" Background="{StaticResource PrimaryColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -69,8 +71,8 @@
             <Border Grid.Row="0" 
                     Grid.Column="0" 
                     CornerRadius="20" 
-                    Margin="0 0 10 0"
-                    Style="{StaticResource BorderMarginClick}" MouseLeftButtonDown="Border_MouseLeftButtonDown_1">
+                    Margin="0 0 20 0"
+                    MouseLeftButtonDown="Border_MouseLeftButtonDown_1" Style="{StaticResource BorderHoverAnimation}">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -96,7 +98,8 @@
                     Grid.Row="0"
                     Grid.Column="1" 
                     CornerRadius="20"
-                    Style="{StaticResource BorderMarginClick}" MouseLeftButtonDown="Border_MouseLeftButtonDown_3">
+                    Margin="0 0 20 0"
+                     Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_3">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -122,7 +125,8 @@
             <Border Grid.Row="0" 
                     Grid.Column="2" 
                     CornerRadius="20"
-                    Style="{StaticResource BorderMarginClick}" MouseLeftButtonDown="Border_MouseLeftButtonDown_4">
+                     Margin="0 0 20 0"
+                    Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_4">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -134,7 +138,21 @@
                            Height="32" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center" 
-                           Margin="0 0 -12 0"/>
+                           Margin="0 0 -12 0">
+                        <Image.RenderTransformOrigin>
+                            <Point X="0.5" Y="0.5"/>
+                        </Image.RenderTransformOrigin>
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                        <Image.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard Storyboard="{StaticResource BellAnimation}"/>
+                            </EventTrigger>
+                        </Image.Triggers>
+                    </Image>
                     <TextBlock Text="Notifications" 
                                Grid.Column="1" 
                                TextAlignment="Center" 
@@ -144,6 +162,11 @@
                                Style="{StaticResource TextBlockPaddingStyle}">
                     </TextBlock>
                     <Border CornerRadius="900" Grid.Column="2" Background="Red" Width="15" Height="15" VerticalAlignment="Center" Margin="-20 -10 10 0">
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard Storyboard="{StaticResource BlinkAnimation}"/>
+                            </EventTrigger>
+                        </Border.Triggers>
                         <TextBlock Foreground="AntiqueWhite" Margin="0 0 0 0" Text="{Binding NumberOfNotifications}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" Height="15" Width="auto"/>
                     </Border>
 
@@ -152,7 +175,8 @@
             <Border Grid.Row="0" 
                     Grid.Column="3" 
                     CornerRadius="20"
-                    Style="{StaticResource BorderMarginClick}" 
+                     Margin="0 0 20 0"
+                     Style="{StaticResource BorderHoverAnimation}" 
                     MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
@@ -178,7 +202,7 @@
             <Border Grid.Row="0" 
                     Grid.Column="4" 
                     CornerRadius="20"
-                    Style="{StaticResource BorderMarginClick}" MouseLeftButtonDown="Border_MouseLeftButtonDown_2">
+                     Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_2">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>

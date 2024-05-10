@@ -26,7 +26,7 @@ namespace BookingApp.Appl.UseCases
         }
         public double GetAverageRatingForOwner(User user)
         {
-            return GetAllRatingsForOwner(user).Sum(rating => rating.GetAverageRating()) / GetNumberOfRatingsForOwner(user);
+            return FindAllRatingsForOwner(user).Sum(rating => rating.GetAverageRating()) / GetNumberOfRatingsForOwner(user);
         }
         public List<AccommodationRating> GetAllRatingsForOwner(User owner) {
             List<AccommodationRating> allOwnerRatings = FindAllRatingsForOwner(owner);

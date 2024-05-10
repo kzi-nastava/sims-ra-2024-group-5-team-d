@@ -16,7 +16,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class RequestsViewModel
     {
-        public ICommand SelectionChangedCommand { get; set; }
         public ICommand AcceptRequestCommand { get; set; }
         public ICommand DenyRequestCommand { get; set; }
         public static ObservableCollection<RequestViewModel> Requests { get; set; }
@@ -38,9 +37,8 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             userService = new UserService();
             accommodationReservationService = new AccommodationReservationService();
             guestRequestService = new GuestRequestService();
-            AcceptRequestCommand = new RelayCommand(AcceptRequest);
-            DenyRequestCommand = new RelayCommand(DenyRequest);
-            SelectionChangedCommand = new RelayParameterCommand(OnSelectionChanged);
+            AcceptRequestCommand = new RelayParameterCommand(AcceptRequest);
+            DenyRequestCommand = new RelayParameterCommand(DenyRequest);
             loggedInUser = user;
             Requests = new ObservableCollection<RequestViewModel>();
 
@@ -53,20 +51,11 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 Requests.Add(new RequestViewModel(guestRequest.Id, guest.FullName, accommodation.Name, accommodation.Location, reservation.ReservedFrom, reservation.ReservedTo, guestRequest.NewReservedFrom, guestRequest.NewReservedTo, message));
             });
         }
-
-        private void OnSelectionChanged(object parameter)
+        private void AcceptRequest(object parameter)
         {
-            Debug.WriteLine("Selection changed");
             if (parameter != null)
             {
                 SelectedRequest = parameter as RequestViewModel;
-                Debug.WriteLine(SelectedRequest.RequestId);
-            }
-        }
-        private void AcceptRequest()
-        {
-            if (SelectedRequest != null)
-            {
                 if (SelectedRequest.Message == "")
                 {
                     Requests.Remove(SelectedRequest);
@@ -75,20 +64,17 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 else
                 {
                     AcceptRequestWindow acceptRequest = new AcceptRequestWindow(loggedInUser, SelectedRequest);
-                    //Window parentWindow = Window.GetWindow(this);
-                    // acceptRequest.Owner = parentWindow;
                     acceptRequest.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     acceptRequest.ShowDialog();
                 }
             }
         }
-        private void DenyRequest()
+        private void DenyRequest(object parameter)
         {
-            if (SelectedRequest != null)
+            if (parameter != null)
             {
+                SelectedRequest = parameter as RequestViewModel;
                 DenyRequest denyRequest = new DenyRequest(loggedInUser, SelectedRequest);
-                //Window parentWindow = Window.GetWindow(this);
-                //denyRequest.Owner = parentWindow;
                 denyRequest.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 denyRequest.ShowDialog();
             }

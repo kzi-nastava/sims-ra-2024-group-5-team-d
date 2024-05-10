@@ -11,10 +11,18 @@
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
     </UserControl.Resources>
     <Grid 
-              Width="920"
+              Width="930"
               Margin="0 0 0 30">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -24,7 +32,8 @@
                    Grid.Row="0" 
                    Text="Your renovations" 
                    FontSize="36" 
-                   FontWeight="Bold"
+                   FontWeight="DemiBold"
+                   Foreground="{StaticResource PrimaryBlack}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
         <ListView BorderThickness="0" 
@@ -46,11 +55,12 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" 
-                                BorderThickness="3" 
-                                CornerRadius="10"
+                    <Border Background="{StaticResource WhiteWhite}"
+                            Style="{StaticResource BorderHoverAnimation}"
+                            CornerRadius="10"
                             Height="150"
-                                Width="880">
+                                Width="880"
+                            Margin="8 0 0 20">
                         <Grid Margin="15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -61,7 +71,7 @@
                                 <ColumnDefinition MinWidth="50" Width="auto"/>
                                 <ColumnDefinition MinWidth="200" Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="3" Height="110">
+                            <Border CornerRadius="3" Height="110">
                                 <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center"                                     
@@ -82,9 +92,9 @@
                                            Margin="15 -5 0 0"
                                            Grid.Column="0" 
                                            FontSize="24" 
-                                           FontWeight="Bold"
+                                           FontWeight="DemiBold"
                                            VerticalAlignment="Top"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" Style="{StaticResource FontColor}"/>
                                     <Image Source="C:\Users\lukai\Desktop\Resource\verified.png" 
                                            Width="24" 
                                            Visibility="{Binding IsSuperOwner, Converter={StaticResource BoolToVisibilityConverter}}"
@@ -140,7 +150,7 @@
                                     </Grid>
                                     <TextBlock FontSize="12" 
                                                Grid.Column="1" 
-                                               Margin="7 0 0 4" VerticalAlignment="Center"> 
+                                               Margin="7 0 0 4" VerticalAlignment="Center" Style="{StaticResource FontColor}"> 
                                                <Run Text="{Binding NumberOfRatings}"/> 
                                                <Run Text="review(s)"/>
                                     </TextBlock>
@@ -160,12 +170,12 @@
                                            Grid.Column="1"
                                            FontSize="20"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" Style="{StaticResource FontColor}"/>
                                     </Grid>
                                     <TextBlock Text="{Binding Type}" 
                                            FontSize="20"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Right"/>
+                                           HorizontalAlignment="Right" Style="{StaticResource FontColor}"/>
                                 </Grid>
                             </Grid>
                             <Image Source="C:\Users\lukai\Desktop\Resource\chat.png" 
@@ -176,7 +186,7 @@
                                    Margin="0 5 15 0"
                                        HorizontalAlignment="Right" 
                                        VerticalAlignment="Top"/>
-                            <Border Grid.Column="4" Grid.RowSpan="2" BorderThickness="3" BorderBrush="Black" Padding="5">
+                            <Border Grid.Column="4" Grid.RowSpan="2" BorderThickness="1" BorderBrush="{StaticResource PrimaryColor}" CornerRadius="8" Padding="5">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
@@ -187,18 +197,18 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Renovations from :" FontSize="17" Width="auto"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding RenovationFrom ,StringFormat='dd.MM.yyyy'}" FontSize="17" Width="auto" HorizontalAlignment="Center"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Renovations to :" FontSize="17" Width="auto"/>
-                                    <TextBlock Grid.Row="1"  Grid.Column="1" Text="{Binding RenovationTo ,StringFormat='dd.MM.yyyy'}" FontSize="17" Width="auto" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Renovations from :" FontSize="17" Width="auto" Style="{StaticResource FontColor}"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding RenovationFrom ,StringFormat='dd.MM.yyyy'}" FontSize="17" Width="auto" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Renovations to :" FontSize="17" Width="auto" Style="{StaticResource FontColor}"/>
+                                    <TextBlock Grid.Row="1"  Grid.Column="1" Text="{Binding RenovationTo ,StringFormat='dd.MM.yyyy'}" FontSize="17" Width="auto" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
                                     <Button Grid.Column="0"
                                     FontSize="20" 
                                     Background="Transparent"
                                     VerticalAlignment="Center"
                                     Grid.ColumnSpan="2"
+                                            Template="{StaticResource CustomButtonTemplate}"
                                     BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Margin="0 0 0 0"  Command="{Binding DataContext.CancelRenovationCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" IsEnabled="{Binding IsCancelable}">
-                                        <Border  BorderBrush="DarkRed"
-                                             BorderThickness="3"
+                                        <Border Style="{StaticResource BorderHoverUltimate}"
                                              CornerRadius="10"
                                              Width="auto">
                                             <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
@@ -206,7 +216,7 @@
                                                Width="24" 
                                                Height="24"
                                                Margin="10 0 5 0"/>
-                                                <TextBlock  Text="Cancel renovations" Margin="0 0 10 0" Foreground="DarkRed" FontWeight="Bold" FontSize="17"/>
+                                                <TextBlock  Text="Cancel renovations" Margin="0 0 10 0" Foreground="{StaticResource WhiteWhite}" FontWeight="DemiBold" FontSize="17"/>
                                             </StackPanel>
                                         </Border>
                                     </Button>

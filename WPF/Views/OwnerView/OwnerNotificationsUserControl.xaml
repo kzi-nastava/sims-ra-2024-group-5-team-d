@@ -39,28 +39,16 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                   HorizontalAlignment="Center"
-                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Notifications}">
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Notifications}" ItemContainerStyle="{StaticResource CustomListView}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
                                    CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <ContentPresenter HorizontalAlignment="Left" Margin="2,3,2,3" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Padding="10" CornerRadius="10" Margin="0 0 20 10" Background="{StaticResource WhiteWhite}">
+                    <Border Padding="10" CornerRadius="10" Margin="8 0 20 10" Background="{StaticResource WhiteWhite}"  Style="{StaticResource BorderHoverAnimation}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -68,7 +56,13 @@
                                 <ColumnDefinition Width="500"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\dot.png" Visibility="{Binding IsUnread, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=Hidden}" Width="30" Margin="0 0 15 0"/>
+                            <Image Source="C:\Users\lukai\Desktop\Resource\dot.png" Visibility="{Binding IsUnread, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=Hidden}" Width="30" Margin="0 0 15 0">
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                        <BeginStoryboard Storyboard="{StaticResource BlinkAnimation}"/>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
                             <Image Source="{Binding AvatarPath}" Width="70" Grid.Column="1"/>
                             <Grid Grid.Column="2" Margin="15 0 0 0" Width="auto">
                                 <Grid.RowDefinitions>
@@ -85,7 +79,7 @@
                                 </Grid>
                                 <TextBlock Text="{Binding Message}" FontWeight="Normal" Grid.Row="1" FontSize="16" Style="{StaticResource FontColor}"/>
                             </Grid>
-                            <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Width="50" Margin="0 0 20 0"  Command="{Binding DataContext.OpenNotification, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                            <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Width="50" Margin="0 0 20 0" Template="{StaticResource CustomButtonTemplate}"  Command="{Binding DataContext.OpenNotification, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                 <Image Source="C:\Users\lukai\Desktop\Resource\enter.png"/>
                             </Button>
                         </Grid>

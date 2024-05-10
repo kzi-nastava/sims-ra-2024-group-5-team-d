@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
         mc:Ignorable="d"
+        WindowStyle="None"
         Title="CancelRenovationWindow" Height="200" Width="380">
     <Grid>
         <Grid.RowDefinitions>
@@ -23,9 +24,8 @@
                                     Background="Transparent"
                                     Height="42"
                                     VerticalAlignment="Center"
-                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding CancelRenovationCommand}">
-                <Border  BorderBrush="DarkGreen"
-                                             BorderThickness="3"
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding CancelRenovationCommand}" Template="{StaticResource CustomButtonTemplate}">
+                <Border  Style="{StaticResource BorderHover}"
                                              CornerRadius="10"
                                          Height="40">
                     <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
@@ -33,7 +33,7 @@
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                        <TextBlock  Text="Yes" Margin="0 2 15 0" Foreground="DarkGreen" FontWeight="Normal"/>
+                        <TextBlock  Text="Yes" Margin="0 2 15 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                     </StackPanel>
                 </Border>
             </Button>
@@ -43,9 +43,8 @@
                                     Height="42"
                                     VerticalAlignment="Center"
                                     Grid.RowSpan="2"
-                                    BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Click="Close" >
-                <Border  BorderBrush="DarkRed"
-                                             BorderThickness="3"
+                                    BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Click="Close" Template="{StaticResource CustomButtonTemplate}">
+                <Border  Style="{StaticResource BorderHover}"
                                              CornerRadius="10"
                                          Height="40">
                     <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
@@ -53,7 +52,7 @@
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                        <TextBlock  Text="No" Margin="0 1 15 0" Foreground="DarkRed" FontWeight="Normal"/>
+                        <TextBlock  Text="No" Margin="0 1 15 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                     </StackPanel>
                 </Border>
             </Button>
