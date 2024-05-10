@@ -15,28 +15,42 @@
             <Setter Property="Margin" Value="0 0 0 10"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="{StaticResource WhiteWhite}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
         </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+        <ControlTemplate x:Key="CustomButtonTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
     </UserControl.Resources>
-    <Grid>
-        <Border BorderBrush="Black" 
-                Grid.Row="1" 
-                BorderThickness="2 0 2 2"               
+    <Grid Background="Transparent">
+        <Border Grid.Row="1"             
                 Height="310"
-                VerticalAlignment="Top"/>
+                VerticalAlignment="Top" Background="{StaticResource PrimaryColor}"/>
         <Grid Grid.Row="1"  
-              Height="304" 
+              Height="303" 
               VerticalAlignment="Top"
               Margin="7"
-              Cursor="Hand" 
-              Background="Transparent">
+              Cursor="Hand"
+              >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button BorderThickness="0" Background="Transparent" Command="{Binding SwitchViewCommand}" CommandParameter="0" Margin="0 0 0 5">
-                <Grid>
+            <Button BorderThickness="0" Command="{Binding SwitchViewCommand}" CommandParameter="0" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
+                <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -54,8 +68,8 @@
                                Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button Background="Transparent" BorderThickness="0"  Grid.Row="1" Command="{Binding SwitchViewCommand}" CommandParameter="1" Margin="0 0 0 5">
-                <Grid>
+            <Button Background="Transparent" BorderThickness="0"  Grid.Row="1" Command="{Binding SwitchViewCommand}" CommandParameter="1" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
+                <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -73,8 +87,8 @@
                        Style="{StaticResource TextBlockMarginLeftMenu}"/> 
                 </Grid>
             </Button>
-            <Button Grid.Row="2" BorderThickness="0" Background="Transparent" Command="{Binding SwitchViewCommand}" CommandParameter="2" Margin="0 0 0 5">
-                <Grid>
+            <Button Grid.Row="2" BorderThickness="0" Background="Transparent" Command="{Binding SwitchViewCommand}" CommandParameter="2" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
+                <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -92,8 +106,8 @@
                        Style="{StaticResource TextBlockMarginLeftMenu}"/>
                 </Grid>
             </Button>
-            <Button Background="Transparent" BorderThickness="0" Grid.Row="3" Command="{Binding SwitchViewCommand}" CommandParameter="3" Margin="0 0 0 10">
-                <Grid>
+            <Button Background="Transparent" BorderThickness="0" Grid.Row="3" Command="{Binding SwitchViewCommand}" CommandParameter="3" Margin="0 0 0 10" Template="{StaticResource CustomButtonTemplate}">
+                <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>

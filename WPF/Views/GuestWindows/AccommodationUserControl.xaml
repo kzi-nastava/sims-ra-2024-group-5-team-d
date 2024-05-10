@@ -10,32 +10,41 @@
         <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Grid>
+        <ScrollViewer>
+            <Grid Background="{StaticResource PrimaryBlack}">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-
-            <Image Source="{Binding Accommodation.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding Accommodation.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
            Grid.Column="0"
            Grid.Row="0"
            Grid.RowSpan="2"
            HorizontalAlignment="Left"
            VerticalAlignment="Center"
-           Height="70" 
+           Height="100" 
            Margin="15,15,0,15"
-           Width="90" />
-            <Label Content="{Binding Accommodation.Name}"
+           Width="100" />
+                <Label Content="{Binding Accommodation.Name}"
            HorizontalAlignment="Center"
            VerticalAlignment="Center" 
            Grid.Column="1"
@@ -45,13 +54,13 @@
            FontWeight="Bold"
            Height="auto" 
            Width="auto"/>
-            <Button Content="Comments" 
+                <Button Content="Comments" 
              Grid.Row="1" 
              Grid.Column="1" 
              Width="68" 
              VerticalAlignment="Center" 
              HorizontalAlignment="Center"/>
-            <Image Source="../../../Resources/Images/GuestImages/StarIcon.png"
+                <Image Source="../../../Resources/Images/GuestImages/star.png"
            Grid.Column="2"
            Grid.Row="1"
            HorizontalAlignment="Left"
@@ -59,7 +68,7 @@
            Height="30" 
            Margin="15,0,0,0"
            Width="30" />
-            <Label Content="{Binding Accommodation.Rating}"
+                <Label Content="{Binding Accommodation.Rating}"
            Grid.Column="2"
            Grid.Row="1"
            HorizontalAlignment="Left"
@@ -67,7 +76,7 @@
            Height="30" 
            Margin="40,0,0,0"
            Width="30" />
-            <Image Source="../../../Resources/Images/GuestImages/PersonIcon.png"
+                <Image Source="../../../Resources/Images/GuestImages/people.png"
            Grid.Column="3"
            Grid.Row="1"
            HorizontalAlignment="Left"
@@ -75,7 +84,7 @@
            Height="30" 
            Margin="10,0,0,0"
            Width="30" />
-            <Label Content="{Binding Accommodation.Capacity}"
+                <Label Content="{Binding Accommodation.Capacity}"
            Grid.Column="3"
            Grid.Row="1"
            HorizontalAlignment="Left"
@@ -84,42 +93,42 @@
            Margin="40,0,0,0"
            Width="30" />
 
-            <Image Source="../../../Resources/Images/GuestImages/WiFiIcon.png"
+                <Image Source="../../../Resources/Images/GuestImages/wifi.png"
             Grid.Column="0" 
             Grid.Row="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Width="24"
             Margin="15,20,0,5" />
-            <Image Source="../../../Resources/Images/GuestImages/KnifeAndForkIcon.png"
+                <Image Source="../../../Resources/Images/GuestImages/KnifeAndForkIcon.png"
             Grid.Column="0" 
             Grid.Row="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Width="28"
             Margin="80,20,0,0" Grid.ColumnSpan="2" />
-            <Image Source="../../../Resources/Images/GuestImages/BathIcon.png"
+                <Image Source="../../../Resources/Images/GuestImages/BathIcon.png"
             Grid.Column="1" 
             Grid.Row="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Width="24"
             Margin="0,20,0,0" />
-            <Image Source="../../../Resources/Images/GuestImages/ParkingIcon.png"
+                <Image Source="../../../Resources/Images/GuestImages/ParkingIcon.png"
             Grid.Column="2" 
             Grid.Row="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Width="26"
             Margin="15,20,0,0" />
-            <Image Source="../../../Resources/Images/GuestImages/BedsIcon.png"
+                <Image Source="../../../Resources/Images/GuestImages/BedsIcon.png"
             Grid.Column="2" 
             Grid.Row="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Width="26"
             Margin="91,20,0,0" Grid.ColumnSpan="2" />
-            <Image Source="../../../Resources/Images/GuestImages/OtherIcon.png"
+                <Image Source="../../../Resources/Images/GuestImages/OtherIcon.png"
             Grid.Column="3" 
             Grid.Row="2"
             HorizontalAlignment="Left"
@@ -127,42 +136,42 @@
             Width="30"
             Margin="54,20,0,0" />
 
-            <Label Content="FreeWiFi" 
+                <Label Content="FreeWiFi" 
            Grid.Row="2"
            Grid.Column="0"
            Grid.ColumnSpan="4"
            Margin="0,39,0,11" 
            Grid.RowSpan="2"
            FontSize="11"/>
-            <Label Content="Kitchen" 
+                <Label Content="Kitchen" 
            Grid.Row="2"
            Grid.Column="0"
            Grid.ColumnSpan="4"
            Margin="70,39,0,11" 
            Grid.RowSpan="2"
            FontSize="11"/>
-            <Label Content="Bath" 
+                <Label Content="Bath" 
            Grid.Row="2"
            Grid.Column="0"
            Grid.ColumnSpan="4"
            Margin="145,39,0,11" 
            Grid.RowSpan="2"
            FontSize="11"/>
-            <Label Content="Parking" 
+                <Label Content="Parking" 
            Grid.Row="2"
            Grid.Column="0"
            Grid.ColumnSpan="4"
            Margin="221,39,0,11" 
            Grid.RowSpan="2"
            FontSize="11"/>
-            <Label Content="Beds" 
+                <Label Content="Beds" 
            Grid.Row="2"
            Grid.Column="0"
            Grid.ColumnSpan="4"
            Margin="300,39,0,11" 
            Grid.RowSpan="2"
            FontSize="11"/>
-            <Label Content="Other" 
+                <Label Content="Other" 
            Grid.Row="2"
            Grid.Column="0"
            Grid.ColumnSpan="4"
@@ -170,16 +179,210 @@
            Grid.RowSpan="2"
            FontSize="11"/>
 
-            <Button Content="Choose" 
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
+                <Grid x:Name="Grid"
+                      Grid.Row="3"
+                      Grid.ColumnSpan="4">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="../../../Resources/Images/GuestImages/CheckIcon.png"
+            Grid.Column="0"
+            Grid.Row="1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Height="18"
+            Width="18" Margin="10,20,10,0"/>
+                    <Label Content="Free cancelation" 
+            Grid.Column="0"
+            Grid.Row="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" Margin="35,15,0,0"/>
+                    <Label Content="until 23:59 on dd/mm/yyyy" 
+            Grid.Column="0"
+            Grid.Row="1"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" Margin="50,30,0,0" FontSize="11"/>
+
+                    <Image Source="../../../Resources/Images/GuestImages/CheckIcon.png"
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Height="18"
+            Width="18" Margin="10,20,10,0"/>
+                    <Label Content="No payement needed" 
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" Margin="35,15,0,0"/>
+                    <Label Content="until 23:59 on dd/mm/yyyy" 
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" Margin="50,30,0,0" FontSize="11"/>
+
+                    <Image Source="../../../Resources/Images/GuestImages/CheckIcon.png"
+            Grid.Column="0"
+            Grid.Row="3"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Height="18"
+            Width="18" Margin="10,20,10,0"/>
+                    <Label Content="No credit card needed" 
+            Grid.Column="0"
+            Grid.Row="3"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" Margin="35,15,0,0"/>
+                    <Label Content="until 23:59 on dd/mm/yyyy" 
+            Grid.Column="0"
+            Grid.Row="3"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" 
+            Margin="50,30,0,10" 
+            FontSize="11"/>
+
+                    <Label Content="Reservation" 
+            Grid.Column="0"
+            Grid.Row="4"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            Margin="0,15,0,10" 
+            FontSize="14"
+            Grid.ColumnSpan="2" FontWeight="Bold"/>
+                    <Border BorderThickness="0,0,0,2" 
+                         BorderBrush="Black"
+                         Grid.Column="0"
+                         Grid.Row="4"
+                         Grid.ColumnSpan="2"
+                         VerticalAlignment="Top"/>
+
+                    <Label Content="From:" 
+            Grid.Column="0" 
             Grid.Row="5"
-            Height="30"
-            Width="70"
-            Click="AddReservation_Button"/>
+            VerticalAlignment="Top" 
+            Margin="0,0,0,20"/>
+                    <DatePicker Grid.Column="0" 
+                 Grid.Row="5"
+                 VerticalAlignment="Bottom" 
+                 Margin="48,0,45,20" 
+                 SelectedDate="{Binding FromDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="To:" 
+            Grid.Column="1" 
+            Grid.Row="5" 
+            VerticalAlignment="Center"
+             Margin="0,0,0,20"/>
+                    <DatePicker Grid.Column="1"
+                 Grid.Row="5"
+                 VerticalAlignment="Center" 
+                 Margin="48,0,45,20" 
+                 SelectedDate="{Binding ToDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
+                    <Label Content="Number of days:" 
+            Grid.Column="0" 
+            Grid.Row="6" 
+            VerticalAlignment="Center" Margin="0,0,0,20"/>
+                    <TextBox Grid.Column="0"
+              Grid.Row="6" 
+              VerticalAlignment="Center"  
+              Margin="100,0,62,20" 
+              Text="{Binding NumberOfDays,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button x:Name="DateCheck" 
+             Content="DATE CHECK"
+             Grid.Column="0"
+             Grid.Row="7"
+             Grid.ColumnSpan="2" 
+             VerticalAlignment="Center"
+             Height="43"
+             Margin="130,0,130,20"
+             Click="DateCheckClick"/>
+                    <TextBlock  x:Name="NotAvailableLabel" 
+             Text="Accommodation is not available in the given range, the range is extended!!!" 
+             Grid.Column="0"
+             Grid.Row="8" 
+             Grid.ColumnSpan="2" 
+             VerticalAlignment="Center" 
+             Foreground="Red"
+             TextWrapping="Wrap"
+             TextAlignment="Center"
+             MaxWidth="300" 
+             HorizontalAlignment="Center" 
+             Margin="0,0,0,10"
+             Visibility="Collapsed"/>
+                    <DataGrid x:Name="AvailabilityDateGrid"
+               Grid.Row="9"
+               Height="auto"
+               AutoGenerateColumns="False"
+               IsReadOnly="True"
+               Grid.ColumnSpan="2"
+               SelectionMode="Single"
+               ItemsSource="{Binding AvailableDates,UpdateSourceTrigger=PropertyChanged}"
+               SelectedItem="{Binding SelectedDate}"
+               SelectionChanged="AvailabilityDateGrid_SelectionChanged"
+               Margin="20,0,20,15">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Width="*" 
+                                  Header="Available from:" 
+                                  Binding="{Binding Key}"/>
+                            <DataGridTextColumn  Width="*"
+                                  Header="Available to:"  
+                                  Binding="{Binding Value}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label x:Name="NumberOfPeopleLabel"
+            Content="Number of people:"
+            Grid.Column="0" 
+            Grid.Row="10"
+            VerticalAlignment="Center" 
+            Margin="0,15,0,15"
+            Visibility="Collapsed"/>
+                    <TextBox  x:Name="NumberOfPeopleTextBox" 
+               Grid.Column="0"
+               Grid.Row="10" 
+               VerticalAlignment="Center" 
+               Margin="110,0,30,0" 
+               Text="{Binding NumberOfPeople, UpdateSourceTrigger=PropertyChanged}"
+               Visibility="Collapsed"/>
 
-        </Grid>
+                    <Button x:Name="ReserveButton"
+             Content="Reserve" 
+             Grid.Column="0" 
+             Grid.Row="11"
+             VerticalAlignment="Center" 
+             HorizontalAlignment="Center"
+             Height="30"
+             Width="80"
+             Visibility="Collapsed"
+             Click="ReserveAccommodation"
+             Margin="0,0,0,20"/>
+                    <Button x:Name="CancelButton"
+             Content="Cancel" 
+             Grid.Column="1"
+             Grid.Row="11" 
+             VerticalAlignment="Center"
+             Width="80"
+             Height="30"
+             Click="Cancel"
+             Margin="0,0,0,20"/>
 
+                </Grid>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>

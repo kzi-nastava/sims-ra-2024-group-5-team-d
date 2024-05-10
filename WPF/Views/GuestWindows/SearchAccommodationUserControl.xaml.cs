@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -25,8 +26,29 @@ namespace BookingApp.WPF.Views.GuestWindows
     /// <summary>
     /// Interaction logic for SearchAccommodationUserControl.xaml
     /// </summary>
-    public partial class SearchAccommodationUserControl : UserControl
+    public partial class SearchAccommodationUserControl : UserControl,INotifyPropertyChanged
     {
+        private DateTime fromDate = DateTime.UtcNow;
+        public DateTime FromDate
+        {
+            get { return fromDate; }
+            set
+            {
+                fromDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime toDate = DateTime.UtcNow;
+        public DateTime ToDate
+        {
+            get { return toDate; }
+            set
+            {
+                toDate = value;
+                OnPropertyChanged();
+            }
+        }
         private string accommodationName = "";
         public string AccommodationName
         {
@@ -109,10 +131,9 @@ namespace BookingApp.WPF.Views.GuestWindows
         private readonly NotifierService notifierService;
         private readonly SearchAccommodationService SearchService;
         private AccommodationRatingService accommodationRatingService;
-        private readonly ContentControl contentControl;
         public AccommodationViewModel SelectedAccommodation { get; set; }
         List<Accommodation> accommodations;
-        public SearchAccommodationUserControl(User user, ContentControl contentControl)
+        public SearchAccommodationUserControl(User user)
         {
             InitializeComponent();
             LoggedInUser = user;
@@ -126,7 +147,6 @@ namespace BookingApp.WPF.Views.GuestWindows
             accommodations = accommodationService.GetAll();
             SortAccommodation();
             accommodations.ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity, a.Owner.IsSuperUser, a.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(a))));
-            this.contentControl = contentControl;
             bool IsUpdated = superGuestService.UpdateUserStatus(LoggedInUser);
             if(IsUpdated)
             {
@@ -155,12 +175,20 @@ namespace BookingApp.WPF.Views.GuestWindows
                 GuestWindow.contentControl.Content = new AccommodationUserControl(LoggedInUser, SelectedAccommodation);
             }
         }
+        private void ListViewAnytimeAnywhere_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (SelectedAccommodation != null)
+            {
+                GuestWindow.contentControl.Content = new AccommodationAnytimeAnywhereUserControl(LoggedInUser, SelectedAccommodation, fromDate, toDate, NumberOfPeople, NumberOfDays);
+            }
+        }
 
         private void AnytimeAnywhereSearch_Click(object sender, RoutedEventArgs e)
         {
             Accommodations.Clear();
+            accommodations = SearchService.AnytimeAnywhere(numberOfPeople, numberOfDays, FromDate, ToDate);
             SortAccommodation();
-
+            accommodations.ForEach(accommodation => Accommodations.Add(new AccommodationViewModel(accommodation.Id, accommodation.Name, accommodation.Location, accommodation.Type, accommodation.ImagesPath, accommodation.MinStay, accommodation.Capacity, accommodation.Owner.IsSuperUser, accommodation.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(accommodation))));
         }
         private void SortAccommodation()
         {
@@ -181,5 +209,18 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             });
         }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is TabItem)
+            {
+                ToDate = DateTime.UtcNow;
+                FromDate = DateTime.UtcNow;
+                NumberOfPeople = 1;
+                NumberOfDays = 1;   // Ovdje možete dodati svoju logiku koja će se izvršiti samo kada se promijeni tab
+            }
+        }
+
+
     }
 }

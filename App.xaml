@@ -31,6 +31,30 @@
             <Style TargetType="TextBox">
                 <Setter Property="FontFamily" Value="{StaticResource CustomFont}" />
             </Style>
+            <Style TargetType="Border" x:Key="BorderHover">
+                <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PrimaryColor2}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="Grid" x:Key="GridHover">
+                <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PrimaryColor2}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="Button" x:Key="ButtonHover">
+                <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PrimaryColor2}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

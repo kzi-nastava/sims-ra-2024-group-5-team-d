@@ -14,22 +14,25 @@ namespace BookingApp.Domain.Models
         public int AccommodationId { get; set; }
         public DateTime RenovateFrom { get; set; }
         public DateTime RenovateTo { get; set; }
+        public string RenovationReason { get; set; }
         public AccommodationRenovation()
         {
 
         }
-        public AccommodationRenovation(int id, int accommodationId, DateTime renovateFrom, DateTime renovateTo)
+        public AccommodationRenovation(int id, int accommodationId, DateTime renovateFrom, DateTime renovateTo, string renovationReason)
         {
             Id = id;
             AccommodationId = accommodationId;
             RenovateFrom = renovateFrom;
             RenovateTo = renovateTo;
+            RenovationReason = renovationReason;
         }
-        public AccommodationRenovation(int accommodationId, DateTime renovateFrom, DateTime renovateTo)
+        public AccommodationRenovation(int accommodationId, DateTime renovateFrom, DateTime renovateTo,string renovationReason)
         {
             AccommodationId = accommodationId;
             RenovateFrom = renovateFrom;
             RenovateTo = renovateTo;
+            RenovationReason = renovationReason;
         }
 
         public void FromCSV(string[] values)
@@ -39,7 +42,7 @@ namespace BookingApp.Domain.Models
             AccommodationId = int.Parse(values[1]);
             RenovateFrom = DateTime.ParseExact(values[2], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             RenovateTo = DateTime.ParseExact(values[3], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-
+            RenovationReason = values[4];
         }
 
         public bool IsCancelable()
@@ -48,7 +51,7 @@ namespace BookingApp.Domain.Models
         }
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(), AccommodationId.ToString(), RenovateFrom.ToString("M/d/yyyy h:mm:ss tt"), RenovateTo.ToString("M/d/yyyy h:mm:ss tt") };
+            return new string[] { Id.ToString(), AccommodationId.ToString(), RenovateFrom.ToString("M/d/yyyy h:mm:ss tt"), RenovateTo.ToString("M/d/yyyy h:mm:ss tt"),RenovationReason };
         }
 
         public bool IsInRange(DateTime from, DateTime to)

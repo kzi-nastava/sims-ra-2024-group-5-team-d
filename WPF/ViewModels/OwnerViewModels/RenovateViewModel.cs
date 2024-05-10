@@ -19,6 +19,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 
         public ICommand ShowAvailableDatesCommand { get; set; }
         public SelectDateViewModel SelectDate { get; set; }
+        public string ReservationReason { get; set; }
         private AccommodationService accommodationService;
         public ObservableCollection<AvailableRenovationDateViewModel> AvailableDates { get; set; }
         private AccommodationRenovationService accommodationRenovationService;
@@ -42,9 +43,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private void ShowAvailableDates()
         {
             AvailableDates.Clear();
-            List<KeyValuePair<DateTime, DateTime>> availableDatesForRenovations = availableDatesForReservationService.CheckAvailableDatesInGivenRange(SelectDate.RenovateFrom, SelectDate.RenovateTo, SelectDate.DaysForRenovation, accommodationService.GetById(accommodationId));
+            List<KeyValuePair<DateTime, DateTime>> availableDatesForRenovations = availableDatesForReservationService.GetAvailableDatesInGivenRange(SelectDate.RenovateFrom, SelectDate.RenovateTo, SelectDate.DaysForRenovation, accommodationService.GetById(accommodationId));
             availableDatesForRenovations.ForEach(date => AvailableDates.Add(new AvailableRenovationDateViewModel(date.Key, date.Value)));
-            SelectDate.ShowRenovationDates = true;
+            SelectDate.ShowRenovationDates = true;  
 
         }
         private void ReserveRenovation()
@@ -53,7 +54,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             {
                 notifierService.ShowSuccess("Renovation reserved successfully");
                 SelectDate.ShowRenovationDates = false;
-                accommodationRenovationService.Save(new AccommodationRenovation(accommodationId, SelectedAvailableDate.FromDate, SelectedAvailableDate.ToDate));
+                accommodationRenovationService.Save(new AccommodationRenovation(accommodationId, SelectedAvailableDate.FromDate, SelectedAvailableDate.ToDate, ReservationReason));
             }
         }
     }
