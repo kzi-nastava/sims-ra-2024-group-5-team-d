@@ -71,5 +71,11 @@ namespace BookingApp.Appl.UseCases
             return userRepository.Update(user);
         }
 
+        public void UpdateCredentials(User loggedInUser, string username, string password)
+        {
+            loggedInUser.Username = username;
+            loggedInUser.Password = password;
+            Update(loggedInUser);
+        }
     }
 }

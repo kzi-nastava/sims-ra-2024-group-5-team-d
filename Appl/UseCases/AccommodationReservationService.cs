@@ -105,5 +105,50 @@ namespace BookingApp.Appl.UseCases
         {
             return GetByUser(user).Where(reservation=>reservation.IsInLastYear() && !reservation.IsCanceled()).Count();
         }
+        public int GetNumberOfReservationsForOwner(User owner)
+        {
+            return GetAllReservationsForOwner(owner).Where(reservation=>reservation.IsFinished()).Count();
+        }
+
+        public Accommodation GetMostPopularAccommodationForOwner(User owner)
+        {
+            Accommodation mostPopular = null;
+            int numberOfReservations = 0;
+            accommodationService.GetByUser(owner).ForEach(accommodation=>
+            { int numberOfReservationsForAccommodation = GetNumberOfReservationForAccommodation(accommodation);
+                if(numberOfReservationsForAccommodation > numberOfReservations)
+                {
+                    mostPopular = accommodation;
+                    numberOfReservations = numberOfReservationsForAccommodation;
+                }
+            });
+            return mostPopular;
+        }
+
+        private int GetNumberOfReservationForAccommodation(Accommodation accommodation)
+        {
+            return GetAllReservationsForAccommodation(accommodation.Id).Where(reservation => reservation.IsFinished()).Count();
+        }
+
+        public Accommodation GetMostBusyAccommodationForOwner(User owner)
+        {
+            Accommodation mostPopular = null;
+            int busyness = 0;
+            accommodationService.GetByUser(owner).ForEach(accommodation =>
+            {
+                int busynessForAccommodation = GetBusynessForAccommodation(accommodation);
+                Debug.WriteLine("Busyness for accommodation " + accommodation.Name + " is " + busynessForAccommodation);
+                if (busynessForAccommodation > busyness)
+                {
+                    mostPopular = accommodation;
+                    busyness = busynessForAccommodation;
+                }
+            });
+            return mostPopular;
+        }
+        private int GetBusynessForAccommodation(Accommodation accommodation)
+        {
+            return GetAllReservationsForAccommodation(accommodation.Id).Where(reservation => reservation.IsFinished()).Sum(reservation=>reservation.CalculateNumberOfReservedDays());
+        }
     }
 }

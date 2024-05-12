@@ -12,7 +12,7 @@
             <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
         </Style>
         <Style TargetType="Grid">
-            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="FontColor">
             <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
@@ -21,7 +21,7 @@
     </UserControl.Resources>
     <Grid 
               Width="980"
-              Margin="0 0 0 30" HorizontalAlignment="Center">
+              Margin="0 0 0 30" HorizontalAlignment="Center" Background="{StaticResource WhiteGrey}">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
@@ -42,10 +42,10 @@
                 <DataTemplate>
                     <Border Background="{StaticResource WhiteWhite}" 
                                 CornerRadius="10"
-                                Width="auto" Margin="20 0 0 20"
+                                Width="950" Margin="20 0 0 20"
                                 HorizontalAlignment="Center"
                              Style="{StaticResource BorderHoverAnimation}">
-                        <Grid Margin="10" >
+                        <Grid Margin="10" Background="{StaticResource WhiteWhite}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
@@ -53,8 +53,8 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Image Source="{Binding AvatarPath}" Width="70" Grid.Column="0" Grid.RowSpan="2" Margin="0 0 10 0"/>
                             <Grid Grid.Row="0" Grid.Column="1">

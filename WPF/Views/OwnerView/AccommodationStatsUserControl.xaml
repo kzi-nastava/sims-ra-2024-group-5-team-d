@@ -8,6 +8,17 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="572" d:DesignWidth="1108">
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -16,15 +27,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <TextBlock Text="Stars Palic" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
-        <TextBlock Text="Yearly stats" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
-        <Grid Grid.Row="2">
+        <TextBlock Text="Stars Palic" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Style="{StaticResource FontColor}"/>
+        <TextBlock Text="{Binding Title}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Style="{StaticResource FontColor}"/>
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Select year :" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <ComboBox Grid.Column="1" Margin="10 0 0 0"  FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" SelectedIndex="0"  SelectedItem="{Binding SelectedYear, Mode=TwoWay}" ItemsSource="{Binding Years}">
+            <TextBlock Text="Select year :" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource FontColor}"/>
+            <ComboBox Grid.Column="1" Margin="10 0 0 0" Foreground="{StaticResource PrimaryBlack}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" SelectedIndex="0"  SelectedItem="{Binding SelectedYear, Mode=TwoWay}" ItemsSource="{Binding Years}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ChangeStatsCommand}"/>
@@ -32,53 +43,71 @@
                 </i:Interaction.Triggers>
             </ComboBox>
         </Grid>
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="3" Margin="20 20 20 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock Text="Cancelled,moved,finished reservations" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <lvc:CartesianChart Series="{Binding YearlyGeneralStats}" Grid.Row="1" LegendLocation="Top">
+            <Border Grid.Column="0" Background="{StaticResource WhiteWhite}" CornerRadius="8" Style="{StaticResource BorderHoverAnimation}" Margin="0 0 10 0">
+            <Grid Grid.Column="0" Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}">
+                    <Run Text=" Moved, finished, "/>
+                    <LineBreak/>
+                    <Run Text="cancelled reservations"/>
+                </TextBlock>
+                <lvc:CartesianChart Series="{Binding YearlyGeneralStats}" Grid.Row="1" LegendLocation="Top" Margin="10 0 10 0">
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Godine" Labels="{Binding YearLabels}" />
+                        <lvc:Axis  Labels="{Binding YearLabels}" />
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Broj rezervacija" />
+                        <lvc:Axis/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
             </Grid>
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock Text="Percentage of reserved days" HorizontalAlignment="Center"  VerticalAlignment="Center"  FontSize="20"/>
-                <lvc:PieChart Grid.Row="1"  LegendLocation="Top" Series="{Binding YearlyBussinessStats}">
-                </lvc:PieChart>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock Text="Naslov" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <lvc:CartesianChart Grid.Row="1" Series="{Binding YearlyReccommendedrenovations}" LegendLocation="Top">
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Year" Labels="{Binding YearLabels}" />
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis MinValue="0" />
-                    </lvc:CartesianChart.AxisY>
-                </lvc:CartesianChart>
+        </Border>
+        <Border Grid.Column="2" Background="{StaticResource WhiteWhite}" CornerRadius="8" Margin="10 0 0 0 " Style="{StaticResource BorderHoverAnimation}">
+                <Grid Grid.Column="2"  Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Percentage of reserved days" HorizontalAlignment="Center"  VerticalAlignment="Center"  FontSize="20" Style="{StaticResource FontColor}"/>
+                    <lvc:PieChart Grid.Row="1"  LegendLocation="Top" Series="{Binding YearlyBussinessStats}">
+                    </lvc:PieChart>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" Background="{StaticResource WhiteWhite}" CornerRadius="8" Style="{StaticResource BorderHoverAnimation}" Margin="10 0 10 0">
+                <Grid Grid.Column="1"  Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Number of renovations" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding YearlyReccommendedrenovations}" LegendLocation="Top">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Year" Labels="{Binding YearLabels}" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis MinValue="0" />
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
 
-            </Grid>
+                </Grid>
+            </Border>
         </Grid>
-        <Button Content="Show reccommended actions" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 50" Command="{Binding ShowReccommendationCommand}"/>
+        <Button Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 50" Command="{Binding ShowReccommendationCommand}">
+            <Border  Style="{StaticResource BorderHover}"
+                                             CornerRadius="10"                            
+                                             >
+                <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Margin="0 2 0 0" Padding="5" TextAlignment="Center" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal" HorizontalAlignment="Center"><Run Text="Show reccommended"/><LineBreak/><Run Text="actions"/></TextBlock>
+                </StackPanel>
+            </Border>
+        </Button>
     </Grid>
 </UserControl>

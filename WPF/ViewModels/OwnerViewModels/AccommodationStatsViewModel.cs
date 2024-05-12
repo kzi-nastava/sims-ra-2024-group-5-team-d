@@ -8,6 +8,7 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ using System.Windows.Media;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
-    public class AccommodationStatsViewModel
+    public class AccommodationStatsViewModel :INotifyPropertyChanged
     {
         public ICommand ShowReccommendationCommand { get; set; }
         public ICommand ChangeStatsCommand { get; set; }
@@ -27,6 +28,16 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public SeriesCollection YearlyGeneralStats { get; set; }
         public ObservableCollection<string>Years { get; set; }
         public string SelectedYear { get; set; }
+        private string title;
+        public string Title
+        {
+            get { return title; }
+            set
+            {
+                title = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+            }
+        }
         public ObservableCollection<string> YearLabels { get; set; }
         public SeriesCollection YearlyReccommendedrenovations { get; set; }
         private AccommodationStatsService accommodationStatsService;
@@ -34,6 +45,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private Accommodation accommodation;
         private LocationService locationService;
         private AccommodationReservationService accommodationReservationService;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public AccommodationStatsViewModel(int accommodationId, User user)
         {
             loggedInUser = user;
@@ -64,9 +78,15 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             YearlyReccommendedrenovations.Clear();
             YearLabels.Clear();
             if (SelectedYear == "All years")
+            {
+                Title = "All time stats";
                 ShowYearlyStats(SelectedYear);
+            }
             else
+            {
+                Title= $"Stats for {SelectedYear}";
                 ShowYearlyStats(SelectedYear);
+            }
         }
         private void InitializeComboBox(Accommodation accommodation)
         {
