@@ -22,27 +22,62 @@
         </Grid.RowDefinitions>
 
         <TabControl Grid.Column="0" 
-                    Grid.Row="0" 
-                    Grid.ColumnSpan="4"
-                    Background="{StaticResource PrimaryBlack3}">
-            <TabItem Width="200"
-                 Background="{StaticResource PrimaryBlack3}">
+            Grid.Row="0" 
+            Grid.ColumnSpan="4"
+            Background="{StaticResource PrimaryBlack3}">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                                    <ContentPresenter ContentSource="Header"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor2}" />
+                                        <Setter TargetName="Border" Property="BorderThickness" Value="3" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryBlack3}" />
+                                        <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            <TabItem Width="200" 
+             Background="{StaticResource PrimaryBlack3}"
+             BorderBrush="{StaticResource PrimaryColor}"
+             BorderThickness="3">
                 <TabItem.Header>
-                    <Border Background="{StaticResource PrimaryBlack3}">
-                        <Border BorderBrush="{StaticResource PrimaryColor}" 
-                        BorderThickness="3" 
-                        CornerRadius="10"
-                        Background="{StaticResource PrimaryColor2}"
-                        Width="90">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="All forums" 
-                               Padding="5"
-                               Foreground="{StaticResource WhiteWhite}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="All forums" 
+                       Padding="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor2}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource WhiteWhite}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </TabItem.Header>
                 <ScrollViewer>
                     <Grid>
@@ -262,42 +297,47 @@
                                                     Margin="5"
                                                     Foreground="{StaticResource WhiteWhite}"/>
                                             </Border>
-                                            <Button Content="See all comments" 
-                                                       Grid.Row="3"
-                                                       HorizontalAlignment="Right"
-                                                       FontSize="11" 
-                                                       FontWeight="Bold"
-                                                       VerticalAlignment="Top"
-                                                       Background="Transparent"
-                                                       Command="{Binding DataContext.OpenMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"
-                                                       Foreground="DarkOrange" />
-                                            <Button Grid.Row="4"
-                                                   FontSize="20" 
-                                                   Background="Transparent"
-                                                   Height="33"
-                                                   Width="auto"
-                                                   Cursor="Hand"
-                                                   VerticalAlignment="Center"
-                                                   BorderThickness="0" 
-                                                   Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                   HorizontalAlignment="Center"
-                                                   Grid.Column="0"
-                                                   Grid.ColumnSpan="2"
-                                                   Command="{Binding DataContext.CloseForumCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
-                                                   CommandParameter="{Binding}">
+                                            <Button Grid.Row="3"
+                                                     Background="Transparent"
+                                                     Height="auto"
+                                                     Width="auto"
+                                                     Cursor="Hand"
+                                                     VerticalAlignment="Top"
+                                                     BorderThickness="0" 
+                                                     Visibility="{Binding IsActive, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                     HorizontalAlignment="Right"
+                                                     Grid.Column="1"
+                                                     Command="{Binding DataContext.CloseForumCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                     CommandParameter="{Binding}"
+                                                     Margin="7,7,7,0">
                                                 <Border  Background="DarkOrange"
-                                                     CornerRadius="2"
-                                                     Height="25" 
-                                                     Width="auto">
+                                                       CornerRadius="2"
+                                                       Height="auto" 
+                                                       Width="auto">
                                                     <TextBlock  Text="Close forum"
-                                                       Margin="20 0 20 0" 
-                                                       Foreground="{StaticResource  WhiteGrey}" 
-                                                       FontWeight="Bold" 
-                                                       FontSize="14" 
-                                                       HorizontalAlignment="Center" 
-                                                       VerticalAlignment="Center"/>
+                                                         Margin="5" 
+                                                         Foreground="{StaticResource  WhiteGrey}" 
+                                                         FontWeight="Bold" 
+                                                         FontSize="11" 
+                                                         HorizontalAlignment="Center" 
+                                                         VerticalAlignment="Center"/>
                                                 </Border>
                                             </Button>
+
+                                            <Button Content="See all comments" 
+                                                         Grid.Row="4"
+                                                         HorizontalAlignment="Center"
+                                                         FontSize="15" 
+                                                         FontWeight="Bold"
+                                                         VerticalAlignment="Center"
+                                                         Grid.Column="0"
+                                                         Grid.ColumnSpan="2"
+                                                         BorderBrush="Transparent"
+                                                         Command="{Binding DataContext.OpenMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"
+                                                         Foreground="DarkOrange"
+                                                         Background="{StaticResource PrimaryColor}"
+                                                         Margin="10"/>
+
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -307,22 +347,28 @@
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Width="200"
-                 Background="{StaticResource PrimaryBlack3}">
+            <TabItem Width="200" 
+             Background="{StaticResource PrimaryBlack3}"
+             BorderBrush="{StaticResource PrimaryColor}"
+             BorderThickness="3">
                 <TabItem.Header>
-                    <Border Background="{StaticResource PrimaryBlack3}">
-                        <Border BorderBrush="{StaticResource PrimaryColor}" 
-                             BorderThickness="3" 
-                             CornerRadius="10"
-                             Background="{StaticResource PrimaryColor2}"
-                             Width="90">
-                            <TextBlock Text="My forums" 
-                            Padding="5"
-                            Foreground="{StaticResource WhiteWhite}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"/>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="My forums" 
+                       Padding="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor2}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource WhiteWhite}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </TabItem.Header>
                 <ScrollViewer>
                     <Grid>
@@ -371,16 +417,9 @@
                                                          FontSize="16" 
                                                          FontWeight="Bold"
                                                          Foreground="{StaticResource WhiteWhite}"/>
-                                            <Label Content="IME PREZIME" 
-                                                         Grid.Row="1"
-                                                         HorizontalAlignment="Left"
-                                                         FontSize="13" 
-                                                         FontWeight="Bold"
-                                                         VerticalAlignment="Top"
-                                                         Foreground="{StaticResource WhiteWhite}"/>
                                             <Label Content="{Binding Location}" 
                                                          Grid.Row="1"
-                                                         HorizontalAlignment="Right"
+                                                         HorizontalAlignment="Center"
                                                          FontSize="11" 
                                                          FontWeight="Bold"
                                                          VerticalAlignment="Top"
@@ -400,42 +439,47 @@
                                                           Margin="5"
                                                           Foreground="{StaticResource WhiteWhite}"/>
                                             </Border>
-                                            <Button Content="See all comments" 
-                                                         Grid.Row="3"
-                                                         HorizontalAlignment="Right"
-                                                         FontSize="11" 
-                                                         FontWeight="Bold"
-                                                         VerticalAlignment="Top"
-                                                         Background="Transparent"
-                                                         Command="{Binding DataContext.OpenMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"
-                                                         Foreground="DarkOrange" />
-                                            <Button Grid.Row="4"
-                                                     FontSize="20" 
+
+                                            <Button Grid.Row="3"
                                                      Background="Transparent"
-                                                     Height="33"
+                                                     Height="auto"
                                                      Width="auto"
                                                      Cursor="Hand"
-                                                     VerticalAlignment="Center"
+                                                     VerticalAlignment="Top"
                                                      BorderThickness="0" 
                                                      Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                     HorizontalAlignment="Center"
-                                                     Grid.Column="0"
-                                                     Grid.ColumnSpan="2"
+                                                     HorizontalAlignment="Right"
+                                                     Grid.Column="1"
                                                      Command="{Binding DataContext.CloseForumCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
-                                                     CommandParameter="{Binding}">
+                                                     CommandParameter="{Binding}"
+                                                     Margin="7">
                                                 <Border  Background="DarkOrange"
                                                        CornerRadius="2"
-                                                       Height="25" 
+                                                       Height="auto" 
                                                        Width="auto">
                                                     <TextBlock  Text="Close forum"
-                                                         Margin="20 0 20 0" 
+                                                         Margin="5" 
                                                          Foreground="{StaticResource  WhiteGrey}" 
                                                          FontWeight="Bold" 
-                                                         FontSize="14" 
+                                                         FontSize="11" 
                                                          HorizontalAlignment="Center" 
                                                          VerticalAlignment="Center"/>
                                                 </Border>
                                             </Button>
+
+                                            <Button Content="See all comments" 
+                                                         Grid.Row="4"
+                                                         HorizontalAlignment="Center"
+                                                         FontSize="15" 
+                                                         FontWeight="Bold"
+                                                         VerticalAlignment="Center"
+                                                         Grid.Column="0"
+                                                         Grid.ColumnSpan="2"
+                                                         BorderBrush="Transparent"
+                                                         Command="{Binding DataContext.OpenMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"
+                                                         Foreground="DarkOrange"
+                                                         Background="{StaticResource PrimaryColor}"/>
+                                            
                                         </Grid>
                                     </Border>
                                 </DataTemplate>

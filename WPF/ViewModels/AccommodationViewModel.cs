@@ -25,6 +25,7 @@ namespace BookingApp.WPF.ViewModels
         public int MinStay { get; set; }
         public bool? IsSuperOwner { get; set; }
         public int NumberOfRatings { get; set; }
+        public double AverageRating { get; set; }
         /*private int CancellationDeadline { get; set; }
         public string ImagesPath { get; set; }
         public User Owner { get; set; }*/
@@ -43,6 +44,7 @@ namespace BookingApp.WPF.ViewModels
             MinStay = minStay;
             Capacity = capacity;
             IsSuperOwner = isSuperOwner;
+            AverageRating = averageRating;
             List<string> starPaths = new List<string>();
             while (averageRating >= 1)
             {

@@ -19,6 +19,21 @@ namespace BookingApp.WPF.ViewModels
         public DateTime DateCreated { get; set; }
         public bool IsVisible {  get; set; }
         public bool IsSuperForum { get; set; }
+
+        private bool isActive;
+        public bool IsActive
+        {
+            get => isActive;
+            set
+            {
+                if (value != isActive)
+                {
+
+                    isActive = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string SuperForum { get; set; }
         public int NumberOfComments { get; set; }
 
@@ -32,6 +47,7 @@ namespace BookingApp.WPF.ViewModels
             SuperForum = "../../../Resources/Images/OwnerImages/StarFull.png";
             IsSuperForum = isSuperForum;
             IsVisible = isVisible;
+            IsActive = forum.Active;
         }
         public ForumViewModel(Forum forum,int numberOfComments) {        
             ForumId = forum.Id;
@@ -55,6 +71,8 @@ namespace BookingApp.WPF.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+  
     }
 
 }

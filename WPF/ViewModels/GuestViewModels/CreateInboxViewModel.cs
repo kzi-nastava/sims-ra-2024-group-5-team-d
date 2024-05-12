@@ -139,7 +139,7 @@ namespace BookingApp.WPF.ViewModels
             ForumViewModel forumViewModel = (ForumViewModel)forum;
             if (forumViewModel != null)
             {
-                GuestWindow.contentControl.Content = new ForumCommentsUserControl(forumViewModel.ForumId, LoggedInUser);
+                GuestWindow.contentControl.Content = new ForumCommentsUserControl(LoggedInUser, forumViewModel);
             }
         }
 

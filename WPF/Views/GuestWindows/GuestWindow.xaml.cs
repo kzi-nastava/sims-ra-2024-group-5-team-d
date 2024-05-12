@@ -67,5 +67,12 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             contentControl.Content = new ForumUserControl(LoggedInUser);
         }
+
+        private void Help_MouseLeftBottonDown(object sender, MouseButtonEventArgs e)
+        {
+            HelpWindow helpWindow = new HelpWindow(LoggedInUser);
+
+            helpWindow.Show();
+        }
     }
 }

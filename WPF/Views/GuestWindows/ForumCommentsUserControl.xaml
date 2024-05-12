@@ -44,7 +44,7 @@
                      VerticalAlignment="Center"/>
             </Border>
         </Button>
-        <Label  Content="Title"
+        <Label  Content="{Binding Title}"
                     Width="auto" 
                     Height="auto" 
                     VerticalAlignment="Top" 
@@ -54,7 +54,7 @@
                     FontSize="16" 
                     FontWeight="Bold"
                     Foreground="{StaticResource PrimaryBlack}"/>
-        <Label Content="IME PREZIME" 
+        <Label Content="{Binding Author}" 
                     Grid.Row="2"
                     HorizontalAlignment="Left"
                     FontSize="13" 
@@ -62,7 +62,7 @@
                     VerticalAlignment="Top"
                     Foreground="{StaticResource PrimaryBlack}"
                     Margin="30,0,0,0"/>
-        <Label Content="Location" 
+        <Label Content="{Binding Location}" 
                     Grid.Row="2"
                     HorizontalAlignment="Right"
                     FontSize="11" 
@@ -78,7 +78,7 @@
                  Height="auto"
                  Width="390"
                  Margin="10,0,0,0">
-            <TextBlock Text="Description" 
+            <TextBlock Text="{Binding Description}" 
                      HorizontalAlignment="Left"
                      FontSize="10"
                      TextWrapping="Wrap"
@@ -162,7 +162,8 @@
                 Grid.Row="6"
                 Height="auto" 
                 Width="auto"
-                Margin="10,10,10,10">
+                Margin="10,10,10,10"
+                Visibility="{Binding IsClosed, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>

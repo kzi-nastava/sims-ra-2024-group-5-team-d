@@ -48,7 +48,9 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Height="19" 
-            Width="19" Margin="0,0,10,0" />
+            Width="19" 
+            Margin="0,0,10,0" 
+            MouseLeftButtonDown="Help_MouseLeftBottonDown"/>
 
         <Image Source="../../../Resources/Images/GuestImages/search.png"
            Grid.Column="0" 
