@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using ExCSS;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,13 +27,13 @@ namespace BookingApp.Appl.UseCases
         private GuestRequestService guestRequestService;
         public NotificationsService()
         {
+            tourRealisationService = new TourRealisationService();
             tourGuestService = new TourGuestService();
             tourReservationService = new TourReservationService();
             tourRequestService = new TourRequestService();
             tourService = new TourService();
             forumService = new ForumService();
             guestRequestService = new GuestRequestService();
-            tourRealisationService = new TourRealisationService();
             userRepository = Injector.CreateInstance<IUserRepository>();
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
@@ -135,7 +136,8 @@ namespace BookingApp.Appl.UseCases
                     }
                     return tourGuestService.GetById(notification.LinkId).FullName + " is currrently on a live tour with you! ";
                 case Domain.Models.Type.TOURREQUEST:
-                    return  userRepository.GetFullNameById(tourRealisationService.GetById(notification.LinkId).User.Id) + " has just accepted your request " + "for tour in " + tourService.GetById(tourRealisationService.GetById(notification.LinkId).TourId).Location + " !";
+                    Debug.WriteLine(notification.LinkId + " AKKAKAKAK");
+                    return  userRepository.GetFullNameById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id) + " has just accepted your request " + "for tour in " + tourService.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).TourId).Location + " !";
                 case Domain.Models.Type.NEWTOUR:
                     return "A new tour has been created by " + userRepository.GetFullNameById(tourService.GetById(notification.LinkId).User.Id) + " (Location: " + tourService.GetById(notification.LinkId).Location + ", " + "Language: " + tourService.GetById(notification.LinkId).Language + ")";
                 case Domain.Models.Type.VOUCHER:
