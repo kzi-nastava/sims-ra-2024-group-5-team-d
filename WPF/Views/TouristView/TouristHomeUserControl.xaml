@@ -80,6 +80,7 @@
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
+                            BorderThickness="1"
                             Margin="35,5,0,0"
                             Width="170"
                             Foreground="{StaticResource PrimaryBlack}"
@@ -201,7 +202,12 @@
                                     HorizontalAlignment="Left"
                                        Margin="5 0 20 0"
                                     />
-                                <TextBlock Text="Search" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource WhiteWhite}" FontSize="24" FontFamily="Verdana"></TextBlock>
+                                <TextBlock Text="Search"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Foreground="{StaticResource WhiteWhite}"
+                                           FontWeight="Normal"
+                                           FontSize="22"></TextBlock>
 
                             </StackPanel>
                     </Border>
@@ -215,6 +221,7 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Recommended tours:"
+                   Foreground="{StaticResource PrimaryBlack}"
                    FontSize="25"
                    Margin="35 0 0 0">
 
@@ -274,8 +281,8 @@
                                            FontFamily="Verdana"
                                            FontWeight="DemiBold"
                                            Width="500"
+                                           Foreground="{StaticResource PrimaryColor2}"
                                            Content="{Binding Name}">
-
                                     </Label>
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
@@ -333,7 +340,7 @@
                                                FontFamily="Verdana"
                                                Width="500">
                                                 <Run Text="{Binding NumberOfVotes}"></Run>
-                                                <Run Text="vote(s)"></Run>
+                                                <Run Text="vote(s)" Foreground="{StaticResource PrimaryBlack}"></Run>
                                             </TextBlock>
                                             
                                         </StackPanel>
@@ -352,6 +359,7 @@
                                                Margin="7 4 0 0"/>
                                         <Label Margin="-2 4 0 0"
                                                Grid.Row="0"
+                                               Foreground="{StaticResource PrimaryBlack}"
                                                FontSize="11"
                                                FontFamily="Verdana"
                                                Width="500"
@@ -370,6 +378,7 @@
                                                Margin="7 4 0 0"/>
                                         <TextBlock Margin="4 6 0 0"
                                                FontSize="10"
+                                                   Foreground="{StaticResource PrimaryBlack}"
                                                FontFamily="Verdana"
                                                Width="500">
                                             <Run Text="{Binding Duration}" />
@@ -380,6 +389,7 @@
                                                Grid.Row="4"
                                                FontSize="15"
                                                FontFamily="Verdana"
+                                               Foreground="{StaticResource PrimaryBlack}"
                                                Width="500"
                                                Height="180"
                                                Text="{Binding Description}"
