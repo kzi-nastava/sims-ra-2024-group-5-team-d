@@ -14,11 +14,9 @@ namespace BookingApp.Appl.UseCases
     public class GuestRatingService
     {
         private IGuestRatingRepository guestRatingRepository;
-        private IAccommodationRepository accommodationRepository;
         private AccommodationService accommodationService;
         public GuestRatingService()
         {
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             guestRatingRepository = Injector.CreateInstance<IGuestRatingRepository>();
             accommodationService = new AccommodationService();
         }
@@ -27,9 +25,6 @@ namespace BookingApp.Appl.UseCases
             
             List<GuestRating> guestRatings = GetByGuest(user);
             List<GuestRating> filteredRating = guestRatings.Where(gs=>IsGuestRatedByOwner(gs, accommodationService.GetById( gs.AccommodationId).Owner)).ToList();
-            Debug.WriteLine("aaaaaaaaaaaaa");
-            Debug.WriteLine(guestRatings.Count());
-            Debug.WriteLine(filteredRating.Count());
             return filteredRating;
 
         }
@@ -40,7 +35,7 @@ namespace BookingApp.Appl.UseCases
 
         public bool IsGuestRatedByOwner(GuestRating guestRating, User owner)
         {
-            return accommodationRepository.GetByUser(owner).Any(accommodation => accommodation.Id == guestRating.AccommodationId);
+            return accommodationService.GetByUser(owner).Any(accommodation => accommodation.Id == guestRating.AccommodationId);
         }
         public List<GuestRating> GetAll()
         {

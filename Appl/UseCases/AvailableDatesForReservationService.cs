@@ -13,19 +13,19 @@ namespace BookingApp.Appl.UseCases
 {
     public class AvailableDatesForReservationService
     {
-        private readonly IAccommodationReservationRepository reservationRepository;
+        private readonly AccommodationReservationService accommodationReservationService;
         private AccommodationRenovationService accommodationRenovationService;
         public AvailableDatesForReservationService()
         {
             accommodationRenovationService = new AccommodationRenovationService();
-            reservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
+            accommodationReservationService = new AccommodationReservationService();
 
 
         }
         
         public List<KeyValuePair<DateTime, DateTime>> GetAvailableDatesInGivenRange(DateTime fromDate,DateTime toDate,int numberOfDays,Accommodation accommodation)
         {
-            List<AccommodationReservation> reservedDatesForAccommodation = reservationRepository.GetByAccommodation(accommodation);
+            List<AccommodationReservation> reservedDatesForAccommodation = accommodationReservationService.GetByAccommodation(accommodation);
             List<KeyValuePair<DateTime, DateTime>> AvailableDates = new List<KeyValuePair<DateTime, DateTime>>();
             reservedDatesForAccommodation = FindReservationsInRange(accommodation, reservedDatesForAccommodation, fromDate, toDate);
             if (reservedDatesForAccommodation.Count != 0)
@@ -101,7 +101,7 @@ namespace BookingApp.Appl.UseCases
 
         private List<AccommodationReservation> FindReservationsInRange(Accommodation accommodation,List<AccommodationReservation> reservedDatesForAccommodation,DateTime fromDate,DateTime toDate)
         {
-            reservedDatesForAccommodation = reservationRepository.GetByAccommodation(accommodation);
+            reservedDatesForAccommodation = accommodationReservationService.GetByAccommodation(accommodation);
             reservedDatesForAccommodation.RemoveAll(reservation => reservation.IsOutOfRange(fromDate,toDate) || IsReservationCancelled(reservation));
             reservedDatesForAccommodation.Sort((r1, r2) => r1.ReservedFrom.CompareTo(r2.ReservedFrom));
             return reservedDatesForAccommodation;

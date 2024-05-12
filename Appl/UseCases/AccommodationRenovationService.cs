@@ -12,12 +12,10 @@ namespace BookingApp.Appl.UseCases
     public class AccommodationRenovationService
     {
         private IAccommodationRenovationRepository accommodationRenovationRepository;
-        private IAccommodationRepository accommodationRepository;
         private AccommodationService accommodationService;
         public AccommodationRenovationService()
         {
             accommodationService = new AccommodationService();
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationRenovationRepository =Injector.CreateInstance<IAccommodationRenovationRepository>();
         }
         public AccommodationRenovation Save(AccommodationRenovation accommodationRenovation)

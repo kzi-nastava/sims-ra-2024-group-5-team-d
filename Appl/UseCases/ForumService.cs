@@ -13,18 +13,16 @@ namespace BookingApp.Appl.UseCases
     {
         private IForumRepository forumRepository;
         private LocationService locationService;
-        private ForumCommentService forumCommentService;
-        private UserService userService;
-        private AccommodationReservationService accommodationReservationService;
-        private AccommodationService accommodationService;
         public ForumService() 
         {
-            accommodationService = new AccommodationService();
-            accommodationReservationService = new AccommodationReservationService();
-            userService = new UserService();
-            forumCommentService = new ForumCommentService();
             locationService = new LocationService();
             forumRepository = Injector.CreateInstance<IForumRepository>();
+        }
+
+        public ForumService(IForumRepository forumRepository,LocationService locationService)
+        {
+            this.locationService = locationService;
+            this.forumRepository = forumRepository;
         }
         public List<Forum> GetAll()
         {
@@ -36,22 +34,6 @@ namespace BookingApp.Appl.UseCases
         {
             List<Forum> forums = GetAll().Where(forum=> forum.IdUser==user.Id).ToList();
             return forums;
-        }
-        public bool IsSuperForum(Forum forum)
-        {
-            List<ForumComment> forumComments = forumCommentService.GetByForumId(forum.Id);
-            int ownerComments = GetNumberOfOwnerComments(forumComments,forum.Location);
-            int userComments = GetNumberOfUserComments(forumComments,forum.Location);
-            return ownerComments >= 10 && userComments >= 20;
-        }
-
-        private int GetNumberOfUserComments(List<ForumComment>forumComments,Location location)
-        {
-            return forumComments.Where(comment =>accommodationReservationService.HasReservationOnLocation(userService.GetById(comment.CreatorId), location)).Count();
-        }
-        private int GetNumberOfOwnerComments(List<ForumComment> forumComments, Location location)
-        {
-            return forumComments.Where(comment =>accommodationService.HasAccommodationOnLocation(userService.GetById(comment.CreatorId), location)).Count();
         }
 
         public Forum GetById(int Id)

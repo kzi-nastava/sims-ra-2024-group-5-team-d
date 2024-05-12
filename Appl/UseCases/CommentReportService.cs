@@ -12,8 +12,8 @@ namespace BookingApp.Appl.UseCases
     public class CommentReportService
     {
         private ICommentReportRepository commentReportRepository;
-        public CommentReportService() { 
-        commentReportRepository=Injector.CreateInstance<ICommentReportRepository>();
+        public CommentReportService(ICommentReportRepository commentReportRepository) { 
+        this.commentReportRepository = commentReportRepository;
         }
         public bool IsAlreadyReported(int commentId, int reporterId)
         {

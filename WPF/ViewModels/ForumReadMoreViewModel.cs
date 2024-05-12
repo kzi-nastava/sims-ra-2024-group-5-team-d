@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.ViewModels.OwnerViewModels;
 using System;
@@ -20,31 +21,33 @@ namespace BookingApp.WPF.ViewModels
         public ICommand AddCommentCommand { get; set; }
         public ICommand ReportCommand { get; set; }
         public int ForumId { get; set; }
-        public ForumViewModel Forum { get; set; }
+
+
         private ForumService forumService;
-        public ObservableCollection<ForumCommentViewModel> Comments { get; set; }
-        private ForumCommentService forumCommentService;
-        private User loggedInUser;
-        private int forumId;
         private AccommodationService accommodationService;
-        public bool IsAddingCommentEnabled { get; set; }
-        public AddForumCommentViewModel AddForumCommentViewModel { get; set; }
+        private ForumCommentService forumCommentService;
         private AccommodationReservationService accommodationReservationService;
         private UserService userService;
         private CommentReportService commentReportService;
+
+
+        public ForumViewModel Forum { get; set; }
+       
+        public ObservableCollection<ForumCommentViewModel> Comments { get; set; }
+        private User loggedInUser;
+        private int forumId;
+        public bool IsAddingCommentEnabled { get; set; }
+        public AddForumCommentViewModel AddForumCommentViewModel { get; set; }
         private string icon="";
         public ForumReadMoreViewModel(int forumId, User user)
         {
+            InitializeServices();
+
             this.forumId = forumId;
-            forumService = new ForumService();
             ForumId = forumId;
             loggedInUser = user;
+
             AddForumCommentViewModel = new AddForumCommentViewModel(user.AvatarPath);
-            forumCommentService = new ForumCommentService();
-            accommodationReservationService = new AccommodationReservationService();
-            commentReportService = new CommentReportService();
-            userService = new UserService();
-            accommodationService = new AccommodationService();
             Forum= new ForumViewModel(forumService.GetById(forumId),forumCommentService.GetNumberOfCommentsForForum(forumId));
             Comments = new ObservableCollection<ForumCommentViewModel>();
             forumCommentService.GetByForumId(forumId).ForEach(comment => {
@@ -63,6 +66,16 @@ namespace BookingApp.WPF.ViewModels
             CommentCommand = new RelayCommand(SaveComment);
             AddCommentCommand = new RelayCommand(AddComment);
             ReportCommand = new RelayParameterCommand(Report);
+        }
+        private void InitializeServices()
+        {
+            LocationService locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
+            forumService = new ForumService(Injector.CreateInstance<IForumRepository>(), locationService);    
+            forumCommentService = new ForumCommentService(Injector.CreateInstance<IForumCommentRepository>());
+            accommodationService = new AccommodationService();
+            accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>(),accommodationService);    
+            userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            commentReportService = new CommentReportService(Injector.CreateInstance<ICommentReportRepository>());
         }
         public void SaveComment()
         {

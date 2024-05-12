@@ -172,5 +172,9 @@ namespace BookingApp.Appl.UseCases
             });
             return sumOfRating/GetNumberOfVotes(tourId);
         }
+        public int NextIdForTour()
+        {
+            return _repository.NextIdForTour();
+        }
     }
 }
