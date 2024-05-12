@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="767" d:DesignWidth="950">
     <UserControl.Resources>
-        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <Style TargetType="Border" x:Key="SearchBorder">
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor2}"/>

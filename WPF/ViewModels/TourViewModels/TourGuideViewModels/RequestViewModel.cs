@@ -18,6 +18,11 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public int Capacity { get; set; }
         public LANGUAGE Language { get; set; }
         public int TouristId { get; set; }
+        public string Star1Path { get; set; }
+        public string Star2Path { get; set; }
+        public string Star3Path { get; set; }
+        public string Star4Path { get; set; }
+        public string Star5Path { get; set; }
         public bool IsAcceptable { get; set; }
 
         public RequestViewModel() { }
