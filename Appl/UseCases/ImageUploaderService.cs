@@ -17,17 +17,17 @@ namespace BookingApp.Appl.UseCases
         private string tourFolderPath = "../../../Resources/TourImages/Tour";
         private string guestFolderPath = "../../../Resources/GuestRatingImages/GuestRating";
         private string touristFolderPath = "../../../Resources/TouristRatingImages/TourRating";
-        private IAccommodationRepository accommodationRepository;
-        private ITourRepository tourRepository;
-        private IAccommodationRatingRepository accommodationRatingRepository;
-        private ITourRatingRepository tourRatingRepository;
+        private AccommodationService accommodationService;
+        private TourService tourService;
+        private AccommodationRatingService accommodationRatingService;
+        private TourRatingService tourRatingService;
 
         public ImageUploaderService()
         {
-            tourRatingRepository=Injector.CreateInstance<ITourRatingRepository>();
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
-            tourRepository = Injector.CreateInstance<ITourRepository>();
-            accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
+            tourRatingService= new TourRatingService();
+            accommodationService = new AccommodationService();
+            tourService = new TourService();
+            accommodationRatingService = new AccommodationRatingService();
         }
 
         public string  UploadImage()
@@ -44,7 +44,7 @@ namespace BookingApp.Appl.UseCases
 
         public string CreateAccommodationFolder(List<string> imagesPath)
         {
-            int folderId = accommodationRepository.NextId();
+            int folderId = accommodationService.NextId();
             accommodationFolderPath = accommodationFolderPath + folderId;
             if (!Directory.Exists(accommodationFolderPath))
             {
@@ -55,7 +55,7 @@ namespace BookingApp.Appl.UseCases
         }
         public string CreateTourFolder(List<string> imagesPath)
         {
-            int folderId = tourRepository.NextIdForTour();
+            int folderId = tourService.NextIdForTour();
             tourFolderPath = tourFolderPath + folderId;
             if (!Directory.Exists(tourFolderPath))
             {
@@ -66,7 +66,7 @@ namespace BookingApp.Appl.UseCases
         }
         public string CreateGuestFolder(List<string> imagesPath)
         {
-            int folderId = accommodationRatingRepository.NextId();
+            int folderId = accommodationRatingService.NextId();
             guestFolderPath = guestFolderPath + folderId;
             if (!Directory.Exists(guestFolderPath))
             {
@@ -77,7 +77,7 @@ namespace BookingApp.Appl.UseCases
         }
         public string CreateTourRateFolder(List<string> imagesPath)
         {
-            int folderId = tourRatingRepository.NextIdForTourRating();
+            int folderId = tourRatingService.NextIdForTourRating();
             touristFolderPath = touristFolderPath + folderId;
             if (!Directory.Exists(touristFolderPath))
             {

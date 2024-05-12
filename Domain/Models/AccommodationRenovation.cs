@@ -40,8 +40,8 @@ namespace BookingApp.Domain.Models
 
             Id = int.Parse(values[0]);
             AccommodationId = int.Parse(values[1]);
-            RenovateFrom = DateTime.ParseExact(values[2], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            RenovateTo = DateTime.ParseExact(values[3], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            RenovateFrom = DateTime.ParseExact(values[2], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            RenovateTo = DateTime.ParseExact(values[3], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             RenovationReason = values[4];
         }
 
@@ -51,7 +51,7 @@ namespace BookingApp.Domain.Models
         }
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(), AccommodationId.ToString(), RenovateFrom.ToString("M/d/yyyy h:mm:ss tt"), RenovateTo.ToString("M/d/yyyy h:mm:ss tt"),RenovationReason };
+            return new string[] { Id.ToString(), AccommodationId.ToString(), RenovateFrom.ToString("d/M/yyyy h:mm:ss tt"), RenovateTo.ToString("d/M/yyyy h:mm:ss tt"),RenovationReason };
         }
 
         public bool IsInRange(DateTime from, DateTime to)

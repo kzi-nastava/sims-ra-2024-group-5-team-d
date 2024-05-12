@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,13 +36,13 @@ namespace BookingApp.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             UserId = Convert.ToInt32(values[1]);
-            ValidFrom = Convert.ToDateTime(values[2]);
+            ValidFrom = DateTime.ParseExact(values[2], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             BonusPoints = Convert.ToInt32(values[3]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), UserId.ToString(), ValidFrom.ToString(), BonusPoints.ToString() };
+            string[] csvValues = { Id.ToString(), UserId.ToString(), ValidFrom.ToString("d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), BonusPoints.ToString() };
             return csvValues;
         }
         public bool IsStillValid()

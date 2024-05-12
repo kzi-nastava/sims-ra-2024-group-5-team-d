@@ -20,6 +20,10 @@ namespace BookingApp.Appl.UseCases
             accommodationReservationService = new AccommodationReservationService();
             locationRepository = Injector.CreateInstance<ILocationRepository>();
         }
+        public LocationService(ILocationRepository locationRepository)
+        { 
+        this.locationRepository = locationRepository;
+        }
         public List<KeyValuePair<Location, double>> GetMostPopularLocations()
         { 
             List<Location>allLocations=locationRepository.GetAll();

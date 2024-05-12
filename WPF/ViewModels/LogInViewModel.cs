@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views;
 using System;
@@ -30,16 +31,22 @@ namespace BookingApp.WPF.ViewModels
         private UserService userService;
         private string variable="";
         public LogInViewModel() {
+            InitializeServices();
             signInService = new SignInService();
             LogInCommand = new RelayParameterCommand(LogIn);
             FastLogInCommand = new RelayParameterCommand(FastLogIn);
             Users = new ObservableCollection<UserViewModel>();
-            userService = new UserService();
             Debug.WriteLine(GetMacAddress());
             userService.GetUsersWithSameMacAdress(GetMacAddress()).ForEach(user=>Users.Add(new UserViewModel(user)));
            // Environment.GetEnvironmentVariable(variable);
             Debug.WriteLine(variable);
         }
+
+        private void InitializeServices()
+        {
+            userService = new UserService(Injector.CreateInstance<IUserRepository>());
+        }
+
         private string GetMacAddress()
         {
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();

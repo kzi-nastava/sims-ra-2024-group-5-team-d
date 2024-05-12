@@ -13,11 +13,11 @@ namespace BookingApp.Appl.UseCases
 
     public class SearchAccommodationService
     {
-        public IAccommodationRepository accommodationRepository;
+        public AccommodationService accommodationService;
         private AvailableDatesForReservationService availableDatesForReservationService;
         public SearchAccommodationService() {
 
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
+            accommodationService = new AccommodationService();
             availableDatesForReservationService = new AvailableDatesForReservationService();
 
         }
@@ -25,7 +25,7 @@ namespace BookingApp.Appl.UseCases
         {
 
             List<Accommodation> foundAccommodation = new List<Accommodation>();
-            accommodationRepository.GetAll().ForEach(accommodation =>
+            accommodationService.GetAll().ForEach(accommodation =>
              {
                  if (IsWantedAccommodation(accommodation, accommodationName, accommodationType, locationId, numberOfPeople, numberOfDays))
                        foundAccommodation.Add(accommodation);
@@ -46,7 +46,7 @@ namespace BookingApp.Appl.UseCases
         {
 
             List<Accommodation> foundAccommodation = new List<Accommodation>();
-            accommodationRepository.GetAll().ForEach(accommodation =>
+            accommodationService.GetAll().ForEach(accommodation =>
             {
                 if (accommodation.Capacity>=numberOfPeople && accommodation.MinStay<=numberOfDays)
                 {

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -43,7 +44,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(), TouristId.ToString(), Status.ToString(), Location.Id.ToString(), Description, Language.ToString(), RangeFrom.ToString("dd/MM/yyyy"), RangeTo.ToString("dd/MM/yyyy"), TourReservationId.ToString(), Capacity.ToString() };
+            return new string[] { Id.ToString(), TouristId.ToString(), Status.ToString(), Location.Id.ToString(), Description, Language.ToString(), RangeFrom.ToString("d.M.yyyy", CultureInfo.InvariantCulture), RangeTo.ToString("d.M.yyyy", CultureInfo.InvariantCulture), TourReservationId.ToString(), Capacity.ToString() };
         }
 
         public void FromCSV(string[] values)
@@ -54,8 +55,8 @@ namespace BookingApp.Domain.Models
             Location = new Location() { Id = Convert.ToInt32(values[3]) };
             Description = Convert.ToString(values[4]);
             Language = (LANGUAGE)Enum.Parse(typeof(LANGUAGE), values[5]);
-            RangeFrom = Convert.ToDateTime(values[6]);
-            RangeTo = Convert.ToDateTime(values[7]);
+            RangeFrom = DateTime.ParseExact(values[6], "d.M.yyyy", CultureInfo.InvariantCulture);
+            RangeTo = DateTime.ParseExact(values[7], "d.M.yyyy", CultureInfo.InvariantCulture);
             TourReservationId = Convert.ToInt32(values[8]);
             Capacity = Convert.ToInt32(values[9]);
         }

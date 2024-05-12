@@ -13,14 +13,12 @@ namespace BookingApp.Appl.UseCases
 {
     public class UnratedGuestService
     {
-        private readonly IAccommodationRepository accommodationRepository;
         private GuestRatingService guestRatingService;
         private AccommodationReservationService accommodationReservationService;
         public UnratedGuestService()
         {
             accommodationReservationService = new AccommodationReservationService();
             guestRatingService = new GuestRatingService();
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
         }
 
         public List<AccommodationReservation> GetUnratedGuests(User owner)
@@ -34,10 +32,5 @@ namespace BookingApp.Appl.UseCases
                                          .ForEach(accommodationReservation=> rateableUnratedGuests.Add(accommodationReservation));
             return rateableUnratedGuests;
         }
-        private GuestRatingDTO CreateGuestRatingDTO(AccommodationReservation reservation)
-        {
-            return new GuestRatingDTO(accommodationRepository.GetAccommodationNameById(reservation.AccommodationId), reservation.ReservedFrom, reservation.ReservedTo, reservation.UserId, reservation.Id, reservation.AccommodationId);
-        }
-
     }
 }

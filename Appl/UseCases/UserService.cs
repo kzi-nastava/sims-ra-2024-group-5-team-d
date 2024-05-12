@@ -10,12 +10,15 @@ namespace BookingApp.Appl.UseCases
 {
     public class UserService
     {
-        private IAccommodationRepository accommodationRepository;
         private IUserRepository userRepository;
+        public UserService(IUserRepository userRepository)
+        {
+            this.userRepository = userRepository;
+
+        }
         public UserService()
         {
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
-            userRepository = Injector.CreateInstance<IUserRepository>();
+            this.userRepository =Injector.CreateInstance<IUserRepository>();
 
         }
         public void DemoteUser(User user)
@@ -69,6 +72,10 @@ namespace BookingApp.Appl.UseCases
         public User Update(User user)
         {
             return userRepository.Update(user);
+        }
+        public List<User> GetAll()
+        {
+            return userRepository.GetAll();
         }
 
         public void UpdateCredentials(User loggedInUser, string username, string password)

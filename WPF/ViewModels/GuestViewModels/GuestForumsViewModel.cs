@@ -66,6 +66,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         private LocationService locationService;
         private NotificationsService notificationsService;
         private UserService userService;
+        private SuperForumService superForumService;
         public GuestForumsViewModel(User user)
         {
             CreateForumCommand = new RelayCommand(CreateForum);
@@ -78,18 +79,19 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             forumService = new ForumService();
             locationService = new LocationService();
             userService = new UserService();
+            superForumService = new SuperForumService();
 
             guestNotificationsService = new GuestNotificationsService();
 
             forumService.GetAll().ForEach(forum =>
             {
                 bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum);
-                Forums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser, forumService.IsSuperForum(forum)));
+                Forums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser, superForumService.IsSuperForum(forum)));
 
             });
             forumService.GetAllByUser(LoggedInUser).ForEach(forum =>
             {
-                MyForums.Add(new ForumViewModel(forum, true, forumService.IsSuperForum(forum)));
+                MyForums.Add(new ForumViewModel(forum, true, superForumService.IsSuperForum(forum)));
             });
 
                           
@@ -99,7 +101,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             Forum forum = new Forum(Title, Comment, locationService.GetById(LocationId), LoggedInUser.Id, DateTime.UtcNow, true);
             forum = forumService.Save(forum);
             notificationsService.CreateForumNotifications(forum);
-            Forums.Add(new ForumViewModel(forum, true, forumService.IsSuperForum(forum)));
+            Forums.Add(new ForumViewModel(forum, true, superForumService.IsSuperForum(forum)));
         }
         public void CloseForum(Object param)
         {

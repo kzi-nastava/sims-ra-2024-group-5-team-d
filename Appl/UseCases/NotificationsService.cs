@@ -15,9 +15,10 @@ namespace BookingApp.Appl.UseCases
     public class NotificationsService
     {
         private INotificationRepository notificationRepository;
-        private IAccommodationReservationRepository accommodationReservationRepository;
-        private IAccommodationRepository accommodationRepository;
-        private IUserRepository userRepository;
+
+        private AccommodationReservationService accommodationReservationService;
+        private AccommodationService accommodationService;
+        private UserService userService;
         private TourRealisationService tourRealisationService;
         private TourService tourService;
         private TourRequestService tourRequestService;
@@ -34,9 +35,10 @@ namespace BookingApp.Appl.UseCases
             tourService = new TourService();
             forumService = new ForumService();
             guestRequestService = new GuestRequestService();
-            userRepository = Injector.CreateInstance<IUserRepository>();
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
-            accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
+            tourRealisationService = new TourRealisationService();
+            userService = new UserService();
+            accommodationService = new AccommodationService();
+            accommodationReservationService = new AccommodationReservationService();
             notificationRepository = Injector.CreateInstance<INotificationRepository>();
         }
         public int GetNumberOfUnreadNotificationsForUser(User user)
@@ -119,15 +121,15 @@ namespace BookingApp.Appl.UseCases
             switch (notification.Type)
             {
                 case Domain.Models.Type.RATE:
-                    return "Rate your guest that stayed at " + accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
+                    return "Rate your guest that stayed at " + accommodationService.GetById(accommodationReservationService.GetById(notification.LinkId).AccommodationId).Name;
                 case Domain.Models.Type.REQUEST:
                     return "You have a new request click to see more";
                 case Domain.Models.Type.FORUM:
                     return "New forum oppened on location where you have accommodation";
                 case Domain.Models.Type.CANCEL:
-                    return "Your guest has cancelled reservation at " + accommodationRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).AccommodationId).Name;
+                    return "Your guest has cancelled reservation at " + accommodationService.GetById(accommodationReservationService.GetById(notification.LinkId).AccommodationId).Name;
                 case Domain.Models.Type.LIVETOUR:
-                    foreach(User user in userRepository.GetAll())
+                    foreach(User user in userService.GetAll())
                     {
                         if(user.PersonalId == tourGuestService.GetById(notification.LinkId).PersonalID)
                         {
@@ -136,10 +138,9 @@ namespace BookingApp.Appl.UseCases
                     }
                     return tourGuestService.GetById(notification.LinkId).FullName + " is currrently on a live tour with you! ";
                 case Domain.Models.Type.TOURREQUEST:
-                    Debug.WriteLine(notification.LinkId + " AKKAKAKAK");
-                    return  userRepository.GetFullNameById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id) + " has just accepted your request " + "for tour in " + tourService.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).TourId).Location + " !";
+                    return userService.GetFullNameById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id) + " has just accepted your request " + "for tour in " + tourService.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).TourId).Location + " !";
                 case Domain.Models.Type.NEWTOUR:
-                    return "A new tour has been created by " + userRepository.GetFullNameById(tourService.GetById(notification.LinkId).User.Id) + " (Location: " + tourService.GetById(notification.LinkId).Location + ", " + "Language: " + tourService.GetById(notification.LinkId).Language + ")";
+                    return "A new tour has been created by " + userService.GetFullNameById(tourService.GetById(notification.LinkId).User.Id) + " (Location: " + tourService.GetById(notification.LinkId).Location + ", " + "Language: " + tourService.GetById(notification.LinkId).Language + ")";
                 case Domain.Models.Type.VOUCHER:
                     return "You have been gifted a new voucher!";
                 default:
@@ -151,19 +152,19 @@ namespace BookingApp.Appl.UseCases
             switch (notification.Type)
             {
                 case Domain.Models.Type.LIVETOUR:
-                    return userRepository.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourGuestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id);
+                    return userService.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourGuestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id);
                 case Domain.Models.Type.TOURREQUEST:
-                    return userRepository.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id);
+                    return userService.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id);
                 case Domain.Models.Type.NEWTOUR:
-                    return userRepository.GetById(tourService.GetById(notification.LinkId).User.Id);
+                    return userService.GetById(tourService.GetById(notification.LinkId).User.Id);
                 case Domain.Models.Type.FORUM:
-                    return userRepository.GetById(forumService.GetById(notification.LinkId).IdUser);
+                    return userService.GetById(forumService.GetById(notification.LinkId).IdUser);
                 case Domain.Models.Type.REQUEST:
-                    return userRepository.GetById(accommodationReservationRepository.GetById(guestRequestService.GetById(notification.LinkId).ReservationId).UserId);
+                    return userService.GetById(accommodationReservationService.GetById(guestRequestService.GetById(notification.LinkId).ReservationId).UserId);
                 case Domain.Models.Type.RATE:
-                    return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
+                    return userService.GetById(accommodationReservationService.GetById(notification.LinkId).UserId);
                 default:
-                    return userRepository.GetById(accommodationReservationRepository.GetById(notification.LinkId).UserId);
+                    return userService.GetById(accommodationReservationService.GetById(notification.LinkId).UserId);
             }
 
         }
@@ -176,7 +177,7 @@ namespace BookingApp.Appl.UseCases
 
         public void CreateForumNotifications(Forum forum)
         {
-            accommodationRepository.GetAll().ForEach(accommodation =>
+            accommodationService.GetAll().ForEach(accommodation =>
             {
                 if (accommodation.Location.Id == forum.Location.Id)
                 {
@@ -255,7 +256,7 @@ namespace BookingApp.Appl.UseCases
 
         public void SendNotificationForWantedLocation(Tour tour)
         {
-            foreach(User tourist in userRepository.GetAll())
+            foreach(User tourist in userService.GetAll())
             {
                 if(tourist.Type == UserType.Tourist && tourRequestService.IsLocationRequestFulfilled(tour.Location.Id, tourist.Id))
                 {
@@ -266,7 +267,7 @@ namespace BookingApp.Appl.UseCases
 
         public void SendNotificationForWantedLanguage(Tour tour)
         {
-            foreach (User tourist in userRepository.GetAll())
+            foreach (User tourist in userService.GetAll())
             {
                 if (tourist.Type == UserType.Tourist && tourRequestService.IsLangaugeRequestFulfilled(tour.Language, tourist.Id))
                 {

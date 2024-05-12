@@ -29,12 +29,18 @@ namespace BookingApp.WPF.ViewModels
         private string macAddress;
         public UserRegistrationViewModel(string avatarPath)
         {
+            InitializeServices();
             this.avatarPath = avatarPath;
-            userService =new UserService();
             TypeCommand = new RelayParameterCommand(TypeClick);
             RegisterCommand = new RelayParameterCommand(RegisterUser);
             macAddress = GetMacAddress();
         }
+
+        private void InitializeServices()
+        {
+            userService = new UserService(Injector.CreateInstance<IUserRepository>());
+        }
+
         private string GetMacAddress()
         {
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();

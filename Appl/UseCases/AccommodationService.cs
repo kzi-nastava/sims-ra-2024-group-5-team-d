@@ -20,6 +20,11 @@ namespace BookingApp.Appl.UseCases
             userService = new UserService();
             accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
         }
+        public AccommodationService(IAccommodationRepository accommodationRepository,UserService userService)
+        {
+            this.userService = userService;
+            this.accommodationRepository = accommodationRepository;
+        }
         public List<Accommodation>GetAllAccommodationOnSameLocation(Location location)
         {
             return accommodationRepository.GetAll().Where(accommodation=>accommodation.Location.Id==location.Id).ToList();
@@ -42,6 +47,10 @@ namespace BookingApp.Appl.UseCases
         public void Delete(Accommodation accommodation)
         {
             accommodationRepository.Delete(accommodation);
+        }
+        public Accommodation GetBestRatedAccommodationForOwner(User owner)
+        {
+            return GetByUser(owner).OrderByDescending(accommodation => accommodation.AverageRating).First();
         }
         public Accommodation Update(Accommodation accommodation)
         {
@@ -66,6 +75,10 @@ namespace BookingApp.Appl.UseCases
         public bool IsUserOwnerOfAccommodation(User user, int accommodationId)
         {
             return accommodationRepository.GetByUser(user).Any(accommodation => accommodation.Id == accommodationId);
+        }
+        public int NextId()
+        {
+            return accommodationRepository.NextId();
         }
     }
 }

@@ -27,8 +27,8 @@ namespace BookingApp.Domain.Models
             Id = Convert.ToInt32(values[0]);
             AccommodationId = Convert.ToInt32(values[1]);
             UserId = Convert.ToInt32(values[2]);
-            ReservedFrom = DateTime.ParseExact(values[3], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            ReservedTo = DateTime.ParseExact(values[4], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            ReservedFrom = DateTime.ParseExact(values[3], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            ReservedTo = DateTime.ParseExact(values[4], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             Cancelled = Convert.ToInt32(values[5]);
             RescheduledReservation = Convert.ToInt32(values[6]);
             RecommendedRenovation = Convert.ToInt32(values[7]);
@@ -63,7 +63,7 @@ namespace BookingApp.Domain.Models
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString("M/d/yyyy h:mm:ss tt"), ReservedTo.ToString("M/d/yyyy h:mm:ss tt"), Cancelled.ToString(), RescheduledReservation.ToString(), RecommendedRenovation.ToString(),NumberOfPeople.ToString() };
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), UserId.ToString(), ReservedFrom.ToString("d/M/yyyy h:mm:ss tt"), ReservedTo.ToString("d/M/yyyy h:mm:ss tt"), Cancelled.ToString(), RescheduledReservation.ToString(), RecommendedRenovation.ToString(),NumberOfPeople.ToString() };
             return csvValues;
         }
         public bool IsCanceled()

@@ -12,12 +12,10 @@ namespace BookingApp.Appl.UseCases
 {
     public class GuestInboxService
     {
-        public IAccommodationReservationRepository accommodationReservationRepository;
-        public GuestRequestService guestRequestService { get; set; }
+        private GuestRequestService guestRequestService;
 
         public GuestInboxService() 
         {
-            accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
             guestRequestService = new GuestRequestService();
         }
         
