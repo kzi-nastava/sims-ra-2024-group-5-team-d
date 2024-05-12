@@ -110,7 +110,7 @@ namespace BookingApp.WPF.ViewModels
                 {
                     Width = 40,
                     Height = 40,
-                    Fill = CheckPoints[i].IsChecked ? Brushes.DarkGreen : Brushes.AntiqueWhite,
+                    Fill = CheckPoints[i].IsChecked ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2FC8BF")) : Brushes.AntiqueWhite,
                     Margin = new Thickness(i == 0 ? 20 : stepWidth, 5, 0, 0),
                     Cursor = Cursors.Hand
                 };

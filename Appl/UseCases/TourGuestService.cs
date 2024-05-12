@@ -12,18 +12,15 @@ namespace BookingApp.Appl.UseCases
     public class TourGuestService
     {
         private ITourGuestRepository _repository;
-        private ITourRealisationRepository tourRealisationRepository;
-        private ITourReservationRepository tourReservationRepository;
-        private IUserRepository userRepository;
-
+        private TourReservationService tourReservationService;
         private TourService tourService;
+        private UserService userService;
 
         public TourGuestService()
         {
             _repository = Injector.CreateInstance<ITourGuestRepository>();
-            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
-            tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
-            userRepository = Injector.CreateInstance<IUserRepository>();
+            tourReservationService = new TourReservationService();
+            userService = new UserService();
             tourService = new TourService();
         }
         public List<TourGuest>? GetTourGuestsOnTourRealisation(int tourRealisation)
@@ -31,7 +28,7 @@ namespace BookingApp.Appl.UseCases
             List<TourGuest> guests = new List<TourGuest>();
             foreach (TourGuest guest in _repository.GetAllTourGuests())
             {
-                TourReservation reservation = tourReservationRepository.GetTourReservationById(guest.TourReservationId);
+                TourReservation reservation = tourReservationService.GetById(guest.TourReservationId);
                 bool isOnRealisation = reservation.TourRealisationId == tourRealisation;
                 bool isCheckedIn = guest.CheckPointId < 0;
 
@@ -57,7 +54,7 @@ namespace BookingApp.Appl.UseCases
             List<TourGuest> guests = new List<TourGuest>();
             foreach (TourGuest guest in _repository.GetAllTourGuests())
             {
-                TourReservation reservation = tourReservationRepository.GetTourReservationById(guest.TourReservationId);
+                TourReservation reservation = tourReservationService.GetById(guest.TourReservationId);
                 //TourRealisation tourRealisation = tourRealisationRepository.GetTourRealisationById(reservation.TourRealisationId);
                 Tour tour = tourService.FindTourForTourRealisation(reservation.TourRealisationId);
                 if (tour != null && tour.Id == tourId)
@@ -84,7 +81,7 @@ namespace BookingApp.Appl.UseCases
         {
             foreach (TourGuest guest in _repository.GetAllTourGuests())
             {
-                if(guest.TourReservationId == tourReservationId && guest.PersonalID == userRepository.GetById(tourReservationRepository.GetTourReservationById(tourReservationId).User.Id).PersonalId && guest.CheckPointId != -1)
+                if(guest.TourReservationId == tourReservationId && guest.PersonalID == userService.GetById(tourReservationService.GetById(tourReservationId).User.Id).PersonalId && guest.CheckPointId != -1)
                 {
                     return true;
                 }
