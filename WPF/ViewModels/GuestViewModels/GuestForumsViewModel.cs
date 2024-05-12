@@ -5,6 +5,8 @@ using BookingApp.WPF.Views.GuestWindows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +65,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         }
         private LocationService locationService;
         private NotificationsService notificationsService;
+        private UserService userService;
         public GuestForumsViewModel(User user)
         {
             CreateForumCommand = new RelayCommand(CreateForum);
@@ -74,6 +77,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             notificationsService = new NotificationsService();
             forumService = new ForumService();
             locationService = new LocationService();
+            userService = new UserService();
 
             guestNotificationsService = new GuestNotificationsService();
 
@@ -87,6 +91,8 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             {
                 MyForums.Add(new ForumViewModel(forum, true, forumService.IsSuperForum(forum)));
             });
+
+                          
         }
         public void CreateForum()
         {
@@ -100,11 +106,17 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ForumViewModel forumViewModel = param as ForumViewModel;
             if (forumViewModel != null)
             {
-
                 Forum forum = forumService.GetById(forumViewModel.ForumId);
-                forum.Active = false;
+                forum.Active = false;               
                 forumService.Update(forum);
 
+                for(int i=0; i<Forums.Count(); i++)
+                {
+                    if(Forums[i]==forumViewModel)
+                    {
+                        Forums[i].IsActive = false;
+                    }
+                }
             }
         }
         private void OpenComments(object forum)
@@ -112,7 +124,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ForumViewModel forumViewModel = (ForumViewModel)forum;
             if (forumViewModel != null)
             {
-                GuestWindow.contentControl.Content = new ForumCommentsUserControl(forumViewModel.ForumId, LoggedInUser);
+                GuestWindow.contentControl.Content = new ForumCommentsUserControl(LoggedInUser, forumViewModel);
             }
         }
 

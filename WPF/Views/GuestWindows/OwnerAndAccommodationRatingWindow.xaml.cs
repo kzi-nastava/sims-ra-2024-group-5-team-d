@@ -85,6 +85,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         private RateOwnerService rateOwnerService;
         private List<string> imagesPath;
         private ImageUploaderService imageUploaderService;
+        private AccommodationService accommodationService;
+        public string AccommodationName {  get; set; }
         public OwnerAndAccommodationRatingWindow(User user, AccommodationReservation accommodationReservation, int accommodationId)
         {
             rateOwnerService = new RateOwnerService();
@@ -93,9 +95,11 @@ namespace BookingApp.WPF.Views.GuestWindows
             imagesPath = new List<string>();
             LoggedInUser = user;
             imageUploaderService = new ImageUploaderService();
+            accommodationService = new AccommodationService();
             AccommodationReservation = accommodationReservation;
             this.accommodationId = accommodationId;
             dateTime = DateTime.Now;
+            AccommodationName = accommodationService.GetAccommodationNameById(accommodationId);
             accommodationRatingService = new AccommodationRatingService();
 
         }
@@ -104,6 +108,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             string folderPath = imageUploaderService.CreateGuestFolder(imagesPath);
             rateOwnerService.RateOwner(new AccommodationRating(accommodationId, LoggedInUser.Id, AccommodationReservation.Id, Cleanliness, Correctness, Comment, DateOnly.FromDateTime(dateTime), folderPath, LevelOfRenovation));
+            Close();
         }
         private void UploadPhotoClick(object sender, RoutedEventArgs e)
         {

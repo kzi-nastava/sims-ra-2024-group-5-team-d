@@ -1,6 +1,4 @@
 ﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModels;
-using BookingApp.WPF.ViewModels.GuestViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +11,35 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.Views.GuestWindows
 {
     /// <summary>
-    /// Interaction logic for ForumCommentsUserControl.xaml
+    /// Interaction logic for HelpWindow.xaml
     /// </summary>
-    public partial class ForumCommentsUserControl : UserControl
+    public partial class HelpWindow : Window
     {
-    
-        public ForumCommentsUserControl(User user, ForumViewModel selectedForum)
+
+        public User LoggedInUser { get; set; }
+        public HelpWindow(User user)
         {
             InitializeComponent();
-            DataContext = new ForumReadMoreCommentsViewModel(user, selectedForum);
+            DataContext = this; 
+        }
+        private void Back(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Close(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Next(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
