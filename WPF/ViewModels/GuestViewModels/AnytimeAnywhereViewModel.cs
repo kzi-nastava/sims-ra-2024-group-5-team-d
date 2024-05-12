@@ -81,8 +81,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             Capacity = accommodationService.GetById(selectedAccommmodation.Id).Capacity;
             AverageRating = accommodationService.GetById(selectedAccommmodation.Id).AverageRating;
             CancellationDeadline = fromDate.AddDays(-accommodationService.GetById(selectedAccommmodation.Id).CancellationDeadline);
-
-            availableDatesForReservationService.CheckAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, accommodationService.GetById(selectedAccommmodation.Id))
+            availableDatesForReservationService.GetAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, accommodationService.GetById(selectedAccommmodation.Id))
                 .ForEach(date =>AvailableDates.Add(date));
             if(AvailableDates.Count()==0)
             {

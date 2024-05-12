@@ -11,7 +11,15 @@
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
     </UserControl.Resources>
     <Grid 
               Width="920"
@@ -24,33 +32,20 @@
                    Grid.Row="0" 
                    Text="Your accommodations" 
                    FontSize="36" 
-                   FontWeight="Bold"
+                   FontWeight="DemiBold"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center" Style="{StaticResource FontColor}" FontFamily="{StaticResource CustomFont}"/>
         <ListView BorderThickness="0" 
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
-                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <ContentPresenter HorizontalAlignment="Left" Margin="2,3,2,3" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" 
-                                BorderThickness="3" 
+                    <Border
                                 CornerRadius="10"
-                            Height="150"
-                                Width="880">
+                                 Height="150"
+                                Width="870"  Background="{StaticResource WhiteWhite}" Margin="8 0 0 15" Style="{StaticResource BorderHoverAnimation}">
                         <Grid Margin="15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -61,7 +56,7 @@
                                 <ColumnDefinition MinWidth="50" Width="auto"/>
                                 <ColumnDefinition MinWidth="200" Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="3" Height="110">
+                            <Border CornerRadius="3" Height="110">
                                 <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center"                                     
@@ -82,10 +77,10 @@
                                            Margin="15 -5 0 0"
                                            Grid.Column="0" 
                                            FontSize="24" 
-                                           FontWeight="Bold"
+                                           FontWeight="SemiBold"
                                            VerticalAlignment="Top"
-                                           HorizontalAlignment="Left"/>
-                                    <Image Source="C:\Users\lukai\Desktop\Resource\verified.png" 
+                                           HorizontalAlignment="Left" Style="{StaticResource FontColor}"/>
+                                    <Image Source="C:\Users\lukai\Desktop\Resource\verified.png"
                                            Width="24" 
                                            Visibility="{Binding IsSuperOwner, Converter={StaticResource BoolToVisibilityConverter}}"
                                            Height="24"
@@ -140,7 +135,7 @@
                                     </Grid>
                                     <TextBlock FontSize="12" 
                                                Grid.Column="1" 
-                                               Margin="7 0 0 4" VerticalAlignment="Center"> 
+                                               Margin="7 0 0 4" VerticalAlignment="Center" Style="{StaticResource FontColor}"> 
                                                <Run Text="{Binding NumberOfRatings}"/> 
                                                <Run Text="review(s)"/>
                                     </TextBlock>
@@ -160,12 +155,12 @@
                                            Grid.Column="1"
                                            FontSize="20"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" Style="{StaticResource FontColor}"/>
                                     </Grid>
                                     <TextBlock Text="{Binding Type}" 
                                            FontSize="20"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Right"/>
+                                           HorizontalAlignment="Right" Style="{StaticResource FontColor}"/>
                                 </Grid>
                             </Grid>
                             <Image Source="C:\Users\lukai\Desktop\Resource\chat.png" 
@@ -178,25 +173,23 @@
                                        VerticalAlignment="Top"/>
                             <Button Grid.Column="3"
                                         FontSize="20"
-                                        FontWeight="Bold"
+                                        FontWeight="SemiBold"
                                         VerticalAlignment="Top"
                                         Background="Transparent"
                                         BorderThickness="0" 
                                         Margin="0 -2 0 0"
-                                        Width="142"
+                                        Width="152"
                                         Height="38"
-                                    Command="{Binding DataContext.RenovateCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
-                                <Border  BorderBrush="Black"
-                                             BorderThickness="2"
-                                             CornerRadius="8"
+                                    Command="{Binding DataContext.RenovateCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" Template="{StaticResource CustomButtonTemplate}">
+                                <Border CornerRadius="8"
                                             Height="36"
-                                             Width="140">
+                                             Width="150" Style="{StaticResource BorderHover}">
                                     <StackPanel  Orientation="Horizontal">
                                         <Image  Source="C:\Users\lukai\Desktop\Resource\hammer.png" 
                                                Width="24" 
                                                Height="24"
                                                Margin="5 0 10 0"/>
-                                        <TextBlock  Text="Renovate" VerticalAlignment="Center"/>
+                                        <TextBlock  Text="Renovate" VerticalAlignment="Center" Foreground="{StaticResource WhiteWhite}"/>
                                     </StackPanel>
                                 </Border>
                             </Button>
@@ -204,23 +197,21 @@
                                         Grid.Row="1"
                                         Background="Transparent" 
                                         FontSize="20" 
-                                        Width="142"
+                                        Width="152"
                                         Height="38"
                                         Margin="0 0 0 -2"
-                                        FontWeight="Bold"
+                                        FontWeight="SemiBold"
                                         BorderThickness="0"
-                                        VerticalAlignment="Bottom" Command="{Binding DataContext.ShowStatsCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
-                                <Border BorderBrush="Black" 
-                                            BorderThickness="2" 
-                                            CornerRadius="8" 
+                                        VerticalAlignment="Bottom" Command="{Binding DataContext.ShowStatsCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" Template="{StaticResource CustomButtonTemplate}">
+                                <Border     CornerRadius="8" 
                                             Height="36"
-                                            Width="140">
+                                            Width="150" Style="{StaticResource BorderHover}">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="C:\Users\lukai\Desktop\Resource\stats.png" 
                                                Width="24" 
                                                Height="24"
                                                Margin="5 0 5 0"/>
-                                        <TextBlock Text="Show stats" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Show stats" VerticalAlignment="Center" Foreground="{StaticResource WhiteWhite}"/>
                                     </StackPanel>
                                 </Border>
                             </Button>

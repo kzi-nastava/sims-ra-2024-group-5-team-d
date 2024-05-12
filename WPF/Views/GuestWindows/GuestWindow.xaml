@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
         mc:Ignorable="d"
-        Title="GuestWindow" Height="720" Width="430" WindowStartupLocation="CenterScreen">
+        Title="Limit" Height="720" Width="430" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
     </Window.Resources>
+    <Window.Icon>
+        <BitmapImage UriSource="../../../Resources/Images/logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
+    </Window.Icon>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

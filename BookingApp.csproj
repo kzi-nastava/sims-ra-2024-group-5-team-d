@@ -103,11 +103,13 @@
     <None Remove="Resources\Images\GuideImages\Alt Arrow Left.png" />
     <None Remove="Resources\Images\GuideImages\Arrows ALogout 2.png" />
     <None Remove="Resources\Images\GuideImages\Chat Round Line.png" />
+    <None Remove="Resources\Images\GuideImages\Check Circle.png" />
     <None Remove="Resources\Images\GuideImages\Clock Circle.png" />
     <None Remove="Resources\Images\GuideImages\Flag.png" />
     <None Remove="Resources\Images\GuideImages\Home.png" />
     <None Remove="Resources\Images\GuideImages\Lightbulb Minimalistic.png" />
     <None Remove="Resources\Images\GuideImages\Map Point Add.png" />
+    <None Remove="Resources\Images\GuideImages\Map Point.png" />
     <None Remove="Resources\Images\GuideImages\ns.jpeg" />
     <None Remove="Resources\Images\GuideImages\Play Circle.png" />
     <None Remove="Resources\Images\GuideImages\Question Circle.png" />
@@ -140,6 +142,7 @@
     <None Remove="Resources\Images\GuestImages\WaitingIcon.png" />
     <None Remove="Resources\Images\GuestImages\WiFiIcon.png" />
     <None Remove="Resources\Images\GuestImages\XIcon.png" />
+    <None Remove="Resources\Images\logo.png" />
     <None Remove="Resources\Images\OwnerImages\idemo.png" />
     <None Remove="Resources\Images\OwnerImages\StarFull.png" />
     <None Remove="Resources\Images\OwnerImages\StarHalfFull.png" />
@@ -151,6 +154,15 @@
     <None Remove="Resources\TourImages\Tour2\download.jpeg" />
     <None Remove="Resources\TourImages\Tour3\GFS_smederevo-trg-25-09-09-04.jpg" />
     <None Remove="Resources\TourImages\Tour4\caption.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\GuideImages\Check Circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideImages\Map Point.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -368,6 +380,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuideImages\RedFlag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\OwnerImages\idemo.png">

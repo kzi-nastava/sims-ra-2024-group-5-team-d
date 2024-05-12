@@ -26,6 +26,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
     {
         public User LoggedInUser { get; set; }
         public ICommand ComboBoxSelectionChangedCommand { get; set; }
+        public ICommand LanguageSelectedCommand { get; set; }
+        public ICommand LocationSelectedCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
         public RelayCommand BackCommand { get; set; }
         public RelayCommand LocationComboBoxGotFocusCommand { get; }
@@ -96,6 +98,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourReservationService = new TourReservationService();
             HelpCommand = new RelayCommand(HelpButton_Click);
             BackCommand = new RelayCommand(Back);
+            LanguageSelectedCommand = new RelayCommand(LanguageSelection);
+            LocationSelectedCommand = new RelayCommand(LocationSelection);
             LocationComboBoxGotFocusCommand = new RelayCommand(LocationComboBoxGotFocus);
             LanguageComboBoxGotFocusCommand = new RelayCommand(LanguageComboBoxGotFocus);
             tourRequestService = new TourRequestService();
@@ -105,7 +109,6 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             YearlyStats = new SeriesCollection();
             YearLabels = new ObservableCollection<string>();
             MonthLabels = new ObservableCollection<string>();
-            //InitializeMonths();
             ComboBoxSelectionChangedCommand = new RelayParameterCommand(OnComboBoxSelectionChanged);
             InitializeComboBox();
             OnComboBoxSelectionChanged("All Time");
@@ -132,6 +135,17 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 }
             }
         }
+        private void LanguageSelection()
+        {
+            var language = tourRequestService.GetMostWantedLanguage();
+            SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser,-1,Convert.ToInt32(language));
+        }
+        private void LocationSelection()
+        {
+            var location = tourRequestService.GetMostWantedLocation();
+            SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser,location.Id,-1);
+        }
+
         private void HelpButton_Click()
         {
             if (RequestsStatistics.HelpPopUp.IsOpen)
@@ -167,24 +181,6 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 YearLabels.Add(year.ToString());
             }
         }
-        /*
-        private void InitializeMonths()
-        {
-            MonthLabels = new ObservableCollection<string>();
-
-            string[] monthNames = CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
-
-            foreach (var monthName in monthNames)
-            {
-                if (!string.IsNullOrEmpty(monthName))
-                {
-                    string abbreviatedMonthName = monthName.Substring(0, 3);
-                    string capitalizedAbbreviation = char.ToUpper(abbreviatedMonthName[0]) + abbreviatedMonthName.Substring(1).ToLower();
-                    MonthLabels.Add(capitalizedAbbreviation);
-                }
-            }
-        }
-        */
         private void InitializeYearlyStats()
         {
             YearlyStats.Clear();
@@ -192,7 +188,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             {
                 Title = "Years",
                 Values = new ChartValues<int>(),
-                Fill = Brushes.Red
+                Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6A9A"))
             });
             for(int i=0; i < Years.Count -1 ; i++) 
             {
@@ -207,14 +203,11 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             {
                 Title = "Months",
                 Values = new ChartValues<int> (),
-                Fill = Brushes.Red
+                Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A375E1"))
             });
             Dictionary<int,int> dictionary = tourRequestService.GetRequestsInAYearByMonths(year, PickedLanguage, PickedLocationId);
-            Debug.WriteLine($"{dictionary.Count} months");
             for (int i = 1; i <= dictionary.Count; i++)
             {
-                Debug.WriteLine($"{dictionary[i]}");
-                Debug.WriteLine(CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(i));
                 MonthlyStats[0].Values.Add(dictionary[i]);
                 MonthLabels.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(i));
             }

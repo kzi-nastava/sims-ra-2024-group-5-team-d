@@ -17,6 +17,12 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     public class OwnerRatingViewModel
     {
        
+        public string Star1 { get; set; }
+        public string Star2 { get; set; }
+        public string Star3 { get; set; }
+        public string Star4 { get; set; }
+        public string Star5 { get; set; }
+
         public int Id { get; set; }
         public string GuestName { get; set; }
         public Location Location { get; set; }
@@ -26,6 +32,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public int CorrectnessRating { get; set; }
         public DateOnly RatingDate { get; set; }
         public string Comment { get; set; }
+        public string AvatarPath { get; set; }
        
         public OwnerRatingViewModel()
         {
@@ -41,6 +48,24 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             CorrectnessRating = accommodationRating.Correctness;
             RatingDate = accommodationRating.TimeOfRating;
             Comment = accommodationRating.Comment;
+            AvatarPath = guest.AvatarPath;
+            List<string> starPaths = new List<string>();
+            double averageRating = (double)(CleanlinessRating + CorrectnessRating) / 2;
+            Debug.WriteLine(averageRating);
+            while (averageRating >= 1)
+            {
+                starPaths.Add("../../../Resources/Images/OwnerImages/StarFull.png");
+                averageRating--;
+            }
+            if (averageRating > 0.25)
+                starPaths.Add("../../../Resources/Images/OwnerImages/StarHalfFull.png");
+            while (starPaths.Count < 5)
+                starPaths.Add("../../../Resources/Images/OwnerImages/idemo.png");
+            Star1 = starPaths[0];
+            Star2 = starPaths[1];
+            Star3 = starPaths[2];
+            Star4 = starPaths[3];
+            Star5 = starPaths[4];
         }
     }
 }

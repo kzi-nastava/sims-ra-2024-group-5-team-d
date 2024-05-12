@@ -29,6 +29,10 @@ namespace BookingApp.Appl.UseCases
         {
             return forumCommentRepository.GetAll();
         }
+        public int GetNumberOfCommentsForForum(int forumId)
+        {
+            return forumCommentRepository.GetByForumId(forumId).Count;
+        }
         public List<ForumComment> GetByForumId(int forumId)
         {
             return forumCommentRepository.GetByForumId(forumId);

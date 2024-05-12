@@ -28,7 +28,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             FullName = fullName;
             AvatarPath = avatarPath;
         }
-        public UnratedGuestViewModel(int reservationId, string name, DateTime reservedFrom, DateTime reservedTo, Location location, string accommodationName)
+        public UnratedGuestViewModel(int reservationId, string name, DateTime reservedFrom, DateTime reservedTo, Location location, string accommodationName,string avatarPath)
         {
             ReservationId = reservationId;
             FullName = name;
@@ -36,6 +36,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ReservedTo = reservedTo;
             Location = location;
             AccommodationName = accommodationName;
+            AvatarPath = avatarPath;
         }
     }
 }
