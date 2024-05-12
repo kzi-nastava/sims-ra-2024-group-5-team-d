@@ -34,7 +34,7 @@ namespace BookingApp.Appl.UseCases
         }
         public List<Forum> GetAllByUser(User user)
         {
-            List<Forum> forums = forumRepository.GetAll().Where(forum=> forum.IdUser==user.Id).ToList();
+            List<Forum> forums = GetAll().Where(forum=> forum.IdUser==user.Id).ToList();
             return forums;
         }
         public bool IsSuperForum(Forum forum)

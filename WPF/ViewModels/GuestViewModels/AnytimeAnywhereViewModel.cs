@@ -35,6 +35,12 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         private SuperUserService superUserService;
 
         public int NumberOfPeople { get; set; }
+        public string ImagesPath { get; set; }
+        public string AccommodationName { get; set; }
+        public int Capacity { get; set; }
+        public Location Location { get; set; }
+        public double AverageRating { get; set; }
+        public DateTime CancellationDeadline { get; set; }
 
         private bool reserveEnable= false;
         public bool ReserveEnable
@@ -68,6 +74,13 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             SelectionChangedCommand = new RelayParameterCommand(DataGridSelectionChanged);
             ReserveCommand = new RelayCommand(ReserveAccommodation);
             CancelCommand = new RelayCommand(Cancel);
+
+            AccommodationName= accommodationService.GetAccommodationNameById(selectedAccommmodation.Id);
+            ImagesPath =  accommodationService.GetById(selectedAccommmodation.Id).ImagesPath;
+            Location = accommodationService.GetById(selectedAccommmodation.Id).Location;
+            Capacity = accommodationService.GetById(selectedAccommmodation.Id).Capacity;
+            AverageRating = accommodationService.GetById(selectedAccommmodation.Id).AverageRating;
+            CancellationDeadline = fromDate.AddDays(-accommodationService.GetById(selectedAccommmodation.Id).CancellationDeadline);
 
             availableDatesForReservationService.CheckAvailableDatesInGivenRange(fromDate, toDate, numberOfDays, accommodationService.GetById(selectedAccommmodation.Id))
                 .ForEach(date =>AvailableDates.Add(date));
