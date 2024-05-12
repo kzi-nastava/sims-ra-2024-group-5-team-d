@@ -11,13 +11,13 @@ namespace BookingApp.Appl.UseCases
     public class TourReservationService
     {
         private ITourReservationRepository _tourReservationRepository;
-        private ITourRealisationRepository tourRealisationRepository;
-        private ITourRatingRepository ratingRepository;
+        private TourRealisationService tourRealisationService;
+        private TourRatingService tourRatingService;
         public TourReservationService() 
         {
-            tourRealisationRepository = Injector.CreateInstance<ITourRealisationRepository>();
+            tourRealisationService = new TourRealisationService();
             _tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
-            ratingRepository = Injector.CreateInstance<ITourRatingRepository>();
+            tourRatingService = new TourRatingService();
         }
 
         public List<TourReservation> GetTourReservationsForTourist(User tourist)
@@ -29,7 +29,7 @@ namespace BookingApp.Appl.UseCases
             return GetTourReservationsForTourist(tourist)
                     .Where(tourReservation =>
                         tourReservation.TourRealisationId != -1 &&
-                        tourRealisationRepository.GetTourRealisationById(tourReservation.TourRealisationId).IsFinished == true)
+                        tourRealisationService.GetTourRealisationById(tourReservation.TourRealisationId).IsFinished == true)
                     .ToList();
         }
 
@@ -49,7 +49,7 @@ namespace BookingApp.Appl.UseCases
         }
         public bool WasTourRated(int tourReservationId)
         {
-            foreach(TourRating rating in ratingRepository.GetAllTourRatings())
+            foreach(TourRating rating in tourRatingService.GetAllTourRatings())
             {
                 if(rating.TourReservationId == tourReservationId)
                 {
@@ -63,7 +63,7 @@ namespace BookingApp.Appl.UseCases
         {
             foreach (TourReservation reservation in _tourReservationRepository.GetAllTourReservations())
             {
-                if(reservation.User.Id == userId && reservation.TourRealisationId != -1 && tourRealisationRepository.GetTourRealisationById(reservation.TourRealisationId).IsLive)
+                if(reservation.User.Id == userId && reservation.TourRealisationId != -1 && tourRealisationService.GetTourRealisationById(reservation.TourRealisationId).IsLive)
                 {
                     return reservation;
                 }
