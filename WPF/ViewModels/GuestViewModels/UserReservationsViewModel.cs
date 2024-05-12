@@ -14,7 +14,7 @@ namespace BookingApp.WPF.ViewModels
         public Location Location { get; set; }
         public string ImagesPath { get; set; }
         public int Capacity { get; set; }
-= 0;    public DateTime ReservedFrom { get; set; }
+        public DateTime ReservedFrom { get; set; }
         public DateTime ReservedTo { get; set; }
         public bool isReseravtionCancellable { get; set; }
         public bool isReservationRateable { get; set; }

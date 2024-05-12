@@ -20,6 +20,12 @@ namespace BookingApp.Appl.UseCases
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
             
         }
+        public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository)
+        {
+
+            this.accommodationReservationRepository = accommodationReservationRepository;
+
+        }
         public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository,AccommodationService accommodationService)
         {
             this.accommodationReservationRepository = accommodationReservationRepository;

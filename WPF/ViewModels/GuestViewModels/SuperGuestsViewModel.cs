@@ -1,11 +1,13 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,26 +19,21 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
     public class SuperGuestsViewModel
     {
         public ICommand LogOutCommand { get; set; }
-        //public string GuestName { get; set; }
-        //public string AvatarPath { get; set; }
         public SuperGuestViewModel SuperGuest { get; set; }
         public bool IsSuperGuest { get; set; }
         public string TimeLeft { get; set; }
-        //public int NumberOfReservationThisYear { get; set; }
-        private SuperUserService superUserService { get; set; }
-        private AccommodationReservationService accommodationReservationService { get; set; }
+
+        private SuperUserService superUserService;
+        private AccommodationReservationService accommodationReservationService;
+
         public SuperGuestsViewModel(User user) 
         {
+            InitializeServices();
+
             LogOutCommand = new RelayCommand(LogOut);
-            superUserService = new SuperUserService();
-            accommodationReservationService = new AccommodationReservationService();
 
             SuperGuest = new SuperGuestViewModel(user.Id, superUserService.GetById(user.Id).ValidFrom, superUserService.GetById(user.Id).BonusPoints, user.AvatarPath, accommodationReservationService.GetNumberOfReservationsLastYear(user), user.FullName);
-
-            //GuestName = user.FullName;
-            //AvatarPath = user.AvatarPath;
             IsSuperGuest = false;
-            //NumberOfReservationThisYear = accommodationReservationService.GetNumberOfReservationsLastYear(user); //proveri sa lukom ???
 
             TimeSpan remainingTime = DateTime.UtcNow - superUserService.GetById(user.Id).ValidFrom.AddYears(-1) ;
 
@@ -65,6 +62,12 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             {
                 IsSuperGuest = user.IsSuperUser.Value;
             }
+        }
+
+        private void InitializeServices()
+        {
+            superUserService = new SuperUserService(Injector.CreateInstance<ISuperUserRepository>());
+            accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
         }
 
         private void LogOut()

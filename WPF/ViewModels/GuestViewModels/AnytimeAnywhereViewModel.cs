@@ -28,9 +28,10 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public User LoggedInUser;
         public ObservableCollection<KeyValuePair<DateTime, DateTime>> AvailableDates { get; set; }
         public KeyValuePair<DateTime, DateTime> SelectedDate { get; set; }
+        private int accommodationId;
+
         private AvailableDatesForReservationService availableDatesForReservationService;
         private AccommodationService accommodationService;
-        private int accommodationId;
         private AccommodationReservationService accommodationReservationService;
         private SuperUserService superUserService;
 
@@ -63,13 +64,11 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         }
         public AnytimeAnywhereViewModel(User user, AccommodationViewModel selectedAccommmodation, DateTime fromDate, DateTime toDate, int numberOfPeople, int numberOfDays)
         {
+            InitializeServices();
             LoggedInUser = user;
             NumberOfPeople = numberOfPeople;
             accommodationId = selectedAccommmodation.Id;
-            accommodationService = new AccommodationService();
-            accommodationReservationService = new AccommodationReservationService();
-            superUserService = new SuperUserService();
-            availableDatesForReservationService = new AvailableDatesForReservationService();
+
             AvailableDates = new ObservableCollection<KeyValuePair<DateTime, DateTime>>();
             SelectionChangedCommand = new RelayParameterCommand(DataGridSelectionChanged);
             ReserveCommand = new RelayCommand(ReserveAccommodation);
@@ -91,6 +90,15 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             }
 
         }
+
+        private void InitializeServices()
+        {
+            accommodationService = new AccommodationService();
+            accommodationReservationService = new AccommodationReservationService();
+            superUserService = new SuperUserService();
+            availableDatesForReservationService = new AvailableDatesForReservationService();
+        }
+
         public void DataGridSelectionChanged(object parameter)
         {
             if (parameter != null)

@@ -19,10 +19,12 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public ICommand AddCommentGuestCommand { get; set; }
         public ICommand BackCommand { get; set; }
         public ForumViewModel Forum { get; set; }
+        public ObservableCollection<ForumCommentViewModel> Comments { get; set; }
+
         private ForumService forumService;
         private UserService userService;
-        public ObservableCollection<ForumCommentViewModel> Comments { get; set; }
         private ForumCommentService forumCommentService;
+
         private User loggedInUser;
         public Location Location { get; set; }
         public string Description {  get; set; }
@@ -30,16 +32,16 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public string Author { get; set; }
         public string Comment { get; set; }
         public bool IsClosed { get; set; }
-        public ForumReadMoreCommentsViewModel(User user, ForumViewModel selectedForum){
+        public ForumReadMoreCommentsViewModel(User user, ForumViewModel selectedForum)
+        {
+            InitializeServices();
             Location = selectedForum.Location;
             Description = selectedForum.Description;
             Title = selectedForum.Title;
             Forum = selectedForum; 
-            forumService = new ForumService();
-            userService = new UserService();
+
             Author = userService.GetFullNameById(forumService.GetById(selectedForum.ForumId).IdUser);
             loggedInUser = user;
-            forumCommentService = new ForumCommentService();
             Comments = new ObservableCollection<ForumCommentViewModel>();
             forumCommentService.GetByForumId(selectedForum.ForumId).ForEach(comment => {
                 Comments.Add(new ForumCommentViewModel(comment, "Kuca", user));
@@ -49,6 +51,13 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             BackCommand = new RelayCommand(BackPage);
 
             IsClosed = forumService.GetById(selectedForum.ForumId).Active;
+        }
+
+        private void InitializeServices()
+        {
+            forumService = new ForumService();
+            userService = new UserService();
+            forumCommentService = new ForumCommentService();
         }
 
         public void AddCommentGuest()
