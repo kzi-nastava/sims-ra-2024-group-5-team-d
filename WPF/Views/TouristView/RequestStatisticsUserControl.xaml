@@ -98,8 +98,9 @@
                           FontSize="24"
                           FontWeight="DemiBold"
                           Margin="30 60 300 100"
+                          Text="All Time"
                           ItemsSource="{Binding Years}"
-                          SelectedItem="{Binding item, Mode=TwoWay}"
+                          SelectedItem="{Binding ItemIndex, Mode=TwoWay}"
                           SelectedIndex="0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">

@@ -44,6 +44,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             }
         }
 
+        public int ItemIndex = 0;
         public int NotAcceptedRequests { get; set; }
         public TourRequestService tourRequestService { get; set; }
         public ObservableCollection<string> LanguageLabels { get; set; }
