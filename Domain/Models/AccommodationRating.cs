@@ -47,14 +47,14 @@ namespace BookingApp.Domain.Models
             Cleanliness = Convert.ToInt32(values[4]);
             Correctness = Convert.ToInt32(values[5]);
             Comment = values[6];
-            TimeOfRating = DateOnly.ParseExact(values[7], "M/d/yyyy", CultureInfo.InvariantCulture);
+            TimeOfRating = DateOnly.ParseExact(values[7], "d/M/yyyy", CultureInfo.InvariantCulture);
             ImagesPath = values[8];
             LevelOfRenovation = Convert.ToInt32(values[9]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString("M/d/yyyy"), ImagesPath, LevelOfRenovation.ToString() };
+            string[] csvValues = { Id.ToString(), AccommodationId.ToString(), GuestId.ToString(), ReservationId.ToString(), Cleanliness.ToString(), Correctness.ToString(), Comment, TimeOfRating.ToString("d/M/yyyy"), ImagesPath, LevelOfRenovation.ToString() };
             return csvValues;
         }
         public double GetAverageRating()

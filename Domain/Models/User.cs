@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace BookingApp.Domain.Models
 {
@@ -42,7 +43,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, Type.ToString(),FullName,PersonalId,BirthDate.ToString(),AvatarPath,MacAddress,IsSuperUser.ToString()};
+            string[] csvValues = { Id.ToString(), Username, Password, Type.ToString(),FullName,PersonalId,BirthDate.ToString("d/M/yyyy", CultureInfo.InvariantCulture),AvatarPath,MacAddress,IsSuperUser.ToString()};
             return csvValues;
         }
 
@@ -54,7 +55,7 @@ namespace BookingApp.Domain.Models
             Type = (UserType)Enum.Parse(typeof(UserType), values[3]);
             FullName = values[4];
             PersonalId = values[5];
-            BirthDate = DateOnly.Parse(values[6]);
+            BirthDate = DateOnly.ParseExact(values[6], "d/M/yyyy", CultureInfo.InvariantCulture);
             AvatarPath = values[7];
             MacAddress = values[8];
             IsSuperUser = (values[9] == "") ? (bool?)null : Convert.ToBoolean(values[9]);

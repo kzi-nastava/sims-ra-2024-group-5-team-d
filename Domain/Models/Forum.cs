@@ -45,7 +45,7 @@ namespace BookingApp.Domain.Models
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Title, Description, Location.Id.ToString(), IdUser.ToString(), DateCreated.ToString("M/d/yyyy h:mm:ss tt"), Active.ToString() };
+            string[] csvValues = { Id.ToString(), Title, Description, Location.Id.ToString(), IdUser.ToString(), DateCreated.ToString("d/M/yyyy h:mm:ss tt"), Active.ToString() };
             return csvValues;
         }
 
@@ -56,7 +56,7 @@ namespace BookingApp.Domain.Models
             Description = values[2];
             Location = new Location() { Id = Convert.ToInt32(values[3]) };
             IdUser = Convert.ToInt32(values[4]);
-            DateCreated = DateTime.ParseExact(values[5], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateCreated = DateTime.ParseExact(values[5], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             Active = Convert.ToBoolean(values[6]);
         }
     }

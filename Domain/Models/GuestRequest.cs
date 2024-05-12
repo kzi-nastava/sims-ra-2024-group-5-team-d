@@ -48,7 +48,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), ReservationId.ToString(), NewReservedFrom.ToString("M/d/yyyy h:mm:ss tt"), NewReservedTo.ToString("M/d/yyyy h:mm:ss tt"), Comment, Status.ToString() };
+            string[] csvValues = { Id.ToString(), ReservationId.ToString(), NewReservedFrom.ToString("d/M/yyyy h:mm:ss tt"), NewReservedTo.ToString("d/M/yyyy h:mm:ss tt"), Comment, Status.ToString() };
             return csvValues;
         }
 
@@ -56,8 +56,8 @@ namespace BookingApp.Domain.Models
         {
             Id = Convert.ToInt32(values[0]);
             ReservationId = Convert.ToInt32(values[1]);
-            NewReservedFrom = DateTime.ParseExact(values[2], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            NewReservedTo = DateTime.ParseExact(values[3], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            NewReservedFrom = DateTime.ParseExact(values[2], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            NewReservedTo = DateTime.ParseExact(values[3], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             Comment = values[4];
             Status = (STATUS)Enum.Parse(typeof(STATUS), values[5]);
         }

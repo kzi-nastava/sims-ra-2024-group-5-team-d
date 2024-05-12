@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Limit" Height="674" Width="1200">
     <Window.Icon>
-        <BitmapImage UriSource="C:\Users\lukai\Desktop\Resource\logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
+        <BitmapImage UriSource="../../../Resources/Images/logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
     </Window.Icon>
     <Window.Resources>
         <Style x:Key="TextBlockPaddingStyle" TargetType="TextBlock">
