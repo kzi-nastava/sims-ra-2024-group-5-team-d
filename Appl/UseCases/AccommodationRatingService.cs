@@ -101,5 +101,10 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationRatingRepository.GetByGuest(guest);
         }
+
+        public Accommodation GetBestRatedAccommodationForOwner(User owner)
+        {
+            return accommodationService.GetByUser(owner).OrderByDescending(accommodation => accommodation.AverageRating).First();
+        }
     }
 }

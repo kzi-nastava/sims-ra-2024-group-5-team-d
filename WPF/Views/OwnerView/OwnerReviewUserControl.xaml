@@ -48,8 +48,8 @@
                         <DataTemplate>
                             <Border CornerRadius="10"
                                     Width="360"
-                                    Height="70" Margin="0 0 0 20" >
-                                <Grid Margin="15" >
+                                    Height="45" Margin="0 0 0 0" >
+                                <Grid  Background="{StaticResource WhiteWhite}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
@@ -57,8 +57,8 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding AvatarPath}" Width="32" Height="32" HorizontalAlignment="Left"></Image>
-                                    <TextBlock Grid.Column="1" Text="{Binding FullName}" Style="{StaticResource FontColor}" FontSize="28" HorizontalAlignment="Left" Margin="20 0 0 0"></TextBlock>
+                                    <Image Grid.Column="0" Source="{Binding AvatarPath}" Width="32" Height="32" HorizontalAlignment="Left" VerticalAlignment="Center"></Image>
+                                    <TextBlock Grid.Column="1" Text="{Binding FullName}" Style="{StaticResource FontColor}" FontSize="28" HorizontalAlignment="Left" Margin="15 0 0 0"></TextBlock>
 
                                 </Grid>
                             </Border>

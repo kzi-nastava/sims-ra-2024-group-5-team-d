@@ -42,7 +42,7 @@ namespace BookingApp.WPF.Views.OwnerView
         }
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-          //  contentControl.Content = new ProfileNoMenu();
+            contentControl.Content = new OwnerProfileUserControl(loggedInUser);
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

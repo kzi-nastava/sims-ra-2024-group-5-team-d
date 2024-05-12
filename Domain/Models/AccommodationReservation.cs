@@ -97,6 +97,10 @@ namespace BookingApp.Domain.Models
                 return false;
             }
         }
+        public int CalculateNumberOfReservedDays()
+        {
+            return (ReservedTo-ReservedFrom).Days;
+        }
         public bool IsMadeOrEndedInSelectedYear(int year)
         {
             return ReservedFrom.Year == year || ReservedTo.Year == year;

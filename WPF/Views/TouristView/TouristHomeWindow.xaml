@@ -9,7 +9,7 @@
         Height="720"
         Width="1152">
     <Window.Icon>
-        <BitmapImage UriSource="C:\Users\lukai\Desktop\Resource\logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
+        <BitmapImage UriSource="../../../Resources/Images/logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
     </Window.Icon>
     <Window.Resources>
         <Style x:Key="Centriranje"
