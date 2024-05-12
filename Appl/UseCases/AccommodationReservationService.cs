@@ -13,15 +13,18 @@ namespace BookingApp.Appl.UseCases
     public class AccommodationReservationService
     {
         private IAccommodationReservationRepository accommodationReservationRepository;
-        private IAccommodationRepository accommodationRepository;
         private AccommodationService accommodationService;
         public AccommodationReservationService() {
 
             accommodationService = new AccommodationService();
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
             
         }
+        public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository,AccommodationService accommodationService)
+        {
+            this.accommodationReservationRepository = accommodationReservationRepository;
+            this.accommodationService = accommodationService;
+        }   
         public List<AccommodationReservation> GetAllReservationsForOwner(User owner)
         {
             return accommodationReservationRepository.GetAll()

@@ -16,14 +16,14 @@ namespace BookingApp.Appl.UseCases
 {
     public class SignInService
     {
-        private readonly IUserRepository userRepository;
+        private readonly UserService userService;
         public SignInService()
         {
-            userRepository = Injector.CreateInstance<IUserRepository>();
+            userService = new UserService();
         }
         public string CkeckCredentials(string username,string password)
         {
-            User user = userRepository.GetByUsername(username);
+            User user = userService.GetByUsername(username);
             if (user != null)
             {
                 if (user.Password == password)

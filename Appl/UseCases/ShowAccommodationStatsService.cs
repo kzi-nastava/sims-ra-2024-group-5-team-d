@@ -15,11 +15,9 @@ namespace BookingApp.Appl.UseCases
 {
     public class AccommodationStatsService
     {
-        private readonly IAccommodationReservationRepository accommodationReservationRepository;
         private AccommodationReservationService accommodationReservationService;
         public AccommodationStatsService()
         {
-            accommodationReservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
             accommodationReservationService=new AccommodationReservationService();
         }
 
@@ -48,7 +46,7 @@ namespace BookingApp.Appl.UseCases
 
         private List<AccommodationReservation> GetSortedReservationsForAllYears(string selectedYear, Accommodation accommodation)
         {
-            List<AccommodationReservation> Reservations = accommodationReservationRepository.GetByAccommodation(accommodation);
+            List<AccommodationReservation> Reservations = accommodationReservationService.GetByAccommodation(accommodation);
             Reservations = SortReservations(Reservations);
             return Reservations;
         }
@@ -60,7 +58,7 @@ namespace BookingApp.Appl.UseCases
         }
         private List<AccommodationReservation> GetReservationsForSelectedYear(Accommodation accommodation,string selectedYear)
         {
-           return accommodationReservationRepository.GetByAccommodation(accommodation)
+           return accommodationReservationService.GetByAccommodation(accommodation)
                 .Where(reservation =>  reservation.IsMadeOrEndedInSelectedYear(Convert.ToInt32(selectedYear))).ToList();
         }
 

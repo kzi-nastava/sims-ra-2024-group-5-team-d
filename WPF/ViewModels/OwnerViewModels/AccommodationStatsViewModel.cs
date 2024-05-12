@@ -40,11 +40,12 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         }
         public ObservableCollection<string> YearLabels { get; set; }
         public SeriesCollection YearlyReccommendedrenovations { get; set; }
+
         private AccommodationStatsService accommodationStatsService;
         private AccommodationService accommodationService;
-        private Accommodation accommodation;
-        private LocationService locationService;
         private AccommodationReservationService accommodationReservationService;
+
+        private Accommodation accommodation;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -54,7 +55,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             accommodationService = new AccommodationService();
             accommodationStatsService = new AccommodationStatsService();
             accommodationReservationService = new AccommodationReservationService();
-            locationService = new LocationService();
 
             YearLabels = new ObservableCollection<string>();
             YearlyBussinessStats = new SeriesCollection();

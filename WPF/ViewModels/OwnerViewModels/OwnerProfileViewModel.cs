@@ -17,8 +17,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public ICommand CancelCommand { get; set; }
         private User loggedInUser;
         public ProfileViewModel ProfileViewModel { get; set; }
-        private AccommodationRatingService accommodationRatingService; 
+        private AccommodationService accommodationService; 
         private AccommodationReservationService accommodationReservationService;
+        private AccommodationRatingService accommodationRatingService;
         private UserService userService;
         NotifierService notifierService;
         public ProfileAccommodationViewModel MostPopularAccommodation { get; set; }
@@ -28,13 +29,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public OwnerProfileViewModel(User user)
         {
             loggedInUser = user;
+            accommodationService = new AccommodationService();
             accommodationRatingService = new AccommodationRatingService();
             accommodationReservationService = new AccommodationReservationService();
             userService = new UserService();
             notifierService = new NotifierService();
             ProfileViewModel = new ProfileViewModel(user,accommodationRatingService.GetAverageRatingForOwner(user),accommodationReservationService.GetNumberOfReservationsForOwner(user));
             MostPopularAccommodation = new ProfileAccommodationViewModel(accommodationReservationService.GetMostPopularAccommodationForOwner(user));
-            BestRatedAccommodation = new ProfileAccommodationViewModel(accommodationRatingService.GetBestRatedAccommodationForOwner(user));
+            BestRatedAccommodation = new ProfileAccommodationViewModel(accommodationService.GetBestRatedAccommodationForOwner(user));
             MostBusyAccommodation = new ProfileAccommodationViewModel(accommodationReservationService.GetMostBusyAccommodationForOwner(user));
             ProfileCredentials = new ProfileCredentialsViewModel(user);
 

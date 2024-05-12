@@ -11,19 +11,13 @@ namespace BookingApp.Appl.UseCases
     public class ForumCommentService
     {
         private readonly IForumCommentRepository forumCommentRepository;
-        private AccommodationService accommodationService;
-        private UserService userService;
         public ForumCommentService() 
         { 
-            userService = new UserService();
-            accommodationService = new AccommodationService();
             forumCommentRepository = Injector.CreateInstance<IForumCommentRepository>();
         }
-        private bool OwnerHasAccommodation(Location location,int ownerId)
+        public ForumCommentService(IForumCommentRepository forumCommentRepository)
         {
-            User owner=userService.GetById(ownerId);
-            List<Accommodation> accommodations = accommodationService.GetByUser(owner);
-            return accommodations.Any(accommodation=>accommodation.Location.Id==location.Id);
+            this.forumCommentRepository = forumCommentRepository;
         }
         public List<ForumComment> GetAll()
         {

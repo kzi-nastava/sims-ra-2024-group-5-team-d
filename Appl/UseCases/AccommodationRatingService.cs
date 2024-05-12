@@ -14,14 +14,12 @@ namespace BookingApp.Appl.UseCases
     public class AccommodationRatingService
     {
         private IAccommodationRatingRepository accommodationRatingRepository;
-        private IAccommodationRepository accommodationRepository;
         private GuestRatingService guestRatingService;
         private AccommodationService accommodationService;
         public AccommodationRatingService()
         {
             accommodationService = new AccommodationService();
             guestRatingService = new GuestRatingService();
-            accommodationRepository = Injector.CreateInstance<IAccommodationRepository>();
             accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
         }
         public double GetAverageRatingForOwner(User user)
@@ -101,10 +99,9 @@ namespace BookingApp.Appl.UseCases
         {
             return accommodationRatingRepository.GetByGuest(guest);
         }
-
-        public Accommodation GetBestRatedAccommodationForOwner(User owner)
+        public int NextId()
         {
-            return accommodationService.GetByUser(owner).OrderByDescending(accommodation => accommodation.AverageRating).First();
+            return accommodationRatingRepository.NextId();
         }
     }
 }

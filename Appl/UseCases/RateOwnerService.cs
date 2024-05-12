@@ -12,10 +12,8 @@ namespace BookingApp.Appl.UseCases
 {
     public class RateOwnerService
     {
-        private IAccommodationRatingRepository accommodationRatingRepository;
         private AccommodationRatingService accommodationRatingService;
         private AccommodationReservationService accommodationReservationService;
-        private IAccommodationRepository accommodationRepository;
         private AccommodationService accommodationService;
         private UserService userService;
         public RateOwnerService()
@@ -23,15 +21,13 @@ namespace BookingApp.Appl.UseCases
             userService = new UserService();
             accommodationRatingService = new AccommodationRatingService();
             accommodationService = new AccommodationService();
-            accommodationRepository=Injector.CreateInstance<IAccommodationRepository>();
             accommodationReservationService = new AccommodationReservationService();
-            accommodationRatingRepository=Injector.CreateInstance<IAccommodationRatingRepository>();
         }
 
         public void RateOwner(AccommodationRating accommodationRating)
         {
 
-            Accommodation accommodation = accommodationRepository.GetById(accommodationRating.AccommodationId);
+            Accommodation accommodation = accommodationService.GetById(accommodationRating.AccommodationId);
             double averageRating=accommodationRating.GetAverageRating();
 
 
@@ -41,8 +37,8 @@ namespace BookingApp.Appl.UseCases
             double accommodationAverageRating = GetAverageRatingSum(allReservationsForAccommodation, averageRating);
 
             accommodation.AverageRating = accommodationAverageRating;
-            accommodationRatingRepository.Save(accommodationRating);
-            accommodationRepository.Update(accommodation);
+            accommodationRatingService.Save(accommodationRating);
+            accommodationService.Update(accommodation);
             if (HasEnoughReviews(accommodation.Owner))
                 UpdateOwnerStatus(ownerAverageRating, accommodation.Owner);
         }
@@ -54,7 +50,7 @@ namespace BookingApp.Appl.UseCases
             double ratingSum = newRating;
             int count = 1;
             ReservationsForAccommodation.ForEach(acReservation => {
-                AccommodationRating accommodationRating = accommodationRatingRepository.GetByReservationId(acReservation.Id);
+                AccommodationRating accommodationRating = accommodationRatingService.GetByReservationId(acReservation.Id);
                 if (accommodationRating != null)
                 {
                     ratingSum += accommodationRating.GetAverageRating();
