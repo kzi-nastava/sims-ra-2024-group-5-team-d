@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,14 +28,14 @@ namespace BookingApp.Domain.Models
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            ExpireDate = Convert.ToDateTime(values[1]);
+            ExpireDate = DateTime.ParseExact(values[1], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             Type = (VOUCHERTYPE)Enum.Parse(typeof(VOUCHERTYPE), values[2]);
             User = new User() { Id = Convert.ToInt32(values[3]) };
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString() , ExpireDate.ToString(), Type.ToString(), User.Id.ToString()};
+            string[] csvValues = { Id.ToString() , ExpireDate.ToString("d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), Type.ToString(), User.Id.ToString()};
             return csvValues;
         }
     }

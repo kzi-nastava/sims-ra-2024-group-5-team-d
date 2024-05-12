@@ -50,7 +50,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(),ReceiverId.ToString(),LinkId.ToString(), Type.ToString(), DateCreated.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), IsRead.ToString() };
+            return new string[] { Id.ToString(),ReceiverId.ToString(),LinkId.ToString(), Type.ToString(), DateCreated.ToString("d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), IsRead.ToString() };
         }
 
         public void FromCSV(string[] values)
@@ -60,7 +60,7 @@ namespace BookingApp.Domain.Models
             ReceiverId = int.Parse(values[1]);
             LinkId = int.Parse(values[2]);
             Type = (Type)Enum.Parse(typeof(Type), values[3]);
-            DateCreated = DateTime.ParseExact(values[4], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateCreated = DateTime.ParseExact(values[4], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             IsRead = bool.Parse(values[5]);
         }
         public bool isRequest()

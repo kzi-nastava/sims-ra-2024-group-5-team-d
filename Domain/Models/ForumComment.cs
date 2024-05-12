@@ -37,7 +37,7 @@ namespace BookingApp.Domain.Models
 
         public string[] ToCSV()
         {
-            return new string[] { Id.ToString(), ForumId.ToString(), CreatorId.ToString(), Comment, DateCreated.ToString("M/d/yyyy h:mm:ss tt") };
+            return new string[] { Id.ToString(), ForumId.ToString(), CreatorId.ToString(), Comment, DateCreated.ToString("d/M/yyyy h:mm:ss tt") };
         }
 
         public void FromCSV(string[] values)
@@ -46,7 +46,7 @@ namespace BookingApp.Domain.Models
             ForumId = int.Parse(values[1]);
             CreatorId = int.Parse(values[2]);
             Comment = values[3];
-            DateCreated = DateTime.ParseExact(values[4], "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateCreated = DateTime.ParseExact(values[4], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
         }
     }
 }
