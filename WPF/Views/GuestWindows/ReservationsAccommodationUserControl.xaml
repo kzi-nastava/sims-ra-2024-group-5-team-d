@@ -22,65 +22,143 @@
 
 
         <TabControl Grid.Column="0" 
-         Grid.Row="0" 
-         Grid.ColumnSpan="4"
-         Background="{StaticResource PrimaryBlack3}">
-            <TabItem  Width="100" 
-                Background="{StaticResource PrimaryBlack3}">
+            Grid.Row="0" 
+            Grid.ColumnSpan="4"
+            Background="{StaticResource PrimaryBlack3}">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                                    <ContentPresenter ContentSource="Header"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor2}" />
+                                        <Setter TargetName="Border" Property="BorderThickness" Value="3" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryBlack3}" />
+                                        <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            <TabItem Width="100" 
+             Background="{StaticResource PrimaryBlack3}"
+             BorderBrush="{StaticResource PrimaryColor}"
+             BorderThickness="3">
                 <TabItem.Header>
-                    <Border Background="{StaticResource PrimaryBlack3}">
-                        <Border BorderBrush="{StaticResource PrimaryColor}" 
-                            BorderThickness="3" 
-                            CornerRadius="10"
-                            Background="{StaticResource PrimaryColor2}"
-                            Width="80">
-                            <TextBlock Text="Active" 
-                                   Padding="5"
-                                   Foreground="{StaticResource WhiteWhite}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="Active" 
+                       Padding="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor2}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource WhiteWhite}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </TabItem.Header>
-                <ListView BorderThickness="0" 
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="0" 
+                                     Grid.Column="1" 
+                                     HorizontalAlignment="Right" 
+                                     VerticalAlignment="Center"
+                                     Background="Transparent"
+                                     BorderBrush="Transparent"
+                                     Margin="0,10,10,0">
+                        <Border  Background="DarkOrange"
+                                                 BorderBrush="DarkOrange"
+                                                  CornerRadius="5"
+                                                   Height="auto"
+                                                   Width="auto">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                                    <TextBlock  Text="Download"
+                                                             Foreground="{StaticResource  WhiteGrey}" 
+                                                             FontWeight="Bold" 
+                                                             FontSize="11" 
+                                                             HorizontalAlignment="Center" 
+                                                             VerticalAlignment="Center"
+                                                             Margin="5,0,0,0"/>
+                                                    <Image Source="../../../Resources/Images/GuestImages/pdf.png"
+                                                           Grid.Column="1"
+                                                           Height="25"
+                                                           Margin="4"/>
+                            </Grid>
+                        </Border>
+                    </Button>
+                    <ListView BorderThickness="0" 
                      Background="Transparent"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                     Grid.Row="2"
-                     Grid.ColumnSpan="4"
+                     Grid.Row="1"
                      ScrollViewer.CanContentScroll="False"
                      ItemsSource="{Binding ActiveReservations}"
                      SelectedItem="{Binding SelectedReservation}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="{StaticResource PrimaryColor}" 
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource PrimaryColor}" 
                              Background="{StaticResource PrimaryColor2}"
                              BorderThickness="2" 
                              CornerRadius="10"
                              Width="380"
                              Height="auto">
-                                <Grid Margin="5">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
+                                        <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
                                         Width="120" 
                                         Height="100"                                      
                                         Grid.RowSpan="5" 
                                         VerticalAlignment="Center" 
                                         HorizontalAlignment="Center"
                                         Margin="10,0,0,0"/>
-                                    <TextBlock Text="{Binding Name}"
+                                        <TextBlock Text="{Binding Name}"
                                         Grid.Column="1"
                                         Grid.ColumnSpan="2"
                                         FontSize="13" 
@@ -89,7 +167,7 @@
                                         HorizontalAlignment="Center" 
                                         Margin="0,5,0,0"
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="From:" 
+                                        <Label Content="From:" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
@@ -100,7 +178,7 @@
                                         Margin="15,0,0,0" 
                                         HorizontalContentAlignment="Center"
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="{Binding ReservedFrom}" 
+                                        <Label Content="{Binding ReservedFrom}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
@@ -110,7 +188,7 @@
                                         FontSize="9" 
                                         Margin="42,0,0,0" 
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="To:" 
+                                        <Label Content="To:" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
@@ -120,7 +198,7 @@
                                         Width="auto"
                                         FontSize="9"  
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="{Binding ReservedTo}" 
+                                        <Label Content="{Binding ReservedTo}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
@@ -130,7 +208,7 @@
                                         Margin="25,0,0,0" 
                                         Grid.Row="1"
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Image Source="../../../Resources/Images/GuestImages/people.png" 
+                                        <Image Source="../../../Resources/Images/GuestImages/people.png" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
@@ -138,7 +216,7 @@
                                         Width="20"
                                         Grid.Row="2"
                                         Margin="16,0,0,0"/>
-                                    <Label Content="{Binding Capacity}" 
+                                        <Label Content="{Binding Capacity}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
@@ -148,14 +226,14 @@
                                         FontSize="9" 
                                         Margin="35,0,0,0" 
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Image Source="../../../Resources/Images/GuestImages/location.png" 
+                                        <Image Source="../../../Resources/Images/GuestImages/location.png" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
                                         Height="20" 
                                         Width="20"
                                         Grid.Row="2"/>
-                                    <Label Content="{Binding Location}" 
+                                        <Label Content="{Binding Location}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
@@ -165,7 +243,7 @@
                                         FontSize="9" 
                                         Margin="20,0,0,0" 
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="Cancel or move reservation" 
+                                        <Label Content="Cancel or move reservation" 
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1" 
@@ -176,7 +254,7 @@
                                         Width="auto"
                                         FontSize="11" 
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Button x:Name="CancelledButton" 
+                                        <Button x:Name="CancelledButton" 
                                      Grid.Row="5" 
                                      Grid.Column="1" 
                                      HorizontalAlignment="Center" 
@@ -184,7 +262,7 @@
                                      Click="CancelledReservationButton"
                                      Background="Transparent"
                                      IsEnabled="{Binding isReseravtionCancellable}">
-                                        <Border  Background="DarkOrange"
+                                            <Border  Background="DarkOrange"
                                                  BorderBrush="DarkOrange"
                                                   CornerRadius="5"
                                                    Height="25"
@@ -195,10 +273,10 @@
                                                              FontSize="11" 
                                                              HorizontalAlignment="Center" 
                                                              VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Button>
+                                            </Border>
+                                        </Button>
 
-                                    <Button x:Name="MoveButton" 
+                                        <Button x:Name="MoveButton" 
                                      Grid.Row="4" 
                                      Grid.Column="2" 
                                      VerticalAlignment="Center" 
@@ -206,43 +284,93 @@
                                      Background="Transparent"
                                      Click="MoveReservationClick"
                                      IsEnabled="True">
-                                        <Border  Background="DarkOrange"
+                                            <Border  Background="DarkOrange"
                                                   CornerRadius="5"
                                                    Height="25" Width="60">
-                                            <TextBlock  Text="Move" 
+                                                <TextBlock  Text="Move" 
                                                              Foreground="{StaticResource  WhiteGrey}" 
                                                              FontWeight="Bold" 
                                                              FontSize="11" 
                                                              HorizontalAlignment="Center" 
                                                              VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
+                                            </Border>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
             </TabItem>
 
-            <TabItem   Width="100"                
-                       Background="{StaticResource PrimaryBlack3}">
+            <TabItem Width="100" 
+             Background="{StaticResource PrimaryBlack3}"
+             BorderBrush="{StaticResource PrimaryColor}"
+             BorderThickness="3">
                 <TabItem.Header>
-                    <Border Background="{StaticResource PrimaryBlack3}">
-                        <Border BorderBrush="{StaticResource PrimaryColor}" 
-                            BorderThickness="3" 
-                            CornerRadius="10"
-                            Background="{StaticResource PrimaryColor2}"
-                            Width="80">
-                            <TextBlock Text="Canceled" 
-                                   Padding="5"
-                                   Foreground="{StaticResource WhiteWhite}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="Cancelled" 
+                       Padding="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor2}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource WhiteWhite}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </TabItem.Header>
-                <ListView BorderThickness="0" 
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="0" 
+                                     Grid.Column="1" 
+                                     HorizontalAlignment="Right" 
+                                     VerticalAlignment="Center"
+                                     Background="Transparent"
+                                     BorderBrush="Transparent"
+                                     Margin="0,10,10,0">
+                        <Border  Background="DarkOrange"
+                                                 BorderBrush="DarkOrange"
+                                                  CornerRadius="5"
+                                                   Height="auto"
+                                                   Width="auto">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock  Text="Download"
+                                                             Foreground="{StaticResource  WhiteGrey}" 
+                                                             FontWeight="Bold" 
+                                                             FontSize="11" 
+                                                             HorizontalAlignment="Center" 
+                                                             VerticalAlignment="Center"
+                                                             Margin="5,0,0,0"/>
+                                <Image Source="../../../Resources/Images/GuestImages/pdf.png"
+                                                           Grid.Column="1"
+                                                           Height="25"
+                                                           Margin="4"/>
+                            </Grid>
+                        </Border>
+                    </Button>
+
+                    <ListView BorderThickness="0" 
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Visible" 
@@ -251,34 +379,34 @@
                       ScrollViewer.CanContentScroll="False"
                       ItemsSource="{Binding CancelledReservations}"
                       SelectedItem="{Binding SelectedReservation}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border  BorderBrush="{StaticResource PrimaryColor}" 
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border  BorderBrush="{StaticResource PrimaryColor}" 
                              Background="{StaticResource PrimaryColor2}"
                           BorderThickness="2" 
                           CornerRadius="10"
                           Width="380"
                           Height="auto">
-                                <Grid Margin="5">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
+                                        <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
                                      Width="70" 
                                      Height="70"                                      
                                      Grid.RowSpan="3" 
                                      VerticalAlignment="Center" 
                                      HorizontalAlignment="Center"
                                      Margin="10,0,0,0"/>
-                                    <TextBlock Text="{Binding Name}" 
+                                        <TextBlock Text="{Binding Name}" 
                                      Grid.Column="1"
                                      Grid.ColumnSpan="2"
                                      FontSize="13" 
@@ -288,7 +416,7 @@
                                      Height="18" 
                                      Width="auto"
                                      Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="From:" 
+                                        <Label Content="From:" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
@@ -299,7 +427,7 @@
                                         Margin="15,0,0,0" 
                                         HorizontalContentAlignment="Center"
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="{Binding ReservedFrom}" 
+                                        <Label Content="{Binding ReservedFrom}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
@@ -309,7 +437,7 @@
                                         FontSize="9" 
                                         Margin="42,0,0,0" 
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="To:" 
+                                        <Label Content="To:" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
@@ -319,7 +447,7 @@
                                         Width="auto"
                                         FontSize="9"  
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Label Content="{Binding ReservedTo}" 
+                                        <Label Content="{Binding ReservedTo}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
@@ -329,7 +457,7 @@
                                         Margin="25,0,0,0" 
                                         Grid.Row="1"
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Image Source="../../../Resources/Images/GuestImages/people.png" 
+                                        <Image Source="../../../Resources/Images/GuestImages/people.png" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
@@ -337,7 +465,7 @@
                                         Width="20"
                                         Grid.Row="2"
                                         Margin="16,0,0,0"/>
-                                    <Label Content="{Binding Capacity}" 
+                                        <Label Content="{Binding Capacity}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="1"
@@ -347,14 +475,14 @@
                                         FontSize="9" 
                                         Margin="35,0,0,0" 
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                    <Image Source="../../../Resources/Images/GuestImages/location.png" 
+                                        <Image Source="../../../Resources/Images/GuestImages/location.png" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
                                         Height="20" 
                                         Width="20"
                                         Grid.Row="2"/>
-                                    <Label Content="{Binding Location}" 
+                                        <Label Content="{Binding Location}" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Grid.Column="2"
@@ -364,30 +492,36 @@
                                         FontSize="9" 
                                         Margin="20,0,0,0" 
                                         Foreground="{StaticResource WhiteWhite}"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
             </TabItem>
 
-            <TabItem Width="100"
-                Background="{StaticResource PrimaryBlack3}">
+            <TabItem Width="100" 
+             Background="{StaticResource PrimaryBlack3}"
+             BorderBrush="{StaticResource PrimaryColor}"
+             BorderThickness="3">
                 <TabItem.Header>
-                    <Border Background="{StaticResource PrimaryBlack3}">
-                        <Border BorderBrush="{StaticResource PrimaryColor}" 
-                            BorderThickness="3" 
-                            CornerRadius="10"
-                            Background="{StaticResource PrimaryColor2}"
-                            Width="80">
-                            <TextBlock Text="Past" 
-                                   Padding="5"
-                                   Foreground="{StaticResource WhiteWhite}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="Past" 
+                       Padding="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor2}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource WhiteWhite}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </TabItem.Header>
                 <ListView BorderThickness="0" 
                      Background="Transparent"
@@ -551,22 +685,28 @@
                 </ListView>
 
             </TabItem>
-            <TabItem Width="100"
-                Background="{StaticResource PrimaryBlack3}">
+            <TabItem Width="100" 
+             Background="{StaticResource PrimaryBlack3}"
+             BorderBrush="{StaticResource PrimaryColor}"
+             BorderThickness="3">
                 <TabItem.Header>
-                    <Border Background="{StaticResource PrimaryBlack3}">
-                        <Border BorderBrush="{StaticResource PrimaryColor}" 
-                            BorderThickness="3" 
-                            CornerRadius="10"
-                            Background="{StaticResource PrimaryColor2}"
-                            Width="80">
-                            <TextBlock Text="Review" 
-                                   Padding="5"
-                                   Foreground="{StaticResource WhiteWhite}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="Review" 
+                       Padding="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor2}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource WhiteWhite}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </TabItem.Header>
                 <ListView BorderThickness="0" 
                      Background="Transparent"

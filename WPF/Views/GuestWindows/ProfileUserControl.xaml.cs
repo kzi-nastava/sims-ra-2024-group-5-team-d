@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.WPF.ViewModels.GuestViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         public ProfileUserControl(User user)
         {
             InitializeComponent();
+            DataContext = new SuperGuestsViewModel(user);
         }
     }
 }

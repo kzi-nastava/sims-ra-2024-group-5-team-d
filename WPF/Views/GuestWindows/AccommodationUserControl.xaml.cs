@@ -102,6 +102,13 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
+        public string ImagesPath { get; set; }
+        public string AccommodationName { get; set; }
+        public int Capacity { get; set; }
+        public Location Location { get; set; }
+        public double AverageRating { get; set; }
+        public DateTime CancellationDeadline { get; set; }
+
         public User LoggedInUser;
         private readonly AccommodationReservationService _reservationService;
         private readonly AccommodationRepository _repository;
@@ -111,6 +118,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         public KeyValuePair<DateTime, DateTime> SelectedDate { get; set; }
         private AvailableDatesForReservationService AvailableDatesForReservationService;
         private readonly SuperUserService superUserService;
+        private AccommodationService accommodationService;
 
         public AccommodationUserControl(User user, AccommodationViewModel selectedAccommmodation)
         {
@@ -122,6 +130,15 @@ namespace BookingApp.WPF.Views.GuestWindows
             AvailableDates = new ObservableCollection<KeyValuePair<DateTime, DateTime>>();
             Accommodation = selectedAccommmodation;
             superUserService = new SuperUserService();
+            accommodationService = new AccommodationService();
+
+            AccommodationName = accommodationService.GetAccommodationNameById(selectedAccommmodation.Id);
+            ImagesPath = accommodationService.GetById(selectedAccommmodation.Id).ImagesPath;
+            Location = accommodationService.GetById(selectedAccommmodation.Id).Location;
+            Capacity = accommodationService.GetById(selectedAccommmodation.Id).Capacity;
+            AverageRating = accommodationService.GetById(selectedAccommmodation.Id).AverageRating;
+            CancellationDeadline = fromDate.AddDays(-accommodationService.GetById(selectedAccommmodation.Id).CancellationDeadline);
+
             DataContext = this;
 
         }

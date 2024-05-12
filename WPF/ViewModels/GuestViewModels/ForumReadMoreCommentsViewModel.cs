@@ -18,34 +18,42 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
 
         public ICommand AddCommentGuestCommand { get; set; }
         public ICommand BackCommand { get; set; }
-        public int ForumId { get; set; }
         public ForumViewModel Forum { get; set; }
         private ForumService forumService;
+        private UserService userService;
         public ObservableCollection<ForumCommentViewModel> Comments { get; set; }
         private ForumCommentService forumCommentService;
         private User loggedInUser;
-        private int forumId;
+        public Location Location { get; set; }
+        public string Description {  get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
         public string Comment { get; set; }
-        public ForumReadMoreCommentsViewModel(int forumId, User user)
-        {
-            this.forumId = forumId;
+        public bool IsClosed { get; set; }
+        public ForumReadMoreCommentsViewModel(User user, ForumViewModel selectedForum){
+            Location = selectedForum.Location;
+            Description = selectedForum.Description;
+            Title = selectedForum.Title;
+            Forum = selectedForum; 
             forumService = new ForumService();
-            ForumId = forumId;
+            userService = new UserService();
+            Author = userService.GetFullNameById(forumService.GetById(selectedForum.ForumId).IdUser);
             loggedInUser = user;
             forumCommentService = new ForumCommentService();
-            Forum = new ForumViewModel(forumService.GetById(forumId));
             Comments = new ObservableCollection<ForumCommentViewModel>();
-            forumCommentService.GetByForumId(forumId).ForEach(comment => {
+            forumCommentService.GetByForumId(selectedForum.ForumId).ForEach(comment => {
                 Comments.Add(new ForumCommentViewModel(comment, "Kuca", user));
             });
 
             AddCommentGuestCommand = new RelayCommand(AddCommentGuest);
             BackCommand = new RelayCommand(BackPage);
+
+            IsClosed = forumService.GetById(selectedForum.ForumId).Active;
         }
 
         public void AddCommentGuest()
         {
-            ForumComment comment = new ForumComment(forumId, loggedInUser.Id, Comment, DateTime.Now);
+            ForumComment comment = new ForumComment(Forum.ForumId, loggedInUser.Id, Comment, DateTime.Now);
             comment = forumCommentService.Save(comment);
             Comments.Add(new ForumCommentViewModel(comment, "Kuca", loggedInUser));
         }

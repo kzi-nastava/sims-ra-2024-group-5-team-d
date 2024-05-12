@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows"
         mc:Ignorable="d"
-        Title="OwnerAndAccommodationRatingWindow" Height="440" Width="300" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="OwnerAndAccommodationRatingWindow" Height="580" Width="340" WindowStartupLocation="CenterScreen">
+    <Grid Background="{StaticResource PrimaryBlack}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -21,32 +21,29 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Image Source="../../../Resources/Images/GuestImages/XIcon.png"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Height="16" 
-            Margin="0,5,5,0"
-            Width="18" />
-        <Label Content="Rate the owner and accommodation" 
+        <Label Content="{Binding AccommodationName}" 
              HorizontalAlignment="Center"
              VerticalAlignment="Center" 
-             Grid.Row="1"
+             Grid.Row="0"
              Height="26" 
              Width="auto" 
              HorizontalContentAlignment="Center" 
              VerticalContentAlignment="Center" 
-             FontSize="14"/>
+             FontSize="14"
+             Foreground="{StaticResource WhiteWhite}"/>
 
         <Label Content="Cleanliness(1-5):" 
              HorizontalAlignment="Left"
              VerticalAlignment="Center" 
-             Grid.Row="2"
+             Grid.Row="1"
              Height="26" 
              Width="auto"
-             Margin="10,15,0,0"/>
+             Margin="10,15,0,0"
+             Foreground="{StaticResource WhiteWhite}"/>
         <TextBox Text="{Binding Cleanliness, UpdateSourceTrigger=PropertyChanged}"
-              Grid.Row="2" 
+              Grid.Row="1" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Left"
               Width="30"
@@ -56,12 +53,13 @@
         <Label Content="Correctness of the owner(1-5):" 
              HorizontalAlignment="Left"
              VerticalAlignment="Center" 
-             Grid.Row="3"
+             Grid.Row="2"
              Height="26" 
              Width="auto"
-             Margin="10,10,0,0"/>
+             Margin="10,10,0,0"
+             Foreground="{StaticResource WhiteWhite}"/>
         <TextBox Text="{Binding Correctness, UpdateSourceTrigger=PropertyChanged}"
-              Grid.Row="3" 
+              Grid.Row="2" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Left"
               Width="30"
@@ -70,61 +68,138 @@
         <Label Content="Add comments" 
             HorizontalAlignment="Left"
             VerticalAlignment="Center" 
-            Grid.Row="4"
+            Grid.Row="3"
             Height="26" 
             Width="auto"
-            Margin="10,10,0,0"/>
+            Margin="10,10,0,0"
+            Foreground="{StaticResource WhiteWhite}"/>
         <TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
-              Grid.Row="5" 
+              Grid.Row="4" 
               VerticalAlignment="Center" 
               HorizontalAlignment="Center"
               Width="280"
               Height="50"
               Margin="0,0,0,10"
               TextWrapping="WrapWithOverflow"
-              TextAlignment="Right"/>
+              FlowDirection="LeftToRight"/>
 
         <Label Content="Renovation" 
             HorizontalAlignment="Left"
             VerticalAlignment="Center" 
-            Grid.Row="6"
+            Grid.Row="5"
             Height="26" 
             Width="auto"
-            Margin="10,0,0,0"/>
+            Margin="10,0,0,0"
+            Foreground="{StaticResource WhiteWhite}"/>
 
-        <StackPanel Grid.Row="7" Margin="0,0,0,10">
-            <RadioButton Name="radioButton1" GroupName="Rating" Content="Level 1 (renovate small things, but is ok)" Tag="1" Checked="RadioButton_Checked"/>
-            <RadioButton Name="radioButton2" GroupName="Rating" Content="Level 2 (need small changes)" Tag="2" Checked="RadioButton_Checked"/>
-            <RadioButton Name="radioButton3" GroupName="Rating" Content="Level 3 (few things should be renovated)" Tag="3" Checked="RadioButton_Checked"/>
-            <RadioButton Name="radioButton4" GroupName="Rating" Content="Level 4 (lots of bad things, need renovation)" Tag="4" Checked="RadioButton_Checked"/>
-            <RadioButton Name="radioButton5" GroupName="Rating" Content="Level 5 (very bad condition, big renovation)" Tag="5" Checked="RadioButton_Checked"/>
+        <StackPanel Grid.Row="6" Margin="0,0,0,10">
+            <RadioButton Name="radioButton1" GroupName="Rating" Content="Level 1 (renovate small things, but is ok)" Tag="1" Checked="RadioButton_Checked" Foreground="{StaticResource WhiteWhite}"/>
+            <RadioButton Name="radioButton2" GroupName="Rating" Content="Level 2 (need small changes)" Tag="2" Checked="RadioButton_Checked" Foreground="{StaticResource WhiteWhite}"/>
+            <RadioButton Name="radioButton3" GroupName="Rating" Content="Level 3 (few things should be renovated)" Tag="3" Checked="RadioButton_Checked" Foreground="{StaticResource WhiteWhite}"/>
+            <RadioButton Name="radioButton4" GroupName="Rating" Content="Level 4 (lots of bad things, need renovation)" Tag="4" Checked="RadioButton_Checked" Foreground="{StaticResource WhiteWhite}"/>
+            <RadioButton Name="radioButton5" GroupName="Rating" Content="Level 5 (very bad condition, big renovation)" Tag="5" Checked="RadioButton_Checked" Foreground="{StaticResource WhiteWhite}"/>
         </StackPanel>
 
 
         <Label Content="Add photo" 
              HorizontalAlignment="Left"
              VerticalAlignment="Center" 
-             Grid.Row="8"
+             Grid.Row="7"
              Height="26" 
              Width="auto"
-             Margin="10,0,0,6"/>
-        <Button Content="Upload photo"
-                x:Name="UploadPhoto"
-              Grid.Row="8" 
+             Margin="10,0,0,6"
+             Foreground="{StaticResource WhiteWhite}"/>
+        <Image Source="../../../Resources/Images/GuestImages/back.png"
+               Grid.Row="8"
+               Height="30"
+               Width="30"
+               HorizontalAlignment="Left" Margin="28,35,0,35"/>
+        <Border  Background="{StaticResource PrimaryColor}"
+                     Height="100"
+                     Width="150"
+                     Grid.Row="8">
+            <TextBlock  Text="IMAGE"
+                                            Margin="4" 
+                                            Foreground="{StaticResource  WhiteGrey}" 
+                                            FontWeight="Bold" 
+                                            FontSize="14" 
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+        </Border>
+        <Image Source="../../../Resources/Images/GuestImages/next.png"
+               Grid.Row="8"
+               Height="30"
+               Width="30"
+               HorizontalAlignment="Left" Margin="278,35,0,35"/>
+        <Button x:Name="UploadPhoto"
+              Grid.Row="9" 
               VerticalAlignment="Center" 
               HorizontalAlignment="Left"
-              Width="120"
-              Height="20" 
-              Margin="85,0,0,0"
-              Click="UploadPhotoClick"/>
+              Width="auto"
+              Height="auto" 
+              Margin="55,10,0,0"
+              Click="UploadPhotoClick"
+              Background="Transparent"
+              BorderBrush="Transparent">
+            <Border  Background="DarkOrange"
+                     CornerRadius="5"
+                     Height="auto"
+                     Width="auto">
+                <TextBlock  Text="Upload"
+                                            Margin="4" 
+                                            Foreground="{StaticResource  WhiteGrey}" 
+                                            FontWeight="Bold" 
+                                            FontSize="12" 
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+            </Border>
+        </Button>
+
+        <Button Grid.Row="9" 
+              VerticalAlignment="Center" 
+              HorizontalAlignment="Left"
+              Width="auto"
+              Height="auto" 
+              Margin="227,0,0,0"
+              Click="UploadPhotoClick"
+              Background="Transparent"
+              BorderBrush="Transparent">
+            <Border  Background="DarkOrange"
+                     CornerRadius="5"
+                     Height="auto"
+                     Width="auto"
+                     Margin="0,10,0,0">
+                <TextBlock  Text="Delete"
+                            Margin="4" 
+                            Foreground="{StaticResource  WhiteGrey}" 
+                            FontWeight="Bold" 
+                            FontSize="12" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"/>
+            </Border>
+        </Button>
 
         <Button x:Name="RateButton"
-             Content="Rate" 
-             Grid.Row="9" 
+             Grid.Row="10" 
              VerticalAlignment="Center"
-             Width="80"
-             Height="30"
-             Click="RateOwnerAndAccommodation"/>
-
+             Width="auto"
+             Height="auto"
+             Click="RateOwnerAndAccommodation"
+             Background="Transparent"
+             Margin="10"
+             BorderBrush="Transparent">
+            <Border  Background="DarkOrange"
+                     CornerRadius="5"
+                     Height="auto"
+                     Width="100">
+                <TextBlock  Text="Rate"
+                                            Margin="4" 
+                                            Foreground="{StaticResource  WhiteGrey}" 
+                                            FontWeight="Bold" 
+                                            FontSize="14" 
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+            </Border>
+        </Button>
     </Grid>
 </Window>

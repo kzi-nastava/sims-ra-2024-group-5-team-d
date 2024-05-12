@@ -115,9 +115,6 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
-        private bool IsSuperOwner;
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -129,6 +126,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private readonly AccommodationService accommodationService;
         private readonly SuperGuestService superGuestService;
         private readonly NotifierService notifierService;
+        private readonly UserService userService;
         private readonly SearchAccommodationService SearchService;
         private AccommodationRatingService accommodationRatingService;
         public AccommodationViewModel SelectedAccommodation { get; set; }
@@ -142,11 +140,12 @@ namespace BookingApp.WPF.Views.GuestWindows
             accommodationService = new AccommodationService();
             accommodationRatingService = new AccommodationRatingService();
             Accommodations = new ObservableCollection<AccommodationViewModel>();
-            superGuestService = new SuperGuestService();
-            notifierService = new NotifierService();
             accommodations = accommodationService.GetAll();
             SortAccommodation();
             accommodations.ForEach(a =>Accommodations.Add(new AccommodationViewModel(a.Id,a.Name,a.Location,a.Type,a.ImagesPath,a.MinStay,a.Capacity, a.Owner.IsSuperUser, a.AverageRating, accommodationRatingService.GetNumberOfRatingsForAccommodation(a))));
+
+            superGuestService = new SuperGuestService();
+            notifierService = new NotifierService();
             bool IsUpdated = superGuestService.UpdateUserStatus(LoggedInUser);
             if(IsUpdated)
             {
@@ -155,8 +154,9 @@ namespace BookingApp.WPF.Views.GuestWindows
                     notifierService.ShowSuccess("Congratulations you have become super guest!");
                 }
                 else
-                notifierService.ShowWarning("You have been demoted from super guest!");
+                    notifierService.ShowWarning("You have been demoted from super guest!");
             }
+
         }
         private void SearchAccommodation(object sender, RoutedEventArgs e)
         {

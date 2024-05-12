@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:sys="clr-namespace:System;assembly=System.Runtime" xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="430">
     <UserControl.Resources>
         <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -20,30 +22,67 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
         <TabControl Grid.Column="0" 
-          Grid.Row="0" 
-          Grid.ColumnSpan="4"
-          Background="{StaticResource PrimaryBlack3}" 
-          SelectionChanged="TabControl_SelectionChanged">
-            <TabItem 
-                    Width="205" 
-                    Background="{StaticResource PrimaryBlack3}">
+            Grid.Row="0" 
+            Grid.ColumnSpan="4"
+            Background="{StaticResource PrimaryBlack3}" 
+            SelectionChanged="TabControl_SelectionChanged">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                                    <ContentPresenter ContentSource="Header"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor2}" />
+                                        <Setter TargetName="Border" Property="BorderThickness" Value="3" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryBlack3}" />
+                                        <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            <TabItem Width="205" 
+             Background="{StaticResource PrimaryBlack3}"
+             BorderBrush="{StaticResource PrimaryColor}"
+             BorderThickness="3">
                 <TabItem.Header>
-                    <Border Background="{StaticResource PrimaryBlack3}">
-                        <Border BorderBrush="{StaticResource PrimaryColor}" 
-                            BorderThickness="3" 
-                            CornerRadius="10"
-                            Background="{StaticResource PrimaryColor2}"
-                            Width="180">
-                            <TextBlock Text="Stays" 
-                                   Padding="5"
-                                   Foreground="{StaticResource WhiteWhite}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="Stays" 
+                       Padding="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor2}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource WhiteWhite}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </TabItem.Header>
+
+
                 <Grid Width="auto" 
                         Height="auto" >
                     <Grid.ColumnDefinitions>
@@ -332,7 +371,7 @@
                                                  Foreground="{StaticResource WhiteWhite}"
                                                  Margin="15,0,0,0"/>
                                             <Image   Source="../../../Resources/Images/GuestImages/ok.png"
-                                                 Visibility="{Binding IsSuperOwner}"
+                                                 Visibility="{Binding IsSuperOwner, Converter={StaticResource BoolToVisibilityConverter}}"
                                                  Width="15" 
                                                  Height="15"                                      
                                                  Grid.Column="1"
@@ -368,16 +407,17 @@
                                                  Grid.Row="1"
                                                  Grid.Column="2"
                                                  Margin="0,0,15,0"/>
-                                        <Label Content="{Binding Rating}"
-                                                 HorizontalAlignment="Right"
+                                        <Label Content="{Binding AverageRating}"
+                                                 HorizontalAlignment="Left"
                                                  VerticalAlignment="Center" 
                                                  Grid.Column="2" 
+                                                 Grid.ColumnSpan="2"
                                                  Grid.Row="1"
                                                  Height="22" 
-                                                 Width="61"
+                                                 Width="auto"
                                                  FontSize="11" 
-                                                 Margin="0,0,5,0"
-                                                   Foreground="{StaticResource WhiteWhite}"/>
+                                                 Margin="75,0,5,0"
+                                                 Foreground="{StaticResource WhiteWhite}"/>
                                         <Image Source="../../../Resources/Images/GuestImages/people.png" 
                                                  Width="20" 
                                                  Height="20" 
@@ -403,22 +443,29 @@
             </TabItem>
 
             <TabItem Width="205" 
-                     Background="{StaticResource PrimaryBlack3}" >
+             Background="{StaticResource PrimaryBlack3}"
+             BorderBrush="{StaticResource PrimaryColor}"
+             BorderThickness="3">
                 <TabItem.Header>
-                    <Border Background="{StaticResource PrimaryBlack3}">
-                        <Border BorderBrush="{StaticResource PrimaryColor}" 
-                            BorderThickness="3" 
-                            CornerRadius="10"
-                            Background="{StaticResource PrimaryColor2}"
-                            Width="180">
-                            <TextBlock Text="Anytime anywhere" 
-                                   Padding="5"
-                                   Foreground="{StaticResource WhiteWhite}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                        </Border>
-                    </Border>
+                    <TextBlock Text="Anytime anywhere" 
+                       Padding="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="13"
+                       FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryColor2}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource WhiteWhite}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </TabItem.Header>
+                
                 <Grid Width="auto" 
                         Height="auto" >
                     <Grid.ColumnDefinitions>
@@ -565,7 +612,7 @@
                                         HorizontalAlignment="Center"
                                         Width="auto"
                                         Height="auto"
-                                        Click="AnytimeAnywhereSearch_Click" >
+                                        Click="AnytimeAnywhereSearch_Click">
                                 <Border  Background="DarkOrange"
                                           CornerRadius="5"
                                            Height="25" Width="auto">
@@ -632,6 +679,14 @@
                                                  HorizontalAlignment="Center"
                                                  Margin="22,0,0,0"
                                                  Foreground="{StaticResource WhiteWhite}"/>
+                                        <Image   Source="../../../Resources/Images/GuestImages/ok.png"
+                                                 Visibility="{Binding IsSuperOwner, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                 Width="15" 
+                                                 Height="15"                                      
+                                                 Grid.Column="1"
+                                                 VerticalAlignment="Center" 
+                                                 HorizontalAlignment="Left"
+                                                 Margin="10,0,0,0"/>
                                         <Label Content="{Binding Location}"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Center" 
@@ -659,15 +714,16 @@
                                                  Grid.Row="1"
                                                  Grid.Column="2"
                                                  Margin="0,0,15,0"/>
-                                        <Label Content="{Binding Rating}"
-                                                 HorizontalAlignment="Right"
+                                        <Label Content="{Binding AverageRating}"
+                                                 HorizontalAlignment="Left" 
                                                  VerticalAlignment="Center" 
                                                  Grid.Column="2" 
+                                                 Grid.ColumnSpan="2"
                                                  Grid.Row="1"
                                                  Height="22" 
-                                                 Width="61"
+                                                 Width="auto"
                                                  FontSize="11" 
-                                                 Margin="0,0,5,0"
+                                                 Margin="75,0,5,0"
                                                    Foreground="{StaticResource WhiteWhite}"/>
                                         <Image Source="../../../Resources/Images/GuestImages/people.png" 
                                                  Width="20" 
