@@ -109,11 +109,13 @@
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Width="50">
+                Width="auto"
+                Command="{Binding CloseCommand}">
             <Border  Background="DarkOrange"
                     CornerRadius="5"
-                    Height="25" Width="124">
-                <TextBlock  Text="Search"
+                    Height="auto" 
+                    Width="auto">
+                <TextBlock  Text="Close"
                        Margin="20 0 20 0" 
                        Foreground="{StaticResource  WhiteGrey}" 
                        FontWeight="Bold" 
