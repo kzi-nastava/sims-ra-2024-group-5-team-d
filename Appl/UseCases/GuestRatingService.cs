@@ -20,6 +20,15 @@ namespace BookingApp.Appl.UseCases
             guestRatingRepository = Injector.CreateInstance<IGuestRatingRepository>();
             accommodationService = new AccommodationService();
         }
+        public GuestRatingService(IGuestRatingRepository guestRatingRepository)
+        {
+            this.guestRatingRepository = guestRatingRepository;
+        }
+        public GuestRatingService(IGuestRatingRepository guestRatingRepository, AccommodationService accommodationService)
+        {
+            this.guestRatingRepository = guestRatingRepository;
+            this.accommodationService = accommodationService;
+        }
         public List<GuestRating> GetAllRatingsForGuest(User user)
         {
             

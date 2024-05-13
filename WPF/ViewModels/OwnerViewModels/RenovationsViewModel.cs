@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
 using System;
@@ -16,17 +17,19 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     public class RenovationsViewModel
     {
         public ICommand CancelRenovationCommand { get; set; }
+
+        private AccommodationRenovationService accommodationRenovationService;
+        private AccommodationService accommodationService;
+
         public RenovationViewModel SelectedRenovation { get; set; }
         private User loggedInUser;
         public static ObservableCollection<RenovationViewModel> Renovations { get; set; }
-        private AccommodationRenovationService accommodationRenovationService;
-        private AccommodationService accommodationService;
+
         public RenovationsViewModel(User user) {
-        loggedInUser = user;
+            InitializeServices();
+            loggedInUser = user;
             Renovations = new ObservableCollection<RenovationViewModel>();
             CancelRenovationCommand=new RelayParameterCommand(CancelRenovation);
-            accommodationRenovationService = new AccommodationRenovationService();
-            accommodationService = new AccommodationService();
             List<AccommodationRenovation> renovations=accommodationRenovationService.GetRenovationsForOwner(loggedInUser);
             foreach (AccommodationRenovation renovation in renovations)
             {
@@ -34,6 +37,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 Renovations.Add(new RenovationViewModel(renovation.Id,accommodation.Name,accommodation.Type,accommodation.Location,renovation.RenovateFrom,renovation.RenovateTo,accommodation.ImagesPath,accommodation.AverageRating,renovation.IsCancelable(), accommodation.Owner.IsSuperUser));
             }
         }
+
+        private void InitializeServices()
+        {
+            UserService userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>(), userService);
+            accommodationRenovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>(),accommodationService);        
+        }
+
         public void CancelRenovation(object parameter)
         {
             RenovationViewModel renovation = (RenovationViewModel)parameter;

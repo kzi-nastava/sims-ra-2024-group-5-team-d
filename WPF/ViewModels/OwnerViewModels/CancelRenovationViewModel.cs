@@ -1,4 +1,5 @@
 ﻿using BookingApp.Appl.UseCases;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,22 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     public class CancelRenovationViewModel
     {
         public ICommand CancelRenovationCommand { get; set; }
-        public RenovationViewModel Renovation { get; set; }
+
         private AccommodationRenovationService accommodationRenovationService;
+
+        public RenovationViewModel Renovation { get; set; }
         public CancelRenovationViewModel(RenovationViewModel renovation)
         {
-            accommodationRenovationService = new AccommodationRenovationService();
+            InitializeServices();
             Renovation = renovation;
             CancelRenovationCommand = new RelayCommand(CancelRenovation);
         }
+
+        private void InitializeServices()
+        {
+            accommodationRenovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>());
+        }
+
         public void CancelRenovation()
         {
             accommodationRenovationService.DeleteById(Renovation.RenovationId);

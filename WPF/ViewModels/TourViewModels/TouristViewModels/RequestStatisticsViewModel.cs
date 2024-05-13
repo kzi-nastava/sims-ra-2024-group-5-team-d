@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using HarfBuzzSharp;
 using LiveCharts;
@@ -62,7 +63,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 
         public RequestStatisticsViewModel(User tourist) 
         {
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Tourist = tourist;
             LanguageStats = new SeriesCollection();
             LocationStats = new SeriesCollection();

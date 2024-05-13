@@ -22,6 +22,11 @@ namespace BookingApp.Appl.UseCases
 
 
         }
+        public AvailableDatesForReservationService(AccommodationReservationService accommodationReservationService, AccommodationRenovationService accommodationRenovationService)
+        {
+            this.accommodationReservationService = accommodationReservationService;
+            this.accommodationRenovationService = accommodationRenovationService;
+        }
         
         public List<KeyValuePair<DateTime, DateTime>> GetAvailableDatesInGivenRange(DateTime fromDate,DateTime toDate,int numberOfDays,Accommodation accommodation)
         {

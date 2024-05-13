@@ -15,10 +15,10 @@ namespace BookingApp.Appl.UseCases
     {
         private GuestRatingService guestRatingService;
         private AccommodationReservationService accommodationReservationService;
-        public UnratedGuestService()
+        public UnratedGuestService(AccommodationService accommodationService)
         {
-            accommodationReservationService = new AccommodationReservationService();
-            guestRatingService = new GuestRatingService();
+            accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>(),accommodationService);
+            guestRatingService = new GuestRatingService(Injector.CreateInstance<IGuestRatingRepository>(),accommodationService);
         }
 
         public List<AccommodationReservation> GetUnratedGuests(User owner)

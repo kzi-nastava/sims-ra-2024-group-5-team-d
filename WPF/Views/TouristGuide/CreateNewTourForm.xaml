@@ -218,7 +218,7 @@
         </Grid>
         <TextBlock Grid.Row="9" Grid.Column="0" Text="Description" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Top"/>
         <Border Grid.Row="10" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Width="550" Height="110"  HorizontalAlignment="Left" Grid.ColumnSpan="2" >
-            <TextBox  IsReadOnly="{Binding IsRequest}" Style="{StaticResource TextBoxStyle}" TextWrapping="WrapWithOverflow" VerticalAlignment="Top"/>
+            <TextBox  IsReadOnly="{Binding IsRequest}" Text="{Binding tourFormViewModel.Description}" Style="{StaticResource TextBoxStyle}" TextWrapping="Wrap" MinHeight="100" VerticalAlignment="Top"/>
         </Border>
 
         <Button Grid.Row="11" Grid.Column="2" Command="{Binding SaveCommand}"  Margin="0,85,50,20" HorizontalAlignment="Center" VerticalAlignment="Top"  Style="{StaticResource ButtonDesign}" BorderThickness="0">

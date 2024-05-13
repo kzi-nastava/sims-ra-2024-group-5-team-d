@@ -22,6 +22,21 @@ namespace BookingApp.Appl.UseCases
             guestRatingService = new GuestRatingService();
             accommodationRatingRepository = Injector.CreateInstance<IAccommodationRatingRepository>();
         }
+        public AccommodationRatingService(IAccommodationRatingRepository accommodationRatingRepository)
+        {
+            this.accommodationRatingRepository = accommodationRatingRepository;
+        }
+        public AccommodationRatingService(IAccommodationRatingRepository accommodationRatingRepository, AccommodationService accommodationService,GuestRatingService guestRatingService)
+        {
+            this.guestRatingService = guestRatingService;
+            this.accommodationService = accommodationService;
+            this.accommodationRatingRepository = accommodationRatingRepository;
+        }
+        public AccommodationRatingService(IAccommodationRatingRepository accommodationRatingRepository,AccommodationService accommodationService)
+        {
+            this.accommodationService = accommodationService;
+            this.accommodationRatingRepository = accommodationRatingRepository;
+        }
         public double GetAverageRatingForOwner(User user)
         {
             return FindAllRatingsForOwner(user).Sum(rating => rating.GetAverageRating()) / GetNumberOfRatingsForOwner(user);

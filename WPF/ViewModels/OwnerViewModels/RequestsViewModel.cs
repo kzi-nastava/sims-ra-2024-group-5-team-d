@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
 using System;
@@ -18,25 +19,22 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     {
         public ICommand AcceptRequestCommand { get; set; }
         public ICommand DenyRequestCommand { get; set; }
-        public static ObservableCollection<RequestViewModel> Requests { get; set; }
 
-        private User loggedInUser;
         private GuestRequestService guestRequestService;
         private AccommodationReservationService accommodationReservationService;
         private UserService userService;
         private AccommodationService accommodationService;
         private AvailableDatesForReservationService availableDatesForReservationService;
-        private RequestViewModel SelectedRequest;
         private ProcessRequestService processRequestService;
+
+        public static ObservableCollection<RequestViewModel> Requests { get; set; }
+
+        private User loggedInUser;
+        private RequestViewModel SelectedRequest;
         private string message = "";
         public RequestsViewModel(User user)
         {
-            processRequestService = new ProcessRequestService();
-            availableDatesForReservationService = new AvailableDatesForReservationService();
-            accommodationService = new AccommodationService();
-            userService = new UserService();
-            accommodationReservationService = new AccommodationReservationService();
-            guestRequestService = new GuestRequestService();
+            InitializeServices();
             AcceptRequestCommand = new RelayParameterCommand(AcceptRequest);
             DenyRequestCommand = new RelayParameterCommand(DenyRequest);
             loggedInUser = user;
@@ -51,6 +49,18 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 Requests.Add(new RequestViewModel(guestRequest.Id, guest.FullName, accommodation.Name, accommodation.Location, reservation.ReservedFrom, reservation.ReservedTo, guestRequest.NewReservedFrom, guestRequest.NewReservedTo, message));
             });
         }
+
+        private void InitializeServices()
+        {
+            userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>(),userService);
+            AccommodationRenovationService accommodationRenovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>());
+            accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>(),accommodationService);
+            availableDatesForReservationService = new AvailableDatesForReservationService(accommodationReservationService, accommodationRenovationService);
+            guestRequestService = new GuestRequestService(Injector.CreateInstance<IGuestRequestRepository>(), accommodationReservationService);
+            processRequestService = new ProcessRequestService(guestRequestService);
+        }
+
         private void AcceptRequest(object parameter)
         {
             if (parameter != null)

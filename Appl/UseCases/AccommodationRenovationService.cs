@@ -18,6 +18,15 @@ namespace BookingApp.Appl.UseCases
             accommodationService = new AccommodationService();
             accommodationRenovationRepository =Injector.CreateInstance<IAccommodationRenovationRepository>();
         }
+        public AccommodationRenovationService(IAccommodationRenovationRepository accommodationRenovationRepository)
+        {
+            this.accommodationRenovationRepository = accommodationRenovationRepository;
+        }
+        public AccommodationRenovationService(IAccommodationRenovationRepository accommodationRenovationRepository, AccommodationService accommodationService)
+        {
+            this.accommodationRenovationRepository = accommodationRenovationRepository;
+            this.accommodationService = accommodationService;
+        }
         public AccommodationRenovation Save(AccommodationRenovation accommodationRenovation)
         {
             return accommodationRenovationRepository.Save(accommodationRenovation);

@@ -16,8 +16,17 @@ namespace BookingApp.Appl.UseCases
 
         public GuestRequestService()
         {
-            accommodationReservationService = new AccommodationReservationService();   
             guestRequestRepository = Injector.CreateInstance<IGuestRequestRepository>();
+            accommodationReservationService = new AccommodationReservationService();
+        }
+        public GuestRequestService(IGuestRequestRepository guestRequestRepository, AccommodationReservationService accommodationReservationService)
+        {
+            this.guestRequestRepository = guestRequestRepository;
+            this.accommodationReservationService = accommodationReservationService;
+        }
+        public GuestRequestService(IGuestRequestRepository guestRequestRepository)
+        {
+            this.guestRequestRepository = guestRequestRepository;
         }
         public List<GuestRequest> RequestsByUser(User user)
         {

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using System;
 using System.Collections.Generic;
@@ -14,24 +15,33 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     {
         public ICommand DenyRequestCommand { get; set; }
         public ICommand AcceptRequestCommand { get; set; }
+
+        private GuestRequestService guestRequestService;
+        private ProcessRequestService processRequestService;
+
         public string GuestName { get; set; }
         public string Comment { get; set; }
         private User loggedInUser;
-        private GuestRequestService guestRequestService;
         private GuestRequest guestRequest;
         private RequestViewModel guestRequestViewModel;
-        private ProcessRequestService processRequestService;
         public ProcessRequestViewModel(User user, RequestViewModel guestRequest)
         {
-            processRequestService = new ProcessRequestService();
+            InitializeServices();
             DenyRequestCommand = new RelayCommand(DenyRequest);
             AcceptRequestCommand = new RelayCommand(AcceptRequest);
             loggedInUser = user;
-            guestRequestService = new GuestRequestService();
             this.guestRequest = guestRequestService.GetById(guestRequest.RequestId);
             GuestName = guestRequest.GuestName;
             guestRequestViewModel = guestRequest;
         }
+
+        private void InitializeServices()
+        {
+            guestRequestService = new GuestRequestService(Injector.CreateInstance<IGuestRequestRepository>());
+            processRequestService = new ProcessRequestService(guestRequestService);
+           
+        }
+
         private void DenyRequest()
         {
             RequestsViewModel.Requests.Remove(guestRequestViewModel);

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
 using LiveCharts;
@@ -23,6 +24,13 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     {
         public ICommand ShowReccommendationCommand { get; set; }
         public ICommand ChangeStatsCommand { get; set; }
+
+
+        private AccommodationStatsService accommodationStatsService;
+        private AccommodationService accommodationService;
+        private AccommodationReservationService accommodationReservationService;
+
+
         private User loggedInUser;
         public SeriesCollection YearlyBussinessStats { get; set; }
         public SeriesCollection YearlyGeneralStats { get; set; }
@@ -41,20 +49,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public ObservableCollection<string> YearLabels { get; set; }
         public SeriesCollection YearlyReccommendedrenovations { get; set; }
 
-        private AccommodationStatsService accommodationStatsService;
-        private AccommodationService accommodationService;
-        private AccommodationReservationService accommodationReservationService;
-
         private Accommodation accommodation;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public AccommodationStatsViewModel(int accommodationId, User user)
         {
+            InitializeServices();
             loggedInUser = user;
-            accommodationService = new AccommodationService();
-            accommodationStatsService = new AccommodationStatsService();
-            accommodationReservationService = new AccommodationReservationService();
 
             YearLabels = new ObservableCollection<string>();
             YearlyBussinessStats = new SeriesCollection();
@@ -71,7 +73,16 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ChangeStats();
 
         }
-        public void ChangeStats()
+
+        private void InitializeServices()
+        {
+            UserService userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>(),userService);
+            accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            accommodationStatsService = new AccommodationStatsService(accommodationReservationService);
+        }
+
+            public void ChangeStats()
         {
             YearlyBussinessStats.Clear();
             YearlyGeneralStats.Clear();

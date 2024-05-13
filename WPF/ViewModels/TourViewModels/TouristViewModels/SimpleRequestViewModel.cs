@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             tourReservationService = new TourReservationService();
             tourRealisationService = new TourRealisationService();
             tourGuestService = new TourGuestService();
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Location = locationService.GetById(tourRequest.Location.Id);
             LocationName = $"{Location.City}, {Location.Country}";
             Description = tourRequest.Description;

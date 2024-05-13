@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.TouristGuide;
@@ -45,7 +46,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             StatisticsCommand = new RelayCommand(Statistics);
             AcceptCommand = new RelayCommand(Accept);
             TourRequests = new ObservableCollection<RequestViewModel>();
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Search();
         }
 

@@ -94,13 +94,13 @@ namespace BookingApp.WPF.Views.GuestWindows
             DataContext = this;
             imagesPath = new List<string>();
             LoggedInUser = user;
-            imageUploaderService = new ImageUploaderService();
+            accommodationRatingService = new AccommodationRatingService();
+            imageUploaderService = new ImageUploaderService(accommodationRatingService);
             accommodationService = new AccommodationService();
             AccommodationReservation = accommodationReservation;
             this.accommodationId = accommodationId;
             dateTime = DateTime.Now;
             AccommodationName = accommodationService.GetAccommodationNameById(accommodationId);
-            accommodationRatingService = new AccommodationRatingService();
 
         }
 
