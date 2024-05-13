@@ -150,10 +150,18 @@
     <None Remove="Resources\Images\travel.png" />
     <None Remove="Resources\Images\traveler.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="Resources\TourImages\Tour10\tura1.jpg" />
+    <None Remove="Resources\TourImages\Tour10\tura2.jpeg" />
+    <None Remove="Resources\TourImages\Tour11\tura.jpg" />
     <None Remove="Resources\TourImages\Tour1\beograd-na-vodi.jpg" />
     <None Remove="Resources\TourImages\Tour2\download.jpeg" />
     <None Remove="Resources\TourImages\Tour3\GFS_smederevo-trg-25-09-09-04.jpg" />
     <None Remove="Resources\TourImages\Tour4\caption.jpg" />
+    <None Remove="Resources\TourImages\Tour5\beograd-na-vodi.jpg" />
+    <None Remove="Resources\TourImages\Tour6\beograd-na-vodi.jpg" />
+    <None Remove="Resources\TourImages\Tour7\caption.jpg" />
+    <None Remove="Resources\TourImages\Tour8\beograd-na-vodi.jpg" />
+    <None Remove="Resources\TourImages\Tour9\beograd-na-vodi.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -547,6 +555,15 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\TourImages\Tour10\tura1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour10\tura2.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour11\tura.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\TourImages\Tour1\beograd-na-vodi.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -557,6 +574,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\TourImages\Tour4\caption.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour5\beograd-na-vodi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour6\beograd-na-vodi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour7\caption.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour9\beograd-na-vodi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\TourImages\Tour8\beograd-na-vodi.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

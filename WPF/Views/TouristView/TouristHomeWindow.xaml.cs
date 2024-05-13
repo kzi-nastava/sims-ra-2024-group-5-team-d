@@ -60,5 +60,10 @@ namespace BookingApp.WPF.Views.TouristView
         {
             contentControl.Content = new NotificationsUserControl(User);
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new TouristHomeUserControl(User);
+        }
     }
 }

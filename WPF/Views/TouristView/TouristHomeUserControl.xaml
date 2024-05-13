@@ -80,6 +80,7 @@
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
+                            Background="{StaticResource PrimaryColor}"
                             BorderThickness="1"
                             Margin="35,5,0,0"
                             Width="170"
@@ -159,6 +160,8 @@
                                 Height="16"
                                 Margin="0 0 0 0"
                                 VerticalContentAlignment="Top"
+                                Background="{StaticResource PrimaryColor}"
+                                Foreground="{StaticResource PrimaryBlack}"
                                 FontSize="9.5"
                                 HorizontalContentAlignment="Center"
                                 Click="IncreaseCount_Click"/>
@@ -167,6 +170,8 @@
                                 Width="20"
                                 Height="16"
                                 Margin="0 0 0 0"
+                                Foreground="{StaticResource PrimaryBlack}"
+                                Background="{StaticResource PrimaryColor}"
                                 FontSize="9.5"
                                 HorizontalContentAlignment="Center"
                                 Click="DecreaseCount_Click"/>
@@ -176,6 +181,7 @@
                 <Button Grid.Row="1"
                         Grid.Column="4"
                             BorderThickness="0"
+                            Template="{StaticResource CustomButtonTemplate}"
                             Width="162"
                             Height="auto"
                             Margin="10 0 50 0"
@@ -186,10 +192,10 @@
                     <Border
                             CornerRadius="4"
                             Width="160"
+                            Style="{StaticResource BorderHover}"
                             Height="32"
                             HorizontalAlignment="Left"
-                            BorderThickness="0"
-                            Background="{StaticResource PrimaryColor}">
+                            BorderThickness="0">
                             <StackPanel 
                                     Orientation="Horizontal"
                                     
@@ -233,25 +239,16 @@
                       ScrollViewer.CanContentScroll="False"
                       ItemsSource="{Binding Tours}"
                       SelectedItem="{Binding SelectedTour}"
+                      ItemContainerStyle="{StaticResource CustomListView}"
                       SelectionChanged="TourDetails_Click">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <ContentPresenter HorizontalAlignment="Left" Margin="2,3,2,3" />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border Background="{StaticResource WhiteWhite}"
                                 BorderThickness="1.2"
                                 BorderBrush="{StaticResource PrimaryColor}"
                                 CornerRadius="20"
+                                Style="{StaticResource BorderHoverAnimation}"
                                 Height="280"
                                 Width="1050"
                                 Margin="35 10 30 10">

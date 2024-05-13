@@ -98,9 +98,8 @@
                           FontSize="24"
                           FontWeight="DemiBold"
                           Margin="30 60 300 100"
-                          Text="All Time"
                           ItemsSource="{Binding Years}"
-                          SelectedItem="{Binding ItemIndex, Mode=TwoWay}"
+                          SelectedItem="0"
                           SelectedIndex="0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
@@ -143,6 +142,7 @@
                     <lvc:CartesianChart Series="{Binding LanguageStats}"
                                         Grid.Column="0" 
                                         LegendLocation="None"
+                                        Background="{StaticResource WhiteWhite}"
                                         Margin="10 0 0 0"
                                         Width="300"
                                         Height="200"
@@ -161,6 +161,7 @@
                     <lvc:CartesianChart Series="{Binding LocationStats}"
                                     Grid.Column="1"
                                     LegendLocation="None"
+                                    Background="{StaticResource WhiteWhite}"
                                     Width="600"
                                     Height="200"
                                     Margin="30 0 0 0"
