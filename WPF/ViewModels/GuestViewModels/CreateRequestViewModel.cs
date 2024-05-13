@@ -37,25 +37,32 @@ namespace BookingApp.WPF.ViewModels
             }
         }
         int reservationId { get; set; }
-        private GuestRequestService guestRequestService;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public NotificationsService notificationsService;
-        public AccommodationReservationService reservationService;
-        public AccommodationService accommodationService;
+        private NotificationsService notificationsService;
+        private AccommodationReservationService reservationService;
+        private AccommodationService accommodationService;
+        private GuestRequestService guestRequestService;
         public CreateRequestViewModel(User user, int reservationId)
         {
+            InitializeServices();
             SendRequestCommand = new RelayCommand(SendRequest);
             this.reservationId = reservationId;
+
+        }
+
+        private void InitializeServices()
+        {
             guestRequestService = new GuestRequestService();
             notificationsService = new NotificationsService();
             accommodationService = new AccommodationService();
             reservationService = new AccommodationReservationService();
-        } 
+        }
+
         public void SendRequest()
         {
             GuestRequest guestRequest = new GuestRequest(reservationId, NewReservedFrom, NewReservedTo, "" , STATUS.INPROCESS);

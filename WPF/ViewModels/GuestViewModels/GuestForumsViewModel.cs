@@ -22,11 +22,9 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public ICommand OpenMoreCommand { get; set; }
         public ObservableCollection<ForumViewModel> Forums { get; set; }
         public ObservableCollection<ForumViewModel> MyForums { get; set; }
-        public User LoggedInUser { get; set; }
-        private ForumService forumService;
+        public User LoggedInUser { get; set; }       
         public InboxViewModel SelectedRequest { get; set; }
         public ForumViewModel SelectedForum { get; set; }
-        public GuestNotificationsService guestNotificationsService { get; set; }
 
         private string comment;
         public string Comment
@@ -66,23 +64,18 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         }
         private LocationService locationService;
         private NotificationsService notificationsService;
-        private UserService userService;
         private SuperForumService superForumService;
+        private ForumService forumService;
+        public GuestNotificationsService guestNotificationsService;
         public GuestForumsViewModel(User user)
         {
+            InitializeServices();
             CreateForumCommand = new RelayCommand(CreateForum);
             CloseForumCommand = new RelayParameterCommand(CloseForum);
             OpenMoreCommand = new RelayParameterCommand(OpenComments);
             Forums = new ObservableCollection<ForumViewModel>();
             MyForums = new ObservableCollection<ForumViewModel>();
             LoggedInUser = user;
-            notificationsService = new NotificationsService();
-            forumService = new ForumService();
-            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
-            userService = new UserService();
-            superForumService = new SuperForumService();
-
-            guestNotificationsService = new GuestNotificationsService();
 
             forumService.GetAll().ForEach(forum =>
             {
@@ -97,6 +90,16 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
 
                           
         }
+
+        private void InitializeServices()
+        {
+            notificationsService = new NotificationsService();
+            forumService = new ForumService();
+            locationService = new LocationService();
+            superForumService = new SuperForumService();
+            guestNotificationsService = new GuestNotificationsService();
+        }
+
         public void CreateForum()
         {
             Forum forum = new Forum(Title, Comment, locationService.GetById(LocationId), LoggedInUser.Id, DateTime.UtcNow, true);

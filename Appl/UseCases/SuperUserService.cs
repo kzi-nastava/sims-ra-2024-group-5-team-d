@@ -16,6 +16,10 @@ namespace BookingApp.Appl.UseCases
         {
             superUserRepository = Injector.CreateInstance<ISuperUserRepository>();
         }
+        public SuperUserService(ISuperUserRepository superUserRepository)
+        {
+            this.superUserRepository = superUserRepository;
+        }
         public bool IsDiscountUsed(User user)
         {
             SuperUser superUser = GetByUser(user).Last();

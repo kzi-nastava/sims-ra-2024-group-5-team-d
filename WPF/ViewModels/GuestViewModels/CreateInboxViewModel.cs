@@ -30,13 +30,17 @@ namespace BookingApp.WPF.ViewModels
         public int NumberOfRejectedNotifications { get; set; }
         public int NumberOfNotifications { get; set; }
         public User LoggedInUser { get; set; }
-        private GuestInboxService guestInboxService { get; set; }
-        private AccommodationReservationService accommodationReservationService { get; set; }
-        private AccommodationService accommodationService { get; set; }
-        private ForumService forumService;
         public InboxViewModel SelectedRequest { get; set; }
         public ForumViewModel SelectedForum { get; set; }
-        public GuestNotificationsService guestNotificationsService { get; set; }
+
+        private GuestInboxService guestInboxService;
+        private AccommodationReservationService accommodationReservationService;
+        private AccommodationService accommodationService;
+        private ForumService forumService;
+        private GuestNotificationsService guestNotificationsService;
+        private LocationService locationService;
+        private NotificationsService notificationsService;
+        private SuperForumService superForumService;
 
         private string comment;
         public string Comment
@@ -74,11 +78,9 @@ namespace BookingApp.WPF.ViewModels
                 }
             }
         }
-        private LocationService locationService;
-        private NotificationsService notificationsService;
-        private SuperForumService superForumService;
         public CreateInboxViewModel(User user)
         {
+            InitializeServices();
             CreateForumCommand = new RelayCommand(CreateForum);
             CloseForumCommand = new RelayParameterCommand(CloseForum);
             OpenMoreCommand = new RelayParameterCommand(OpenComments);
@@ -87,15 +89,6 @@ namespace BookingApp.WPF.ViewModels
             RejectedRequests = new ObservableCollection<InboxViewModel>();
             Forums = new ObservableCollection<ForumViewModel>();
             LoggedInUser = user;
-            guestInboxService = new GuestInboxService();
-            accommodationReservationService = new AccommodationReservationService();
-            notificationsService = new NotificationsService();
-            accommodationService = new AccommodationService();
-            forumService = new ForumService();
-            superForumService = new SuperForumService();
-            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
-
-            guestNotificationsService = new GuestNotificationsService();
 
             NumberOfApprovedNotifications = guestNotificationsService.GetNumerOfApprovedRequest(LoggedInUser);
             NumberOfRejectedNotifications = guestNotificationsService.GetNumerOfRejectedRequest(LoggedInUser);
@@ -117,6 +110,19 @@ namespace BookingApp.WPF.ViewModels
             
             });
         }
+
+        private void InitializeServices()
+        {
+            guestInboxService = new GuestInboxService();
+            accommodationReservationService = new AccommodationReservationService();
+            notificationsService = new NotificationsService();
+            accommodationService = new AccommodationService();
+            forumService = new ForumService();
+            superForumService = new SuperForumService();
+            locationService = new LocationService();
+            guestNotificationsService = new GuestNotificationsService();
+        }
+
         public void CreateForum()
         {
             Forum forum = new Forum(Title, Comment, locationService.GetById(LocationId), LoggedInUser.Id, DateTime.UtcNow, true);

@@ -18,12 +18,18 @@ namespace BookingApp.WPF.ViewModels
         public AccommodationReservationService accommodationReservationService;
         public OwnerRatingsGuestViewModel(User user) 
         {
+            InitializeServices();
             OwnerRatingsGuest = new ObservableCollection<OwnerRatingGuestViewModel>();
-            guestRatingService = new GuestRatingService();
-            accommodationService = new AccommodationService();
             guestRatingService.GetAllRatingsForGuest(user).ForEach(rating=>
             OwnerRatingsGuest.Add(new OwnerRatingGuestViewModel(accommodationService.GetById(rating.AccommodationId).Owner.AvatarPath, accommodationReservationService.GetById(rating.ReservationId).ReservedFrom, accommodationReservationService.GetById(rating.ReservationId).ReservedTo,rating.Comment , accommodationService.GetById(rating.AccommodationId).Name, accommodationService.GetById(rating.AccommodationId).Location.ToString(), accommodationService.GetById(rating.ReservationId).Capacity, accommodationService.GetById(rating.AccommodationId).Owner.FullName,rating.CleanlinessRating, rating.RuleComplianceRating)));
 
+        }
+
+        private void InitializeServices()
+        {
+            guestRatingService = new GuestRatingService();
+            accommodationService = new AccommodationService();
+            accommodationReservationService = new AccommodationReservationService();
         }
     }
 }
