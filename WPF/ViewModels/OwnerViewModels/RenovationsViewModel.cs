@@ -47,10 +47,10 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 
         public void CancelRenovation(object parameter)
         {
-            RenovationViewModel renovation = (RenovationViewModel)parameter;
-            if (renovation != null)
+            if (parameter != null)
             {
-                CancelRenovationWindow cancelRenovation = new CancelRenovationWindow(SelectedRenovation);
+                RenovationViewModel renovation = (RenovationViewModel)parameter;
+                CancelRenovationWindow cancelRenovation = new CancelRenovationWindow(renovation);
                 cancelRenovation.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 cancelRenovation.ShowDialog();
             }
