@@ -143,6 +143,7 @@
     <None Remove="Resources\Images\GuestImages\WaitingIcon.png" />
     <None Remove="Resources\Images\GuestImages\WiFiIcon.png" />
     <None Remove="Resources\Images\GuestImages\XIcon.png" />
+    <None Remove="Resources\Images\logo png.png" />
     <None Remove="Resources\Images\logo.png" />
     <None Remove="Resources\Images\OwnerImages\idemo.png" />
     <None Remove="Resources\Images\OwnerImages\StarFull.png" />
@@ -384,6 +385,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuideImages\RedFlag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\logo png.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\logo.png">
