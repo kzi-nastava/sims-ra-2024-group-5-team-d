@@ -15,7 +15,7 @@ namespace BookingApp.Appl.UseCases
         private LocationService locationService;
         public ForumService() 
         {
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             forumRepository = Injector.CreateInstance<IForumRepository>();
         }
 

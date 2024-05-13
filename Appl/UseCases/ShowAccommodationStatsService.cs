@@ -16,9 +16,9 @@ namespace BookingApp.Appl.UseCases
     public class AccommodationStatsService
     {
         private AccommodationReservationService accommodationReservationService;
-        public AccommodationStatsService()
+        public AccommodationStatsService(AccommodationReservationService accommodationReservationService)
         {
-            accommodationReservationService=new AccommodationReservationService();
+            this.accommodationReservationService=accommodationReservationService;
         }
 
         public List<AccommodationStat> GetAccommodationStats(string selectedYear,Accommodation accommodation)

@@ -41,6 +41,19 @@ namespace BookingApp.Appl.UseCases
             accommodationReservationService = new AccommodationReservationService();
             notificationRepository = Injector.CreateInstance<INotificationRepository>();
         }
+        public NotificationsService(INotificationRepository notificationRepository,UserService userService,AccommodationService accommodationService,AccommodationReservationService accommodationReservationService,GuestRequestService guestRequestService,ForumService forumService)
+        {
+            this.notificationRepository = notificationRepository;
+            this.userService = userService;
+            this.accommodationService = accommodationService;
+            this.accommodationReservationService = accommodationReservationService;
+            this.guestRequestService = guestRequestService;
+            this.forumService = forumService;
+        }
+        public NotificationsService(INotificationRepository notificationRepository)
+        {
+            this.notificationRepository = notificationRepository;
+        }
         public int GetNumberOfUnreadNotificationsForUser(User user)
         {
           return  GetUnreadNotificationsCountForUser(user).Count();

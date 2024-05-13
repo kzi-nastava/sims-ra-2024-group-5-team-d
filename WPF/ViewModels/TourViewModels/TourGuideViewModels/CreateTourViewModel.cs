@@ -110,8 +110,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourRealisationService = new TourRealisationService();
             checkPointService = new CheckPointService();
             tourService = new TourService();
-            locationService = new LocationService();
-            imageUploaderService = new ImageUploaderService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
+            imageUploaderService = new ImageUploaderService(tourService);
             notificationsService = new NotificationsService();
 
             SaveCommand = new RelayCommand(Save);

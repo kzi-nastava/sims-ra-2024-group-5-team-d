@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
 using System;
@@ -17,18 +18,18 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     public class UnratedGuestsViewModel
     {
         public ICommand RateGuestCommand { get; set; }
-        public static ObservableCollection<UnratedGuestViewModel> UnratedGuests { get; set; }
-        public UnratedGuestViewModel SelectedGuest { get; set; }
+
         private UserService userService;
         private AccommodationService accommodationService;
-        private User loggedInUser;
         private UnratedGuestService unratedGuestService;
+
+        public static ObservableCollection<UnratedGuestViewModel> UnratedGuests { get; set; }
+        public UnratedGuestViewModel SelectedGuest { get; set; }
+        private User loggedInUser;
         public UnratedGuestsViewModel(User user)
         {
+            InitializeServices();
             RateGuestCommand = new RelayParameterCommand(RateGuest);
-            accommodationService = new AccommodationService();
-            userService = new UserService();
-            unratedGuestService = new UnratedGuestService();
             loggedInUser = user;
             UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
             unratedGuestService.GetUnratedGuests(loggedInUser)
@@ -36,6 +37,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                                 (new UnratedGuestViewModel(unratedReservation.Id, userService.GetById(unratedReservation.UserId).FullName, unratedReservation.ReservedFrom, unratedReservation.ReservedTo, accommodationService.GetById(unratedReservation.AccommodationId).Location, accommodationService.GetAccommodationNameById(unratedReservation.AccommodationId),userService.GetById(unratedReservation.UserId).AvatarPath))
                                 );
         }
+
+        private void InitializeServices()
+        {
+            userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>(),userService);
+            unratedGuestService = new UnratedGuestService(accommodationService);
+        }
+
         private void RateGuest(object parameter)
         {
             if (parameter != null)

@@ -25,6 +25,10 @@ namespace BookingApp.Appl.UseCases
             this.userService = userService;
             this.accommodationRepository = accommodationRepository;
         }
+        public AccommodationService(IAccommodationRepository accommodationRepository)
+        {
+            this.accommodationRepository = accommodationRepository;
+        }
         public List<Accommodation>GetAllAccommodationOnSameLocation(Location location)
         {
             return accommodationRepository.GetAll().Where(accommodation=>accommodation.Location.Id==location.Id).ToList();

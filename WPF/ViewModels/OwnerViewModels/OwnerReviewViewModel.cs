@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
 using System;
@@ -17,11 +18,13 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     {
         public ICommand RateGuestCommand { get; set; }
         public ICommand OwnerRatesCommand { get; set; }
-        public static ObservableCollection<UnratedGuestViewModel> UnratedGuests { get; set; }
-        private UnratedGuestService unratedGuestService;
-        private User LoggedInUser;
+
         private UserService userService;
         private AccommodationRatingService accommodationRatingService;
+        private UnratedGuestService unratedGuestService;
+
+        public static ObservableCollection<UnratedGuestViewModel> UnratedGuests { get; set; }
+        private User LoggedInUser;
         public string Star1 { get; set; }
         public string Star2 { get; set; }
         public string Star3 { get; set; }
@@ -39,13 +42,11 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private List<string> starPaths;
         public OwnerReviewViewModel(User user) 
         {
-            userService = new UserService();
+            InitializeServices();
             RateGuestCommand = new RelayCommand(RateGuest);
             OwnerRatesCommand = new RelayCommand(OwnerRates);
             LoggedInUser = user;
             starPaths = new List<string>();
-            unratedGuestService = new UnratedGuestService();
-            accommodationRatingService = new AccommodationRatingService();
             UnratedGuests = new ObservableCollection<UnratedGuestViewModel>();
             unratedGuestService.GetUnratedGuests(LoggedInUser)
                                 .ForEach(unratedGuest => UnratedGuests.Add(new UnratedGuestViewModel(userService.GetById(unratedGuest.UserId).FullName, userService.GetById(unratedGuest.UserId).AvatarPath)));
@@ -82,6 +83,15 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             Star4 = starPaths[3];
             Star5 = starPaths[4];
         }
+
+        private void InitializeServices()
+        {
+            userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            AccommodationService accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>(), userService);
+            unratedGuestService = new UnratedGuestService(accommodationService);
+            accommodationRatingService = new AccommodationRatingService(Injector.CreateInstance<IAccommodationRatingRepository>(),accommodationService);
+        }
+
         private void RateGuest()
         {
             UnratedGuestsUserControl unratedGuestsWindow = new UnratedGuestsUserControl(LoggedInUser);

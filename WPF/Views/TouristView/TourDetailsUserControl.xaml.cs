@@ -170,7 +170,7 @@ namespace BookingApp.WPF.Views.TouristView
         {
             InitializeComponent();
 
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             checkPointService = new CheckPointService();
             tourRealisationService = new TourRealisationService();
             tourService = new TourService();
