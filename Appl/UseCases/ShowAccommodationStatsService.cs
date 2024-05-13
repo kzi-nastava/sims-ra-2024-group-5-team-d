@@ -101,7 +101,7 @@ namespace BookingApp.Appl.UseCases
         {
             AccommodationStat accommodationStat = new AccommodationStat
             {
-                NumberOfReservations = reservations.Count(r => r.IsMadeInSelectedYear(year)),
+                NumberOfReservations = reservations.Count(r => r.IsMadeInSelectedYear(year) && !r.IsCanceled()),
                 NumberOfCancelledReservations = reservations.Where(r => r.IsMadeInSelectedYear(year)).Sum(r => r.Cancelled),
                 NumberOfRecommendedRenovations = reservations.Where(r => r.IsMadeInSelectedYear(year)).Sum(r => r.RecommendedRenovation),
                 NumberOfRescheduledReservations = reservations.Where(r => r.IsMadeInSelectedYear(year)).Sum(r => r.RescheduledReservation),
@@ -115,7 +115,7 @@ namespace BookingApp.Appl.UseCases
         {
             AccommodationStat accommodationStat = new AccommodationStat
             {
-                NumberOfReservations = reservations.Where(r => r.ReservedFrom.Year == selectedYear).Count(r => r.ReservedFrom.Month == month),
+                NumberOfReservations = reservations.Where(r => r.ReservedFrom.Year == selectedYear && !r.IsCanceled()).Count(r => r.ReservedFrom.Month == month),
                 NumberOfCancelledReservations = reservations.Where(r => r.IsMadeInSelectedMonth(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.Cancelled),
                 NumberOfRecommendedRenovations = reservations.Where(r => r.IsMadeInSelectedMonth(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.RecommendedRenovation),
                 NumberOfRescheduledReservations = reservations.Where(r => r.IsMadeInSelectedMonth(month) && r.IsMadeInSelectedYear(selectedYear)).Sum(r => r.RescheduledReservation),

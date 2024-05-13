@@ -31,8 +31,8 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 
         public void CancelRenovation()
         {
-            accommodationRenovationService.DeleteById(Renovation.RenovationId);
-            RenovationsViewModel.Renovations.Remove(Renovation);
+                accommodationRenovationService.DeleteById(Renovation.RenovationId);
+                RenovationsViewModel.Renovations.Remove(Renovation);
         }
     }
 }

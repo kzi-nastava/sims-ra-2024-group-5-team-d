@@ -17,7 +17,7 @@ namespace BookingApp.Appl.UseCases
         public ProcessRequestService(GuestRequestService guestRequestService)
         {
             notificationService = new NotificationsService(Injector.CreateInstance<INotificationRepository>());
-            guestRequestService = guestRequestService;
+            this.guestRequestService = guestRequestService;
             accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
         }
         public void AcceptRequest(GuestRequest guestRequest)
