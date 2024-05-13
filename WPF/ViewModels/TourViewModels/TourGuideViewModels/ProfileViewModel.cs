@@ -29,7 +29,7 @@ namespace BookingApp.WPF.ViewModels
             LoggedInUser = user;
             tourService = new TourService();
             tourRealisationService = new TourRealisationService();
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Tour = new ObservableCollection<TourViewModel>();
             Date = new ObservableCollection<string>();
             ComboBoxSelectionChangedCommand = new RelayParameterCommand(OnComboBoxSelectionChanged);

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.TouristView;
 using System;
@@ -96,7 +97,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             CancelCommand = new RelayCommand(Cancel);
             tourGuestService = new TourGuestService();
             notifier = new NotifierService();
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Tourists = new ObservableCollection<TourGuestViewModel>();
             CreateTouristsFormular();
             Language = 3;

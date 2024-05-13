@@ -26,7 +26,7 @@ namespace BookingApp.Appl.UseCases
             tourReservationService = new TourReservationService();
             tourGuestService = new TourGuestService();
             userService = new UserService();
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
         }
         public List<TourRequest> GetAll()
         {

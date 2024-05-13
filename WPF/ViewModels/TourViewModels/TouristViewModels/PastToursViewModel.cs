@@ -57,9 +57,8 @@ namespace BookingApp.WPF.ViewModels
             tourService = new TourService();
             tourRateService = new RateTourService();
             tourReservationService=new TourReservationService();
-            imageUploaderService=new ImageUploaderService();
             tourRatingService=new TourRatingService();
-
+            imageUploaderService = new ImageUploaderService(tourRatingService);
             PastTourRealisations = new ObservableCollection<RateTourViewModel>();
             pastTourReservations = tourReservationService.GetPastTourReservationsForTourist(user);
             pastTourRealisations = tourRateService.GetAllPastTourRealisationsForTourist(user);

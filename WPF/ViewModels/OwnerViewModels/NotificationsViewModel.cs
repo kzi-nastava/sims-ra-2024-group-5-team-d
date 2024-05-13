@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
 using System;
@@ -19,15 +20,16 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     {
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand OpenNotification { get; set; }
+
+        private NotificationsService notificationsService;
+
         public ObservableCollection<NotificationViewModel> Notifications { get; set; }
         private User loggedInUser;
-        private NotificationsService notificationsService;
         private string message;
         private NotificationViewModel selectedNotification;
-        int selectedNotificationIndex=-1;
         public NotificationsViewModel(User user)
         {
-            notificationsService = new NotificationsService();
+            InitializeServices();
             loggedInUser = user;
             Notifications = new ObservableCollection<NotificationViewModel>();           
             notificationsService.GetSortedNotificationsForUser(user).ForEach(notification =>
@@ -39,6 +41,18 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             SelectionChangedCommand = new RelayParameterCommand(ListViewSelectionChanged);
             OpenNotification = new RelayCommand(OpenNotificationWindow);
         }
+
+        private void InitializeServices()
+        {
+            UserService userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            AccommodationService accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>(), userService);
+            AccommodationReservationService accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            GuestRequestService guestRequestService = new GuestRequestService(Injector.CreateInstance<IGuestRequestRepository>());
+            LocationService locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
+            ForumService forumService = new ForumService(Injector.CreateInstance<IForumRepository>(), locationService);
+            notificationsService = new NotificationsService(Injector.CreateInstance<INotificationRepository>(),userService,accommodationService,accommodationReservationService,guestRequestService,forumService);
+        }
+
         public void ListViewSelectionChanged(object parameter)
         {
             if (parameter != null)

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using System;
 using System.Collections.Generic;
@@ -16,29 +17,37 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     {
         public ICommand ForwardCommand { get; private set; }
         public ICommand BackwardCommand { get; private set; }
-        public ObservableCollection<string> ImagesPaths { get; set; }
+
         private AccommodationService accommodationService;
         private UserService userService;
         private ImageUploaderService imageUploaderService;
         private AccommodationRatingService accommodationRatingService;
+
+        public ObservableCollection<string> ImagesPaths { get; set; }
         private AccommodationRating accommodationRating;
         private List<string> imagesPaths;
         private int PaginationIndex = -3;
         public OwnerRatingViewModel OwnerRatingsViewModel { get; set; }
         public DetailedOwnerRatingViewModel(int accommodationRatingId)
         {
-            accommodationRatingService = new AccommodationRatingService();
+            InitializeServices();
             accommodationRating = accommodationRatingService.GetById(accommodationRatingId);
             BackwardCommand = new RelayCommand(Backward);
             ForwardCommand = new RelayCommand(Forward);
-            imageUploaderService = new ImageUploaderService();
-            accommodationService = new AccommodationService();
-            userService = new UserService();
             imagesPaths = imageUploaderService.GetImagePaths(accommodationRating.ImagesPath);
             ImagesPaths = new ObservableCollection<string>();
             OwnerRatingsViewModel = new OwnerRatingViewModel(userService.GetById(accommodationRating.GuestId),accommodationRating,accommodationService.GetById(accommodationRating.AccommodationId));
             Forward();
         }
+
+        private void InitializeServices()
+        {
+            userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>(),userService);
+            accommodationRatingService = new AccommodationRatingService(Injector.CreateInstance<IAccommodationRatingRepository>());
+            imageUploaderService = new ImageUploaderService();
+        }
+
         public void Backward()
         {
             if (PaginationIndex > 2)

@@ -15,13 +15,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     public class ReccommendationsViewModel
     {
 
+        private OwnerActionReccommenderService ownerActionReccommenderService;
+
         public SeriesCollection BestLocations { get; set; }
         public ObservableCollection<string> Locations { get; set; }
-        private LocationService locationService;
         public ReccommendationsViewModel()
         {
-            locationService = new LocationService();
-            List<KeyValuePair<Location, double>> locations = locationService.GetMostPopularLocations();
+            InitializeServices();
+            List<KeyValuePair<Location, double>> locations = ownerActionReccommenderService.GetMostPopularLocations();
             BestLocations = new SeriesCollection();
             Locations = new ObservableCollection<string>();
             BestLocations.Add(new ColumnSeries
@@ -40,7 +41,11 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 BestLocations[0].Values.Add(location.Value);
                 Locations.Add(location.Key.City);
             }
-            Debug.WriteLine("Best locations: " + Locations.Count);
+        }
+
+        private void InitializeServices()
+        {
+            ownerActionReccommenderService = new OwnerActionReccommenderService();
         }
     }
 }

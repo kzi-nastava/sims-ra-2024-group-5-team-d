@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.RepositoryInterfaces
 {
-    interface IGuestRequestRepository
+    public interface IGuestRequestRepository
     {
         public List<GuestRequest> GetAll();
         public GuestRequest Save(GuestRequest request);

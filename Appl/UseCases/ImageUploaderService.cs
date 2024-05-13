@@ -24,10 +24,22 @@ namespace BookingApp.Appl.UseCases
 
         public ImageUploaderService()
         {
-            tourRatingService= new TourRatingService();
-            accommodationService = new AccommodationService();
-            tourService = new TourService();
-            accommodationRatingService = new AccommodationRatingService();
+        }
+        public ImageUploaderService(AccommodationService accommodationService)
+        {
+            this.accommodationService = accommodationService;
+        }
+        public ImageUploaderService(TourService tourService)
+        {
+            this.tourService = tourService;
+        }
+        public ImageUploaderService(AccommodationRatingService accommodationRatingService)
+        {
+            this.accommodationRatingService = accommodationRatingService;
+        }
+        public ImageUploaderService(TourRatingService tourRatingService)
+        {
+            this.tourRatingService = tourRatingService;
         }
 
         public string  UploadImage()

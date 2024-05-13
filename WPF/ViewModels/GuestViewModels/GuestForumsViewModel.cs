@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.GuestWindows;
 using System;
@@ -77,7 +78,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             LoggedInUser = user;
             notificationsService = new NotificationsService();
             forumService = new ForumService();
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             userService = new UserService();
             superForumService = new SuperForumService();
 
