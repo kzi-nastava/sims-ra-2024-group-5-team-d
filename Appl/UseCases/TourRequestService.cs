@@ -18,6 +18,7 @@ namespace BookingApp.Appl.UseCases
         private TourReservationService tourReservationService;
         private TourGuestService tourGuestService;
         private UserService userService;
+        private LocationService locationService;
         public TourRequestService()
         {
             _repository = Injector.CreateInstance<ITourRequestRepository>();
@@ -25,6 +26,7 @@ namespace BookingApp.Appl.UseCases
             tourReservationService = new TourReservationService();
             tourGuestService = new TourGuestService();
             userService = new UserService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
         }
         public List<TourRequest> GetAll()
         {
@@ -125,20 +127,34 @@ namespace BookingApp.Appl.UseCases
         {
             var requests = GetAll(); // Assuming this method returns a list of requests
 
-            // Group requests by location and count occurrences of each location
-            var locationCounts = requests
-                .Where(req => req.RangeFrom >= DateTime.Now.AddYears(-1))
-                .GroupBy(req => req.Location)
-                .Select(group => new
-                {
-                    Location = group.Key,
-                    Count = group.Count()
-                })
-                .OrderByDescending(x => x.Count); // Order by count in descending order
+            // Initialize a dictionary to store location counts
+            var locationCounts = new Dictionary<int, int>();
 
-            // Now you can access the most chosen location
-            var mostChosenLocation = locationCounts.FirstOrDefault().Location;
-            return mostChosenLocation;
+            // Count occurrences of each location
+            foreach (var req in requests.Where(req => req.RangeFrom >= DateTime.Now.AddYears(-1)))
+            {
+                if (locationCounts.ContainsKey(req.Location.Id))
+                {
+                    locationCounts[req.Location.Id]++;
+                }
+                else
+                {
+                    locationCounts[req.Location.Id] = 1;
+                }
+            }
+
+            // Find the location with the highest count
+            int maxCount = 0;
+            int mostChosenLocationId = 0;
+            foreach (var kvp in locationCounts)
+            {
+                if (kvp.Value > maxCount)
+                {
+                    maxCount = kvp.Value;
+                    mostChosenLocationId = kvp.Key;
+                }
+            }
+            return locationService.GetById(mostChosenLocationId);
         }
       
         public double AverageNumberOfGuestsOnAcceptedRequests(int year)

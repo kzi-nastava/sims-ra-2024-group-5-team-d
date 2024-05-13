@@ -22,9 +22,7 @@ namespace BookingApp.Appl.UseCases
         }
         public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository)
         {
-
             this.accommodationReservationRepository = accommodationReservationRepository;
-
         }
         public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository,AccommodationService accommodationService)
         {

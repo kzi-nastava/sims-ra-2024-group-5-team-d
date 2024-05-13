@@ -1,5 +1,6 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using System;
 using System.Collections.Generic;
@@ -18,28 +19,39 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public ICommand ReserveRenovationCommand { get; set; }
 
         public ICommand ShowAvailableDatesCommand { get; set; }
-        public SelectDateViewModel SelectDate { get; set; }
-        public string ReservationReason { get; set; }
+
         private AccommodationService accommodationService;
-        public ObservableCollection<AvailableRenovationDateViewModel> AvailableDates { get; set; }
         private AccommodationRenovationService accommodationRenovationService;
-        public AvailableRenovationDateViewModel SelectedAvailableDate { get; set; }
-        private int accommodationId;
         private NotifierService notifierService;
         private AvailableDatesForReservationService availableDatesForReservationService;
+
+
+        public SelectDateViewModel SelectDate { get; set; }
+        public string ReservationReason { get; set; }
+        public ObservableCollection<AvailableRenovationDateViewModel> AvailableDates { get; set; }
+        public AvailableRenovationDateViewModel SelectedAvailableDate { get; set; }
+        private int accommodationId;
         public RenovateViewModel(User user,int accommodationId)
         {
-            notifierService = new NotifierService();
-            availableDatesForReservationService = new AvailableDatesForReservationService();
-            this.accommodationId = accommodationId;
-            accommodationRenovationService = new AccommodationRenovationService();
+            InitializeServices();
+            this.accommodationId = accommodationId;     
             AvailableDates = new ObservableCollection<AvailableRenovationDateViewModel>();
-            accommodationService = new AccommodationService();
             SelectDate = new SelectDateViewModel(accommodationService.GetAccommodationNameById(accommodationId));
             loggedInUser = user;
             ShowAvailableDatesCommand = new RelayCommand(ShowAvailableDates);
             ReserveRenovationCommand = new RelayCommand(ReserveRenovation);
         }
+
+        private void InitializeServices()
+        {
+            notifierService = new NotifierService();
+            UserService userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>(),userService);
+            accommodationRenovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>());
+            AccommodationReservationService accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            availableDatesForReservationService = new AvailableDatesForReservationService(accommodationReservationService,accommodationRenovationService);
+        }
+
         private void ShowAvailableDates()
         {
             AvailableDates.Clear();

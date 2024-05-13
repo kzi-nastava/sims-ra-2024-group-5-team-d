@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using ExCSS;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace BookingApp.Appl.UseCases
         private GuestRequestService guestRequestService;
         public NotificationsService()
         {
+            tourRealisationService = new TourRealisationService();
             tourGuestService = new TourGuestService();
             tourReservationService = new TourReservationService();
             tourRequestService = new TourRequestService();
@@ -38,6 +40,19 @@ namespace BookingApp.Appl.UseCases
             accommodationService = new AccommodationService();
             accommodationReservationService = new AccommodationReservationService();
             notificationRepository = Injector.CreateInstance<INotificationRepository>();
+        }
+        public NotificationsService(INotificationRepository notificationRepository,UserService userService,AccommodationService accommodationService,AccommodationReservationService accommodationReservationService,GuestRequestService guestRequestService,ForumService forumService)
+        {
+            this.notificationRepository = notificationRepository;
+            this.userService = userService;
+            this.accommodationService = accommodationService;
+            this.accommodationReservationService = accommodationReservationService;
+            this.guestRequestService = guestRequestService;
+            this.forumService = forumService;
+        }
+        public NotificationsService(INotificationRepository notificationRepository)
+        {
+            this.notificationRepository = notificationRepository;
         }
         public int GetNumberOfUnreadNotificationsForUser(User user)
         {
@@ -136,7 +151,7 @@ namespace BookingApp.Appl.UseCases
                     }
                     return tourGuestService.GetById(notification.LinkId).FullName + " is currrently on a live tour with you! ";
                 case Domain.Models.Type.TOURREQUEST:
-                    return userService.GetFullNameById(tourRealisationService.GetById(notification.LinkId).User.Id) + " has just accepted your request " + "for tour in " + tourService.GetById(tourRealisationService.GetById(notification.LinkId).TourId).Location + " !";
+                    return userService.GetFullNameById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).User.Id) + " has just accepted your request " + "for tour in " + tourService.GetById(tourRealisationService.GetById(tourReservationService.GetById(tourRequestService.GetById(notification.LinkId).TourReservationId).TourRealisationId).TourId).Location + " !";
                 case Domain.Models.Type.NEWTOUR:
                     return "A new tour has been created by " + userService.GetFullNameById(tourService.GetById(notification.LinkId).User.Id) + " (Location: " + tourService.GetById(notification.LinkId).Location + ", " + "Language: " + tourService.GetById(notification.LinkId).Language + ")";
                 case Domain.Models.Type.VOUCHER:

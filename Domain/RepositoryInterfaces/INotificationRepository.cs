@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.RepositoryInterfaces
 {
-    internal interface INotificationRepository
+    public interface INotificationRepository
     {
         List<Notification> GetAll();
         Notification GetById(int id);

@@ -1,9 +1,11 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.Appl.UseCases
 {
@@ -12,29 +14,33 @@ namespace BookingApp.Appl.UseCases
         private GuestRequestService guestRequestService;
         private AccommodationReservationService accommodationReservationService;
         private NotificationsService notificationService;
-        public ProcessRequestService()
+        public ProcessRequestService(GuestRequestService guestRequestService)
         {
-            notificationService = new NotificationsService();
-            guestRequestService = new GuestRequestService();
-            accommodationReservationService = new AccommodationReservationService();
+            notificationService = new NotificationsService(Injector.CreateInstance<INotificationRepository>());
+            guestRequestService = guestRequestService;
+            accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
         }
         public void AcceptRequest(GuestRequest guestRequest)
         {
-            UpdateGuestRequest(guestRequest);
+            UpdateGuestRequest(guestRequest,null);
             UpdateReservation(guestRequest);
             SendNotification(guestRequest);
           
         }
         public void DenyRequest(GuestRequest guestRequest, string comment)
         {
-            guestRequest.Status = STATUS.REJECTED;
-            guestRequest.Comment = comment;
-            guestRequestService.Update(guestRequest);
+            UpdateGuestRequest(guestRequest, comment);
             SendNotification(guestRequest);
         }
-        private void UpdateGuestRequest(GuestRequest guestRequest)
+        private void UpdateGuestRequest(GuestRequest guestRequest,string? comment)
         {
-            guestRequest.Status = STATUS.APPROVED;
+            if (comment==null)
+                guestRequest.Status = STATUS.APPROVED;
+            else
+            {
+                guestRequest.Status = STATUS.REJECTED;
+                guestRequest.Comment = comment;
+            }
             guestRequestService.Update(guestRequest);
         }
         private void UpdateReservation(GuestRequest guestRequest)

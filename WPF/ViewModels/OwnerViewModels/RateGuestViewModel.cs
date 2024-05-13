@@ -18,24 +18,23 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public ICommand RateGuestCommand { get; set; }
         public ICommand RuleComplianceRatingCommand { get; set; }
         public ICommand CleanlinessRatingCommand { get; set; }
+
+        private AccommodationReservationService accommodationReservationService;
+        private GuestRatingService guestRatingService;
+        private NotificationsService notificationsService;
+
         public int ReservationId { get; set; }
         public string Name { get; set; }
         public string Comment { get; set; }
         public int Cleanliness { get; set; }
         public int RuleCompliance { get; set; }
-
-        private AccommodationReservationService accommodationReservationService;
-        private GuestRatingService guestRatingService;
         private UnratedGuestViewModel unratedGuest;
-        private NotificationsService notificationsService;
         public RateGuestViewModel()
         {
         }
         public RateGuestViewModel(UnratedGuestViewModel unratedGuest)
         {
-            notificationsService = new NotificationsService();
-            accommodationReservationService = new AccommodationReservationService();
-            guestRatingService = new GuestRatingService();
+            InitializeServices();
             CleanlinessRatingCommand = new RelayParameterCommand(GetCleanlinessRating);
             RuleComplianceRatingCommand = new RelayParameterCommand(GetRuleComplianceRating);
             RateGuestCommand = new RelayCommand(RateGuest);
@@ -46,6 +45,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ReservationId = unratedGuest.ReservationId;
             Name = unratedGuest.FullName;
         }
+
+        private void InitializeServices()
+        {
+            notificationsService = new NotificationsService(Injector.CreateInstance<INotificationRepository>());
+            accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            guestRatingService = new GuestRatingService(Injector.CreateInstance<IGuestRatingRepository>());
+        }
+
         private void GetCleanlinessRating(object parameter)
         {
             Cleanliness = int.Parse(parameter.ToString());

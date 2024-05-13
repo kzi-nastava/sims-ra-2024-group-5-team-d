@@ -143,6 +143,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private void LocationSelection()
         {
             var location = tourRequestService.GetMostWantedLocation();
+
+            Debug.WriteLine("MIKIKIKIKLIKILILI" + location.Id + "HASAHA");
             SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser,location.Id,-1);
         }
 
