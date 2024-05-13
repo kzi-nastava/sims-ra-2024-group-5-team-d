@@ -95,7 +95,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         {
             notificationsService = new NotificationsService();
             forumService = new ForumService();
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             superForumService = new SuperForumService();
             guestNotificationsService = new GuestNotificationsService();
         }
