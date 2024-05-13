@@ -25,7 +25,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         public OwnerRateGuestWindow(OwnerRatingGuestViewModel ownerRatingGuest)
         {
             InitializeComponent();
-            DataContext = new OwnerRateGuestViewModel(ownerRatingGuest);
+            DataContext = new OwnerRateGuestViewModel(ownerRatingGuest, this);
         }
     }
 }

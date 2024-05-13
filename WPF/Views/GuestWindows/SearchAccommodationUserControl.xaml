@@ -523,6 +523,7 @@
                                   Height="25" 
                                   Margin="58,10,10,10" 
                                   Text="{Binding NumberOfPeople}"/>
+
                             <Border BorderThickness="0,0,0,2" 
                                    BorderBrush="{StaticResource PrimaryColor}"
                                    Grid.Column="0"
@@ -551,7 +552,7 @@
                                   Height="25" 
                                   Margin="58,10,10,10" 
                                   Text="{Binding NumberOfDays}"/>
-                            <Border BorderThickness="0,0,0,2" 
+                                <Border BorderThickness="0,0,0,2" 
                                    BorderBrush="{StaticResource PrimaryColor}"
                                    Grid.Column="0"
                                    Grid.Row="1"
@@ -580,7 +581,7 @@
                                   HorizontalAlignment="Left"
                                   Width="30"
                                   SelectedDate="{Binding FromDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="To:"
+                                <Label Content="To:"
                                   Height="24"
                                   FontSize="11" 
                                   Grid.Row="2"
@@ -595,7 +596,7 @@
                                   HorizontalAlignment="Left" 
                                   Width="32"
                                   SelectedDate="{Binding ToDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                            <Border BorderThickness="0,0,0,2" 
+                                <Border BorderThickness="0,0,0,2" 
                                  BorderBrush="{StaticResource PrimaryColor}"
                                  Grid.Column="0"
                                  Grid.Row="2"
@@ -613,7 +614,7 @@
                                         Width="auto"
                                         Height="auto"
                                         Click="AnytimeAnywhereSearch_Click">
-                                <Border  Background="DarkOrange"
+                                    <Border  Background="DarkOrange"
                                           CornerRadius="5"
                                            Height="25" Width="auto">
                                     <TextBlock  Text="Search"
