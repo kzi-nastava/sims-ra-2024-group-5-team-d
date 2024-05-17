@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows"
         mc:Ignorable="d"
-        Title="YesNoCancelledReservationWindow" Height="100" Width="150" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="YesNoCancelledReservationWindow" Height="150" Width="200" WindowStartupLocation="CenterScreen">
+    <Grid Background="{StaticResource PrimaryBlack}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -14,30 +14,99 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Button HorizontalAlignment="Right"
+        VerticalAlignment="Center" 
+        Grid.Column="2"
+        Height="18" 
+        Width="18"
+        Margin="0,4,4,0"
+        ToolTipService.ShowDuration="5000">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Transparent" BorderThickness="0" Padding="0">
+                                    <Image Source="../../../Resources/Images/GuestImages/help.png"
+                                   Height="18" 
+                                   Width="18"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontSize="13"
+                                   FontWeight="Bold">
+                            Information about cancel reservation
+                        </TextBlock>
+                        <TextBlock Text="Once you cancel a reservation, you cannot activate it again!"
+                                    TextWrapping="Wrap"
+                                    TextTrimming="WordEllipsis"
+                                    MaxWidth="400">
+                        </TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
         <Label Content="Cancel reservation?"  
                 Grid.Column="0"
                 Height="auto" 
                 Width="auto"
                 FontSize="12" 
+                Grid.Row="1"
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
-        <Button x:Name="YesCancelButton" 
-                Content="Yes" 
-                Grid.Row="1" 
+                VerticalAlignment="Center"
+                Foreground="{StaticResource WhiteWhite}"/>
+        <Button x:Name="YesCancelButton"  
+                Grid.Row="2" 
                 Grid.Column="0" 
-                Width="50" 
+                Width="auto" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
-                Click="YesCancelReservationButton"/>
+                Click="YesCancelReservationButton"
+                Background="Transparent"
+                BorderBrush="Transparent">
+            <Border  Background="DarkOrange"
+                                        CornerRadius="2"
+                                        Height="auto" 
+                                        Width="auto">
+            <TextBlock  Text="Yes"
+                                       Margin="20 0 20 0" 
+                                       Foreground="{StaticResource  WhiteGrey}" 
+                                       FontWeight="Bold" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+        </Border>
+        </Button>
         <Button x:Name="NoCancelButton" 
-                Content="No" 
-                Grid.Row="1" 
+                Grid.Row="2" 
                 Grid.Column="1" 
-                Width="50" 
+                Width="auto" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
-                Click="NoCancelReservationButton"/>
+                Click="NoCancelReservationButton"
+                Background="Transparent"
+                BorderBrush="Transparent">
+            <Border  Background="DarkOrange"
+                                        CornerRadius="2"
+                                        Height="auto" 
+                                        Width="auto">
+            <TextBlock  Text="No"
+                                       Margin="20 0 20 0" 
+                                       Foreground="{StaticResource  WhiteGrey}" 
+                                       FontWeight="Bold" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+            </Border>
+        </Button>
     </Grid>
 </Window>

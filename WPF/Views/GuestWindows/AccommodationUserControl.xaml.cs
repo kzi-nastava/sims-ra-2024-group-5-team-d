@@ -105,6 +105,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         public string ImagesPath { get; set; }
         public string AccommodationName { get; set; }
         public int Capacity { get; set; }
+        public int MinStay { get; set; }
         public Location Location { get; set; }
         public double AverageRating { get; set; }
         public DateTime CancellationDeadline { get; set; }
@@ -136,6 +137,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             ImagesPath = accommodationService.GetById(selectedAccommmodation.Id).ImagesPath;
             Location = accommodationService.GetById(selectedAccommmodation.Id).Location;
             Capacity = accommodationService.GetById(selectedAccommmodation.Id).Capacity;
+            MinStay = accommodationService.GetById(selectedAccommmodation.Id).MinStay;
             AverageRating = accommodationService.GetById(selectedAccommmodation.Id).AverageRating;
             CancellationDeadline = fromDate.AddDays(-accommodationService.GetById(selectedAccommmodation.Id).CancellationDeadline);
 
@@ -187,6 +189,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             NumberOfPeopleLabel.Visibility = Visibility.Visible;
             NumberOfPeopleTextBox.Visibility = Visibility.Visible;
+            TextMessage.Visibility = Visibility.Visible;
+            TextCapacity.Visibility = Visibility.Visible;
             ReserveButton.Visibility = Visibility.Visible;
             ReserveButton.IsEnabled = false;
         }

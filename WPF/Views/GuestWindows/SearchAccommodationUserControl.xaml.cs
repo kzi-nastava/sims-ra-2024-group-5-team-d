@@ -146,6 +146,7 @@ namespace BookingApp.WPF.Views.GuestWindows
 
             superGuestService = new SuperGuestService();
             notifierService = new NotifierService();
+
             bool IsUpdated = superGuestService.UpdateUserStatus(LoggedInUser);
             if(IsUpdated)
             {
@@ -221,6 +222,40 @@ namespace BookingApp.WPF.Views.GuestWindows
             }
         }
 
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            //if ((sender as TextBox).Text.Length == 0 && e.Text == "0")
+            //{
+            //    e.Handled = true;
+            //    return;
+            //}
 
+            //if (!int.TryParse(e.Text, out _))
+            //{
+            //    e.Handled = true; 
+            //    return;
+            //}
+            TextBox textBox = sender as TextBox;
+            string newText = textBox.Text + e.Text;
+
+            // Provera da li je prva cifra 0
+            if (textBox.Text.Length == 0 && e.Text == "0")
+            {
+                e.Handled = true; // Odbacuje unos
+                return;
+            }
+
+            // Provera da li je uneti tekst numerički
+            if (!int.TryParse(newText, out _))
+            {
+                // Ako nije numerički, prikaži poruku upozorenja ili promeni boju okvira TextBox-a
+                textBox.BorderBrush = Brushes.Red; // Primer promene boje okvira TextBox-a
+                e.Handled = true; // Odbacuje unos
+                return;
+            }
+
+            // Ako je sve u redu, obriši poruku upozorenja i vrati boju okvira na podrazumevanu
+            textBox.ClearValue(TextBox.BorderBrushProperty);
+        }
     }
 }

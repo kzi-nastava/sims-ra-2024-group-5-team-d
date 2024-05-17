@@ -36,13 +36,12 @@
         <Border Background="#303030"
                 Grid.Row="2"
                 Grid.ColumnSpan="5" Margin="0,0,0,-7"/>
-        <Label Content="Booking.com" 
+        <Image Source="../../../Resources/Images/GuestImages/logo_svg.png"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" 
             Grid.Column="2"
             Height="26" 
-            Width="auto"
-            Foreground="{StaticResource WhiteWhite}"/>
+            Width="auto"/>
         <Image Source="../../../Resources/Images/GuestImages/help.png"
             Grid.Column="4"
             HorizontalAlignment="Right"
@@ -133,7 +132,7 @@
            FontSize="8" 
            Height="NaN"
            Foreground="{StaticResource WhiteWhite}"/>
-        <Label Content="Inbox" 
+        <Label Content="Forum" 
            HorizontalAlignment="Center"
            VerticalAlignment="Bottom" 
            Grid.Column="3" 

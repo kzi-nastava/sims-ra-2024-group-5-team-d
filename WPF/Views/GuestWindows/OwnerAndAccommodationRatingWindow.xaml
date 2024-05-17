@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows"
         mc:Ignorable="d"
-        Title="OwnerAndAccommodationRatingWindow" Height="580" Width="340" WindowStartupLocation="CenterScreen">
+        Title="OwnerAndAccommodationRatingWindow" Height="600" Width="340" WindowStartupLocation="CenterScreen">
     <Grid Background="{StaticResource PrimaryBlack}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -22,11 +22,49 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <Button HorizontalAlignment="Right"
+        VerticalAlignment="Center" 
+        Height="18" 
+        Width="18"
+        Margin="0,4,4,0"
+        ToolTipService.ShowDuration="5000">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Transparent" BorderThickness="0" Padding="0">
+                                    <Image Source="../../../Resources/Images/GuestImages/help.png"
+                                   Height="18" 
+                                   Width="18"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontSize="13"
+                                   FontWeight="Bold">
+                            Information about rate owner and accommodation
+                        </TextBlock>
+                        <TextBlock Text="You can rate the owner after your visit. You should be objective and honest when evaluating. You can see your ratings that you received from the owner, but only as you rated him and him reted you!"
+                                    TextWrapping="Wrap"
+                                    TextTrimming="WordEllipsis"
+                                    MaxWidth="400">
+                        </TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
         <Label Content="{Binding AccommodationName}" 
              HorizontalAlignment="Center"
              VerticalAlignment="Center" 
-             Grid.Row="0"
+             Grid.Row="1"
              Height="26" 
              Width="auto" 
              HorizontalContentAlignment="Center" 
@@ -37,13 +75,13 @@
         <Label Content="Cleanliness(1-5):" 
              HorizontalAlignment="Left"
              VerticalAlignment="Center" 
-             Grid.Row="1"
+             Grid.Row="2"
              Height="26" 
              Width="auto"
              Margin="10,15,0,0"
              Foreground="{StaticResource WhiteWhite}"/>
         <TextBox Text="{Binding Cleanliness, UpdateSourceTrigger=PropertyChanged}"
-              Grid.Row="1" 
+              Grid.Row="2" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Left"
               Width="30"
@@ -53,13 +91,13 @@
         <Label Content="Correctness of the owner(1-5):" 
              HorizontalAlignment="Left"
              VerticalAlignment="Center" 
-             Grid.Row="2"
+             Grid.Row="3"
              Height="26" 
              Width="auto"
              Margin="10,10,0,0"
              Foreground="{StaticResource WhiteWhite}"/>
         <TextBox Text="{Binding Correctness, UpdateSourceTrigger=PropertyChanged}"
-              Grid.Row="2" 
+              Grid.Row="3" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Left"
               Width="30"
@@ -68,13 +106,13 @@
         <Label Content="Add comments" 
             HorizontalAlignment="Left"
             VerticalAlignment="Center" 
-            Grid.Row="3"
+            Grid.Row="4"
             Height="26" 
             Width="auto"
             Margin="10,10,0,0"
             Foreground="{StaticResource WhiteWhite}"/>
         <TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
-              Grid.Row="4" 
+              Grid.Row="5" 
               VerticalAlignment="Center" 
               HorizontalAlignment="Center"
               Width="280"
@@ -86,13 +124,13 @@
         <Label Content="Renovation" 
             HorizontalAlignment="Left"
             VerticalAlignment="Center" 
-            Grid.Row="5"
+            Grid.Row="6"
             Height="26" 
             Width="auto"
             Margin="10,0,0,0"
             Foreground="{StaticResource WhiteWhite}"/>
 
-        <StackPanel Grid.Row="6" Margin="0,0,0,10">
+        <StackPanel Grid.Row="7" Margin="0,0,0,10">
             <RadioButton Name="radioButton1" GroupName="Rating" Content="Level 1 (renovate small things, but is ok)" Tag="1" Checked="RadioButton_Checked" Foreground="{StaticResource WhiteWhite}"/>
             <RadioButton Name="radioButton2" GroupName="Rating" Content="Level 2 (need small changes)" Tag="2" Checked="RadioButton_Checked" Foreground="{StaticResource WhiteWhite}"/>
             <RadioButton Name="radioButton3" GroupName="Rating" Content="Level 3 (few things should be renovated)" Tag="3" Checked="RadioButton_Checked" Foreground="{StaticResource WhiteWhite}"/>
@@ -104,20 +142,20 @@
         <Label Content="Add photo" 
              HorizontalAlignment="Left"
              VerticalAlignment="Center" 
-             Grid.Row="7"
+             Grid.Row="8"
              Height="26" 
              Width="auto"
              Margin="10,0,0,6"
              Foreground="{StaticResource WhiteWhite}"/>
         <Image Source="../../../Resources/Images/GuestImages/back.png"
-               Grid.Row="8"
+               Grid.Row="9"
                Height="30"
                Width="30"
                HorizontalAlignment="Left" Margin="28,35,0,35"/>
         <Border  Background="{StaticResource PrimaryColor}"
                      Height="100"
                      Width="150"
-                     Grid.Row="8">
+                     Grid.Row="9">
             <TextBlock  Text="IMAGE"
                                             Margin="4" 
                                             Foreground="{StaticResource  WhiteGrey}" 
@@ -127,12 +165,12 @@
                                             VerticalAlignment="Center"/>
         </Border>
         <Image Source="../../../Resources/Images/GuestImages/next.png"
-               Grid.Row="8"
+               Grid.Row="9"
                Height="30"
                Width="30"
                HorizontalAlignment="Left" Margin="278,35,0,35"/>
         <Button x:Name="UploadPhoto"
-              Grid.Row="9" 
+              Grid.Row="10" 
               VerticalAlignment="Center" 
               HorizontalAlignment="Left"
               Width="auto"
@@ -155,7 +193,7 @@
             </Border>
         </Button>
 
-        <Button Grid.Row="9" 
+        <Button Grid.Row="10" 
               VerticalAlignment="Center" 
               HorizontalAlignment="Left"
               Width="auto"
@@ -180,7 +218,7 @@
         </Button>
 
         <Button x:Name="RateButton"
-             Grid.Row="10" 
+             Grid.Row="11" 
              VerticalAlignment="Center"
              Width="auto"
              Height="auto"
