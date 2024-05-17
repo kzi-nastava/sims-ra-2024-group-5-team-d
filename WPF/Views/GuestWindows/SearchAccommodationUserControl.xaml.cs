@@ -195,18 +195,17 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             accommodations.Sort((x, y) =>
             {
-                // Provera za x.Owner.IsSuperUser
                 if (x.Owner.IsSuperUser == true && y.Owner.IsSuperUser == false)
                 {
-                    return -1; // x ispred y
+                    return -1; 
                 }
                 else if (x.Owner.IsSuperUser == false && y.Owner.IsSuperUser == true)
                 {
-                    return 1; // y ispred x
+                    return 1; 
                 }
                 else
                 {
-                    return 0; // Oba su true, ne menjamo redosled
+                    return 0; 
                 }
             });
         }
@@ -218,43 +217,29 @@ namespace BookingApp.WPF.Views.GuestWindows
                 ToDate = DateTime.UtcNow;
                 FromDate = DateTime.UtcNow;
                 NumberOfPeople = 1;
-                NumberOfDays = 1;   // Ovdje možete dodati svoju logiku koja će se izvršiti samo kada se promijeni tab
+                NumberOfDays = 1;   
             }
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            //if ((sender as TextBox).Text.Length == 0 && e.Text == "0")
-            //{
-            //    e.Handled = true;
-            //    return;
-            //}
 
-            //if (!int.TryParse(e.Text, out _))
-            //{
-            //    e.Handled = true; 
-            //    return;
-            //}
             TextBox textBox = sender as TextBox;
             string newText = textBox.Text + e.Text;
 
-            // Provera da li je prva cifra 0
             if (textBox.Text.Length == 0 && e.Text == "0")
             {
-                e.Handled = true; // Odbacuje unos
+                e.Handled = true; 
                 return;
             }
 
-            // Provera da li je uneti tekst numerički
             if (!int.TryParse(newText, out _))
             {
-                // Ako nije numerički, prikaži poruku upozorenja ili promeni boju okvira TextBox-a
-                textBox.BorderBrush = Brushes.Red; // Primer promene boje okvira TextBox-a
-                e.Handled = true; // Odbacuje unos
+                textBox.BorderBrush = Brushes.Red; 
+                e.Handled = true; 
                 return;
             }
 
-            // Ako je sve u redu, obriši poruku upozorenja i vrati boju okvira na podrazumevanu
             textBox.ClearValue(TextBox.BorderBrushProperty);
         }
     }
