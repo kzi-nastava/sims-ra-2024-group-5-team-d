@@ -178,26 +178,34 @@ namespace BookingApp.WPF.ViewModels
         }
         public void Backward()
         {
-            paginationIndex-=3;
-            PastTourRealisations[selectedItemIndex].ImagesPaths.Clear();
-            for(int i =paginationIndex; i<imagesPath.Count;i++)
+            if (paginationIndex > 2)
             {
-                    
-                PastTourRealisations[selectedItemIndex].ImagesPaths.Add(imagesPath[i]);
-                if (PastTourRealisations[selectedItemIndex].ImagesPaths.Count == 3)
-                    break;
+                paginationIndex -= 3;
+                PastTourRealisations[selectedItemIndex].ImagesPaths.Clear();
+                for (int i = paginationIndex; i < imagesPath.Count; i++)
+                {
+
+                    PastTourRealisations[selectedItemIndex].ImagesPaths.Add(imagesPath[i]);
+                    if (PastTourRealisations[selectedItemIndex].ImagesPaths.Count == 3)
+                        break;
+                }
             }
+               
         }
         public void Forward()
         {
-            paginationIndex+=3;
-            PastTourRealisations[selectedItemIndex].ImagesPaths.Clear();
-            for (int i = paginationIndex; i < imagesPath.Count; i++)
+            if (paginationIndex + 3 < imagesPath.Count)
             {
+                paginationIndex += 3;
+                PastTourRealisations[selectedItemIndex].ImagesPaths.Clear();
+                for (int i = paginationIndex; i < imagesPath.Count; i++)
+                {
                     PastTourRealisations[selectedItemIndex].ImagesPaths.Add(imagesPath[i]);
-                if (PastTourRealisations[selectedItemIndex].ImagesPaths.Count ==3)
-                    break;
+                    if (PastTourRealisations[selectedItemIndex].ImagesPaths.Count == 3)
+                        break;
+                }
             }
+            
         }
 
         public void SubmitRating()

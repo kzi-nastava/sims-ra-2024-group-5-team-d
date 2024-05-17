@@ -47,6 +47,17 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 OnPropertyChanged();
             }
         }
+        private bool showReserve = false;
+        public bool ShowReserve
+        {
+            get { return showReserve; }
+            set
+            {
+                showReserve = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SelectDateViewModel(string accommodationName)
         {
             AccommodationName = accommodationName;

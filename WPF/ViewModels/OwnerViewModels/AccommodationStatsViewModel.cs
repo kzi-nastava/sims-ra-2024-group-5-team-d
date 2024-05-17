@@ -69,11 +69,15 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 
             accommodation = accommodationService.GetById(accommodationId);
             SelectedYear = "All years";
-            InitializeComboBox(accommodation);
-            ChangeStats();
+            if (accommodationReservationService.GetByAccommodation(accommodation).Count == 0)
+                Title = "No stats available";
+            else
+            {
+                InitializeComboBox(accommodation);
+                ChangeStats();
 
+            }
         }
-
         private void InitializeServices()
         {
             UserService userService = new UserService(Injector.CreateInstance<IUserRepository>());
@@ -82,8 +86,10 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             accommodationStatsService = new AccommodationStatsService(accommodationReservationService);
         }
 
-            public void ChangeStats()
+        public void ChangeStats()
         {
+            if (accommodationReservationService.GetByAccommodation(accommodation).Count == 0)
+                return;
             YearlyBussinessStats.Clear();
             YearlyGeneralStats.Clear();
             YearlyReccommendedrenovations.Clear();
@@ -95,7 +101,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             }
             else
             {
-                Title= $"Stats for {SelectedYear}";
+                Title = $"Stats for {SelectedYear}";
                 ShowYearlyStats(SelectedYear);
             }
         }

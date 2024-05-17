@@ -11,7 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="logoImage" Source="C:\Users\lukai\Desktop\Resource\logo png.png" Grid.Column="0" Width="400" HorizontalAlignment="Center" >
+        <Image x:Name="logoImage" Source="../../../Resources/Images/logo png.png" Grid.Column="0" Width="400" HorizontalAlignment="Center" >
             <Image.Triggers>
                 <EventTrigger RoutedEvent="Image.Loaded">
                     <BeginStoryboard>

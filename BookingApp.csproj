@@ -28,6 +28,9 @@
     <None Remove="Resources\AccommodationImages\Accommodation11\395641436.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation11\Grand-Salon_6-1.png" />
     <None Remove="Resources\AccommodationImages\Accommodation11\Hotel-Grand-28819.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation12\339036922.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation13\339036922.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation13\Hotel-Grand-28819.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation1\3337-Crocker-Dr-1.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation1\smestaj1.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation2\image.jpg" />
@@ -143,6 +146,7 @@
     <None Remove="Resources\Images\GuestImages\WaitingIcon.png" />
     <None Remove="Resources\Images\GuestImages\WiFiIcon.png" />
     <None Remove="Resources\Images\GuestImages\XIcon.png" />
+    <None Remove="Resources\Images\logo png.png" />
     <None Remove="Resources\Images\logo.png" />
     <None Remove="Resources\Images\OwnerImages\idemo.png" />
     <None Remove="Resources\Images\OwnerImages\StarFull.png" />
@@ -151,6 +155,9 @@
     <None Remove="Resources\Images\travel.png" />
     <None Remove="Resources\Images\traveler.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="Resources\TourImages\Tour10\tura1.jpg" />
+    <None Remove="Resources\TourImages\Tour10\tura2.jpeg" />
+    <None Remove="Resources\TourImages\Tour11\tura.jpg" />
     <None Remove="Resources\TourImages\Tour1\beograd-na-vodi.jpg" />
     <None Remove="Resources\TourImages\Tour2\download.jpeg" />
     <None Remove="Resources\TourImages\Tour3\GFS_smederevo-trg-25-09-09-04.jpg" />
@@ -166,6 +173,21 @@
 
   <ItemGroup>
     <Content Include="Resources\Images\GuestImages\logo_svg.png">
+    <None Remove="Resources\TourImages\Tour5\beograd-na-vodi.jpg" />
+    <None Remove="Resources\TourImages\Tour6\beograd-na-vodi.jpg" />
+    <None Remove="Resources\TourImages\Tour7\caption.jpg" />
+    <None Remove="Resources\TourImages\Tour8\beograd-na-vodi.jpg" />
+    <None Remove="Resources\TourImages\Tour9\beograd-na-vodi.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\AccommodationImages\Accommodation12\339036922.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation13\339036922.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation13\Hotel-Grand-28819.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuideImages\Check Circle.png">
@@ -393,6 +415,9 @@
     <Content Include="Resources\Images\GuideImages\RedFlag.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\logo png.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -558,6 +583,15 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\TourImages\Tour10\tura1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour10\tura2.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour11\tura.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\TourImages\Tour1\beograd-na-vodi.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -589,6 +623,22 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\WizzardImages\Search.png">
+    <Content Include="Resources\TourImages\Tour5\beograd-na-vodi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour6\beograd-na-vodi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour7\caption.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TourImages\Tour9\beograd-na-vodi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\TourImages\Tour8\beograd-na-vodi.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -600,6 +650,7 @@
   <ItemGroup>
     <PackageReference Include="DynamicPDF" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="PDFsharp" Version="6.0.0" />
      <Resource Include="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

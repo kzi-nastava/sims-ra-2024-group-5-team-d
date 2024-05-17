@@ -126,36 +126,174 @@
                 BorderBrush="Gray"
                 Grid.Row="1">
             <Grid>
-                <Button Width="150"
-                        Height="30"
-                        Margin="-400 0 0 0"
-                        Content="Your Requests"
-                        FontWeight="DemiBold"
-                        Click="Requests_Click">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                            BorderThickness="0"
+                            Grid.Column="2"
+                            Template="{StaticResource CustomButtonTemplate}"
+                            Height="30"
+                            Cursor="Hand"
+                            Background="Transparent"
+                            VerticalContentAlignment="Bottom"
+                            HorizontalContentAlignment="Left"
+                            Click="Requests_Click">
+                    <Border
+                            CornerRadius="4"
+                            Width="170"
+                            Style="{StaticResource BorderHover}"
+                            Height="32"
+                            Background="#6CFFBC"
+                            HorizontalAlignment="Left"
+                            BorderThickness="0">
+                        <StackPanel 
+                                    Orientation="Horizontal">
 
-                </Button>
-                <Button Width="150"
-                        Height="30"
-                        Content="H O M E"
-                        FontWeight="DemiBold"
-                        Click="Button_Click">
-                    
-                </Button>
-                <Button Width="150"
-                        Height="30"
-                        Content="Your Tours"
-                        FontWeight="DemiBold"
-                        Margin="400 0 0 0"
-                        Click="YourTours_Click">
+                            <Image Source="C:\Users\Korisnik\Desktop\ikone\request.png"
+                                    Height="24"
+                                    Width="24"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                       Margin="5 0 10 0"
+                                    />
+                            <TextBlock Text="Your Requests"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Foreground="{StaticResource PrimaryColor2}"
+                                           FontWeight="Normal"
+                                           FontSize="18"></TextBlock>
 
+                        </StackPanel>
+                    </Border>
                 </Button>
-                <Button Width="150"
-                        Height="30"
-                        Content="Notifications"
-                        FontWeight="DemiBold"
-                        Margin="800 0 0 0"
-                        Click="Notifications_Click">
 
+                <Button 
+                            BorderThickness="0"
+                    Grid.Column="0"
+                            Template="{StaticResource CustomButtonTemplate}"
+                            Height="30"
+                            Cursor="Hand"
+                            Background="Transparent"
+                            VerticalContentAlignment="Bottom"
+                            HorizontalContentAlignment="Left"
+                            Click="Button_Click_1"
+                            >
+                    <Border
+                            CornerRadius="4"
+                            Width="160"
+                            Style="{StaticResource BorderHover}"
+                            Height="32"
+                            Background="#6CFFBC"
+                            HorizontalAlignment="Left"
+                            BorderThickness="0">
+                        <StackPanel 
+                                    Orientation="Horizontal">
+
+                            <Image Source="C:\Users\Korisnik\Desktop\ikone\home.png"
+                                    Height="20"
+                                    Width="20"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                       Margin="5 0 10 0"
+                                    />
+                            <TextBlock Text="Home Page"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Foreground="{StaticResource PrimaryColor2}"
+                                           FontWeight="Normal"
+                                           FontSize="18"></TextBlock>
+
+                        </StackPanel>
+                    </Border>
+                </Button>
+                
+                
+                <Button 
+                            BorderThickness="0"
+                            Template="{StaticResource CustomButtonTemplate}"
+                            Height="30"
+                    Grid.Column="1"
+                            Background="Transparent"
+                            Cursor="Hand"
+                            VerticalContentAlignment="Bottom"
+                            HorizontalContentAlignment="Left"
+                            Click="YourTours_Click">
+                    <Border
+                            CornerRadius="4"
+                            Width="150"
+                            Style="{StaticResource BorderHover}"
+                            Height="30"
+                            Background="#6CFFBC"
+                            HorizontalAlignment="Left"
+                            BorderThickness="0">
+                        <StackPanel 
+                                    Orientation="Horizontal"
+                                    
+                                    >
+
+                            <Image Source="C:\Users\Korisnik\Desktop\ikone\tours.png"
+                                    Height="24"
+                                    Width="24"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                       Margin="5 0 10 0"
+                                    />
+                            <TextBlock Text="Your Tours"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Foreground="{StaticResource PrimaryColor2}"
+                                           FontWeight="Normal"
+                                           FontSize="18"></TextBlock>
+
+                        </StackPanel>
+                    </Border>
+                </Button>
+                
+                
+                
+                <Button 
+                            BorderThickness="0"
+                            Template="{StaticResource CustomButtonTemplate}"
+                            Height="30"
+                               Grid.Column="3"
+                            Cursor="Hand"
+                            Background="Transparent"
+                            VerticalContentAlignment="Bottom"
+                            HorizontalContentAlignment="Left"
+                            Click="Notifications_Click">
+                    <Border
+                            CornerRadius="4"
+                            Width="160"
+                            Style="{StaticResource BorderHover}"
+                            Height="32"
+                            Background="#6CFFBC"
+                            HorizontalAlignment="Left"
+                            BorderThickness="0">
+                        <StackPanel 
+                                    Orientation="Horizontal"
+                                    
+                                    >
+
+                            <Image Source="C:\Users\Korisnik\Desktop\ikone\notifications.png"
+                                    Height="24"
+                                    Width="24"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                       Margin="5 0 10 0"
+                                    />
+                            <TextBlock Text="Notifications"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Foreground="{StaticResource PrimaryColor2}"
+                                           FontWeight="Normal"
+                                           FontSize="18"></TextBlock>
+
+                        </StackPanel>
+                    </Border>
                 </Button>
             </Grid>
         </Border>
