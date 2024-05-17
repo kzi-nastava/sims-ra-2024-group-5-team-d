@@ -45,8 +45,9 @@ namespace BookingApp.WPF.Views.GuestWindows
         private UserService userService;
         public Accommodation accommodation;
         public GuestRatingService guestRatingService;
+        public AccommodationRatingService accommodationRatingService;
         public AccommodationReservation accommodationReservation { get; set;  }
-        public AccommodationService accommodationService;
+        public AccommodationService accommodationService; 
         public ReservationsAccommodationUserControl(User user)
         {
             InitializeComponent();
@@ -57,6 +58,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             accommodationReservationService = new AccommodationReservationService();
             guestRatingService = new GuestRatingService();
             userService = new UserService();
+            accommodationRatingService = new AccommodationRatingService();
             reservationsService = new UserReservationsService();
             ActiveReservations = new ObservableCollection<UserReservationsViewModel>();
             FinishedReservations = new ObservableCollection<UserReservationsViewModel>();
@@ -66,7 +68,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             reservationsService.GetActiveReservationsForUser(LoggedInUser)
                 .ForEach(r => ActiveReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId) , accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo,r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline),r.IsRateable())));
             reservationsService.GetFinishedReservationsForUser(LoggedInUser)
-                .ForEach(r => FinishedReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId), accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable())));
+                .ForEach(r => FinishedReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId), accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable() && accommodationRatingService.IsReservationRated(r.Id))));
             reservationsService.GetCancelledReservationsForUser(LoggedInUser)
                 .ForEach(r => CancelledReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId), accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable())));
             guestRatingService.GetAllRatingsForGuest(user).ForEach(rating =>
@@ -85,6 +87,9 @@ namespace BookingApp.WPF.Views.GuestWindows
 
                 OwnerAndAccommodationRatingWindow rateWindow = new OwnerAndAccommodationRatingWindow(LoggedInUser, accommodationReservationService.GetById(SelectedReservation.Id), accommodationReservationService.GetById(SelectedReservation.Id).AccommodationId);
                 rateWindow.Show();
+                FinishedReservations.Clear();
+                reservationsService.GetFinishedReservationsForUser(LoggedInUser)
+                .ForEach(r => FinishedReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId), accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo, r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline), r.IsRateable() && accommodationRatingService.IsReservationRated(r.Id))));
 
         }
         private void CancelledReservationButton(object sender, RoutedEventArgs e)
@@ -101,6 +106,21 @@ namespace BookingApp.WPF.Views.GuestWindows
 
             OwnerRateGuestWindow ratingWindow = new OwnerRateGuestWindow(SelectedRating);
             ratingWindow.Show();
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PDFActiveReservations_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PDFCancelledReservations(object sender, RoutedEventArgs e)
+        {
 
         }
     }

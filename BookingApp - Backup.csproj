@@ -84,7 +84,6 @@
     <None Remove="Resources\Images\GuestImages\house.png" />
     <None Remove="Resources\Images\GuestImages\left.png" />
     <None Remove="Resources\Images\GuestImages\location.png" />
-    <None Remove="Resources\Images\GuestImages\logo_svg.png" />
     <None Remove="Resources\Images\GuestImages\mail.png" />
     <None Remove="Resources\Images\GuestImages\messages.png" />
     <None Remove="Resources\Images\GuestImages\next.png" />
@@ -155,19 +154,9 @@
     <None Remove="Resources\TourImages\Tour2\download.jpeg" />
     <None Remove="Resources\TourImages\Tour3\GFS_smederevo-trg-25-09-09-04.jpg" />
     <None Remove="Resources\TourImages\Tour4\caption.jpg" />
-    <None Remove="Resources\WizzardImages\Accommodation.png" />
-    <None Remove="Resources\WizzardImages\First.png" />
-    <None Remove="Resources\WizzardImages\Forum.png" />
-    <None Remove="Resources\WizzardImages\Profile.png" />
-    <None Remove="Resources\WizzardImages\Requests.png" />
-    <None Remove="Resources\WizzardImages\Reservations.png" />
-    <None Remove="Resources\WizzardImages\Search.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Images\GuestImages\logo_svg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Images\GuideImages\Check Circle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -570,27 +559,6 @@
     <Content Include="Resources\TourImages\Tour4\caption.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\WizzardImages\Accommodation.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\WizzardImages\First.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\WizzardImages\Forum.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\WizzardImages\Profile.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\WizzardImages\Requests.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\WizzardImages\Reservations.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\WizzardImages\Search.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -598,7 +566,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DynamicPDF" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
      <Resource Include="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
