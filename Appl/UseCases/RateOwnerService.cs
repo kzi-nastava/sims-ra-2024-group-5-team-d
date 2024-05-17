@@ -31,8 +31,8 @@ namespace BookingApp.Appl.UseCases
             double averageRating=accommodationRating.GetAverageRating();
 
 
-            List<AccommodationReservation> allReservationsForOwner = accommodationReservationService.GetAllReservationsForOwner(accommodation.Owner);
-            List<AccommodationReservation> allReservationsForAccommodation = accommodationReservationService.GetAllReservationsForAccommodation(accommodation.Id);
+            List<AccommodationReservation> allReservationsForOwner = accommodationReservationService.GetAllReservationsForOwner(accommodation.Owner).Where(reservation=>reservation.IsFinished()).ToList();
+            List<AccommodationReservation> allReservationsForAccommodation = accommodationReservationService.GetAllReservationsForAccommodation(accommodation.Id).Where(reservation => reservation.IsFinished()).ToList();
             double ownerAverageRating = GetAverageRatingSum(allReservationsForOwner, averageRating);
             double accommodationAverageRating = GetAverageRatingSum(allReservationsForAccommodation, averageRating);
 
