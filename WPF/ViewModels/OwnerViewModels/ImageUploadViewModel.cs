@@ -1,33 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
-    public class AvailableRenovationDateViewModel:INotifyPropertyChanged
+    public class ImageUploadViewModel:INotifyPropertyChanged
     {
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
-        private bool isSelected=false;
+        public string ImagePath { get; set; }
+        private bool isSelected = false;
+
         public bool IsSelected
         {
-            get { return isSelected; }
+            get => isSelected;
             set
             {
                 isSelected = value;
                 OnPropertyChanged();
             }
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public AvailableRenovationDateViewModel(DateTime fromDate,DateTime toDate)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public ImageUploadViewModel(string ImagePath)
         {
-            FromDate = fromDate;
-            ToDate = toDate;
+            this.ImagePath = ImagePath;
             IsSelected = false;
         }
     }

@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Your reviews" Grid.ColumnSpan="2" FontSize="40" Margin="10" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
-            <Button Grid.Column="1" HorizontalAlignment="Right" Margin="0 0 33 0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Template="{StaticResource CustomButtonTemplate}">
+            <Button Grid.Column="1" HorizontalAlignment="Right" Margin="0 0 33 0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Template="{StaticResource CustomButtonTemplate}" Command="{Binding PrintPDF}">
                 <Border Style="{StaticResource BorderHover}" Padding="5" CornerRadius="15">
                     <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Image  Source="C:\Users\lukai\Desktop\Resource\pdf.png" 

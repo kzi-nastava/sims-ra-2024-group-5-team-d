@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit.Primitives;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
@@ -17,7 +18,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
     {
         private User loggedInUser;
         public ICommand ReserveRenovationCommand { get; set; }
-
+        public ICommand SelectionChangedCommand { get; set; }
         public ICommand ShowAvailableDatesCommand { get; set; }
 
         private AccommodationService accommodationService;
@@ -38,10 +39,29 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             AvailableDates = new ObservableCollection<AvailableRenovationDateViewModel>();
             SelectDate = new SelectDateViewModel(accommodationService.GetAccommodationNameById(accommodationId));
             loggedInUser = user;
+            SelectionChangedCommand = new RelayParameterCommand(ListViewSelectionChanged);
+
             ShowAvailableDatesCommand = new RelayCommand(ShowAvailableDates);
             ReserveRenovationCommand = new RelayCommand(ReserveRenovation);
         }
 
+        private void ListViewSelectionChanged(object obj)
+        {
+            if (obj != null)
+            {
+                SelectedAvailableDate= obj as AvailableRenovationDateViewModel;
+                for(int i=0;i<AvailableDates.Count;i++)
+                {
+                    if (AvailableDates[i] == SelectedAvailableDate)
+                        AvailableDates[i].IsSelected = true;
+                    else
+                        AvailableDates[i].IsSelected = false;
+
+                }
+                SelectDate.ShowReserve = true;
+            }
+            
+        }
         private void InitializeServices()
         {
             notifierService = new NotifierService();
@@ -58,6 +78,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             List<KeyValuePair<DateTime, DateTime>> availableDatesForRenovations = availableDatesForReservationService.GetAvailableDatesInGivenRange(SelectDate.RenovateFrom, SelectDate.RenovateTo, SelectDate.DaysForRenovation, accommodationService.GetById(accommodationId));
             availableDatesForRenovations.ForEach(date => AvailableDates.Add(new AvailableRenovationDateViewModel(date.Key, date.Value)));
             SelectDate.ShowRenovationDates = true;  
+            SelectDate.ShowReserve = false;
 
         }
         private void ReserveRenovation()

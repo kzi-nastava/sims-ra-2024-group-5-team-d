@@ -37,7 +37,7 @@ namespace BookingApp.Appl.UseCases
         public List<GuestRequest> GetAllRequestsForOwner(User owner)
         {
             List<GuestRequest> guestRequestsInProgress = guestRequestRepository.GetAll().Where(guestRequests => guestRequests.IsInProcess()).ToList();
-            List<AccommodationReservation> ownerReservations = accommodationReservationService.GetAllReservationsForOwner(owner);
+            List<AccommodationReservation> ownerReservations = accommodationReservationService.GetAllReservationsForOwner(owner).Where(reservation=>reservation.IsActive()).ToList();
             return guestRequestsInProgress.Where(guestRequests => ownerReservations.Any(reservation => guestRequests.ReservationId == reservation.Id)).ToList();
         }
         public List<GuestRequest> GetAll()
