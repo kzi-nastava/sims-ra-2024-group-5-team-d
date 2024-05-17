@@ -69,9 +69,11 @@
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" 
-                    Grid.Column="0" 
-                    CornerRadius="20" 
-                    Margin="0 0 20 0"
+                    Grid.Column="0"  
+                    Margin="0 0 10 0"
+                    Padding="0 0 10 0"
+                    BorderBrush="{StaticResource WhiteWhite}"
+                    BorderThickness="0 0 3 0"
                     MouseLeftButtonDown="Border_MouseLeftButtonDown_1" Style="{StaticResource BorderHoverAnimation}">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
@@ -97,8 +99,10 @@
             <Border
                     Grid.Row="0"
                     Grid.Column="1" 
-                    CornerRadius="20"
-                    Margin="0 0 20 0"
+                    BorderBrush="{StaticResource WhiteWhite}"
+                    BorderThickness="0 0 3 0"
+                    Margin="0 0 10 0"
+                Padding="0 0 10 0"
                      Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_3">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
@@ -124,8 +128,10 @@
             </Border>
             <Border Grid.Row="0" 
                     Grid.Column="2" 
-                    CornerRadius="20"
-                     Margin="0 0 20 0"
+                    BorderBrush="{StaticResource WhiteWhite}"
+                    BorderThickness="0 0 3 0"
+                     Margin="0 0 10 0"
+                    Padding="0 0 10 0"
                     Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_4">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
@@ -174,8 +180,10 @@
             </Border>
             <Border Grid.Row="0" 
                     Grid.Column="3" 
-                    CornerRadius="20"
-                     Margin="0 0 20 0"
+                    BorderBrush="{StaticResource WhiteWhite}"
+                    BorderThickness="0 0 3 0"
+                     Margin="0 0 10 0"
+                    Padding="0 0 10 0"
                      Style="{StaticResource BorderHoverAnimation}" 
                     MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Grid Style="{StaticResource GridHover}">
