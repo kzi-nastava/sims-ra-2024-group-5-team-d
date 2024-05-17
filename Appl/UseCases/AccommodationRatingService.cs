@@ -37,6 +37,10 @@ namespace BookingApp.Appl.UseCases
             this.accommodationService = accommodationService;
             this.accommodationRatingRepository = accommodationRatingRepository;
         }
+        public bool IsReservationRated (int reservationId)
+        {
+            return GetAll().Any(rating => rating.ReservationId == reservationId);
+        }
         public double GetAverageRatingForOwner(User user)
         {
             return FindAllRatingsForOwner(user).Sum(rating => rating.GetAverageRating()) / GetNumberOfRatingsForOwner(user);

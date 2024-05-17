@@ -80,10 +80,12 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             Star5 = starPaths.Count > 4 ? starPaths[4] : "";
 
         }
-        public SuperGuestViewModel(int id, int userId)
+        public SuperGuestViewModel(int userId, string avatarPath,string guestName)
         {
-            Id = id;
             UserId = userId;
+            AvatarPath = avatarPath;
+            GuestName = guestName;
+
         }
     }
 }

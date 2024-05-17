@@ -24,6 +24,8 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         private ForumService forumService;
         private UserService userService;
         private ForumCommentService forumCommentService;
+        private AccommodationService accommodationService;
+        private AccommodationReservationService accommodationReservationService;
 
         private User loggedInUser;
         public Location Location { get; set; }
@@ -32,9 +34,16 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public string Author { get; set; }
         public string Comment { get; set; }
         public bool IsClosed { get; set; }
+        private string icon;
         public ForumReadMoreCommentsViewModel(User user, ForumViewModel selectedForum)
         {
             InitializeServices();
+            forumService = new ForumService();
+            userService = new UserService();
+            forumCommentService = new ForumCommentService();
+            accommodationService = new AccommodationService();
+            accommodationReservationService = new AccommodationReservationService();
+
             Location = selectedForum.Location;
             Description = selectedForum.Description;
             Title = selectedForum.Title;
@@ -44,13 +53,22 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             loggedInUser = user;
             Comments = new ObservableCollection<ForumCommentViewModel>();
             forumCommentService.GetByForumId(selectedForum.ForumId).ForEach(comment => {
-                Comments.Add(new ForumCommentViewModel(comment, "Kuca", user));
+                if (accommodationService.HasAccommodationOnLocation(userService.GetById(comment.CreatorId), forumService.GetById(comment.ForumId).Location))
+                    icon = "../../../Resources/Images/GuestImages/ok.png"; //ako je owner koji ima smestaj
+                else if (accommodationReservationService.HasReservationOnLocation(userService.GetById(comment.CreatorId), forumService.GetById(comment.ForumId).Location))
+                {
+                    icon = "../../../Resources/Images/GuestImages/star.png"; //za usera
+                }
+                else
+                    icon = "";
+                Comments.Add(new ForumCommentViewModel(comment, icon, user));
             });
 
             AddCommentGuestCommand = new RelayCommand(AddCommentGuest);
             BackCommand = new RelayCommand(BackPage);
 
             IsClosed = forumService.GetById(selectedForum.ForumId).Active;
+            
         }
 
         private void InitializeServices()

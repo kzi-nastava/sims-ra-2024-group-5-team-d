@@ -173,6 +173,8 @@
 
   <ItemGroup>
     <Content Include="Resources\Images\GuestImages\logo_svg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Remove="Resources\TourImages\Tour5\beograd-na-vodi.jpg" />
     <None Remove="Resources\TourImages\Tour6\beograd-na-vodi.jpg" />
     <None Remove="Resources\TourImages\Tour7\caption.jpg" />
@@ -623,6 +625,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\WizzardImages\Search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\TourImages\Tour5\beograd-na-vodi.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

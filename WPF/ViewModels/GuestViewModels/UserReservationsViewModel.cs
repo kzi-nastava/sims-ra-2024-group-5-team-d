@@ -19,6 +19,7 @@ namespace BookingApp.WPF.ViewModels
         public bool isReseravtionCancellable { get; set; }
         public bool isReservationRateable { get; set; }
 
+
         public UserReservationsViewModel() 
         {
         

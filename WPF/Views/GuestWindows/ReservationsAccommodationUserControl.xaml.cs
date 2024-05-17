@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.Views.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -116,12 +117,16 @@ namespace BookingApp.WPF.Views.GuestWindows
 
         private void PDFActiveReservations_Click(object sender, RoutedEventArgs e)
         {
-
+            string pdfPath;
+            PDFGenerator pdfGenerator = new PDFGenerator();
+            //pdfPath = pdfGenerator.CreateOwnerPdf(OwnerRatings);
         }
 
         private void PDFCancelledReservations(object sender, RoutedEventArgs e)
         {
-
+            string pdfPath;
+            PDFGenerator pdfGenerator = new PDFGenerator();
+            //pdfPath = pdfGenerator.CreateOwnerPdf(OwnerRatings);
         }
     }
 }
