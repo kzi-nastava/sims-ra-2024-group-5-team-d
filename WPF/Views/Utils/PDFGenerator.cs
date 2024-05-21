@@ -65,22 +65,37 @@ namespace BookingApp.WPF.Views.Utils
 
         public string CreateGuestActiveReservationsPdf(ObservableCollection<UserReservationsViewModel> activeReservations)
         {
-            AccommodationRatingService accommodationRatingService = new AccommodationRatingService();
             Document document = new Document();
 
             Page page = new Page(PageSize.A4, PageOrientation.Portrait, 54.0f);
             document.Pages.Add(page);
 
-            string labelText = "RATING REPORT\n";
+            string labelText = "ACTIVE RESERVATIONS\n";
             Label label = new Label(labelText, 0, 0, 504, 100, Font.Helvetica, 18, TextAlign.Center);
             page.Elements.Add(label);
             string date = DateTime.Now.ToString("dd.M.yyyy HH:mm");
             Label label2 = new Label(date, 0, 50, 504, 100, Font.Helvetica, 12, TextAlign.Right);
             page.Elements.Add(label2);
 
+            List<string> accommodatioNames = new List<string>();
+            accommodatioNames = activeReservations.Select(reservation => reservation.Name).Distinct().ToList();
+            for (int i = 0; i < accommodatioNames.Count; i++)
+            {
+                string reservedFrom = activeReservations.FirstOrDefault(reservation => reservation.Name == accommodatioNames[i]).ReservedFrom.ToString("dd/MM/yyyy");
+                string reservedTo = activeReservations.FirstOrDefault(reservation => reservation.Name == accommodatioNames[i]).ReservedTo.ToString("dd/MM/yyyy");
+                Location location = activeReservations.FirstOrDefault(reservation => reservation.Name == accommodatioNames[i]).Location;
+                int capacity = activeReservations.FirstOrDefault(reservation => reservation.Name == accommodatioNames[i]).Capacity;
+                string text = i + 1 + ".   " + "Accommodation: " + accommodatioNames[i] + "\n" + "\n" +
+                    "   Reserved from: " + reservedFrom +"\n"+
+                    "   Reserved to: "+ reservedTo +"\n" +
+                    "   Location : "+ location + "\n" +
+                    "   Number of people: "+ capacity + "\n" + "\n" + "\n";
+                Label label1 = new Label(text, 0, 100 + i * 100, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+                page.Elements.Add(label1);
+            }
 
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filename = System.IO.Path.Combine(desktopPath, "ReviewReport.pdf");
+            string filename = System.IO.Path.Combine(desktopPath, "ActiveReservations.pdf");
             document.Draw(filename);
 
             return filename;
@@ -88,22 +103,39 @@ namespace BookingApp.WPF.Views.Utils
 
         public string CreateGuestCancelledReservationsPdf(ObservableCollection<UserReservationsViewModel> cancelledReservations)
         {
-            AccommodationRatingService accommodationRatingService = new AccommodationRatingService();
             Document document = new Document();
 
             Page page = new Page(PageSize.A4, PageOrientation.Portrait, 54.0f);
             document.Pages.Add(page);
 
-            string labelText = "RATING REPORT\n";
+            string labelText = "CANCELLED RESERVATIONS\n";
             Label label = new Label(labelText, 0, 0, 504, 100, Font.Helvetica, 18, TextAlign.Center);
             page.Elements.Add(label);
             string date = DateTime.Now.ToString("dd.M.yyyy HH:mm");
             Label label2 = new Label(date, 0, 50, 504, 100, Font.Helvetica, 12, TextAlign.Right);
             page.Elements.Add(label2);
 
+            List<string> accommodatioNames = new List<string>();
+            accommodatioNames = cancelledReservations.Select(reservation => reservation.Name).Distinct().ToList();
+            for (int i = 0; i < accommodatioNames.Count; i++)
+            {
+                string reservedFrom = cancelledReservations.FirstOrDefault(reservation => reservation.Name == accommodatioNames[i]).ReservedFrom.ToString("dd/MM/yyyy");
+                string reservedTo = cancelledReservations.FirstOrDefault(reservation => reservation.Name == accommodatioNames[i]).ReservedTo.ToString("dd/MM/yyyy");
+                Location location = cancelledReservations.FirstOrDefault(reservation => reservation.Name == accommodatioNames[i]).Location;
+                int capacity = cancelledReservations.FirstOrDefault(reservation => reservation.Name == accommodatioNames[i]).Capacity;
+                string text = i + 1 + ".   " + "Accommodation: " + accommodatioNames[i] + "\n" + "\n" +
+                    "   Reserved from: " + reservedFrom + "\n" +
+                    "   Reserved to: " + reservedTo + "\n" +
+                    "   Location : " + location + "\n" +
+                    "   Number of people: " + capacity + "\n" + "\n" + "\n";
+                Label label1 = new Label(text, 0, 100 + i * 100, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+                page.Elements.Add(label1);
+            }
+
+
 
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filename = System.IO.Path.Combine(desktopPath, "ReviewReport.pdf");
+            string filename = System.IO.Path.Combine(desktopPath, "CancelledReservations.pdf");
             document.Draw(filename);
 
             return filename;
