@@ -16,6 +16,7 @@ namespace BookingApp.Domain.Models
         public int UserId { get; set; }
         public DateTime ValidFrom { get; set; }
         public int BonusPoints { get; set; }
+        public LANGUAGE Language { get; set; }
         public SuperUser()
         {
         }
@@ -32,17 +33,24 @@ namespace BookingApp.Domain.Models
             ValidFrom = validFrom;
             BonusPoints = 5;
         }
+        public SuperUser(int userId, DateTime validFrom,LANGUAGE language)
+        {
+            UserId = userId;
+            ValidFrom = validFrom;
+            Language = language;
+        }
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
             UserId = Convert.ToInt32(values[1]);
             ValidFrom = DateTime.ParseExact(values[2], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             BonusPoints = Convert.ToInt32(values[3]);
+            Language = (LANGUAGE)Enum.Parse(typeof(LANGUAGE), values[4]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), UserId.ToString(), ValidFrom.ToString("d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), BonusPoints.ToString() };
+            string[] csvValues = { Id.ToString(), UserId.ToString(), ValidFrom.ToString("d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), BonusPoints.ToString(),Language.ToString() };
             return csvValues;
         }
         public bool IsStillValid()

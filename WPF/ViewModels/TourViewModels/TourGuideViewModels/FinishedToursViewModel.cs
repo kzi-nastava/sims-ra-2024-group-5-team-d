@@ -26,7 +26,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private TourService tourService;
         public FinishedToursViewModel(User user)
         {
-            ViewMoreCommand = new RelayCommand(ViewMore);
+            ViewMoreCommand = new RelayParameterCommand(ViewMore);
             ToursTodayTabCommand = new RelayCommand(ToursTodayTab);
             AllToursTabCommand = new RelayCommand(AllToursTab);
             RequestTabCommand = new RelayCommand(RequestsTab);
@@ -36,9 +36,10 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             FinishedTours = new ObservableCollection<TourViewModel>();
             tourService.GetFinishedTours(user).ForEach(tour => FinishedTours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
         }
-        private void ViewMore()
+        private void ViewMore(object selectedTour)
         {
-            SideBar.contentControlW.Content = new ViewMoreFinishedTour(SelectedTour, LoggedInUser);
+            TourViewModel tourViewModel = selectedTour as TourViewModel;
+            SideBar.contentControlW.Content = new ViewMoreFinishedTour(tourViewModel, LoggedInUser);
         }
         private void AllToursTab()
         {

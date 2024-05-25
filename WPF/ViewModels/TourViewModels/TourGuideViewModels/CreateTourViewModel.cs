@@ -14,8 +14,11 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Xml.Linq;
 using ToastNotifications.Position;
 using Xceed.Wpf.Toolkit;
 
@@ -30,7 +33,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public ICommand AddCheckPointCommand { get; private set; }
         public ICommand UploadCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
-        
+        public ICommand StartDemoCommand { get; private set; }
+
 
         public TourFormViewModel tourFormViewModel { get; private set; }
         public ObservableCollection<CheckPoint> CheckPoints { get; set; }
@@ -121,6 +125,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             BackwardCommand = new RelayCommand(Backward);
             ForwardCommand = new RelayCommand(Forward);
             CancelCommand = new RelayCommand(Cancel);
+            StartDemoCommand = new RelayCommand(StartDemo);
 
             CheckPoints = new ObservableCollection<CheckPoint>(checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId));
             imagesPath = new List<string>();
@@ -137,6 +142,99 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourFormViewModel.LocationId = request.Location.Id;
             LocationChanged();
         }
+        private async void StartDemo()
+        {
+            await Task.Delay(500);
+
+            HighlightInputField(CreateNewTourForm.NameInput);
+            await TypeStringLetterByLetter("Demo Tour", letter => tourFormViewModel.Name += letter);
+            RevertHighlightInputField(CreateNewTourForm.NameInput);
+
+            await SelectComboBoxItemAsync(CreateNewTourForm.LocationComboBox, "Serbia, Novi Sad");
+
+            await Task.Delay(500);
+            HighlightInputField(CreateNewTourForm.DurationInput);
+            tourFormViewModel.Duration = 2;
+            RevertHighlightInputField(CreateNewTourForm.DurationInput);
+
+            await Task.Delay(500);
+            HighlightInputField(CreateNewTourForm.CapacityInput);
+            tourFormViewModel.Capacity = 20;
+            RevertHighlightInputField(CreateNewTourForm.CapacityInput);
+
+            await Task.Delay(500);
+            await SelectComboBoxItemAsync(CreateNewTourForm.LanguageComboBox, "English");
+
+            await Task.Delay(500);
+            HighlightInputField(CreateNewTourForm.DateTimePicker);
+            CreateNewTourForm.DateTimePicker.IsOpen = true;
+            await Task.Delay(500);
+            CreateNewTourForm.DateTimePicker.Value = DateTime.Now.AddDays(1);
+            CreateNewTourForm.DateTimePicker.IsOpen = false;
+            RevertHighlightInputField(CreateNewTourForm.DateTimePicker);
+
+            await Task.Delay(500);
+            string demoImagePath = "C:\\Users\\milan\\OneDrive\\Radna površina\\SIMPROJEKAT\\sims-ra-2024-group-5-team-d\\Resources\\TourImages\\Tour1\\beograd-na-vodi.jpg";
+            imagesPath.Add(demoImagePath);
+            ImagesPaths.Clear();
+            ImagesPaths.Add(demoImagePath);
+            PaginationIndex = imagesPath.Count - 1;
+
+            HighlightInputField(CreateNewTourForm.DescriptionInput);
+            await TypeStringLetterByLetter("This is a demo tour description.", letter => tourFormViewModel.Description += letter);
+            RevertHighlightInputField(CreateNewTourForm.DescriptionInput);
+
+            await Task.Delay(500);
+            HighlightInputField(CreateNewTourForm.CheckBoxInput);
+            await TypeStringLetterByLetter("Demo Checkpoint 1", letter => CreateNewTourForm.CheckBoxInput.Text += letter);
+            AddCheckPoint("Demo Checkpoint 1");
+            CreateNewTourForm.CheckBoxInput.Clear();
+            RevertHighlightInputField(CreateNewTourForm.CheckBoxInput);
+
+            await Task.Delay(500);
+            HighlightInputField(CreateNewTourForm.CheckBoxInput);
+            await TypeStringLetterByLetter("Demo Checkpoint 2", letter => CreateNewTourForm.CheckBoxInput.Text += letter);
+            AddCheckPoint("Demo Checkpoint 2");
+            CreateNewTourForm.CheckBoxInput.Clear();
+            RevertHighlightInputField(CreateNewTourForm.CheckBoxInput);
+        }
+
+        private void HighlightInputField(Control inputField)
+        {
+            inputField.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
+            inputField.BorderThickness = new Thickness(2);
+        }
+
+        private void RevertHighlightInputField(Control inputField)
+        {
+            Task.Delay(500).ContinueWith(_ =>
+            {
+                inputField.Dispatcher.Invoke(() =>
+                {
+                    inputField.BorderBrush = Brushes.Transparent;
+                    inputField.BorderThickness = new Thickness(1);
+                });
+            });
+        }
+
+        private async Task SelectComboBoxItemAsync(ComboBox comboBox, string itemText)
+        {
+            comboBox.IsDropDownOpen = true;
+            await Task.Delay(500);
+            comboBox.SelectedItem = comboBox.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == itemText);
+            comboBox.IsDropDownOpen = false;
+        }
+
+        private async Task TypeStringLetterByLetter(string text, Action<char> appendAction)
+        {
+            foreach (var letter in text)
+            {
+                appendAction(letter);
+                await Task.Delay(100); // Adjust typing speed if necessary
+            }
+        }
+
+
         public void Backward()
         {
             PaginationIndex--;
@@ -165,7 +263,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         {
             if (!tourService.AmIAvailable(LoggedInUser, tourFormViewModel.StartTime, tourFormViewModel.Duration))
             {
-                MessageBox.Show("You are busy on this term");
+                Xceed.Wpf.Toolkit.MessageBox.Show("You are busy on this term");
                 return;
             }
             string folderPath = imageUploaderService.CreateTourFolder(imagesPath);

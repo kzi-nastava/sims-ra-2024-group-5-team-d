@@ -83,6 +83,7 @@
           ScrollViewer.VerticalScrollBarVisibility="Hidden"
           ItemsSource="{Binding FinishedTours}"
           SelectedItem="{Binding SelectedTour}"
+          ItemContainerStyle="{StaticResource CustomListView}"
           ScrollViewer.CanContentScroll="False" Grid.Row="2">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -91,7 +92,7 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Height="278" Width="371" BorderThickness="2" BorderBrush="Transparent" CornerRadius="8" Margin="-5,25,35,0" Background="{StaticResource WhiteWhite}">
+                    <Border Height="278" Width="371" BorderThickness="2" BorderBrush="Transparent" CornerRadius="8" Margin="-5,25,40,0" Background="{StaticResource WhiteWhite}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
@@ -161,7 +162,7 @@
                             <Label Grid.Row="2" Style="{StaticResource LabelDesign}">
                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="10,0,10,0" MaxHeight="50" />
                             </Label>
-                            <Button Grid.Row="3" Command="{Binding DataContext.ViewMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                            <Button Grid.Row="3" Command="{Binding DataContext.ViewMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15" Style="{StaticResource ButtonDesign}" BorderThickness="0" CommandParameter="{Binding}">
                                 <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
                                     <TextBlock Text="View More" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </Border>

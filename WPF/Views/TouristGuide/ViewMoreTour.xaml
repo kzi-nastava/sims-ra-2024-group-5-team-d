@@ -60,7 +60,10 @@
                 <Label Content="Back" Margin="5,0,0,0" Style="{StaticResource LabelDesign}"/>
             </StackPanel>
         </Button>
-        <ToggleButton x:Name="HelpButton" Grid.Row="0" Width="18" Height="18" HorizontalAlignment="Right" Click="HelpButton_Click" Background="Transparent" BorderThickness="0">
+        <ToggleButton x:Name="HelpButton" Grid.Row="0" Width="28" Height="28" HorizontalAlignment="Right" Click="HelpButton_Click" Background="Transparent" BorderThickness="0">
+            <Image Source="/../../../Resources\Images\GuideImages\Question Circle.png" />
+        </ToggleButton>
+        <ToggleButton x:Name="DemoButton" Click="StartDemo" Grid.Row="0" Width="28" Height="28" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="0 0 40 0">
             <Image Source="/../../../Resources\Images\GuideImages\Question Circle.png" />
         </ToggleButton>
         <Popup x:Name="HelpPopup" PlacementTarget="{Binding ElementName=HelpButton}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="-120" VerticalOffset="15" VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -128,13 +131,17 @@
         <Popup x:Name="NewTourRealizationPopup" StaysOpen="False" Placement="Center" PlacementTarget="{Binding ElementName=tourList}">
             <Border BorderBrush="Gray" BorderThickness="1" Background="White" CornerRadius="5" Padding="10">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Select date and time:"/>
-                        <xctk:DateTimePicker Value="{Binding SelectedDateTime}" Width="200" Minimum="{x:Static sys:DateTime.Today}">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Select date and time:" HorizontalAlignment="Center"/>
+                        <xctk:DateTimePicker x:Name="DateTimePicker" Value="{Binding SelectedDateTime}" Width="200" Minimum="{x:Static sys:DateTime.Today}">
                         </xctk:DateTimePicker>
 
                     </StackPanel>
-                    <Button Content="Save" Click="SaveNewTourRealization_Click" Margin="5,10,0,0"/>
+                    <Button   Click="SaveNewTourRealization_Click" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="5 10 0 0"  Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                        <Border x:Name="SaveButton" CornerRadius="4" Style="{StaticResource BorderDesign}"  Width="57" Height="20" >
+                            <TextBlock Text="Save" Style="{StaticResource TextBlockButtonDesign}"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </Button>
                 </StackPanel>
             </Border>
         </Popup>
@@ -189,7 +196,7 @@
                     <DataGridTemplateColumn.Header>
                         <DockPanel>
                             <TextBlock Text="Start Time" Margin="20,0,0,0" FontSize="16" Style="{StaticResource TextBlockDesign}" />
-                            <Button Content="+" Height="25" Width="25" HorizontalAlignment="Right" Margin="710,0,0,0"
+                            <Button x:Name="PlusButton" Content="+" Height="25" Width="25" HorizontalAlignment="Right" Margin="710,0,0,0"
                                         Background="Transparent" BorderBrush="Gray" BorderThickness="1" 
                                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                                         Click="AddTourRealizationButton_Click">

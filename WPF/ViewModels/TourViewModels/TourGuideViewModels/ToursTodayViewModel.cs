@@ -27,7 +27,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public ToursTodayViewModel(User user)
         {
             IsGridVisible = false;
-            ViewMoreCommand = new RelayCommand(ViewMore);
+            ViewMoreCommand = new RelayParameterCommand(ViewMore);
             AllToursTabCommand = new RelayCommand(AllToursTab);
             FinishedToursTabCommand = new RelayCommand(FinishedToursTab);
             RequestTabCommand = new RelayCommand(RequestsTab);
@@ -40,9 +40,10 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         {
             SideBar.contentControlW.Content = new AllToursWindow(LoggedInUser);
         }
-        private void ViewMore()
+        private void ViewMore(object selectedTour)
         {
-            SideBar.contentControlW.Content = new ViewMoreTourToday(SelectedTour, LoggedInUser);
+            TourViewModel tourViewModel = selectedTour as TourViewModel;
+            SideBar.contentControlW.Content = new ViewMoreTourToday(tourViewModel, LoggedInUser);
         }
         private void FinishedToursTab()
         {

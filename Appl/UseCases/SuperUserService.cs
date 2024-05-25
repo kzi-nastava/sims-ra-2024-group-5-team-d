@@ -31,6 +31,11 @@ namespace BookingApp.Appl.UseCases
             }
             return false;
         }
+        public bool IsAlreadySuperUser(User user)
+        {
+            return GetAll().Exists(superUser => superUser.UserId == user.Id);
+        }
+
         public bool IsStillSuperUser(User user)
         {
             SuperUser superUser = GetByUser(user).Last();

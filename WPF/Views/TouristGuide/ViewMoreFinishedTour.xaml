@@ -145,11 +145,29 @@
                                     </TextBlock>
                                     <TextBlock Grid.Row="0" Text="{Binding TourRealisationStartTime}" HorizontalAlignment="Right" Style="{StaticResource TextBlockDesign}"/>
                                     <TextBlock Grid.Row="2" Text="Language" Margin="0,15,0,0" Style="{StaticResource TextBlockDesign}"/>
-                                    <TextBlock Grid.Row="2" Text="{Binding LanguageRate}" Margin="80,15,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="80,15,0,0">
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar1,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar2,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar3,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar4,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar5,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                    </StackPanel>
                                     <TextBlock Grid.Row="3" Text="Knowledge" Margin="0,4,0,0" Style="{StaticResource TextBlockDesign}"/>
-                                    <TextBlock Grid.Row="3" Text="{Binding KnowledgeRate}" Margin="80,4,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="80,4,0,0">
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar1,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar2,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar3,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar4,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar5,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                    </StackPanel>
                                     <TextBlock Grid.Row="4" Text="Amusement" Margin="0,4,0,0" Style="{StaticResource TextBlockDesign}"/>
-                                    <TextBlock Grid.Row="4" Text="{Binding AmusementRate}" Margin="80,4,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="80,4,0,0">
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar1,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar2,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar3,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar4,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar5,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                    </StackPanel>
                                     <TextBlock Grid.Row="5" Text="{Binding Comment}" TextWrapping="Wrap" Margin="0,15,0,0" Style="{StaticResource TextBlockDesign}"/>
                                     <Button Grid.Row="6" Width="40" BorderThickness="0" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding DataContext.ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                         <Grid>

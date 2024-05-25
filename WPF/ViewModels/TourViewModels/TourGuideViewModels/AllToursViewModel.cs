@@ -32,14 +32,15 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourService = new TourService();
             Tours = new ObservableCollection<TourViewModel>();
             tourService.GetAllTours(user).ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
-            ViewMoreCommand = new RelayCommand(ViewMore);
+            ViewMoreCommand = new RelayParameterCommand(ViewMore);
             ToursTodayTabCommand = new RelayCommand(ToursTodayTab);
             FinishedToursTabCommand = new RelayCommand(FinishedToursTab);
             RequestTabCommand = new RelayCommand(RequestsTab);
         }
-        private void ViewMore()
+        private void ViewMore(object selectedTour)
         {
-            SideBar.contentControlW.Content = new ViewMoreTour(SelectedTour, LoggedInUser);
+            TourViewModel tourViewModel = selectedTour as TourViewModel;
+            SideBar.contentControlW.Content = new ViewMoreTour(tourViewModel, LoggedInUser);
 
         }
         private void ToursTodayTab()

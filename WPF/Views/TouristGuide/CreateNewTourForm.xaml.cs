@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace BookingApp.WPF.Views.TouristGuide
 {
@@ -24,13 +25,30 @@ namespace BookingApp.WPF.Views.TouristGuide
     /// </summary>
     public partial class CreateNewTourForm : UserControl
     {
+        public static ComboBox LanguageComboBox { get; set; }
+        public static ComboBox LocationComboBox { get; set; }
+        public static TextBox CheckBoxInput { get; set; }
+        public static DateTimePicker DateTimePicker { get; set; }
+        public static TextBox NameInput {  get; set; }
+        public static TextBox DurationInput {  get; set; }
+        public static TextBox CapacityInput {  get; set; }
+        public static TextBox DescriptionInput {  get; set; }
         public User LoggedInUser { get; set; }
         public CreateNewTourForm(User user)
         {
             InitializeComponent();
             LoggedInUser = user;
             DataContext = new CreateTourViewModel(LoggedInUser);
+            LanguageComboBox = languageComboBox;
+            LocationComboBox = locationComboBox;
+            CheckBoxInput = itemInput;
+            DateTimePicker = dateTimePicker;
+            NameInput = nameInput;
+            DurationInput = durationInput;
+            CapacityInput = capacityInput;
+            DescriptionInput = descriptionInput;
 
+            
         }
         public CreateNewTourForm(User user, RequestViewModel request)
         {

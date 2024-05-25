@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,6 +20,10 @@ namespace BookingApp.WPF.ViewModels
         public int KnowledgeRate { get; set; }
         public int AmusementRate { get; set; }
         public string Comment { get; set; }
+        public StarRatingViewModel starRatingLanguage { get; set; }
+        public StarRatingViewModel starRatingKnowledge { get; set; }
+        public StarRatingViewModel starRatingAmusement { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -53,6 +58,9 @@ namespace BookingApp.WPF.ViewModels
             AmusementRate = amusementRate;
             Comment = comment;
             IsNotValid = !isValid;
+            starRatingLanguage = new StarRatingViewModel(languageRate);
+            starRatingKnowledge = new StarRatingViewModel(knowledgeRate);
+            starRatingAmusement = new StarRatingViewModel(amusementRate);
         }
     }
 }

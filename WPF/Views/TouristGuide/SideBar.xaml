@@ -24,6 +24,10 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Background="{StaticResource PrimaryColor}">
             <StackPanel>
+                <!--<StackPanel Orientation="Vertical" Margin="0,40,0,0">
+                    <Image Source="/../../../Resources\Images\GuideImages\Play Circle.png" Width="24" Height="24"/>
+                    <TextBlock Text="Play demo" Style="{StaticResource TextBlockDesign}"/>
+                </StackPanel>-->
                 <StackPanel Orientation="Vertical" Margin="0,60,0,0" MouseLeftButtonUp="Home_Click">
                     <Image Source="/../../../Resources\Images\GuideImages\Home.png" Width="24" Height="24"/>
                     <TextBlock Text="Home" Style="{StaticResource TextBlockDesign}"/>
@@ -35,10 +39,6 @@
                 <StackPanel Orientation="Vertical" Margin="0,40,0,0" MouseLeftButtonUp="Profile_Click">
                     <Image Source=" /../../../Resources\Images\GuideImages\User Circle.png" Width="24" Height="24"/>
                     <TextBlock Text="Profile" Style="{StaticResource TextBlockDesign}"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,40,0,0">
-                    <Image Source="/../../../Resources\Images\GuideImages\Play Circle.png" Width="24" Height="24"/>
-                    <TextBlock Text="Play demo" Style="{StaticResource TextBlockDesign}"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="0,310,0,0" MouseLeftButtonUp="LogOut_Click">
                     <Image Source="/../../../Resources\Images\GuideImages\Arrows ALogout 2.png" Width="24" Height="24"/>
