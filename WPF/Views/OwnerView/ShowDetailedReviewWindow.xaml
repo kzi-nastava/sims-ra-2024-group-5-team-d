@@ -34,7 +34,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding OwnerRatingsViewModel.GuestName}" FontSize="32" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
+        <TextBlock Text="{Binding OwnerRatingsViewModel.GuestName}" FontSize="28" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -46,11 +46,11 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Image  Source="C:\Users\lukai\Desktop\Resource\home.png" 
-                                               Width="32" 
-                                               Height="32"
+                                               Width="24" 
+                                               Height="24"
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center"  Margin="0 0 10 0"/>
-                <TextBlock Grid.Column="1" Text="{Binding OwnerRatingsViewModel.AccommodationName}" FontSize="16" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                <TextBlock Grid.Column="1" Text="{Binding OwnerRatingsViewModel.AccommodationName}" FontSize="14" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
             </Grid>
             <Grid Grid.Column="1" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -62,29 +62,29 @@
                                                Height="24"
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center" Margin="0 0 5 0"/>
-                <TextBlock Grid.Column="1" Text="{Binding OwnerRatingsViewModel.Location}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                <TextBlock Grid.Column="1" Text="{Binding OwnerRatingsViewModel.Location}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Margin="30 10 30 0">
+        <Grid Grid.Row="2" Margin="30 5 30 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Cleanliness :" HorizontalAlignment="Left" FontSize="28" Style="{StaticResource FontColor}"/>
+            <TextBlock Text="Cleanliness :" HorizontalAlignment="Left" FontSize="24" Style="{StaticResource FontColor}"/>
             <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="10 0 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="{Binding OwnerRatingsViewModel.CleanlinessRating}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24"/>
+                <Label Grid.Column="0" Content="{Binding OwnerRatingsViewModel.CleanlinessRating}" HorizontalAlignment="Left" Foreground="{StaticResource PrimaryBlack}" VerticalAlignment="Top" FontSize="24" Margin="0 -5 0 0"/>
                 <Image Grid.Column="1" Source="C:\Users\lukai\Desktop\Resource\star.png" 
-                                               Width="32" 
-                                               Height="32"
+                                               Width="24" 
+                                               Height="24"
                                                HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center" Margin="5 0 0 0"/>
+                                               VerticalAlignment="Center" Margin="5 -5 0 0"/>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3" Margin="30 0 30 0">
+        <Grid Grid.Row="3" Margin="30 -7 30 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -93,27 +93,25 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Correctness :" HorizontalAlignment="Left" FontSize="28" Style="{StaticResource FontColor}"/>
+            <TextBlock Text="Correctness :" HorizontalAlignment="Left" FontSize="24" Style="{StaticResource FontColor}"/>
             <Grid Grid.Column="1" HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="{Binding OwnerRatingsViewModel.CorrectnessRating}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24"/>
+                <Label Grid.Column="0" Content="{Binding OwnerRatingsViewModel.CorrectnessRating}" Foreground="{StaticResource PrimaryBlack}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Margin="0 -5 0 0"/>
                 <Image Grid.Column="1" Source="C:\Users\lukai\Desktop\Resource\star.png" 
-                                               Width="32" 
-                                               Height="32"
+                                               Width="24" 
+                                               Height="24"
                                                HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center" Margin="5 0 0 0"/>
+                                               VerticalAlignment="Center" Margin="5 -5 0 0"/>
             </Grid>
-            <Grid Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding IsSuggestedForRenovation,Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center" Margin="10 0 0 20">
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding OwnerRatingsViewModel.IsRenovationVisible,Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Left" Margin="0 0 0 15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Renovation suggestions" FontSize="20" Style="{StaticResource FontColor}" HorizontalAlignment="Center" Margin="0 0 0 10"/>
                 <Border Grid.Row="1" Background="{StaticResource WhiteWhite}" CornerRadius="8">
-                    <TextBlock Text="{Binding RenovationText}" Padding="5" FontSize="20" Style="{StaticResource FontColor}" TextWrapping="WrapWithOverflow"/> 
+                    <TextBlock Text="{Binding OwnerRatingsViewModel.RenovationText}" Padding="5" FontSize="20" Style="{StaticResource FontColor}" TextWrapping="WrapWithOverflow"/> 
                 </Border>
             </Grid>
         </Grid>
@@ -123,8 +121,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button BorderThickness="0" Background="Transparent" Command="{Binding BackwardCommand}">
-                <Image Source="C:\Users\lukai\Desktop\Resource\back.png" Height="50"/>
+            <Button BorderThickness="0" Background="Transparent" Command="{Binding BackwardCommand}" Template="{StaticResource CustomButtonTemplate}" VerticalAlignment="Center">
+                <Border  
+                         Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
+                    <StackPanel >
+                        <Image Source="C:\Users\lukai\Desktop\Resource\back.png" Height="50"/>
+                    </StackPanel>
+                </Border>
             </Button>
             <ListView BorderThickness="0" 
                       Background="Transparent"
@@ -135,7 +138,7 @@
                       x:Name="lista"
                       ItemsSource="{Binding ImagesPaths}"
                       Margin="5 0 5 0"
-                      ScrollViewer.CanContentScroll="False">
+                      ScrollViewer.CanContentScroll="False" ItemContainerStyle="{StaticResource CustomListView}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />
@@ -146,25 +149,25 @@
                         <Border Style="{StaticResource BorderHover}"
                                 CornerRadius="2"
                                 Width="91"
-                                Height="90" Margin="0 0 0 0">
+                                Height="90" Margin="11 0 12 0">
                             <Image Stretch="Fill" Source="{Binding}"/>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Margin" Value="10 0 5 0"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
             </ListView>
-            <Button Grid.Column="2" Background="Transparent" BorderThickness="0" Command="{Binding ForwardCommand}">
-                <Image Source="C:\Users\lukai\Desktop\Resource\forward.png" Height="50"/>
+            <Button Grid.Column="2" Template="{StaticResource CustomButtonTemplate}" Command="{Binding ForwardCommand}" Background="Transparent" BorderThickness="0"  VerticalAlignment="Center">
+                <Border  
+                         Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
+                    <StackPanel >
+                        <Image Source="C:\Users\lukai\Desktop\Resource\forward.png" Height="50"/>
+                    </StackPanel>
+                </Border>
             </Button>
         </Grid>
-        <TextBlock Grid.Row="5" Text="Additional comment :" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Margin="0 0 0 10" Style="{StaticResource FontColor}"/>
-        <TextBox IsReadOnly="True" FontSize="20" Text="{Binding OwnerRatingsViewModel.Comment}" Grid.Row="6" Padding="10" Margin="20 0 20 0" TextWrapping="WrapWithOverflow" Background="{StaticResource WhiteWhite}" BorderThickness="0"/>
+        <TextBlock Grid.Row="5" Text="Additional comment :" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0 10 0 10" Style="{StaticResource FontColor}"/>
+        <TextBox IsReadOnly="True" FontSize="20" Text="{Binding OwnerRatingsViewModel.Comment}" Grid.Row="6" Padding="5" Margin="20 0 20 0" TextWrapping="WrapWithOverflow" Background="{StaticResource WhiteWhite}" BorderThickness="0"/>
         <Button Margin="0 10 0 10" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Click="Close" Template="{StaticResource CustomButtonTemplate}">
-            <Border Style="{StaticResource BorderHover}" Padding="2">
+            <Border Style="{StaticResource BorderHover}" Padding="2" CornerRadius="8">
                 <TextBlock Text="OK" Foreground="{StaticResource WhiteWhite}" FontSize="24" Margin="5 0 5 0"/>
             </Border>
         </Button>
