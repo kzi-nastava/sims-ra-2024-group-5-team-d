@@ -4,8 +4,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
 using System;
-using PdfSharp.Pdf;
-using PdfSharp.Drawing;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,6 +14,12 @@ using System.Windows;
 using System.Windows.Input;
 using BookingApp.WPF.Views.Utils;
 using System.Diagnostics;
+using Microsoft.Win32;
+using System.IO;
+using SkiaSharp;
+using iText.Kernel.Pdf;
+using iText.Kernel.Utils;
+using System.Windows.Media.Imaging;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
@@ -39,7 +44,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ratings=new List<AccommodationRating>();
             OwnerRatings = new ObservableCollection<OwnerRatingViewModel>();
             accommodationRatingService.GetAllRatingsForOwner(user).ForEach(rating =>
-                           OwnerRatings.Add(new OwnerRatingViewModel(userService.GetById(rating.GuestId), rating, accommodationService.GetById(rating.AccommodationId))));
+                           OwnerRatings.Add(new OwnerRatingViewModel(userService.GetById(rating.GuestId), rating, accommodationService.GetById(rating.AccommodationId), accommodationRatingService.GenerateRenovationText(rating))));
         }
 
         private void Print()
@@ -47,6 +52,17 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             string pdfPath;
             PDFGenerator pdfGenerator = new PDFGenerator();
             pdfPath = pdfGenerator.CreateOwnerPdf(OwnerRatings);
+            if (pdfPath != null)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = pdfPath,
+                    UseShellExecute = true
+                });            
+            }
+            SavePDFWindow savePDFWindow = new SavePDFWindow(pdfPath);
+            savePDFWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            savePDFWindow.ShowDialog();
         }
         private void InitializeServices()
         {

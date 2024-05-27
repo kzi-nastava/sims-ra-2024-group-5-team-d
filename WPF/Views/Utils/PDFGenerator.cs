@@ -24,7 +24,6 @@ namespace BookingApp.WPF.Views.Utils
 
         public string CreateOwnerPdf(ObservableCollection<OwnerRatingViewModel> ratings)
         {
-            AccommodationRatingService accommodationRatingService = new AccommodationRatingService();
             Document document = new Document();
 
             Page page = new Page(PageSize.A4, PageOrientation.Portrait, 54.0f);

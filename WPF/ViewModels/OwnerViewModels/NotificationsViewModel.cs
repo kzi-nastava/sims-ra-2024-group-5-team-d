@@ -67,7 +67,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                         OwnerMainWindow.contentControl.Content = new ForumReadMoreUserControl(notification.LinkId, loggedInUser);
                         break;
                 }
-                notificationsService.ReadNotification(notification);
+                if (notification.IsRead == false)
+                    notificationsService.ReadNotification(notification);
+                
             }
         }
     }
