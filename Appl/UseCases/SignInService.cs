@@ -42,13 +42,26 @@ namespace BookingApp.Appl.UseCases
             }
         }
 
-        internal void MacLogin(User user)
+        internal void MacLogin(User user, bool isFirstLogIn=false)
         {
             if (user.Type.ToString().Equals("Guest"))
             {
-                GuestWindow guestWindow = new GuestWindow(user);
-                guestWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                guestWindow.ShowDialog();
+                if (isFirstLogIn)
+                {
+                    WizzardWindow wizzardWindow = new WizzardWindow();
+                    wizzardWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    wizzardWindow.Show();
+                    GuestWindow guestWindow = new GuestWindow(user);
+                    guestWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    guestWindow.Show();
+
+                }
+                else
+                {
+                    GuestWindow guestWindow = new GuestWindow(user);
+                    guestWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    guestWindow.ShowDialog();
+                }
             }
             else if (user.Type.ToString().Equals("Owner"))
             {

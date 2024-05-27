@@ -70,9 +70,11 @@ namespace BookingApp.WPF.Views.GuestWindows
 
         private void Help_MouseLeftBottonDown(object sender, MouseButtonEventArgs e)
         {
-            HelpWindow helpWindow = new HelpWindow(LoggedInUser);
+            //WizzardWindow helpWindow = new WizzardWindow();
 
-            helpWindow.Show();
+            //helpWindow.Show();
+            contentControl.Content = new HelpUserControl();
+
         }
     }
 }

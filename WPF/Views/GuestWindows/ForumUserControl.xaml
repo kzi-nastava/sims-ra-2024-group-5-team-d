@@ -257,24 +257,35 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-
-                                            <Label  Content="{Binding Title}"
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Content="{Binding Title}"
                                                    Width="auto" 
                                                    Height="auto" 
-                                                   VerticalAlignment="Top" 
+                                                   VerticalAlignment="Center"                                                       
                                                    HorizontalAlignment="Center" 
                                                    Grid.Column="0"
+                                                   Grid.ColumnSpan="2"
                                                    Grid.Row="0"
                                                    FontSize="16" 
                                                    FontWeight="Bold"
                                                    Foreground="{StaticResource WhiteWhite}"/>
-                                            <Label Content="IME PREZIME" 
-                                                   Grid.Row="1"
-                                                   HorizontalAlignment="Left"
-                                                   FontSize="13" 
-                                                   FontWeight="Bold"
-                                                   VerticalAlignment="Top"
-                                                   Foreground="{StaticResource WhiteWhite}"/>
+                                                    <Image Source="../../../Resources/Images/GuestImages/ok.png"
+                                                    Width="auto" 
+                                                    HorizontalAlignment="Center"
+                                                    Height="18"
+                                                    Grid.Column="1"
+                                                    Margin="10,0,0,0"
+                                                    Visibility="{Binding IsSuperForum, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                </Grid>
+                                            </StackPanel>
                                             <Label Content="{Binding Location}" 
                                                    Grid.Row="1"
                                                    HorizontalAlignment="Right"
@@ -335,7 +346,7 @@
                                                          BorderBrush="Transparent"
                                                          Command="{Binding DataContext.OpenMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"
                                                          Foreground="DarkOrange"
-                                                         Background="{StaticResource PrimaryColor}"
+                                                         Background="{StaticResource PrimaryBlack}"
                                                          Margin="10"/>
 
                                         </Grid>
@@ -407,19 +418,38 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Label  Content="{Binding Title}"
-                                                         Width="auto" 
-                                                         Height="auto" 
-                                                         VerticalAlignment="Top" 
-                                                         HorizontalAlignment="Center" 
-                                                         Grid.Column="0"
-                                                         Grid.Row="0"
-                                                         FontSize="16" 
-                                                         FontWeight="Bold"
-                                                         Foreground="{StaticResource WhiteWhite}"/>
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Content="{Binding Title}"
+                                                   Width="auto" 
+                                                   Height="auto" 
+                                                   VerticalAlignment="Center"                                                       
+                                                   HorizontalAlignment="Center" 
+                                                   Grid.Column="0"
+                                                   Grid.ColumnSpan="2"
+                                                   Grid.Row="0"
+                                                   FontSize="16" 
+                                                   FontWeight="Bold"
+                                                   Foreground="{StaticResource WhiteWhite}"/>
+                                                    <Image Source="../../../Resources/Images/GuestImages/ok.png"
+                                                    Width="auto" 
+                                                    HorizontalAlignment="Center"
+                                                    Height="18"
+                                                    Grid.Column="1"
+                                                    Margin="10,0,0,0"
+                                                    Visibility="{Binding IsSuperForum, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                </Grid>
+                                            </StackPanel>
                                             <Label Content="{Binding Location}" 
                                                          Grid.Row="1"
-                                                         HorizontalAlignment="Center"
+                                                         HorizontalAlignment="Right"
                                                          FontSize="11" 
                                                          FontWeight="Bold"
                                                          VerticalAlignment="Top"
@@ -478,7 +508,7 @@
                                                          BorderBrush="Transparent"
                                                          Command="{Binding DataContext.OpenMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"
                                                          Foreground="DarkOrange"
-                                                         Background="{StaticResource PrimaryColor}"/>
+                                                         Background="{StaticResource PrimaryBlack}"/>
                                             
                                         </Grid>
                                     </Border>

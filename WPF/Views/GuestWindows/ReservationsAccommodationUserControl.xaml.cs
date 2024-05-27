@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.Views.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -94,10 +95,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         }
         private void CancelledReservationButton(object sender, RoutedEventArgs e)
         {
-
                 YesNoCancelledReservationWindow yesNoWindow = new YesNoCancelledReservationWindow(SelectedReservation);
                 yesNoWindow.Show();
-
 
         }
 
@@ -108,20 +107,18 @@ namespace BookingApp.WPF.Views.GuestWindows
             ratingWindow.Show();
 
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void PDFActiveReservations_Click(object sender, RoutedEventArgs e)
         {
-
+            string pdfPath;
+            PDFGenerator pdfGenerator = new PDFGenerator();
+            pdfPath = pdfGenerator.CreateGuestActiveReservationsPdf(ActiveReservations);
         }
 
         private void PDFCancelledReservations(object sender, RoutedEventArgs e)
         {
-
+            string pdfPath;
+            PDFGenerator pdfGenerator = new PDFGenerator();
+            pdfPath = pdfGenerator.CreateGuestCancelledReservationsPdf(CancelledReservations);
         }
     }
 }
