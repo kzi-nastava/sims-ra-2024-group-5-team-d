@@ -95,10 +95,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         }
         private void CancelledReservationButton(object sender, RoutedEventArgs e)
         {
-
                 YesNoCancelledReservationWindow yesNoWindow = new YesNoCancelledReservationWindow(SelectedReservation);
                 yesNoWindow.Show();
-
 
         }
 
@@ -109,24 +107,18 @@ namespace BookingApp.WPF.Views.GuestWindows
             ratingWindow.Show();
 
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void PDFActiveReservations_Click(object sender, RoutedEventArgs e)
         {
             string pdfPath;
             PDFGenerator pdfGenerator = new PDFGenerator();
-            //pdfPath = pdfGenerator.CreateOwnerPdf(OwnerRatings);
+            pdfPath = pdfGenerator.CreateGuestActiveReservationsPdf(ActiveReservations);
         }
 
         private void PDFCancelledReservations(object sender, RoutedEventArgs e)
         {
             string pdfPath;
             PDFGenerator pdfGenerator = new PDFGenerator();
-            //pdfPath = pdfGenerator.CreateOwnerPdf(OwnerRatings);
+            pdfPath = pdfGenerator.CreateGuestCancelledReservationsPdf(CancelledReservations);
         }
     }
 }

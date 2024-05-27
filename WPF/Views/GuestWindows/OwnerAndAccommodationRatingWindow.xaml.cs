@@ -69,7 +69,19 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
-        public int LevelOfRenovation { get; set; }
+        private int levelOfRenovation=0;
+        public int LevelOfRenovation
+        {
+            get { return levelOfRenovation; }
+            set
+            {
+                if (levelOfRenovation != value)
+                {
+                    levelOfRenovation = value;
+                    OnPropertyChanged("LevelOfRenovation");
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
