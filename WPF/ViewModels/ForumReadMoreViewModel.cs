@@ -62,7 +62,7 @@ namespace BookingApp.WPF.ViewModels
                     icon = "";
                 Comments.Add(new ForumCommentViewModel(comment,commentReportService.GetNumberOfReportsForComment(comment.Id), icon, userService.GetById(comment.CreatorId),reportable, commentReportService.IsAlreadyReported(comment.Id, user.Id) || !accommodationService.HasAccommodationOnLocation(user, Forum.Location)));
                 });
-            IsAddingCommentEnabled = accommodationService.HasAccommodationOnLocation(user,Forum.Location);
+            IsAddingCommentEnabled = accommodationService.HasAccommodationOnLocation(user,Forum.Location) && Forum.IsActive;
             CommentCommand = new RelayCommand(SaveComment);
             AddCommentCommand = new RelayCommand(AddComment);
             ReportCommand = new RelayParameterCommand(Report);

@@ -36,7 +36,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ForwardCommand = new RelayCommand(Forward);
             imagesPaths = imageUploaderService.GetImagePaths(accommodationRating.ImagesPath);
             ImagesPaths = new ObservableCollection<string>();
-            OwnerRatingsViewModel = new OwnerRatingViewModel(userService.GetById(accommodationRating.GuestId),accommodationRating,accommodationService.GetById(accommodationRating.AccommodationId));
+            OwnerRatingsViewModel = new OwnerRatingViewModel(userService.GetById(accommodationRating.GuestId),accommodationRating,accommodationService.GetById(accommodationRating.AccommodationId),accommodationRatingService.GenerateRenovationText(accommodationRating));
             Forward();
         }
 

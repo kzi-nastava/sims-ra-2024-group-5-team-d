@@ -87,7 +87,6 @@
     <None Remove="Resources\Images\GuestImages\house.png" />
     <None Remove="Resources\Images\GuestImages\left.png" />
     <None Remove="Resources\Images\GuestImages\location.png" />
-    <None Remove="Resources\Images\GuestImages\logo_svg.png" />
     <None Remove="Resources\Images\GuestImages\mail.png" />
     <None Remove="Resources\Images\GuestImages\messages.png" />
     <None Remove="Resources\Images\GuestImages\next.png" />
@@ -653,7 +652,9 @@
 
   <ItemGroup>
     <PackageReference Include="DynamicPDF" Version="8.0.0" />
+    <PackageReference Include="itext7" Version="8.0.4" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
     <PackageReference Include="PDFsharp" Version="6.0.0" />
      <Resource Include="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
