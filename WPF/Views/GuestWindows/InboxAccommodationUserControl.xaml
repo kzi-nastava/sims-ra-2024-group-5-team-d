@@ -106,7 +106,7 @@
                 Grid.ColumnSpan="4"
                 ScrollViewer.CanContentScroll="False" 
                 ItemsSource="{Binding ApprovedRequests}"
-                SelectedItem="{Binding SelectedRequest}">
+                SelectedItem="{Binding SelectedApprovedRequest}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="{StaticResource PrimaryColor}"
@@ -403,7 +403,7 @@
                     Grid.ColumnSpan="4"
                     ScrollViewer.CanContentScroll="False"
                     ItemsSource="{Binding RejectedRequests}"
-                    SelectedItem="{Binding SelectedRequest}">
+                    SelectedItem="{Binding SelectedRejectedRequest}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="{StaticResource PrimaryColor}"

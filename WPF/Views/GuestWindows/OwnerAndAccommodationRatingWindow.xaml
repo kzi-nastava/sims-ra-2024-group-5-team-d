@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows"
+        xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
         mc:Ignorable="d"
         Title="OwnerAndAccommodationRatingWindow" Height="600" Width="340" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+        <local1:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
     <Grid Background="{StaticResource PrimaryBlack}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -86,7 +90,8 @@
               HorizontalAlignment="Left"
               Width="30"
               Height="20" 
-              Margin="110,0,0,3"/>
+              Margin="110,0,0,3"
+              PreviewTextInput="TextBox_PreviewTextInput"/>
 
         <Label Content="Correctness of the owner(1-5):" 
              HorizontalAlignment="Left"
@@ -101,7 +106,9 @@
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Left"
               Width="30"
-              Height="20" Margin="190,0,0,3"/>
+              Height="20" 
+              Margin="190,0,0,3"
+              PreviewTextInput="TextBox_PreviewTextInput"/>
 
         <Label Content="Add comments" 
             HorizontalAlignment="Left"
@@ -151,24 +158,23 @@
                Grid.Row="9"
                Height="30"
                Width="30"
-               HorizontalAlignment="Left" Margin="28,35,0,35"/>
-        <Border  Background="{StaticResource PrimaryColor}"
+               HorizontalAlignment="Left" 
+               Margin="28,35,0,35"
+               MouseLeftButtonDown="BackPicture"
+               Visibility="{Binding CanGoBack, Converter={StaticResource BoolToVisibilityConverter}}"/>
+        <Image Source="{Binding ImagePath}"  
                      Height="100"
                      Width="150"
                      Grid.Row="9">
-            <TextBlock  Text="IMAGE"
-                                            Margin="4" 
-                                            Foreground="{StaticResource  WhiteGrey}" 
-                                            FontWeight="Bold" 
-                                            FontSize="14" 
-                                            HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
-        </Border>
+        </Image>
         <Image Source="../../../Resources/Images/GuestImages/next.png"
                Grid.Row="9"
                Height="30"
                Width="30"
-               HorizontalAlignment="Left" Margin="278,35,0,35"/>
+               HorizontalAlignment="Left" 
+               Margin="278,35,0,35"
+               MouseLeftButtonDown="NextPicture"
+               Visibility="{Binding CanGoNext, Converter={StaticResource BoolToVisibilityConverter}}"/>
         <Button x:Name="UploadPhoto"
               Grid.Row="10" 
               VerticalAlignment="Center" 
@@ -199,7 +205,7 @@
               Width="auto"
               Height="auto" 
               Margin="227,0,0,0"
-              Click="UploadPhotoClick"
+              Click="DeletePhotoClick"
               Background="Transparent"
               BorderBrush="Transparent">
             <Border  Background="DarkOrange"

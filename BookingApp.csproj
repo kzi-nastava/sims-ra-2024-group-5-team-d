@@ -83,6 +83,7 @@
     <None Remove="Resources\Images\GuestImages\check.png" />
     <None Remove="Resources\Images\GuestImages\clock.png" />
     <None Remove="Resources\Images\GuestImages\fullStar.png" />
+    <None Remove="Resources\Images\GuestImages\gallery.png" />
     <None Remove="Resources\Images\GuestImages\help.png" />
     <None Remove="Resources\Images\GuestImages\house.png" />
     <None Remove="Resources\Images\GuestImages\left.png" />
@@ -171,6 +172,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Images\GuestImages\gallery.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\GuestImages\logo_svg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
