@@ -67,7 +67,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 OnPropertyChanged();
             }
         }
-        private int numberOfPeople;
+        private int numberOfPeople=1;
         public int NumberOfPeople
         {
             get => numberOfPeople;
@@ -81,7 +81,7 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
-        private int numberOfDays;
+        private int numberOfDays=1;
         public int NumberOfDays
         {
             get => numberOfDays;
@@ -219,6 +219,11 @@ namespace BookingApp.WPF.Views.GuestWindows
         private void AvailabilityDateGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EnableReserveButton();
+        }
+
+        private void OpenGallery_Click(object sender, RoutedEventArgs e)
+        {
+            GuestWindow.contentControl.Content = new AccommodationGalleryUserControl(LoggedInUser, Accommodation);
         }
     }
 }

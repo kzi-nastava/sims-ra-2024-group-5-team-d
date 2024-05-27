@@ -39,7 +39,7 @@ namespace BookingApp.Appl.UseCases
         }
         public bool IsReservationRated (int reservationId)
         {
-            return GetAll().Any(rating => rating.ReservationId == reservationId);
+            return !GetAll().Any(rating => rating.ReservationId == reservationId);
         }
         public double GetAverageRatingForOwner(User user)
         {
