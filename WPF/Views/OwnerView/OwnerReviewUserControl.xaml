@@ -77,7 +77,7 @@
                             
                                              Width="140" >
                         <StackPanel  Orientation="Horizontal">
-                            <Image  Source="C:\Users\lukai\Desktop\Resource\star.png" 
+                            <Image  Source="..\..\..\Resources\Images\OwnerImages\star.png" 
                                                Width="24" 
                                                Height="24"
                                                Margin="10 0 5 0"/>
@@ -193,7 +193,7 @@
                             
                                              Width="140" >
                         <StackPanel  Orientation="Horizontal">
-                            <Image  Source="C:\Users\lukai\Desktop\Resource\more1.png" 
+                            <Image  Source="..\..\..\Resources\Images\OwnerImages\more1.png" 
                                                Width="30" 
                                                Height="30"
                                                Margin="10 0 0 0"/>

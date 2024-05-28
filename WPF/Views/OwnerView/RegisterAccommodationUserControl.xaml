@@ -137,7 +137,7 @@
                 <Border  
                          Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
                     <StackPanel >
-                        <Image Source="C:\Users\lukai\Desktop\Resource\back.png" Height="50"/>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\back.png" Height="50"/>
                     </StackPanel>
                 </Border>
             </Button>
@@ -186,7 +186,7 @@
                 <Border  
                          Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
                     <StackPanel >
-                        <Image Source="C:\Users\lukai\Desktop\Resource\forward.png" Height="50"/>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\forward.png" Height="50"/>
                     </StackPanel>
                 </Border>
             </Button>

@@ -45,7 +45,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image Source="C:\Users\lukai\Desktop\Resource\closed1.png"  Width="80" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 -15 0 0" Visibility="{Binding Forum.IsClosed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+            <Image Source="..\..\..\Resources\Images\OwnerImages\closed1.png"  Width="80" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 -15 0 0" Visibility="{Binding Forum.IsClosed,Converter={StaticResource BoolToVisibilityConverter}}"/>
 
             <TextBlock Text="{Binding Forum.Title}" FontSize="32" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}" Margin="0 0 0 10"/>
             <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Forum.DateCreated, Converter={StaticResource DateConverter}}" Margin="15 0 0 10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Style="{StaticResource FontColor}"/>
@@ -54,7 +54,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image  Source="C:\Users\lukai\Desktop\Resource\Location.png" 
+                <Image  Source="..\..\..\Resources\Images\OwnerImages\Location.png" 
                                                Width="32" 
                                                Height="32"
                                                Grid.Column="0" 
@@ -74,7 +74,7 @@
                 <Label Content="{Binding Forum.NumberOfComments}" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Top" Margin="0 0 10 0" Padding="0" FontSize="16"/>
                 <TextBlock Text="Comments" FontSize="24" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0"/>
                 <Image Grid.Column="1"  
-                   Source="C:\Users\lukai\Desktop\Resource\chat.png" 
+                   Source="..\..\..\Resources\Images\OwnerImages\chat.png" 
                    Height="32" 
                    Width="32" 
                    HorizontalAlignment="Right"
@@ -82,7 +82,7 @@
                    Margin="20 0 20 0"
                    Grid.Row="1"/>
                 <Button Grid.Column="2" HorizontalAlignment="Right" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Command="{Binding AddCommentCommand}" Visibility="{Binding IsAddingCommentEnabled,Converter={StaticResource BoolToVisibilityConverter}}">
-                    <Image Source="C:\Users\lukai\Desktop\Resource\plusgreat.png" Height="40" Width="40"/>
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\plusgreat.png" Height="40" Width="40"/>
                 </Button>
             </Grid>
             <Grid Grid.Row="3" Visibility="{Binding AddForumCommentViewModel.IsVisible, Converter={StaticResource BoolToVisibilityConverter}}" Grid.ColumnSpan="2" Margin="0 0 30 5">
@@ -167,7 +167,7 @@
                                     <TextBlock Text="{Binding Reports}" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Bottom" Margin="0 0 0 -7"/>
                                     <Button  Background="Transparent" Width="26 " Grid.Row="1" Margin="0 0 0 0" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="{Binding IsReported}" Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" Template="{StaticResource CustomButtonTemplate}">
                                         <Image  
-                                       Source="C:\Users\lukai\Desktop\Resource\flag.png" 
+                                       Source="..\..\..\Resources\Images\OwnerImages\flag.png" 
                                        Height="24" 
                                        Width="24" 
                                        VerticalAlignment="Center"
