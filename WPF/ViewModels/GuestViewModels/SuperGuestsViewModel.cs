@@ -21,7 +21,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public ICommand LogOutCommand { get; set; }
         public SuperGuestViewModel SuperGuest { get; set; }
         public bool IsSuperGuest { get; set; }
-        public string TimeLeft { get; set; }
+        public DateTime TimeLeft { get; set; }
 
         private SuperUserService superUserService;
         private AccommodationReservationService accommodationReservationService;
@@ -30,38 +30,24 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         {
             InitializeServices();
 
-            LogOutCommand = new RelayCommand(LogOut);
-
-            SuperGuest = new SuperGuestViewModel(user.Id, superUserService.GetById(user.Id).ValidFrom, superUserService.GetById(user.Id).BonusPoints, user.AvatarPath, accommodationReservationService.GetNumberOfReservationsLastYear(user), user.FullName);
-            IsSuperGuest = false;
-
-            TimeSpan remainingTime = DateTime.UtcNow - superUserService.GetById(user.Id).ValidFrom.AddYears(-1) ;
-
-            int years = remainingTime.Days / 365;
-            int months = (remainingTime.Days % 365) / 30;
-            int days = (remainingTime.Days % 365) % 30;
-
-            string remainingTimeFormatted = "";
-            if (years > 0)
-            {
-                remainingTimeFormatted += $"{years} y/";
-            }
-            if (months > 0)
-            {
-                remainingTimeFormatted += $"{months} m/";
-            }
-            if (days > 0)
-            {
-                remainingTimeFormatted += $"{days} d";
-            }
-
-            TimeLeft = remainingTimeFormatted.Trim();
-
-
             if (user.IsSuperUser.HasValue)
             {
                 IsSuperGuest = user.IsSuperUser.Value;
             }
+
+            LogOutCommand = new RelayCommand(LogOut);
+
+            if(IsSuperGuest)
+            {
+                SuperGuest = new SuperGuestViewModel(user.Id, superUserService.GetById(user.Id).ValidFrom, superUserService.GetById(user.Id).BonusPoints, user.AvatarPath, accommodationReservationService.GetNumberOfReservationsLastYear(user), user.FullName);
+                TimeLeft = superUserService.GetById(user.Id).ValidFrom.AddYears(1);
+
+            }
+            else
+            {
+                SuperGuest = new SuperGuestViewModel(user.Id,user.AvatarPath,user.FullName);
+            }
+
         }
 
         private void InitializeServices()

@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
+using ceTe.DynamicPDF.Imaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +27,7 @@ namespace BookingApp.WPF.Views.GuestWindows
     /// <summary>
     /// Interaction logic for OwnerAndAccommodationRatingWindow.xaml
     /// </summary>
-    public partial class OwnerAndAccommodationRatingWindow : Window
+    public partial class OwnerAndAccommodationRatingWindow : Window, INotifyPropertyChanged
     {
         private int _cleanliness;
         public int Cleanliness
@@ -69,7 +70,61 @@ namespace BookingApp.WPF.Views.GuestWindows
                 }
             }
         }
-        public int LevelOfRenovation { get; set; }
+        private int levelOfRenovation=0;
+        public int LevelOfRenovation
+        {
+            get { return levelOfRenovation; }
+            set
+            {
+                if (levelOfRenovation != value)
+                {
+                    levelOfRenovation = value;
+                    OnPropertyChanged("LevelOfRenovation");
+                }
+            }
+        }
+        private bool canGoBack;
+        public bool CanGoBack
+        {
+            get => canGoBack;
+            set
+            {
+                if (value != canGoBack)
+                {
+                    canGoBack = value;
+                    OnPropertyChanged(nameof(canGoBack));
+                }
+            }
+        }
+        private bool canGoNext;
+        public bool CanGoNext
+        {
+            get => canGoNext;
+            set
+            {
+                if (value != canGoNext)
+                {
+                    canGoNext = value;
+                    OnPropertyChanged(nameof(canGoNext));
+                }
+            }
+        }
+
+        private int currentImageIndex = -1;
+
+        private string imagePath;
+        public string ImagePath
+        {
+            get => imagePath;
+            set
+            {
+                if (value != imagePath)
+                {
+                    imagePath = value;
+                    OnPropertyChanged(nameof(imagePath));
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -86,7 +141,9 @@ namespace BookingApp.WPF.Views.GuestWindows
         private List<string> imagesPath;
         private ImageUploaderService imageUploaderService;
         private AccommodationService accommodationService;
+
         public string AccommodationName {  get; set; }
+
         public OwnerAndAccommodationRatingWindow(User user, AccommodationReservation accommodationReservation, int accommodationId)
         {
             rateOwnerService = new RateOwnerService();
@@ -101,7 +158,8 @@ namespace BookingApp.WPF.Views.GuestWindows
             this.accommodationId = accommodationId;
             dateTime = DateTime.Now;
             AccommodationName = accommodationService.GetAccommodationNameById(accommodationId);
-
+            CanGoNext = false;
+            CanGoBack = false;
         }
 
         private void RateOwnerAndAccommodation(object sender, RoutedEventArgs e)
@@ -114,7 +172,16 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             string imagePath = imageUploaderService.UploadImage();
             if (imagePath != null)
+            {
+
                 imagesPath.Add(imagePath);
+                if (imagesPath.Count() > 1)
+                {
+                    CanGoBack = true;
+                }
+                ImagePath = imagePath;
+                currentImageIndex = imagesPath.Count() - 1;
+            }
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -124,5 +191,84 @@ namespace BookingApp.WPF.Views.GuestWindows
                 LevelOfRenovation = level;
             }
         }
+
+        private void NextPicture(object sender, MouseButtonEventArgs e)
+        {
+            if (imagesPath.Count()-1 > currentImageIndex)
+            {
+                CanGoBack = true;
+                currentImageIndex++;
+                ImagePath = imagesPath[currentImageIndex];
+
+            }
+            if (imagesPath.Count() - 1 == currentImageIndex)
+            {
+                CanGoNext = false;
+            }
+        }
+
+        private void BackPicture(object sender, MouseButtonEventArgs e)
+        {
+            if (currentImageIndex != 0)
+            {
+                CanGoBack = true;
+                CanGoNext = true;
+                currentImageIndex--;
+                ImagePath = imagesPath[currentImageIndex];
+            }
+            if (currentImageIndex == 0)
+            {
+                CanGoBack = false;
+            }
+        }
+
+        public void DeletePhotoClick(object sender, RoutedEventArgs e)
+        {
+            if(imagesPath.Count()!=0)
+            if(currentImageIndex == 0)
+            {
+                
+                if(currentImageIndex == imagesPath.Count() - 1)
+                {
+                    imagesPath.RemoveAt(currentImageIndex);
+                    ImagePath = "";
+                }
+                else
+                {
+                    imagesPath.RemoveAt(currentImageIndex);
+                    ImagePath = imagesPath[currentImageIndex];
+
+                }
+            }
+            else
+            {
+                imagesPath.RemoveAt(currentImageIndex);
+                currentImageIndex--;
+                ImagePath = imagesPath[currentImageIndex];
+            }
+            
+        }
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            string newText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+            if (!int.TryParse(newText, out int newValue))
+            {
+                textBox.BorderBrush = Brushes.Red;
+                e.Handled = true;
+                return;
+            }
+
+            if (newValue < 1 || newValue > 5)
+            {
+                textBox.BorderBrush = Brushes.Red;
+                e.Handled = true;
+                return;
+            }
+
+            textBox.ClearValue(TextBox.BorderBrushProperty);
+        }
+
     }
 }

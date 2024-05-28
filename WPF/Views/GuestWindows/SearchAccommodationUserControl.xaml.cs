@@ -146,6 +146,7 @@ namespace BookingApp.WPF.Views.GuestWindows
 
             superGuestService = new SuperGuestService();
             notifierService = new NotifierService();
+
             bool IsUpdated = superGuestService.UpdateUserStatus(LoggedInUser);
             if(IsUpdated)
             {
@@ -194,18 +195,17 @@ namespace BookingApp.WPF.Views.GuestWindows
         {
             accommodations.Sort((x, y) =>
             {
-                // Provera za x.Owner.IsSuperUser
                 if (x.Owner.IsSuperUser == true && y.Owner.IsSuperUser == false)
                 {
-                    return -1; // x ispred y
+                    return -1; 
                 }
                 else if (x.Owner.IsSuperUser == false && y.Owner.IsSuperUser == true)
                 {
-                    return 1; // y ispred x
+                    return 1; 
                 }
                 else
                 {
-                    return 0; // Oba su true, ne menjamo redosled
+                    return 0; 
                 }
             });
         }
@@ -217,10 +217,30 @@ namespace BookingApp.WPF.Views.GuestWindows
                 ToDate = DateTime.UtcNow;
                 FromDate = DateTime.UtcNow;
                 NumberOfPeople = 1;
-                NumberOfDays = 1;   // Ovdje možete dodati svoju logiku koja će se izvršiti samo kada se promijeni tab
+                NumberOfDays = 1;   
             }
         }
 
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
 
+            TextBox textBox = sender as TextBox;
+            string newText = textBox.Text + e.Text;
+
+            if (textBox.Text.Length == 0 && e.Text == "0")
+            {
+                e.Handled = true; 
+                return;
+            }
+
+            if (!int.TryParse(newText, out _))
+            {
+                textBox.BorderBrush = Brushes.Red; 
+                e.Handled = true; 
+                return;
+            }
+
+            textBox.ClearValue(TextBox.BorderBrushProperty);
+        }
     }
 }

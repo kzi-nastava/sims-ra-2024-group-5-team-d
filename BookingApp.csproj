@@ -29,6 +29,8 @@
     <None Remove="Resources\AccommodationImages\Accommodation11\Grand-Salon_6-1.png" />
     <None Remove="Resources\AccommodationImages\Accommodation11\Hotel-Grand-28819.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation12\339036922.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation13\339036922.jpg" />
+    <None Remove="Resources\AccommodationImages\Accommodation13\Hotel-Grand-28819.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation1\3337-Crocker-Dr-1.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation1\smestaj1.jpg" />
     <None Remove="Resources\AccommodationImages\Accommodation2\image.jpg" />
@@ -81,6 +83,7 @@
     <None Remove="Resources\Images\GuestImages\check.png" />
     <None Remove="Resources\Images\GuestImages\clock.png" />
     <None Remove="Resources\Images\GuestImages\fullStar.png" />
+    <None Remove="Resources\Images\GuestImages\gallery.png" />
     <None Remove="Resources\Images\GuestImages\help.png" />
     <None Remove="Resources\Images\GuestImages\house.png" />
     <None Remove="Resources\Images\GuestImages\left.png" />
@@ -145,9 +148,38 @@
     <None Remove="Resources\Images\GuestImages\XIcon.png" />
     <None Remove="Resources\Images\logo png.png" />
     <None Remove="Resources\Images\logo.png" />
+    <None Remove="Resources\Images\OwnerImages\back.png" />
+    <None Remove="Resources\Images\OwnerImages\book.png" />
+    <None Remove="Resources\Images\OwnerImages\chat.png" />
+    <None Remove="Resources\Images\OwnerImages\Check.png" />
+    <None Remove="Resources\Images\OwnerImages\closed1.png" />
+    <None Remove="Resources\Images\OwnerImages\dot.png" />
+    <None Remove="Resources\Images\OwnerImages\enter.png" />
+    <None Remove="Resources\Images\OwnerImages\flag.png" />
+    <None Remove="Resources\Images\OwnerImages\forum.png" />
+    <None Remove="Resources\Images\OwnerImages\forward.png" />
+    <None Remove="Resources\Images\OwnerImages\hamburger2.png" />
+    <None Remove="Resources\Images\OwnerImages\hammer.png" />
+    <None Remove="Resources\Images\OwnerImages\home.png" />
     <None Remove="Resources\Images\OwnerImages\idemo.png" />
+    <None Remove="Resources\Images\OwnerImages\inbox1.png" />
+    <None Remove="Resources\Images\OwnerImages\info2.png" />
+    <None Remove="Resources\Images\OwnerImages\location.png" />
+    <None Remove="Resources\Images\OwnerImages\loginPicture.jpg" />
+    <None Remove="Resources\Images\OwnerImages\logo png.png" />
+    <None Remove="Resources\Images\OwnerImages\more1.png" />
+    <None Remove="Resources\Images\OwnerImages\notify2.png" />
+    <None Remove="Resources\Images\OwnerImages\pdf.png" />
+    <None Remove="Resources\Images\OwnerImages\plusgreat.png" />
+    <None Remove="Resources\Images\OwnerImages\profile.png" />
+    <None Remove="Resources\Images\OwnerImages\renovations.png" />
+    <None Remove="Resources\Images\OwnerImages\star.png" />
     <None Remove="Resources\Images\OwnerImages\StarFull.png" />
     <None Remove="Resources\Images\OwnerImages\StarHalfFull.png" />
+    <None Remove="Resources\Images\OwnerImages\stats.png" />
+    <None Remove="Resources\Images\OwnerImages\superForum.png" />
+    <None Remove="Resources\Images\OwnerImages\verified.png" />
+    <None Remove="Resources\Images\OwnerImages\X.png" />
     <None Remove="Resources\Images\tourist1.png" />
     <None Remove="Resources\Images\travel.png" />
     <None Remove="Resources\Images\traveler.png" />
@@ -159,6 +191,22 @@
     <None Remove="Resources\TourImages\Tour2\download.jpeg" />
     <None Remove="Resources\TourImages\Tour3\GFS_smederevo-trg-25-09-09-04.jpg" />
     <None Remove="Resources\TourImages\Tour4\caption.jpg" />
+    <None Remove="Resources\WizzardImages\Accommodation.png" />
+    <None Remove="Resources\WizzardImages\First.png" />
+    <None Remove="Resources\WizzardImages\Forum.png" />
+    <None Remove="Resources\WizzardImages\Profile.png" />
+    <None Remove="Resources\WizzardImages\Requests.png" />
+    <None Remove="Resources\WizzardImages\Reservations.png" />
+    <None Remove="Resources\WizzardImages\Search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\GuestImages\gallery.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuestImages\logo_svg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Remove="Resources\TourImages\Tour5\beograd-na-vodi.jpg" />
     <None Remove="Resources\TourImages\Tour6\beograd-na-vodi.jpg" />
     <None Remove="Resources\TourImages\Tour7\caption.jpg" />
@@ -167,7 +215,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Images\OwnerImages\star.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\OwnerImages\logo png.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\AccommodationImages\Accommodation12\339036922.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation13\339036922.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccommodationImages\Accommodation13\Hotel-Grand-28819.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\GuideImages\Check Circle.png">
@@ -401,7 +467,58 @@
     <Content Include="Resources\Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\OwnerImages\back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\book.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\chat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\Check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\closed1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\dot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\enter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\forum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\hamburger2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\hammer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\OwnerImages\idemo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\inbox1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\info2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\location.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\loginPicture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\OwnerImages\loginPicture1.jpg">
@@ -545,10 +662,40 @@
     <Content Include="Resources\Images\GuestImages\XIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\OwnerImages\more1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\notify2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\pdf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\plusgreat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\renovations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\OwnerImages\StarFull.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\OwnerImages\StarHalfFull.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\stats.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\superForum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\verified.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\X.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\tourist1.png">
@@ -584,6 +731,27 @@
     <Content Include="Resources\TourImages\Tour4\caption.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\WizzardImages\Accommodation.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\WizzardImages\First.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\WizzardImages\Forum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\WizzardImages\Profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\WizzardImages\Requests.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\WizzardImages\Reservations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\WizzardImages\Search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\TourImages\Tour5\beograd-na-vodi.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -609,7 +777,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DynamicPDF" Version="8.0.0" />
+    <PackageReference Include="itext7" Version="8.0.4" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
+    <PackageReference Include="PDFsharp" Version="6.0.0" />
      <Resource Include="Resources\Fonts\OpenSans-Italic-VariableFont_wdth,wght.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

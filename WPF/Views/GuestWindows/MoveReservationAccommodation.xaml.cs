@@ -26,5 +26,6 @@ namespace BookingApp.WPF.Views.GuestWindows
             InitializeComponent();
             DataContext = new CreateRequestViewModel(user, reservationId);
         }
+
     }
 }

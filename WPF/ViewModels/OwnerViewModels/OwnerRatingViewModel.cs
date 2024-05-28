@@ -33,11 +33,13 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public DateOnly RatingDate { get; set; }
         public string Comment { get; set; }
         public string AvatarPath { get; set; }
+        public string RenovationText { get; set; }
+        public bool IsRenovationVisible { get; set; }
        
         public OwnerRatingViewModel()
         {
         }
-        public OwnerRatingViewModel(User guest,AccommodationRating accommodationRating,Accommodation accommodation)
+        public OwnerRatingViewModel(User guest,AccommodationRating accommodationRating,Accommodation accommodation,string renovationText)
         {
             Id = accommodationRating.Id;
             GuestName = guest.FullName;
@@ -49,6 +51,8 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             RatingDate = accommodationRating.TimeOfRating;
             Comment = accommodationRating.Comment;
             AvatarPath = guest.AvatarPath;
+            RenovationText = renovationText;
+            IsRenovationVisible = !string.IsNullOrEmpty(renovationText);
             List<string> starPaths = new List<string>();
             double averageRating = (double)(CleanlinessRating + CorrectnessRating) / 2;
             Debug.WriteLine(averageRating);

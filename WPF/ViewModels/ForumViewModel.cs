@@ -34,6 +34,7 @@ namespace BookingApp.WPF.ViewModels
                 }
             }
         }
+        public bool IsClosed { get; set; }
         public string SuperForum { get; set; }
         public int NumberOfComments { get; set; }
 
@@ -44,8 +45,8 @@ namespace BookingApp.WPF.ViewModels
             Description = forum.Description;
             Location = forum.Location;
             DateCreated = forum.DateCreated;
-            SuperForum = "../../../Resources/Images/OwnerImages/StarFull.png";
-            IsSuperForum = isSuperForum;
+            SuperForum = "../../../Resources/Images/OwnerImages/superForum.png";
+            IsSuperForum = isSuperForum ;
             IsVisible = isVisible;
             IsActive = forum.Active;
         }
@@ -56,6 +57,8 @@ namespace BookingApp.WPF.ViewModels
             Location = forum.Location;
             DateCreated = forum.DateCreated;
             NumberOfComments = numberOfComments;
+            isActive = forum.Active;
+            IsClosed = !forum.Active;
         }
         public ForumViewModel(Forum forum)
         {

@@ -3,228 +3,226 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
             d:DesignHeight="572" d:DesignWidth="1108">
     <UserControl.Resources>
-        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="TextBox" TargetType="TextBox">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="BorderBrush" Value="SlateGray"/>
-            <Setter Property="BorderThickness" Value="0 0 0 3"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="TextAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="StackPanel" TargetType="StackPanel">
-            <Setter Property="Orientation" Value="Horizontal"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="BorderButtons" TargetType="Border">
-            <Setter Property="BorderThickness" Value="3"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Height" Value="42"/>
-            <Setter Property="Width" Value="140"/>
-        </Style>
-        <Style x:Key="Buttons" TargetType="Button">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Height" Value="44"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="TextBox" x:Key="TextBox">
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
         </Style>
     </UserControl.Resources>
-    <Border BorderBrush="Black" BorderThickness="3" Padding="10" Width="900" Height="513">
-        <Grid Width="900" Height="506" VerticalAlignment="Center">
+    <Grid Margin="20 10 20 20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Register Accommodation" FontFamily="{StaticResource CustomFont}" FontSize="32" HorizontalAlignment="Center" Style="{StaticResource FontColor}" Margin="0 0 0 10"/>
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" MinWidth="350"/>
+                <ColumnDefinition Width="*" MinWidth="350"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="1.4*" />
-            </Grid.RowDefinitions>
-            <TextBlock Text="Register accommodation" 
-                   Grid.ColumnSpan="2" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Top"
-                   FontSize="32"/>
-            <TextBlock Text="Accommodation name :"                 
-                   Grid.Row="1"
-                   Style="{StaticResource TextBlockStyle}"/>
-            <TextBox Grid.Column="1" 
-                     Grid.Row="1"
-                     Height="32"
-                     Width="300"  
-                     Style="{StaticResource TextBox}" Text="{Binding Name}"/>
-            <TextBlock Text="Location :"                 
-                   Grid.Row="2"
-                   Style="{StaticResource TextBlockStyle}"/>
-            <ComboBox Grid.Column="1" 
-                      Grid.Row="2"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource FontColor}" Grid.Row="0" Grid.Column="0" Text="Name :" FontSize="20" FontFamily="{StaticResource CustomFont}" Margin="5 0 0 5"/>
+                <Border CornerRadius="10" Background="{StaticResource WhiteWhite}" Grid.Row="1" Width="300" HorizontalAlignment="Left">
+                    <TextBox Style="{StaticResource TextBox}" Background="Transparent" Text="{Binding RegistrationViewModel.Name}"/>
+                </Border>
+                <TextBlock Style="{StaticResource FontColor}" Grid.Row="2" Grid.Column="0" Text="Cancellation deadline :" FontSize="20" FontFamily="{StaticResource CustomFont}" Margin="5 10 0 5"/>
+                <Border CornerRadius="10" Background="{StaticResource WhiteWhite}" Grid.Row="3" Width="200" HorizontalAlignment="Left">
+                    <TextBox Style="{StaticResource TextBox}" Background="Transparent" Text="{Binding RegistrationViewModel.CancellationDeadline}"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource FontColor}" Grid.Row="0" Grid.Column="0" Text="Type :" FontSize="20" FontFamily="{StaticResource CustomFont}" Margin="5 0 0 5"/>
+                <ComboBox Grid.Row="1" 
                       Height="32"
                       Width="200"  
-                      HorizontalAlignment="Left" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" FontSize="20" Padding="0 0 0 1" SelectedIndex="{Binding LocationId}">
-                <ComboBoxItem Content="Serbia, Novi Sad"/>
-                <ComboBoxItem Content="Serbia, Beograd"/>
-                <ComboBoxItem Content="Serbia, Smederevo"/>
-                <ComboBoxItem Content="Serbia, Požega"/>
-                <ComboBoxItem Content="Serbia, Kragujevac"/>
-                <ComboBoxItem Content="Serbia, Niš"/>
-                <ComboBoxItem Content="Serbia, Subotica"/>
-                <ComboBoxItem Content="Serbia, Pančevo"/>
-                <ComboBoxItem Content="Serbia, Čačak"/>
-                <ComboBoxItem Content="Serbia, Užice"/>
-            </ComboBox>
-            <TextBlock Text="Type :"                 
-                   Grid.Row="3"
-                    Style="{StaticResource TextBlockStyle}"/>
-            <ComboBox Grid.Column="1" 
-                      Grid.Row="3"
+                      HorizontalAlignment="Left" Foreground="{StaticResource PrimaryBlack}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" FontSize="20" SelectedIndex="{Binding RegistrationViewModel.Type}">
+                    <ComboBoxItem Content="Apartment"/>
+                    <ComboBoxItem Content="House"/>
+                    <ComboBoxItem Content="Cottage"/>
+                </ComboBox>
+                <TextBlock Style="{StaticResource FontColor}" Grid.Row="2" Grid.Column="0" Text="Maximum capacity:" FontSize="20" FontFamily="{StaticResource CustomFont}" Margin="5 10 0 5"/>
+                <Border CornerRadius="10" Background="{StaticResource WhiteWhite}" Grid.Row="3" Width="200" HorizontalAlignment="Left">
+                    <TextBox Style="{StaticResource TextBox}" Background="Transparent" Text="{Binding RegistrationViewModel.MaxCapacity}"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource FontColor}" Text="Location :" Grid.Row="0" FontSize="20" FontFamily="{StaticResource CustomFont}"  Margin="5 0 0 5"/>
+                <ComboBox
+                      Grid.Row="1"
                       Height="32"
                       Width="200"  
-                      HorizontalAlignment="Left" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" FontSize="20" SelectedIndex="{Binding Type}">
-                <ComboBoxItem Content="Apartment"/>
-                <ComboBoxItem Content="Hotel"/>
-                <ComboBoxItem Content="Cottage"/>
-            </ComboBox>
-            <TextBlock Text="Cancellation deadline :"                 
-                   Grid.Row="4"
-                       x:Name="GAS"
-                   Style="{StaticResource TextBlockStyle}"/>
-            <TextBox Grid.Column="0"
-                      HorizontalAlignment="Right"
-                     Grid.Row="4"
-                     Height="32"
-                     Width="50"  
-                     Style="{StaticResource TextBox}" Text="{Binding CancellationDeadline}"/>
-            <TextBlock Text="Maximum capacity :"                 
-                   Grid.Row="5"
-                    Style="{StaticResource TextBlockStyle}"/>
-            <TextBox Grid.Column="0" 
-                      HorizontalAlignment="Right"
-                     Grid.Row="5"
-                     Height="32"
-                     Width="50"  
-                     Style="{StaticResource TextBox}" Text="{Binding MaxCapacity}"/>
-            <TextBlock Text="Minimum days to stay :"                 
-                   Grid.Row="6"
-                   Style="{StaticResource TextBlockStyle}"/>
-            <TextBox Grid.Column="0" 
-                     HorizontalAlignment="Right"
-                     Grid.Row="6"
-                     Height="32"
-                     Width="50"  
-                     Style="{StaticResource TextBox}" Text="{Binding MinDaysToStay}"/>
-            <Button Grid.Column="0"
-                FontSize="24" 
-                VerticalAlignment="Center"
-                Background="Transparent"
-                BorderThickness="0" Grid.Row="7" HorizontalAlignment="Center" Height="50" Command="{Binding UploadCommand}">
-                <Border  BorderBrush="Black"
-                                             BorderThickness="3"
-                                             CornerRadius="10"  
-                                             Width="250" Height="48">
-                    <StackPanel Style="{StaticResource StackPanel}">
-                        <Image  Source="C:\Users\lukai\Desktop\Resource\upload.png" 
-                                               Width="32" 
-                                               Height="32"
-                                               Margin="0 0 10 0"/>
-                        <TextBlock  Text="Upload a picture"/>
-                    </StackPanel>
+                      HorizontalAlignment="Left" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" FontSize="20" Foreground="{StaticResource PrimaryBlack}" Padding="0 0 0 1" SelectedIndex="{Binding RegistrationViewModel.LocationId}">
+                    <ComboBoxItem Content="Serbia, Novi Sad"/>
+                    <ComboBoxItem Content="Serbia, Beograd"/>
+                    <ComboBoxItem Content="Serbia, Smederevo"/>
+                    <ComboBoxItem Content="Serbia, Požega"/>
+                    <ComboBoxItem Content="Serbia, Kragujevac"/>
+                    <ComboBoxItem Content="Serbia, Niš"/>
+                    <ComboBoxItem Content="Serbia, Subotica"/>
+                    <ComboBoxItem Content="Serbia, Pančevo"/>
+                    <ComboBoxItem Content="Serbia, Čačak"/>
+                    <ComboBoxItem Content="Serbia, Užice"/>
+                </ComboBox>
+                <TextBlock Style="{StaticResource FontColor}" Grid.Row="2" Grid.Column="0" Text="Minimum days to stay :" FontSize="20" FontFamily="{StaticResource CustomFont}" Margin="5 10 0 5"/>
+                <Border CornerRadius="10" Background="{StaticResource WhiteWhite}" Grid.Row="3" Width="200" HorizontalAlignment="Left">
+                    <TextBox Style="{StaticResource TextBox}" Background="Transparent" Text="{Binding RegistrationViewModel.MinDaysToStay}"/>
                 </Border>
-            </Button>
-            <Button Grid.Column="1" Grid.Row="6" BorderThickness="0" HorizontalAlignment="Left" Background="Transparent" Command="{Binding BackwardCommand}">
-                <Image Source="C:\Users\lukai\Desktop\Resource\back.png" Height="50"/>
-            </Button>
-            <Border Grid.Row="5" Grid.Column="1" Grid.RowSpan="3" Width="250" HorizontalAlignment="Center" Margin="0 0 15 0">
-                <ListView BorderThickness="0" 
-                      Background="Transparent"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                      Grid.Column="1"
-                      Height="auto"
-                      x:Name="lista"
-                      ItemsSource="{Binding ImagesPaths}"
-                      Margin="35 0 5 0"
-                      ScrollViewer.CanContentScroll="False"
-                      SelectedItem="{Binding SelectedPicture}">
-                    
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="118"/>
-                                    <RowDefinition Height="30"/>
-                                </Grid.RowDefinitions>
-                                <Border BorderBrush="Black" 
-                                BorderThickness="3" 
-                                CornerRadius="2"
-                                Width="180"
-                                Height="118" VerticalAlignment="Center"  Margin="0 0 0 0">
-                                    <Image Stretch="Fill" Source="{Binding}"/>
-                                </Border>
-                                <Button BorderThickness="2" BorderBrush="Black" Background="Transparent" Margin="0 10 0 0" Grid.Row="1" Content="Set as main picture"  Command="{Binding DataContext.SetMainPictureCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                        <ContentPresenter HorizontalAlignment="Left" Margin="2,3,2,3" />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </Border>
-            <Button Grid.Column="1" Grid.Row="6" Margin="0 0 20 0" BorderThickness="0" HorizontalAlignment="Right" Background="Transparent" Command="{Binding ForwardCommand}">
-                <Image Source="C:\Users\lukai\Desktop\Resource\forward.png" Height="50"/>
-            </Button>
-            <Button Grid.Column="0"
-                    Grid.Row="8"
-                    Style="{StaticResource Buttons}">
-                <Border  BorderBrush="DarkRed"
-                         Style="{StaticResource BorderButtons}">
-                    <StackPanel   Style="{StaticResource StackPanel}">
-                        <TextBlock  Text="Cancel" Foreground="DarkRed" />
-                    </StackPanel>
-                </Border>
-            </Button>
-            <Button Grid.Column="1"
-                    Grid.Row="8" 
-                    Style="{StaticResource Buttons}" Command="{Binding SaveCommand}">
-                <Border  BorderBrush="DarkGreen"
-                         Style="{StaticResource BorderButtons}">
-                    <StackPanel  Style="{StaticResource StackPanel}">
-                        <TextBlock  Text="Register" Foreground="DarkGreen" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" HorizontalAlignment="Center" Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource FontColor}" Grid.Column="0" Text="Upload photo" FontSize="22" FontFamily="{StaticResource CustomFont}" Margin="5 10 0 5"/>
+            <Button Grid.Column="1" Background="Transparent" BorderThickness="0" Template="{StaticResource CustomButtonTemplate}" Margin="20 0 0 0" Command="{Binding UploadCommand}">
+                <Border Style="{StaticResource BorderHover}" CornerRadius="8">
+                    <StackPanel>
+                        <TextBlock Text="Choose file" Foreground="{StaticResource WhiteWhite}" Padding="5" FontSize="18" FontFamily="{StaticResource CustomFont}"/>
                     </StackPanel>
                 </Border>
             </Button>
         </Grid>
-    </Border>
+        <Grid Grid.Row="3" Visibility="{Binding RegistrationViewModel.IsUploading,Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button  Template="{StaticResource CustomButtonTemplate}" Command="{Binding BackwardCommand}" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
+                <Border  
+                         Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
+                    <StackPanel >
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\back.png" Height="50"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+            <ListView BorderThickness="0"  
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      Height="auto"
+                      Grid.Column="1"
+                      x:Name="lista"
+                      HorizontalAlignment="Center"
+                      Margin="0 15 0 0"
+                      ItemsSource="{Binding ImagesPaths}"
+                      ScrollViewer.CanContentScroll="False"
+                      ItemContainerStyle="{StaticResource CustomListView}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
+                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="118"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.RowSpan="2" Background="{StaticResource PrimaryColor}" Margin="8 0 8 0" Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                            <Border Style="{StaticResource BorderHoverAnimation}"
+                                Width="180"
+                                Height="118" VerticalAlignment="Center"  Margin="10 2 10 2">
+                                <Image Stretch="Fill" Source="{Binding ImagePath}"/>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Grid.Column="2" Template="{StaticResource CustomButtonTemplate}" Command="{Binding ForwardCommand}" Background="Transparent" BorderThickness="0"  VerticalAlignment="Center">
+                <Border  
+                         Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
+                    <StackPanel >
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\forward.png" Height="50"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="4" HorizontalAlignment="Center" Visibility="{Binding RegistrationViewModel.IsUploading,Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button IsEnabled="{Binding RegistrationViewModel.SetAsDefaultEnabled}" Template="{StaticResource CustomButtonTemplate}" Command="{Binding RemoveCommand}" Background="Transparent" BorderThickness="0" Margin="0 10 0 10" HorizontalAlignment="Center">
+                <Border  
+                         Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
+                    <StackPanel >
+                        <TextBlock  Text="Remove" Foreground="{StaticResource WhiteWhite}" Padding="5" FontSize="18" FontFamily="{StaticResource CustomFont}"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+            <Button IsEnabled="{Binding RegistrationViewModel.SetAsDefaultEnabled}"
+                             Grid.Column="1"  Template="{StaticResource CustomButtonTemplate}" Command="{Binding SetMainPictureCommand}" Background="Transparent" BorderThickness="0" Margin="25 10 0 10" HorizontalAlignment="Center">
+                <Border  
+                         Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
+                    <StackPanel >
+                        <TextBlock  Text="Set as main" Foreground="{StaticResource WhiteWhite}" Padding="5" FontSize="18" FontFamily="{StaticResource CustomFont}"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+
+        </Grid>
+        <Button 
+                   Margin="0 15 0 0" Grid.Row="5"  Template="{StaticResource CustomButtonTemplate}" Command="{Binding SaveCommand}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center">
+            <Border  
+                         Style="{StaticResource BorderHover}" CornerRadius="8">
+                <StackPanel >
+                    <TextBlock  Text="Register" Foreground="{StaticResource WhiteWhite}" Padding="5" FontSize="18" FontFamily="{StaticResource CustomFont}"/>
+                </StackPanel>
+            </Border>
+        </Button>
+    </Grid>
 </UserControl>

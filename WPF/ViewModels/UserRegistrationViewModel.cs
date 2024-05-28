@@ -25,6 +25,7 @@ namespace BookingApp.WPF.ViewModels
         public string Username { get; set; }
         public string Password { get; set; }
         private UserService userService;
+        private SignInService signInService;
         private string avatarPath;
         private string macAddress;
         public UserRegistrationViewModel(string avatarPath)
@@ -34,11 +35,13 @@ namespace BookingApp.WPF.ViewModels
             TypeCommand = new RelayParameterCommand(TypeClick);
             RegisterCommand = new RelayParameterCommand(RegisterUser);
             macAddress = GetMacAddress();
+            
         }
 
         private void InitializeServices()
         {
             userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            signInService = new SignInService();
         }
 
         private string GetMacAddress()
@@ -66,10 +69,12 @@ namespace BookingApp.WPF.ViewModels
         {
             var passwordBox = parameter as PasswordBox;
             Password = passwordBox.Password;
+            User user;
                 if (Type == Domain.Models.UserType.Tourist)
-                    userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate), avatarPath, macAddress, null));
+                    user = userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate), avatarPath, macAddress, null));
                 else
-                    userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate), avatarPath, macAddress, false));
+                    user = userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate), avatarPath, macAddress, false));
+            signInService.MacLogin(user, true);
         }
 
     }

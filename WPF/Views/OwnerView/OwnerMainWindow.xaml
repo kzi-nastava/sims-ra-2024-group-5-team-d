@@ -51,7 +51,7 @@
                 Grid.ColumnSpan="3"/>
         <ContentControl Grid.Column="0" Grid.Row="1" x:Name="contentMenu"/>
         <Border Style="{StaticResource BorderHoverAnimation}" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="C:\Users\lukai\Desktop\Resource\hamburger2.png" 
+            <Image Source="..\..\..\Resources\Images\OwnerImages\hamburger2.png" 
                Height="42" 
                Width="42" 
                MouseLeftButtonDown="HamburgerClick" 
@@ -69,16 +69,18 @@
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" 
-                    Grid.Column="0" 
-                    CornerRadius="20" 
-                    Margin="0 0 20 0"
+                    Grid.Column="0"  
+                    Margin="0 0 10 0"
+                    Padding="0 0 10 0"
+                    BorderBrush="{StaticResource WhiteWhite}"
+                    BorderThickness="0 0 3 0"
                     MouseLeftButtonDown="Border_MouseLeftButtonDown_1" Style="{StaticResource BorderHoverAnimation}">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\home.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\home.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
@@ -97,15 +99,17 @@
             <Border
                     Grid.Row="0"
                     Grid.Column="1" 
-                    CornerRadius="20"
-                    Margin="0 0 20 0"
+                    BorderBrush="{StaticResource WhiteWhite}"
+                    BorderThickness="0 0 3 0"
+                    Margin="0 0 10 0"
+                Padding="0 0 10 0"
                      Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_3">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\plusgreat.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\plusgreat.png" 
                            Width="45" 
                            Height="45" 
                            HorizontalAlignment="Center" 
@@ -124,8 +128,10 @@
             </Border>
             <Border Grid.Row="0" 
                     Grid.Column="2" 
-                    CornerRadius="20"
-                     Margin="0 0 20 0"
+                    BorderBrush="{StaticResource WhiteWhite}"
+                    BorderThickness="0 0 3 0"
+                     Margin="0 0 10 0"
+                    Padding="0 0 10 0"
                     Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_4">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
@@ -133,7 +139,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\notify2.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\notify2.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
@@ -174,8 +180,10 @@
             </Border>
             <Border Grid.Row="0" 
                     Grid.Column="3" 
-                    CornerRadius="20"
-                     Margin="0 0 20 0"
+                    BorderBrush="{StaticResource WhiteWhite}"
+                    BorderThickness="0 0 3 0"
+                     Margin="0 0 10 0"
+                    Padding="0 0 10 0"
                      Style="{StaticResource BorderHoverAnimation}" 
                     MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Grid Style="{StaticResource GridHover}">
@@ -183,7 +191,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\profile.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\profile.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
@@ -208,7 +216,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\info2.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\info2.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
