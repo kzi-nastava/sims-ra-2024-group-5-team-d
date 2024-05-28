@@ -61,7 +61,7 @@
                 <Label Content="Back" Margin="5,0,0,0" Style="{StaticResource LabelDesign}"/>
             </StackPanel>
         </Button>
-        <ToggleButton x:Name="HelpButton" Grid.Row="0" Width="16" Height="16" HorizontalAlignment="Right" Click="HelpButton_Click" Background="Transparent" BorderThickness="0">
+        <ToggleButton x:Name="HelpButton" Grid.Row="0" Width="26" Height="26" HorizontalAlignment="Right" Click="HelpButton_Click" Background="Transparent" BorderThickness="0">
             <Image Source="/../../../Resources\Images\GuideImages\Question Circle.png" />
         </ToggleButton>
         <!-- Popover Content -->

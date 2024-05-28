@@ -24,11 +24,11 @@ namespace BookingApp.Domain.Models
         public string AvatarPath { get; set; }
         public string MacAddress { get; set; }
         public bool? IsSuperUser { get; set; }
-
+        public bool HasJob {  get; set; }
 
         public User() { }
 
-        public User(string username, string password, UserType type, string fullName, string personalId,DateOnly birthDate, string avatarPath, string macAddress,bool? isSuperUser)
+        public User(string username, string password, UserType type, string fullName, string personalId,DateOnly birthDate, string avatarPath, string macAddress,bool? isSuperUser,bool hasJob)
         {
             BirthDate = birthDate;
             Username = username;
@@ -39,11 +39,12 @@ namespace BookingApp.Domain.Models
             AvatarPath = avatarPath;
             MacAddress = macAddress;
             IsSuperUser = isSuperUser;
+            HasJob = hasJob;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, Type.ToString(),FullName,PersonalId,BirthDate.ToString("d/M/yyyy", CultureInfo.InvariantCulture),AvatarPath,MacAddress,IsSuperUser.ToString()};
+            string[] csvValues = { Id.ToString(), Username, Password, Type.ToString(),FullName,PersonalId,BirthDate.ToString("d/M/yyyy", CultureInfo.InvariantCulture),AvatarPath,MacAddress,IsSuperUser.ToString(),HasJob.ToString()};
             return csvValues;
         }
 
@@ -59,6 +60,7 @@ namespace BookingApp.Domain.Models
             AvatarPath = values[7];
             MacAddress = values[8];
             IsSuperUser = (values[9] == "") ? (bool?)null : Convert.ToBoolean(values[9]);
+            HasJob = bool.Parse(values[5]);
         }
 
         internal bool IsOwner()

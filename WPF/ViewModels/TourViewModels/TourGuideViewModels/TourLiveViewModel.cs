@@ -15,8 +15,10 @@ using System.Windows.Input;
 using System.Windows;
 using System.ComponentModel;
 using System.Windows.Controls;
+using System.Windows.Media;
 using BookingApp.WPF.Commands;
 using System.Diagnostics;
+using Xceed.Wpf.Toolkit;
 
 namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 {
@@ -26,6 +28,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public ICommand FinishTourCommand { get; set; }
         public ICommand CheckClickCommand { get; set; }
         public ICommand SignUpCommand { get; set; }
+        public ICommand StartDemoCommand { get; set; }
         public User LoggedInUser { get; set; }
         public TourRealisationViewModel tourRealisation { get; set; }
         public TourViewModel tour { get; set; }
@@ -45,6 +48,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             FinishTourCommand = new RelayCommand(FinishTourButton_Click);
             CheckClickCommand = new RelayCommand(Check_Click);
             SignUpCommand = new RelayCommand(SignUpButton_Click);
+            StartDemoCommand = new RelayCommand(StartDemo);
             tourRealisation = tourRealisationViewModel;
             tour = tourViewModel;
             CheckPoints = new ObservableCollection<CheckPointViewModel>();
@@ -95,7 +99,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 
             if (selectedCheckPoint == null)
             {
-                MessageBox.Show("Please select a CheckPoint.");
+                System.Windows.MessageBox.Show("Please select a CheckPoint.");
                 return;
             }
 
@@ -152,6 +156,20 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                     FinishTourButton_Click();
                 }
             }
+        }
+
+        public async void StartDemo()
+        {
+            LiveTourView.CheckPointsListView.SelectedIndex = 0;
+            await Task.Delay(1000);
+            LiveTourView.TourGuestsListView.SelectedIndex = 0;
+            await Task.Delay(1000);
+            LiveTourView.SignUpButton.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#218C89"));
+            await Task.Delay(1000);
+            TourGuests.RemoveAt(0);
+            await Task.Delay(1000);
+            System.Windows.MessageBox.Show("End of demo", "Demonstration");
+            SideBar.contentControlW.Content = new LiveTourView(LoggedInUser,tourRealisation,tour);
         }
 
     }

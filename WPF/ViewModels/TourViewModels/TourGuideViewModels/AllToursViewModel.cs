@@ -18,6 +18,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public ICommand ViewMoreCommand { get; set; }
         public ICommand ToursTodayTabCommand { get; set; }
         public ICommand RequestTabCommand { get; set; }
+        public ICommand ComplexRequestTabCommand { get; set; }
         public ICommand FinishedToursTabCommand { get; set; }
         public bool IsGridVisible { get; set; }
 
@@ -36,6 +37,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             ToursTodayTabCommand = new RelayCommand(ToursTodayTab);
             FinishedToursTabCommand = new RelayCommand(FinishedToursTab);
             RequestTabCommand = new RelayCommand(RequestsTab);
+            ComplexRequestTabCommand = new RelayCommand(ComplexRequestsTab);
         }
         private void ViewMore(object selectedTour)
         {
@@ -54,6 +56,10 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private void RequestsTab()
         {
             SideBar.contentControlW.Content = new RequestsWindow(LoggedInUser);
+        }
+        private void ComplexRequestsTab()
+        {
+            SideBar.contentControlW.Content = new ComplexRequestsWindow(LoggedInUser);
         }
     }
 }

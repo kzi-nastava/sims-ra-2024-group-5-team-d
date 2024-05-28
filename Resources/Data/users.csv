@@ -1,6 +1,6 @@
-1|Pera|pera123|Guest|Tanja Rizovic|123456789|8/7/2002|../../../Resources/Avatars/Tanja.png|0A002700000B|True
-2|Zver|zver123|Tourist|Luka Vranjesevic|234567890|2/1/2001|../../../Resources/Avatars/LukaVrana.png|0A0027000004|
-3|Golub|golub123|Owner|Luka Ivanisevic|135792468|5/4/2000|../../../Resources/Avatars/LukaIvan.png|0A0027000012|False
-4|Lana|lana123|TourGuide|Milana Dobric|987654321|7/4/1999|../../../Resources/Avatars/Milana.png|0A002700000A|False
-5|Golub2|golub2|Owner|Luka IvanAlter|123456789|1/1/2002|../../../Resources/Avatars/bussiness-man.png|0A0027000012|False
-6|Pera2|pera2|Guest|Tanja Alter|192837564|5/5/2003|../../../Resources/Avatars/man.png|0A002700000B|False
+1|Pera|pera123|Guest|Tanja Rizovic|123456789|8/7/2002|../../../Resources/Avatars/Tanja.png|0A002700000B|True|True
+2|Zver|zver123|Tourist|Luka Vranjesevic|234567890|2/1/2001|../../../Resources/Avatars/LukaVrana.png|0A0027000004||True
+3|Golub|golub123|Owner|Luka Ivanisevic|135792468|5/4/2000|../../../Resources/Avatars/LukaIvan.png|0A0027000012|False|True
+4|Lana|lana123|TourGuide|Milana Dobric|987654321|7/4/1999|../../../Resources/Avatars/Milana.png|0A002700000A|False|True
+5|Golub2|golub2|Owner|Luka IvanAlter|123456789|1/1/2002|../../../Resources/Avatars/bussiness-man.png|0A0027000012|False|True
+6|Pera2|pera2|Guest|Tanja Alter|192837564|5/5/2003|../../../Resources/Avatars/man.png|0A002700000B|False|True

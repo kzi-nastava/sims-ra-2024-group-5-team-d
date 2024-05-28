@@ -33,6 +33,8 @@ namespace BookingApp.WPF.Views.TouristGuide
         public static TextBox DurationInput {  get; set; }
         public static TextBox CapacityInput {  get; set; }
         public static TextBox DescriptionInput {  get; set; }
+        public static Border ImageUploadButton {  get; set; }
+        public static Border CheckPointAddButton {  get; set; }
         public User LoggedInUser { get; set; }
         public CreateNewTourForm(User user)
         {
@@ -47,8 +49,8 @@ namespace BookingApp.WPF.Views.TouristGuide
             DurationInput = durationInput;
             CapacityInput = capacityInput;
             DescriptionInput = descriptionInput;
-
-            
+            ImageUploadButton = imageUploadButton;
+            CheckPointAddButton = checkPointAddButton;
         }
         public CreateNewTourForm(User user, RequestViewModel request)
         {

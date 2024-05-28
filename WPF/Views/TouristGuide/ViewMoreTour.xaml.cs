@@ -102,33 +102,20 @@ namespace BookingApp.WPF.Views.TouristGuide
 
             // Open the DateTimePicker dropdown and select a date
             DateTimePicker.IsOpen = true;
-            await Task.Delay(500);
+            await Task.Delay(1000);
             DateTimePicker.Value = DateTime.Now.AddDays(1);
-            await Task.Delay(500);
+            await Task.Delay(1000);
             DateTimePicker.IsOpen = false;
             SaveButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
-            await Task.Delay(500);
+            await Task.Delay(1000);
             SaveButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2FC8BF"));
-            await Task.Delay(500);
-            
-
-            await Task.Delay(500);
-
-            // Close the popup
+            await Task.Delay(1000);
+            TourRealisation tourRealisation = new TourRealisation(DateTime.Now.AddDays(1), SelectedTour.Id, SelectedTour.Capacity, LoggedInUser);
+            TourRealisations.Add(new TourRealisationViewModel(tourRealisation.Id, DateTime.Now.AddDays(1), SelectedTour.Id, SelectedTour.Capacity, tourRealisation.IsCancellable(), LoggedInUser, tourRealisation.IsFinished));
             NewTourRealizationPopup.IsOpen = false;
-        }
-
-        private void HighlightInputField(Control inputField)
-        {
-            inputField.Focus();
-            inputField.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
-            inputField.BorderThickness = new Thickness(2);
-        }
-
-        private void RevertHighlightInputField(Control inputField)
-        {
-            inputField.BorderBrush = Brushes.Transparent;
-            inputField.BorderThickness = new Thickness(1);
+            await Task.Delay(1000);
+            System.Windows.MessageBox.Show("End of demo", "Demonstration");
+            SideBar.contentControlW.Content = new ViewMoreTour(SelectedTour, LoggedInUser);
         }
     }
 }
