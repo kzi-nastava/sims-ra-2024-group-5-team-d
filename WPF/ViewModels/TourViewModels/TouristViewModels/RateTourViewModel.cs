@@ -28,6 +28,7 @@ namespace BookingApp.WPF.ViewModels
         public string TouristImages { get; set; }
         public ObservableCollection<string> ImagesPaths { get; set; }
         private TourReservationService reservationService { get; set; }
+        private TourRatingService tourRatingService { get; set; }
         private TourGuestService guestService { get; set; }
         
 
@@ -126,6 +127,7 @@ namespace BookingApp.WPF.ViewModels
         public RateTourViewModel(int reservationId,string imagesPath,string tourName,Location location,double tourDuration,DateOnly realisationDate,TimeOnly startTime,TimeOnly endTIme)
         {
             reservationService = new TourReservationService();
+            tourRatingService = new TourRatingService();
             guestService = new TourGuestService();
             ReservationId = reservationId;
             TourImagesPath = imagesPath;
@@ -139,7 +141,7 @@ namespace BookingApp.WPF.ViewModels
             IsRatingEntered = false;
            ButtonContent = "Rate";
             ImagesPaths = new ObservableCollection<string>();
-            NotRated = !reservationService.WasTourRated(ReservationId);
+            NotRated = !tourRatingService.WasTourRated(ReservationId);
             IsRateable = guestService.WasTouristOnTour(ReservationId);
         }
 

@@ -33,7 +33,7 @@ namespace BookingApp.WPF.Views
 
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);//TREBA 5 ili 4 sekunde
+            timer.Interval = TimeSpan.FromSeconds(0);//TREBA 5 ili 4 sekunde
             timer.Tick += Timer_Tick;
             timer.Start();
         }

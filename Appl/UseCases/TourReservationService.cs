@@ -12,12 +12,10 @@ namespace BookingApp.Appl.UseCases
     {
         private ITourReservationRepository _tourReservationRepository;
         private TourRealisationService tourRealisationService;
-        private TourRatingService tourRatingService;
         public TourReservationService() 
         {
             tourRealisationService = new TourRealisationService();
             _tourReservationRepository = Injector.CreateInstance<ITourReservationRepository>();
-            tourRatingService = new TourRatingService();
         }
 
         public List<TourReservation> GetTourReservationsForTourist(User tourist)
@@ -46,17 +44,6 @@ namespace BookingApp.Appl.UseCases
         public int NextId()
         {
             return _tourReservationRepository.NextIdForReservation();
-        }
-        public bool WasTourRated(int tourReservationId)
-        {
-            foreach(TourRating rating in tourRatingService.GetAllTourRatings())
-            {
-                if(rating.TourReservationId == tourReservationId)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public TourReservation GetLiveTourReservation(int userId)

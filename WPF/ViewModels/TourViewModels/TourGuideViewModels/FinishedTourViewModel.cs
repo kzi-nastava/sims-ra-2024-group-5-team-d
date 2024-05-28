@@ -2,6 +2,7 @@
 using BookingApp.Domain.Models;
 using BookingApp.Repositories;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels;
 using BookingApp.WPF.Views.OwnerView;
 using BookingApp.WPF.Views.TouristGuide;
 using LiveCharts;
@@ -58,6 +59,7 @@ namespace BookingApp.WPF.ViewModels
             checkPointService = new CheckPointService();
             userService = new UserService();
             TourGuestRating = GetReviews();
+            
         }
 
         private void BackButton()

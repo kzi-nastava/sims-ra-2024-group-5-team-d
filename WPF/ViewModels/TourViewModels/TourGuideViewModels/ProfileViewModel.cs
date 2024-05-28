@@ -5,6 +5,7 @@ using BookingApp.WPF.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -20,19 +21,29 @@ namespace BookingApp.WPF.ViewModels
         public ObservableCollection<TourViewModel> Tour { get; set; }
         public ObservableCollection<string> Date { get; set; }
 
-        private User LoggedInUser { get; set; }
+        public User LoggedInUser { get; set; }
         public TourService tourService { get; set; }
         public TourRealisationService tourRealisationService { get; set; }
+        public TourRatingService tourRatingService { get; set; }
         public LocationService locationService { get; set; }
+        public SuperGuideService superGuideService { get; set; }
+        public bool IsSuperGuide { get; set; }
+        public double AverageRating { get; set; }
+        public int NumberOfRatings { get; set; }
         public ProfileViewModel(User user) 
         { 
             LoggedInUser = user;
+            superGuideService = new SuperGuideService(user);
+            IsSuperGuide = superGuideService.ShouldHaveTheSuperStatus(LoggedInUser);
             tourService = new TourService();
             tourRealisationService = new TourRealisationService();
+            tourRatingService = new TourRatingService();
             locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Tour = new ObservableCollection<TourViewModel>();
             Date = new ObservableCollection<string>();
             ComboBoxSelectionChangedCommand = new RelayParameterCommand(OnComboBoxSelectionChanged);
+            AverageRating = tourRatingService.GetAverageRatingForGuide(LoggedInUser);
+            NumberOfRatings = tourRatingService.RatingsOfGuide(LoggedInUser).Count();
             InitializeComboBox();
             OnComboBoxSelectionChanged("All Time");
         }

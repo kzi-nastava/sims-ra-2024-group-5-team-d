@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
+using Svg;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -87,6 +88,47 @@ namespace BookingApp.WPF.Views.TouristGuide
             tourRealisationService.DeleteTourRealisationById(SelectedTourRealisation.Id);
             TourRealisations.Remove(SelectedTourRealisation);
             notificationService.SendVoucherNotification(voucher.User.Id,voucher.Id);   
+        }
+        private async void StartDemo(object sender, RoutedEventArgs e)
+        {
+            await Task.Delay(500);
+            PlusButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
+            await Task.Delay(500);
+            PlusButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00FFFFFF"));
+            // Highlight the DateTimePicker and show the popup
+            NewTourRealizationPopup.IsOpen = true;
+
+            await Task.Delay(500);
+
+            // Open the DateTimePicker dropdown and select a date
+            DateTimePicker.IsOpen = true;
+            await Task.Delay(500);
+            DateTimePicker.Value = DateTime.Now.AddDays(1);
+            await Task.Delay(500);
+            DateTimePicker.IsOpen = false;
+            SaveButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
+            await Task.Delay(500);
+            SaveButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2FC8BF"));
+            await Task.Delay(500);
+            
+
+            await Task.Delay(500);
+
+            // Close the popup
+            NewTourRealizationPopup.IsOpen = false;
+        }
+
+        private void HighlightInputField(Control inputField)
+        {
+            inputField.Focus();
+            inputField.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
+            inputField.BorderThickness = new Thickness(2);
+        }
+
+        private void RevertHighlightInputField(Control inputField)
+        {
+            inputField.BorderBrush = Brushes.Transparent;
+            inputField.BorderThickness = new Thickness(1);
         }
     }
 }
