@@ -40,12 +40,6 @@
                       Grid.Row="1"
                   HorizontalAlignment="Center"
                       ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Notifications}" ItemContainerStyle="{StaticResource CustomListView}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
-                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Padding="10" CornerRadius="10" Margin="8 0 20 10" Background="{StaticResource WhiteWhite}"  Style="{StaticResource BorderHoverAnimation}">
@@ -56,7 +50,7 @@
                                 <ColumnDefinition Width="500"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="C:\Users\lukai\Desktop\Resource\dot.png" Visibility="{Binding IsUnread, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=Hidden}" Width="30" Margin="0 0 15 0">
+                            <Image Source="C..\..\..\Resources\Images\OwnerImages\dot.png" Visibility="{Binding IsUnread, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=Hidden}" Width="30" Margin="0 0 15 0">
                                 <Image.Triggers>
                                     <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                                         <BeginStoryboard Storyboard="{StaticResource BlinkAnimation}"/>
@@ -79,8 +73,8 @@
                                 </Grid>
                                 <TextBlock Text="{Binding Message}" FontWeight="Normal" Grid.Row="1" FontSize="16" Style="{StaticResource FontColor}"/>
                             </Grid>
-                            <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Width="50" Margin="0 0 20 0" Template="{StaticResource CustomButtonTemplate}"  Command="{Binding DataContext.OpenNotification, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
-                                <Image Source="C:\Users\lukai\Desktop\Resource\enter.png"/>
+                            <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Width="50" Margin="0 0 20 0" Template="{StaticResource CustomButtonTemplate}"  Command="{Binding DataContext.OpenNotification, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                <Image Source="..\..\..\Resources\Images\OwnerImages\enter.png"/>
                             </Button>
                         </Grid>
                     </Border>

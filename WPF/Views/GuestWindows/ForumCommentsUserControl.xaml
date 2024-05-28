@@ -128,7 +128,7 @@
                                    FontWeight="Bold"
                                    VerticalAlignment="Top"
                                    Foreground="{StaticResource WhiteWhite}"/>
-                            <Image  Source="../../../Resources/Images/GuestImages/star.png"
+                            <Image  Source="{Binding IconPath}"
                                      Margin="10 0 10 0" 
                                      HorizontalAlignment="Left" 
                                      VerticalAlignment="Center"

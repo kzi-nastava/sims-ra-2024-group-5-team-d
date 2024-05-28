@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows"
         mc:Ignorable="d"
-        Title="OwnerRateGuestWindow" Height="330" Width="280" WindowStartupLocation="CenterScreen">
+        Title="OwnerRateGuestWindow" Height="350" Width="280" WindowStartupLocation="CenterScreen">
     <Grid Background="{StaticResource PrimaryBlack}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -19,8 +20,46 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Button HorizontalAlignment="Right"
+        VerticalAlignment="Center" 
+        Height="18" 
+        Grid.Column="1"
+        Width="18"
+        Margin="0,4,4,0"
+        ToolTipService.ShowDuration="5000">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Transparent" BorderThickness="0" Padding="0">
+                                    <Image Source="../../../Resources/Images/GuestImages/help.png"
+                                   Height="18" 
+                                   Width="18"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontSize="13"
+                                   FontWeight="Bold">
+                            Information about rate owner and accommodation
+                        </TextBlock>
+                        <TextBlock Text="You can see your ratings that you received from the owner, but only as you rated him and him reted you!"
+                                    TextWrapping="Wrap"
+                                    TextTrimming="WordEllipsis"
+                                    MaxWidth="400">
+                        </TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
         <Label Content="Owner's ratings for the guest" 
-                 Grid.Row="0"
+                 Grid.Row="1"
                  Grid.Column="0"
                  Height="auto" 
                  Width="auto"
@@ -30,31 +69,6 @@
                  VerticalAlignment="Center"
                  Foreground="{StaticResource WhiteWhite}"/>
         <Label Content="Cleanliness (1-5):" 
-                 Grid.Row="1"
-                 Grid.Column="0"
-                 Height="auto" 
-                 Width="auto"
-                 FontSize="13"
-                 HorizontalAlignment="Center" 
-                 VerticalAlignment="Center" 
-                 Margin="20,0,0,0"
-                 Foreground="{StaticResource WhiteWhite}"/>
-        <Border BorderThickness="2" 
-                  BorderBrush="{StaticResource PrimaryColor}"
-                  Background="{StaticResource PrimaryColor2}"
-                  CornerRadius="10,10,10,10"
-                  Grid.Column="1"
-                  Grid.Row="1"
-                  Margin="10,10,103,10">
-            <TextBlock Text="{Binding OwnerRatingGuestViewModel.CleanlinessRating}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       TextWrapping="Wrap"
-                       FontSize="13"
-                       FontWeight="Bold"
-                       Foreground="{StaticResource WhiteWhite}"/>
-        </Border>
-        <Label Content="Correctness (1-5):" 
                  Grid.Row="2"
                  Grid.Column="0"
                  Height="auto" 
@@ -71,6 +85,31 @@
                   Grid.Column="1"
                   Grid.Row="2"
                   Margin="10,10,103,10">
+            <TextBlock Text="{Binding OwnerRatingGuestViewModel.CleanlinessRating}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource WhiteWhite}"/>
+        </Border>
+        <Label Content="Correctness (1-5):" 
+                 Grid.Row="3"
+                 Grid.Column="0"
+                 Height="auto" 
+                 Width="auto"
+                 FontSize="13"
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Center" 
+                 Margin="20,0,0,0"
+                 Foreground="{StaticResource WhiteWhite}"/>
+        <Border BorderThickness="2" 
+                  BorderBrush="{StaticResource PrimaryColor}"
+                  Background="{StaticResource PrimaryColor2}"
+                  CornerRadius="10,10,10,10"
+                  Grid.Column="1"
+                  Grid.Row="3"
+                  Margin="10,10,103,10">
             <TextBlock Text="{Binding OwnerRatingGuestViewModel.RuleComplianceRating}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -80,7 +119,7 @@
                        Foreground="{StaticResource WhiteWhite}"/>
         </Border>
         <Label Content="Comments:" 
-                 Grid.Row="3"
+                 Grid.Row="4"
                  Grid.Column="0"
                  Height="auto" 
                  Width="auto"
@@ -93,7 +132,7 @@
                   Background="{StaticResource PrimaryColor2}"
                   CornerRadius="10,10,10,10"
                   Grid.Column="0"
-                  Grid.Row="4"
+                  Grid.Row="5"
                   Grid.ColumnSpan="2"
                   Margin="10,0,10,0">
             <TextBlock Text="{Binding OwnerRatingGuestViewModel.Comment}"
@@ -104,13 +143,14 @@
         </Border>
         
         <Button Background="Transparent"
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Width="auto"
-                Command="{Binding CloseCommand}">
+                Command="{Binding CloseCommand}"
+                BorderBrush="Transparent">
             <Border  Background="DarkOrange"
                     CornerRadius="5"
                     Height="auto" 

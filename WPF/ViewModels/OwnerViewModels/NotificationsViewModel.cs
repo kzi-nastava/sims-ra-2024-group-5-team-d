@@ -18,7 +18,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class NotificationsViewModel
     {
-        public ICommand SelectionChangedCommand { get; set; }
         public ICommand OpenNotification { get; set; }
 
         private NotificationsService notificationsService;
@@ -26,7 +25,6 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public ObservableCollection<NotificationViewModel> Notifications { get; set; }
         private User loggedInUser;
         private string message;
-        private NotificationViewModel selectedNotification;
         public NotificationsViewModel(User user)
         {
             InitializeServices();
@@ -38,8 +36,7 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 User sender= notificationsService.GetSender(notification);
                 Notifications.Add(new NotificationViewModel(message,notification,sender));
             });
-            SelectionChangedCommand = new RelayParameterCommand(ListViewSelectionChanged);
-            OpenNotification = new RelayCommand(OpenNotificationWindow);
+            OpenNotification = new RelayParameterCommand(OpenNotificationWindow);
         }
 
         private void InitializeServices()
@@ -52,18 +49,11 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ForumService forumService = new ForumService(Injector.CreateInstance<IForumRepository>(), locationService);
             notificationsService = new NotificationsService(Injector.CreateInstance<INotificationRepository>(),userService,accommodationService,accommodationReservationService,guestRequestService,forumService);
         }
-
-        public void ListViewSelectionChanged(object parameter)
+        public void OpenNotificationWindow(object parameter)
         {
             if (parameter != null)
             {
-                selectedNotification = parameter as NotificationViewModel;
-            }
-        }
-        public void OpenNotificationWindow()
-        {
-            if (selectedNotification != null)
-            {
+                NotificationViewModel selectedNotification = (NotificationViewModel)parameter;
                 Notification notification = notificationsService.GetById(selectedNotification.NotificationId);
                 switch(notification.Type)
                 {
@@ -77,7 +67,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                         OwnerMainWindow.contentControl.Content = new ForumReadMoreUserControl(notification.LinkId, loggedInUser);
                         break;
                 }
-                notificationsService.ReadNotification(notification);
+                if (notification.IsRead == false)
+                    notificationsService.ReadNotification(notification);
+                
             }
         }
     }

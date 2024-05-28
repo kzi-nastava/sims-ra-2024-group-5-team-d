@@ -18,9 +18,6 @@ namespace BookingApp.WPF.ViewModels
 {
     public class CreateInboxViewModel 
     {
-        public ICommand CreateForumCommand { get; set; }
-        public ICommand CloseForumCommand {  get; set; }
-        public ICommand OpenMoreCommand { get; set; }
         public ObservableCollection<InboxViewModel> ApprovedRequests { get; set; }
         public ObservableCollection<InboxViewModel> InProcessRequests { get; set; }
         public ObservableCollection<InboxViewModel> RejectedRequests { get; set; }
@@ -30,17 +27,13 @@ namespace BookingApp.WPF.ViewModels
         public int NumberOfRejectedNotifications { get; set; }
         public int NumberOfNotifications { get; set; }
         public User LoggedInUser { get; set; }
-        public InboxViewModel SelectedRequest { get; set; }
-        public ForumViewModel SelectedForum { get; set; }
+        public InboxViewModel SelectedApprovedRequest { get; set; }
+        public InboxViewModel SelectedRejectedRequest { get; set; }
 
         private GuestInboxService guestInboxService;
         private AccommodationReservationService accommodationReservationService;
         private AccommodationService accommodationService;
-        private ForumService forumService;
         private GuestNotificationsService guestNotificationsService;
-        private LocationService locationService;
-        private NotificationsService notificationsService;
-        private SuperForumService superForumService;
 
         private string comment;
         public string Comment
@@ -81,9 +74,6 @@ namespace BookingApp.WPF.ViewModels
         public CreateInboxViewModel(User user)
         {
             InitializeServices();
-            CreateForumCommand = new RelayCommand(CreateForum);
-            CloseForumCommand = new RelayParameterCommand(CloseForum);
-            OpenMoreCommand = new RelayParameterCommand(OpenComments);
             ApprovedRequests = new ObservableCollection<InboxViewModel>();
             InProcessRequests = new ObservableCollection<InboxViewModel>();
             RejectedRequests = new ObservableCollection<InboxViewModel>();
@@ -102,54 +92,16 @@ namespace BookingApp.WPF.ViewModels
             
             guestInboxService.GetInProcessRequests(LoggedInUser)
                             .ForEach(r => InProcessRequests.Add(new InboxViewModel(accommodationService.GetById(accommodationReservationService.GetById(r.ReservationId).AccommodationId).ImagesPath, r.NewReservedFrom, r.NewReservedTo, r.Comment, accommodationService.GetAccommodationNameById(accommodationReservationService.GetById(r.ReservationId).AccommodationId))));
-
-            forumService.GetAll().ForEach(forum => 
-            {
-                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum);
-                Forums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser,superForumService.IsSuperForum(forum)));
-            
-            });
         }
 
         private void InitializeServices()
         {
             guestInboxService = new GuestInboxService();
             accommodationReservationService = new AccommodationReservationService();
-            notificationsService = new NotificationsService();
             accommodationService = new AccommodationService();
-            forumService = new ForumService();
-            superForumService = new SuperForumService();
-            locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             guestNotificationsService = new GuestNotificationsService();
         }
 
-        public void CreateForum()
-        {
-            Forum forum = new Forum(Title, Comment, locationService.GetById(LocationId), LoggedInUser.Id, DateTime.UtcNow, true);
-            forum=forumService.Save(forum);
-            notificationsService.CreateForumNotifications(forum);
-            Forums.Add(new ForumViewModel(forum, true,superForumService.IsSuperForum(forum)));
-        }
-        public void CloseForum(Object param)
-        {
-            ForumViewModel forumViewModel = param as ForumViewModel;
-            if(forumViewModel!=null )
-            {
-                
-                Forum forum = forumService.GetById(forumViewModel.ForumId);
-                forum.Active = false;
-                forumService.Update(forum);
-
-            }
-        }
-        private void OpenComments(object forum)
-        {
-            ForumViewModel forumViewModel = (ForumViewModel)forum;
-            if (forumViewModel != null)
-            {
-                GuestWindow.contentControl.Content = new ForumCommentsUserControl(LoggedInUser, forumViewModel);
-            }
-        }
 
     }
 }

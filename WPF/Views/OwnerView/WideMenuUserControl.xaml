@@ -56,7 +56,7 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="C:\Users\lukai\Desktop\Resource\inbox1.png" 
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\inbox1.png" 
                             Height="32" 
                             Width="32"
                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
@@ -73,7 +73,7 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="C:\Users\lukai\Desktop\Resource\renovations.png" 
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\renovations.png" 
                             Height="32" 
                             Width="32"
                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
@@ -90,7 +90,7 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="C:\Users\lukai\Desktop\Resource\star.png" 
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\star.png" 
                             Height="32" 
                             Width="32"
                            VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0 0 0 0"/>
@@ -107,7 +107,7 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="C:\Users\lukai\Desktop\Resource\forum.png" 
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\forum.png" 
                             Height="32" 
                             Width="32"
                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>

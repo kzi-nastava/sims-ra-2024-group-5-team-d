@@ -3,24 +3,32 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
-    public class TopMenuViewModel
+    public class TopMenuViewModel :INotifyPropertyChanged
     {
         private User loggedInUser;
         private UnratedGuestService unratedGuestService;
         private NotificationsService notificationService;
-        public string NumberOfNotifications { get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public int NumberOfNotifications { get; set; }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public TopMenuViewModel(User user)
         {
             InitializeServices();
             loggedInUser = user;
             notificationService.CreateNotificationForUnratedGuests(unratedGuestService.GetUnratedGuests(loggedInUser), user);
-            NumberOfNotifications = notificationService.GetNumberOfUnreadNotificationsForUser(user).ToString();
+            NumberOfNotifications = notificationService.GetNumberOfUnreadNotificationsForUser(user);
         }
 
         private void InitializeServices()

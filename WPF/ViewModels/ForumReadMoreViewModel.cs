@@ -53,16 +53,16 @@ namespace BookingApp.WPF.ViewModels
             forumCommentService.GetByForumId(forumId).ForEach(comment => {
                 bool reportable=!accommodationReservationService.HasReservationOnLocation(userService.GetById(comment.CreatorId),Forum.Location) && !userService.GetById(comment.CreatorId).IsOwner();
                 if (accommodationService.HasAccommodationOnLocation(userService.GetById(comment.CreatorId), forumService.GetById(comment.ForumId).Location))
-                    icon = @"C:\Users\lukai\Desktop\Resource\home.png";
+                    icon = @"..\..\..\Resources\Images\OwnerImages\home.png";
                 else if (accommodationReservationService.HasReservationOnLocation(userService.GetById(comment.CreatorId), forumService.GetById(comment.ForumId).Location))
                 {
-                    icon = @"C:\Users\lukai\Desktop\Resource\verified.png";
+                    icon = @"..\..\..\Resources\Images\OwnerImages\verified.png";
                 }
                 else
                     icon = "";
                 Comments.Add(new ForumCommentViewModel(comment,commentReportService.GetNumberOfReportsForComment(comment.Id), icon, userService.GetById(comment.CreatorId),reportable, commentReportService.IsAlreadyReported(comment.Id, user.Id) || !accommodationService.HasAccommodationOnLocation(user, Forum.Location)));
                 });
-            IsAddingCommentEnabled = accommodationService.HasAccommodationOnLocation(user,Forum.Location);
+            IsAddingCommentEnabled = accommodationService.HasAccommodationOnLocation(user,Forum.Location) && Forum.IsActive;
             CommentCommand = new RelayCommand(SaveComment);
             AddCommentCommand = new RelayCommand(AddComment);
             ReportCommand = new RelayParameterCommand(Report);
@@ -81,7 +81,7 @@ namespace BookingApp.WPF.ViewModels
         {
                 ForumComment comment = new ForumComment(forumId, loggedInUser.Id, AddForumCommentViewModel.Comment,DateTime.Now);
                 comment=forumCommentService.Save(comment);
-                Comments.Add(new ForumCommentViewModel(comment, @"C:\Users\lukai\Desktop\Resource\home.png", loggedInUser));
+                Comments.Add(new ForumCommentViewModel(comment, @"..\..\..\Resources\Images\OwnerImages\home.png", loggedInUser));
                 AddForumCommentViewModel.Comment = "";  
                 AddForumCommentViewModel.IsVisible = false;
         }

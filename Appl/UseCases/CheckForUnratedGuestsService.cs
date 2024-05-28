@@ -20,12 +20,6 @@ namespace BookingApp.Appl.UseCases
             accommodationReservationService = new AccommodationReservationService();
             guestRatingService = new GuestRatingService();
         }
-        public bool CheckForUnratedGuestsByLoggedInUser(User owner)
-        {
-            List<GuestRating> guestRatingsByLoggedInUser= guestRatingService.GetAllGuestRatingsByOwner(owner);
-            List<AccommodationReservation> reservationsForOwnerAccommodations= accommodationReservationService.GetAllReservationsForOwner(owner);
-            return AreThereUnratedGuests(guestRatingsByLoggedInUser, reservationsForOwnerAccommodations);
-        }
 
         //Da li ovo jos treba razdvoji ovaj poslednji return
         private bool AreThereUnratedGuests(List<GuestRating> guestRatingsByLoggedInUser,List<AccommodationReservation> reservationsForOwnerAccommodations)

@@ -55,7 +55,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\inbox1.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\inbox1.png" 
                Height="32" 
                Width="32" 
                Style="{StaticResource ImageMarginLeftMenu}"
@@ -74,7 +74,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\renovations.png"
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\renovations.png"
                            Height="32" 
                            Width="32" 
                            Margin="0 5 0 5"
@@ -93,7 +93,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\star.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\star.png" 
                Height="32" 
                Width="32"
                            Margin="0 3 0 0"
@@ -112,7 +112,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\forum.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\forum.png" 
                Height="32" 
                Width="32"
                Margin="0 2 0 0"

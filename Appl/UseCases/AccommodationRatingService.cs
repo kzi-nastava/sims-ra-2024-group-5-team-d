@@ -37,6 +37,10 @@ namespace BookingApp.Appl.UseCases
             this.accommodationService = accommodationService;
             this.accommodationRatingRepository = accommodationRatingRepository;
         }
+        public bool IsReservationRated (int reservationId)
+        {
+            return !GetAll().Any(rating => rating.ReservationId == reservationId);
+        }
         public double GetAverageRatingForOwner(User user)
         {
             return FindAllRatingsForOwner(user).Sum(rating => rating.GetAverageRating()) / GetNumberOfRatingsForOwner(user);
@@ -117,6 +121,25 @@ namespace BookingApp.Appl.UseCases
         public int NextId()
         {
             return accommodationRatingRepository.NextId();
+        }
+
+        public string GenerateRenovationText(AccommodationRating rating)
+        {
+            switch(rating.LevelOfRenovation)
+            {
+                case 1:
+                    return " It would be nice to renovate some small things, but everything works fine without it.";
+                case 2:
+                    return "Small complaints about the accommodation that, if addressed, would make it perfect.";
+                case 3:
+                    return "A few things that really bothered us should be renovated.";
+                case 4:
+                    return "There are many bad things, and renovation is really necessary.";
+                case 5:
+                    return "The accommodation is in very poor condition and is not worth renting unless it is renovated.";
+                    default:
+                    return "";
+            }
         }
     }
 }
