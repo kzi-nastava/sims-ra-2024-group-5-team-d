@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Home">Home page</sys:String>
+    <sys:String x:Key="Your Tours">Your Tours</sys:String>
+    <sys:String x:Key="Your Requests">Your Requests</sys:String>
+    <sys:String x:Key="Notifications">Notifications</sys:String>
+    <sys:String x:Key="Sign Out">Sign Out</sys:String>
+    <sys:String x:Key="Location:">Location:</sys:String>
+    <sys:String x:Key="Duration:">Duration:</sys:String>
+    <sys:String x:Key="Number of people:">Number of people:</sys:String>
+    <sys:String x:Key="Language:">Language:</sys:String>
+    <sys:String x:Key="Search">Search</sys:String>
+    <sys:String x:Key="Recommended tours:">Recommended tours:</sys:String>
+    <sys:String x:Key="English">English</sys:String>
+    <sys:String x:Key="German">German</sys:String>
+    <sys:String x:Key="Serbian">Serbian</sys:String>
+    <sys:String x:Key="Any">Any</sys:String>
+    <sys:String x:Key="vote">vote(s)</sys:String>
+    <sys:String x:Key="hour">hour(s)</sys:String>
+</ResourceDictionary>

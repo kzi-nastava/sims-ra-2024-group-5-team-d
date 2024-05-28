@@ -110,5 +110,16 @@ namespace BookingApp.Appl.UseCases
         {
             return _repository.UpdateTourGuest(guest);
         }
+
+        public bool IsUser(TourGuest guest)
+        {
+            bool isUser = false;
+            userService.GetAll().ForEach(user =>
+            {
+                if (user.PersonalId == guest.PersonalID)
+                    isUser = true;
+            });
+            return isUser;
+        }
     }
 }

@@ -83,7 +83,7 @@ namespace BookingApp.WPF.Views.TouristGuide
         {
             Voucher voucher = new Voucher();
             List<TourReservation> tourReservations = tourReservationService.GetAll().Where(tourReservation => tourReservation.TourRealisationId == SelectedTourRealisation.Id).ToList();
-            tourReservations.ForEach(tourReservation => voucher = voucherService.Save(new Voucher(voucherService.NextId(), DateTime.Now.AddYears(1), VOUCHERTYPE.CANCELEDTOUR, tourReservation.User)));
+            tourReservations.ForEach(tourReservation => voucher = voucherService.Save(new Voucher(voucherService.NextId(), DateTime.Now.AddYears(1), VOUCHERTYPE.CANCELEDTOUR, tourReservation.User, LoggedInUser)));
             tourReservations.ForEach(tourReservation => tourReservationService.DeleteTourReservation(tourReservation));
             tourRealisationService.DeleteTourRealisationById(SelectedTourRealisation.Id);
             TourRealisations.Remove(SelectedTourRealisation);

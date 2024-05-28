@@ -19,6 +19,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 {
     public class CreateRequestViewModel : INotifyPropertyChanged
     {
+        public ICommand ComplexRequestsTabCommand { get; private set; }
         public int Id { get; set; }
 
         private int capacity;
@@ -95,6 +96,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             DecreaseCountCommand = new RelayCommand(DecreaseCount);
             CreateRequestCommand = new RelayCommand(CreateRequest);
             CancelCommand = new RelayCommand(Cancel);
+
+            ComplexRequestsTabCommand = new RelayCommand(ShowComplexRequests);
             tourGuestService = new TourGuestService();
             notifier = new NotifierService();
             locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
@@ -107,6 +110,11 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             RangeTo = (DateTime.UtcNow).AddDays(3);
             tourRequestService = new TourRequestService();
             tourReservationService = new TourReservationService();
+        }
+
+        public void ShowComplexRequests()
+        {
+            TouristHomeWindow.contentControl.Content = new ComplexRequestsUserControl(Tourist);
         }
 
         public void IncreaseCount()

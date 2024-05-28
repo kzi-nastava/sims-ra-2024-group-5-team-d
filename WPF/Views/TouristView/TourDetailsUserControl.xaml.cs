@@ -264,6 +264,7 @@ namespace BookingApp.WPF.Views.TouristView
                     IsReadOnly = true,
                     Width = 200,
                     Height = 40,
+                    Background = Brushes.WhiteSmoke,
                     BorderBrush = Brushes.White,
                     FontSize = 18,
                     VerticalContentAlignment = VerticalAlignment.Center,

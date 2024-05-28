@@ -15,23 +15,66 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.Domain.Models;
 using BookingApp.Appl.UseCases;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.ComponentModel;
+using System.Windows.Media.Media3D;
+using BookingApp.WPF.Views.OwnerView;
 
 namespace BookingApp.WPF.Views.TouristView
 {
     /// <summary>
     /// Interaction logic for TouristHomeWindow.xaml
     /// </summary>
-    public partial class TouristHomeWindow : Window
+    public partial class TouristHomeWindow : Window , INotifyPropertyChanged
     {
         public static ContentControl contentControl;
 
         User User { get; set; }
 
+        private bool isLanguageChecked;
+        public bool IsLanguageChecked
+        {
+            get => isLanguageChecked;
+            set
+            {
+                if (value != isLanguageChecked)
+                {
+                    isLanguageChecked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool isThemeSwitchChecked;
+
+        public bool IsThemeSwitchChecked
+        {
+            get => isThemeSwitchChecked;
+            set
+            {
+                if (value != isThemeSwitchChecked)
+                {
+                    isThemeSwitchChecked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         //private NotifierService notifier;
-       
+
         public TouristHomeWindow(User user)
         {
             InitializeComponent();
+            IsThemeSwitchChecked = false;
+            IsLanguageChecked = true;
             DataContext = this;
             User = user;
             contentControl = contentControl1;
@@ -64,6 +107,38 @@ namespace BookingApp.WPF.Views.TouristView
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             contentControl.Content = new TouristHomeUserControl(User);
+        }
+
+        private void ThemeSwitch_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(IsThemeSwitchChecked);
+            if(!IsThemeSwitchChecked)
+            {
+                AppTheme.ChangeTheme(new Uri("Themes/LightTheme.xaml", UriKind.Relative), new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
+            }
+            else
+            {
+                AppTheme.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative), new Uri("Themes/LightTheme.xaml", UriKind.Relative));
+            }
+
+        }
+
+        private void SwitchLanguageClick(object sender, RoutedEventArgs e)
+        {
+            if (IsLanguageChecked)
+            {
+                AppLanguage.ChangeLanguage(new Uri("Languages/English.xaml", UriKind.Relative), new Uri("Languages/Serbian.xaml", UriKind.Relative));
+            }
+            else
+            {
+                AppLanguage.ChangeLanguage(new Uri("Languages/Serbian.xaml", UriKind.Relative), new Uri("Languages/English.xaml", UriKind.Relative));
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            TouristHomeWindow homeWindow = (TouristHomeWindow)Window.GetWindow(this);
+            homeWindow.Close();
         }
     }
 }

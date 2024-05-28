@@ -2,6 +2,7 @@
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.Views.TouristView;
 using HarfBuzzSharp;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -24,6 +25,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
     
     public class RequestStatisticsViewModel : INotifyPropertyChanged
     {
+        public ICommand ComplexRequestsTabCommand { get; private set; }
         public ICommand ComboBoxSelectionChangedCommand { get; set; }   
         public User Tourist { get; set; }
         public SeriesCollection RequestsStatistics { get; set; }
@@ -69,6 +71,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             LocationStats = new SeriesCollection();
             tourRequestService = new TourRequestService();
             LanguageLabels = new ObservableCollection<string>();
+
+            ComplexRequestsTabCommand = new RelayCommand(ShowComplexRequests);
             LocationLabels = new ObservableCollection<string>();
             for (int i = 0; i < Enum.GetNames(typeof(LANGUAGE)).Length; i++)
             {
@@ -85,6 +89,11 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 
 
             OnComboBoxSelectionChanged("All Time");            
+        }
+
+        public void ShowComplexRequests()
+        {
+            TouristHomeWindow.contentControl.Content = new ComplexRequestsUserControl(Tourist);
         }
 
         public void InitializeLocationStatistics()

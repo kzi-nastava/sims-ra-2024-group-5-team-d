@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
-            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryBlack}"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -20,7 +20,7 @@
             <RowDefinition Height="120"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Gray"
+        <Border BorderBrush="{DynamicResource MainColor1}"
                         BorderThickness="0 0 0 1.5"
                         CornerRadius="0"
                         Grid.Row="0"
@@ -40,8 +40,9 @@
                 <TextBlock         Grid.Row="0"
                                        Margin="-35 21 0 0"
                                        Grid.Column="0"
-                                       Text="Location:"
+                                       Text="{DynamicResource Location:}"
                                        Padding="0 0 30 0"
+                                       Foreground="{DynamicResource Font1}"
                                        FontFamily="Verdana"
                                        HorizontalAlignment="Center"
                                        FontSize="20"
@@ -49,18 +50,20 @@
                                        Style="{StaticResource TextBlockStyle}"/>
                 <TextBlock         Grid.Row="0"
                                        Grid.Column="1"
-                                       Text="Duration:"
+                                       Text="{DynamicResource Duration:}"
                                        Padding="0 20 60 0"
                                        FontFamily="Verdana"
+                                       Foreground="{DynamicResource Font1}"
                                        HorizontalAlignment="Center"
                                        FontSize="20"
                                    Style="{StaticResource TextBlockStyle}"
                                        VerticalAlignment="Center"/>
                 <TextBlock
                                        Grid.Column="2"
-                                       Text="Language:"
+                                       Text="{DynamicResource Language:}"
                                        Padding="0 20 30 0"
                                        FontFamily="Verdana"
+                                       Foreground="{DynamicResource Font1}"
                                        HorizontalAlignment="Left"
                                        FontSize="20"
                                        VerticalAlignment="Center"
@@ -68,23 +71,24 @@
                                        Margin="31,0,0,0"/>
                 <TextBlock         Grid.Row="0"
                                        Grid.Column="3"
-                                       Text="Number of people:"
+                                       Text="{DynamicResource Number of people:}"
                                        Margin="0 5 0 0"
+                                       Foreground="{DynamicResource Font1}"
                                        Padding="0 15 30 0"
                                        FontFamily="Verdana"
                                    Style="{StaticResource TextBlockStyle}"
-                                       HorizontalAlignment="Center"
+                                       HorizontalAlignment="Left"
                                        FontSize="20"
                                        VerticalAlignment="Center"/>
                 <ComboBox   Grid.Row="1"
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Background="{StaticResource PrimaryColor}"
+                            Background="{DynamicResource MainColor1}"
                             BorderThickness="1"
                             Margin="35,5,0,0"
                             Width="170"
-                            Foreground="{StaticResource PrimaryBlack}"
+                            Foreground="{DynamicResource PrimaryBlack}"
                             Height="30"
                             FontSize="15"
                             SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}">
@@ -98,7 +102,7 @@
                     <ComboBoxItem Content="Serbia, Pančevo"/>
                     <ComboBoxItem Content="Serbia, Čačak"/>
                     <ComboBoxItem Content="Serbia, Užice"/>
-                    <ComboBoxItem Content="Any"/>
+                    <ComboBoxItem Content="{DynamicResource Any}"/>
                 </ComboBox>
                 <ComboBox   Grid.Row="1"
                             Grid.Column="1"
@@ -114,7 +118,7 @@
                     <ComboBoxItem Content="2-3h"></ComboBoxItem>
                     <ComboBoxItem Content="3-4h"></ComboBoxItem>
                     <ComboBoxItem Content="4-5h"></ComboBoxItem>
-                    <ComboBoxItem Content="Any"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Any}"></ComboBoxItem>
                 </ComboBox>
                 <ComboBox   Grid.Row="1"
                             Grid.Column="2"
@@ -125,10 +129,10 @@
                             Height="30"
                             FontSize="15" Margin="31,0,0,0"
                             SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBoxItem Content="English"></ComboBoxItem>
-                    <ComboBoxItem Content="Serbian"></ComboBoxItem>
-                    <ComboBoxItem Content="German"></ComboBoxItem>
-                    <ComboBoxItem Content="Any"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource English}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Serbian}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource German}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Any}"></ComboBoxItem>
                 </ComboBox>
                 <StackPanel Grid.Row="2"
                             Grid.Column="3"
@@ -141,7 +145,8 @@
                              TextAlignment="Right"
                              VerticalContentAlignment="Center"
                              Height="32"
-                             Foreground="{StaticResource PrimaryBlack}"
+                             Foreground="{DynamicResource PrimaryBlack}"
+                             Background="{DynamicResource WhiteWhite}"
                              Width="160"
                              x:Name="PeopleCounter"
                              IsReadOnly="True"
@@ -160,8 +165,8 @@
                                 Height="16"
                                 Margin="0 0 0 0"
                                 VerticalContentAlignment="Top"
-                                Background="{StaticResource PrimaryColor}"
-                                Foreground="{StaticResource PrimaryBlack}"
+                                Background="{DynamicResource MainColor2}"
+                                Foreground="{DynamicResource Font1}"
                                 FontSize="9.5"
                                 HorizontalContentAlignment="Center"
                                 Click="IncreaseCount_Click"/>
@@ -170,8 +175,8 @@
                                 Width="20"
                                 Height="16"
                                 Margin="0 0 0 0"
-                                Foreground="{StaticResource PrimaryBlack}"
-                                Background="{StaticResource PrimaryColor}"
+                                Background="{DynamicResource MainColor2}"
+                                Foreground="{DynamicResource Font1}"
                                 FontSize="9.5"
                                 HorizontalContentAlignment="Center"
                                 Click="DecreaseCount_Click"/>
@@ -192,6 +197,7 @@
                     <Border
                             CornerRadius="4"
                             Width="160"
+                            Background="{DynamicResource PrimaryColor}"
                             Style="{StaticResource BorderHover}"
                             Height="32"
                             HorizontalAlignment="Left"
@@ -208,10 +214,10 @@
                                     HorizontalAlignment="Left"
                                        Margin="5 0 20 0"
                                     />
-                                <TextBlock Text="Search"
+                                <TextBlock Text="{DynamicResource Search}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Right"
-                                           Foreground="{StaticResource WhiteWhite}"
+                                           Foreground="{DynamicResource AntiFont1}"
                                            FontWeight="Normal"
                                            FontSize="22"></TextBlock>
 
@@ -226,8 +232,8 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Recommended tours:"
-                   Foreground="{StaticResource PrimaryBlack}"
+            <Label Grid.Row="0" Content="{DynamicResource Recommended tours:}"
+                   Foreground="{DynamicResource Font2}"
                    FontSize="25"
                    Margin="35 0 0 0">
 
@@ -244,9 +250,9 @@
                 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="{StaticResource WhiteWhite}"
+                        <Border Background="{DynamicResource Secondary2}"
                                 BorderThickness="1.2"
-                                BorderBrush="{StaticResource PrimaryColor}"
+                                BorderBrush="{DynamicResource MainColor1}"
                                 CornerRadius="20"
                                 Style="{StaticResource BorderHoverAnimation}"
                                 Height="280"
@@ -278,7 +284,7 @@
                                            FontFamily="Verdana"
                                            FontWeight="DemiBold"
                                            Width="500"
-                                           Foreground="{StaticResource PrimaryColor2}"
+                                           Foreground="{DynamicResource Font1}"
                                            Content="{Binding Name}">
                                     </Label>
                                     <Grid Grid.Row="1">
@@ -336,8 +342,8 @@
                                                FontSize="10"
                                                FontFamily="Verdana"
                                                Width="500">
-                                                <Run Text="{Binding NumberOfVotes}"></Run>
-                                                <Run Text="vote(s)" Foreground="{StaticResource PrimaryBlack}"></Run>
+                                                <Run Foreground="{DynamicResource Font1}" Text="{Binding NumberOfVotes}"></Run>
+                                                <Run Text="{DynamicResource vote}" Foreground="{DynamicResource Font1}"></Run>
                                             </TextBlock>
                                             
                                         </StackPanel>
@@ -356,7 +362,7 @@
                                                Margin="7 4 0 0"/>
                                         <Label Margin="-2 4 0 0"
                                                Grid.Row="0"
-                                               Foreground="{StaticResource PrimaryBlack}"
+                                               Foreground="{DynamicResource Font1}"
                                                FontSize="11"
                                                FontFamily="Verdana"
                                                Width="500"
@@ -375,18 +381,18 @@
                                                Margin="7 4 0 0"/>
                                         <TextBlock Margin="4 6 0 0"
                                                FontSize="10"
-                                                   Foreground="{StaticResource PrimaryBlack}"
+                                                   Foreground="{DynamicResource Font1}"
                                                FontFamily="Verdana"
                                                Width="500">
                                             <Run Text="{Binding Duration}" />
-                                            <Run Text="hour(s)" />
+                                            <Run Text="{DynamicResource hour}" />
                                         </TextBlock>
                                     </StackPanel>
                                     <TextBlock Margin="12 10 0 0"
                                                Grid.Row="4"
                                                FontSize="15"
                                                FontFamily="Verdana"
-                                               Foreground="{StaticResource PrimaryBlack}"
+                                               Foreground="{DynamicResource Font1}"
                                                Width="500"
                                                Height="180"
                                                Text="{Binding Description}"

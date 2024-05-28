@@ -68,8 +68,8 @@
                     BorderBrush="Gray"
                     Grid.ColumnSpan="4"/>
             <Button Grid.Column="0"
-                    
-                Background="LightSlateGray"
+                    Foreground="{StaticResource WhiteWhite}"
+                Background="{StaticResource PrimaryColor2}"
                 Content="Simple Requests"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding SimpleRequestsTabCommand}"/>
@@ -94,6 +94,7 @@
                             Orientation="Horizontal"
                             HorizontalAlignment="Left">
                     <TextBlock Text="All Requests"
+                               Foreground="{StaticResource PrimaryColor2}"
                                Margin="50 15 0 0"
                                FontSize="24"
                                FontWeight="SemiBold"/>
@@ -106,9 +107,10 @@
                                 FontWeight="DemiBold"
                                 Command="{Binding ShowStatisticsCommand}"
                                 FontSize="18"
+                                Cursor="Hand"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Background="White"
+                                Background="{StaticResource LightGray}"
                                 BorderThickness="0">
 
                         </Button>
@@ -121,11 +123,12 @@
                             BorderBrush="Gray">
                         <Button Content="Create New Request"
                                 FontWeight="DemiBold"
+                                Cursor="Hand"
+                                Background="{StaticResource LightGray}"
                                 Command="{Binding CreateNewRequestCommand}"
                                 FontSize="18"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Background="White"
                                 BorderThickness="0">
 
                         </Button>
@@ -137,8 +140,10 @@
                               Background="Transparent"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              ItemContainerStyle="{StaticResource CustomListView}"
                               ItemsSource="{Binding Requests}"
                               ScrollViewer.CanContentScroll="False">
+                              
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Gray"
@@ -222,7 +227,7 @@
                                             </TextBlock>
                                         </Grid>
                                     </Border>
-                                    <Border Grid.Column="1" BorderThickness="0 0 1 0" Height="120"  Margin="0 10 20 0"  BorderBrush="Gray">
+                                    <Border Grid.Column="1" BorderThickness="0 0 1 0" Height="120"  Margin="0 10 20 0"  BorderBrush="{StaticResource PrimaryColor2}">
                                         <Grid Margin="0 0 10 0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="auto"></RowDefinition>
@@ -244,14 +249,16 @@
                                             <ListView Grid.Row="1"
                                                       Margin="-5 0 0 0"                 
                                                       Height="80"
+                                                      ItemContainerStyle="{StaticResource CustomListView}"
                                                       BorderThickness="0"
                                                       ScrollViewer.CanContentScroll="False"
+                                                      Background="{StaticResource LightGray}"
                                                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                       ItemsSource="{Binding Attendees}"
                                                       ScrollViewer.VerticalScrollBarVisibility="Hidden">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock>                                                            
+                                                        <TextBlock Background="{StaticResource WhiteGrey}">                                                            
                                                             <Run Text="- " FontSize="16"></Run>
                                                             <Run Text="{Binding FullName}" FontSize="16"></Run>
                                                         </TextBlock>
@@ -334,8 +341,9 @@
                                                         FontWeight="DemiBold"                                
                                                         FontSize="16"
                                                         HorizontalAlignment="Center"
+                                                        Cursor="Hand"
                                                         VerticalAlignment="Center"
-                                                        Background="White"
+                                                        Background="{StaticResource LightGray}"
                                                         BorderThickness="0">
 
                                                 </Button>

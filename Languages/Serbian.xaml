@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Home">Početna strana</sys:String>
+    <sys:String x:Key="Your Tours">Tvoje ture</sys:String>
+    <sys:String x:Key="Your Requests">Tvoji zahtevi</sys:String>
+    <sys:String x:Key="Notifications">Obaveštenja</sys:String>
+    <sys:String x:Key="Sign Out">Odjavi se</sys:String>
+    <sys:String x:Key="Location:">Lokacija:</sys:String>
+    <sys:String x:Key="Duration:">Trajanje:</sys:String>
+    <sys:String x:Key="Number of people:">Broj ljudi:</sys:String>
+    <sys:String x:Key="Language:">Jezik ture:</sys:String>
+    <sys:String x:Key="Search">Pretraži</sys:String>
+    <sys:String x:Key="Recommended tours:">Preporučene ture:</sys:String>
+    <sys:String x:Key="English">Engleski</sys:String>
+    <sys:String x:Key="German">Nemački</sys:String>
+    <sys:String x:Key="Serbian">Srpski</sys:String>
+    <sys:String x:Key="Any">Bilo šta</sys:String>
+    <sys:String x:Key="vote">ocena</sys:String>
+    <sys:String x:Key="hour">sata</sys:String>
+</ResourceDictionary>

@@ -78,7 +78,8 @@
                 Command="{Binding FutureToursCommand}"/>
             <Button Grid.Column="2"
                 Content="Past Tours"
-                Background="LightSlateGray"
+                Foreground="{StaticResource WhiteWhite}"
+                Background="{StaticResource PrimaryColor2}"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding PastToursTabCommand}"/>
             <Button Grid.Column="3"
@@ -277,6 +278,7 @@
                                                     FontSize="15"
                                                     Margin="0 20 20 0"
                                                     Content="{Binding ButtonContent}"
+                                                    Background="{StaticResource PrimaryColor2}"
                                                     IsEnabled="{Binding NotRated}"
                                                     FontWeight="SemiBold"
                                                     BorderThickness="1"
