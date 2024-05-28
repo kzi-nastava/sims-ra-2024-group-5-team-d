@@ -58,6 +58,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
             <!-- Border around the tabs -->
@@ -87,6 +88,11 @@
                     </Label.InputBindings>
                 </Label>
             </Border>
+            <Label Grid.Column="4" Content="Complex Requests" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding ComplexRequestTabCommand}" />
+                </Label.InputBindings>
+            </Label>
 
         </Grid>
         <!-- Content Area -->
@@ -227,9 +233,10 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
@@ -281,10 +288,14 @@
                                     <Label Grid.Column="1" Content="{Binding Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}"/>
                                 </Grid>
                             </Grid>
-                            <Label Grid.Row="0">
+                            <Label Grid.Row="1">
                                 <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" MaxHeight="50" Style="{StaticResource TextBlockDesign}"/>
                             </Label>
-                            <Button Grid.Row="1" Grid.Column="4" Command="{Binding DataContext.AcceptCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                            <TextBlock Style="{StaticResource TextBlockDesign}" FontSize="14" FontWeight="SemiBold" Margin="5 0 0 0">
+                                <Run Text="Request from:"/>
+                                <Run Text="{Binding Tourist.FullName}"/>
+                            </TextBlock>
+                            <Button Grid.Row="2" Grid.Column="4" Command="{Binding DataContext.AcceptCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource ButtonDesign}" BorderThickness="0">
                                 <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
                                     <TextBlock Text="Accept" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"/>
                                 </Border>

@@ -33,7 +33,7 @@ namespace BookingApp.WPF.Views.TouristGuide
     {
         public static ListView CheckPointsListView;
         public static ListView TourGuestsListView;
-
+        public static Border SignUpButton;
 
         public LiveTourView(User user, TourRealisationViewModel tourRealisationViewModel, TourViewModel tourViewModel)
         {
@@ -41,6 +41,7 @@ namespace BookingApp.WPF.Views.TouristGuide
             DataContext = new TourLiveViewModel(user,tourRealisationViewModel,tourViewModel);
             CheckPointsListView = checkPointsListView;
             TourGuestsListView = tourGuestsListView;
+            SignUpButton = signUpButton;
         }
 
 

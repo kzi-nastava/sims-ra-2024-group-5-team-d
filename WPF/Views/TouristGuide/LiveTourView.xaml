@@ -115,7 +115,7 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <Image Grid.Row="0" Source="Icons/User Circle.png" Height="24" Width="24" HorizontalAlignment="Left" Grid.RowSpan="2"/>
+                            <Image Grid.Row="0" Source="/../../../Resources\Images\GuideImages\User.png" Height="24" Width="24" HorizontalAlignment="Left" Grid.RowSpan="2"/>
                             <TextBlock Grid.Row="0" Text="{Binding FullName}" Margin="30,0,0,0"/>
                             <TextBlock Grid.Row="1" Margin="30,0,0,0">
                                 <Run Text="{Binding Years}" />
@@ -134,9 +134,12 @@
 
 
         <Button Grid.Row="4" Grid.Column="1" Command="{Binding SignUpCommand}"  HorizontalAlignment="Right"  VerticalAlignment="Top" Style="{StaticResource ButtonDesign}" BorderThickness="0">
-            <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
+            <Border  x:Name="signUpButton" CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
                 <TextBlock Text="Sign Up" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="13"/>
             </Border>
         </Button>
+        <ToggleButton x:Name="DemoButton" Command="{Binding StartDemoCommand}" Grid.Row="0" Grid.Column="1" Width="28" Height="28" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="0 0 40 0">
+            <Image Source="/../../../Resources\Images\GuideImages\Play Circle.png" />
+        </ToggleButton>
     </Grid>
 </UserControl>
