@@ -4,6 +4,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -25,11 +26,12 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         }
         public TopMenuViewModel(User user)
         {
+
             InitializeServices();
             loggedInUser = user;
             notificationService.CreateNotificationForUnratedGuests(unratedGuestService.GetUnratedGuests(loggedInUser), user);
             NumberOfNotifications = notificationService.GetNumberOfUnreadNotificationsForUser(user);
-        }
+        }   
 
         private void InitializeServices()
         {

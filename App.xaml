@@ -7,6 +7,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+                <ResourceDictionary Source="Themes/LightTheme.xaml"/>
+                <ResourceDictionary Source="Languages/English.xaml"/>
+                <ResourceDictionary Source="BuiltWpfElements/LanguageSwitch.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PrimaryColor" Color="#2FC8BF" />
             <SolidColorBrush x:Key="SecondaryColor" Color="#a8eae7" />

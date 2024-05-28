@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Views.TouristView;
+using System.Diagnostics;
 
 namespace BookingApp.Appl.UseCases
 {
@@ -26,8 +27,10 @@ namespace BookingApp.Appl.UseCases
             User user = userService.GetByUsername(username);
             if (user != null)
             {
+
                 if (user.Password == password)
                 {
+
                     MacLogin(user);
                     return "Success";
                 }

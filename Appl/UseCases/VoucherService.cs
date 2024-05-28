@@ -36,5 +36,10 @@ namespace BookingApp.Appl.UseCases
         {
             return voucherRepository.NextId();
         }
+
+        public Voucher Update(Voucher voucher)
+        {
+            return voucherRepository.Update(voucher);
+        }
     }
 }

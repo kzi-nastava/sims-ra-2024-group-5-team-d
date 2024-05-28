@@ -2,6 +2,9 @@
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.Views.TouristGuide;
+using BookingApp.WPF.Views.TouristView;
+using Jamesnet.Wpf.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,11 +21,17 @@ namespace BookingApp.WPF.ViewModels
     public class ProfileViewModel
     {
         public ICommand ComboBoxSelectionChangedCommand {  get; set; }
+        public ICommand QuitCommand {  get; set; }
         public ObservableCollection<TourViewModel> Tour { get; set; }
         public ObservableCollection<string> Date { get; set; }
 
         public User LoggedInUser { get; set; }
         public TourService tourService { get; set; }
+        public TourGuestService tourGuestService { get; set; }
+        public UserService userService { get; set; }
+        public SuperUserService superUserService { get; set; }
+        public VoucherService voucherService { get; set; }
+        public TourReservationService tourReservationService { get; set; }
         public TourRealisationService tourRealisationService { get; set; }
         public TourRatingService tourRatingService { get; set; }
         public LocationService locationService { get; set; }
@@ -36,6 +45,11 @@ namespace BookingApp.WPF.ViewModels
             superGuideService = new SuperGuideService(user);
             IsSuperGuide = superGuideService.ShouldHaveTheSuperStatus(LoggedInUser);
             tourService = new TourService();
+            tourGuestService = new TourGuestService();
+            tourReservationService = new TourReservationService();
+            voucherService = new VoucherService();
+            userService = new UserService();
+            superUserService = new SuperUserService();
             tourRealisationService = new TourRealisationService();
             tourRatingService = new TourRatingService();
             locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
@@ -44,6 +58,7 @@ namespace BookingApp.WPF.ViewModels
             ComboBoxSelectionChangedCommand = new RelayParameterCommand(OnComboBoxSelectionChanged);
             AverageRating = tourRatingService.GetAverageRatingForGuide(LoggedInUser);
             NumberOfRatings = tourRatingService.RatingsOfGuide(LoggedInUser).Count();
+            QuitCommand = new RelayCommand(Quit);
             InitializeComboBox();
             OnComboBoxSelectionChanged("All Time");
         }
@@ -83,6 +98,47 @@ namespace BookingApp.WPF.ViewModels
                 Date.Add(year.ToString());
             }
         }
+
+        private void Quit()
+        {
+            GiveVouchersToGuests();
+            DeleteAllTourGuideInfo();
+        }
+
+        private void GiveVouchersToGuests() 
+        {
+            User tourGuide = new User();
+            tourGuide.Id = -1;
+            tourRealisationService.GetAllTourRealisations(LoggedInUser).Where(rl => rl.IsFinished == false && rl.IsLive == false).ToList().ForEach(realisation =>
+            {
+                tourGuestService.GetAllTourGuests().ForEach(guest =>
+                {
+                    if(tourReservationService.GetById(guest.TourReservationId).TourRealisationId == realisation.Id && tourGuestService.IsUser(guest))
+                    {
+                        voucherService.GetAAll().ForEach(voucher =>
+                        {
+                            if(voucher.User.Id == userService.GetByPersonalID(guest.PersonalID).Id && voucher.TourGuide.Id == LoggedInUser.Id)
+                            {
+                                voucher.TourGuide.Id = -1;
+                                voucherService.Update(voucher);
+                            }
+                            });
+                        voucherService.Save(new Voucher(voucherService.NextId(), DateTime.Now.AddYears(2), VOUCHERTYPE.GUIDEQUIT,userService.GetByPersonalID(guest.PersonalID) , tourGuide));
+                    }
+                });
+            });
+        }
+
+        public void DeleteAllTourGuideInfo()
+        {
+            tourRealisationService.GetAllTourRealisations(LoggedInUser).ForEach(realisation => {
+                realisation.IsFinished = true;
+                tourRealisationService.Update(realisation);
+            });
+            // BRISANJE USERA ili LOGICKO BRISANJE ??
+        }
+
+
 
     }
 }

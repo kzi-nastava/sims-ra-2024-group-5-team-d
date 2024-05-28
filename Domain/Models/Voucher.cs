@@ -16,13 +16,15 @@ namespace BookingApp.Domain.Models
         public DateTime ExpireDate { get; set; }
         public VOUCHERTYPE Type { get; set; }
         public User User { get; set; }
+        public User TourGuide {get; set;}
 
-        public Voucher(int id, DateTime expireDate, VOUCHERTYPE type, User user)
+        public Voucher(int id, DateTime expireDate, VOUCHERTYPE type, User user, User tourGuide)
         {
             Id = id;
             ExpireDate = expireDate;
             Type = type;
             User = user;
+            TourGuide = tourGuide;
         }
         public Voucher() { }
         public void FromCSV(string[] values)
@@ -31,12 +33,23 @@ namespace BookingApp.Domain.Models
             ExpireDate = DateTime.ParseExact(values[1], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             Type = (VOUCHERTYPE)Enum.Parse(typeof(VOUCHERTYPE), values[2]);
             User = new User() { Id = Convert.ToInt32(values[3]) };
+            TourGuide = new User() { Id = Convert.ToInt32(values[4]) };
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString() , ExpireDate.ToString("d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), Type.ToString(), User.Id.ToString()};
+            string[] csvValues = { Id.ToString() , ExpireDate.ToString("d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture), Type.ToString(), User.Id.ToString(), TourGuide.Id.ToString() };
             return csvValues;
+        }
+
+        public void UpgradeForUniversalUse()
+        {
+            TourGuide.Id = -1;
+        }
+
+        public bool IsUniversal()
+        {
+            return TourGuide.Id == -1;
         }
     }
 }

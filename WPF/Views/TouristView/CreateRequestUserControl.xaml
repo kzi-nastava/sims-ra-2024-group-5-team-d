@@ -69,7 +69,8 @@
                     Grid.ColumnSpan="4"/>
             <Button Grid.Column="0"
                 Content="Simple Requests"
-                Background="LightSlateGray"
+                    Foreground="{StaticResource WhiteWhite}"
+                Background="{StaticResource PrimaryColor2}"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding SimpleRequestsTabCommand}"/>
             <Button Grid.Column="1"
@@ -83,7 +84,7 @@
                 <Border 
                 BorderThickness="1 1 1 1"
                 CornerRadius="5"
-                BorderBrush="Gray"
+                BorderBrush="{StaticResource PrimaryColor2}"
                 Padding="0 0 0 10"
                 Grid.Row="1"
                 Margin="0 -1 0 0">
@@ -93,7 +94,7 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Border BorderBrush="Gray"
+                        <Border BorderBrush="{StaticResource PrimaryColor2}"
                                 BorderThickness="1.5"
                                 CornerRadius="20"
                                 Grid.Column="0"
@@ -106,7 +107,7 @@
                                     <RowDefinition Height="auto"></RowDefinition>
                                     <RowDefinition Height="auto"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Border BorderBrush="Gray"
+                                <Border BorderBrush="{StaticResource PrimaryColor2}"
                                         BorderThickness="0 0 0 1"
                                         CornerRadius="0"
                                         Height="auto"
@@ -119,6 +120,7 @@
                                         </Grid.ColumnDefinitions>
                                         <Label Content="Personal Information"
                                            FontFamily="Verdana"
+                                               Foreground="{StaticResource PrimaryColor2}"
                                            FontSize="24"
                                            Margin="10 5 10 10"
                                            Grid.Column="0"
@@ -126,7 +128,7 @@
                                         </Label>
                                         <StackPanel Grid.Column="1"
                                                     Orientation="Horizontal"
-                                                    Margin="0 16 0 16"
+                                                    Margin="-10 12 0 16"
                                                     HorizontalAlignment="Left">
                                             <Border BorderThickness="1"
                                                     CornerRadius="2"
@@ -155,7 +157,8 @@
                                                         Width="20"
                                                         Height="16"
                                                         Margin="0 0 0 0"
-                                                        VerticalContentAlignment="Top"                                       
+                                                        VerticalContentAlignment="Top"      
+                                                        Background="{StaticResource PrimaryColor}"
                                                         FontSize="9.5"
                                                         HorizontalContentAlignment="Center"
                                                         Command="{Binding IncreaseCountCommand}"/>
@@ -165,6 +168,7 @@
                                                         Height="17"
                                                         Margin="0 0 0 0"
                                                         FontSize="9.5"
+                                                        Background="{StaticResource PrimaryColor}"
                                                         HorizontalContentAlignment="Center"
                                                         Command="{Binding DecreaseCountCommand}"/>
                                             </StackPanel>
@@ -195,7 +199,7 @@
                                         <DataTemplate>
                                             <Border BorderThickness="0 0 0 1.5"
                                                     CornerRadius="0"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{StaticResource PrimaryColor2}"
                                                     Margin="0 0 0 0"
                                                     Grid.Row="0"
                                                     Height="auto"
@@ -242,9 +246,10 @@
                                                     Grid.Column="0"
                                                     Height="30"
                                                     Padding="5 3 3 3"
-                                                    Width="300">
+                                                    Width="280">
                                                         <TextBox Text="{Binding FullName}"
                                                  FontSize="14"
+                                                                 Background="{StaticResource LightGray}"
                                                  BorderThickness="0"
                                                  HorizontalContentAlignment="Left"
                                                  VerticalContentAlignment="Center">
@@ -263,6 +268,7 @@
                                                         <TextBox Text="{Binding Years}"
                                                  HorizontalContentAlignment="Left"
                                                  VerticalContentAlignment="Center"
+                                                                 Background="{StaticResource LightGray}"
                                                  FontSize="14"
                                                  BorderThickness="0">
 
@@ -283,11 +289,12 @@
                                                     Grid.Column="0"
                                                     Height="30"
                                                     Padding="5 3 3 3"
-                                                    Width="300">
+                                                    Width="280">
                                                         <TextBox Text="{Binding PersonalID}"
                                                  HorizontalContentAlignment="Left"
                                                  VerticalContentAlignment="Center"
                                                  FontSize="14"
+                                                                 Background="{StaticResource LightGray}"
                                                  BorderThickness="0">
 
                                                         </TextBox>
@@ -304,7 +311,7 @@
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="auto"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Border BorderBrush="Gray"
+                            <Border BorderBrush="{StaticResource PrimaryColor2}"
                                 BorderThickness="1.5"
                                 CornerRadius="20"
                                 Height="auto"
@@ -373,8 +380,8 @@
                                                  FontWeight="SemiBold"
                                                  FontSize="18"></Run>
                                     </TextBlock>
-                                    <Border BorderBrush="Gray"
-                                            BorderThickness="1.5"
+                                    <Border BorderBrush="{StaticResource PrimaryColor2}"
+                                            BorderThickness="1"
                                             CornerRadius="20"
                                             Height="auto"
                                             Width="auto"
@@ -383,6 +390,7 @@
                                             Margin="20 0 20 0">
                                         <TextBox Height="120"
                                                  Padding="5"
+                                                 Background="{StaticResource LightGray}"
                                                  FontSize="16"
                                                  Text="{Binding Description}"
                                                  BorderThickness="0"
@@ -394,7 +402,7 @@
                                     <Border Margin="0 10 0 0" 
                                             Grid.Row="4" 
                                             BorderThickness="0 1 0 0" 
-                                            BorderBrush="Gray">
+                                            BorderBrush="{StaticResource PrimaryColor2}">
                                         <Grid Grid.Row="4">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -411,7 +419,7 @@
                                                            Margin="20 10 0 0"
                                                            FontSize="16"
                                                            ></TextBlock>
-                                                <Border BorderBrush="Gray" 
+                                                <Border BorderBrush="{StaticResource PrimaryColor2}" 
                                                         Grid.Row="1"
                                                         BorderThickness="1"
                                                         Margin="20 10 10 0"
@@ -491,7 +499,7 @@
                                                 
                                             </Grid>
                                             <Border BorderThickness="1 0 0 0"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{StaticResource PrimaryColor2}"
                                                     Margin="10 10 0 -10"
                                                     Grid.Column="1">
                                                 <Grid>
@@ -518,6 +526,7 @@
                                                                  VerticalContentAlignment="Center"
                                                                  Height="45"
                                                                  TextAlignment="Left"
+                                                                 Background="{StaticResource LightGray}"
                                                                  Width="200"
                                                                  TextWrapping="Wrap"
                                                                  BorderThickness="0"
@@ -528,6 +537,7 @@
                                                     </StackPanel>
                                                     <Button Grid.Row="2"
                                                             Height="30"
+                                                            Background="{StaticResource PrimaryColor}"  
                                                             Content="Create Request"
                                                             Command="{Binding CreateRequestCommand}"
                                                             Width="200">
@@ -537,6 +547,7 @@
                                                             Height="30"
                                                             Margin="0 10 0 0"
                                                             Content="Cancel"
+                                                            Background="{StaticResource PrimaryColor2}"
                                                             Command="{Binding CancelCommand}"
                                                             Width="200">
 

@@ -60,7 +60,7 @@ namespace BookingApp.Domain.Models
             AvatarPath = values[7];
             MacAddress = values[8];
             IsSuperUser = (values[9] == "") ? (bool?)null : Convert.ToBoolean(values[9]);
-            HasJob = bool.Parse(values[5]);
+            HasJob = bool.Parse(values[10]);
         }
 
         internal bool IsOwner()

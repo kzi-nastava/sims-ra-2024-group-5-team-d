@@ -72,6 +72,7 @@ namespace BookingApp.WPF.ViewModels
             Password = passwordBox.Password;
             if(signInService.CkeckCredentials(Username, Password)=="Success")
             {
+
             }
         }
         private void FastLogIn(object parameter)
