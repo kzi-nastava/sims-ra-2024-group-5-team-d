@@ -45,8 +45,8 @@ namespace BookingApp.WPF.ViewModels
             Description = forum.Description;
             Location = forum.Location;
             DateCreated = forum.DateCreated;
-            SuperForum = "../../../Resources/Images/OwnerImages/StarFull.png";
-            IsSuperForum = isSuperForum;
+            SuperForum = "../../../Resources/Images/OwnerImages/superForum.png";
+            IsSuperForum = isSuperForum ;
             IsVisible = isVisible;
             IsActive = forum.Active;
         }

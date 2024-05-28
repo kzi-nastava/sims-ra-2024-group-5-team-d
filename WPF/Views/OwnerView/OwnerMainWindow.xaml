@@ -51,7 +51,7 @@
                 Grid.ColumnSpan="3"/>
         <ContentControl Grid.Column="0" Grid.Row="1" x:Name="contentMenu"/>
         <Border Style="{StaticResource BorderHoverAnimation}" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="C:\Users\lukai\Desktop\Resource\hamburger2.png" 
+            <Image Source="..\..\..\Resources\Images\OwnerImages\hamburger2.png" 
                Height="42" 
                Width="42" 
                MouseLeftButtonDown="HamburgerClick" 
@@ -80,7 +80,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\home.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\home.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
@@ -109,7 +109,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\plusgreat.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\plusgreat.png" 
                            Width="45" 
                            Height="45" 
                            HorizontalAlignment="Center" 
@@ -139,7 +139,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\notify2.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\notify2.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
@@ -191,7 +191,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\profile.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\profile.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
@@ -216,7 +216,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="C:\Users\lukai\Desktop\Resource\info2.png" 
+                    <Image Source="..\..\..\Resources\Images\OwnerImages\info2.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 

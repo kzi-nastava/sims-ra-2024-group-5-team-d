@@ -148,9 +148,38 @@
     <None Remove="Resources\Images\GuestImages\XIcon.png" />
     <None Remove="Resources\Images\logo png.png" />
     <None Remove="Resources\Images\logo.png" />
+    <None Remove="Resources\Images\OwnerImages\back.png" />
+    <None Remove="Resources\Images\OwnerImages\book.png" />
+    <None Remove="Resources\Images\OwnerImages\chat.png" />
+    <None Remove="Resources\Images\OwnerImages\Check.png" />
+    <None Remove="Resources\Images\OwnerImages\closed1.png" />
+    <None Remove="Resources\Images\OwnerImages\dot.png" />
+    <None Remove="Resources\Images\OwnerImages\enter.png" />
+    <None Remove="Resources\Images\OwnerImages\flag.png" />
+    <None Remove="Resources\Images\OwnerImages\forum.png" />
+    <None Remove="Resources\Images\OwnerImages\forward.png" />
+    <None Remove="Resources\Images\OwnerImages\hamburger2.png" />
+    <None Remove="Resources\Images\OwnerImages\hammer.png" />
+    <None Remove="Resources\Images\OwnerImages\home.png" />
     <None Remove="Resources\Images\OwnerImages\idemo.png" />
+    <None Remove="Resources\Images\OwnerImages\inbox1.png" />
+    <None Remove="Resources\Images\OwnerImages\info2.png" />
+    <None Remove="Resources\Images\OwnerImages\location.png" />
+    <None Remove="Resources\Images\OwnerImages\loginPicture.jpg" />
+    <None Remove="Resources\Images\OwnerImages\logo png.png" />
+    <None Remove="Resources\Images\OwnerImages\more1.png" />
+    <None Remove="Resources\Images\OwnerImages\notify2.png" />
+    <None Remove="Resources\Images\OwnerImages\pdf.png" />
+    <None Remove="Resources\Images\OwnerImages\plusgreat.png" />
+    <None Remove="Resources\Images\OwnerImages\profile.png" />
+    <None Remove="Resources\Images\OwnerImages\renovations.png" />
+    <None Remove="Resources\Images\OwnerImages\star.png" />
     <None Remove="Resources\Images\OwnerImages\StarFull.png" />
     <None Remove="Resources\Images\OwnerImages\StarHalfFull.png" />
+    <None Remove="Resources\Images\OwnerImages\stats.png" />
+    <None Remove="Resources\Images\OwnerImages\superForum.png" />
+    <None Remove="Resources\Images\OwnerImages\verified.png" />
+    <None Remove="Resources\Images\OwnerImages\X.png" />
     <None Remove="Resources\Images\tourist1.png" />
     <None Remove="Resources\Images\travel.png" />
     <None Remove="Resources\Images\traveler.png" />
@@ -183,6 +212,18 @@
     <None Remove="Resources\TourImages\Tour7\caption.jpg" />
     <None Remove="Resources\TourImages\Tour8\beograd-na-vodi.jpg" />
     <None Remove="Resources\TourImages\Tour9\beograd-na-vodi.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\OwnerImages\star.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\OwnerImages\logo png.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -426,7 +467,58 @@
     <Content Include="Resources\Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\OwnerImages\back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\book.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\chat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\Check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\closed1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\dot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\enter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\forum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\hamburger2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\hammer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\OwnerImages\idemo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\inbox1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\info2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\location.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\loginPicture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\OwnerImages\loginPicture1.jpg">
@@ -570,10 +662,40 @@
     <Content Include="Resources\Images\GuestImages\XIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\OwnerImages\more1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\notify2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\pdf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\plusgreat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\renovations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\OwnerImages\StarFull.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\OwnerImages\StarHalfFull.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\stats.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\superForum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\verified.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerImages\X.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\tourist1.png">

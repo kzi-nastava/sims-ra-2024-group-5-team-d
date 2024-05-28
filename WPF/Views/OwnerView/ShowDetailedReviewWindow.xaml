@@ -45,7 +45,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Image  Source="C:\Users\lukai\Desktop\Resource\home.png" 
+                <Image  Source="..\..\..\Resources\Images\OwnerImages\home.png" 
                                                Width="24" 
                                                Height="24"
                                                HorizontalAlignment="Center" 
@@ -57,7 +57,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Image  Source="C:\Users\lukai\Desktop\Resource\location.png" 
+                <Image  Source="..\..\..\Resources\Images\OwnerImages\location.png" 
                                                Width="24" 
                                                Height="24"
                                                HorizontalAlignment="Center" 
@@ -77,7 +77,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="{Binding OwnerRatingsViewModel.CleanlinessRating}" HorizontalAlignment="Left" Foreground="{StaticResource PrimaryBlack}" VerticalAlignment="Top" FontSize="24" Margin="0 -5 0 0"/>
-                <Image Grid.Column="1" Source="C:\Users\lukai\Desktop\Resource\star.png" 
+                <Image Grid.Column="1" Source="..\..\..\Resources\Images\OwnerImages\star.png" 
                                                Width="24" 
                                                Height="24"
                                                HorizontalAlignment="Center" 
@@ -100,7 +100,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="{Binding OwnerRatingsViewModel.CorrectnessRating}" Foreground="{StaticResource PrimaryBlack}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Margin="0 -5 0 0"/>
-                <Image Grid.Column="1" Source="C:\Users\lukai\Desktop\Resource\star.png" 
+                <Image Grid.Column="1" Source="..\..\..\Resources\Images\OwnerImages\star.png" 
                                                Width="24" 
                                                Height="24"
                                                HorizontalAlignment="Center" 
@@ -125,7 +125,7 @@
                 <Border  
                          Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
                     <StackPanel >
-                        <Image Source="C:\Users\lukai\Desktop\Resource\back.png" Height="50"/>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\back.png" Height="50"/>
                     </StackPanel>
                 </Border>
             </Button>
@@ -159,7 +159,7 @@
                 <Border  
                          Style="{StaticResource BorderHoverUltimate}" CornerRadius="8">
                     <StackPanel >
-                        <Image Source="C:\Users\lukai\Desktop\Resource\forward.png" Height="50"/>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\forward.png" Height="50"/>
                     </StackPanel>
                 </Border>
             </Button>
