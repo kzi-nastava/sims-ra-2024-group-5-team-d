@@ -79,13 +79,15 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
 
             forumService.GetAll().ForEach(forum =>
             {
-                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum);
+                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum) && forum.IsActive();
                 Forums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser, superForumService.IsSuperForum(forum)));
 
             });
             forumService.GetAllByUser(LoggedInUser).ForEach(forum =>
             {
-                MyForums.Add(new ForumViewModel(forum, true, superForumService.IsSuperForum(forum)));
+                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum) && forum.IsActive();
+
+                MyForums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser, superForumService.IsSuperForum(forum)));
             });
 
                           
@@ -121,6 +123,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
                     if(Forums[i]==forumViewModel)
                     {
                         Forums[i].IsActive = false;
+                        Forums[i].IsVisible = false;
                     }
                 }
             }

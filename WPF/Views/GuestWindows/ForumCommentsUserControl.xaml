@@ -80,7 +80,7 @@
                  Margin="10,0,0,0">
             <TextBlock Text="{Binding Description}" 
                      HorizontalAlignment="Left"
-                     FontSize="10"
+                     FontSize="11"
                      TextWrapping="Wrap"
                      Margin="5"
                      Foreground="{StaticResource WhiteWhite}"/>
@@ -131,10 +131,10 @@
                             <Image  Source="{Binding IconPath}"
                                      Margin="10 0 10 0" 
                                      HorizontalAlignment="Left" 
-                                     VerticalAlignment="Center"
+                                     VerticalAlignment="Top"
                                      Grid.Column="1"
-                                     Width="15"
-                                     Height="15"/>
+                                     Width="20"
+                                     Height="20"/>
                             <Border
                                     Grid.Row="2"
                                     BorderBrush="{StaticResource PrimaryColor}"
@@ -146,7 +146,7 @@
                                     Margin="30,0,0,0">
                                 <TextBlock Text="{Binding Comment}" 
                                     HorizontalAlignment="Left"
-                                    FontSize="10"
+                                    FontSize="11"
                                     TextWrapping="Wrap"
                                     Margin="5"
                                     Foreground="{StaticResource WhiteWhite}"/>
@@ -179,13 +179,13 @@
                         Margin="10,10,10,10">
                     <TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" 
                                     HorizontalAlignment="Left"
-                                    FontSize="10"
+                                    FontSize="11"
                                     TextWrapping="Wrap"
                                     Margin="5,5,5,5"
                                     FlowDirection="LeftToRight"
                                     Foreground="{StaticResource WhiteWhite}"
                                     Background="{StaticResource PrimaryBlack}"
-                                    Width="365"
+                                    Width="362"
                                     Height="auto"/>
                 </Border>
                 <Button Grid.Row="1"
