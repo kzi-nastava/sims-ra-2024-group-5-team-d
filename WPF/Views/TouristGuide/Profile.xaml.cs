@@ -23,10 +23,10 @@ namespace BookingApp.WPF.Views.TouristGuide
     public partial class Profile : UserControl
     {
 
-        public Profile(User user)
+        public Profile(User user, Window window)
         {
             InitializeComponent();
-            DataContext = new ProfileViewModel(user);
+            DataContext = new ProfileViewModel(user,window);
         }
     }
 }

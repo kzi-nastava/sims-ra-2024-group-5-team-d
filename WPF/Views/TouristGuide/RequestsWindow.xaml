@@ -218,15 +218,12 @@
               ScrollViewer.VerticalScrollBarVisibility="Hidden"
               SelectedItem="{Binding SelectedTourRequest}"
               ItemsSource="{Binding TourRequests}"
+              ItemContainerStyle="{StaticResource CustomListView}"
               ScrollViewer.CanContentScroll="False" 
               Grid.Row="2"
               Margin="0 10 0 0"
               >
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Height="150" Width="845" CornerRadius="8" Margin="0 0 0 10" Background="{StaticResource WhiteWhite}" Padding="15">
@@ -242,7 +239,7 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 15 0">
                                     <Grid.ColumnDefinitions>
@@ -287,19 +284,19 @@
                                     <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
                                     <Label Grid.Column="1" Content="{Binding Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}"/>
                                 </Grid>
+                            <Button Grid.Column="4" Grid.Row="2" Command="{Binding DataContext.AcceptCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                                <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
+                                    <TextBlock Text="Accept" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"/>
+                                </Border>
+                            </Button>
                             </Grid>
                             <Label Grid.Row="1">
-                                <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" MaxHeight="50" Style="{StaticResource TextBlockDesign}"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxHeight="50" Style="{StaticResource TextBlockDesign}"/>
                             </Label>
                             <TextBlock Style="{StaticResource TextBlockDesign}" FontSize="14" FontWeight="SemiBold" Margin="5 0 0 0">
                                 <Run Text="Request from:"/>
                                 <Run Text="{Binding Tourist.FullName}"/>
                             </TextBlock>
-                            <Button Grid.Row="2" Grid.Column="4" Command="{Binding DataContext.AcceptCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource ButtonDesign}" BorderThickness="0">
-                                <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
-                                    <TextBlock Text="Accept" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"/>
-                                </Border>
-                            </Button>
                         </Grid>
                     </Border>
                 </DataTemplate>

@@ -53,7 +53,6 @@ namespace BookingApp.Appl.UseCases
                 guide.IsSuperUser = status;
                 userService.Update(guide);
             }
-            Debug.WriteLine(status);
             return status;
             
         }
