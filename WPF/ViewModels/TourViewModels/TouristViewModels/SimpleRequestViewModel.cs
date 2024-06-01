@@ -32,6 +32,20 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
                 }
             }
         }
+
+        private bool isNotEmpty;
+        public bool IsNotEmpty
+        {
+            get => isNotEmpty;
+            set
+            {
+                if (value != isNotEmpty)
+                {
+                    isNotEmpty = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Location Location { get; set; }
         public string LocationName { get; set; }
         public LANGUAGE Language { get; set; }
@@ -49,12 +63,12 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
         public int Capacity { get; set; }
         public ICommand Cancel { get; private set; }
         public ObservableCollection<TourAttendeeViewModel> Attendees { get; set; }
+        public ObservableCollection<TourGuestViewModel> Tourists { get; set; }
         private TourReservationService tourReservationService { get; set; }
         private TourRealisationService tourRealisationService { get; set; }
         private TourGuestService tourGuestService { get; set; }
         private LocationService locationService { get; set; }
-        private UserService userService { get; set; }
-        public ICommand AddMoreCommand { get; private set; }
+        
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -66,15 +80,16 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
         {
             Id = -1;
             TouristId = touristId;
-            AddMoreCommand = new RelayCommand(AddMore);
-            userService = new UserService();
             IsEmpty = true;
+            IsNotEmpty = false;
             Attendees = new ObservableCollection<TourAttendeeViewModel>();
+            Tourists = new ObservableCollection<TourGuestViewModel>();
         }
         public SimpleRequestViewModel(TourRequest tourRequest)
         {
             Id = tourRequest.Id;
             IsEmpty = false;
+            IsNotEmpty = true;
             Language = tourRequest.Language;
             Status = tourRequest.Status;
             tourReservationService = new TourReservationService();
@@ -115,15 +130,11 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
                 NotAccepted = true;
             }
             Attendees = new ObservableCollection<TourAttendeeViewModel>();
+            Tourists = new ObservableCollection<TourGuestViewModel>();
             tourGuestService.GetAllTourGuests().ForEach(tG => {
                 if (tG.TourReservationId == ReservationId)
                     Attendees.Add(new TourAttendeeViewModel(tG.Id, tG.FullName)); });
 
-        }
-
-        public void AddMore()
-        {
-            TouristHomeWindow.contentControl.Content = new CreateRequestUserControl(userService.GetById(TouristId));
         }
 
         public void CancelRequest()

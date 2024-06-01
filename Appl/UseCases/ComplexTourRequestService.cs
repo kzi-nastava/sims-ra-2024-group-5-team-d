@@ -141,7 +141,58 @@ namespace BookingApp.Appl.UseCases
                 request.Status = STATE.ACCEPTED;
                 Update(request);
             }
+        }
 
+        public void Validate()
+        {
+            GetAll().ForEach(req =>
+            {
+                if (!req.IsAcceptable())
+                {
+                    InvalidateRequest(req);
+                }
+                else if(req.Requests.Any(sim => sim.Status == STATE.PENDING))
+                {
+                    InvalidateIfFirstAcceptedIsInvalid(req);
+                }
+            });
+        }
+
+        public void InvalidateIfFirstAcceptedIsInvalid(ComplexTourRequest req)
+        {
+            foreach (TourRequest simple in req.Requests)
+            {
+                if (simple.Status == STATE.ACCEPTED)
+                {
+                    if (!tourRequestService.ShouldAcceptedRequestStillBeValid(simple))
+                    {
+                        InvalidateRequest(req);
+                    }
+                }
+            }
+        }
+
+        public void InvalidateRequest(ComplexTourRequest request)
+        {
+            foreach(TourRequest req in request.Requests)
+            {
+                if(req.Status == STATE.ACCEPTED)
+                {
+                    TourReservation reservation = tourReservationService.GetById(req.TourReservationId);
+                    TourRealisation realisation = tourRealisationService.GetTourRealisationById(reservation.TourRealisationId);
+                    Tour tour = tourService.GetById(realisation.TourId);
+
+                    tourService.DeleteTour(tour);
+                    tourRealisationService.DeleteTourRealisation(realisation);
+
+                    reservation.TourRealisationId = -1;
+                    tourReservationService.Update(reservation);
+                }
+                req.Status = STATE.INVALID;
+                tourRequestService.Update(req);
+            }
+            request.Status = STATE.INVALID;
+            Update(request);
         }
 
         public void FixPotentialDateTimeOverLaping(RequestViewModel simpleRequest)
