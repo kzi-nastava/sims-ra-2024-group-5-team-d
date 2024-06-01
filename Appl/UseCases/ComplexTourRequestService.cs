@@ -16,6 +16,7 @@ namespace BookingApp.Appl.UseCases
         private TourRequestService tourRequestService { get; set; }
         private TourReservationService tourReservationService { get; set; }
         private TourRealisationService tourRealisationService { get; set; }
+
         private TourService tourService { get; set; }
 
         public ComplexTourRequestService()
