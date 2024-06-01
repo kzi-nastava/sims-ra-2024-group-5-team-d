@@ -15,6 +15,7 @@ namespace BookingApp.Appl.UseCases
         private TourReservationService tourReservationService;
         private TourService tourService;
         private UserService userService;
+        private TourRealisationService tourRealisationService;
 
         public TourGuestService()
         {
@@ -22,6 +23,7 @@ namespace BookingApp.Appl.UseCases
             tourReservationService = new TourReservationService();
             userService = new UserService();
             tourService = new TourService();
+            tourRealisationService = new TourRealisationService();
         }
         public List<TourGuest>? GetTourGuestsOnTourRealisation(int tourRealisation)
         {
@@ -121,5 +123,19 @@ namespace BookingApp.Appl.UseCases
             });
             return isUser;
         }
+
+        public bool IsFifthTimeOnATour(TourGuest guest)
+        {
+            int tourPresenceCounter = 0;
+
+            if(IsUser(guest))
+            {
+                tourPresenceCounter = GetAllTourGuests().Where(tourGuest => tourGuest.PersonalID == guest.PersonalID && tourGuest.WasPresent() && tourRealisationService.GetById(tourReservationService.GetById(tourGuest.TourReservationId).TourRealisationId).StartTime.Year == DateTime.UtcNow.Year).ToList().Count();
+            }          
+
+            return tourPresenceCounter == 5;
+        }
+
+
     }
 }

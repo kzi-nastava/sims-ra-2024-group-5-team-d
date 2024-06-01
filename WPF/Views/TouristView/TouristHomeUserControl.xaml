@@ -11,6 +11,7 @@
              d:DesignWidth="1152">
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
             <Setter Property="Foreground" Value="{DynamicResource PrimaryBlack}"/>
         </Style>
@@ -403,6 +404,7 @@
                                 <Image Source="C:\Users\Korisnik\Desktop\ikone\verified.png"
                                        Height="30"
                                        Width="30"
+                                       Visibility="{Binding IsSuperGuide, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=Hidden}"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"
                                        Grid.Column="2"

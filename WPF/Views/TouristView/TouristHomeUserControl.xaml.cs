@@ -29,9 +29,9 @@ namespace BookingApp.WPF.Views.TouristView
     public partial class TouristHomeUserControl : UserControl, INotifyPropertyChanged
     {
         public TourViewModel SelectedTour { get; set; }
-        public ObservableCollection<TourViewModel> Tours { get; set; }
-
+        public ObservableCollection<TourViewModel> Tours { get; set; } 
         private TourService tourService { get; set; }
+
         public User User { get; set; }
 
         public TouristHomeUserControl(User user)
@@ -42,7 +42,12 @@ namespace BookingApp.WPF.Views.TouristView
             User = user;
             Tours = new ObservableCollection<TourViewModel>();
             tourService.GetAllTours().ForEach(tour => Tours.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User)));
-           
+            var sortedTours = Tours.OrderByDescending(tour => tour.IsSuperGuide).ToList();
+            Tours.Clear();
+            foreach (var tour in sortedTours)
+            {
+                Tours.Add(tour);
+            }
         }
 
         private int pickedLocationId = 10;
