@@ -1,6 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
-using iText.Commons.Bouncycastle.Cert.Ocsp;
+using BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +14,8 @@ namespace BookingApp.Appl.UseCases
         private IComplexTourRequestRepository _repository;
         private ComplexSimpleRequestPairService complexSimpleRequestPairService;
         private TourRequestService tourRequestService { get; set; }
-        private TourReservationService tourReservationService { get; set; }
         private TourRealisationService tourRealisationService { get; set; }
+        private TourReservationService tourReservationService { get; set; }
         private TourService tourService { get; set; }
 
         public ComplexTourRequestService()
@@ -23,9 +23,9 @@ namespace BookingApp.Appl.UseCases
             _repository = Injector.CreateInstance<IComplexTourRequestRepository>();
             complexSimpleRequestPairService = new ComplexSimpleRequestPairService();
             tourRequestService = new TourRequestService();
-            tourReservationService = new TourReservationService();
             tourRealisationService = new TourRealisationService();
-            tourService = new TourService();
+            tourReservationService = new TourReservationService();
+            tourService = new TourService();    
         }
 
         public void Delete(ComplexTourRequest request)
@@ -193,6 +193,46 @@ namespace BookingApp.Appl.UseCases
             }
             request.Status = STATE.INVALID;
             Update(request);
+        }
+
+        public void FixPotentialDateTimeOverLaping(RequestViewModel simpleRequest)
+        {
+            List<TourRequest> requestList = new List<TourRequest>();
+            ComplexTourRequest complex = new ComplexTourRequest();
+            List<DateTime> notPossibleSuggestions = new List<DateTime>();
+            foreach (var pair in complexSimpleRequestPairService.GetAll())
+            {
+                if(pair.SimpleRequestId == simpleRequest.Id)
+                {
+                    complex = _repository.GetById(pair.ComplexRequestId);
+                }
+            }
+            foreach (var pair in complexSimpleRequestPairService.GetAll())
+            {
+                if(pair.ComplexRequestId == complex.Id)
+                {
+                    requestList.Add(tourRequestService.GetById(pair.SimpleRequestId));
+                }
+            }
+            foreach(var simple in requestList)
+            {
+                if(simple.Status == STATE.ACCEPTED)
+                {
+
+                    notPossibleSuggestions.Add(tourRealisationService.GetById(tourReservationService.GetById(simple.TourReservationId).TourRealisationId).StartTime);
+                }
+            }
+            foreach(var not in notPossibleSuggestions)
+            {
+                foreach(var dates in simpleRequest.AvailableDates)
+                {
+                    if(not.DayOfYear == simpleRequest.SelectedDate.DayOfYear && not.Hour < simpleRequest.SelectedTime.Hour && not.AddHours(2).Hour > simpleRequest.SelectedTime.Hour)
+                    {
+                        simpleRequest.AvailableDates.Remove(dates);
+                    }
+                }
+            }
+            
         }
 
 

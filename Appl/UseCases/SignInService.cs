@@ -25,7 +25,7 @@ namespace BookingApp.Appl.UseCases
         public string CkeckCredentials(string username,string password)
         {
             User user = userService.GetByUsername(username);
-            if (user != null)
+            if (user != null && user.HasJob)
             {
 
                 if (user.Password == password)
@@ -80,9 +80,12 @@ namespace BookingApp.Appl.UseCases
             }
             else
             {
-                SideBar touristGuideWindow = new SideBar(user);
-                touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                touristGuideWindow.ShowDialog();
+                if (user.HasJob)
+                {
+                    SideBar touristGuideWindow = new SideBar(user);
+                    touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    touristGuideWindow.ShowDialog();
+                }
             }
         }
     }
