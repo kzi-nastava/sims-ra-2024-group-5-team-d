@@ -212,7 +212,8 @@ namespace BookingApp.WPF.Views.GuestWindows
             {
                 superUserService.IsDiscountUsed(LoggedInUser);
             }
-
+            ReservationConfirmedWindow reservationConfirmedWindow = new ReservationConfirmedWindow();
+            reservationConfirmedWindow.Show();
             GuestWindow.contentControl.Content = new AccommodationUserControl(LoggedInUser, Accommodation);
         }
 

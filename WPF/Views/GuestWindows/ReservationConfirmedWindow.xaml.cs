@@ -1,6 +1,4 @@
-﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,15 +15,13 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.GuestWindows
 {
     /// <summary>
-    /// Interaction logic for MoveReservationAccommodation.xaml
+    /// Interaction logic for ReservationConfirmedWindow.xaml
     /// </summary>
-    public partial class MoveReservationAccommodation : Window
+    public partial class ReservationConfirmedWindow : Window
     {
-        public MoveReservationAccommodation(User user ,int reservationId)
+        public ReservationConfirmedWindow()
         {
             InitializeComponent();
-            DataContext = new CreateRequestViewModel(user, reservationId, this);
         }
-
     }
 }

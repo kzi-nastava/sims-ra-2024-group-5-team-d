@@ -106,6 +106,8 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             forum = forumService.Save(forum);
             notificationsService.CreateForumNotifications(forum);
             Forums.Add(new ForumViewModel(forum, true, superForumService.IsSuperForum(forum)));
+            ForumCreatedWindow forumCreatedWindow = new ForumCreatedWindow();
+            forumCreatedWindow.Show();
         }
         public void CloseForum(Object param)
         {

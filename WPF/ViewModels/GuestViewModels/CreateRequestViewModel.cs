@@ -1,6 +1,8 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.WPF.Commands;
+using BookingApp.WPF.Views.GuestWindows;
+using Jamesnet.Wpf.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,12 +49,15 @@ namespace BookingApp.WPF.ViewModels
         private AccommodationReservationService reservationService;
         private AccommodationService accommodationService;
         private GuestRequestService guestRequestService;
-        public CreateRequestViewModel(User user, int reservationId)
+        public User LoggedInUser {  get; set; }
+        MoveReservationAccommodation moveWindow {  get; set; }
+        public CreateRequestViewModel(User user, int reservationId, MoveReservationAccommodation moveReservationAccommodation)
         {
             InitializeServices();
             SendRequestCommand = new RelayCommand(SendRequest);
             this.reservationId = reservationId;
-
+            LoggedInUser = user;
+            moveWindow = moveReservationAccommodation;
         }
 
         private void InitializeServices()
@@ -68,7 +73,10 @@ namespace BookingApp.WPF.ViewModels
             GuestRequest guestRequest = new GuestRequest(reservationId, NewReservedFrom, NewReservedTo, "" , STATUS.INPROCESS);
             guestRequestService.Save(guestRequest);
             notificationsService.CreateNotification(accommodationService.GetById(reservationService.GetById(reservationId).AccommodationId).Owner.Id,guestRequest.Id,Domain.Models.Type.REQUEST);
-
+            MovedReservationWindow movedReservationWindow = new MovedReservationWindow();
+            movedReservationWindow.Show();
+            moveWindow.Close();
+            GuestWindow.contentControl.Content = new SearchAccommodationUserControl(LoggedInUser);
         }
     }
 }

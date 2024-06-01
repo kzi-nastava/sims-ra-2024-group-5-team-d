@@ -204,7 +204,7 @@
               HorizontalAlignment="Left"
               Width="auto"
               Height="auto" 
-              Margin="227,0,0,0"
+              Margin="227,10,0,0"
               Click="DeletePhotoClick"
               Background="Transparent"
               BorderBrush="Transparent">
@@ -212,7 +212,7 @@
                      CornerRadius="5"
                      Height="auto"
                      Width="auto"
-                     Margin="0,10,0,0">
+                     Margin="0,0,0,0">
                 <TextBlock  Text="Delete"
                             Margin="4" 
                             Foreground="{StaticResource  WhiteGrey}" 
@@ -225,12 +225,12 @@
 
         <Button x:Name="RateButton"
              Grid.Row="11" 
-             VerticalAlignment="Center"
+             VerticalAlignment="Top"
              Width="auto"
              Height="auto"
              Click="RateOwnerAndAccommodation"
              Background="Transparent"
-             Margin="10"
+             Margin="112,10,108,0"
              BorderBrush="Transparent">
             <Border  Background="DarkOrange"
                      CornerRadius="5"
