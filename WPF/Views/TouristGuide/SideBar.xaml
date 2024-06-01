@@ -32,15 +32,15 @@
                     <Image Source="/../../../Resources\Images\GuideImages\Home.png" Width="24" Height="24"/>
                     <TextBlock Text="Home" Style="{StaticResource TextBlockDesign}"/>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,40,0,0" MouseLeftButtonUp="NewTour_Click">
+                <StackPanel Orientation="Vertical" Margin="0,50,0,0" MouseLeftButtonUp="NewTour_Click">
                     <Image Source="/../../../Resources\Images\GuideImages\Map Point Add.png" Width="24" Height="24"/>
                     <TextBlock Text="New tour" Style="{StaticResource TextBlockDesign}"/>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,40,0,0" MouseLeftButtonUp="Profile_Click">
+                <StackPanel Orientation="Vertical" Margin="0,60,0,0" MouseLeftButtonUp="Profile_Click">
                     <Image Source=" /../../../Resources\Images\GuideImages\User Circle.png" Width="24" Height="24"/>
                     <TextBlock Text="Profile" Style="{StaticResource TextBlockDesign}"/>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,310,0,0" MouseLeftButtonUp="LogOut_Click">
+                <StackPanel Orientation="Vertical" Margin="0,340,0,0" MouseLeftButtonUp="LogOut_Click">
                     <Image Source="/../../../Resources\Images\GuideImages\Arrows ALogout 2.png" Width="24" Height="24"/>
                     <TextBlock Text="Log out" Style="{StaticResource TextBlockDesign}"/>
                 </StackPanel>

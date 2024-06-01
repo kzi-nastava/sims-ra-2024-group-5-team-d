@@ -132,7 +132,7 @@
         </ComboBox>
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Duration" Style="{StaticResource TextBlockStyle}"/>
         <Border Grid.Row="6" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Height="30" Width="250" HorizontalAlignment="Left" Margin="0 0 0 10">
-            <TextBox x:Name="durationInput" Text="{Binding tourFormViewModel.Duration}" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="durationInput" Text="{Binding tourFormViewModel.Duration}" Style="{StaticResource TextBoxStyle}" IsReadOnly="{Binding IsDuration}"/>
         </Border>
         <TextBlock Grid.Row="7" Grid.Column="0" Text="Capacity" Style="{StaticResource TextBlockStyle}"/>
         <Border Grid.Row="8" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Height="30" Width="250" HorizontalAlignment="Left" Margin="0 0 0 10">
@@ -156,7 +156,7 @@
         </ComboBox>
         <TextBlock Grid.Row="3" Grid.Column="1" Text="Date and Time" Style="{StaticResource TextBlockStyle}"/>
 
-        <xctk:DateTimePicker x:Name="dateTimePicker" Value="{Binding tourFormViewModel.StartTime,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="30" Width="250"  Minimum="{Binding MinDate}" Maximum="{Binding MaxDate}" AutoCloseCalendar="True"/>
+        <xctk:DateTimePicker x:Name="dateTimePicker" IsReadOnly="{Binding IsSelectedDate}" Value="{Binding tourFormViewModel.StartTime,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="30" Width="250"  Minimum="{Binding MinDate}" Maximum="{Binding MaxDate}" AutoCloseCalendar="True"/>
 
         <TextBlock Grid.Row="5" Grid.Column="1" Text="Upload a Picture" Style="{StaticResource TextBlockStyle}"/>
         <Button Grid.Column="1" Grid.Row="5" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding UploadCommand}" CommandParameter="{Binding Text, ElementName=itemInput}" BorderThickness="0" Style="{StaticResource ButtonDesign}">
