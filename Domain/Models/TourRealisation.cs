@@ -58,6 +58,7 @@ namespace BookingApp.Domain.Models
         {
             return DateOnly.FromDateTime(StartTime) == date;
         }
+
         
     }
 }

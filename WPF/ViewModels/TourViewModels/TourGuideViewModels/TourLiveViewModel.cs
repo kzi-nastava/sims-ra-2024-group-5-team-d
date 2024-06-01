@@ -171,6 +171,22 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             System.Windows.MessageBox.Show("End of demo", "Demonstration");
             SideBar.contentControlW.Content = new LiveTourView(LoggedInUser,tourRealisation,tour);
         }
+        private void HighlightInputField(Control inputField)
+        {
+            inputField.BorderBrush = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#218C89"));
+            inputField.BorderThickness = new Thickness(2);
+        }
+        private void RevertHighlightInputField(Control inputField)
+        {
+            Task.Delay(500).ContinueWith(_ =>
+            {
+                inputField.Dispatcher.Invoke(() =>
+                {
+                    inputField.BorderBrush = Brushes.Transparent;
+                    inputField.BorderThickness = new Thickness(1);
+                });
+            });
+        }
 
     }
 }

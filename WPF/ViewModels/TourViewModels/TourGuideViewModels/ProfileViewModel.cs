@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -39,9 +40,11 @@ namespace BookingApp.WPF.ViewModels
         public bool IsSuperGuide { get; set; }
         public double AverageRating { get; set; }
         public int NumberOfRatings { get; set; }
-        public ProfileViewModel(User user) 
+        public Window SideBar {  get; set; }
+        public ProfileViewModel(User user, Window sidebar) 
         { 
             LoggedInUser = user;
+            SideBar = sidebar;
             superGuideService = new SuperGuideService(user);
             IsSuperGuide = superGuideService.ShouldHaveTheSuperStatus(LoggedInUser);
             tourService = new TourService();
@@ -101,8 +104,13 @@ namespace BookingApp.WPF.ViewModels
 
         private void Quit()
         {
-            GiveVouchersToGuests();
-            DeleteAllTourGuideInfo();
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to quit?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                GiveVouchersToGuests();
+                DeleteAllTourGuideInfo();
+            }
         }
 
         private void GiveVouchersToGuests() 
@@ -135,10 +143,11 @@ namespace BookingApp.WPF.ViewModels
                 realisation.IsFinished = true;
                 tourRealisationService.Update(realisation);
             });
-            // BRISANJE USERA ili LOGICKO BRISANJE ??
+            LoggedInUser.HasJob = false;
+            userService.Update(LoggedInUser);
+
+            SideBar.Close();
         }
-
-
 
     }
 }
