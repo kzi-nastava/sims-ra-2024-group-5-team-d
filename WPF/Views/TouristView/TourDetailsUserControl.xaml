@@ -35,11 +35,12 @@
                        Margin="36 0 0 0">
             </Label>
             <StackPanel Grid.Row="1"
-                            Orientation="Horizontal"
+                        Orientation="Horizontal"
                             Margin="36 5 0 0"
                             HorizontalAlignment="Left">
                 <Image Source="C:\Users\Korisnik\Desktop\ikone\verified.png"
                            Height="15"
+                       Visibility="{Binding SelectedTour.IsSuperGuide, Converter={StaticResource BoolToVisibilityConverter}}"                           
                            Width="15"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Top"
@@ -47,6 +48,7 @@
                            Margin="8 0 0 0"/>
                 <Border BorderThickness="0 0 1 0"
                             CornerRadius="0"
+                        Visibility="{Binding SelectedTour.IsSuperGuide, Converter={StaticResource BoolToVisibilityConverter}}"
                             BorderBrush="Black"
                             Grid.Row="1"
                             Margin="0 -1 0 8">
