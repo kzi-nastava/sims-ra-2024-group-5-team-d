@@ -128,8 +128,10 @@ namespace BookingApp.WPF.ViewModels
             Vouchers = new ObservableCollection<VoucherViewModel>();
             foreach (Voucher v in voucherService.GetAAll())
             {
-                if (v.User.Id == user.Id && v.ExpireDate > DateTime.Now)
+                Debug.WriteLine("AAAAA" + tour.User.Id);
+                if (v.User.Id == user.Id && v.ExpireDate > DateTime.Now && ((v.TourGuide.Id == tour.User.Id) || v.IsUniversal()))
                 {
+                    Debug.WriteLine("MIKA IMA VELIKO DUPE!!!!!!");
                     Vouchers.Add(new VoucherViewModel(v));
                 }                    
             }

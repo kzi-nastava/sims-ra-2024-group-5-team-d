@@ -17,7 +17,20 @@ namespace BookingApp.WPF.ViewModels
         public string Description { get; set; }
         public Location Location { get; set; }
         public DateTime DateCreated { get; set; }
-        public bool IsVisible {  get; set; }
+        private bool isVisible;
+        public bool IsVisible
+        {
+            get => isVisible;
+            set
+            {
+                if (value != isVisible)
+                {
+
+                    isVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public bool IsSuperForum { get; set; }
 
         private bool isActive;
@@ -49,6 +62,7 @@ namespace BookingApp.WPF.ViewModels
                 }
             }
         }
+
 
 
         public ForumViewModel(Forum forum, bool isVisible, bool isSuperForum)

@@ -33,6 +33,7 @@ namespace BookingApp.WPF.Views.OwnerView
         User loggedInUser;
         public OwnerMainWindow(User user)
         {
+
             InitializeComponent();
             loggedInUser = user;
             DataContext = new TopMenuViewModel(user);

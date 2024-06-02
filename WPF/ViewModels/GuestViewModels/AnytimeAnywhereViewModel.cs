@@ -24,6 +24,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public ICommand SelectionChangedCommand { get; set; }
         public ICommand ReserveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        public ICommand OpenGalleryCommand { get; set; }
 
         public User LoggedInUser;
         public ObservableCollection<KeyValuePair<DateTime, DateTime>> AvailableDates { get; set; }
@@ -34,6 +35,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         private AccommodationService accommodationService;
         private AccommodationReservationService accommodationReservationService;
         private SuperUserService superUserService;
+        public AccommodationViewModel accommodationViewModel { get; set; }
 
         public int NumberOfPeople { get; set; }
         public string ImagesPath { get; set; }
@@ -62,6 +64,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        NotifierService notifierService;
         public AnytimeAnywhereViewModel(User user, AccommodationViewModel selectedAccommmodation, DateTime fromDate, DateTime toDate, int numberOfPeople, int numberOfDays)
         {
             InitializeServices();
@@ -72,7 +75,11 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             AvailableDates = new ObservableCollection<KeyValuePair<DateTime, DateTime>>();
             SelectionChangedCommand = new RelayParameterCommand(DataGridSelectionChanged);
             ReserveCommand = new RelayCommand(ReserveAccommodation);
+            OpenGalleryCommand = new RelayCommand(OpenGallery);
             CancelCommand = new RelayCommand(Cancel);
+            notifierService = new NotifierService();
+
+            accommodationViewModel = selectedAccommmodation;
 
             AccommodationName= accommodationService.GetAccommodationNameById(selectedAccommmodation.Id);
             ImagesPath =  accommodationService.GetById(selectedAccommmodation.Id).ImagesPath;
@@ -89,6 +96,11 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
 
             }
 
+        }
+
+        private void OpenGallery()
+        {
+            GuestWindow.contentControl.Content = new AccommodationGalleryUserControl(LoggedInUser, accommodationViewModel);
         }
 
         private void InitializeServices()
@@ -121,7 +133,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             {
                 superUserService.IsDiscountUsed(LoggedInUser);
             }
-
+            notifierService.ShowSuccess("Reservation accepted!");
             GuestWindow.contentControl.Content = new SearchAccommodationUserControl(LoggedInUser);
         }
         private void Cancel()

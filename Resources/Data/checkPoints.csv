@@ -16,10 +16,10 @@
 16|cccccc|5|False
 17|cackolj|5|False
 18|cackalica|5|False
-19|iz nisa|6|False
+19|iz nisa|6|True
 20|pisa|6|False
 21|misa|6|False
-22|Milanina kuca|7|False
+22|Milanina kuca|7|True
 23|Jemuraca|7|False
 24|Kej|8|False
 25|Dunavski|8|False
@@ -30,3 +30,5 @@
 30|Treci|11|False
 31|Drugi|11|False
 32|Prvi|11|False
+33|Fontana|12|False
+34|Crkvica|12|False

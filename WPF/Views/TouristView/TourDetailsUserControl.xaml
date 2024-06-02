@@ -35,11 +35,12 @@
                        Margin="36 0 0 0">
             </Label>
             <StackPanel Grid.Row="1"
-                            Orientation="Horizontal"
+                        Orientation="Horizontal"
                             Margin="36 5 0 0"
                             HorizontalAlignment="Left">
                 <Image Source="C:\Users\Korisnik\Desktop\ikone\verified.png"
                            Height="15"
+                       Visibility="{Binding SelectedTour.IsSuperGuide, Converter={StaticResource BoolToVisibilityConverter}}"                           
                            Width="15"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Top"
@@ -47,6 +48,7 @@
                            Margin="8 0 0 0"/>
                 <Border BorderThickness="0 0 1 0"
                             CornerRadius="0"
+                        Visibility="{Binding SelectedTour.IsSuperGuide, Converter={StaticResource BoolToVisibilityConverter}}"
                             BorderBrush="Black"
                             Grid.Row="1"
                             Margin="0 -1 0 8">
@@ -87,7 +89,7 @@
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"  
                                                Grid.Column="2"
-                                               Margin="0 0 0 0"/>
+                                               Margin="0 0   0 0"/>
                     <Image Source="{Binding SelectedTour.Star3Path}"
                                                Height="15"
                                                Width="15"
@@ -255,16 +257,20 @@
                                         Width="20"
                                         Height="15"
                                         Margin="0 0 0 0"
-                                        VerticalContentAlignment="Top"                                       
+                                        VerticalContentAlignment="Top"                           
+                                        Background="{StaticResource PrimaryColor}"
+                                        Cursor="Hand"
                                         FontSize="9.5"
                                         HorizontalContentAlignment="Center"
                                         Click="IncreaseCount_Click"/>
                                 <Button Content="▼"
                                         VerticalContentAlignment="Bottom"
+                                        Background="{StaticResource PrimaryColor}"
                                         Width="20"
-                                        Height="16"
+                                        Height="17"
                                         Margin="0 0 0 0"
                                         FontSize="9.5"
+                                        Cursor="Hand"
                                         HorizontalContentAlignment="Center"
                                         Click="DecreaseCount_Click"/>
                             </StackPanel>
@@ -275,6 +281,7 @@
                                 FontSize="15"
                                 Margin="0 20 0 0"
                                 Content="Check Availabilty"
+                                Background="{StaticResource PrimaryColor}"
                                 FontWeight="SemiBold"
                                 BorderThickness="1"
                                 Click="CheckAvailabilty_Click"
@@ -292,6 +299,7 @@
                                      TextAlignment="Left"
                                      HorizontalContentAlignment="Left"
                                      VerticalContentAlignment="Center"
+                                     Background="{StaticResource LightGray}"
                                      Height="31"
                                      Width="360"
                                      BorderThickness="0"
@@ -487,6 +495,7 @@
                                         <TextBox Grid.Row="0"
                                                  Text="Ticket"
                                                  FontSize="18"
+                                                 Background="{StaticResource LightGray}"
                                                  FontWeight="SemiBold"
                                                  TextAlignment="Left"
                                                  HorizontalContentAlignment="Left"
@@ -523,6 +532,7 @@
                                              Text="{Binding SelectedDate,  StringFormat='dd-MM-yyyy', UpdateSourceTrigger=PropertyChanged}"
                                              FontSize="13"
                                              TextAlignment="Left"
+                                                Background="{StaticResource LightGray}"
                                              HorizontalContentAlignment="Left"
                                              VerticalContentAlignment="Center"
                                              Height="31"
@@ -555,6 +565,7 @@
                                         <Button Grid.Row="4"
                                                 VerticalAlignment="Bottom"
                                                 Content="Book Now"
+                                                Background="{StaticResource PrimaryColor}"
                                                 FontSize="14"
                                                 FontWeight="DemiBold"
                                                 Width="140"

@@ -27,8 +27,6 @@ namespace BookingApp.Appl.UseCases
             List<ForumComment> forumComments = forumCommentService.GetByForumId(forum.Id);
             int ownerComments = GetNumberOfOwnerComments(forumComments, forum.Location);
             int userComments = GetNumberOfGuestComments(forumComments, forum.Location);
-            Debug.WriteLine(ownerComments);
-            Debug.WriteLine(userComments);
             return ownerComments >= 10 && userComments >= 20;
         }
         private int GetNumberOfGuestComments(List<ForumComment> forumComments, Location location)

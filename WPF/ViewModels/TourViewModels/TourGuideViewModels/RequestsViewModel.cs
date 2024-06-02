@@ -26,25 +26,29 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public ICommand StatisticsCommand { get; set; }
         public ICommand ToursTodayTabCommand { get; set; }
         public ICommand RequestTabCommand { get; set; }
+        public ICommand ComplexRequestTabCommand { get; set; }
         public ICommand FinishedToursTabCommand { get; set; }
         public ICommand AllToursTabCommand { get; set; }
         public ObservableCollection<RequestViewModel> TourRequests { get ; set; }
         public RequestViewModel SelectedTourRequest { get; set; }
         public TourRequestService tourRequestService { get; set; }
         public LocationService locationService { get; set; }
+        public UserService userService {  get; set; }
 
         public RequestsViewModel(User user) 
         { 
             LoggedInUser = user;
             tourRequestService = new TourRequestService();
             tourRequestService.Validate();
+            userService = new UserService();
             ToursTodayTabCommand = new RelayCommand(ToursTodayTab);
             FinishedToursTabCommand = new RelayCommand(FinishedToursTab);
             RequestTabCommand = new RelayCommand(RequestsTab);
             AllToursTabCommand = new RelayCommand(AllToursTab);
+            ComplexRequestTabCommand = new RelayCommand(ComplexRequestsTab);
             SearchCommand = new RelayCommand(Search);
             StatisticsCommand = new RelayCommand(Statistics);
-            AcceptCommand = new RelayCommand(Accept);
+            AcceptCommand = new RelayParameterCommand(Accept);
             TourRequests = new ObservableCollection<RequestViewModel>();
             locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Search();
@@ -143,13 +147,14 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 bool capacityMatch = tourRequest.Capacity >= Convert.ToInt32(pickedMaxCapacity);
                 if (languageMatch && durationMatch && locationMatch && capacityMatch && tourRequest.Status == STATE.PENDING)
                 {
-                    TourRequests.Add(new RequestViewModel(tourRequest.Id,tourRequest.Description, locationService.GetById(tourRequest.Location.Id), tourRequest.RangeFrom, tourRequest.RangeTo, tourRequest.Capacity,tourRequest.Language, tourRequest.TouristId,tourRequest.IsAcceptable()));
+                    TourRequests.Add(new RequestViewModel(tourRequest.Id,tourRequest.Description, locationService.GetById(tourRequest.Location.Id), tourRequest.RangeFrom, tourRequest.RangeTo, tourRequest.Capacity,tourRequest.Language,userService.GetById( tourRequest.TouristId),tourRequest.IsAcceptable()));
                 }
             }
         }
-        public void Accept()
-        {
-            SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser,SelectedTourRequest);
+        public void Accept(object parameter)
+        {   
+            if(parameter is RequestViewModel request)
+                SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser,request);
         }
 
         private void AllToursTab()
@@ -167,6 +172,10 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private void RequestsTab()
         {
             SideBar.contentControlW.Content = new RequestsWindow(LoggedInUser);
+        }
+        private void ComplexRequestsTab()
+        {
+            SideBar.contentControlW.Content = new ComplexRequestsWindow(LoggedInUser);
         }
         private void Statistics()
         {

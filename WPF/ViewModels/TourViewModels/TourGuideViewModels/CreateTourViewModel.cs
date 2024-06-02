@@ -59,6 +59,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public bool IsRequest { get; set; }
         public bool IsLanguageStats { get; set; }
         public bool IsLocationsStats { get; set; }
+        public bool IsSelectedDate { get; set; }
+        public bool IsDuration { get; set; }
         public CreateTourViewModel(User user) : this(user, null) { }
 
         public CreateTourViewModel(User user, RequestViewModel request)
@@ -66,6 +68,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             InitializeCommon(user);
             if (request != null)
             {
+                IsSelectedDate = true;
                 IsRequest = true;
                 IsLocationsStats = true;
                 IsLanguageStats = true;
@@ -140,6 +143,12 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourFormViewModel.Description = request.Description;
             tourFormViewModel.LanguageId = Convert.ToInt32(request.Language);
             tourFormViewModel.LocationId = request.Location.Id;
+            if(request.SelectedDate != null)
+            {
+                IsDuration = true;
+                tourFormViewModel.StartTime = request.SelectedDate.AddHours(request.SelectedTime.Hour);
+                tourFormViewModel.Duration = 2;
+            }
             LocationChanged();
         }
         private async void StartDemo()
@@ -174,11 +183,14 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             RevertHighlightInputField(CreateNewTourForm.DateTimePicker);
 
             await Task.Delay(500);
+            CreateNewTourForm.ImageUploadButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
             string demoImagePath = "C:\\Users\\milan\\OneDrive\\Radna površina\\SIMPROJEKAT\\sims-ra-2024-group-5-team-d\\Resources\\TourImages\\Tour1\\beograd-na-vodi.jpg";
             imagesPath.Add(demoImagePath);
             ImagesPaths.Clear();
             ImagesPaths.Add(demoImagePath);
             PaginationIndex = imagesPath.Count - 1;
+            await Task.Delay(500);
+            CreateNewTourForm.ImageUploadButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00FFFFFF"));
 
             HighlightInputField(CreateNewTourForm.DescriptionInput);
             await TypeStringLetterByLetter("This is a demo tour description.", letter => tourFormViewModel.Description += letter);
@@ -187,16 +199,26 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             await Task.Delay(500);
             HighlightInputField(CreateNewTourForm.CheckBoxInput);
             await TypeStringLetterByLetter("Demo Checkpoint 1", letter => CreateNewTourForm.CheckBoxInput.Text += letter);
+            CreateNewTourForm.CheckPointAddButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
+            await Task.Delay(500);
+
             AddCheckPoint("Demo Checkpoint 1");
             CreateNewTourForm.CheckBoxInput.Clear();
             RevertHighlightInputField(CreateNewTourForm.CheckBoxInput);
-
+            CreateNewTourForm.CheckPointAddButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
+            await Task.Delay(500);
+            CreateNewTourForm.CheckPointAddButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00FFFFFF"));
             await Task.Delay(500);
             HighlightInputField(CreateNewTourForm.CheckBoxInput);
             await TypeStringLetterByLetter("Demo Checkpoint 2", letter => CreateNewTourForm.CheckBoxInput.Text += letter);
             AddCheckPoint("Demo Checkpoint 2");
+            CreateNewTourForm.CheckPointAddButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89"));
+            await Task.Delay(500);
+            CreateNewTourForm.CheckPointAddButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00FFFFFF"));
             CreateNewTourForm.CheckBoxInput.Clear();
             RevertHighlightInputField(CreateNewTourForm.CheckBoxInput);
+            System.Windows.MessageBox.Show("End of demo", "Demonstration");
+            Cancel();
         }
 
         private void HighlightInputField(Control inputField)
@@ -230,7 +252,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             foreach (var letter in text)
             {
                 appendAction(letter);
-                await Task.Delay(100); // Adjust typing speed if necessary
+                await Task.Delay(100);
             }
         }
 

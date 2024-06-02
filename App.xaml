@@ -7,12 +7,15 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+                <ResourceDictionary Source="Themes/LightTheme.xaml"/>
+                <ResourceDictionary Source="Languages/English.xaml"/>
+                <ResourceDictionary Source="BuiltWpfElements/LanguageSwitch.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PrimaryColor" Color="#2FC8BF" />
             <SolidColorBrush x:Key="SecondaryColor" Color="#a8eae7" />
             <SolidColorBrush x:Key="ThirdColor" Color="#F1FEFD" />
             <SolidColorBrush x:Key="WhiteWhite" Color="#FBFCFD" />
-            <SolidColorBrush x:Key="PrimaryColor2" Color="#218C89" />
+            <SolidColorBrush x:Key="PrimaryColor2" Color="#218C89" /> <!--#1F807C-->
             <SolidColorBrush x:Key="PrimaryBlack" Color="#424242" />
             <SolidColorBrush x:Key="PrimaryBlack2" Color="#838383" />
             <SolidColorBrush x:Key="PrimaryBlack3" Color="#C8C8C8" />

@@ -84,5 +84,19 @@ namespace BookingApp.Appl.UseCases
             loggedInUser.Password = password;
             Update(loggedInUser);
         }
+
+        public User GetByPersonalID(string personalId)
+        {
+            User user = new User();
+
+
+            userRepository.GetAll().ForEach(u =>
+            {
+                if (u.PersonalId == personalId)
+                    user = u;
+            });
+
+            return user;
+        }
     }
 }

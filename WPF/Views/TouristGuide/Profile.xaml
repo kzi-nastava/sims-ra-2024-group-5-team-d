@@ -199,7 +199,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="6" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 120 0 0" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+        <Button Command="{Binding QuitCommand}" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 120 0 0" Style="{StaticResource ButtonDesign}" BorderThickness="0">
             <Border CornerRadius="4" Background="{StaticResource PrimaryColor}"  BorderThickness="0" Height="34" Width="100">
                 <TextBlock Text="Quit" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12"/>
             </Border>

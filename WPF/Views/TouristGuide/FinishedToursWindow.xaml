@@ -50,6 +50,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
             <!-- Border around the tabs -->
@@ -73,6 +74,11 @@
             <Label Grid.Column="3" Content="Requests"  Style="{StaticResource TabsLabelsStyle}">
                 <Label.InputBindings>
                     <MouseBinding Gesture="LeftClick" Command="{Binding RequestTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+            <Label Grid.Column="4" Content="Complex Requests" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding ComplexRequestTabCommand}" />
                 </Label.InputBindings>
             </Label>
 

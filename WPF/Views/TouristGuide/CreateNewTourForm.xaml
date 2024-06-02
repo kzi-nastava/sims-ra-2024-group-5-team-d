@@ -68,7 +68,7 @@
         </Border>
 
         <Button Grid.Column="2"  Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding AddCheckPointCommand}" CommandParameter="{Binding Text, ElementName=itemInput}" BorderThickness="0" Style="{StaticResource ButtonDesign}">
-            <Border CornerRadius="8" BorderBrush="{StaticResource PrimaryColor}" Height="30" Width="30" BorderThickness="1">
+            <Border x:Name="checkPointAddButton" CornerRadius="8" BorderBrush="{StaticResource PrimaryColor}" Height="30" Width="30" BorderThickness="1">
                 <TextBlock Text="+" Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource PrimaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 5 0 0"/>
             </Border>
         </Button>
@@ -132,7 +132,7 @@
         </ComboBox>
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Duration" Style="{StaticResource TextBlockStyle}"/>
         <Border Grid.Row="6" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Height="30" Width="250" HorizontalAlignment="Left" Margin="0 0 0 10">
-            <TextBox x:Name="durationInput" Text="{Binding tourFormViewModel.Duration}" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="durationInput" Text="{Binding tourFormViewModel.Duration}" Style="{StaticResource TextBoxStyle}" IsReadOnly="{Binding IsDuration}"/>
         </Border>
         <TextBlock Grid.Row="7" Grid.Column="0" Text="Capacity" Style="{StaticResource TextBlockStyle}"/>
         <Border Grid.Row="8" Grid.Column="0" CornerRadius="8" Background="{StaticResource WhiteWhite}" Height="30" Width="250" HorizontalAlignment="Left" Margin="0 0 0 10">
@@ -156,13 +156,11 @@
         </ComboBox>
         <TextBlock Grid.Row="3" Grid.Column="1" Text="Date and Time" Style="{StaticResource TextBlockStyle}"/>
 
-        <!-- TimePicker for selecting the time (using WPF Toolkit) -->
-        <xctk:DateTimePicker x:Name="dateTimePicker" Value="{Binding tourFormViewModel.StartTime,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="30" Width="250"  Minimum="{Binding MinDate}" Maximum="{Binding MaxDate}" AutoCloseCalendar="True"/>
+        <xctk:DateTimePicker x:Name="dateTimePicker" IsReadOnly="{Binding IsSelectedDate}" Value="{Binding tourFormViewModel.StartTime,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="30" Width="250"  Minimum="{Binding MinDate}" Maximum="{Binding MaxDate}" AutoCloseCalendar="True"/>
 
-        <!-- TextBox for free-form time input -->
         <TextBlock Grid.Row="5" Grid.Column="1" Text="Upload a Picture" Style="{StaticResource TextBlockStyle}"/>
         <Button Grid.Column="1" Grid.Row="5" Margin="0,0,30,0" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding UploadCommand}" CommandParameter="{Binding Text, ElementName=itemInput}" BorderThickness="0" Style="{StaticResource ButtonDesign}">
-            <Border CornerRadius="8" BorderBrush="{StaticResource PrimaryColor}" Height="30" Width="30" BorderThickness="1">
+            <Border x:Name="imageUploadButton" CornerRadius="8" BorderBrush="{StaticResource PrimaryColor}" Height="30" Width="30" BorderThickness="1">
                 <TextBlock Text="+" Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource PrimaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 5 0 0"/>
             </Border>
         </Button>
@@ -233,11 +231,9 @@
                 <TextBlock Text="Cancel" Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource PrimaryColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" Margin="0 0 0 -5"/>
             </Border>
         </Button>
-        <Button Grid.Row="11" Grid.Column="0" Command="{Binding StartDemoCommand}" Margin="50,85,0,20" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonDesign}" BorderThickness="0">
-            <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
-                <TextBlock Text="Demo" Style="{StaticResource TextBlockStyle}" Foreground="{StaticResource WhiteWhite}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" Margin="0 0 0 -4"/>
-            </Border>
-        </Button>
+        <ToggleButton x:Name="DemoButton" Command="{Binding StartDemoCommand}" Grid.Row="0" Grid.Column="2" Width="28" Height="28" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="0 0 40 70">
+            <Image Source="/../../../Resources\Images\GuideImages\Play Circle.png" />
+        </ToggleButton>
 
     </Grid>
 </UserControl>

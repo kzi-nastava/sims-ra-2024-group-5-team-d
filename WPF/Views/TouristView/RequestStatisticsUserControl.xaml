@@ -65,11 +65,12 @@
             </Grid.ColumnDefinitions>
             <Border BorderThickness="1 1 1 1"
                     CornerRadius="5"
-                    BorderBrush="Gray"
+                    BorderBrush="{StaticResource PrimaryColor2}"
                     Grid.ColumnSpan="4"/>
             <Button Grid.Column="0"
                 Content="Simple Requests"
-                Background="LightSlateGray"
+                    Foreground="{StaticResource WhiteWhite}"
+                Background="{StaticResource PrimaryColor2}"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding SimpleRequestsTabCommand}"/>
             <Button Grid.Column="1"
@@ -80,7 +81,7 @@
         <Border 
                 BorderThickness="1 1 1 1"
                 CornerRadius="5"
-                BorderBrush="Gray"
+                BorderBrush="{StaticResource PrimaryColor2}"
                 Grid.Row="1"
                 Margin="0 -1 0 0">
             <Grid Grid.Row="1">

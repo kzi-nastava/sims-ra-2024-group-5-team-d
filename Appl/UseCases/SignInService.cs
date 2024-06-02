@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Views.TouristView;
+using System.Diagnostics;
 
 namespace BookingApp.Appl.UseCases
 {
@@ -24,10 +25,12 @@ namespace BookingApp.Appl.UseCases
         public string CkeckCredentials(string username,string password)
         {
             User user = userService.GetByUsername(username);
-            if (user != null)
+            if (user != null && user.HasJob)
             {
+
                 if (user.Password == password)
                 {
+
                     MacLogin(user);
                     return "Success";
                 }
@@ -77,9 +80,12 @@ namespace BookingApp.Appl.UseCases
             }
             else
             {
-                SideBar touristGuideWindow = new SideBar(user);
-                touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                touristGuideWindow.ShowDialog();
+                if (user.HasJob)
+                {
+                    SideBar touristGuideWindow = new SideBar(user);
+                    touristGuideWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    touristGuideWindow.ShowDialog();
+                }
             }
         }
     }

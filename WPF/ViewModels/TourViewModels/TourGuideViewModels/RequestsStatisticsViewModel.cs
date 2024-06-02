@@ -194,7 +194,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             });
             for(int i=0; i < Years.Count -1 ; i++) 
             {
-                int counter = tourRequestService.GetRequestsInAYear(Convert.ToInt32(Years[i+1]),PickedLanguage,PickedLocationId);
+                int counter = tourRequestService.GetRequestsInAYear(Convert.ToInt32(Years[i+1]),PickedLanguage,PickedLocationId, LoggedInUser);
                 YearlyStats[0].Values.Add(counter);
             }
         }
@@ -207,7 +207,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 Values = new ChartValues<int> (),
                 Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A375E1"))
             });
-            Dictionary<int,int> dictionary = tourRequestService.GetRequestsInAYearByMonths(year, PickedLanguage, PickedLocationId);
+            Dictionary<int,int> dictionary = tourRequestService.GetRequestsInAYearByMonths(year, PickedLanguage, PickedLocationId,LoggedInUser);
             for (int i = 1; i <= dictionary.Count; i++)
             {
                 MonthlyStats[0].Values.Add(dictionary[i]);

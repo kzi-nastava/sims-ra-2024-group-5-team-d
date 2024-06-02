@@ -11,9 +11,13 @@ namespace BookingApp.Appl.UseCases
     public class VoucherService
     {
         private IVoucherRepository voucherRepository;
+        private TourGuestService tourGuestService;
+        private UserService userService;
         public VoucherService()
         {
             voucherRepository = Injector.CreateInstance<IVoucherRepository>();
+            tourGuestService = new TourGuestService();
+            userService = new UserService();
         }
         public List<Voucher> GetAAll()
         {
@@ -35,6 +39,21 @@ namespace BookingApp.Appl.UseCases
         public int NextId()
         {
             return voucherRepository.NextId();
+        }
+
+        public Voucher Update(Voucher voucher)
+        {
+            return voucherRepository.Update(voucher);
+        }
+
+        public void FiveTourAYearVoucherWin(TourGuest guest)
+        {
+            if(tourGuestService.IsFifthTimeOnATour(guest))
+            {
+                User tourGuide = new User();
+                tourGuide.Id = -1;
+                Save(new Voucher(NextId(), DateTime.UtcNow.AddMonths(6), VOUCHERTYPE.FIVETOURSGIFT, userService.GetByPersonalID(guest.PersonalID), tourGuide));
+            }
         }
     }
 }
