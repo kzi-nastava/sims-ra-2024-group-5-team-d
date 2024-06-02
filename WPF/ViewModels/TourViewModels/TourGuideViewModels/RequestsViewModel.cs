@@ -48,7 +48,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             ComplexRequestTabCommand = new RelayCommand(ComplexRequestsTab);
             SearchCommand = new RelayCommand(Search);
             StatisticsCommand = new RelayCommand(Statistics);
-            AcceptCommand = new RelayCommand(Accept);
+            AcceptCommand = new RelayParameterCommand(Accept);
             TourRequests = new ObservableCollection<RequestViewModel>();
             locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Search();
@@ -151,9 +151,10 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 }
             }
         }
-        public void Accept()
-        {
-            SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser,SelectedTourRequest);
+        public void Accept(object parameter)
+        {   
+            if(parameter is RequestViewModel request)
+                SideBar.contentControlW.Content = new CreateNewTourForm(LoggedInUser,request);
         }
 
         private void AllToursTab()

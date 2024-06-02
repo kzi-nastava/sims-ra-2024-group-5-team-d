@@ -2,6 +2,7 @@
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Domain.Serializer;
 using HarfBuzzSharp;
+using iText.Commons.Bouncycastle.Cert.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,6 +20,7 @@ namespace BookingApp.Appl.UseCases
         private TourGuestService tourGuestService;
         private UserService userService;
         private LocationService locationService;
+        private ComplexSimpleRequestPairService complexSimpleRequestPairService;
         public TourRequestService()
         {
             _repository = Injector.CreateInstance<ITourRequestRepository>();
@@ -26,13 +28,31 @@ namespace BookingApp.Appl.UseCases
             tourReservationService = new TourReservationService();
             tourGuestService = new TourGuestService();
             userService = new UserService();
+            complexSimpleRequestPairService = new ComplexSimpleRequestPairService();
             locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
         }
         public List<TourRequest> GetAll()
         {
-            return _repository.GetAll();
+            return _repository.GetAll().Where(req => IsNotPartOfComplexRequest(req)).ToList();
         }
+        public List<TourRequest> GetAllSimpleRequests()
+        {
+            List<TourRequest> simpleRequests = new List<TourRequest>();
+            complexSimpleRequestPairService.GetAll().ForEach(pair =>
+            {
+                if (!simpleRequests.Contains(GetById(pair.SimpleRequestId)))
+                {
+                    simpleRequests.Add(GetById(pair.SimpleRequestId));
+                }
+            });
 
+            foreach(TourRequest tr in simpleRequests)
+            {
+                Debug.WriteLine(tr.Id);
+            }
+
+            return simpleRequests;
+        }
         public TourRequest Save(TourRequest tourRequest)
         {
             return _repository.Save(tourRequest);
@@ -59,18 +79,17 @@ namespace BookingApp.Appl.UseCases
         }
         public List<TourRequest> GetRequestsForTourist(User tourist)
         {
-            return _repository.GetRequestsForTourist(tourist);
+            return _repository.GetRequestsForTourist(tourist).Where(req => IsNotPartOfComplexRequest(req)).ToList();
         }
-        public int GetRequestsInAYear(int year, int LanguageId, int LocationId)
+        public int GetRequestsInAYear(int year, int LanguageId, int LocationId, User tourist)
         {
             if(LocationId != 10)
             {
-                return _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Location.Id == LocationId).Count();
+                return GetRequestsForTourist(tourist).Where(x => x.RangeFrom.Year == year && x.Location.Id == LocationId && IsNotPartOfComplexRequest(x)).Count();
             }
-            return _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Language == (LANGUAGE)LanguageId).Count();
-
+            return GetRequestsForTourist(tourist).Where(x => x.RangeFrom.Year == year && x.Language == (LANGUAGE)LanguageId && IsNotPartOfComplexRequest(x)).Count();
         }
-        public Dictionary<int, int> GetRequestsInAYearByMonths(int year, int LanguageId, int LocationId)
+        public Dictionary<int, int> GetRequestsInAYearByMonths(int year, int LanguageId, int LocationId, User tourist)
         {
             var monthCounts = new Dictionary<int, int>();
             for (int month = 1; month <= 12; month++)
@@ -79,8 +98,8 @@ namespace BookingApp.Appl.UseCases
             }
 
             var tourRequests = LocationId != 10 ?
-                _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Location.Id == LocationId) :
-                _repository.GetAll().Where(x => x.RangeFrom.Year == year && x.Language == (LANGUAGE)LanguageId);
+                GetRequestsForTourist(tourist).Where(x => x.RangeFrom.Year == year && x.Location.Id == LocationId && IsNotPartOfComplexRequest(x)) :
+                GetRequestsForTourist(tourist).Where(x => x.RangeFrom.Year == year && x.Language == (LANGUAGE)LanguageId && IsNotPartOfComplexRequest(x));
 
             foreach (var request in tourRequests)
             {
@@ -157,12 +176,12 @@ namespace BookingApp.Appl.UseCases
             return locationService.GetById(mostChosenLocationId);
         }
       
-        public double AverageNumberOfGuestsOnAcceptedRequests(int year)
+        public double AverageNumberOfGuestsOnAcceptedRequests(int year, User tourist)
         {
             int totalNumberOfGuests = 0;
             int numberOfRequests = 0;
 
-            GetAll().ForEach(req =>
+            GetRequestsForTourist(tourist).ForEach(req =>
             {
                 if (req.RangeFrom.Year == year && req.Status == STATE.ACCEPTED)
                 {
@@ -188,7 +207,7 @@ namespace BookingApp.Appl.UseCases
 
             GetAll().ForEach(req =>
             {
-                if (req.Status == STATE.ACCEPTED)
+                if (req.Status == STATE.ACCEPTED && !GetAllSimpleRequests().Contains(req))
                 {
                     tourGuestService.GetAllTourGuests().ForEach(x =>
                     {
@@ -244,6 +263,21 @@ namespace BookingApp.Appl.UseCases
 
             return (anyNotFulfilledRequestsOnGivenLanguage && !anyAcceptedRequestOnGivenLanguage);
         
+        }
+
+        public bool IsNotPartOfComplexRequest(TourRequest request)
+        {
+            foreach(TourRequest tR in GetAllSimpleRequests())
+            {
+                if (request.Id == tR.Id)
+                    return false;
+            }
+            return true;
+        }
+
+        public bool ShouldAcceptedRequestStillBeValid(TourRequest request)
+        {
+            return DateTime.Now <= tourRealisationService.GetById(tourReservationService.GetById(request.TourReservationId).TourRealisationId).StartTime.AddDays(-3);
         }
     }
 }

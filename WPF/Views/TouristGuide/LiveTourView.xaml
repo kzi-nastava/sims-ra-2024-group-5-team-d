@@ -25,6 +25,26 @@
             <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Name="Border"
+                                BorderThickness="1"
+                                BorderBrush="Transparent"
+                                >
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="40,15,40,0">
         <Grid.ColumnDefinitions>
