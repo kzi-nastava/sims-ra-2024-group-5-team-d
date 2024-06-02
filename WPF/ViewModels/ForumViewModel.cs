@@ -49,7 +49,20 @@ namespace BookingApp.WPF.ViewModels
         }
         public bool IsClosed { get; set; }
         public string SuperForum { get; set; }
-        public int NumberOfComments { get; set; }
+        private int numberOfComments;
+        public int NumberOfComments {
+            get => numberOfComments;
+            set
+            {
+                if (value != numberOfComments)
+                {
+
+                    numberOfComments = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
 
         public ForumViewModel(Forum forum, bool isVisible, bool isSuperForum)
