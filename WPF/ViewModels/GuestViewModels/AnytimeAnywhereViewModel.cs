@@ -64,6 +64,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        NotifierService notifierService;
         public AnytimeAnywhereViewModel(User user, AccommodationViewModel selectedAccommmodation, DateTime fromDate, DateTime toDate, int numberOfPeople, int numberOfDays)
         {
             InitializeServices();
@@ -76,6 +77,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             ReserveCommand = new RelayCommand(ReserveAccommodation);
             OpenGalleryCommand = new RelayCommand(OpenGallery);
             CancelCommand = new RelayCommand(Cancel);
+            notifierService = new NotifierService();
 
             accommodationViewModel = selectedAccommmodation;
 
@@ -131,8 +133,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             {
                 superUserService.IsDiscountUsed(LoggedInUser);
             }
-            ReservationConfirmedWindow reservationConfirmedWindow = new ReservationConfirmedWindow();
-            reservationConfirmedWindow.Show();
+            notifierService.ShowSuccess("Reservation accepted!");
             GuestWindow.contentControl.Content = new SearchAccommodationUserControl(LoggedInUser);
         }
         private void Cancel()

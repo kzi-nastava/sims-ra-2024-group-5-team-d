@@ -114,6 +114,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private readonly AccommodationReservationService _reservationService;
         private readonly AccommodationRepository _repository;
         private readonly ContentControl contentControl;
+        NotifierService notifierService;
 
         public ObservableCollection<KeyValuePair<DateTime, DateTime>> AvailableDates { get; set; }
         public KeyValuePair<DateTime, DateTime> SelectedDate { get; set; }
@@ -132,6 +133,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             Accommodation = selectedAccommmodation;
             superUserService = new SuperUserService();
             accommodationService = new AccommodationService();
+            notifierService = new NotifierService();
 
             AccommodationName = accommodationService.GetAccommodationNameById(selectedAccommmodation.Id);
             ImagesPath = accommodationService.GetById(selectedAccommmodation.Id).ImagesPath;
@@ -212,8 +214,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             {
                 superUserService.IsDiscountUsed(LoggedInUser);
             }
-            ReservationConfirmedWindow reservationConfirmedWindow = new ReservationConfirmedWindow();
-            reservationConfirmedWindow.Show();
+            notifierService.ShowSuccess("Reservation accepted");
             GuestWindow.contentControl.Content = new AccommodationUserControl(LoggedInUser, Accommodation);
         }
 

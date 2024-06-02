@@ -67,6 +67,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         private SuperForumService superForumService;
         private ForumService forumService;
         public GuestNotificationsService guestNotificationsService;
+        NotifierService notifierService;
         public GuestForumsViewModel(User user)
         {
             InitializeServices();
@@ -76,6 +77,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             Forums = new ObservableCollection<ForumViewModel>();
             MyForums = new ObservableCollection<ForumViewModel>();
             LoggedInUser = user;
+            notifierService = new NotifierService();
 
             forumService.GetAll().ForEach(forum =>
             {
@@ -106,8 +108,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             forum = forumService.Save(forum);
             notificationsService.CreateForumNotifications(forum);
             Forums.Add(new ForumViewModel(forum, true, superForumService.IsSuperForum(forum)));
-            ForumCreatedWindow forumCreatedWindow = new ForumCreatedWindow();
-            forumCreatedWindow.Show();
+            notifierService.ShowSuccess("You have successfully created a forum!");
         }
         public void CloseForum(Object param)
         {

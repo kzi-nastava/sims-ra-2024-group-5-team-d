@@ -49,6 +49,7 @@ namespace BookingApp.WPF.ViewModels
         private AccommodationReservationService reservationService;
         private AccommodationService accommodationService;
         private GuestRequestService guestRequestService;
+        NotifierService notifierService;
         public User LoggedInUser {  get; set; }
         MoveReservationAccommodation moveWindow {  get; set; }
         public CreateRequestViewModel(User user, int reservationId, MoveReservationAccommodation moveReservationAccommodation)
@@ -58,6 +59,7 @@ namespace BookingApp.WPF.ViewModels
             this.reservationId = reservationId;
             LoggedInUser = user;
             moveWindow = moveReservationAccommodation;
+            
         }
 
         private void InitializeServices()
@@ -66,6 +68,7 @@ namespace BookingApp.WPF.ViewModels
             notificationsService = new NotificationsService();
             accommodationService = new AccommodationService();
             reservationService = new AccommodationReservationService();
+            notifierService = new NotifierService();
         }
 
         public void SendRequest()
@@ -73,10 +76,9 @@ namespace BookingApp.WPF.ViewModels
             GuestRequest guestRequest = new GuestRequest(reservationId, NewReservedFrom, NewReservedTo, "" , STATUS.INPROCESS);
             guestRequestService.Save(guestRequest);
             notificationsService.CreateNotification(accommodationService.GetById(reservationService.GetById(reservationId).AccommodationId).Owner.Id,guestRequest.Id,Domain.Models.Type.REQUEST);
-            MovedReservationWindow movedReservationWindow = new MovedReservationWindow();
-            movedReservationWindow.Show();
             moveWindow.Close();
             GuestWindow.contentControl.Content = new SearchAccommodationUserControl(LoggedInUser);
+            notifierService.ShowSuccess("Successfully sent a request!");
         }
     }
 }

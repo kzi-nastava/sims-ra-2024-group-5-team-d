@@ -28,6 +28,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         private AccommodationReservationService reservationService;
         public NotificationsService notificationsService;
         private AccommodationService accommodationService;
+        NotifierService notifierService;
 
         public YesNoCancelledReservationWindow(UserReservationsViewModel reservation)
         {
@@ -38,6 +39,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             accommodationReservation = reservationService.GetById(reservation.Id);
             notificationsService = new NotificationsService();
             accommodationService = new AccommodationService();
+            notifierService = new NotifierService();
         }
 
         private void YesCancelReservationButton(object sender, RoutedEventArgs e)
@@ -48,8 +50,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             reservationService.Update(accommodationReservation);
             notificationsService.CreateNotification(accommodationService.GetById(reservationService.GetById(userReservationsViewModel.Id).AccommodationId).Owner.Id, userReservationsViewModel.Id,Domain.Models.Type.CANCEL);
             Close();
-            CanceledReservationWindow canceledReservationWindow = new CanceledReservationWindow();
-            canceledReservationWindow.Show();
+            notifierService.ShowSuccess("Reservation cancelled successfully!");
         }
 
         private void NoCancelReservationButton(object sender, RoutedEventArgs e)
