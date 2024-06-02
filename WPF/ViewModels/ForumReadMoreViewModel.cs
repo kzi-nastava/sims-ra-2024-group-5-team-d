@@ -84,6 +84,7 @@ namespace BookingApp.WPF.ViewModels
                 Comments.Add(new ForumCommentViewModel(comment, @"..\..\..\Resources\Images\OwnerImages\home.png", loggedInUser));
                 AddForumCommentViewModel.Comment = "";  
                 AddForumCommentViewModel.IsVisible = false;
+                Forum.NumberOfComments++;
         }
         public void AddComment()
         {
