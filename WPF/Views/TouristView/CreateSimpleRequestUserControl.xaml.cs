@@ -19,14 +19,20 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views.TouristView
 {
     /// <summary>
-    /// Interaction logic for CreateComplexRequestUserControl.xaml
+    /// Interaction logic for CreateSimpleRequestUserControl.xaml
     /// </summary>
-    public partial class CreateComplexRequestUserControl : UserControl
+    public partial class CreateSimpleRequestUserControl : UserControl
     {
-        public CreateComplexRequestUserControl(User user, ObservableCollection<SimpleRequestViewModel> requests)
+        public CreateSimpleRequestUserControl(User tourist, ObservableCollection<SimpleRequestViewModel> requests)
         {
             InitializeComponent();
-            DataContext = new CreateComlexRequestViewModel(user, requests);
+            DataContext = new CreateSimpleRequestViewModel(tourist, requests);
+        }
+
+        public CreateSimpleRequestUserControl(int index, SimpleRequestViewModel request, ObservableCollection<SimpleRequestViewModel> requests)
+        {
+            InitializeComponent();
+            DataContext = new CreateSimpleRequestViewModel(index, request, requests);
         }
     }
 }

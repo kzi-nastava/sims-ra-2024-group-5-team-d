@@ -40,6 +40,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public CheckPointService checkPointService;
         public NotificationsService notificationsService { get; set; }
         public TourReservationService tourReservationService { get; set; }
+        public VoucherService voucherService { get; set; }
 
         public TourLiveViewModel(User user, TourRealisationViewModel tourRealisationViewModel, TourViewModel tourViewModel)
         {
@@ -56,6 +57,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             tourGuestService = new TourGuestService();
             checkPointService = new CheckPointService();
             tourRealisationService = new TourRealisationService();
+            voucherService = new VoucherService();
             notificationsService = new NotificationsService();
             tourReservationService = new TourReservationService();
             tourGuestService.GetTourGuestsOnTourRealisation(tourRealisation.Id).ForEach(t => TourGuests.Add(new TourGuestViewModel(t.Id, t.FullName, t.Years, t.TourReservationId, t.CheckPointId)));
@@ -110,6 +112,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 UpdateTourGuestCheckpoint(tourGuest, selectedCheckPoint.Id);
                 RemoveTourGuestFromList(tourGuest);
                 notificationsService.SendLiveTourNotification(tourReservationService.GetById(tourGuest.TourReservationId).User.Id,tourGuest.Id);
+                voucherService.FiveTourAYearVoucherWin(tourGuestService.GetById(tourGuest.Id));
             });
         }
         public void FinishTourButton_Click()
@@ -170,6 +173,22 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             await Task.Delay(1000);
             System.Windows.MessageBox.Show("End of demo", "Demonstration");
             SideBar.contentControlW.Content = new LiveTourView(LoggedInUser,tourRealisation,tour);
+        }
+        private void HighlightInputField(Control inputField)
+        {
+            inputField.BorderBrush = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#218C89"));
+            inputField.BorderThickness = new Thickness(2);
+        }
+        private void RevertHighlightInputField(Control inputField)
+        {
+            Task.Delay(500).ContinueWith(_ =>
+            {
+                inputField.Dispatcher.Invoke(() =>
+                {
+                    inputField.BorderBrush = Brushes.Transparent;
+                    inputField.BorderThickness = new Thickness(1);
+                });
+            });
         }
 
     }

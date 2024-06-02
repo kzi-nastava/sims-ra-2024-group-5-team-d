@@ -84,7 +84,7 @@ namespace BookingApp.Repositories
         public List<TourRequest> GetRequestsForTourist(User tourist)
         {
             _tourRequests = _serializerTourRequest.FromCSV(FilePath);
-            return _tourRequests.FindAll(c => c.TouristId == tourist.Id);
+            return _tourRequests.Where(c => c.TouristId == tourist.Id).ToList();
         }
     }
 }

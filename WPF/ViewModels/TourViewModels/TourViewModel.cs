@@ -2,6 +2,7 @@
 using BookingApp.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,8 +35,8 @@ namespace BookingApp.WPF.ViewModels
         public int Capacity { get; set; }
         public LANGUAGE Language { get; set; }
         private TourService tourService = new TourService();
-
-
+        private UserService userService = new UserService();
+        public bool? IsSuperGuide { get; set; }
         public TourViewModel() { }
 
         public TourViewModel(int id, string name, string description, double duration, string imagesPath, Location location, User user)
@@ -61,6 +62,8 @@ namespace BookingApp.WPF.ViewModels
             Duration = duration;
             ImagesPath = imagesPath;
             Capacity = capacity;
+            Debug.WriteLine("User sa id: " + tourService.GetById(id).User.Id + " je SuperUser: " + userService.GetById(tourService.GetById(id).User.Id).IsSuperUser);
+            IsSuperGuide = userService.GetById(tourService.GetById(id).User.Id).IsSuperUser;
             Language = language;
             User = user;
             Rating = tourService.GetRating(id);

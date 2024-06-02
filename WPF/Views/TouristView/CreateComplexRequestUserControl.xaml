@@ -80,63 +80,216 @@
                 BorderThickness="1 1 1 1"
                 CornerRadius="5"
                 BorderBrush="Gray"
+                Height="480"
                 Grid.Row="1"
                 Margin="0 -1 0 0">
-
-            <ListView BorderThickness="0"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Create New Complex Request"
+                           Margin="20 20 0 10"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource Font1}"/>
+                <ListView BorderThickness="0"
+                          Grid.Row="1"
                         Background="Transparent"
                         ItemsSource="{Binding SimpleRequests}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
                         Margin="10 5 10 0">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderThickness="1 1 1 1"
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
                                                     BorderBrush="Gray"
                                                     Margin="0 0 0 3"
                                                     Grid.Row="1"
-                                                    Height="200"
-                                                    Width="300">
-                            <StackPanel Orientation="Vertical">
-                                <Border BorderBrush="{DynamicResource MainColor1}"
+                                                    Height="170"
+                                                    Width="295">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                           Visibility="{Binding IsNotEmpty, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                       Margin="0 10 0 10">
+                                                
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\location.png"
+                                                       Height="20"
+                                                       Width="20"
+                                                       Visibility="Visible"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10 0 5 -6"/>
+                                                <Run Text="{Binding LocationName}" FontSize="14"></Run>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="1"
+                                           Visibility="{Binding IsNotEmpty, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                       Margin="0 0 0 10">
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\language.png"
+                                                       Height="20"
+                                                       Width="20"
+                                                       Visibility="Visible"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10 0 5 -6"/>
+                                                <Run Text="{Binding Language}" FontSize="14"></Run>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="2"
+                                                       Visibility="{Binding IsNotEmpty, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                       Margin="0 0 0 0">
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\date.png"
+                                                       Height="20"
+                                                       Width="20"
+                                                       Visibility="Visible"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10 0 5 -6"/>
+                                                <Run Text="{Binding RangeFrom,  StringFormat='dd-MM-yyyy'}" FontSize="14"></Run>
+                                                <Run Text=" - " FontSize="14"></Run>
+                                                <Run Text="{Binding RangeTo,  StringFormat='dd-MM-yyyy'}" FontSize="14"></Run>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="3"
+                                                       Visibility="{Binding IsNotEmpty, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                       Margin="0 0 0 0">
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\person.png"
+                                                       Height="20"
+                                                       Width="20"
+                                                       Visibility="Visible"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10 0 5 -6"/>
+                                                <Run Text="{Binding Capacity}" FontSize="14"></Run>
+                                                <Run Text=" Toursit(s)"></Run>
+                                    </TextBlock>
+                                    <StackPanel Grid.Row="4"
+                                                Orientation="Horizontal"
+                                                Visibility="{Binding IsNotEmpty, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Button Grid.Row="2"
+                                                            Height="30"
+                                                            Background="{StaticResource PrimaryColor}"  
+                                                            Content="Edit Request"
+                                                            CommandParameter="{Binding}"
+                                                            Command="{Binding DataContext.EditRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                            Margin="10 10 10 0"
+                                                            Width="80">
+                                        </Button>
+                                        <Button Grid.Row="3"
+                                                            Height="30"
+                                                            Margin="0 10 0 0"
+                                                            Content="Remove"
+                                                            Background="{StaticResource PrimaryColor2}"
+                                                            CommandParameter="{Binding}"
+                                                            Command="{Binding DataContext.RemoveRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                            Width="80">
+
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical"
+                                            Grid.Row="3"
+                                        Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Border BorderBrush="{DynamicResource MainColor1}"
                                         BorderThickness="0"
                                         CornerRadius="25"
                                         Grid.Column="2"
                                         Margin="15 15 0 15">
-                                    <Grid   Style="{DynamicResource RoundGridStyle2}"
+                                            <Grid   Style="{DynamicResource RoundGridStyle2}"
                                             Width="50"
                                             Margin="0 40 10 0"
                                             Height="50"
                                             Background="{DynamicResource MainColor3}">
-                                        <Button Width="60"
+                                                <Button Width="60"
                                                 Margin="-5 0 0 0"
-                                                Command="{Binding AddMoreCommand}"
+                                                Command="{Binding DataContext.AddMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
                                                 Background="Transparent"
                                                 BorderThickness="0"
                                                 Cursor="Hand">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock FontSize="16" FontWeight="DemiBold" Foreground="{DynamicResource Font1}" VerticalAlignment="Center" Margin="0 0 0 0" Grid.Column="0"/>
-                                                <Image Grid.Column="1" Width="50" Source="C:\Users\Korisnik\Desktop\ikone\add.png"/>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock FontSize="16" FontWeight="DemiBold" Foreground="{DynamicResource Font1}" VerticalAlignment="Center" Margin="0 0 0 0" Grid.Column="0"/>
+                                                        <Image Grid.Column="1" Width="50" Source="C:\Users\Korisnik\Desktop\ikone\add.png"/>
+                                                    </Grid>
+                                                </Button>
                                             </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Border>
-                                <TextBlock Text="Add More" Margin="0 -10 0 0" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                        </Border>
+                                        <TextBlock Text="Add More"
+                                           Margin="0 -10 0 0"
+                                           FontSize="20"
+                                           FontWeight="DemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"></TextBlock>
+                                    </StackPanel>
+
+
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Border Grid.Row="2" 
+                        BorderBrush="Gray"
+                        BorderThickness="0 1 0 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Vertical">
+                            <TextBlock Text="Confirm Complex Tour Request"
+                                       Margin="20 5 0 0"
+                                       FontSize="16"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource Font1}"/>
+                            <TextBlock Text="Get notified when request is accepted"
+                                       Margin="25 0 0 0"
+                                       FontSize="12"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource Font1}"/>
+                        </StackPanel>
+                        <Button Grid.Column="1"
+                                Height="30"
+                                FontWeight="DemiBold"
+                                Margin="0 0 0 0"
+                                Content="Create Request"
+                                Background="{StaticResource PrimaryColor2}"
+                                CommandParameter="{Binding}"
+                                Command="{Binding CreateComplexRequestCommand}"
+                                Width="100">
+
+                        </Button>
+                        <Button Grid.Column="2"
+                                Height="30"
+                                FontWeight="DemiBold"
+                                Margin="0 0 0 0"
+                                Content="Cancel"
+                                Background="{StaticResource PrimaryColor2}"
+                                CommandParameter="{Binding}"
+                                Command="{Binding CancelComplexRequestCommand}"
+                                Width="100">
+
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

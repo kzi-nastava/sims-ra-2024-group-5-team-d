@@ -30,6 +30,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             ComplexRequests = new ObservableCollection<ComplexRequestViewModel>();
             complexTourRequestService = new ComplexTourRequestService();
             Tourist = user;
+            complexTourRequestService.Validate();
             complexTourRequestService.GetAll(user).ForEach(req =>
             {
                 ComplexRequests.Add(new ComplexRequestViewModel(req));
@@ -38,7 +39,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 
         public void CreateNewRequest()
         {
-            TouristHomeWindow.contentControl.Content = new CreateComplexRequestUserControl(Tourist);
+            TouristHomeWindow.contentControl.Content = new CreateComplexRequestUserControl(Tourist, new ObservableCollection<SimpleRequestViewModel>());
         }
 
         public void SwitchToSimpleRequests()

@@ -51,5 +51,10 @@ namespace BookingApp.Domain.Models
             return csvValues;
         }
 
+        public bool WasPresent()
+        {
+            return CheckPointId != -1;
+        }
+
     }
 }

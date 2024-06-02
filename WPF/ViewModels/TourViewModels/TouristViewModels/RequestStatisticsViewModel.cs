@@ -107,7 +107,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             });
             for (int i = 0; i < LocationLabels.Count; i++)
             {
-                int counter = tourRequestService.GetAll().Where(x => locationService.GetById(x.Location.Id).City.ToString() == LocationLabels[i]).Count();
+                int counter = tourRequestService.GetRequestsForTourist(Tourist).Where(x => locationService.GetById(x.Location.Id).City.ToString() == LocationLabels[i]).Count();
                 LocationStats[0].Values.Add(counter);
             }
         }
@@ -123,8 +123,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             });
             for (int i = 0; i < LocationLabels.Count; i++)
             {
-                int counter = tourRequestService.GetAll().Where(x => locationService.GetById(x.Location.Id).City.ToString() == LocationLabels[i] && 
-            x.RangeFrom.Year == year).Count();
+                int counter = tourRequestService.GetRequestsForTourist(Tourist).Where(x => locationService.GetById(x.Location.Id).City.ToString() == LocationLabels[i] && 
+                x.RangeFrom.Year == year).Count();
                 LocationStats[0].Values.Add(counter);
             }
         }
@@ -143,7 +143,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
                         InitializeRequestsStatistics(SelectedYear);
                         InitializeLanguageStatistics(SelectedYear);
                         InitializeLocationStatistics(SelectedYear);
-                        AvgNumberOfPeople = tourRequestService.AverageNumberOfGuestsOnAcceptedRequests(SelectedYear);
+                        AvgNumberOfPeople = tourRequestService.AverageNumberOfGuestsOnAcceptedRequests(SelectedYear,Tourist);
                     }
                 }
                 else
@@ -160,8 +160,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 
         public void InitializeRequestsStatistics()
         {
-            AcceptedRequests = tourRequestService.GetAll().Count(request => request.Status == STATE.ACCEPTED);
-            NotAcceptedRequests = tourRequestService.GetAll().Count(request => request.Status != STATE.ACCEPTED);
+            AcceptedRequests = tourRequestService.GetRequestsForTourist(Tourist).Count(request => request.Status == STATE.ACCEPTED);
+            NotAcceptedRequests = tourRequestService.GetRequestsForTourist(Tourist).Count(request => request.Status != STATE.ACCEPTED);
 
             RequestsStatistics.Clear();
             RequestsStatistics.Add(new PieSeries
@@ -190,15 +190,15 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             });
             for (int i = 0; i < LanguageLabels.Count; i++)
             {
-                int counter = tourRequestService.GetAll().Where(x => x.Language == (LANGUAGE)Enum.Parse(typeof(LANGUAGE), LanguageLabels[i])).Count();
+                int counter = tourRequestService.GetRequestsForTourist(Tourist).Where(x => x.Language == (LANGUAGE)Enum.Parse(typeof(LANGUAGE), LanguageLabels[i])).Count();
                 LanguageStats[0].Values.Add(counter);
             }
         }
 
         public void InitializeRequestsStatistics(int year)
         {
-            AcceptedRequests = tourRequestService.GetAll().Count(request => request.Status == STATE.ACCEPTED && request.RangeFrom.Year == year);
-            NotAcceptedRequests = tourRequestService.GetAll().Count(request => request.Status != STATE.ACCEPTED && request.RangeFrom.Year == year);
+            AcceptedRequests = tourRequestService.GetRequestsForTourist(Tourist).Count(request => request.Status == STATE.ACCEPTED && request.RangeFrom.Year == year);
+            NotAcceptedRequests = tourRequestService.GetRequestsForTourist(Tourist).Count(request => request.Status != STATE.ACCEPTED && request.RangeFrom.Year == year);
 
             RequestsStatistics.Clear();
             RequestsStatistics.Add(new PieSeries
@@ -226,7 +226,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             });
             for (int i = 0; i < LanguageLabels.Count; i++)
             {
-                int counter = tourRequestService.GetAll().Where(x => x.Language == (LANGUAGE)Enum.Parse(typeof(LANGUAGE), LanguageLabels[i]) && x.RangeFrom.Year == year).Count();
+                int counter = tourRequestService.GetRequestsForTourist(Tourist).Where(x => x.Language == (LANGUAGE)Enum.Parse(typeof(LANGUAGE), LanguageLabels[i]) && x.RangeFrom.Year == year).Count();
                 LanguageStats[0].Values.Add(counter);
             }
         }
@@ -236,7 +236,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             Years = new ObservableCollection<string>();
             Years.Add("All Time");
 
-            var uniqueYears = tourRequestService.GetAll()
+            var uniqueYears = tourRequestService.GetRequestsForTourist(Tourist)
                 .SelectMany(request => new[] { request.RangeFrom.Year, request.RangeTo.Year })
                 .Distinct();
 
