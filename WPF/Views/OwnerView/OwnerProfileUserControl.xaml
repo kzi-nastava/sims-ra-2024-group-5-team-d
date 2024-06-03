@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
              xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              mc:Ignorable="d" 
+             Focusable="True"
               d:DesignHeight="572" d:DesignWidth="1108">
     <UserControl.Resources>
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />

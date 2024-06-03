@@ -6,6 +6,12 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Control" Command="{Binding RequestsCommand}"/>
+        <KeyBinding Key="E" Modifiers="Control" Command="{Binding RenovationsCommand}"/>
+        <KeyBinding Key="V" Modifiers="Control" Command="{Binding ReviewsCommand}"/>
+        <KeyBinding Key="F" Modifiers="Control" Command="{Binding ForumsCommand}"/>
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <Style TargetType="Grid">
             <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
@@ -50,7 +56,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Border Height="70" Margin="0 0 0 6" BorderThickness="0 0 0 2" CornerRadius="4" BorderBrush="{StaticResource WhiteGrey}" Style="{StaticResource BorderHover}">
-                <Button Background="Transparent" BorderThickness="0" Command="{Binding SwitchViewCommand}" CommandParameter="0" Template="{StaticResource CustomButtonTemplate}">
+                <Button Background="Transparent" BorderThickness="0" Command="{Binding RequestsCommand}" Template="{StaticResource CustomButtonTemplate}">
                     <Grid Style="{StaticResource AutoHover}"> 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -67,7 +73,7 @@
                 </Button>
             </Border>
             <Border Grid.Row="1" BorderBrush="{StaticResource WhiteGrey}" CornerRadius="4" BorderThickness="0 0 0 2" Height="70" Margin="0 0 0 6" Style="{StaticResource BorderHover}">
-                <Button Background="Transparent" BorderThickness="0"  Command="{Binding SwitchViewCommand}" CommandParameter="1" Template="{StaticResource CustomButtonTemplate}">
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding RenovationsCommand}" Template="{StaticResource CustomButtonTemplate}">
                     <Grid Style="{StaticResource AutoHover}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -84,7 +90,7 @@
                 </Button>
             </Border>
             <Border Grid.Row="2" BorderBrush="{StaticResource WhiteGrey}" CornerRadius="4" BorderThickness="0 0 0 2" Height="70" Margin="0 0 0 6" Style="{StaticResource BorderHover}">
-                <Button Background="Transparent" BorderThickness="0"  Command="{Binding SwitchViewCommand}" CommandParameter="2" Template="{StaticResource CustomButtonTemplate}" >
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding ReviewsCommand}" Template="{StaticResource CustomButtonTemplate}" >
                     <Grid Style="{StaticResource AutoHover}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -101,7 +107,7 @@
                 </Button>
             </Border>
             <Border Grid.Row="3" BorderBrush="{StaticResource WhiteGrey}" CornerRadius="4" BorderThickness="0 0 0 2" Height="70" Style="{StaticResource BorderHover}">
-                <Button Background="Transparent" BorderThickness="0"  Command="{Binding SwitchViewCommand}" CommandParameter="3" Template="{StaticResource CustomButtonTemplate}">
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding ForumsCommand}" Template="{StaticResource CustomButtonTemplate}">
                     <Grid Style="{StaticResource AutoHover}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
