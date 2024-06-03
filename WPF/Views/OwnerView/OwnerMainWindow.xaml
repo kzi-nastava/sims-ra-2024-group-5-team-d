@@ -7,6 +7,13 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Limit" Height="674" Width="1200">
+    <Window.InputBindings>
+        <KeyBinding Key="H" Modifiers="Control" Command="{Binding HomeCommand}"/>
+        <KeyBinding Key="R" Modifiers="Control" Command="{Binding RegisterCommand}"/>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding NotificationCommand}"/>
+        <KeyBinding Key="P" Modifiers="Control" Command="{Binding ProfileCommand}"/>
+        <KeyBinding Key="I" Modifiers="Control" Command="{Binding ShortcutsCommand}"/>
+    </Window.InputBindings>
     <Window.Icon>
         <BitmapImage UriSource="../../../Resources/Images/logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
     </Window.Icon>
@@ -74,8 +81,9 @@
                     Padding="0 0 10 0"
                     BorderBrush="{StaticResource WhiteWhite}"
                     BorderThickness="0 0 3 0"
-                    MouseLeftButtonDown="Border_MouseLeftButtonDown_1" Style="{StaticResource BorderHoverAnimation}">
-                <Grid Style="{StaticResource GridHover}">
+                    Style="{StaticResource BorderHoverAnimation}">
+                <Button Background="Transparent" Template="{StaticResource CustomButtonTemplate}" BorderThickness="0" Style="{StaticResource ButtonHover}" Command="{Binding HomeCommand}">
+                    <Grid Style="{StaticResource GridHover}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
@@ -95,142 +103,152 @@
                                Style="{StaticResource TextBlockPaddingStyle}">
                     </TextBlock>
                 </Grid>
+                </Button>
             </Border>
-            <Border
+                <Border
                     Grid.Row="0"
                     Grid.Column="1" 
                     BorderBrush="{StaticResource WhiteWhite}"
                     BorderThickness="0 0 3 0"
                     Margin="0 0 10 0"
                 Padding="0 0 10 0"
-                     Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_3">
-                <Grid Style="{StaticResource GridHover}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="..\..\..\Resources\Images\OwnerImages\plusgreat.png" 
+                     Style="{StaticResource BorderHoverAnimation}">
+            <Button Background="Transparent" Grid.Column="1"  Template="{StaticResource CustomButtonTemplate}" BorderThickness="0" Style="{StaticResource ButtonHover}" Command="{Binding RegisterCommand}">
+                    <Grid Style="{StaticResource GridHover}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\plusgreat.png" 
                            Width="45" 
                            Height="45" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center" 
                            Margin="10 0 0 0"
                            Style="{StaticResource ImageMargin}"/>
-                    <TextBlock Text="Register new &#xD;&#xA;accommodation" 
+                        <TextBlock Text="Register new &#xD;&#xA;accommodation" 
                                Grid.Column="1" TextAlignment="Center" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center" 
                                FontSize="20"
                                Padding="0 20 20 20"
                                Style="{StaticResource TextBlockPaddingStyle}">
-                    </TextBlock>
-                </Grid>
-            </Border>
-            <Border Grid.Row="0" 
+                        </TextBlock>
+                    </Grid>
+                </Button>
+                </Border>
+                <Border Grid.Row="0" 
                     Grid.Column="2" 
                     BorderBrush="{StaticResource WhiteWhite}"
                     BorderThickness="0 0 3 0"
                      Margin="0 0 10 0"
                     Padding="0 0 10 0"
-                    Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_4">
-                <Grid Style="{StaticResource GridHover}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="..\..\..\Resources\Images\OwnerImages\notify2.png" 
+                    Style="{StaticResource BorderHoverAnimation}">
+            <Button Background="Transparent" Grid.Column="2"  Template="{StaticResource CustomButtonTemplate}" BorderThickness="0" Style="{StaticResource ButtonHover}" Command="{Binding NotificationCommand}">
+                    <Grid Style="{StaticResource GridHover}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\notify2.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center" 
                            Margin="0 0 -12 0">
-                        <Image.RenderTransformOrigin>
-                            <Point X="0.5" Y="0.5"/>
-                        </Image.RenderTransformOrigin>
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <RotateTransform/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
-                        <Image.Triggers>
-                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                                <BeginStoryboard Storyboard="{StaticResource BellAnimation}"/>
-                            </EventTrigger>
-                        </Image.Triggers>
-                    </Image>
-                    <TextBlock Text="Notifications" 
+                            <Image.RenderTransformOrigin>
+                                <Point X="0.5" Y="0.5"/>
+                            </Image.RenderTransformOrigin>
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                            <Image.Triggers>
+                                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                    <BeginStoryboard Storyboard="{StaticResource BellAnimation}"/>
+                                </EventTrigger>
+                            </Image.Triggers>
+                        </Image>
+                        <TextBlock Text="Notifications" 
                                Grid.Column="1" 
                                TextAlignment="Center" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center" 
                                FontSize="20"
                                Style="{StaticResource TextBlockPaddingStyle}">
-                    </TextBlock>
-                    <Border CornerRadius="900" Grid.Column="2" Background="Red" Width="15" Height="15" VerticalAlignment="Center" Margin="-20 -10 10 0">
-                        <Border.Triggers>
-                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                                <BeginStoryboard Storyboard="{StaticResource BlinkAnimation}"/>
-                            </EventTrigger>
-                        </Border.Triggers>
-                        <TextBlock Foreground="AntiqueWhite" Margin="0 0 0 0" Text="{Binding NumberOfNotifications}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" Height="15" Width="auto"/>
-                    </Border>
+                        </TextBlock>
+                        <Border CornerRadius="900" Grid.Column="2" Background="Red" Width="15" Height="15" VerticalAlignment="Center" Margin="-20 -10 10 0">
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                    <BeginStoryboard Storyboard="{StaticResource BlinkAnimation}"/>
+                                </EventTrigger>
+                            </Border.Triggers>
+                            <TextBlock Foreground="AntiqueWhite" Margin="0 0 0 0" Text="{Binding NumberOfNotifications}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" Height="15" Width="auto"/>
+                        </Border>
 
-                </Grid>
-            </Border>
-            <Border Grid.Row="0" 
+
+                    </Grid>
+                 </Button>
+                </Border>
+
+                <Border Grid.Row="0" 
                     Grid.Column="3" 
                     BorderBrush="{StaticResource WhiteWhite}"
                     BorderThickness="0 0 3 0"
                      Margin="0 0 10 0"
                     Padding="0 0 10 0"
-                     Style="{StaticResource BorderHoverAnimation}" 
-                    MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                <Grid Style="{StaticResource GridHover}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="..\..\..\Resources\Images\OwnerImages\profile.png" 
+                     Style="{StaticResource BorderHoverAnimation}" >
+            <Button Background="Transparent" Grid.Column="3"  Template="{StaticResource CustomButtonTemplate}" BorderThickness="0" Style="{StaticResource ButtonHover}" Command="{Binding ProfileCommand}">
+                    <Grid Style="{StaticResource GridHover}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\profile.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center" 
                            Style="{StaticResource ImageMargin}"/>
-                    <TextBlock Text="Profile" 
+                        <TextBlock Text="Profile" 
                                Grid.Column="1" 
                                TextAlignment="Center" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center"
                                FontSize="20"
                                Style="{StaticResource TextBlockPaddingStyle}">
-                    </TextBlock>
-                </Grid>
-            </Border>
-            <Border Grid.Row="0" 
+                        </TextBlock>
+                    </Grid>
+                 </Button>
+                </Border>
+                <Border Grid.Row="0" 
                     Grid.Column="4" 
                     CornerRadius="20"
-                     Style="{StaticResource BorderHoverAnimation}" MouseLeftButtonDown="Border_MouseLeftButtonDown_2">
-                <Grid Style="{StaticResource GridHover}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="..\..\..\Resources\Images\OwnerImages\info2.png" 
+                     Style="{StaticResource BorderHoverAnimation}">
+            <Button Background="Transparent" Grid.Column="4"  Template="{StaticResource CustomButtonTemplate}" BorderThickness="0" Style="{StaticResource ButtonHover}" Command="{Binding ShortcutsCommand}">
+                    <Grid Style="{StaticResource GridHover}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\info2.png" 
                            Width="32" 
                            Height="32" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center" 
                            Style="{StaticResource ImageMargin}"/>
-                    <TextBlock Text="Shortcuts" Grid.Column="1" 
+                        <TextBlock Text="Shortcuts" Grid.Column="1" 
                                TextAlignment="Center" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center" 
                                FontSize="20" 
                                Style="{StaticResource TextBlockPaddingStyle}">
-                    </TextBlock>
-                </Grid>
-            </Border>
+                        </TextBlock>
+                    </Grid>
+                    </Button>
+                </Border>
         </Grid>
         <!-- OVDE JE BIO KOD-->
         <ContentControl Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" x:Name="contentControl1" />
