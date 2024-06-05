@@ -43,7 +43,7 @@ namespace BookingApp.Domain.Models
         {
             foreach(TourRequest tR in  Requests)
             {
-                if(!tR.IsAcceptable())
+                if(!tR.IsAcceptable() && tR.Status == STATE.PENDING)
                     return false;
             }
             return true;

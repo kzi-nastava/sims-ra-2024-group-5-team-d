@@ -15,7 +15,6 @@
         <BitmapImage UriSource="../../../Resources/Images/logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
     </Window.Icon>
     <Window.Resources>
-        
         <Style x:Key="Centriranje"
                TargetType="TextBlock">
             <Setter Property="HorizontalAlignment"
@@ -61,6 +60,7 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton Grid.Column="0"
                               Width="130" 
+                              Cursor="Hand"
                               Height="50"
                               Style="{StaticResource LanguageToggleButton}"
                               IsChecked="{Binding IsLanguageChecked}"
@@ -151,7 +151,7 @@
                         Grid.Column="2"
                         Margin="15 15 0 15">
                     <Grid Style="{DynamicResource RoundGridStyle}" Background="{DynamicResource MainColor3}">
-                        <Button Width="130" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="Button_Click_2" >
+                        <Button Width="130" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="Button_Click_2" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>

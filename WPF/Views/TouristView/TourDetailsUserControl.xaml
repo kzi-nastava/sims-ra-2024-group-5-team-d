@@ -30,6 +30,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
+                   Foreground="{DynamicResource Font1}"
                        Content="{Binding SelectedTour.Name}"
                        FontSize="25"
                        Margin="36 0 0 0">
@@ -49,12 +50,12 @@
                 <Border BorderThickness="0 0 1 0"
                             CornerRadius="0"
                         Visibility="{Binding SelectedTour.IsSuperGuide, Converter={StaticResource BoolToVisibilityConverter}}"
-                            BorderBrush="Black"
+                            BorderBrush="{DynamicResource MainColor1}"
                             Grid.Row="1"
                             Margin="0 -1 0 8">
-                    <Label Content="Badge of Excellence"
-                               FontSize="12"
-                               Margin="-1 -5 0 0"/>
+                    <Label Content="{DynamicResource Badge of Excellence}"
+                            FontSize="12"
+                            Margin="-1 -5 0 0"/>
                 </Border>
                 <Image Source="C:\Users\Korisnik\Desktop\ikone\location.png"
                            Height="18"
@@ -65,11 +66,12 @@
                            Margin="3 -1 0 0"/>
                 <Border BorderThickness="0 0 1 0"
                             CornerRadius="0"
-                            BorderBrush="Black"
+                            BorderBrush="{DynamicResource MainColor1}"
                             Grid.Row="1"
                             Margin="0 -1 0 8">
                     <Label Content="{Binding LocationName}"
                                FontSize="12"
+                           Foreground="{DynamicResource Font1}"
                                Margin="-1 -5 0 0"/>
                 </Border>
                 <StackPanel
@@ -114,10 +116,11 @@
                     <TextBlock Margin="5 0 0 0"
                                                Grid.Row="0"
                                                FontSize="10"
+                                               Foreground="{DynamicResource Font1}"
                                                FontFamily="Verdana"
                                                Width="500">
                                                 <Run Text="{Binding SelectedTour.NumberOfVotes}"></Run>
-                                                <Run Text="vote(s)"></Run>
+                                                <Run Text="{DynamicResource vote}"></Run>
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
@@ -168,7 +171,7 @@
                         <TextBox Height="87"
                                  IsReadOnly="True"
                                  Width="105"
-                                 Text="See More"
+                                 Text="{DynamicResource See More}"
                                  FontSize="14"
                                  FontWeight="DemiBold"
                                  VerticalContentAlignment="Center"
@@ -184,7 +187,7 @@
                 <Border 
                         BorderThickness="1 1 1 1"
                         CornerRadius="7"
-                        BorderBrush="Gray"
+                        BorderBrush="{DynamicResource MainColor1}"
                         Grid.Column="2"
                         Height="280"
                         Margin="50 0 50 0">
@@ -196,27 +199,28 @@
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="Select Date and Travelers" FontSize="20" FontFamily="Veradna" FontWeight="SemiBold" Margin="45 20 0 0">
+                        <Label Grid.Row="0" Foreground="{DynamicResource Font1}" Content="{DynamicResource Select Date and Travelers}" FontSize="20" FontFamily="Veradna" FontWeight="SemiBold" Margin="45 20 0 0">
 
                         </Label>
                         <Border BorderThickness="1"
                                 CornerRadius="2"
-                                BorderBrush="Gray"
+                                BorderBrush="{DynamicResource MainColor1}"
                                 Grid.Row="1"
                                 Height="30"
                                 Margin="50 20 50 0">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="C:\Users\Korisnik\Desktop\ikone\date.png"
-                                   Height="22"
-                                   Width="22"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Margin="7 0 0 0"/>
+                                       Height="22"
+                                       Width="22"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="7 0 0 0"/>
                                 <DatePicker BorderThickness="0"
                                             Margin="13 0 0 0"
                                             FontWeight="SemiBold"
+                                            Foreground="{DynamicResource PrimaryBlack}"
                                             Width="375"
-                                            VerticalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"                                           
                                             Padding="0 0 0 0"
                                             DisplayDateStart="{Binding MinAvailDate}"                                            
                                             SelectedDate="{Binding Date,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
@@ -232,17 +236,18 @@
                                     HorizontalAlignment="Left">
                             <Border BorderThickness="1"
                                     CornerRadius="2"
-                                    BorderBrush="Gray">
+                                    BorderBrush="{DynamicResource MainColor1}">
                                 <TextBlock
                                      FontSize="16"
                                      TextAlignment="Left"
                                      Height="31"
                                      Width="395"
+                                    Foreground="{DynamicResource Font1}"
                                      x:Name="PeopleCounter"
                                      Margin="2 0 0 0"
                                      Padding="40 5 1 7">
                                             <Run Text="{Binding NumberOfTourists, UpdateSourceTrigger=PropertyChanged}" />
-                                            <Run Text="Tourist(s)" />
+                                            <Run Text="{DynamicResource tourists}" />
                                 </TextBlock>
                             </Border>
                             
@@ -256,16 +261,18 @@
                                 <Button Content="▲"
                                         Width="20"
                                         Height="15"
+                                        Foreground="{DynamicResource Font1}"
                                         Margin="0 0 0 0"
                                         VerticalContentAlignment="Top"                           
-                                        Background="{StaticResource PrimaryColor}"
+                                        Background="{DynamicResource MainColor2}"
                                         Cursor="Hand"
                                         FontSize="9.5"
                                         HorizontalContentAlignment="Center"
                                         Click="IncreaseCount_Click"/>
                                 <Button Content="▼"
                                         VerticalContentAlignment="Bottom"
-                                        Background="{StaticResource PrimaryColor}"
+                                        Foreground="{DynamicResource Font1}"
+                                        Background="{DynamicResource MainColor2}"
                                         Width="20"
                                         Height="17"
                                         Margin="0 0 0 0"
@@ -280,8 +287,9 @@
                                 Height="30"
                                 FontSize="15"
                                 Margin="0 20 0 0"
-                                Content="Check Availabilty"
-                                Background="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource Font1}"
+                                Content="{DynamicResource Check Availabilty}"
+                                Background="{DynamicResource MainColor2}"
                                 FontWeight="SemiBold"
                                 BorderThickness="1"
                                 Click="CheckAvailabilty_Click"
@@ -294,12 +302,13 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
                                    Margin="50 15 0 0"/>
-                            <TextBox Text="Cancellation possible up to 48 hours before the tour starts  "
+                            <TextBox Text="{DynamicResource cancellation}"
                                      FontSize="12"
                                      TextAlignment="Left"
                                      HorizontalContentAlignment="Left"
+                                     Foreground="{DynamicResource Font1}"
                                      VerticalContentAlignment="Center"
-                                     Background="{StaticResource LightGray}"
+                                     Background="Transparent"
                                      Height="31"
                                      Width="360"
                                      BorderThickness="0"
@@ -325,15 +334,16 @@
                            Margin="8 -1 0 0"/>
                 <Border BorderThickness="0 0 1 0"
                             CornerRadius="0"
-                            BorderBrush="Black"
+                            BorderBrush="{DynamicResource Font1}"
                             Grid.Row="1"
                             Margin="0 -1 0 8">
                     <TextBlock
                                      FontSize="12"
                                      TextAlignment="Left"
+                                     Foreground="{DynamicResource Font1}"
                                      Margin="2 0 4 0">
                                             <Run Text="{Binding SelectedTour.Duration}" />
-                                            <Run Text="hour(s)" />
+                                            <Run Text="{DynamicResource hour}" />
                     </TextBlock>
                 </Border>
                 <Image Source="C:\Users\Korisnik\Desktop\ikone\person.png"
@@ -345,15 +355,16 @@
                            Margin="3 -2 0 0"/>
                 <Border BorderThickness="0 0 1 0"
                             CornerRadius="0"
-                            BorderBrush="Black"
+                            BorderBrush="{DynamicResource MainColor1}"
                             Grid.Row="1"
                             Margin="0 -1 0 8">
                     <TextBlock
                                      FontSize="12"
                                      TextAlignment="Left"
+                        Foreground="{DynamicResource Font1}"
                                      Margin="-1 0 4 0">
                                             <Run Text="{Binding SelectedTour.Capacity}" />
-                                            <Run Text="people" />
+                                            <Run Text="{DynamicResource tourists}" />
                     </TextBlock>
                 </Border>
                 <Image Source="C:\Users\Korisnik\Desktop\ikone\language.png"
@@ -365,12 +376,13 @@
                            Margin="3 -2 0 0"/>
                 <Label Content="{Binding SelectedTour.Language}"
                                FontSize="12"
+                       Foreground="{DynamicResource Font1}"
                                Margin="-1 -4 0 0"/>
             </StackPanel>
             <Grid Grid.Row="4">
                 <Border BorderThickness="0 1 0 0"
                                 CornerRadius="2"
-                                BorderBrush="Gray"
+                                BorderBrush="{DynamicResource MainColor1}"
                                 Grid.Row="1"
                                 Height="auto"
                                 Margin="0 -4 0 0"
@@ -378,7 +390,7 @@
                                 Visibility="Collapsed">
                     <Border BorderThickness="1 1 1 1"
                             CornerRadius="7"
-                            BorderBrush="Gray"
+                            BorderBrush="{DynamicResource MainColor1}"
                             Grid.Row="1"
                             Height="auto"
                             Width="615"
@@ -398,6 +410,7 @@
                                    Content="{Binding SelectedTour.Name}"
                                    FontSize="20"
                                    Margin="10 5 0 0"
+                                       Foreground="{DynamicResource Font1}"
                                    FontWeight="SemiBold">
                                 </Label>
                                 <ListView BorderThickness="0"
@@ -418,7 +431,7 @@
                                         <DataTemplate>
                                             <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="0 0 0 3"
                                                     Grid.Row="1"
                                                     Height="auto"
@@ -433,6 +446,7 @@
                                                     <TextBlock
                                                              FontWeight="Bold"
                                                              TextAlignment="Center"
+                                                             Foreground="{DynamicResource Font1}"
                                                              Grid.Row="0"
                                                              Margin="0 5 0 4">
                                                         <Run Text="{Binding StartTime, StringFormat='HH:mm'}" />
@@ -444,11 +458,12 @@
                                                              Grid.Row="1"
                                                              FontWeight="DemiBold"
                                                              FontSize="10"
+                                                        Foreground="{DynamicResource Font1}"
                                                              TextAlignment="Center"
                                                              Visibility="{Binding NotEnoughSpace, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Hidden}"
                                                              Margin="0 -2 0 0">
                                                         <Run Text="{Binding AvailableSeats}" />
-                                                        <Run Text=" place(s) left" />
+                                                        <Run Text="{DynamicResource places left}" />
                                                     </TextBlock>
                                                 </Grid>
                                             </Border>
@@ -472,10 +487,11 @@
                                                              Margin="4 9 0 0"
                                                              Padding="0 2 1 7"
                                                              Height="31"
+                                                             Foreground="{DynamicResource Font1}"
                                                              Width="360"
                                                              FontSize="12"
                                                              Visibility="{Binding IsRealisationSelected, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Hidden}">
-                                                        <Run Text="Cancellation possible until " />
+                                                        <Run Text="{DynamicResource cancellation2}" />
                                                         <Run Text="{Binding CancelationDue,  StringFormat='dd-MM-yyyy HH:mm', UpdateSourceTrigger=PropertyChanged}" />
                                     </TextBlock>
                                 </StackPanel>
@@ -483,7 +499,7 @@
                             <Grid Grid.Column="1">
                                 <Border BorderThickness="1 0 0 0"
                                         CornerRadius="0"
-                                        BorderBrush="Gray">
+                                        BorderBrush="{DynamicResource MainColor1}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="auto"></RowDefinition>
@@ -493,9 +509,10 @@
                                             <RowDefinition Height="*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <TextBox Grid.Row="0"
-                                                 Text="Ticket"
+                                                 Text="{DynamicResource ticket}"
                                                  FontSize="18"
-                                                 Background="{StaticResource LightGray}"
+                                                 Background="Transparent"
+                                                 Foreground="{DynamicResource Font1}"
                                                  FontWeight="SemiBold"
                                                  TextAlignment="Left"
                                                  HorizontalContentAlignment="Left"
@@ -514,11 +531,12 @@
                                                  FontSize="13"
                                                  TextAlignment="Left"                                                 
                                                  Height="31"
+                                                Foreground="{DynamicResource Font1}"
                                                  Width="360"
                                                  Margin="7 3 0 0"
                                                  Padding="0 2 1 7">
                                                 <Run Text="{Binding NumberOfSeats}" />
-                                                <Run Text="Tourist(s)" />
+                                                <Run Text="{DynamicResource tourists}" />
                                             </TextBlock>
                                         </StackPanel>
                                         <StackPanel Grid.Row="2" Margin="0 0 0 0" Orientation="Horizontal">
@@ -532,10 +550,11 @@
                                              Text="{Binding SelectedDate,  StringFormat='dd-MM-yyyy', UpdateSourceTrigger=PropertyChanged}"
                                              FontSize="13"
                                              TextAlignment="Left"
-                                                Background="{StaticResource LightGray}"
+                                                Background="Transparent"
                                              HorizontalContentAlignment="Left"
                                              VerticalContentAlignment="Center"
                                              Height="31"
+                                                Foreground="{DynamicResource Font1}"
                                              Width="360"
                                              BorderThickness="0"
                                              IsReadOnly="True"
@@ -555,6 +574,7 @@
                                                              Height="31"
                                                              Width="360"
                                                              FontSize="11"
+                                                             Foreground="{DynamicResource Font1}"
                                                              Margin="7 10 0 0"
                                                              Padding="0 2 1 7">
                                                         <Run Text="{Binding TourStartTime, StringFormat='HH:mm'}" />
@@ -564,10 +584,11 @@
                                         </StackPanel>
                                         <Button Grid.Row="4"
                                                 VerticalAlignment="Bottom"
-                                                Content="Book Now"
-                                                Background="{StaticResource PrimaryColor}"
+                                                Content="{DynamicResource Book Now}"
+                                                Background="{DynamicResource MainColor2}"
                                                 FontSize="14"
                                                 FontWeight="DemiBold"
+                                                Foreground="{DynamicResource Font1}"
                                                 Width="140"
                                                 Margin="-220 40 0 10"
                                                 BorderThickness="1.2"
@@ -586,7 +607,7 @@
 
                 <Border BorderThickness="0 1 0 0"
                                 CornerRadius="2"
-                                BorderBrush="Gray"
+                                BorderBrush="{DynamicResource MainColor1}"
                                 Grid.Row="1"
                                 Height="auto"
                                 Margin="0 -4 0 0"
@@ -603,8 +624,9 @@
                                      FontSize="22"
                                      FontWeight="Bold"   
                                      TextAlignment="Left"
+                                     Foreground="{DynamicResource Font1}"
                                      Margin="40 5 0 0">
-                                            <Run Text="Unfortunatelly, this tour is full..here are other options for " />
+                                            <Run Text="{DynamicResource Unfortunatelly}" />
                                             <Run Text="{Binding LocationName}" />
                                             <Run Text=":" />
                                             
@@ -614,11 +636,12 @@
                             ScrollViewer.HorizontalScrollBarVisibility="Visible"
                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
                             ScrollViewer.CanContentScroll="False"
+                            ItemContainerStyle="{StaticResource CustomListView}"
                             ItemsSource="{Binding ToursOnSameLocation}"
                             SelectedItem="{Binding SelectedTourOnSameLocation}"
                             Margin="35 10 50 15"
-                            MouseDoubleClick="SecondaryTourChoice_DoubleClick"
-                            Grid.Row="1">
+                            
+                            Grid.Row="1" SelectionChanged="ListView_SelectionChanged_1">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -628,10 +651,10 @@
                                 <DataTemplate>
                                     <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="0 0 12 10"
                                                     Grid.Row="1"
-                                                    Height="auto"
+                                                    Height="200"
                                                     Width="auto">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -648,6 +671,7 @@
                                                    Grid.Row="0"
                                                    FontSize="12"
                                                    FontFamily="Verdana"
+                                                   Foreground="{DynamicResource Font1}"
                                                    FontWeight="DemiBold"
                                                    Content="{Binding Name}">
 
@@ -686,46 +710,50 @@
                                                                     Orientation="Horizontal"
                                                                     Margin="2 10 0 0"
                                                                     HorizontalAlignment="Left">
-                                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                                                                <Image Source="{Binding Star1Path}"
                                                                    Height="12"
                                                                    Width="12"
                                                                    HorizontalAlignment="Right"
                                                                    VerticalAlignment="Top"
                                                                    Grid.Column="2"
                                                                    Margin="8 0 0 0"/>
-                                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                                                                <Image Source="{Binding Star2Path}"
                                                                    Height="12"
                                                                    Width="12"
                                                                    HorizontalAlignment="Right"
                                                                    VerticalAlignment="Top"
                                                                    Grid.Column="2"
                                                                    Margin="0 0 0 0"/>
-                                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                                                                <Image Source="{Binding Star3Path}"
                                                                    Height="12"
                                                                    Width="12"
                                                                    HorizontalAlignment="Right"
                                                                    VerticalAlignment="Top"
                                                                    Grid.Column="2"
                                                                    Margin="0 0 0 0"/>
-                                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\star.png"
+                                                                <Image Source="{Binding Star4Path}"
                                                                    Height="12"
                                                                    Width="12"
                                                                    HorizontalAlignment="Right"
                                                                    VerticalAlignment="Top"
                                                                    Grid.Column="2"
                                                                    Margin="0 0 0 0"/>
-                                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\half_star.png"
+                                                                <Image Source="{Binding Star5Path}"
                                                                    Height="12"
                                                                    Width="12"
                                                                    HorizontalAlignment="Right"
                                                                    VerticalAlignment="Top"
                                                                    Grid.Column="2"
                                                                    Margin="0 0 0 0"/>
-                                                                <Label Margin="0 -3 0 0"
-                                                                   Grid.Row="0"
-                                                                   FontSize="8"
-                                                                   FontFamily="Verdana"
-                                                                   Content="69 votes"/>
+                                                                <TextBlock Margin="5 0 0 0"
+                                                                           Grid.Row="0"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                           FontSize="8"
+                                                                           FontFamily="Verdana"
+                                                                           Width="500">
+                                                                    <Run Text="{Binding NumberOfVotes}"></Run>
+                                                                    <Run Text="{DynamicResource vote}"></Run>
+                                                                </TextBlock>
                                                             </StackPanel>
                                                         </Grid>
                                                         <StackPanel Grid.Row="2"
@@ -742,6 +770,7 @@
                                                             <Label Margin="-2 4 0 0"
                                                                Grid.Row="0"
                                                                FontSize="8"
+                                                                   Foreground="{DynamicResource Font1}"
                                                                FontFamily="Verdana"
                                                                Content="{Binding Location}"/>
                                                         </StackPanel>
@@ -760,9 +789,10 @@
                                                             <TextBlock Margin="-1 4 0 0"
                                                                        FontSize="8"
                                                                        FontFamily="Verdana"
+                                                                       Foreground="{DynamicResource Font1}"
                                                                        Width="500">
                                                                     <Run Text="{Binding Duration}" />
-                                                                    <Run Text="hour(s)" />
+                                                                    <Run Text="{DynamicResource hour}" />
                                                             </TextBlock>
                                                         </StackPanel>
                                                     </Grid>
@@ -772,7 +802,9 @@
                                                 <TextBlock Margin="15 5 20 5"
                                                            Grid.Row="2"
                                                            FontSize="10"
+                                                           
                                                            FontFamily="Verdana"
+                                                           Foreground="{DynamicResource Font1}"
                                                            Text="{Binding Description}"
                                                            TextWrapping="Wrap"
                                                            TextAlignment="Justify"/>
@@ -780,6 +812,7 @@
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\verified.png"
                                                Height="15"
                                                Width="15"
+                                               Visibility="{Binding IsSuperGuide, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Hidden}"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Grid.Column="1"
@@ -797,7 +830,7 @@
             <Grid Grid.Row="6">
                 <Border BorderThickness="0 1 0 1"
                         CornerRadius="2"
-                        BorderBrush="Gray"
+                        BorderBrush="{DynamicResource MainColor1}"
                         Grid.Row="1"
                         Height="auto"
                         Margin="0 0 0 0">
@@ -806,12 +839,15 @@
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="Descripton" FontSize="22" FontWeight="Bold" Margin="250 10 0 0">
+                        <Label Grid.Row="0" 
+                               Foreground="{DynamicResource Font1}"
+                               Content="{DynamicResource Description}" FontSize="22" FontWeight="Bold" Margin="250 10 0 0">
                         </Label>
                         <TextBlock Margin="255 10 250 10"
                                     Grid.Row="1"
                                     FontSize="15"
                                     FontFamily="Verdana"
+                                   Foreground="{DynamicResource Font1}"
                                     Text="{Binding SelectedTour.Description}"
                                     TextWrapping="Wrap"                                  
                                     TextAlignment="Justify"/>
@@ -821,7 +857,7 @@
             <Grid Grid.Row="7">
                 <Border BorderThickness="0 0 0 1"
                         CornerRadius="2"
-                        BorderBrush="Gray"
+                        BorderBrush="{DynamicResource MainColor1}"
                         Grid.Row="1"
                         Height="auto"
                         Margin="0 0 0 0">
@@ -831,7 +867,9 @@
                             <RowDefinition Height="550"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <Label Grid.Row="0" Content="What To Expect" FontSize="22" FontWeight="Bold" Margin="250 10 0 0">
+                            <Label Grid.Row="0"
+                                   Foreground="{DynamicResource Font1}"
+                                   Content="{DynamicResource What To Expect}" FontSize="22" FontWeight="Bold" Margin="250 10 0 0">
                             </Label>
                         </Grid>
                         <Grid Grid.Row="1" Margin="0 0 0 0">
@@ -839,7 +877,7 @@
                                 <Grid.LayoutTransform>
                                     <RotateTransform Angle="-90"/>
                                 </Grid.LayoutTransform>
-                                <ProgressBar x:Name="progressBar" Margin="48 -480 0 80" HorizontalAlignment="Left" Width="460" Minimum="0" Maximum="100" Value="100" Height="12"/>
+                                <ProgressBar x:Name="progressBar" Margin="48 -480 0 80" Foreground="{StaticResource PrimaryColor}" HorizontalAlignment="Left" Width="460" Minimum="0" Maximum="100" Value="100" Height="12"/>
                             </Grid>
 
                             <StackPanel x:Name="progressContainer" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60 0 0 0"/>

@@ -59,7 +59,7 @@ namespace BookingApp.WPF.ViewModels
             Tour = new ObservableCollection<TourViewModel>();
             Date = new ObservableCollection<string>();
             ComboBoxSelectionChangedCommand = new RelayParameterCommand(OnComboBoxSelectionChanged);
-            AverageRating = tourRatingService.GetAverageRatingForGuide(LoggedInUser);
+            AverageRating = Math.Round(tourRatingService.GetAverageRatingForGuide(LoggedInUser), 3);
             NumberOfRatings = tourRatingService.RatingsOfGuide(LoggedInUser).Count();
             QuitCommand = new RelayCommand(Quit);
             InitializeComboBox();

@@ -63,11 +63,11 @@ namespace BookingApp.Domain.Models
 
         public bool IsAcceptable()
         {
-            return DateTime.Now <= RangeFrom.AddDays(-3);
+            return DateTime.Now <= RangeFrom.AddDays(-2);
         }
         public bool IsAcceptableInsideComplex()
         {
-            return Status != STATE.ACCEPTED;
+            return Status == STATE.PENDING;
         }
     }
 }

@@ -214,7 +214,7 @@
                                         HorizontalAlignment="Center"
                                         ItemsSource="{Binding DateRange}"
                                         SelectedItem="{Binding SelectedDate, Mode=TwoWay}"
-                                        SelectedIndex="0"
+                                        
                                         >
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="SelectionChanged">
