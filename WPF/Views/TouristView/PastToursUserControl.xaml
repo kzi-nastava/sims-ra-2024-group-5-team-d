@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToColorConverter x:Key="BoolToColorConverter" />
         <Style TargetType="Label" x:Key="TabsLabelsStyle">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -66,33 +67,36 @@
             </Grid.ColumnDefinitions>
             <Border BorderThickness="1 1 1 1"
                     CornerRadius="5"
-                    BorderBrush="Gray"
+                    BorderBrush="{DynamicResource MainColor1}"
                     Grid.ColumnSpan="4"/>
             <Button Grid.Column="0"
-                Content="Live tour"
+                Content="{DynamicResource Live tour}"
+                    Foreground="{DynamicResource Font1}"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding LiveTourTabCommand}"/>
             <Button Grid.Column="1"
-                Content="Future Tours"
+                Content="{DynamicResource Future Tours}"
                 Style="{StaticResource TabsButtonsStyle}"
+                    Foreground="{DynamicResource Font1}"
                 Command="{Binding FutureToursCommand}"/>
             <Button Grid.Column="2"
-                Content="Past Tours"
-                Foreground="{StaticResource WhiteWhite}"
-                Background="{StaticResource PrimaryColor2}"
+                Content="{DynamicResource Past Tours}"
                 Style="{StaticResource TabsButtonsStyle}"
+                    Foreground="{DynamicResource WhiteWhite}"
+                Background="{DynamicResource MainColor1}"
                 Command="{Binding PastToursTabCommand}"/>
             <Button Grid.Column="3"
-                Content="Vouchers"
+                Content="{DynamicResource Vouchers}"
+                Foreground="{DynamicResource Font1}"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding VouchersTabCommand}"/>
         </Grid>
         <Border 
                 BorderThickness="1 1 1 1"
                 CornerRadius="5"
-                BorderBrush="Gray"
+                BorderBrush="{DynamicResource MainColor1}"
                 Grid.Row="1"
-                Height="450"
+                Height="480"
                 Margin="0 -1 0 0">
             <ListView BorderThickness="0" 
                       Grid.Row="1"                     
@@ -110,10 +114,9 @@
                 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Gray"
+                        <Border BorderBrush="{DynamicResource MainColor1}"
                                 BorderThickness="1.5"
                                 CornerRadius="20"
-                                Style="{StaticResource BorderHoverAnimation }"
                                 Height="auto"
                                 Width="auto"
                                 Padding="0 0 0 10"
@@ -154,6 +157,7 @@
                                                    FontSize="22"
                                                    FontFamily="Verdana"
                                                    FontWeight="DemiBold"
+                                                   Foreground="{DynamicResource Font1}"
                                                    Content="{Binding TourName}"/>
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\verified.png"
                                                    Height="15"
@@ -163,42 +167,44 @@
                                                    Margin="4 4 0 0"/>
                                         </StackPanel>
                                         <StackPanel Grid.Row="1"
-                                                    Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                    Visibility="{Binding IsRated, Converter={StaticResource BoolToVisibilityConverter}}"
                                                     Orientation="Horizontal"
                                                     Margin="2 10 0 0"
                                                     HorizontalAlignment="Left">
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\full_star.png"
+                                            <Image Source="{Binding Star1Path}"
                                                Height="15"
                                                Width="15"   
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Margin="8 0 0 0"/>
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\full_star.png"
+                                            <Image Source="{Binding Star2Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Margin="0 0 0 0"/>
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\full_star.png"
+                                            <Image Source="{Binding Star3Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Margin="0 0 0 0"/>
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\full_star.png"
+                                            <Image Source="{Binding Star4Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Margin="0 0 0 0"/>
-                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\half_star.png"
+                                            <Image Source="{Binding Star5Path}"
                                                Height="15"
                                                Width="15"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Margin="0 0 0 0"/>
                                         </StackPanel>
-                                        <TextBlock Margin="13 0 0 0"  Grid.Row="2" Text="No Rating">
+                                        <TextBlock Foreground="{DynamicResource Font1}"
+                                            Visibility="{Binding NotRated, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Margin="13 0 0 0"  Grid.Row="2" Text="{DynamicResource No Rating}">
                                         </TextBlock>
                                         <StackPanel Grid.Row="3"
                                                     Orientation="Horizontal"
@@ -213,6 +219,7 @@
                                                Margin="7 4 0 0"/>
                                             <Label Margin="-2 4 0 0"
                                                Grid.Row="0"
+                                                   Foreground="{DynamicResource Font1}"
                                                FontSize="11"
                                                FontFamily="Verdana"
                                                Width="auto"
@@ -231,10 +238,11 @@
                                                Margin="7 4 0 0"/>
                                             <TextBlock Margin="4 6 0 0"
                                                FontSize="10"
+                                                       Foreground="{DynamicResource Font1}"
                                                FontFamily="Verdana"
                                                Width="auto">
                                             <Run Text="{Binding TourDuration}" />
-                                            <Run Text="hour(s)" />
+                                            <Run Text="{DynamicResource hour}" />
                                             </TextBlock>
                                         </StackPanel>
                                         <StackPanel Grid.Row="5"
@@ -249,6 +257,7 @@
                                                     Margin="3 2 0 0"/>
                                             <Label Content="{Binding RealisationDate,  StringFormat='dd-MM-yyyy'}"
                                                     FontSize="15"
+                                                    Foreground="{DynamicResource Font1}"
                                                     Margin="3 -5 0 0"/>
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\dot.png"
                                                     Height="10"
@@ -259,6 +268,7 @@
                                             <TextBlock  FontSize="15"
                                                         FontWeight="Bold"
                                                         TextAlignment="Left"
+                                                        Foreground="{DynamicResource Font1}"
                                                         Height="31"
                                                         Width="360"
                                                         Margin="4 0 0 0">
@@ -277,11 +287,13 @@
                                                     Height="30"
                                                     FontSize="15"
                                                     Margin="0 20 20 0"
+                                                    Cursor="Hand"
                                                     Content="{Binding ButtonContent}"
-                                                    Background="{StaticResource PrimaryColor2}"
+                                                    Background="{DynamicResource MainColor1}"
                                                     IsEnabled="{Binding NotRated}"
                                                     FontWeight="SemiBold"
                                                     BorderThickness="1"
+                                                    CommandParameter="{Binding}"
                                                     Command="{Binding DataContext.RateSubmitButtonClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                             </Button>
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\book.png"
@@ -295,8 +307,10 @@
                                                     Width="200"
                                                     Height="30"
                                                     FontSize="15"
+                                                    Cursor="Hand"
+                                                    
                                                     Margin="0 20 0 0"
-                                                    Content="   Cancel"
+                                                    Content="{DynamicResource Cancel}"
                                                     FontWeight="SemiBold"
                                                     BorderThickness="1"
                                                     Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}}"
@@ -321,7 +335,7 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" MaxWidth="300" HorizontalAlignment="Left" Margin="35 0 0 0" CornerRadius="5" Padding="5">
+                                    <Border Grid.Column="0" BorderBrush="{DynamicResource MainColor1}" BorderThickness="1" MaxWidth="300" HorizontalAlignment="Left" Margin="35 0 0 0" CornerRadius="5" Padding="5">
                                         <Grid Grid.Column="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="auto"/>
@@ -334,8 +348,8 @@
                                                     <ColumnDefinition Width="auto"/>
                                                     <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="Guides knowledge" MinWidth="110"/>
-                                                <TextBlock Grid.Column="1" Text="(1-5)"/>
+                                                <TextBlock Foreground="{DynamicResource Font1}" Text="{DynamicResource Guides knowledge}" MinWidth="110"/>
+                                                <TextBlock Grid.Column="1" Foreground="{DynamicResource Font1}" Text="(1-5)"/>
                                                 <Grid Grid.Column="2" Width="120">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -345,29 +359,29 @@
                                                         <ColumnDefinition Width="*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Border  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black" Style="{StaticResource HoverBorderStyle}">
-                                                        
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="1">
-                                                            <TextBlock Text="1" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+                                                        <Button Background="{Binding Knowledge1, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="1">
+                                                            <TextBlock Text="1" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Top" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="1" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="2">
-                                                            <TextBlock Text="2" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button Background="{Binding Knowledge2, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="2">
+                                                            <TextBlock Text="2" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="2" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="3">
-                                                            <TextBlock Text="3" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button Background="{Binding Knowledge3, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="3">
+                                                            <TextBlock Text="3" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="3"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="4">
-                                                            <TextBlock Text="4" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button Background="{Binding Knowledge4, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="4">
+                                                            <TextBlock Text="4" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="4"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="5">
-                                                            <TextBlock Text="5" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button Background="{Binding Knowledge5, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesKnowladgeRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="5">
+                                                            <TextBlock Text="5" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                 </Grid>
@@ -378,8 +392,10 @@
                                                     <ColumnDefinition Width="auto"/>
                                                     <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="Guides language" MinWidth="110"/>
-                                                <TextBlock Grid.Column="1" Text="(1-5)"/>
+                                                <TextBlock Text="{DynamicResource Guides language}"
+                                                           Foreground="{DynamicResource Font1}"
+                                                           MinWidth="110"/>
+                                                <TextBlock Grid.Column="1" Foreground="{DynamicResource Font1}" Text="(1-5)"/>
                                                 <Grid Grid.Column="2" Width="120">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -389,28 +405,28 @@
                                                         <ColumnDefinition Width="*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Border  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="1">
-                                                            <TextBlock Text="1" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                                                        <Button Background="{Binding Language1, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="1">
+                                                            <TextBlock Text="1" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Top" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="1" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="2">
-                                                            <TextBlock Text="2" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button  Background="{Binding Language2, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="2">
+                                                            <TextBlock Text="2" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="2" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="3">
-                                                            <TextBlock Text="3" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button  Background="{Binding Language3, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="3">
+                                                            <TextBlock Text="3" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="3"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="4">
-                                                            <TextBlock Text="4" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button  Background="{Binding Language4, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="4">
+                                                            <TextBlock Text="4" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="4"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="5">
-                                                            <TextBlock Text="5" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button  Background="{Binding Language5, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.GuidesLanguageRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="5">
+                                                            <TextBlock Text="5" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                 </Grid>
@@ -421,8 +437,8 @@
                                                     <ColumnDefinition Width="auto"/>
                                                     <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="Tours interest level" MinWidth="110"/>
-                                                <TextBlock Grid.Column="1" Text="(1-5)"/>
+                                                <TextBlock Foreground="{DynamicResource Font1}" Text="{DynamicResource Tours interest level}" MinWidth="110"/>
+                                                <TextBlock Grid.Column="1" Foreground="{DynamicResource Font1}" Text="(1-5)"/>
                                                 <Grid Grid.Column="2" Width="120">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -432,28 +448,28 @@
                                                         <ColumnDefinition Width="*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Border  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="1">
-                                                            <TextBlock Text="1" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                                                        <Button  Background="{Binding Amusement1, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="1">
+                                                            <TextBlock Text="1" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Top" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="1" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="2">
-                                                            <TextBlock Text="2" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button Background="{Binding Amusement2, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="2">
+                                                            <TextBlock Text="2" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="2" BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="3">
-                                                            <TextBlock Text="3" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button Background="{Binding Amusement3, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="3">
+                                                            <TextBlock Text="3" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border  Grid.Column="3"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="4">
-                                                            <TextBlock Text="4" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button Background="{Binding Amusement4, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="4">
+                                                            <TextBlock Text="4" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                     <Border Grid.Column="4"  BorderThickness="1" Margin="5 0 0 0" BorderBrush="Black">
-                                                        <Button Background="Transparent" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="5">
-                                                            <TextBlock Text="5" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <Button Background="{Binding Amusement5, Converter={StaticResource BoolToColorConverter}}" BorderThickness="0" Command="{Binding DataContext.TourAmusementRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="5">
+                                                            <TextBlock Text="5" Foreground="{DynamicResource Font1}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Button>
                                                     </Border>
                                                 </Grid>
@@ -467,7 +483,7 @@
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <Button BorderThickness="0" Background="Transparent" Command="{Binding DataContext.BackwardCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                        <Button BorderThickness="0" Cursor="Hand" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" Command="{Binding DataContext.BackwardCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\previous.png" Height="50"/>
                                         </Button>
                                         <ListView BorderThickness="0" 
@@ -488,7 +504,7 @@
                                             </ListView.ItemsPanel>
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Border BorderBrush="Green" 
+                                                    <Border BorderBrush="{DynamicResource MainColor1}" 
                                                              BorderThickness="3" 
                                                               CornerRadius="2"
                                                                 Width="91"
@@ -503,18 +519,18 @@
                                                 </Style>
                                             </ListView.ItemContainerStyle>
                                         </ListView>
-                                        <Button Grid.Column="2" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.ForwardCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                        <Button Grid.Column="2" Cursor="Hand" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.ForwardCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\next.png" Height="50"/>
                                         </Button>
-                                        <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.UploadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                        <Button Grid.Column="3" Cursor="Hand" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.UploadCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                             <Image Source="C:\Users\Korisnik\Desktop\ikone\add.png" Height="50"/>
                                         </Button>
                                     </Grid>
 
                                 </Grid>
                                 <Grid Grid.Row="2" Visibility="{Binding IsRatingEntered, Converter={StaticResource BoolToVisibilityConverter}}">
-                                    <Border BorderBrush="Black" BorderThickness="2" Margin="35 10 30 0" CornerRadius="5">
-                                        <TextBox Text="{Binding Comment}" MaxLength="50" FontSize="14" TextWrapping="WrapWithOverflow" MinHeight="60" Padding="5"/>
+                                    <Border BorderBrush="{DynamicResource MainColor1}" BorderThickness="2" Margin="35 10 30 0" CornerRadius="5">
+                                        <TextBox Foreground="{DynamicResource Font1}" Background="Transparent" Text="{Binding Comment}" MaxLength="50" FontSize="14" TextWrapping="WrapWithOverflow" MinHeight="60" Padding="5"/>
                                     </Border>
 
 
