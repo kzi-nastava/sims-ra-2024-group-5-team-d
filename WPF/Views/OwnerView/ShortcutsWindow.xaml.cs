@@ -1,5 +1,5 @@
 ﻿using BookingApp.Domain.Models;
-using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.OwnerViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +14,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Views.GuestWindows
+namespace BookingApp.WPF.Views.OwnerView
 {
     /// <summary>
-    /// Interaction logic for MoveReservationAccommodation.xaml
+    /// Interaction logic for ShortcutsWindow.xaml
     /// </summary>
-    public partial class MoveReservationAccommodation : Window
+    public partial class ShortcutsWindow : Window
     {
-        public MoveReservationAccommodation(User user ,int reservationId)
+        public ShortcutsWindow(User user)
         {
+            DataContext = new ShorctutsViewModel(user);
             InitializeComponent();
-            DataContext = new CreateRequestViewModel(user, reservationId, this);
         }
-
+        public void Close(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -34,6 +34,6 @@ namespace BookingApp.WPF.Views.GuestWindows
             DataContext = new AnytimeAnywhereViewModel(user, selectedAccommmodation, fromDate, toDate, numberOfPeople, numberOfDays); 
 
         }
-       
+
     }
 }

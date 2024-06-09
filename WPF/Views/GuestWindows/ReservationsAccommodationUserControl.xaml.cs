@@ -48,7 +48,8 @@ namespace BookingApp.WPF.Views.GuestWindows
         public GuestRatingService guestRatingService;
         public AccommodationRatingService accommodationRatingService;
         public AccommodationReservation accommodationReservation { get; set;  }
-        public AccommodationService accommodationService; 
+        public AccommodationService accommodationService;
+        NotifierService notifierService;
         public ReservationsAccommodationUserControl(User user)
         {
             InitializeComponent();
@@ -65,6 +66,7 @@ namespace BookingApp.WPF.Views.GuestWindows
             FinishedReservations = new ObservableCollection<UserReservationsViewModel>();
             CancelledReservations = new ObservableCollection<UserReservationsViewModel>();
             OwnerRatingsGuest = new ObservableCollection<OwnerRatingGuestViewModel>();
+            notifierService = new NotifierService();
 
             reservationsService.GetActiveReservationsForUser(LoggedInUser)
                 .ForEach(r => ActiveReservations.Add(new UserReservationsViewModel(r.Id, accommodationService.GetAccommodationNameById(r.AccommodationId) , accommodationService.GetById(r.AccommodationId).Location, accommodationService.GetById(r.AccommodationId).ImagesPath, accommodationService.GetById(r.AccommodationId).Capacity, r.ReservedFrom, r.ReservedTo,r.IsCancellable(accommodationService.GetById(r.AccommodationId).CancellationDeadline),r.IsRateable())));
@@ -108,16 +110,20 @@ namespace BookingApp.WPF.Views.GuestWindows
         }
         private void PDFActiveReservations_Click(object sender, RoutedEventArgs e)
         {
+            notifierService.ShowInformation("PFD report is being downloaded.");
             string pdfPath;
             PDFGenerator pdfGenerator = new PDFGenerator();
             pdfPath = pdfGenerator.CreateGuestActiveReservationsPdf(ActiveReservations);
+            notifierService.ShowSuccess("PDF report downloaded successfully!");
         }
 
         private void PDFCancelledReservations(object sender, RoutedEventArgs e)
         {
+            notifierService.ShowInformation("PFD report is being downloaded.");
             string pdfPath;
             PDFGenerator pdfGenerator = new PDFGenerator();
-            pdfPath = pdfGenerator.CreateGuestCancelledReservationsPdf(CancelledReservations);
+            pdfPath = pdfGenerator.CreateGuestCancelledReservationsPdf(CancelledReservations);      
+            notifierService.ShowSuccess("PDF report downloaded successfully!");
         }
     }
 }

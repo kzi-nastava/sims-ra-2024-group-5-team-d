@@ -71,9 +71,10 @@ namespace BookingApp.WPF.ViewModels
             Password = passwordBox.Password;
             User user;
                 if (Type == Domain.Models.UserType.Tourist)
-                    userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate), avatarPath, macAddress, null,true));
+                    user=userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate), avatarPath, macAddress, null,true));
                 else
-                    userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate), avatarPath, macAddress, false, true));
+                    user=userService.Save(new User(Username, Password, Type, FullName, PersonalId, DateOnly.Parse(BirhtDate), avatarPath, macAddress, false, true));
+            signInService.MacLogin(user,true);
         }
 
     }

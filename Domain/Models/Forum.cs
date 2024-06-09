@@ -59,5 +59,8 @@ namespace BookingApp.Domain.Models
             DateCreated = DateTime.ParseExact(values[5], "d/M/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             Active = Convert.ToBoolean(values[6]);
         }
+        public bool IsActive() {
+            return Active == true;
+        }
     }
 }

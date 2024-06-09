@@ -5,7 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
              mc:Ignorable="d" 
-              d:DesignHeight="310" d:DesignWidth="92">
+             d:DesignHeight="310" d:DesignWidth="92">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Control" Command="{Binding RequestsCommand}"/>
+        <KeyBinding Key="E" Modifiers="Control" Command="{Binding RenovationsCommand}"/>
+        <KeyBinding Key="V" Modifiers="Control" Command="{Binding ReviewsCommand}"/>
+        <KeyBinding Key="F" Modifiers="Control" Command="{Binding ForumsCommand}"/>
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <Style x:Key="ImageMarginLeftMenu" TargetType="Image">
             <Setter Property="Margin" Value="0 0 0 20"/>
@@ -49,7 +55,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button BorderThickness="0" Command="{Binding SwitchViewCommand}" CommandParameter="0" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
+            <Button BorderThickness="0" Command="{Binding RequestsCommand}" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -68,7 +74,7 @@
                                Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button Background="Transparent" BorderThickness="0"  Grid.Row="1" Command="{Binding SwitchViewCommand}" CommandParameter="1" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
+            <Button Background="Transparent" BorderThickness="0"  Grid.Row="1" Command="{Binding RenovationsCommand}" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -87,7 +93,7 @@
                        Style="{StaticResource TextBlockMarginLeftMenu}"/> 
                 </Grid>
             </Button>
-            <Button Grid.Row="2" BorderThickness="0" Background="Transparent" Command="{Binding SwitchViewCommand}" CommandParameter="2" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
+            <Button Grid.Row="2" BorderThickness="0" Background="Transparent" Command="{Binding ReviewsCommand}" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -106,7 +112,7 @@
                        Style="{StaticResource TextBlockMarginLeftMenu}"/>
                 </Grid>
             </Button>
-            <Button Background="Transparent" BorderThickness="0" Grid.Row="3" Command="{Binding SwitchViewCommand}" CommandParameter="3" Margin="0 0 0 10" Template="{StaticResource CustomButtonTemplate}">
+            <Button Background="Transparent" BorderThickness="0" Grid.Row="3" Command="{Binding ForumsCommand}" Margin="0 0 0 10" Template="{StaticResource CustomButtonTemplate}">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>

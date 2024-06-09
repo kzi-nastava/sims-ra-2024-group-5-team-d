@@ -41,47 +41,12 @@ namespace BookingApp.WPF.Views.OwnerView
             contentControl.Content = new OwnerMainWindowUserControl(user);
             contentMenu.Content = new SmallMenuUserControl(user);    
         }
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            contentControl.Content = new OwnerProfileUserControl(loggedInUser);
-        }
 
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Debug.WriteLine("Usao");
-        }
-
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Debug.WriteLine("Grid_MouseLeftButtonDown");
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine("Button_Click");
-        }
-
-
-        private void Border_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
-        {
-            contentControl.Content = new OwnerMainWindowUserControl(loggedInUser);
-        }
-
-        private void Border_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
-        {
-            contentControl.Content = new RegisterAccommodationUserControl(loggedInUser);
-        }
-
-        private void Border_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
-        {
-            contentControl.Content = new RegisterAccommodationUserControl(loggedInUser);
-        }
 
         private void HamburgerClick(object sender, MouseButtonEventArgs e)
         {
             if (contentMenu.Content is SmallMenuUserControl)
             {
-                Debug.WriteLine("HamburgerClick");
                 Grid.SetColumnSpan(contentMenu, 2);
                 Grid.SetColumn(contentControl, 2);
                 Grid.SetColumnSpan(contentControl, 1);
@@ -92,15 +57,8 @@ namespace BookingApp.WPF.Views.OwnerView
                 Grid.SetColumnSpan(contentMenu, 1);
                 Grid.SetColumn(contentControl, 1);
                 Grid.SetColumnSpan(contentControl, 2);
-                Debug.WriteLine("HamburgerClick1");
                 contentMenu.Content = new SmallMenuUserControl(loggedInUser);
             }
-        }
-
-        private void Border_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
-        {
-            contentControl.Content = new OwnerNotificationsUserControl(loggedInUser);
-
         }
     }
 }
