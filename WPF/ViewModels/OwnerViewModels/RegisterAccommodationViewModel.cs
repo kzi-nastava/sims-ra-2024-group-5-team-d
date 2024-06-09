@@ -1,17 +1,21 @@
 ﻿using BookingApp.Appl.UseCases;
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Validation;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views;
 using BookingApp.WPF.Views.OwnerView;
+using HarfBuzzSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +28,7 @@ using Xceed.Wpf.Toolkit.Primitives;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
-    public class RegisterAccommodationViewModel
+    public class RegisterAccommodationViewModel:ValidationBase,INotifyPropertyChanged
     {
         public ICommand SelectionChangedCommand { get; private set; }
         public ICommand SetMainPictureCommand { get; private set; }
@@ -39,7 +43,22 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         private LocationService locationService;
         private AccommodationService accommodationService;
 
-        public RegistrationViewModel RegistrationViewModel { get; set; }
+        private RegistrationViewModel registrationViewModel;
+        public RegistrationViewModel RegistrationViewModel
+        {
+            get { return registrationViewModel; }
+            set
+            {
+                registrationViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
 
         private ImageUploadViewModel SelectedImage;
         public ObservableCollection<ImageUploadViewModel> ImagesPaths { get; set; }
@@ -142,6 +161,12 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 
         private void Save()
         {
+            this.Validate();
+            RegistrationViewModel.Validate();
+            if (!RegistrationViewModel.IsValid && !this.IsValid)
+            {
+                return;
+            }
             string folderPath = imageUploaderService.CreateAccommodationFolder(imagesPath);
             folderPath = folderPath + mainImagePath;
             Accommodation newAccommodation = new Accommodation(RegistrationViewModel.Name, locationService.GetById(RegistrationViewModel.LocationId), (TYPE)RegistrationViewModel.Type, RegistrationViewModel.MinDaysToStay, RegistrationViewModel.CancellationDeadline, RegistrationViewModel.MaxCapacity, folderPath, loggedInUser);
@@ -174,6 +199,14 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
                 }
                 else
                     Forward();    
+            }
+        }
+
+        protected override void ValidateSelf()
+        {
+            if(ImagesPaths.Count<=0)
+            {
+                this.ValidationErrors["Images"] = "You must upload at least one image.";
             }
         }
     }
