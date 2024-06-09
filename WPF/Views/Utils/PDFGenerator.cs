@@ -2,6 +2,7 @@
 using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels;
 using BookingApp.WPF.ViewModels.OwnerViewModels;
+using BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels;
 using ceTe.DynamicPDF;
 using ceTe.DynamicPDF.PageElements;
 using PdfSharp.Drawing;
@@ -139,5 +140,130 @@ namespace BookingApp.WPF.Views.Utils
 
             return filename;
         }
+
+        public string CreateTouristRequestStatisticsPDFSerbian(RequestStatisticsViewModel Stats)
+        {
+            Document document = new Document();
+
+            Page page = new Page(PageSize.A4, PageOrientation.Portrait, 54.0f);
+            document.Pages.Add(page);
+
+            string labelText = "Statistika prostih zahteva za " + Stats.SelectedYear + "\n";
+            Label label = new Label(labelText, 0, 0, 504, 100, Font.Helvetica, 18, TextAlign.Center);
+            page.Elements.Add(label);
+            string date = DateTime.UtcNow.ToString("dd.M.yyyy HH:mm");
+            Label label2 = new Label(date, 0, 50, 504, 100, Font.Helvetica, 12, TextAlign.Right);
+            page.Elements.Add(label2);
+
+            Label label3 = new Label("Broj prostih zahteva za svaki jezik:\n", 0, 80, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label3);
+            for (int i =0; i < Stats.LanguageLabels.Count; i++)
+            {
+                string text = Stats.LanguageLabels[i] +": " + Stats.RequestCounterForLanguage[i] + (Stats.RequestCounterForLanguage[i] != 1 ? " requests\n" : " request\n");
+                Debug.WriteLine(text);
+                
+                Label label1 = new Label(text, 0, 100 + i * 30, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+                page.Elements.Add(label1);               
+            }
+            Label label4 = new Label("Broj prostih zahteva za svaku lokaciju:\n", 0, 220, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label4);
+            for (int i = 0; i < Stats.LocationLabels.Count; i++)
+            {
+                string text = Stats.LocationLabels[i] + ": " + Stats.RequestCounterForLocation[i] + (Stats.RequestCounterForLocation[i] != 1 ? " requests\n" : " request\n");
+                Debug.WriteLine(text);
+
+                Label label1 = new Label(text, 0, 250 + i * 30, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+                page.Elements.Add(label1);
+            }
+
+
+            Label label9 = new Label("Dodatna statistika:" + "\n", 0, 610, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label9);
+
+            Label label8 = new Label(
+            "Procenat prihvaćenih zahteva: " + Math.Round(Stats.AcceptedRequests / (double)(Stats.NotAcceptedRequests + Stats.AcceptedRequests) * 100, 2) + "% \n",
+            0, 630, 504, 100,
+            Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label8);
+
+            Label label5 = new Label("Ukupan broj prihvaćenih zahteva: " + Stats.AcceptedRequests +"\n", 0, 650, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label5);
+            Label label6 = new Label("Ukupan broj neprihvaćenih zahteva: " + Stats.NotAcceptedRequests + "\n", 0, 670, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label6);
+
+            Label label7 = new Label("Prosečan broj ljudi u prihvaćenim zahtevima: " + Stats.AvgNumberOfPeople + "\n", 0, 690, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label7);
+
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filename = System.IO.Path.Combine(desktopPath, "RequestStatisticsSRB.pdf");
+            document.Draw(filename);
+
+            return filename;
+        }
+
+        public string CreateTouristRequestStatisticsPDFEnglish(RequestStatisticsViewModel Stats)
+        {
+            Document document = new Document();
+
+            Page page = new Page(PageSize.A4, PageOrientation.Portrait, 54.0f);
+            document.Pages.Add(page);
+
+            string labelText = "Simple Request Statistics For " + Stats.SelectedYear + "\n";
+            Label label = new Label(labelText, 0, 0, 504, 100, Font.Helvetica, 18, TextAlign.Center);
+            page.Elements.Add(label);
+            string date = DateTime.UtcNow.ToString("dd.M.yyyy HH:mm");
+            Label label2 = new Label(date, 0, 50, 504, 100, Font.Helvetica, 12, TextAlign.Right);
+            page.Elements.Add(label2);
+
+            Label label3 = new Label("Number of Simple Requests for every language:\n", 0, 80, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label3);
+            for (int i = 0; i < Stats.LanguageLabels.Count; i++)
+            {
+                string text = Stats.LanguageLabels[i] + ": " + Stats.RequestCounterForLanguage[i] + (Stats.RequestCounterForLanguage[i] != 1 ? " requests\n" : " request\n");
+                Debug.WriteLine(text);
+
+                Label label1 = new Label(text, 0, 100 + i * 30, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+                page.Elements.Add(label1);
+            }
+            Label label4 = new Label("Number of Simple Requests for every location:\n", 0, 220, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label4);
+            for (int i = 0; i < Stats.LocationLabels.Count; i++)
+            {
+                string text = Stats.LocationLabels[i] + ": " + Stats.RequestCounterForLocation[i] + (Stats.RequestCounterForLocation[i] != 1 ? " requests\n" : " request\n");
+                Debug.WriteLine(text);
+
+                Label label1 = new Label(text, 0, 250 + i * 30, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+                page.Elements.Add(label1);
+            }
+
+
+            Label label9 = new Label("Additional stats:" + "\n", 0, 610, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label9);
+
+            Label label8 = new Label(
+            "Percent of accepted requests: " + Math.Round(Stats.AcceptedRequests / (double)(Stats.NotAcceptedRequests + Stats.AcceptedRequests) * 100, 2) + "% \n",
+            0, 630, 504, 100,
+            Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label8);
+
+            Label label5 = new Label("Total number of accepted request: " + Stats.AcceptedRequests + "\n", 0, 650, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label5);
+            Label label6 = new Label("Total number of not accepted request: " + Stats.NotAcceptedRequests + "\n", 0, 670, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label6);
+
+            Label label7 = new Label("Average number of people on accepted requests: " + Stats.AvgNumberOfPeople + "\n", 0, 690, 504, 100, Font.Helvetica, 12, TextAlign.Left);
+            page.Elements.Add(label7);
+
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filename = System.IO.Path.Combine(desktopPath, "RequestStatisticsENG.pdf");
+            document.Draw(filename);
+
+            return filename;
+        }
+
+
+
+
+
     }
 }

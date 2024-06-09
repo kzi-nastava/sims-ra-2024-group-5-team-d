@@ -40,7 +40,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             foreach (var req in complexTourRequestService.GetAll())
             {
                 ComplexRequestViewModel complex = new ComplexRequestViewModel(req, LoggedInUser);
-                if(complex.IsPartAccepted != true)
+                if(complex.IsPartAccepted != true && req.Status == STATE.PENDING)
                 {
                     ComplexRequests.Add(complex);
                 }

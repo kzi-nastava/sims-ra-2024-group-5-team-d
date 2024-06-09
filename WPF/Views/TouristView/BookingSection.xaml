@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border BorderBrush="Gray"
+            <Border BorderBrush="{DynamicResource MainColor1}"
                                 BorderThickness="1.5"
                                 CornerRadius="20"
                                 Grid.Column="0"
@@ -34,15 +34,16 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Border BorderBrush="Gray"
+                    <Border BorderBrush="{DynamicResource MainColor1}"
                         BorderThickness="0 0 0 1"
                         CornerRadius="0"
                         Height="auto"
                         Width="auto"
                         Grid.Row="0">
-                        <Label Content="Personal Information"
+                        <Label Content="{DynamicResource Personal Information}"
                            FontFamily="Verdana"
                            FontSize="24"
+                           Foreground="{DynamicResource Font1}"
                            Margin="20 5 0 10"
                            FontWeight="DemiBold">
 
@@ -54,6 +55,7 @@
                                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                           ScrollViewer.CanContentScroll="False"
                                           PreviewMouseWheel="ListView_PreviewMouseWheel"
+                                          ItemContainerStyle="{StaticResource CustomListView}"
                                           Margin="10 5 10 10"
                                           Grid.Row="1"
                                           ItemsSource="{Binding Tourists}">
@@ -62,7 +64,7 @@
                             <DataTemplate>
                                 <Border BorderThickness="0 0 0 1.5"
                                                     CornerRadius="0"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="0 0 0 0"
                                                     Grid.Row="0"
                                                     Height="auto"
@@ -81,29 +83,33 @@
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Row="0"
                                            Grid.Column="0"
+                                            
                                            Content="{Binding TouristHeader}"
                                            FontSize="18"
                                            Margin="5 3 0 0"
+                                               Foreground="{DynamicResource Font1}"
                                            FontWeight="DemiBold">
 
                                         </Label>
                                         <Label Grid.Row="1"
                                            Grid.Column="0"
                                            Margin="5 10 0 0"
-                                           Content="Full Name: "
+                                           Foreground="{DynamicResource Font1}"
+                                           Content="{DynamicResource fullname}"
                                            FontSize="14">
 
                                         </Label>
                                         <Label Grid.Row="1"
                                            Grid.Column="1"
-                                           Content="Age: "
+                                           Content="{DynamicResource age}"
+                                           Foreground="{DynamicResource Font1}"
                                            Margin="0 10 0 0"
                                            FontSize="14">
 
                                         </Label>
                                         <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="10 5 5 10"
                                                     Grid.Row="2"
                                                     Grid.Column="0"
@@ -112,6 +118,8 @@
                                                     Width="300">
                                             <TextBox Text="{Binding FullName}"
                                                  FontSize="14"
+                                                     Background="Transparent"
+                                                     Foreground="{DynamicResource Font1}"
                                                  BorderThickness="0"
                                                  HorizontalContentAlignment="Left"
                                                  VerticalContentAlignment="Center">
@@ -120,7 +128,7 @@
                                         </Border>
                                         <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="5 -5 0 0"
                                                     Grid.Row="2"
                                                     Grid.Column="1"
@@ -129,7 +137,9 @@
                                                     Width="100">
                                             <TextBox Text="{Binding Years}"
                                                  HorizontalContentAlignment="Left"
+                                                     Background="Transparent"
                                                  VerticalContentAlignment="Center"
+                                                     Foreground="{DynamicResource Font1}"
                                                  FontSize="14"
                                                  BorderThickness="0">
 
@@ -137,14 +147,15 @@
                                         </Border>
                                         <Label Grid.Row="3"
                                            Grid.Column="0"
+                                               Foreground="{DynamicResource Font1}"
                                            Margin="5 0 0 0"
-                                           Content="Personal ID: "
+                                           Content="{DynamicResource personalid}"
                                            FontSize="14">
 
                                         </Label>
                                         <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="0 0 0 20"
                                                     Grid.Row="4"
                                                     Grid.Column="0"
@@ -153,6 +164,8 @@
                                                     Width="300">
                                             <TextBox Text="{Binding PersonalID}"
                                                  HorizontalContentAlignment="Left"
+                                                     Background="Transparent"
+                                                     Foreground="{DynamicResource Font1}"
                                                  VerticalContentAlignment="Center"
                                                  FontSize="14"
                                                  BorderThickness="0">
@@ -171,7 +184,7 @@
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border BorderBrush="Gray"
+                <Border BorderBrush="{DynamicResource MainColor1}"
                                 BorderThickness="1.5"
                                 CornerRadius="20"
                                 Height="auto"
@@ -194,6 +207,7 @@
                             FontWeight="SemiBold"
                             FontSize="22"
                             FontFamily="Verdana"
+                            Foreground="{DynamicResource Font1}"
                             Text="{Binding Tour.Name}"
                             TextWrapping="Wrap"
                             TextAlignment="Justify"/>
@@ -209,6 +223,7 @@
                            Margin="3 2 0 0"/>
                             <Label Content="{Binding TourDate,  StringFormat='dd-MM-yyyy'}"
                             FontSize="15"
+                            Foreground="{DynamicResource Font1}"
                             Margin="3 -5 0 0"/>
                             <Image Source="C:\Users\Korisnik\Desktop\ikone\dot.png"
                            Height="10"
@@ -221,6 +236,7 @@
                                         TextAlignment="Left"
                                         Height="31"
                                         Width="360"
+                                        Foreground="{DynamicResource Font1}"
                                         Margin="4 0 0 0">
                                 <Run Text="{Binding TourRealisation.StartTime, StringFormat='HH:mm'}" />
                                 <Run Text=" - " />
@@ -239,12 +255,13 @@
                            Margin="3 2 0 0"/>
                             <TextBlock  FontSize="15"
                                         FontWeight="Bold"
+                                        Foreground="{DynamicResource Font1}"
                                         TextAlignment="Left"
                                         Height="31"
                                         Width="360"
                                         Margin="8 1 0 0">
                                 <Run Text="{Binding NumberOfTourists}" />
-                                <Run Text="Tourist(s)" />
+                                <Run Text="{DynamicResource tourists}" />
                             </TextBlock>
                         </StackPanel>
                         <StackPanel Grid.Row="3"
@@ -259,24 +276,26 @@
                                            Margin="50 0 5 0"/>
                             <TextBlock  FontSize="15"
                                         FontWeight="Bold"
-                                        TextAlignment="Left"
+                                        TextAlignment="Left"                                        
+                                        Foreground="{DynamicResource Font1}"
                                         Height="31"
                                         Width="360"
                                         Margin="0 3 0 0"
                                         Padding="0 2 1 7">
-                                <Run Text="Cancellation possible until " />
+                                <Run Text="{DynamicResource cancellation2}" />
                                 <Run Text="{Binding CancellationDue, StringFormat='dd-MM-yyyy HH:mm'}" />
                             </TextBlock>
                         </StackPanel>
                         <Button Grid.Row="4"
                                 Visibility="{Binding VoucherNotInUse, Converter={StaticResource BoolToVisibilityConverter}}"
                                 BorderThickness="0"
+                                Foreground="{DynamicResource Font1}"
                                 Command="{Binding UseVoucherCommand}"
-                                Background="White"
+                                Background="Transparent"
                                 Width="145"
                                 HorizontalAlignment="Left"
                                 Margin="55 0 0 0">
-                            <TextBlock Text="Use the Voucher"
+                            <TextBlock Text="{DynamicResource Use the Voucher}"
                             FontSize="18"
                                        Visibility="{Binding VoucherNotInUse}"
                              Grid.Row="4"
@@ -293,7 +312,7 @@
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Foreground" Value="Green"/>
+                                                <Setter Property="Foreground" Value="{DynamicResource MainColor1}"/>
                                                 <Setter Property="TextDecorations" Value="Underline"/>
                                                 <Setter Property="Cursor" Value="Hand"/>
                                             </Trigger>
@@ -307,16 +326,19 @@
 
                         <ListView Name="listView" Grid.Row="5"
                                   Visibility="{Binding IsUseVoucherClicked, Converter={StaticResource BoolToVisibilityConverter}}"
-                                  ItemsSource="{Binding Vouchers}"
-                                  SelectedItem="{Binding SelectedVoucher}">
+                                  ItemsSource="{Binding Vouchers}"                                 
+                                  PreviewMouseWheel="ListView_PreviewMouseWheel"
+                                  Background="Transparent"
+                                  ItemContainerStyle="{StaticResource CustomListView}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
 
-                                    <Border BorderBrush="Gray"
+                                    <Border BorderBrush="{DynamicResource MainColor1}"
                                                             BorderThickness="1.5"
                                                             CornerRadius="20"
-                                                            Height="60"
-                                                            Width="200"
+                                                            Height="auto"
+                                                            Width="auto"
+                                            Padding="5"
                                                             Margin="35 10 30 10">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -329,21 +351,33 @@
                                                                    HorizontalAlignment="Right"
                                                                    VerticalAlignment="Top"
                                                                    Grid.Column="0"
-                                                                   Margin="10 0 0 0"/>
+                                                                   Margin="10 0 5 0"/>
                                             <Grid Grid.Column="1">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="auto"></RowDefinition>
                                                     <RowDefinition Height="auto"></RowDefinition>
                                                     <RowDefinition Height="auto"></RowDefinition>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock Grid.Row="0" FontSize="12"  Margin="0 0 0 0" Text="{Binding VoucherTitle}">
+                                                <TextBlock Grid.Row="0"
+                                                           FontSize="12"
+                                                           Foreground="{DynamicResource Font1}"
+                                                           Margin="0 0 0 0"
+                                                           Text="{Binding VoucherTitle}">
 
                                                 </TextBlock>
-                                                <TextBlock Grid.Row="1"  Margin="0 0 0 0" Text="{Binding ExpireDate, StringFormat='yyyy-MM-dd HH:mm'}" FontSize="12">
-
+                                                <TextBlock 
+                                                    Grid.Row="1" 
+                                                    Foreground="{DynamicResource Font1}" 
+                                                    Margin="0 0 0 0" Text="">
+                                                    <Run Text="{DynamicResource Expires:}"></Run>
+                                                    <Run Text="{Binding ExpireDate, StringFormat='yyyy-MM-dd HH:mm'}" FontSize="12"></Run>
                                                 </TextBlock>
                                                 <Button Grid.Row="2"
-                                                        Content="Use"
+                                                        Background="{DynamicResource MainColor2}"
+                                                        Foreground="{DynamicResource Font1}"
+                                                        Content="{DynamicResource use}"
+                                                        Cursor="Hand"
+                                                        CommandParameter="{Binding}"
                                                     Command="{Binding DataContext.UseCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
 
                                                 </Button>
@@ -354,13 +388,16 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                        <TextBlock Margin="30 0 0 0" Grid.Row="6" Visibility="{Binding IsVoucherInUse, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Margin="30 0 0 0"
+                                   Foreground="{DynamicResource Font1}"
+                                   Grid.Row="6"
+                                   Visibility="{Binding IsVoucherInUse, Converter={StaticResource BoolToVisibilityConverter}}">
                             <Image Margin="0 -5 0 0" Source="C:\Users\Korisnik\Desktop\ikone\voucher.png" Width="20" Height="20"></Image>
-                            <Run Text="Voucher is used" FontWeight="DemiBold"></Run>
+                            <Run Text="{DynamicResource Voucher is used}" FontWeight="DemiBold"></Run>
                         </TextBlock>
                     </Grid>
                 </Border>
-                <Border BorderBrush="Gray"
+                <Border BorderBrush="{DynamicResource MainColor1}"
                                 BorderThickness="1.5"
                                 CornerRadius="20"
                                 Height="auto"
@@ -377,8 +414,9 @@
                         </Grid.RowDefinitions>
                         <Label 
                             Grid.Row="0"
-                            Content="Starting Point"
+                            Content="{DynamicResource Starting Point}"
                             FontSize="24"
+                            Foreground="{DynamicResource Font1}"
                             Margin="25 10 0 0"
                             FontWeight="DemiBold"/>
                         <StackPanel Grid.Row="1"
@@ -393,6 +431,7 @@
                            Margin="3 0 0 0"/>
                             <Label Content="{Binding FirstCheckpointName}"
                             FontSize="15"
+                                   Foreground="{DynamicResource Font1}"
                             Margin="-1 -5 0 0"/>
                             <Image Source="C:\Users\Korisnik\Desktop\ikone\dot.png"
                            Height="10"
@@ -402,6 +441,7 @@
                            Margin="3 4 0 0"/>
                             <Label Content="{Binding Tour.Location}"
                             FontSize="15"
+                                   Foreground="{DynamicResource Font1}"
                             Margin="-1 -5 0 0"/>
                             <Image Source="C:\Users\Korisnik\Desktop\ikone\dot.png"
                            Height="10"
@@ -411,6 +451,7 @@
                            Margin="3 4 0 0"/>
                             <Label Content="{Binding TourRealisation.StartTime, StringFormat='HH:mm'}"
                             FontSize="15"
+                                   Foreground="{DynamicResource Font1}"
                             Margin="-1 -5 0 0"/>
                         </StackPanel>
                         <StackPanel Grid.Row="2"
@@ -423,11 +464,13 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Top"
                            Margin="4 4 0 0"/>
-                            <Label Content="Tour Language:"
+                            <Label Content="{DynamicResource Language:}"
                             FontSize="15"
+                                   Foreground="{DynamicResource Font1}"
                             Margin="0 -5 0 0"/>
                             <Label Content="{Binding Tour.Language}"
                                FontWeight="SemiBold"
+                                   Foreground="{DynamicResource Font1}"
                             FontSize="15"
                             Margin="-1 -5 0 0"/>
                         </StackPanel>
@@ -441,7 +484,9 @@
                                 Height="30"
                                 FontSize="15"
                                 Margin="0 50 20 0"
-                                Content="   Book Now"
+                                    Background="{DynamicResource MainColor2}"
+                                   Foreground="{DynamicResource Font1}"
+                                Content="{DynamicResource Book Now}"
                                 FontWeight="SemiBold"
                                 BorderThickness="1"
                                 Command="{Binding BookCommand}">
@@ -457,7 +502,9 @@
                                 Height="30"
                                 FontSize="15"
                                 Margin="0 50 0 0"
-                                Content="   Cancel"
+                                   Foreground="{DynamicResource Font1}"
+                                Background="{DynamicResource MainColor2}"
+                                Content="{DynamicResource Cancel}"
                                 FontWeight="SemiBold"
                                 BorderThickness="1"
                                 Command="{Binding CancelCommand}">

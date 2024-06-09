@@ -46,11 +46,6 @@ namespace BookingApp.Appl.UseCases
                 }
             });
 
-            foreach(TourRequest tr in simpleRequests)
-            {
-                Debug.WriteLine(tr.Id);
-            }
-
             return simpleRequests;
         }
         public TourRequest Save(TourRequest tourRequest)
@@ -277,7 +272,7 @@ namespace BookingApp.Appl.UseCases
 
         public bool ShouldAcceptedRequestStillBeValid(TourRequest request)
         {
-            return DateTime.Now <= tourRealisationService.GetById(tourReservationService.GetById(request.TourReservationId).TourRealisationId).StartTime.AddDays(-3);
+            return DateTime.Now <= tourRealisationService.GetById(tourReservationService.GetById(request.TourReservationId).TourRealisationId).StartTime.AddDays(-2);
         }
     }
 }

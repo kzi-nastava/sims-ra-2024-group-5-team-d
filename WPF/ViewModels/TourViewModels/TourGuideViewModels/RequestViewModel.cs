@@ -109,6 +109,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                         SelectedDate = selectedDate;
                         GenerateSuggestions();
                         complexRequestService.FixPotentialDateTimeOverLaping(this);
+                        
                     }
                     else
                     {
