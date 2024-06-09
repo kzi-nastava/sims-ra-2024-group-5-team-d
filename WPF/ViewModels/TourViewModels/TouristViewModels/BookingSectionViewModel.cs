@@ -123,7 +123,7 @@ namespace BookingApp.WPF.ViewModels
             BookCommand = new RelayCommand(SaveReservation);
             CancelCommand = new RelayCommand(CancelReservation);
             UseVoucherCommand = new RelayCommand(UseVoucheClick);
-            UseCommand = new RelayCommand(UseClick);
+            UseCommand = new RelayParameterCommand(UseClick);
 
             Vouchers = new ObservableCollection<VoucherViewModel>();
             foreach (Voucher v in voucherService.GetAAll())
@@ -141,13 +141,14 @@ namespace BookingApp.WPF.ViewModels
             IsVoucherInUse = false;
         }
 
-        public void UseClick()
+        public void UseClick(object parameter)
         {
-            if(SelectedVoucher != null)
+            if(parameter is VoucherViewModel voucher)
             {
                 VoucherNotInUse = false;
                 IsUseVoucherClicked = false;
                 IsVoucherInUse = true;
+                SelectedVoucher = voucher;
             }
 
         }

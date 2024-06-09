@@ -81,5 +81,19 @@ namespace BookingApp.Appl.UseCases
             return false;
         }
 
+        public double GetRating(int tourReservationId)
+        {
+            double rating = 0.00;
+            foreach (TourRating rat in GetAllTourRatings())
+            {
+                if (rat.TourReservationId == tourReservationId)
+                {
+                    rating = (double)(rat.TouristLanguage + rat.TouristKnowladge + rat.TourAmusement) / 3;
+                }
+            }
+
+            return rating;
+        }
+
     }
 }

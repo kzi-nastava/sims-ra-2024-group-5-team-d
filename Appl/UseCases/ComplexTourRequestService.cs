@@ -3,6 +3,8 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -152,9 +154,16 @@ namespace BookingApp.Appl.UseCases
                 {
                     InvalidateRequest(req);
                 }
-                else if(req.Requests.Any(sim => sim.Status == STATE.PENDING))
+
+                if(req.Requests.Any(sim => sim.Status == STATE.PENDING))
                 {
                     InvalidateIfFirstAcceptedIsInvalid(req);
+                }
+
+                if(req.Requests.All(simple => simple.Status == STATE.ACCEPTED))
+                {
+                    req.Status = STATE.ACCEPTED;
+                    Update(req);
                 }
             });
         }
@@ -198,41 +207,28 @@ namespace BookingApp.Appl.UseCases
 
         public void FixPotentialDateTimeOverLaping(RequestViewModel simpleRequest)
         {
-            List<TourRequest> requestList = new List<TourRequest>();
-            ComplexTourRequest complex = new ComplexTourRequest();
-            List<DateTime> notPossibleSuggestions = new List<DateTime>();
-            foreach (var pair in complexSimpleRequestPairService.GetAll())
-            {
-                if(pair.SimpleRequestId == simpleRequest.Id)
-                {
-                    complex = _repository.GetById(pair.ComplexRequestId);
-                }
-            }
-            foreach (var pair in complexSimpleRequestPairService.GetAll())
-            {
-                if(pair.ComplexRequestId == complex.Id)
-                {
-                    requestList.Add(tourRequestService.GetById(pair.SimpleRequestId));
-                }
-            }
-            foreach(var simple in requestList)
-            {
-                if(simple.Status == STATE.ACCEPTED)
-                {
+            ObservableCollection<TimeOnly> usedTerms = new ObservableCollection<TimeOnly>();
 
-                    notPossibleSuggestions.Add(tourRealisationService.GetById(tourReservationService.GetById(simple.TourReservationId).TourRealisationId).StartTime);
-                }
-            }
-            foreach(var not in notPossibleSuggestions)
+            int complexRequestId = -1;
+
+            foreach(ComplexTourRequest complex in GetAll())
             {
-                foreach(var dates in simpleRequest.AvailableDates)
+                foreach(TourRequest simple in complex.Requests)
                 {
-                    if(not.DayOfYear == simpleRequest.SelectedDate.DayOfYear && not.Hour < simpleRequest.SelectedTime.Hour && not.AddHours(2).Hour > simpleRequest.SelectedTime.Hour)
-                    {
-                        simpleRequest.AvailableDates.Remove(dates);
-                    }
+                    if (simple.Id == simpleRequest.Id)
+                        complexRequestId = complex.Id;
                 }
             }
+            
+            GetById(complexRequestId).Requests.ForEach(req =>
+                {
+                if(req.Status == STATE.ACCEPTED)
+                {
+                    TimeOnly toDelete = simpleRequest.AvailableDates.FirstOrDefault(date => date.Hour == tourRealisationService.GetById(tourReservationService.GetById(req.TourReservationId).TourRealisationId).StartTime.Hour);
+                    simpleRequest.AvailableDates.Remove(toDelete);
+                    usedTerms.Add(new TimeOnly(tourRealisationService.GetById(tourReservationService.GetById(req.TourReservationId).TourRealisationId).StartTime.Hour));
+                }
+            });
             
         }
 

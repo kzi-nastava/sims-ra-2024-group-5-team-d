@@ -190,6 +190,13 @@ namespace BookingApp.WPF.Views.TouristView
                     ToursOnSameLocation.Add(new TourViewModel(tour.Id, tour.Name, tour.Description, tour.Location, tour.Duration, tour.ImagesPath, tour.MaxCapacity, tour.Language, tour.User));
             });
 
+            var sortedTours = ToursOnSameLocation.OrderByDescending(tour => tour.IsSuperGuide).ToList();
+            ToursOnSameLocation.Clear();
+            foreach (var tour in sortedTours)
+            {
+                ToursOnSameLocation.Add(tour);
+            }
+
             Checkpoints = new ObservableCollection<CheckPointViewModel>();
             checkPointService.GetAllCheckPointsByTourId(selectedTour.Id).ForEach(checkpoint => Checkpoints.Add(new CheckPointViewModel(checkpoint.Id, checkpoint.Name)));
             NumberOfCheckpoints = Checkpoints.Count();
@@ -237,7 +244,7 @@ namespace BookingApp.WPF.Views.TouristView
                 {
                     Width = 40,
                     Height = 40,
-                    Fill = Brushes.Green,
+                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89")),
                     Cursor = Cursors.Hand
                 };
 
@@ -251,8 +258,8 @@ namespace BookingApp.WPF.Views.TouristView
                     FontSize = 20,
                     VerticalContentAlignment = VerticalAlignment.Top,
                     HorizontalContentAlignment = HorizontalAlignment.Center,
-                    Foreground = Brushes.Yellow,
-                    Background = Brushes.Green,
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2FC8BF")),
+                    Background = Brushes.Transparent,
                     FontWeight = FontWeights.Bold,
                     FontStyle = FontStyles.Normal,
                     FontFamily = new FontFamily("Segoe UI")
@@ -264,12 +271,12 @@ namespace BookingApp.WPF.Views.TouristView
                     IsReadOnly = true,
                     Width = 200,
                     Height = 40,
-                    Background = Brushes.WhiteSmoke,
-                    BorderBrush = Brushes.White,
+                    Background = Brushes.Transparent,
+                    BorderBrush = Brushes.Transparent,
                     FontSize = 18,
                     VerticalContentAlignment = VerticalAlignment.Center,
                     HorizontalContentAlignment = HorizontalAlignment.Left,
-                    Foreground = Brushes.Black,
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#218C89")),
                     FontWeight = FontWeights.DemiBold,
                     FontStyle = FontStyles.Normal,
                     FontFamily = new FontFamily("Segoe UI")
@@ -361,6 +368,14 @@ namespace BookingApp.WPF.Views.TouristView
                 TourStartTime = SelectedRealisation.StartTime;
                 IsRealisationSelected = true;
                 CancelationDue = SelectedRealisation.DateTime.AddDays(-2);
+            }
+        }
+
+        private void ListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if(SelectedTourOnSameLocation != null)
+            {
+                TouristHomeWindow.contentControl.Content = new TourDetailsUserControl(SelectedTourOnSameLocation, NumberOfTourists, User);
             }
         }
     }

@@ -26,7 +26,6 @@ namespace BookingApp.Appl.UseCases
         public void GetAll(User tourist)
         {
             List<Tuple<ComplexTourRequest, List<TourRequest>>> requests = new List<Tuple<ComplexTourRequest, List<TourRequest>>>();
-            complexTourRequestService.Validate();
             List<ComplexTourRequest> allComplexRequests = complexTourRequestService.GetAll(tourist);
             List<ComplexSimpleRequestPair> allPairs = complexSimpleRequestPairService.GetAll();
 

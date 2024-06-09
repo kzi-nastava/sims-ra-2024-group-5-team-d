@@ -24,7 +24,7 @@ namespace BookingApp.WPF.Views.GuestWindows
         public MoveReservationAccommodation(User user ,int reservationId)
         {
             InitializeComponent();
-            DataContext = new CreateRequestViewModel(user, reservationId);
+            DataContext = new CreateRequestViewModel(user, reservationId, this);
         }
 
     }

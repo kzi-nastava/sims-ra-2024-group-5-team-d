@@ -7,6 +7,7 @@
         xmlns:views="clr-namespace:BookingApp.WPF.Views.TouristView"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+        xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
         mc:Ignorable="d"
         Title="Limit"
         Height="720"
@@ -15,7 +16,7 @@
         <BitmapImage UriSource="../../../Resources/Images/logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>
     </Window.Icon>
     <Window.Resources>
-        
+        <converter:BoolToColorConverter x:Key="BoolToColorConverter" />
         <Style x:Key="Centriranje"
                TargetType="TextBlock">
             <Setter Property="HorizontalAlignment"
@@ -61,6 +62,7 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton Grid.Column="0"
                               Width="130" 
+                              Cursor="Hand"
                               Height="50"
                               Style="{StaticResource LanguageToggleButton}"
                               IsChecked="{Binding IsLanguageChecked}"
@@ -150,14 +152,14 @@
                         
                         Grid.Column="2"
                         Margin="15 15 0 15">
-                    <Grid Style="{DynamicResource RoundGridStyle}" Background="{DynamicResource MainColor3}">
-                        <Button Width="130" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="Button_Click_2" >
+                    <Grid Style="{DynamicResource RoundGridStyle}" Background="{DynamicResource PrimaryColor}">
+                        <Button Width="130" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="Button_Click_2" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock FontSize="16" FontWeight="DemiBold" Foreground="{DynamicResource Font1}" VerticalAlignment="Center" Margin="0 0 0 0" Grid.Column="0" Text="{DynamicResource Sign Out}"/>
+                                <TextBlock FontSize="16" FontWeight="DemiBold" Foreground="{DynamicResource AntiFont1}" VerticalAlignment="Center" Margin="0 0 0 0" Grid.Column="0" Text="{DynamicResource Sign Out}"/>
                                 <Image Grid.Column="1" Width="40" Source="C:\Users\Korisnik\Desktop\ikone\logout.png"/>
                             </Grid>
                         </Button>
@@ -180,7 +182,8 @@
                             Grid.Column="2"
                             
                             Template="{StaticResource CustomButtonTemplate}"
-                            Height="30"
+                            Height="auto"
+                            Width="auto"
                             Cursor="Hand"
                             Background="Transparent"
                             VerticalContentAlignment="Bottom"   
@@ -189,9 +192,10 @@
                     <Border
                             CornerRadius="4"
                             Width="auto"
+                            Padding="0 0 10 0"
                             Style="{StaticResource BorderHover}"
-                            Height="32"
-                            Background="{DynamicResource  MainColor2}"
+                            Height="50"
+                            Background="{Binding IsRequestsClicked, Converter={StaticResource BoolToColorConverter}}"
                             HorizontalAlignment="Left"
                             BorderThickness="0">
                         <StackPanel 
@@ -219,7 +223,8 @@
                             BorderThickness="0"
                     Grid.Column="0"
                             Template="{StaticResource CustomButtonTemplate}"
-                            Height="30"
+                            Height="auto"
+                            Width="auto"
                             Margin="35 0 50 0"
                             Cursor="Hand"
                             Background="Transparent"
@@ -230,9 +235,10 @@
                     <Border
                             CornerRadius="4"
                             Width="auto"
+                            Padding="0 0 10 0"
                             Style="{StaticResource BorderHover}"
-                            Height="32"
-                            Background="{DynamicResource  MainColor2}"
+                            Background="{Binding IsHomePageClicked, Converter={StaticResource BoolToColorConverter}}"
+                            Height="50"
                             HorizontalAlignment="Left"
                             BorderThickness="0">
                         <StackPanel 
@@ -260,7 +266,8 @@
                 <Button 
                             BorderThickness="0"
                             Template="{StaticResource CustomButtonTemplate}"
-                            Height="30"
+                            Height="auto"
+                            Width="auto"
                     Grid.Column="1"
                             Background="Transparent"
                             Cursor="Hand"
@@ -270,10 +277,11 @@
                             Click="YourTours_Click">
                     <Border
                             CornerRadius="4"
+                            Padding="0 0 10 0"
                             Width="auto"
                             Style="{StaticResource BorderHover}"
-                            Height="30"
-                            Background="{DynamicResource  MainColor2}"
+                            Background="{Binding IsToursClicked, Converter={StaticResource BoolToColorConverter}}"
+                            Height="50"
                             HorizontalAlignment="Left"
                             BorderThickness="0">
                         <StackPanel 
@@ -304,20 +312,22 @@
                 <Button 
                             BorderThickness="0"
                             Template="{StaticResource CustomButtonTemplate}"
-                            Height="30"
+                            Height="auto"
+                            Width="auto"
                                Grid.Column="3"
-                            Cursor="Hand"
-                    Margin="50 0 0 0"
+                            Cursor="Hand"                    
                             Background="Transparent"
+                            Margin="50 0 0 0"
                             VerticalContentAlignment="Bottom"
                             HorizontalContentAlignment="Left"
                             Click="Notifications_Click">
                     <Border
                             CornerRadius="4"
-                            Width="auto"
+                            Padding="0 0 10 0"
+                            Width="auto"                           
                             Style="{StaticResource BorderHover}"
-                            Height="32"
-                            Background="{DynamicResource  MainColor2}"
+                            Height="50"
+                            Background="{Binding IsNotificationsClicked, Converter={StaticResource BoolToColorConverter}}"
                             HorizontalAlignment="Left"
                             BorderThickness="0">
                         <StackPanel 

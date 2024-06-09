@@ -15,6 +15,7 @@ namespace BookingApp.WPF.ViewModels
         public int CheckPointId { get; set; }
         public string PersonalID { get; set; }
         public string TouristHeader { get; set; }
+        public bool IsReadOnly { get; set; }
         public TourGuestViewModel() { }
         public TourGuestViewModel(int id, string fullName, int years, int tourReservationId, int checkPointId)
         {

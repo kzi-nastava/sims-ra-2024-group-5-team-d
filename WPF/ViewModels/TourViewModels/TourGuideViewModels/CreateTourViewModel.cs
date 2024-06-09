@@ -56,6 +56,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private TourRequestService tourRequestService;
         private TourReservationService tourReservationService;
         private NotificationsService notificationsService;
+        private ComplexTourRequestService complexTourRequestService;
 
         private int PaginationIndex = 0;
         public bool IsRequest { get; set; }
@@ -80,7 +81,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             InitializeCommon(user);
             if (request != null)
             {
-                IsSelectedDate = true;
+                IsSelectedDate = false;
                 IsRequest = true;
                 IsLocationsStats = true;
                 IsLanguageStats = true;
@@ -132,6 +133,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             imageUploaderService = new ImageUploaderService(tourService);
             notificationsService = new NotificationsService();
+            complexTourRequestService = new ComplexTourRequestService();
 
             SaveCommand = new RelayCommand(Save);
             LocationChangedCommand = new RelayCommand(LocationChanged);
@@ -156,10 +158,21 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             TourFormViewModel.LanguageId = Convert.ToInt32(request.Language);
             TourFormViewModel.LocationId = request.Location.Id;
             if(request.SelectedDate != null)
+            TourFormViewModel.Capacity = request.Capacity;
+            TourFormViewModel.Description = request.Description;
+            TourFormViewModel.LanguageId = Convert.ToInt32(request.Language);
+            TourFormViewModel.LocationId = request.Location.Id;
+            if(tourRequestService.GetAllSimpleRequests().Any(req => req.Id == request.Id))
             {
+                IsSelectedDate = true;
                 IsDuration = true;
                 TourFormViewModel.StartTime = request.SelectedDate.AddHours(request.SelectedTime.Hour);
                 TourFormViewModel.Duration = 2;
+                Debug.WriteLine("Date: " + request.SelectedDate + "Time: " + request.SelectedTime.Hour);
+                TourFormViewModel.StartTime = request.SelectedDate;
+                TourFormViewModel.StartTime = TourFormViewModel.StartTime.AddHours(request.SelectedTime.Hour);
+                Debug.WriteLine(TourFormViewModel.StartTime);
+                tourFormViewModel.Duration = 2;
             }
             LocationChanged();
         }

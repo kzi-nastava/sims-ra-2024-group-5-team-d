@@ -33,8 +33,10 @@ namespace BookingApp.Appl.UseCases
         public bool IsSuperGuide(User guide)
         {
             (bool has20GuidedTours, LANGUAGE language) = LanguageGuidedTour();
+            
             bool hasSufficientRating = IsRatingSufficient(language);
             bool isAlreadyASuperGuide = superUserService.IsAlreadySuperUser(guide);
+            Debug.WriteLine(has20GuidedTours.ToString() + hasSufficientRating + isAlreadyASuperGuide);
             if (has20GuidedTours && hasSufficientRating && !isAlreadyASuperGuide)
             {
                 SuperUser superGuide = new SuperUser(guide.Id,DateTime.Now,language);
@@ -49,10 +51,15 @@ namespace BookingApp.Appl.UseCases
             SuperUser? superUser = superUserService.GetAll().Find(user => user.UserId == guide.Id);
             if(superUser == null || superUser.ValidFrom.AddYears(1) <= DateTime.Now)
             {
+                if (superUser != null)
+                {
+                    superUserService.Delete(superUser);
+                }
                 status = IsSuperGuide(guide);
                 guide.IsSuperUser = status;
-                userService.Update(guide);
+                userService.Update(guide);               
             }
+
             return status;
             
         }
@@ -84,22 +91,19 @@ namespace BookingApp.Appl.UseCases
         public bool IsRatingSufficient(LANGUAGE language)
         {
             double avgRating = 0;
+            int counter = 0;
             List<TourRating> ratings = tourRatingService
                                         .RatingsOfGuide(Guide)
-                                        .Where(rating =>
-                                        {
-                                            var tourReservation = tourReservationService.GetById(rating.TourReservationId);
-                                            var tourRealisation = tourRealisationService.GetById(tourReservation.TourRealisationId);
-                                            var tour = tourService.GetById(tourRealisation.TourId);
-                                            return tour.Language == language;
-                                        })
+                                        .Where(rating =>                                      
+                                         tourService.GetById(tourRealisationService.GetById(tourReservationService.GetById(rating.TourReservationId).TourRealisationId).TourId).Language == language)
                                         .ToList();
             ratings.ForEach(rating =>
             {
-                int sum = rating.TourAmusement + rating.TouristKnowladge + rating.TourReservationId;
-                avgRating += sum/3;
+                avgRating += (rating.TouristLanguage + rating.TouristKnowladge + rating.TourAmusement)/3.0;
+                counter++;
             });
-            return avgRating > 4.0;
+            Debug.WriteLine("Prosek: " + (avgRating / (1.0 * counter)));
+            return (avgRating / (1.0*counter)) > 4.0;
         }
     }
 }

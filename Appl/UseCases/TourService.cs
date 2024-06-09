@@ -62,7 +62,7 @@ namespace BookingApp.Appl.UseCases
 
         public bool HasAvailableSeatsInAnyRealisation(int tourId)
         {
-            return tourRealisationService.GetTourRealisationsByTourId(tourId).Any(tR => tR.AvailableSeats > 0);
+            return tourRealisationService.GetTourRealisationsByTourId(tourId).Any(tR => tR.AvailableSeats > 0 && tR.IsFinished == false && tR.IsLive == false);
         }
         public Tour GetBestTourOfAllTime()
         {

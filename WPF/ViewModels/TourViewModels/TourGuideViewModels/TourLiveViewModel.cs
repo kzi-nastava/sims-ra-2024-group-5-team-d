@@ -135,7 +135,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         {
             tourGuest.CheckPointId = checkPointId;
 
-            TourGuest guest = new TourGuest(tourGuest.Id, tourGuest.FullName, tourGuest.Years, tourGuest.TourReservationId, tourGuest.CheckPointId, tourGuest.PersonalID);
+            TourGuest guest = tourGuestService.GetById(tourGuest.Id);
+            guest.CheckPointId = checkPointId;
             tourGuestService.Update(guest);
         }
 

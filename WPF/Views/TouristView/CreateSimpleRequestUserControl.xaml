@@ -51,7 +51,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+    <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="90 20 100 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -64,17 +64,17 @@
                 </Grid.ColumnDefinitions>
                 <Border BorderThickness="1 1 1 1"
                     CornerRadius="5"
-                    BorderBrush="Gray"
+                    BorderBrush="{DynamicResource MainColor1}"
                     Grid.ColumnSpan="4"/>
                 <Button Grid.Column="0"
                 Content="Simple Requests"
-                Foreground="{StaticResource Font1}"                
+                Foreground="{DynamicResource PrimaryBlack}"                
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding SimpleRequestsTabCommand}"/>
                 <Button Grid.Column="1"
                 Content="Complex Requests"
                 Foreground="{DynamicResource WhiteWhite}"
-                Background="{StaticResource PrimaryColor2}"
+                Background="{DynamicResource MainColor1}"
                 Style="{StaticResource TabsButtonsStyle}"
                 Command="{Binding ComplexRequestsTabCommand}"/>
             </Grid>
@@ -84,7 +84,7 @@
                 <Border 
                 BorderThickness="1 1 1 1"
                 CornerRadius="5"
-                BorderBrush="{StaticResource PrimaryColor2}"
+                BorderBrush="{DynamicResource MainColor1}"
                 Padding="0 0 0 10"
                 Grid.Row="1"
                 Margin="0 -1 0 0">
@@ -94,7 +94,7 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Border BorderBrush="{StaticResource PrimaryColor2}"
+                        <Border BorderBrush="{DynamicResource MainColor1}"
                                 BorderThickness="1.5"
                                 CornerRadius="20"
                                 Grid.Column="0"
@@ -107,7 +107,7 @@
                                     <RowDefinition Height="auto"></RowDefinition>
                                     <RowDefinition Height="auto"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Border BorderBrush="{StaticResource PrimaryColor2}"
+                                <Border BorderBrush="{DynamicResource MainColor1}"
                                         BorderThickness="0 0 0 1"
                                         CornerRadius="0"
                                         Height="auto"
@@ -118,9 +118,9 @@
                                             <ColumnDefinition Width="auto"></ColumnDefinition>
                                             <ColumnDefinition Width="auto"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Content="Personal Information"
+                                        <Label Content="{DynamicResource Personal Information}"
                                            FontFamily="Verdana"
-                                               Foreground="{StaticResource PrimaryColor2}"
+                                               Foreground="{DynamicResource Font1}"
                                            FontSize="24"
                                            Margin="10 5 10 10"
                                            Grid.Column="0"
@@ -132,7 +132,7 @@
                                                     HorizontalAlignment="Left">
                                             <Border BorderThickness="1"
                                                     CornerRadius="2"
-                                                    BorderBrush="Gray">
+                                                    BorderBrush="{DynamicResource MainColor1}">
                                                 <TextBlock
                                                      FontSize="16"
                                                      TextAlignment="Left"
@@ -140,9 +140,10 @@
                                                      Width="145"
                                                      x:Name="PeopleCounter"
                                                      Margin="2 0 0 0"
+                                                     Foreground="{DynamicResource Font1}"
                                                      Padding="40 5 1 7">
                                                     <Run Text="{Binding Capacity, UpdateSourceTrigger=PropertyChanged}" />
-                                                    <Run Text="Tourist(s)" />
+                                                    <Run Text="{DynamicResource tourists}" />
                                                 </TextBlock>
                                             </Border>
 
@@ -158,7 +159,8 @@
                                                         Height="16"
                                                         Margin="0 0 0 0"
                                                         VerticalContentAlignment="Top"      
-                                                        Background="{StaticResource PrimaryColor}"
+                                                        Background="{DynamicResource MainColor2}"
+                                                        Foreground="{DynamicResource Font1}"
                                                         FontSize="9.5"
                                                         HorizontalContentAlignment="Center"
                                                         Command="{Binding IncreaseCountCommand}"/>
@@ -167,8 +169,9 @@
                                                         Width="20"
                                                         Height="17"
                                                         Margin="0 0 0 0"
+                                                        Foreground="{DynamicResource Font1}"
                                                         FontSize="9.5"
-                                                        Background="{StaticResource PrimaryColor}"
+                                                        Background="{DynamicResource MainColor2}"
                                                         HorizontalContentAlignment="Center"
                                                         Command="{Binding DecreaseCountCommand}"/>
                                             </StackPanel>
@@ -193,13 +196,15 @@
                                           Height="auto"
                                           Margin="10 5 10 10"
                                           Grid.Row="1"
+                                          PreviewMouseWheel="ListView_PreviewMouseWheel"
+                                          ItemContainerStyle="{StaticResource CustomListView}"
                                           ItemsSource="{Binding Tourists}">
 
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <Border BorderThickness="0 0 0 1.5"
                                                     CornerRadius="0"
-                                                    BorderBrush="{StaticResource PrimaryColor2}"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="0 0 0 0"
                                                     Grid.Row="0"
                                                     Height="auto"
@@ -219,6 +224,7 @@
                                                     <Label Grid.Row="0"
                                            Grid.Column="0"
                                            Content="{Binding TouristHeader}"
+                                                           Foreground="{DynamicResource Font1}"
                                            FontSize="18"
                                            Margin="5 3 0 0"
                                            FontWeight="DemiBold">
@@ -226,30 +232,33 @@
                                                     </Label>
                                                     <Label Grid.Row="1"
                                            Grid.Column="0"
+                                                           Foreground="{DynamicResource Font1}"
                                            Margin="5 10 0 0"
-                                           Content="Full Name: "
+                                           Content="{DynamicResource fullname}"
                                            FontSize="14">
 
                                                     </Label>
                                                     <Label Grid.Row="1"
+                                                           Foreground="{DynamicResource Font1}"
                                            Grid.Column="1"
-                                           Content="Age: "
+                                           Content="{DynamicResource age}"
                                            Margin="0 10 0 0"
                                            FontSize="14">
 
                                                     </Label>
                                                     <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="10 5 5 10"
                                                     Grid.Row="2"
                                                     Grid.Column="0"
                                                     Height="30"
                                                     Padding="5 3 3 3"
                                                     Width="280">
-                                                        <TextBox Text="{Binding FullName}"
+                                                        <TextBox IsReadOnly="{Binding IsReadOnly}" Text="{Binding FullName}"
                                                  FontSize="14"
-                                                                 Background="{StaticResource LightGray}"
+                                                                 Background="Transparent"
+                                                                 Foreground="{DynamicResource Font1}"
                                                  BorderThickness="0"
                                                  HorizontalContentAlignment="Left"
                                                  VerticalContentAlignment="Center">
@@ -258,7 +267,7 @@
                                                     </Border>
                                                     <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="5 -5 0 0"
                                                     Grid.Row="2"
                                                     Grid.Column="1"
@@ -266,9 +275,11 @@
                                                     Padding="5 3 3 3"
                                                     Width="100">
                                                         <TextBox Text="{Binding Years}"
+                                                                 IsReadOnly="{Binding IsReadOnly}"
+                                                                 Foreground="{DynamicResource Font1}"
                                                  HorizontalContentAlignment="Left"
                                                  VerticalContentAlignment="Center"
-                                                                 Background="{StaticResource LightGray}"
+                                                                 Background="Transparent"
                                                  FontSize="14"
                                                  BorderThickness="0">
 
@@ -277,13 +288,14 @@
                                                     <Label Grid.Row="3"
                                            Grid.Column="0"
                                            Margin="5 0 0 0"
-                                           Content="Personal ID: "
+                                           Content="{DynamicResource personalid}"
+                                                           Foreground="{DynamicResource Font1}"
                                            FontSize="14">
 
                                                     </Label>
                                                     <Border BorderThickness="1 1 1 1"
                                                     CornerRadius="5"
-                                                    BorderBrush="Gray"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="0 0 0 20"
                                                     Grid.Row="4"
                                                     Grid.Column="0"
@@ -291,10 +303,12 @@
                                                     Padding="5 3 3 3"
                                                     Width="280">
                                                         <TextBox Text="{Binding PersonalID}"
+                                                                 IsReadOnly="{Binding IsReadOnly}"
+                                                                 Foreground="{DynamicResource Font1}"
                                                  HorizontalContentAlignment="Left"
                                                  VerticalContentAlignment="Center"
                                                  FontSize="14"
-                                                                 Background="{StaticResource LightGray}"
+                                                                 Background="Transparent"
                                                  BorderThickness="0">
 
                                                         </TextBox>
@@ -311,7 +325,7 @@
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="auto"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Border BorderBrush="{StaticResource PrimaryColor2}"
+                            <Border BorderBrush="{DynamicResource MainColor1}"
                                 BorderThickness="1.5"
                                 CornerRadius="20"
                                 Height="auto"
@@ -330,8 +344,12 @@
                                     <TextBlock Grid.Row="0"
                                                Margin="20 10 20 10"
                                                FontWeight="SemiBold"
-                                               Text="Location:                                 Language:"
-                                               FontSize="18"></TextBlock>
+                                               Foreground="{DynamicResource Font1}"                                               
+                                               FontSize="18">
+                                        <Run Text="{DynamicResource Location:}"></Run>
+                                        <Run Text="                               "></Run>
+                                        <Run Text="{DynamicResource Language:}"></Run>
+                                    </TextBlock>
                                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                                         <ComboBox   Grid.Row="1"
                                                     Grid.Column="0"
@@ -352,7 +370,6 @@
                                             <ComboBoxItem Content="Serbia, Pančevo"/>
                                             <ComboBoxItem Content="Serbia, Čačak"/>
                                             <ComboBoxItem Content="Serbia, Užice"/>
-                                            <ComboBoxItem Content="Any"/>
                                         </ComboBox>
                                         <ComboBox   Grid.Row="1"
                                                     Grid.Column="2"
@@ -365,7 +382,6 @@
                                             <ComboBoxItem Content="English"></ComboBoxItem>
                                             <ComboBoxItem Content="Serbian"></ComboBoxItem>
                                             <ComboBoxItem Content="German"></ComboBoxItem>
-                                            <ComboBoxItem Content="Any"></ComboBoxItem>
                                         </ComboBox>
 
 
@@ -375,12 +391,13 @@
 
                                     </StackPanel>
                                     <TextBlock Grid.Row="2"
+                                               Foreground="{DynamicResource Font1}"
                                                Margin="25 20 0 10">
-                                            <Run Text="Additional Info: "
+                                            <Run Text="{DynamicResource Additional info:}"
                                                  FontWeight="SemiBold"
                                                  FontSize="18"></Run>
                                     </TextBlock>
-                                    <Border BorderBrush="{StaticResource PrimaryColor2}"
+                                    <Border BorderBrush="{DynamicResource MainColor1}"
                                             BorderThickness="1"
                                             CornerRadius="20"
                                             Height="auto"
@@ -390,7 +407,8 @@
                                             Margin="20 0 20 0">
                                         <TextBox Height="120"
                                                  Padding="5"
-                                                 Background="{StaticResource LightGray}"
+                                                 Background="Transparent"
+                                                 Foreground="{DynamicResource Font1}"
                                                  FontSize="16"
                                                  Text="{Binding Description}"
                                                  BorderThickness="0"
@@ -402,7 +420,7 @@
                                     <Border Margin="0 10 0 0" 
                                             Grid.Row="4" 
                                             BorderThickness="0 1 0 0" 
-                                            BorderBrush="{StaticResource PrimaryColor2}">
+                                            BorderBrush="{DynamicResource MainColor1}">
                                         <Grid Grid.Row="4">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -414,12 +432,13 @@
                                                     <RowDefinition Height="auto"></RowDefinition>
                                                     <RowDefinition Height="auto"></RowDefinition>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock Text="Pick Your Tour Period :"
+                                                <TextBlock Text="{DynamicResource Pick Your Tour Period}"
                                                            Grid.Row="0"
+                                                           Foreground="{DynamicResource Font1}"
                                                            Margin="20 10 0 0"
                                                            FontSize="16"
                                                            ></TextBlock>
-                                                <Border BorderBrush="{StaticResource PrimaryColor2}" 
+                                                <Border BorderBrush="{DynamicResource MainColor1}" 
                                                         Grid.Row="1"
                                                         BorderThickness="1"
                                                         Margin="20 10 10 0"
@@ -427,11 +446,11 @@
                                                         CornerRadius="10">
                                                     <Button BorderThickness="0"
                                                             Height="30"
-                                                            Background="White"
+                                                            Background="Transparent"
                                                             Width="165">
                                                         <Border BorderThickness="0"
                                                                 CornerRadius="2"
-                                                                BorderBrush="Gray"
+                                                                BorderBrush="{DynamicResource MainColor1}"
                                                                 Grid.Row="1"
                                                                 Height="30"
                                                                 Margin="0">
@@ -457,7 +476,7 @@
                                                         </Border>
                                                     </Button>
                                                 </Border>
-                                                <Border BorderBrush="Gray" 
+                                                <Border BorderBrush="{DynamicResource MainColor1}" 
                                                         Grid.Row="2"
                                                         BorderThickness="1"
                                                         Margin="20 10 10 10"
@@ -465,11 +484,11 @@
                                                         CornerRadius="10">
                                                     <Button BorderThickness="0"
                                                             Height="30"
-                                                            Background="White"
+                                                            Background="Transparent"
                                                             Width="165">
                                                         <Border BorderThickness="0"
                                                                 CornerRadius="2"
-                                                                BorderBrush="Gray"
+                                                                BorderBrush="{DynamicResource MainColor1}"
                                                                 Grid.Row="1"
                                                                 Margin="0 0 0 0"
                                                                 Height="30">
@@ -499,7 +518,7 @@
 
                                             </Grid>
                                             <Border BorderThickness="1 0 0 0"
-                                                    BorderBrush="{StaticResource PrimaryColor2}"
+                                                    BorderBrush="{DynamicResource MainColor1}"
                                                     Margin="10 10 0 -10"
                                                     Grid.Column="1">
                                                 <Grid>
@@ -509,9 +528,10 @@
                                                         <RowDefinition Height="auto"></RowDefinition>
                                                         <RowDefinition Height="auto"></RowDefinition>
                                                     </Grid.RowDefinitions>
-                                                    <TextBlock Text="Confirm Tour Request"
+                                                    <TextBlock Text="{DynamicResource Confirm Tour Request}"
                                                            FontSize="16"
                                                            Margin="20 0 0 0"
+                                                           Foreground="{DynamicResource Font1}"
                                                            FontWeight="SemiBold"></TextBlock>
                                                     <StackPanel Grid.Row="1" Margin="20 0 0 0">
                                                         <Image Source="C:\Users\Korisnik\Desktop\ikone\checked.png"
@@ -520,13 +540,14 @@
                                                                VerticalAlignment="Center"
                                                                HorizontalAlignment="Left"
                                                                Margin="0 15 0 0"/>
-                                                        <TextBox Text="Get notified when request is accepted"
+                                                        <TextBox Text="{DynamicResource Get notified when request is accepted}"
                                                                  FontSize="12"
                                                                  HorizontalContentAlignment="Left"
                                                                  VerticalContentAlignment="Center"
                                                                  Height="45"
                                                                  TextAlignment="Left"
-                                                                 Background="{StaticResource LightGray}"
+                                                                 Foreground="{DynamicResource Font1}"
+                                                                 Background="Transparent"
                                                                  Width="200"
                                                                  TextWrapping="Wrap"
                                                                  BorderThickness="0"
@@ -537,17 +558,19 @@
                                                     </StackPanel>
                                                     <Button Grid.Row="2"
                                                             Height="30"
-                                                            Background="{StaticResource PrimaryColor}"  
-                                                            Content="Create Request"
+                                                            Background="{DynamicResource MainColor1}"  
+                                                            Content="{DynamicResource Create Request}"
+                                                            Foreground="{DynamicResource Font1}"
                                                             Command="{Binding CreateRequestCommand}"
                                                             Width="200">
 
                                                     </Button>
                                                     <Button Grid.Row="3"
                                                             Height="30"
+                                                            Foreground="{DynamicResource Font1}"
                                                             Margin="0 10 0 0"
-                                                            Content="Cancel"
-                                                            Background="{StaticResource PrimaryColor2}"
+                                                            Content="{DynamicResource Cancel}"
+                                                            Background="{DynamicResource MainColor2}"
                                                             Command="{Binding CancelCommand}"
                                                             Width="200">
 

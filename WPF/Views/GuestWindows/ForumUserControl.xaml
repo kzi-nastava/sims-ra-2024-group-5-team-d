@@ -315,7 +315,7 @@
                                                      Cursor="Hand"
                                                      VerticalAlignment="Top"
                                                      BorderThickness="0" 
-                                                     Visibility="{Binding IsActive, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                     Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
                                                      HorizontalAlignment="Right"
                                                      Grid.Column="1"
                                                      Command="{Binding DataContext.CloseForumCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"

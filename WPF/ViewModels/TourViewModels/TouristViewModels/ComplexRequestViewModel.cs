@@ -21,6 +21,9 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
         public ICommand ShowMoreCommand { get; set; }
         public int NumberOfRequests { get; set; }
         public int NumberOfAcceptedRequests { get; set; }
+        public bool IsAccepted { get; set; }
+        public bool IsPending { get; set; }
+        public bool IsInvalid { get; set; }
 
         private bool isMoreClicked;
         public bool IsMoreClicked
@@ -36,6 +39,20 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             }
         }
 
+        private bool isMoreNotClicked;
+        public bool IsMoreNotClicked
+        {
+            get => isMoreNotClicked;
+            set
+            {
+                if (value != isMoreNotClicked)
+                {
+                    isMoreNotClicked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ObservableCollection<SimpleRequestViewModel> SimpleRequests { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -46,21 +63,37 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
 
         public ComplexRequestViewModel(ComplexTourRequest req)
         {
-            Debug.WriteLine("HEJ SLOVENI");
             SimpleRequests = new ObservableCollection<SimpleRequestViewModel>();
             IsMoreClicked = false;
+            IsMoreNotClicked = true;
             Id = req.Id;
             TouristId = req.TouristId;
             Status = req.Status;
             req.Requests.ForEach(simpleReq =>
             {
-                Debug.WriteLine("JOS SE ZIVii" + simpleReq.Id);
                 SimpleRequests.Add(new SimpleRequestViewModel(simpleReq));
                 if(simpleReq.Status == STATE.ACCEPTED)
                     NumberOfAcceptedRequests++;
             });
             NumberOfRequests = SimpleRequests.Count();
-            Debug.WriteLine("ides za KANADU" + SimpleRequests.Count());
+            if(req.Status == STATE.ACCEPTED)
+            {
+                IsAccepted = true;
+                IsPending = false;
+                IsInvalid = false;
+            }
+            else if(req.Status == STATE.PENDING)
+            {
+                IsPending = true;
+                IsInvalid = false;
+                IsAccepted = false;
+            }
+            else
+            {
+                IsAccepted = false;
+                IsPending = false;
+                IsInvalid = true;
+            }
 
             ShowMoreCommand = new RelayCommand(ShowMore);
         }
@@ -68,6 +101,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
         public void ShowMore()
         {
             IsMoreClicked = !IsMoreClicked;
+            IsMoreNotClicked = !IsMoreNotClicked;
         }
     }
 }
