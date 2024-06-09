@@ -92,15 +92,13 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             }
 
             locationService.GetAll().ForEach(loc => LocationLabels.Add(loc.City.ToString()));
-
             RequestsStatistics = new SeriesCollection();
 
             ComboBoxSelectionChangedCommand = new RelayParameterCommand(OnComboBoxSelectionChanged);
 
             InitializeYears();
 
-
-            OnComboBoxSelectionChanged("All Time");            
+            OnComboBoxSelectionChanged("All Time");
         }
 
         public void Print()
@@ -150,10 +148,10 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             });
             for (int i = 0; i < LocationLabels.Count; i++)
             {
-                int counter = tourRequestService.GetRequestsForTourist(Tourist).Where(x => locationService.GetById(x.Location.Id).City.ToString() == LocationLabels[i]).Count();
-                LocationStats[0].Values.Add(counter);
+                int counter = tourRequestService.GetRequestsForTourist(Tourist).Where(x => locationService.GetById(x.Location.Id).City.ToString() == LocationLabels[i]).Count();                LocationStats[0].Values.Add(counter);
                 RequestCounterForLocation.Add(counter);
             }
+
         }
 
         public void InitializeLocationStatistics(int year)
@@ -197,7 +195,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
                 else
                 {
                     InitializeRequestsStatistics();
-                    InitializeLanguageStatistics();
+                    InitializeLanguageStatistics();                  
                     InitializeLocationStatistics();
                     AvgNumberOfPeople = tourRequestService.AllTimeAverageNumberOfPeopleOnAcceptedRequests();
                 }

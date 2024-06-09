@@ -1,8 +1,11 @@
 ﻿using BookingApp.Domain.Models;
+using BookingApp.Validation;
+using HarfBuzzSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -10,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
-    public class RegistrationViewModel :INotifyPropertyChanged
+    public class RegistrationViewModel : ValidationBase,INotifyPropertyChanged
     {
         private string name;
         public string Name
@@ -107,6 +110,40 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        protected override void ValidateSelf()
+        {
+            if (string.IsNullOrWhiteSpace(this.Name))
+            {
+                this.ValidationErrors["Name"] = "Name cannot be empty.";
+            }
+
+            if (CancellationDeadline <= 0)
+            {
+                this.ValidationErrors[nameof(CancellationDeadline)] = "Deadline must be greater than zero.";
+            }
+
+            if (MaxCapacity < 1)
+            {
+                this.ValidationErrors[nameof(MaxCapacity)] = "Capacity must be greater than zero.";
+            }
+
+            if (MinDaysToStay <= 0)
+            {
+                this.ValidationErrors[nameof(MinDaysToStay)] = "Minimum days to stay must be greater than zero";
+            }
+
+            if (LocationId < 0)
+            {
+                this.ValidationErrors[nameof(LocationId)] = "Please select a location.";
+            }
+
+            if (Type < 0)
+            {
+                this.ValidationErrors[nameof(Type)] = "Please select a type.";
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
