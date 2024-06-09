@@ -188,7 +188,7 @@
             <Border Grid.Column="4"
                     Margin="20,0,0,0"
                     Style="{StaticResource SearchBorder}">
-                <DatePicker IsTodayHighlighted="True" BorderThickness="0" Width="125" VerticalAlignment="Center" SelectedDate="{Binding PickedDateTo}">
+                <DatePicker IsTodayHighlighted="True" BorderThickness="0" Width="125" VerticalAlignment="Center" SelectedDate="{Binding PickedDateTo}" >
                     <DatePicker.Resources>
                         <Style TargetType="{x:Type DatePickerTextBox}">
                             <Setter Property="Text" Value="Date To"/>

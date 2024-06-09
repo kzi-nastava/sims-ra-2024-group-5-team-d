@@ -80,6 +80,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 {
                     pickedDateFrom = value;
                     OnPropertyChanged();
+                    
+
                 }
             }
         }
@@ -94,9 +96,12 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
                 {
                     pickedDateTo = value;
                     OnPropertyChanged();
+                    
+
                 }
             }
         }
+
 
         private int pickedLanguage = 3;
 

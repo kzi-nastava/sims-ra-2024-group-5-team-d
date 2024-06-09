@@ -21,6 +21,7 @@
             <SolidColorBrush x:Key="PrimaryBlack3" Color="#C8C8C8" />
             <SolidColorBrush x:Key="WhiteGrey" Color="#EEEEEE" />
             <SolidColorBrush x:Key="LightGray" Color="#F0F3F3" />
+            <SolidColorBrush x:Key="Validation" Color="#EB4034" />
             <FontFamily x:Key="CustomFont">/Resources/Fonts/#Open Sans</FontFamily>
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="{StaticResource CustomFont}" />

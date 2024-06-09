@@ -2,9 +2,11 @@
 using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
+using BookingApp.Validation;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels;
 using BookingApp.WPF.Views.TouristGuide;
+using ceTe.DynamicPDF.PageElements;
 using HarfBuzzSharp;
 using System;
 using System.Collections.Generic;
@@ -24,7 +26,7 @@ using Xceed.Wpf.Toolkit;
 
 namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
 {
-    public class CreateTourViewModel
+    public class CreateTourViewModel : ValidationBase
     {
         public ICommand ForwardCommand { get; private set; }
         public ICommand BackwardCommand { get; private set; }
@@ -36,7 +38,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public ICommand StartDemoCommand { get; private set; }
 
 
-        public TourFormViewModel tourFormViewModel { get; private set; }
+        private TourFormViewModel tourFormViewModel { get;  set; }
         public ObservableCollection<CheckPoint> CheckPoints { get; set; }
         public RequestViewModel Request { get; set; }
         public string ImagesPath { get; set; }
@@ -61,6 +63,16 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         public bool IsLocationsStats { get; set; }
         public bool IsSelectedDate { get; set; }
         public bool IsDuration { get; set; }
+
+        public TourFormViewModel TourFormViewModel
+        {
+            get { return tourFormViewModel; }
+            set
+            {
+                tourFormViewModel = value;
+                OnPropertyChanged(nameof(TourFormViewModel));
+            }
+        }
         public CreateTourViewModel(User user) : this(user, null) { }
 
         public CreateTourViewModel(User user, RequestViewModel request)
@@ -93,13 +105,13 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             InitializeCommon(user);
             if(locationId != -1)
             {
-                tourFormViewModel.LocationId = locationId;
+                TourFormViewModel.LocationId = locationId;
                 IsLocationsStats = true;
                 LocationChanged();
             }
             else
             {
-                tourFormViewModel.LanguageId = languageId;
+                TourFormViewModel.LanguageId = languageId;
                 IsLanguageStats = true;
             }
             MinDate = DateTime.Now.AddMinutes(-1);
@@ -110,9 +122,9 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private void InitializeCommon(User user)
         {
             LoggedInUser = user;
-            tourFormViewModel = new TourFormViewModel();
-            tourFormViewModel.User = user;
-            tourFormViewModel.StartTime = DateTime.Now;
+            TourFormViewModel = new TourFormViewModel();
+            TourFormViewModel.User = user;
+            TourFormViewModel.StartTime = DateTime.Now;
 
             tourRealisationService = new TourRealisationService();
             checkPointService = new CheckPointService();
@@ -130,7 +142,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             CancelCommand = new RelayCommand(Cancel);
             StartDemoCommand = new RelayCommand(StartDemo);
 
-            CheckPoints = new ObservableCollection<CheckPoint>(checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId));
+            CheckPoints = new ObservableCollection<CheckPoint>(checkPointService.SuggestCheckPoints(TourFormViewModel.LocationId));
             imagesPath = new List<string>();
             ImagesPaths = new ObservableCollection<string>();
         }
@@ -139,15 +151,15 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         {
             tourReservationService = new TourReservationService();
             tourRequestService = new TourRequestService();
-            tourFormViewModel.Capacity = request.Capacity;
-            tourFormViewModel.Description = request.Description;
-            tourFormViewModel.LanguageId = Convert.ToInt32(request.Language);
-            tourFormViewModel.LocationId = request.Location.Id;
+            TourFormViewModel.Capacity = request.Capacity;
+            TourFormViewModel.Description = request.Description;
+            TourFormViewModel.LanguageId = Convert.ToInt32(request.Language);
+            TourFormViewModel.LocationId = request.Location.Id;
             if(request.SelectedDate != null)
             {
                 IsDuration = true;
-                tourFormViewModel.StartTime = request.SelectedDate.AddHours(request.SelectedTime.Hour);
-                tourFormViewModel.Duration = 2;
+                TourFormViewModel.StartTime = request.SelectedDate.AddHours(request.SelectedTime.Hour);
+                TourFormViewModel.Duration = 2;
             }
             LocationChanged();
         }
@@ -156,19 +168,19 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             await Task.Delay(500);
 
             HighlightInputField(CreateNewTourForm.NameInput);
-            await TypeStringLetterByLetter("Demo Tour", letter => tourFormViewModel.Name += letter);
+            await TypeStringLetterByLetter("Demo Tour", letter => TourFormViewModel.Name += letter);
             RevertHighlightInputField(CreateNewTourForm.NameInput);
 
             await SelectComboBoxItemAsync(CreateNewTourForm.LocationComboBox, "Serbia, Novi Sad");
 
             await Task.Delay(500);
             HighlightInputField(CreateNewTourForm.DurationInput);
-            tourFormViewModel.Duration = 2;
+            TourFormViewModel.Duration = 2;
             RevertHighlightInputField(CreateNewTourForm.DurationInput);
 
             await Task.Delay(500);
             HighlightInputField(CreateNewTourForm.CapacityInput);
-            tourFormViewModel.Capacity = 20;
+            TourFormViewModel.Capacity = 20;
             RevertHighlightInputField(CreateNewTourForm.CapacityInput);
 
             await Task.Delay(500);
@@ -193,7 +205,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             CreateNewTourForm.ImageUploadButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00FFFFFF"));
 
             HighlightInputField(CreateNewTourForm.DescriptionInput);
-            await TypeStringLetterByLetter("This is a demo tour description.", letter => tourFormViewModel.Description += letter);
+            await TypeStringLetterByLetter("This is a demo tour description.", letter => TourFormViewModel.Description += letter);
             RevertHighlightInputField(CreateNewTourForm.DescriptionInput);
 
             await Task.Delay(500);
@@ -283,16 +295,20 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         }
         private void Save()
         {
-            if (!tourService.AmIAvailable(LoggedInUser, tourFormViewModel.StartTime, tourFormViewModel.Duration))
+            TourFormViewModel.Validate();
+            this.Validate();
+            if (!TourFormViewModel.IsValid)
+                return;
+            if (!tourService.AmIAvailable(LoggedInUser, TourFormViewModel.StartTime, TourFormViewModel.Duration))
             {
                 Xceed.Wpf.Toolkit.MessageBox.Show("You are busy on this term");
                 return;
             }
             string folderPath = imageUploaderService.CreateTourFolder(imagesPath);
 
-            Tour newTour = new Tour(tourFormViewModel.Name, locationService.GetById(tourFormViewModel.LocationId), tourFormViewModel.Description, (LANGUAGE)tourFormViewModel.LanguageId, tourFormViewModel.Capacity, tourFormViewModel.Duration, folderPath, tourFormViewModel.User);
+            Tour newTour = new Tour(TourFormViewModel.Name, locationService.GetById(TourFormViewModel.LocationId), TourFormViewModel.Description, (LANGUAGE)TourFormViewModel.LanguageId, TourFormViewModel.Capacity, TourFormViewModel.Duration, folderPath, TourFormViewModel.User);
             Tour SavedTour = tourService.Save(newTour);
-            TourRealisation newTourRealisation = new TourRealisation(tourFormViewModel.StartTime, SavedTour.Id, tourFormViewModel.Capacity, tourFormViewModel.User);
+            TourRealisation newTourRealisation = new TourRealisation(TourFormViewModel.StartTime, SavedTour.Id, TourFormViewModel.Capacity, TourFormViewModel.User);
             TourRealisation savedTourRealisation = tourRealisationService.Save(newTourRealisation);
             SaveCheckPoints(SavedTour.Id);
             UpdateTourRequestStatus(savedTourRealisation.Id);
@@ -303,7 +319,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
             {
                 notificationsService.SendNotificationForWantedLocation(SavedTour);
             }
-            SideBar.contentControlW.Content = new CreateNewTourForm(tourFormViewModel.User);
+            SideBar.contentControlW.Content = new CreateNewTourForm(TourFormViewModel.User);
         }
         private void SaveCheckPoints(int tourId)
         {
@@ -340,11 +356,23 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TourGuideViewModels
         private void LocationChanged()
         {
             CheckPoints.Clear();
-            checkPointService.SuggestCheckPoints(tourFormViewModel.LocationId).ForEach(cp =>  CheckPoints.Add(cp));
+            checkPointService.SuggestCheckPoints(TourFormViewModel.LocationId).ForEach(cp =>  CheckPoints.Add(cp));
         }
         public void Cancel()
         {
-            SideBar.contentControlW.Content = new CreateNewTourForm(tourFormViewModel.User);
+            SideBar.contentControlW.Content = new CreateNewTourForm(TourFormViewModel.User);
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (this.ImagesPaths.Count() < 1)
+            {
+                this.ValidationErrors["Images"] = "Please upload a picture.";
+            }
+            if (this.CheckPoints.Where(cp => cp.IsChecked).ToList().Count() < 2)
+            {
+                this.ValidationErrors["CP"] = "Please select two checkpoints minimum.";
+            }
         }
     }
 }
