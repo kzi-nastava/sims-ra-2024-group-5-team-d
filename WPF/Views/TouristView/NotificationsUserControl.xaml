@@ -21,10 +21,10 @@
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Margin="-430 0 0 0"
+        <TextBlock Margin="-390 0 0 0"
                    Grid.Row="0" 
-                   Text="Notifications" 
-                   Foreground="{StaticResource PrimaryColor2}"
+                   Text="{DynamicResource All Notifications}" 
+                   Foreground="{DynamicResource Font1}"
                    FontSize="36" 
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
@@ -33,15 +33,16 @@
                 BorderThickness="0"
                 Width="160"
                 Background="Transparent"
+                Template="{StaticResource CustomButtonTemplate}"
                 Cursor="Hand"
                 Command="{Binding MarkAllAsReadCommand}"
-                Margin="450 10 0 0">
+                Margin="470 10 0 0">
             <TextBlock Margin="0 0 0 0"
                    Grid.Row="0" 
-                   Text="Mark all as read" 
+                   Text="{DynamicResource Mark all as read}" 
                    FontSize="20" 
                    FontWeight="DemiBold"
-                       Foreground="{StaticResource PrimaryColor2}"
+                   Foreground="{DynamicResource Font1}"
                    HorizontalAlignment="Center"
                    TextDecorations="Underline"
                    VerticalAlignment="Center"/>
@@ -75,7 +76,8 @@
                 <DataTemplate>
                     <Border BorderBrush="{StaticResource PrimaryColor2}"
                             BorderThickness="0.5"
-                            Background="{StaticResource WhiteWhite}"
+                            Cursor="Hand"
+                            Background="{DynamicResource MainColor3}"
                             Padding="10" CornerRadius="10"
                             Margin="0 0 20 10">
                         <Grid>
@@ -113,12 +115,12 @@
                                     <TextBlock Text="{Binding SenderName}"
                                                FontWeight="DemiBold"
                                                Grid.Row="0"
-                                               Foreground="{StaticResource PrimaryBlack}"
+                                               Foreground="{DynamicResource Font1}"
                                                VerticalAlignment="Top"
                                                Width="auto"
                                                FontSize="20"/>
                                     <TextBlock Grid.Column="1"
-                                               Foreground="{StaticResource PrimaryBlack}"                                              
+                                               Foreground="{DynamicResource Font1}"                                              
                                                Text="{Binding Date, Converter={StaticResource DateConverter}}"
                                                VerticalAlignment="Center"
                                                Margin="10 3 0 0"/>
@@ -126,7 +128,7 @@
                                 <TextBlock Margin="0 5 0 0"
                                            Text="{Binding Message}"
                                            TextWrapping="Wrap"
-                                           Foreground="{StaticResource PrimaryBlack}"
+                                           Foreground="{DynamicResource Font1}"
                                            FontWeight="Normal"
                                            Grid.Row="1"
                                            FontSize="16"/>

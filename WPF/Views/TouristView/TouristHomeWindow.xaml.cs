@@ -61,6 +61,65 @@ namespace BookingApp.WPF.Views.TouristView
             }
         }
 
+        private bool isNotificationsClicked;
+
+        public bool IsNotificationsClicked
+        {
+            get => isNotificationsClicked;
+            set
+            {
+                if (value != isNotificationsClicked)
+                {
+                    isNotificationsClicked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool isHomePageClicked;
+        public bool IsHomePageClicked
+        {
+            get => isHomePageClicked;
+            set
+            {
+                if (value != isHomePageClicked)
+                {
+                    isHomePageClicked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool isRequestsClicked;
+
+        public bool IsRequestsClicked
+        {
+            get => isRequestsClicked;
+            set
+            {
+                if (value != isRequestsClicked)
+                {
+                    isRequestsClicked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool isToursClicked;
+
+        public bool IsToursClicked
+        {
+            get => isToursClicked;
+            set
+            {
+                if (value != isToursClicked)
+                {
+                    isToursClicked = value;
+                    OnPropertyChanged("IsToursClicked");
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -75,6 +134,10 @@ namespace BookingApp.WPF.Views.TouristView
             InitializeComponent();
             IsThemeSwitchChecked = false;
             IsLanguageChecked = true;
+            IsNotificationsClicked = false;
+            IsHomePageClicked = true;
+            IsRequestsClicked = false;
+            IsToursClicked = false; 
             DataContext = this;
             User = user;
             contentControl = contentControl1;
@@ -91,26 +154,66 @@ namespace BookingApp.WPF.Views.TouristView
 
         private void YourTours_Click(object sender, RoutedEventArgs e)
         {
+            IsToursClicked = true;
+            IsHomePageClicked = true;
+            IsNotificationsClicked = true;
+            IsRequestsClicked = true;
+            IsHomePageClicked = false;
+            IsNotificationsClicked = false;
+            IsRequestsClicked = false;
             contentControl.Content = new YourToursUserControl(User);
         }
 
         private void Requests_Click(object sender, RoutedEventArgs e)
         {
+            IsRequestsClicked = true; 
+            IsNotificationsClicked = true;
+            IsHomePageClicked = true;
+            IsToursClicked = true;
+            IsNotificationsClicked = false;
+            IsHomePageClicked = false;
+            IsToursClicked = false;
             contentControl.Content = new YourRequestsUserControl(User);
         }
 
         private void Notifications_Click(object sender, RoutedEventArgs e)
         {
+            IsNotificationsClicked = true;
+            IsRequestsClicked = true;
+            IsHomePageClicked = true;
+            IsToursClicked = true;
+            IsRequestsClicked = false;
+            IsHomePageClicked = false;
+            IsToursClicked = false;
             contentControl.Content = new NotificationsUserControl(User);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            IsHomePageClicked = true;
+            IsNotificationsClicked = true;
+            IsRequestsClicked = true;
+            IsToursClicked = true;
+            IsNotificationsClicked = false;
+            IsRequestsClicked = false;
+            IsToursClicked=false;
             contentControl.Content = new TouristHomeUserControl(User);
         }
 
+        private void Button_Click_1()
+        {
+            IsHomePageClicked = true;
+            IsNotificationsClicked = true;
+            IsRequestsClicked = true;
+            IsToursClicked = true;
+            IsNotificationsClicked = false;
+            IsRequestsClicked = false;
+            IsToursClicked = false;
+            contentControl.Content = new TouristHomeUserControl(User);
+        }
         private void ThemeSwitch_Click(object sender, RoutedEventArgs e)
         {
+
             Debug.WriteLine(IsThemeSwitchChecked);
             if(!IsThemeSwitchChecked)
             {
@@ -120,6 +223,12 @@ namespace BookingApp.WPF.Views.TouristView
             {
                 AppTheme.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative), new Uri("Themes/LightTheme.xaml", UriKind.Relative));
             }
+
+            OnPropertyChanged("IsToursClicked");
+            OnPropertyChanged("IsNotificationsClicked");
+            OnPropertyChanged("IsHomePageClicked");
+            OnPropertyChanged("IsRequestsClicked");
+
 
         }
 

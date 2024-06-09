@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -33,6 +34,12 @@ namespace BookingApp.WPF.Views.TouristView
         {
             InitializeComponent();
             DataContext = new CreateSimpleRequestViewModel(index, request, requests);
+        }
+
+        private void ListView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            e.Handled = true;
+            Scroller.ScrollToVerticalOffset(Scroller.VerticalOffset - e.Delta);
         }
     }
 }

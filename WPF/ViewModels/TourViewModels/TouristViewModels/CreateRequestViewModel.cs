@@ -74,6 +74,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
         private STATE Status { get; set; }
         private User Tourist { get; set; }
 
+        public bool IsReadOnly { get; set; }
         public ObservableCollection<TourGuestViewModel> Tourists { get; set; }
 
         private TourGuestService tourGuestService { get; set; }
@@ -103,8 +104,8 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Tourists = new ObservableCollection<TourGuestViewModel>();
             CreateTouristsFormular();
-            Language = 3;
-            Location = 10;
+            Language = 0;
+            Location = 0;
             MinAvailDate = (DateTime.UtcNow).AddDays(3);
             RangeFrom = (DateTime.UtcNow).AddDays(3);
             RangeTo = (DateTime.UtcNow).AddDays(3);
@@ -121,6 +122,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
         {
             Capacity++;
             Tourists.Add(new TourGuestViewModel(tourGuestService.NextIdForGuest() + (Capacity - 1), -1, $"Tourist {Capacity}"));
+            Tourists[Capacity - 1].IsReadOnly = false;
         }
 
         public void DecreaseCount()
@@ -169,6 +171,7 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
             Tourists[0].Years = age;
             Tourists[0].PersonalID = Tourist.PersonalId;
             Tourists[0].FullName = Tourist.FullName;
+            Tourists[0].IsReadOnly = true;
         }
     }
 }

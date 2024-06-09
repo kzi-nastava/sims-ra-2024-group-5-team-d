@@ -81,6 +81,11 @@ namespace BookingApp.WPF.ViewModels.TourViewModels.TouristViewModels
                 notifier.ShowSuccess("Complex reqest created successfully");
                 TouristHomeWindow.contentControl.Content = new ComplexRequestsUserControl(Tourist);
             }
+            else
+            {
+                TouristHomeWindow.contentControl.Content = new ComplexRequestsUserControl(Tourist);
+                notifier.ShowError("Request not created since it contains 0 simple requests");
+            }
         }
         public void CancelComplexRequest()
         {

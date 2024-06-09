@@ -121,10 +121,11 @@ namespace BookingApp.WPF.ViewModels
                 TextBox textbox = new TextBox
                 {
                     Text = CheckPoints[i].Name,
-                    BorderBrush = Brushes.White,
+                    BorderBrush = Brushes.Transparent,
                     IsReadOnly = true,
                     Width = 135,
                     Height = 40,
+                    Background = Brushes.Transparent,
                     FontSize = 12,
                     VerticalContentAlignment = VerticalAlignment.Center,
                     HorizontalContentAlignment = HorizontalAlignment.Center,
