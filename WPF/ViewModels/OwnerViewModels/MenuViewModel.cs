@@ -12,42 +12,36 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
 {
     public class MenuViewModel
     {
+        public ICommand RequestsCommand { get; set; }
+        public ICommand RenovationsCommand { get; set; }
+        public ICommand ReviewsCommand { get; set; }
+        public ICommand ForumsCommand { get; set; }
         public ICommand SwitchViewCommand { get; set; }
         private User loggedInUser;
         public MenuViewModel(User user)
         {
             loggedInUser = user;
-            SwitchViewCommand = new RelayParameterCommand(SwitchView);
+            RequestsCommand = new RelayCommand(Requests);
+            RenovationsCommand = new RelayCommand(Renovations);
+            ReviewsCommand = new RelayCommand(Reviews);
+            ForumsCommand = new RelayCommand(Forums);
         }
-        public void SwitchView(object parameter)
-        {
-            if (parameter != null)
-            {
-                switch (Convert.ToInt32(parameter))
-                {
-                    case 0:
-                        {
-                            OwnerMainWindow.contentControl.Content = new RequestsUserControl(loggedInUser);
-                            break;
-                        }
-                        case 1:
-                        {
-                            OwnerMainWindow.contentControl.Content = new RenovationsUserControl(loggedInUser);
-                            break;
-                        }
-                        case 2:
-                        {
-                            OwnerMainWindow.contentControl.Content = new OwnerReviewUserControl(loggedInUser);
-                            break;
-                        }
-                        case 3:
-                        {
-                            OwnerMainWindow.contentControl.Content = new ForumUserControl(loggedInUser);
-                            break;
-                        }
-                } 
-            }
 
+        public void Requests()
+        {
+            OwnerMainWindow.contentControl.Content = new RequestsUserControl(loggedInUser);
         }
+        public void Renovations()
+        {
+            OwnerMainWindow.contentControl.Content = new RenovationsUserControl(loggedInUser);
+        }
+        public void Reviews()
+        {
+            OwnerMainWindow.contentControl.Content = new OwnerReviewUserControl(loggedInUser);
+        }
+        public void Forums() {
+            OwnerMainWindow.contentControl.Content = new ForumUserControl(loggedInUser);
+        }
+        
     }
 }

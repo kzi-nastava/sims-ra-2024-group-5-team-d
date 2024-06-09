@@ -6,6 +6,7 @@ using BookingApp.WPF.Views.GuestWindows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         public string Author { get; set; }
         public string Comment { get; set; }
         public bool IsClosed { get; set; }
-        private string icon;
+        private string Icon;
         public ForumReadMoreCommentsViewModel(User user, ForumViewModel selectedForum)
         {
             InitializeServices();
@@ -54,14 +55,14 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             Comments = new ObservableCollection<ForumCommentViewModel>();
             forumCommentService.GetByForumId(selectedForum.ForumId).ForEach(comment => {
                 if (accommodationService.HasAccommodationOnLocation(userService.GetById(comment.CreatorId), forumService.GetById(comment.ForumId).Location))
-                    icon = "../../../Resources/Images/GuestImages/ok.png"; //ako je owner koji ima smestaj
+                    Icon = "../../../Resources/Images/GuestImages/house.png"; //ako je owner koji ima smestaj
                 else if (accommodationReservationService.HasReservationOnLocation(userService.GetById(comment.CreatorId), forumService.GetById(comment.ForumId).Location))
                 {
-                    icon = "../../../Resources/Images/GuestImages/star.png"; //za usera
+;                    Icon = "../../../Resources/Images/GuestImages/star.png"; //za usera
                 }
                 else
-                    icon = "";
-                Comments.Add(new ForumCommentViewModel(comment, icon, user));
+                    Icon = "";
+                Comments.Add(new ForumCommentViewModel(comment, Icon, userService.GetById(comment.CreatorId)));
             });
 
             AddCommentGuestCommand = new RelayCommand(AddCommentGuest);

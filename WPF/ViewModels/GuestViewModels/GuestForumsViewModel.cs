@@ -67,6 +67,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
         private SuperForumService superForumService;
         private ForumService forumService;
         public GuestNotificationsService guestNotificationsService;
+        NotifierService notifierService;
         public GuestForumsViewModel(User user)
         {
             InitializeServices();
@@ -76,16 +77,19 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             Forums = new ObservableCollection<ForumViewModel>();
             MyForums = new ObservableCollection<ForumViewModel>();
             LoggedInUser = user;
+            notifierService = new NotifierService();
 
             forumService.GetAll().ForEach(forum =>
             {
-                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum);
+                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum) && forum.IsActive();
                 Forums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser, superForumService.IsSuperForum(forum)));
 
             });
             forumService.GetAllByUser(LoggedInUser).ForEach(forum =>
             {
-                MyForums.Add(new ForumViewModel(forum, true, superForumService.IsSuperForum(forum)));
+                bool isForumCreatedByLoggedInUser = forumService.IsUserCreateForum(LoggedInUser, forum) && forum.IsActive();
+
+                MyForums.Add(new ForumViewModel(forum, isForumCreatedByLoggedInUser, superForumService.IsSuperForum(forum)));
             });
 
                           
@@ -106,6 +110,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
             forum = forumService.Save(forum);
             notificationsService.CreateForumNotifications(forum);
             Forums.Add(new ForumViewModel(forum, true, superForumService.IsSuperForum(forum)));
+            notifierService.ShowSuccess("You have successfully created a forum!");
         }
         public void CloseForum(Object param)
         {
@@ -121,6 +126,7 @@ namespace BookingApp.WPF.ViewModels.GuestViewModels
                     if(Forums[i]==forumViewModel)
                     {
                         Forums[i].IsActive = false;
+                        Forums[i].IsVisible = false;
                     }
                 }
             }
