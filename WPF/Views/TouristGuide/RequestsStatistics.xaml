@@ -102,21 +102,21 @@
             <!-- Main content of your window or UserControl -->
 
         <!-- Button with the dropdown functionality -->
-        <ToggleButton x:Name="DropDownButton" Grid.Row="1" Grid.Column="1" Width="24" Height="24" Margin="0,0,25,0" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0">
+        <ToggleButton x:Name="DropDownButton" Grid.Row="1" Grid.Column="1" Width="28" Height="28" Margin="0,0,25,0" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0">
             <Image Source="/../../../Resources/Images/GuideImages/Lightbulb Minimalistic.png" Stretch="Uniform"/>
         </ToggleButton>
         <Popup PlacementTarget="{Binding ElementName=DropDownButton}" IsOpen="{Binding IsChecked, ElementName=DropDownButton, Mode=TwoWay}" StaysOpen="False" Placement="Bottom" HorizontalOffset="-95" AllowsTransparency="True" PopupAnimation="Fade">
             <Border BorderBrush="{StaticResource PrimaryBlack2}" BorderThickness="1" Background="{StaticResource WhiteWhite}" CornerRadius="4">
-                <StackPanel Width="120" Cursor="Hand" Background="Transparent" HorizontalAlignment="Center">
-                    <TextBlock Text="Language" Margin="5" Style="{StaticResource TextBlockDesign}">
+                <StackPanel Width="120" Cursor="Hand" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Language" Margin="5 5 0 0" Style="{StaticResource TextBlockDesign}" VerticalAlignment="Center">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
                             <i:InvokeCommandAction Command="{Binding LanguageSelectedCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     </TextBlock>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="5"/>
-                    <TextBlock Text="Location" Margin="5" Style="{StaticResource TextBlockDesign}" VerticalAlignment="Center">
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="5" VerticalAlignment="Center"/>
+                    <TextBlock Text="Location" Margin="5 0 0 5" Style="{StaticResource TextBlockDesign}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
                             <i:InvokeCommandAction Command="{Binding LocationSelectedCommand}" />
@@ -133,7 +133,7 @@
 
         <!--<Button Grid.Row="2" Grid.Column="0" Content="Show Requests"  Height="34" Width="140" HorizontalAlignment="Left" Margin="0,25,0,0"/>-->
 
-        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="HelpButton" Width="18" Height="18" HorizontalAlignment="Right" Command="{Binding HelpCommand}" Background="Transparent" BorderThickness="0">
+        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="HelpButton" Width="28" Height="28" HorizontalAlignment="Right" Command="{Binding HelpCommand}" Background="Transparent" BorderThickness="0">
             <Image Source="/../../../Resources\Images\GuideImages\Question Circle.png" />
         </ToggleButton>
         <!-- Popover Content -->
