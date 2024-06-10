@@ -49,7 +49,7 @@
                     <TextBlock Text="{Binding ProfileViewModel.NumberOfReservations}" FontSize="20" Style="{StaticResource FontColor}" Grid.Row="3" Margin="0 -7 0 0"/>
                 </Grid>
             </Grid>
-            <Button Command="{Binding ChangeCredentialsCommand}" Grid.Row="1"  Style="{StaticResource ButtonHover}" BorderThickness="0" Background="Transparent" Template="{StaticResource CustomButtonTemplate}" HorizontalAlignment="Center" Margin="0 10 0 0" Visibility="{Binding ProfileCredentials.IsVisible,Converter={StaticResource BoolToVisibilityConverter}}">
+            <Button Command="{Binding ChangeCredentialsCommand}" x:Name="Credentials" Grid.Row="1"  Style="{StaticResource ButtonHover}" BorderThickness="0" Background="Transparent" Template="{StaticResource CustomButtonTemplate}" HorizontalAlignment="Center" Margin="0 10 0 0" Visibility="{Binding ProfileCredentials.IsVisible,Converter={StaticResource BoolToVisibilityConverter}}">
                 <Border CornerRadius="8" Style="{StaticResource BorderHover}">
                     <StackPanel  Orientation="Horizontal" >
                         <TextBlock  Text="Change credentials" VerticalAlignment="Center" FontSize="18" Padding="10" Foreground="{StaticResource WhiteWhite}"/>

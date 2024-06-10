@@ -25,6 +25,12 @@ namespace BookingApp.WPF.Views.OwnerView
 
             InitializeComponent();
             DataContext = new CancelRenovationViewModel(renovation);
+            Loaded += CancelRenovationWindow_Loaded;
+        }
+
+        private void CancelRenovationWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            No.Focus();
         }
 
         private void Close(object sender, RoutedEventArgs e)

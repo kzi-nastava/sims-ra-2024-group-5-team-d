@@ -25,6 +25,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             this.pdfPath = pdfPath;
+            Loaded += SavePDFWindow_Loaded;
+        }
+
+        private void SavePDFWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Confirm.Focus();
         }
 
         private void SavePDF(object sender, RoutedEventArgs e)

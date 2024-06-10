@@ -52,7 +52,7 @@
                                                Width="32" 
                                                Height="32"
                                                Margin="10 0 5 0"/>
-                        <TextBlock  Text="No" Margin="0 1 15 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
+                        <TextBlock x:Name="No" Text="No" Margin="0 1 15 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal"/>
                     </StackPanel>
                 </Border>
             </Button>

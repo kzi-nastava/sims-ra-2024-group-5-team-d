@@ -26,6 +26,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext = new RenovationsViewModel(user);
+            Loaded += RenovationsUserControl_Loaded;
+        }
+
+        private void RenovationsUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Renovations.Focus();
         }
     }
 }

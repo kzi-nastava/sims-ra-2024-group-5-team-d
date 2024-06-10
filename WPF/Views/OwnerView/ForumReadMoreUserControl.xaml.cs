@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Models;
 using BookingApp.WPF.ViewModels;
+using ceTe.DynamicPDF.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext = new ForumReadMoreViewModel(forumId, user);
+            Loaded += ForumUserControl_Loaded;
+        }
+
+        private void ForumUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddComment.Focus();
         }
         private void ListView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {

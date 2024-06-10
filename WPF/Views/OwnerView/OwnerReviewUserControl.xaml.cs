@@ -30,6 +30,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             DataContext=new OwnerReviewViewModel(user);
             InitializeComponent();
+            Loaded += OwnerReviewUserControl_Loaded;
+        }
+
+        private void OwnerReviewUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Rate.Focus();
         }
     }
 }

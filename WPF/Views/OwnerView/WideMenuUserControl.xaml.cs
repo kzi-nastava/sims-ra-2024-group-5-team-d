@@ -26,6 +26,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext = new MenuViewModel(user);
+            Loaded += WideMenuUserControl_Loaded;
+        }
+
+        private void WideMenuUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Requests.Focus();
         }
     }
 }

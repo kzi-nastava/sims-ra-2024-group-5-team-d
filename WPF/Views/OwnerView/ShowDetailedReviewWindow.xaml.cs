@@ -28,6 +28,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext = new DetailedOwnerRatingViewModel(ratingId);
+            Loaded += ShowDetailedReviewWindow_Loaded;
+        }
+
+        private void ShowDetailedReviewWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Ok.Focus();
         }
         private void Close(object sender, RoutedEventArgs e)
         {

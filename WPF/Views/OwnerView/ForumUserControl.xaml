@@ -42,6 +42,7 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                       ScrollViewer.CanContentScroll="False"
+                      x:Name="Forums"
                       ItemsSource="{Binding Forums}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>

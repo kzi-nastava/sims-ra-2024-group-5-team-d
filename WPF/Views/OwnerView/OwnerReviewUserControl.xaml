@@ -71,6 +71,7 @@
                 Template="{StaticResource CustomButtonTemplate}"
                 VerticalAlignment="Center"
                 Background="Transparent"
+                        x:Name="Rate"
                 BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Height="50" Command="{Binding RateGuestCommand}">
                     <Border  Style="{StaticResource BorderHover}"
                                              CornerRadius="10"  

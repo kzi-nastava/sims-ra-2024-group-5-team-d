@@ -81,7 +81,7 @@
                    VerticalAlignment="Center"
                    Margin="20 0 20 0"
                    Grid.Row="1"/>
-                <Button Grid.Column="2" HorizontalAlignment="Right" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Command="{Binding AddCommentCommand}" Visibility="{Binding IsAddingCommentEnabled,Converter={StaticResource BoolToVisibilityConverter}}">
+                <Button Grid.Column="2" x:Name="AddComment" HorizontalAlignment="Right" Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Command="{Binding AddCommentCommand}" Visibility="{Binding IsAddingCommentEnabled,Converter={StaticResource BoolToVisibilityConverter}}">
                     <Image Source="..\..\..\Resources\Images\OwnerImages\plusgreat.png" Height="40" Width="40"/>
                 </Button>
             </Grid>

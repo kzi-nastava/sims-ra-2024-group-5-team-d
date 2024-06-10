@@ -166,9 +166,9 @@
         </Grid>
         <TextBlock Grid.Row="5" Text="Additional comment :" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0 10 0 10" Style="{StaticResource FontColor}"/>
         <TextBox IsReadOnly="True" FontSize="20" Text="{Binding OwnerRatingsViewModel.Comment}" Grid.Row="6" Padding="5" Margin="20 0 20 0" TextWrapping="WrapWithOverflow" Background="{StaticResource WhiteWhite}" BorderThickness="0"/>
-        <Button Margin="0 10 0 10" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Click="Close" Template="{StaticResource CustomButtonTemplate}">
+        <Button x:Name="Ok" Margin="0 10 0 10" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderThickness="0" Click="Close" Template="{StaticResource CustomButtonTemplate}">
             <Border Style="{StaticResource BorderHover}" Padding="2" CornerRadius="8">
-                <TextBlock Text="OK" Foreground="{StaticResource WhiteWhite}" FontSize="24" Margin="5 0 5 0"/>
+                <TextBlock  Text="OK" Foreground="{StaticResource WhiteWhite}" FontSize="24" Margin="5 0 5 0"/>
             </Border>
         </Button>
     </Grid>

@@ -39,6 +39,7 @@
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
+                    x:Name="Accommodations"
                       ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>

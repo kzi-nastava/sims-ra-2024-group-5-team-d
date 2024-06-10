@@ -37,6 +37,7 @@
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
+                       x:Name="Guests"
                       ScrollViewer.CanContentScroll="False" ItemsSource="{Binding UnratedGuests}" SelectedItem="{Binding SelectedGuest}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>

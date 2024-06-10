@@ -27,7 +27,13 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             DataContext = new RequestsViewModel(user);
             InitializeComponent();
-          
+
+            Loaded += RequestsUserControl_Loaded;
+        }
+
+        private void RequestsUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Requests.Focus();
         }
     }
 }

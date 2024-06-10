@@ -4,6 +4,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repositories;
 using BookingApp.WPF.ViewModels;
 using BookingApp.WPF.ViewModels.OwnerViewModels;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,6 +32,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext =new AccommodationsViewModel(user);
+            Loaded += OwnerMainWindowUserControl_Loaded;
+        }
+
+        private void OwnerMainWindowUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Accommodations.Focus();
         }
     }
 }

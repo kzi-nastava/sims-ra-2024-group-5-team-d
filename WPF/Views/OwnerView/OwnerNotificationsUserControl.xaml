@@ -39,6 +39,7 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                   HorizontalAlignment="Center"
+                  x:Name="Notifications"
                       ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Notifications}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>

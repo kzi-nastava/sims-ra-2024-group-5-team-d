@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ToastNotifications.Core;
 using ToastNotifications.Lifetime;
 
 namespace BookingApp.WPF.Views.OwnerView
@@ -27,6 +28,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext=new OwnerProfileViewModel(user);
+            Loaded += OwnerProfileUserControl_Loaded;
+        }
+
+        private void OwnerProfileUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Credentials.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

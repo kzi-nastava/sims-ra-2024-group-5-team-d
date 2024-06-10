@@ -37,6 +37,7 @@
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
+                      x:Name="Requests"
                       ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Requests}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -26,6 +26,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext= new ForumsViewModel(user);
+            Loaded += ForumUserControl_Loaded;
+        }
+
+        private void ForumUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Forums.Focus();
         }
     }
 }
