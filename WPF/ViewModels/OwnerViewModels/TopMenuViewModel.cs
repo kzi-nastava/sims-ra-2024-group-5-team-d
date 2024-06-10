@@ -3,6 +3,7 @@ using BookingApp.Domain.Models;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.Commands;
 using BookingApp.WPF.Views.OwnerView;
+using ceTe.DynamicPDF.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,10 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         public ICommand RegisterCommand { get; set; }
         public ICommand ProfileCommand { get; set; }
         public ICommand NotificationCommand { get; set; }
+        public ICommand RequestsCommand { get; set; }
+        public ICommand RenovationsCommand { get; set; }
+        public ICommand ReviewsCommand { get; set; }
+        public ICommand ForumsCommand { get; set; }
         public ICommand ShortcutsCommand { get; set; }
         private User loggedInUser;
         private UnratedGuestService unratedGuestService;
@@ -32,6 +37,9 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public TopMenuViewModel()
+        {
         }
         public TopMenuViewModel(User user)
         {
@@ -45,6 +53,10 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ProfileCommand = new RelayCommand(Profile);
             NotificationCommand = new RelayCommand(Notifications);
             ShortcutsCommand = new RelayCommand(Shortcuts);
+            RequestsCommand = new RelayCommand(Requests);
+            RenovationsCommand = new RelayCommand(Renovations);
+            ReviewsCommand = new RelayCommand(Reviews);
+            ForumsCommand = new RelayCommand(Forums);
 
         }   
 
@@ -79,6 +91,22 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
         {
             OwnerMainWindow.contentControl.Content = new OwnerNotificationsUserControl(loggedInUser);
 
+        }
+        public void Requests()
+        {
+            OwnerMainWindow.contentControl.Content = new RequestsUserControl(loggedInUser);
+        }
+        public void Renovations()
+        {
+            OwnerMainWindow.contentControl.Content = new RenovationsUserControl(loggedInUser);
+        }
+        public void Reviews()
+        {
+            OwnerMainWindow.contentControl.Content = new OwnerReviewUserControl(loggedInUser);
+        }
+        public void Forums()
+        {
+            OwnerMainWindow.contentControl.Content = new ForumUserControl(loggedInUser);
         }
     }
 }

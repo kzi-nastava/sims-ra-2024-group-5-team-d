@@ -100,7 +100,7 @@
                 </Grid>
             </Border>
         </Grid>
-        <Button Template="{StaticResource CustomButtonTemplate}" Background="Transparent" BorderThickness="0" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 50" Command="{Binding ShowReccommendationCommand}">
+        <Button Template="{StaticResource CustomButtonTemplate}" x:Name="Reccommend" Background="Transparent" BorderThickness="0" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 50" Command="{Binding ShowReccommendationCommand}">
             <Border  Style="{StaticResource BorderHover}"
                                              CornerRadius="10"                            
                                              >

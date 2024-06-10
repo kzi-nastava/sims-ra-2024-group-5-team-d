@@ -25,6 +25,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             DataContext=new ProcessRequestViewModel(user, request);
             InitializeComponent();
+            Loaded += AcceptRequestWindow_Loaded;
+        }
+
+        private void AcceptRequestWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Deny.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

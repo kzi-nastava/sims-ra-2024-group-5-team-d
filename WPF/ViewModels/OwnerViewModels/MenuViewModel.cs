@@ -26,8 +26,11 @@ namespace BookingApp.WPF.ViewModels.OwnerViewModels
             ReviewsCommand = new RelayCommand(Reviews);
             ForumsCommand = new RelayCommand(Forums);
         }
+        public MenuViewModel()
+        {
+        }
 
-        public void Requests()
+        public  void Requests()
         {
             OwnerMainWindow.contentControl.Content = new RequestsUserControl(loggedInUser);
         }

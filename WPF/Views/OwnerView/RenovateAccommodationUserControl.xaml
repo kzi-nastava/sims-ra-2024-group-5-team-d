@@ -89,7 +89,7 @@
                 <TextBlock Text="{Binding SelectDate.AccommodationName}" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="40" Margin="50 5 0 10" Style="{StaticResource FontColor}"/>
                 <TextBlock Grid.Row="1" Text="Renovate from:" FontSize="20" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
                 <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Renovate to:" Grid.Column="0" FontSize="20" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
-                <DatePicker Grid.Row="2" SelectedDate="{Binding SelectDate.RenovateFrom}" HorizontalAlignment="Center"  FontSize="18" Margin="0 5 0 0" />
+                <DatePicker x:Name="Date" Grid.Row="2" SelectedDate="{Binding SelectDate.RenovateFrom}" HorizontalAlignment="Center"  FontSize="18" Margin="0 5 0 0" />
                 <DatePicker Grid.Row="2" SelectedDate="{Binding SelectDate.RenovateTo}" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Center" Margin="0 5 0 0" FontSize="18"/>
                 <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="Days for renovation: " FontSize="20" Style="{StaticResource FontColor}"/>
                 <Border CornerRadius="10" Background="{StaticResource WhiteWhite}" Grid.Row="2" Grid.Column="1" Width="80" HorizontalAlignment="Center" Margin="0 5 0 0">

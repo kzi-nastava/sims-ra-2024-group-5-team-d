@@ -40,6 +40,7 @@
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
+                  x:Name="Renovations"
                       ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Renovations}" SelectedItem="{Binding SelectedRenovation}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">

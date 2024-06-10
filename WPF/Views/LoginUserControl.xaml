@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Username" FontWeight="DemiBold" Foreground="{StaticResource PrimaryBlack}" Margin="0 15 0 3"/>
             <Border Grid.Row="1" CornerRadius="5" Background="{StaticResource WhiteGrey}">
-                <TextBox Padding="3" FontSize="14"  Text="{Binding Path=Username, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Background="Transparent"></TextBox>
+                <TextBox x:Name="Username" Padding="3" FontSize="14"  Text="{Binding Path=Username, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Background="Transparent"></TextBox>
             </Border>
             <TextBlock Text="Password"  FontWeight="DemiBold" Grid.Row="2" Foreground="{StaticResource PrimaryBlack}" Margin="0 13 0 3"/>
             <Border Grid.Row="4" CornerRadius="5" Background="{StaticResource WhiteGrey}">

@@ -30,6 +30,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {     
             InitializeComponent();
             DataContext = new UnratedGuestsViewModel(user);
+            Loaded += UnratedGuestsUserControl_Loaded;
+        }
+
+        private void UnratedGuestsUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Guests.Focus();
         }
     }
 }

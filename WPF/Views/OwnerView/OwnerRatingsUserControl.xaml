@@ -48,6 +48,7 @@
                       Background="Transparent"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      x:Name="Ratings"
                       ScrollViewer.CanContentScroll="False" Margin="0,73,5,0" Grid.RowSpan="2" ItemsSource="{Binding OwnerRatings}" SelectedItem="{Binding SelectedOwnerRating}" ItemContainerStyle="{StaticResource CustomListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>

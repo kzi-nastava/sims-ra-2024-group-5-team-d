@@ -25,6 +25,12 @@ namespace BookingApp.WPF.Views
         {
             InitializeComponent();
             DataContext = new LogInViewModel();
+            Loaded += LoginUserControl_Loaded;
+        }
+
+        private void LoginUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Username.Focus();
         }
 
         private void Register(object sender, MouseButtonEventArgs e)

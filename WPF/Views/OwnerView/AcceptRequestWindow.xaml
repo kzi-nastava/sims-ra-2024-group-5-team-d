@@ -46,6 +46,7 @@
                                     Height="50"
                                     VerticalAlignment="Center"
                                     Grid.RowSpan="2"
+                    x:Name="Deny"
                                     BorderThickness="0" Grid.Row="2" HorizontalAlignment="Center" Click="Close" Template="{StaticResource CustomButtonTemplate}">
                 <Border  Style="{StaticResource BorderHover}"
                                              CornerRadius="10"

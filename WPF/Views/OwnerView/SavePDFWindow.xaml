@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Text="Do you want to save PDF ?" FontFamily="{StaticResource CustomFont}" Foreground="{StaticResource PrimaryBlack}" FontSize="20" FontWeight="Bold" Margin="10" Grid.ColumnSpan="2"/>
-            <Button Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Template="{StaticResource CustomButtonTemplate}" Click="SavePDF">
+            <Button Grid.Row="1" x:Name="Confirm" HorizontalAlignment="Center" Margin="0 0 0 0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Template="{StaticResource CustomButtonTemplate}" Click="SavePDF">
                 <Border Style="{StaticResource BorderHover}" Padding="5" CornerRadius="15">
                     <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock  Text="YES" Margin="5 1 5 0" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"/>

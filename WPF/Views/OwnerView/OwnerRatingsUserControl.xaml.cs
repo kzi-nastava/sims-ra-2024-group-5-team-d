@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,6 +31,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext =new OwnerRatingsViewModel(user);
+            Loaded += OwnerRatingsUserControl_Loaded;
+        }
+
+        private void OwnerRatingsUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Ratings.Focus();
         }
 
     }

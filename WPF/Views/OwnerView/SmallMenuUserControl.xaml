@@ -55,7 +55,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button BorderThickness="0" Command="{Binding RequestsCommand}" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
+            <Button BorderThickness="0" x:Name="Requests" Command="{Binding RequestsCommand}" Margin="0 0 0 5" Template="{StaticResource CustomButtonTemplate}">
                 <Grid Style="{StaticResource GridHover}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>

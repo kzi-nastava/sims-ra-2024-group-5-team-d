@@ -26,6 +26,12 @@ namespace BookingApp.WPF.Views.OwnerView
         {
             InitializeComponent();
             DataContext = new NotificationsViewModel(user);
+            Loaded += OwnerNotificationsUserControl_Loaded;
+        }
+
+        private void OwnerNotificationsUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Notifications.Focus();
         }
     }
 }

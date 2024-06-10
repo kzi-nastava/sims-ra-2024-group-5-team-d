@@ -13,6 +13,11 @@
         <KeyBinding Key="N" Modifiers="Control" Command="{Binding NotificationCommand}"/>
         <KeyBinding Key="P" Modifiers="Control" Command="{Binding ProfileCommand}"/>
         <KeyBinding Key="I" Modifiers="Control" Command="{Binding ShortcutsCommand}"/>
+        
+        <KeyBinding Key="Q" Modifiers="Control" Command="{Binding RequestsCommand}"/>
+        <KeyBinding Key="E" Modifiers="Control" Command="{Binding RenovationsCommand}"/>
+        <KeyBinding Key="V" Modifiers="Control" Command="{Binding ReviewsCommand}"/>
+        <KeyBinding Key="F" Modifiers="Control" Command="{Binding ForumsCommand}"/>
     </Window.InputBindings>
     <Window.Icon>
         <BitmapImage UriSource="../../../Resources/Images/logo.png" DecodePixelWidth="508" DecodePixelHeight="508"/>

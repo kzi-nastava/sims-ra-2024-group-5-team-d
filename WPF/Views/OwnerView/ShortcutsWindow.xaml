@@ -7,14 +7,16 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="ShortcutsWindow" Height="450" Width="500">
-    <ScrollViewer>
-        <Grid Background="{StaticResource WhiteGrey}">
+    <ScrollViewer Background="{StaticResource WhiteGrey}"  x:Name="Scroller">
+        <Grid Background="{StaticResource WhiteGrey}" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <ListView BorderThickness="0" 
+                      Margin="10 10 0 0"
                       Background="Transparent"
+                      PreviewMouseWheel="ListView_PreviewMouseWheel"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Shortcuts}" ItemContainerStyle="{StaticResource CustomListView}">
                 <ListView.ItemTemplate>
@@ -22,7 +24,7 @@
                         <Border
                                 CornerRadius="10"
                                  Height="50"
-                                Width="460"  Background="{StaticResource WhiteWhite}" Margin="8 0 0 15">
+                                Width="400"  Background="{StaticResource WhiteWhite}" Margin="8 0 0 15">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -36,16 +38,16 @@
                                     </Grid.ColumnDefinitions>
                                     <Border CornerRadius="8"
                                             Height="36"
-                                        Margin="0 0 20 0"
-                                             Width="36" Background="{StaticResource PrimaryBlack}">
-                                        <TextBlock  Text="Ctrl" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource WhiteWhite}"/>
+                                        Margin="0 0 13 0"
+                                             Width="36" Background="{StaticResource PrimaryColor}">
+                                        <TextBlock  Text="Ctrl" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="14" HorizontalAlignment="Center" Foreground="{StaticResource WhiteWhite}"/>
                                     </Border>
                                     <Border CornerRadius="8"
                                             Height="36"
                                         Grid.Column="1"
-                                         Margin="0 0 20 0"
-                                             Width="36" Background="{StaticResource PrimaryBlack}">
-                                        <TextBlock  Text="{Binding Command}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource WhiteWhite}"/>
+                                         Margin="0 0 15 0"
+                                             Width="36" Background="{StaticResource PrimaryColor}">
+                                        <TextBlock  Text="{Binding Command}" FontWeight="DemiBold" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Center" Foreground="{StaticResource WhiteWhite}"/>
                                     </Border>
                                 </Grid>
                             </Grid>
@@ -60,13 +62,15 @@
                                         Width="50"
                                         Height="50"
                                         FontWeight="SemiBold"
-                                        BorderThickness="0"
+                                        
+                x:Name="Ok"
+                BorderThickness="0"
             Template="{StaticResource CustomButtonTemplate}"
                                         VerticalAlignment="Bottom" Click="Close">
                 <Border     CornerRadius="8" 
                                             Height="48"
                                             Width="48" Style="{StaticResource BorderHover}">
-                    <TextBlock Text="OK" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource WhiteWhite}"/>
+                    <TextBlock  Text="OK" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource WhiteWhite}"/>
                 </Border>
             </Button>
         </Grid>
