@@ -8,6 +8,9 @@
              mc:Ignorable="d" 
              xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
              d:DesignHeight="572" d:DesignWidth="1108">
+    <UserControl.InputBindings>
+        <KeyBinding Key="D" Modifiers="Control" Command="{Binding PrintPDF}"/>
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <Style TargetType="Border">
             <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
