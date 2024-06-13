@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.OwnerView.OwnerNotificationsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             d:DesignHeight="572" d:DesignWidth="1108">
+    <UserControl.Resources>
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid 
+              Width="920"
+              Margin="0 0 0 30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock
+                   Grid.Row="0" 
+                   Text="Notifications" 
+                   FontSize="36" 
+                   FontWeight="DemiBold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+        <ListView BorderThickness="0" 
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      Grid.Row="1"
+                  HorizontalAlignment="Center"
+                  x:Name="Notifications"
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Notifications}" ItemContainerStyle="{StaticResource CustomListView}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="10" CornerRadius="10" Margin="8 0 20 10" Background="{StaticResource WhiteWhite}"  Style="{StaticResource BorderHoverAnimation}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="500"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="..\..\..\Resources\Images\OwnerImages\dot.png" Visibility="{Binding IsUnread, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=Hidden}" Width="30" Margin="0 0 15 0">
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                        <BeginStoryboard Storyboard="{StaticResource BlinkAnimation}"/>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="{Binding AvatarPath}" Width="70" Grid.Column="1"/>
+                            <Grid Grid.Column="2" Margin="15 0 0 0" Width="auto">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding SenderName}" FontWeight="DemiBold" Grid.Row="0" VerticalAlignment="Top" Width="auto" FontSize="20" Style="{StaticResource FontColor}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Date}" VerticalAlignment="Center" Margin="10 -7 0 0" Style="{StaticResource FontColor}"/>
+                                </Grid>
+                                <TextBlock Text="{Binding Message}" FontWeight="Normal" Grid.Row="1" FontSize="16" Style="{StaticResource FontColor}"/>
+                            </Grid>
+                            <Button Grid.Column="3" Background="Transparent" BorderThickness="0" Width="50" Margin="0 0 20 0" Template="{StaticResource CustomButtonTemplate}"  Command="{Binding DataContext.OpenNotification, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                <Image Source="..\..\..\Resources\Images\OwnerImages\enter.png"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.LoginUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="450">
+    <Grid Grid.Column="1" Margin="80 40 20 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Image Source="..\..\Resources\Images\OwnerImages\logo png.png" Width="100" HorizontalAlignment="Left"/>
+        <TextBlock Margin="0 10 0 0" Text="Login to your account"  Grid.Row="1"  Foreground="{StaticResource PrimaryBlack}" FontFamily="{StaticResource CustomFont}" FontWeight="DemiBold" FontSize="28"/>
+        <TextBlock Margin="0 5 0 10 " Width="320" HorizontalAlignment="Left" Text="Discover, Explore, and Experience – Your Journey Starts Here" Grid.Row="2" Foreground="{StaticResource PrimaryBlack2}"  FontFamily="{StaticResource CustomFont}" TextWrapping="WrapWithOverflow"/>
+        <Grid Grid.Row="3" Width="260" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Username" FontWeight="DemiBold" Foreground="{StaticResource PrimaryBlack}" Margin="0 15 0 3"/>
+            <Border Grid.Row="1" CornerRadius="5" Background="{StaticResource WhiteGrey}">
+                <TextBox x:Name="Username" Padding="3" FontSize="14"  Text="{Binding Path=Username, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Background="Transparent"></TextBox>
+            </Border>
+            <TextBlock Text="Password"  FontWeight="DemiBold" Grid.Row="2" Foreground="{StaticResource PrimaryBlack}" Margin="0 13 0 3"/>
+            <Border Grid.Row="4" CornerRadius="5" Background="{StaticResource WhiteGrey}">
+                <PasswordBox x:Name="txtPassword" Padding="3" FontSize="14" BorderThickness="0" Background="Transparent"></PasswordBox>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="4" Margin="0 8 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Foreground="{StaticResource PrimaryBlack2}" Text="Dont have an account?" FontSize="10"/>
+            <TextBlock Grid.Column="1" Foreground="{StaticResource PrimaryColor}" Cursor="Hand" Text="Sign up" FontSize="10" Margin="3 0 0 0" MouseLeftButtonDown="Register">
+                <TextBlock.TextDecorations>
+                    <TextDecorationCollection>
+                        <TextDecoration Location="Underline"/>
+                    </TextDecorationCollection>
+                </TextBlock.TextDecorations>
+            </TextBlock>
+        </Grid>
+        <Button Grid.Row="5"
+                                    FontSize="20" 
+                                    Background="Transparent"
+                                    Height="27"
+                Margin="0 15 0 0"
+                Cursor="Hand"
+                                    VerticalAlignment="Center"
+                                    BorderThickness="0" HorizontalAlignment="Left" Command="{Binding LogInCommand}"  CommandParameter="{Binding ElementName=txtPassword}">
+            <Border  Background="{StaticResource PrimaryColor}"
+                                             CornerRadius="2"
+                                              Height="25">
+                <TextBlock  Text="Log In" Margin="20 -2 20 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Button>
+        <ListView BorderThickness="0"
+                  HorizontalAlignment="Left"
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      Grid.Row="6"
+                  MaxWidth="200"
+                      ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Margin="0 10 0 0">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter HorizontalAlignment="Left" Margin="2,3,2,3" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button Background="Transparent" BorderThickness="0"  Command="{Binding DataContext.FastLogInCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                        <Grid MaxWidth="100">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Border BorderBrush="Transparent" BorderThickness="0" Height="50" Width="50">
+                                <Image Source="{Binding AvatarPath}" Grid.Row="0" Stretch="Fill"/>
+                            </Border>
+                            <TextBlock Text="{Binding FullName}" Grid.Row="1"  FontFamily="{StaticResource CustomFont}"/>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

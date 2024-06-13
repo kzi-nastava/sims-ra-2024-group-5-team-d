@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristGuide.ViewMoreFinishedTour"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="767" d:DesignWidth="950">
+    <UserControl.Resources>
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="Label" x:Key="LabelDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="40,15,40,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" HorizontalAlignment="Left" Command="{Binding BackCommand}" Background="Transparent" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/../../../Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
+                    <Label Content="Back" Margin="5,0,0,0" Style="{StaticResource LabelDesign}" />
+                </StackPanel>
+            </Button>
+            <!-- Popover Content -->
+            <Grid Grid.Row="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5,5,5,5"/>
+                <Image Grid.Column="2" Grid.Row="0" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Margin="5,5,5,5"/>
+                <Image Grid.Column="2" Grid.Row="1" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+                <Image Grid.Column="3" Grid.Row="0" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+                <Image Grid.Column="3" Grid.Row="1" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+                <Image Grid.Column="4" Grid.Row="0" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Margin="5,5,5,5"/>
+                <Image Grid.Column="4" Grid.Row="1" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Map Point.png" Height="16" Width="16"/>
+                <Label Grid.Column="1" Content="{Binding SelectedTour.Location}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}" Margin="0 0 20 0"/>
+                <Image Grid.Column="2" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Clock Circle.png" Height="16" Width="16"/>
+                <Label Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 20 0">
+                    <TextBlock Style="{StaticResource TextBlockDesign}">
+                        <Run Text="{Binding SelectedTour.Duration}" />
+                        <Run Text=" hours" />
+                    </TextBlock>
+                </Label>
+                <Image Grid.Column="4" Source="/../../../Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
+                <Label Grid.Column="5" HorizontalAlignment="Left" Margin="0 0 20 0">
+                    <TextBlock Style="{StaticResource TextBlockDesign}">
+                        <Run Text="{Binding SelectedTour.Capacity}" />
+                        <Run Text=" seats" />
+                    </TextBlock>
+                </Label>
+                <Image Grid.Column="6" Source="/../../../Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
+                <Label Grid.Column="7" Content="{Binding SelectedTour.Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}" Margin="0 0 20 0"/>
+            </Grid>
+            <Label Grid.Row="3" Content="{Binding SelectedTour.Name}" FontSize="35" FontWeight="SemiBold" Margin="0,20,0,0" Style="{StaticResource LabelDesign}"/>
+            <TextBlock Grid.Row="4" Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" Margin="0,10,0,30" Style="{StaticResource TextBlockDesign}" FontSize="14"/>
+            <TextBlock Grid.Row="5" Text="Reviews" HorizontalAlignment="Left" FontSize="20" FontWeight="SemiBold" Style="{StaticResource TextBlockDesign}"/>
+            <TextBlock Grid.Row="5" Text="Age Statistics" HorizontalAlignment="Right" Margin="0,0,120,0" FontSize="20" FontWeight="SemiBold" Style="{StaticResource TextBlockDesign}"/>
+            <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ListView BorderThickness="0" 
+                      Background="Transparent" 
+                      ItemsSource="{Binding TourGuestRating}"
+                      Grid.Column="0" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      SelectedItem="{Binding SelectedRating}"
+                      Margin="0 10 0 0"
+                      Height="auto"
+                      >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding ClickCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Height="auto" Width="550" BorderThickness="0" Background="{StaticResource WhiteWhite}" CornerRadius="15" >
+                                <Grid Margin="15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Row="0" Source="/../../../Resources\Images\GuideImages\User.png" Height="30" Width="30" HorizontalAlignment="Left" Grid.RowSpan="2"/>
+                                    <TextBlock Grid.Row="0" Margin="35,0,0,0" Style="{StaticResource TextBlockDesign}">
+                                        <Run Text="{Binding FullName}"/>
+                                        <Run Text=","/>
+                                        <Run Text="{Binding Age}"/>
+                                    </TextBlock>
+
+                                    <TextBlock Grid.Row="1" Margin="35,0,0,0" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource PrimaryBlack2}">
+                                        <Run Text="Joined:"/>
+                                        <Run Text="{Binding JoinedOn}"/>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="0" Text="{Binding TourRealisationStartTime}" HorizontalAlignment="Right" Style="{StaticResource TextBlockDesign}"/>
+                                    <TextBlock Grid.Row="2" Text="Language" Margin="0,15,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="80,15,0,0">
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar1,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar2,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar3,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar4,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingLanguage.IsStar5,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                    </StackPanel>
+                                    <TextBlock Grid.Row="3" Text="Knowledge" Margin="0,4,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="80,4,0,0">
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar1,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar2,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar3,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar4,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingKnowledge.IsStar5,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                    </StackPanel>
+                                    <TextBlock Grid.Row="4" Text="Amusement" Margin="0,4,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="80,4,0,0">
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar1,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar2,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar3,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar4,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                        <Image Source="/../../../Resources\Images\GuestImages\fullStar.png" Height="14" Visibility="{Binding starRatingAmusement.IsStar5,Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                                    </StackPanel>
+                                    <TextBlock Grid.Row="5" Text="{Binding Comment}" TextWrapping="Wrap" Margin="0,15,0,0" Style="{StaticResource TextBlockDesign}"/>
+                                    <Button Grid.Row="6" Width="40" BorderThickness="0" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding DataContext.ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                        <Grid>
+                                            <Image Source="/../../../Resources\Images\GuideImages\Flag.png" Height="20" Width="20" HorizontalAlignment="Right" />
+                                            <Image Source="/../../../Resources\Images\GuideImages\RedFlag.png" Height="20" Width="20" HorizontalAlignment="Right" Visibility="{Binding IsNotValid,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <!--<TextBlock Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Sum}" Margin="-70 0 0 0" FontSize="39" Style="{StaticResource TextBlockDesign}"/>-->
+                <lvc:PieChart Grid.Row="6" Grid.Column="1" LegendLocation="Right" VerticalAlignment="Top" Height="200" InnerRadius="45" Series="{Binding AgeStatistics}" Margin="30 0 0 0">
+                </lvc:PieChart>
+
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

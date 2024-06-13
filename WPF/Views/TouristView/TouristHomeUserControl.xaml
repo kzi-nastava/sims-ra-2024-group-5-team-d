@@ -1,0 +1,424 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristView.TouristHomeUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             mc:Ignorable="d"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             d:DesignHeight="587" 
+             d:DesignWidth="1152">
+    <UserControl.Resources>
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryBlack}"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="{DynamicResource MainColor1}"
+                        BorderThickness="0 0 0 1.5"
+                        CornerRadius="0"
+                        Grid.Row="0"
+                        Margin="0 0 0 15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock         Grid.Row="0"
+                                       Margin="-35 21 0 0"
+                                       Grid.Column="0"
+                                       Text="{DynamicResource Location:}"
+                                       Padding="0 0 30 0"
+                                       Foreground="{DynamicResource Font1}"
+                                       FontFamily="Verdana"
+                                       HorizontalAlignment="Center"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock         Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{DynamicResource Duration:}"
+                                       Padding="0 20 60 0"
+                                       FontFamily="Verdana"
+                                       Foreground="{DynamicResource Font1}"
+                                       HorizontalAlignment="Center"
+                                       FontSize="20"
+                                   Style="{StaticResource TextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                <TextBlock
+                                       Grid.Column="2"
+                                       Text="{DynamicResource Language:}"
+                                       Padding="0 20 30 0"
+                                       FontFamily="Verdana"
+                                       Foreground="{DynamicResource Font1}"
+                                       HorizontalAlignment="Left"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"
+                    Style="{StaticResource TextBlockStyle}"
+                                       Margin="31,0,0,0"/>
+                <TextBlock         Grid.Row="0"
+                                       Grid.Column="3"
+                                       Text="{DynamicResource Number of people:}"
+                                       Margin="0 5 0 0"
+                                       Foreground="{DynamicResource Font1}"
+                                       Padding="0 15 30 0"
+                                       FontFamily="Verdana"
+                                   Style="{StaticResource TextBlockStyle}"
+                                       HorizontalAlignment="Left"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"/>
+                <ComboBox   Grid.Row="1"
+                            Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Background="{DynamicResource MainColor1}"
+                            BorderThickness="1"
+                            Margin="35,5,0,0"
+                            Width="170"
+                            Foreground="{DynamicResource PrimaryBlack}"
+                            Height="30"
+                            FontSize="15"
+                            SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="Serbia, Novi Sad"/>
+                    <ComboBoxItem Content="Serbia, Beograd"/>
+                    <ComboBoxItem Content="Serbia, Smederevo"/>
+                    <ComboBoxItem Content="Serbia, Požega"/>
+                    <ComboBoxItem Content="Serbia, Kragujevac"/>
+                    <ComboBoxItem Content="Serbia, Niš"/>
+                    <ComboBoxItem Content="Serbia, Subotica"/>
+                    <ComboBoxItem Content="Serbia, Pančevo"/>
+                    <ComboBoxItem Content="Serbia, Čačak"/>
+                    <ComboBoxItem Content="Serbia, Užice"/>
+                    <ComboBoxItem Content="{DynamicResource Any}"/>
+                </ComboBox>
+                <ComboBox   Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource PrimaryBlack}"
+                            Width="155"
+                            Height="30"
+                            FontSize="15"
+                            SelectedIndex="{Binding PickedDuration, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="0-1h"></ComboBoxItem>
+                    <ComboBoxItem Content="1-2h"></ComboBoxItem>
+                    <ComboBoxItem Content="2-3h"></ComboBoxItem>
+                    <ComboBoxItem Content="3-4h"></ComboBoxItem>
+                    <ComboBoxItem Content="4-5h"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Any}"></ComboBoxItem>
+                </ComboBox>
+                <ComboBox   Grid.Row="1"
+                            Grid.Column="2"
+                            HorizontalAlignment="Left"
+                            Foreground="{StaticResource PrimaryBlack}"
+                            VerticalAlignment="Center"
+                            Width="148"
+                            Height="30"
+                            FontSize="15" Margin="31,0,0,0"
+                            SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="{DynamicResource English}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Serbian}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource German}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Any}"></ComboBoxItem>
+                </ComboBox>
+                <StackPanel Grid.Row="2"
+                            Grid.Column="3"
+                            Orientation="Horizontal"
+                            Margin="0 3 0 0"
+                            HorizontalAlignment="Left">
+
+                    <TextBox Text="{Binding PickedMaxCapacity, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="22"
+                             TextAlignment="Right"
+                             VerticalContentAlignment="Center"
+                             Height="32"
+                             Foreground="{DynamicResource PrimaryBlack}"
+                             Background="{DynamicResource WhiteWhite}"
+                             Width="160"
+                             x:Name="PeopleCounter"
+                             IsReadOnly="True"
+                             Margin="5 0 0 0"
+                             Padding="0 0 5 0"                             
+                             />
+                    <Image Source="C:\Users\Korisnik\Desktop\ikone\person.png"
+                           Height="24"
+                           Width="24"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="-155 0 0 0"/>
+                    <StackPanel Orientation="Vertical">
+                        <Button Content="▲"
+                                Width="20"
+                                Height="16"
+                                Cursor="Hand"
+                                Margin="0 0 0 0"
+                                VerticalContentAlignment="Top"
+                                Background="{DynamicResource MainColor2}"
+                                Foreground="{DynamicResource Font1}"
+                                Template="{StaticResource CustomButtonTemplate}"
+                                FontSize="9.5"
+                                HorizontalContentAlignment="Center"
+                                Click="IncreaseCount_Click"/>
+                        <Button Content="▼"
+                                VerticalContentAlignment="Bottom"
+                                Template="{StaticResource CustomButtonTemplate}"
+                                Cursor="Hand"
+                                Width="20"
+                                Height="16"
+                                Margin="0 0 0 0"
+                                Background="{DynamicResource MainColor2}"
+                                Foreground="{DynamicResource Font1}"
+                                FontSize="9.5"
+                                HorizontalContentAlignment="Center"
+                                Click="DecreaseCount_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Grid.Row="1"
+                        Grid.Column="4"
+                            BorderThickness="0"
+                            Template="{StaticResource CustomButtonTemplate}"
+                            Width="162"
+                            Height="auto"
+                            Margin="10 0 50 0"
+                        Cursor="Hand"
+                            Background="Transparent"
+                            VerticalContentAlignment="Bottom"
+                            HorizontalContentAlignment="Left"
+                            Click="Search_Click">
+                    <Border
+                            CornerRadius="4"
+                            Width="160"
+                            Background="{DynamicResource PrimaryColor}"
+                            Style="{StaticResource BorderHover}"
+                            Height="32"
+                            HorizontalAlignment="Left"
+                            BorderThickness="0">
+                            <StackPanel 
+                                    Orientation="Horizontal"
+                                    
+                                    >
+
+                                <Image Source="C:\Users\Korisnik\Desktop\ikone\search.png"
+                                    Height="24"
+                                    Width="24"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                       Margin="5 0 20 0"
+                                    />
+                                <TextBlock Text="{DynamicResource Search}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Foreground="{DynamicResource AntiFont1}"
+                                           FontWeight="Normal"
+                                           FontSize="22"></TextBlock>
+
+                            </StackPanel>
+                    </Border>
+                </Button>
+            </Grid>
+
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="{DynamicResource Recommended tours:}"
+                   Foreground="{DynamicResource Font2}"
+                   FontSize="25"
+                   Margin="35 0 0 0">
+
+            </Label>
+            <ListView BorderThickness="0" 
+                      Grid.Row="1"
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.CanContentScroll="False"
+                      ItemsSource="{Binding Tours}"
+                      SelectedItem="{Binding SelectedTour}"
+                      ItemContainerStyle="{StaticResource CustomListView}"
+                      SelectionChanged="TourDetails_Click">
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{DynamicResource Secondary2}"
+                                BorderThickness="1.2"
+                                BorderBrush="{DynamicResource MainColor1}"
+                                CornerRadius="20"
+                                Style="{StaticResource BorderHoverAnimation}"
+                                Height="280"
+                                Width="1050"
+                                Margin="35 10 30 10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="405"></ColumnDefinition>
+                                    <ColumnDefinition Width="500"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
+                                       Height="250"
+                                       Width="400"
+                                       HorizontalAlignment="Left"
+                                       Grid.Column="0"
+                                       Margin="15 0 0 0"/>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Margin="0 5 0 0"
+                                           Grid.Row="0"
+                                           FontSize="22"
+                                           FontFamily="Verdana"
+                                           FontWeight="DemiBold"
+                                           Width="500"
+                                           Foreground="{DynamicResource Font1}"
+                                           Content="{Binding Name}">
+                                    </Label>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Row="1"
+                                                    Grid.Column="4"
+                                                    Orientation="Horizontal"
+                                                    Margin="2 10 0 0"
+                                                    HorizontalAlignment="Left">
+                                            <Image Source="{Binding Star1Path}"
+                                               Height="15"
+                                               Width="15"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Top"
+                                               Grid.Column="2"
+                                               Margin="8 0 0 0"/>
+                                            <Image Source="{Binding Star2Path}"
+                                               Height="15"
+                                               Width="15"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Top"
+                                               Grid.Column="2"
+                                               Margin="0 0 0 0"/>
+                                            <Image Source="{Binding Star3Path}"
+                                               Height="15"
+                                               Width="15"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Top"
+                                               Grid.Column="2"
+                                               Margin="0 0 0 0"/>
+                                            <Image Source="{Binding Star4Path}"
+                                               Height="15"
+                                               Width="15"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Top"
+                                               Grid.Column="2"
+                                               Margin="0 0 0 0"/>
+                                            <Image Source="{Binding Star5Path}"
+                                               Height="15"
+                                               Width="15"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Top"
+                                               Grid.Column="2"
+                                               Margin="0 0 0 0"/>
+                                            
+                                            <TextBlock Margin="5 0 0 0"
+                                               Grid.Row="0"
+                                               FontSize="10"
+                                               FontFamily="Verdana"
+                                               Width="500">
+                                                <Run Foreground="{DynamicResource Font1}" Text="{Binding NumberOfVotes}"></Run>
+                                                <Run Text="{DynamicResource vote}" Foreground="{DynamicResource Font1}"></Run>
+                                            </TextBlock>
+                                            
+                                        </StackPanel>
+
+                                    </Grid>
+                                    <StackPanel Grid.Row="2"
+                                                    Orientation="Horizontal"
+                                                    Margin="2 0 0 0"
+                                                    HorizontalAlignment="Left">
+                                        <Image Source="C:\Users\Korisnik\Desktop\ikone\location.png"
+                                               Height="17"
+                                               Width="17"
+                                               Grid.Row="2"
+                                               Grid.Column="2"
+                                               HorizontalAlignment="Left"
+                                               Margin="7 4 0 0"/>
+                                        <Label Margin="-2 4 0 0"
+                                               Grid.Row="0"
+                                               Foreground="{DynamicResource Font1}"
+                                               FontSize="11"
+                                               FontFamily="Verdana"
+                                               Width="500"
+                                               Content="{Binding Location}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3"
+                                                    Orientation="Horizontal"
+                                                    Margin="2 0 0 0"
+                                                    HorizontalAlignment="Left">
+                                        <Image Source="C:\Users\Korisnik\Desktop\ikone\time.png"
+                                               Height="17"
+                                               Width="17"
+                                               Grid.Row="2"
+                                               Grid.Column="2"
+                                               HorizontalAlignment="Left"
+                                               Margin="7 4 0 0"/>
+                                        <TextBlock Margin="4 6 0 0"
+                                               FontSize="10"
+                                                   Foreground="{DynamicResource Font1}"
+                                               FontFamily="Verdana"
+                                               Width="500">
+                                            <Run Text="{Binding Duration}" />
+                                            <Run Text="{DynamicResource hour}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <TextBlock Margin="12 10 0 0"
+                                               Grid.Row="4"
+                                               FontSize="15"
+                                               FontFamily="Verdana"
+                                               Foreground="{DynamicResource Font1}"
+                                               Width="500"
+                                               Height="180"
+                                               Text="{Binding Description}"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Left"/>
+                                </Grid>
+
+                                <Image Source="C:\Users\Korisnik\Desktop\ikone\verified.png"
+                                       Height="30"
+                                       Width="30"
+                                       Visibility="{Binding IsSuperGuide, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=Hidden}"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       Grid.Column="2"
+                                       Margin="0 10 10 0"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.OwnerView.WideMenuUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Control" Command="{Binding RequestsCommand}"/>
+        <KeyBinding Key="E" Modifiers="Control" Command="{Binding RenovationsCommand}"/>
+        <KeyBinding Key="V" Modifiers="Control" Command="{Binding ReviewsCommand}"/>
+        <KeyBinding Key="F" Modifiers="Control" Command="{Binding ForumsCommand}"/>
+    </UserControl.InputBindings>
+    <UserControl.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource WhiteWhite}"/>
+        </Style>
+        <Style x:Key="AutoHover" TargetType="Grid" BasedOn="{StaticResource {x:Type Grid}}">
+                <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PrimaryColor2}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <ControlTemplate x:Key="CustomButtonTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <Grid Background="Transparent">
+        <Border Grid.Row="1" 
+                Height="310"
+                VerticalAlignment="Top"/>
+        <Grid Grid.Row="1"  
+              Height="304" 
+              VerticalAlignment="Top" 
+              Cursor="Hand" 
+              Background="Transparent" 
+              Margin="10 6 10 6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Border Height="70" Margin="0 0 0 6" BorderThickness="0 0 0 2" CornerRadius="4" BorderBrush="{StaticResource WhiteGrey}" Style="{StaticResource BorderHover}">
+                <Button Background="Transparent" BorderThickness="0" Command="{Binding RequestsCommand}" Template="{StaticResource CustomButtonTemplate}" x:Name="Requests">
+                    <Grid Style="{StaticResource AutoHover}"> 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\inbox1.png" 
+                            Height="32" 
+                            Width="32"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
+                        <TextBlock Text="Requests" 
+                       FontSize="20"
+                               HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center"/>
+                    </Grid>
+                </Button>
+            </Border>
+            <Border Grid.Row="1" BorderBrush="{StaticResource WhiteGrey}" CornerRadius="4" BorderThickness="0 0 0 2" Height="70" Margin="0 0 0 6" Style="{StaticResource BorderHover}">
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding RenovationsCommand}" Template="{StaticResource CustomButtonTemplate}">
+                    <Grid Style="{StaticResource AutoHover}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\renovations.png" 
+                            Height="32" 
+                            Width="32"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
+                        <TextBlock Text="Renovations" 
+                       FontSize="20"
+                               HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center"/>
+                    </Grid>
+                </Button>
+            </Border>
+            <Border Grid.Row="2" BorderBrush="{StaticResource WhiteGrey}" CornerRadius="4" BorderThickness="0 0 0 2" Height="70" Margin="0 0 0 6" Style="{StaticResource BorderHover}">
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding ReviewsCommand}" Template="{StaticResource CustomButtonTemplate}" >
+                    <Grid Style="{StaticResource AutoHover}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\star.png" 
+                            Height="32" 
+                            Width="32"
+                           VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0 0 0 0"/>
+                        <TextBlock Text="Reviews" 
+                       FontSize="20"
+                               HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Center"/>
+                    </Grid>
+                </Button>
+            </Border>
+            <Border Grid.Row="3" BorderBrush="{StaticResource WhiteGrey}" CornerRadius="4" BorderThickness="0 0 0 2" Height="70" Style="{StaticResource BorderHover}">
+                <Button Background="Transparent" BorderThickness="0"  Command="{Binding ForumsCommand}" Template="{StaticResource CustomButtonTemplate}">
+                    <Grid Style="{StaticResource AutoHover}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="..\..\..\Resources\Images\OwnerImages\forum.png" 
+                            Height="32" 
+                            Width="32"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0"/>
+                        <TextBlock Text="Forum" 
+                       FontSize="20"
+                               HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center"/>
+                    </Grid>
+                </Button>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

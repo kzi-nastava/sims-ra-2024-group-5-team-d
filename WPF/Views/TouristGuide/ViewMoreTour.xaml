@@ -1,0 +1,233 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristGuide.ViewMoreTour"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
+             xmlns:local1="clr-namespace:BookingApp.WPF.Converters" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="950">
+    <UserControl.Resources>
+        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <Style TargetType="Label" x:Key="LabelDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockButtonDesign">
+            <Setter Property="Foreground" Value="{StaticResource WhiteWhite}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource WhiteWhite}"/>
+                    <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonDesign">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style TargetType="Border" x:Key="BorderDesign">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <!-- Trigger to change button appearance when it's disabled -->
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{StaticResource PrimaryBlack3}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="40,15,40,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" HorizontalAlignment="Left" Click="BackButton_Click" Background="Transparent" BorderBrush="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/../../../Resources\Images\GuideImages\Alt Arrow Left.png" Width="16" Height="16"/>
+                <Label Content="Back" Margin="5,0,0,0" Style="{StaticResource LabelDesign}"/>
+            </StackPanel>
+        </Button>
+        <ToggleButton x:Name="HelpButton" Grid.Row="0" Width="28" Height="28" HorizontalAlignment="Right" Click="HelpButton_Click" Background="Transparent" BorderThickness="0">
+            <Image Source="/../../../Resources\Images\GuideImages\Question Circle.png" />
+        </ToggleButton>
+        <ToggleButton x:Name="DemoButton" Click="StartDemo" Grid.Row="0" Width="28" Height="28" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="0 0 40 0">
+            <Image Source="/../../../Resources\Images\GuideImages\Play Circle.png" />
+        </ToggleButton>
+        <Popup x:Name="HelpPopup" PlacementTarget="{Binding ElementName=HelpButton}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="-120" VerticalOffset="15" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Border BorderBrush="Gray" BorderThickness="1" Background="White" CornerRadius="5" Height="90" Width="140">
+                <Grid>
+                    <Polygon Points="0,0 10,-10 20,0" Fill="White" Stroke="Gray" StrokeThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                    <TextBlock Text="By clicking the plus symbol in the table, you are creating a new tour realization." Padding="10" TextWrapping="Wrap"/>
+                </Grid>
+            </Border>
+        </Popup>
+
+
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5,5,5,5"/>
+            <Image Grid.Column="2" Grid.Row="0" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+            <Image Grid.Column="2" Grid.Row="1" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+            <Image Grid.Column="3" Grid.Row="0" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+            <Image Grid.Column="3" Grid.Row="1" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}" Margin="5,5,5,5"/>
+            <Image Grid.Column="4" Grid.Row="0" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+            <Image Grid.Column="4" Grid.Row="1" Source="{Binding SelectedTour.ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Margin="5,5,5,5"/>
+        </Grid>
+        <Grid Grid.Row="2" Margin="0 0 0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Map Point.png" Height="16" Width="16"/>
+            <Label Grid.Column="1" Content="{Binding SelectedTour.Location}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}" Margin="0 0 20 0"/>
+            <Image Grid.Column="2" Source="/../../../Resources\Images\GuideImages\Clock Circle.png" Height="16" Width="16"/>
+            <Label Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 20 0">
+                <TextBlock Style="{StaticResource TextBlockDesign}">
+                    <Run Text="{Binding SelectedTour.Duration}" />
+                    <Run Text=" hours" />
+                </TextBlock>
+            </Label>
+            <Image Grid.Column="4" Source="/../../../Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
+            <Label Grid.Column="5" HorizontalAlignment="Left" Margin="0 0 20 0">
+                <TextBlock Style="{StaticResource TextBlockDesign}">
+                    <Run Text="{Binding SelectedTour.Capacity}" />
+                    <Run Text=" seats" />
+                </TextBlock>
+            </Label>
+            <Image Grid.Column="6" Source="/../../../Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
+            <Label Grid.Column="7" Content="{Binding SelectedTour.Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}" Margin="0 0 20 0"/>
+        </Grid>
+        <Label Grid.Row="3" Content="{Binding SelectedTour.Name}" FontSize="35" Style="{StaticResource LabelDesign}" FontWeight="SemiBold" Margin="0 0 0 10"/>
+        <TextBlock Grid.Row="4" Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" Style="{StaticResource TextBlockDesign}" FontSize="14"/>
+        <Popup x:Name="NewTourRealizationPopup" StaysOpen="False" Placement="Center" PlacementTarget="{Binding ElementName=tourList}">
+            <Border BorderBrush="Gray" BorderThickness="1" Background="White" CornerRadius="5" Padding="10">
+                <StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Select date and time:" HorizontalAlignment="Center"/>
+                        <xctk:DateTimePicker x:Name="DateTimePicker" Value="{Binding SelectedDateTime}" Width="200" Minimum="{x:Static sys:DateTime.Today}">
+                        </xctk:DateTimePicker>
+
+                    </StackPanel>
+                    <Button   Click="SaveNewTourRealization_Click" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="5 10 0 0"  Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                        <Border x:Name="SaveButton" CornerRadius="4" Style="{StaticResource BorderDesign}"  Width="57" Height="20" >
+                            <TextBlock Text="Save" Style="{StaticResource TextBlockButtonDesign}"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+        <DataGrid 
+                Grid.Column="1"
+                Grid.Row="5"
+                x:Name="tourList"
+                ItemsSource="{Binding TourRealisations, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedTourRealisation}"
+                SelectionMode="Single"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                RowHeight="40"
+                BorderThickness="0"                
+                ScrollViewer.CanContentScroll="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                MaxHeight="240"
+                >
+            <!-- You can bind tour data here -->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+                    <Setter Property="Height" Value="40"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <!-- Change the background color as per your requirement -->
+                    <!-- You can add more setters for other properties like foreground color, font size, etc. -->
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Resources>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Margin" Value="20,10,0,0"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <!-- Adjust left padding as needed -->
+                </Style>
+                <Style TargetType="DataGridRowHeader">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
+                                <Border Background="Transparent"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.Header>
+                        <DockPanel>
+                            <TextBlock Text="Start Time" Margin="20,0,0,0" FontSize="16" Style="{StaticResource TextBlockDesign}" />
+                            <Button x:Name="PlusButton" Content="+" Height="25" Width="25" HorizontalAlignment="Right" Margin="710,0,0,0"
+                                        Background="Transparent" BorderBrush="Gray" BorderThickness="1" 
+                                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                        Click="AddTourRealizationButton_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DockPanel>
+                    </DataGridTemplateColumn.Header>
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding DateTime}" FontSize="14" VerticalAlignment="Center" Margin="0 0 0 8" Style="{StaticResource TextBlockDesign}"/>
+                                <Button Click="Cancel_Click" HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="{Binding IsCancellable}" Margin="0 -5 20 0" Grid.Column="1" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                                    <Border CornerRadius="4" Style="{StaticResource BorderDesign}"  Width="57" Height="20" IsEnabled="{Binding IsCancellable}">
+                                        <TextBlock Text="Cancel" Style="{StaticResource TextBlockButtonDesign}" IsEnabled="{Binding IsCancellable}"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</UserControl>
+

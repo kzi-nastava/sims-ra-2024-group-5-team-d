@@ -1,0 +1,397 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristView.YourRequestsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristView"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="587"
+             d:DesignWidth="1152">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <Style TargetType="Label" x:Key="TabsLabelsStyle">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="HoverBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="0 20 10 20"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Yellow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button" x:Key="TabsButtonsStyle">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="90 20 100 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border BorderThickness="1 1 1 1"
+                    CornerRadius="5"
+                    BorderBrush="{DynamicResource MainColor1}"
+                    Grid.ColumnSpan="4"/>
+            <Button Grid.Column="0"
+                Content="{DynamicResource Simple Requests}"                        
+                Foreground="{StaticResource WhiteWhite}"
+                Background="{DynamicResource MainColor1}"
+                Style="{StaticResource TabsButtonsStyle}"/>
+            <Button Grid.Column="1"
+                Content="{DynamicResource Complex Requests}"
+                Foreground="{StaticResource PrimaryBlack}"         
+                Command="{Binding ComplexRequestsTabCommand}"
+                Style="{StaticResource TabsButtonsStyle}"/>
+        </Grid>
+        
+        <Border 
+                BorderThickness="1 1 1 1"
+                CornerRadius="5"
+                BorderBrush="{DynamicResource MainColor1}"
+                Grid.Row="1"
+                Margin="0 -1 0 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left">
+                    <TextBlock Text="{DynamicResource All Requests}"
+                               Foreground="{DynamicResource Font1}"
+                               Margin="50 25 0 0"
+                               Width="140"
+                               FontSize="24"
+                               FontWeight="SemiBold"/>
+                    <Border CornerRadius="10"
+                        Height="50"
+                        Grid.Column="1"
+                        Width="200"
+                        BorderThickness="1"          
+                        Background="{DynamicResource MainColor2}"
+                        Margin="280 20 10 10"
+                        Padding="5"
+                        BorderBrush="Gray">
+                        <Button Content="{DynamicResource Show Statistics}"
+                            Width="auto"
+                                Foreground="{DynamicResource Font1}"
+                            FontWeight="DemiBold"
+                                Height="45"
+                                Template="{StaticResource CustomButtonTemplate}"
+                            Cursor="Hand"
+                            Background="Transparent"                           
+                            Command="{Binding ShowStatisticsCommand}"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderThickness="0">
+                        </Button>
+                    </Border>
+                    <Border CornerRadius="10"
+                        Height="50"
+                        Grid.Column="1"
+                        Width="200"
+                        BorderThickness="1"          
+                        Background="{DynamicResource MainColor2}"
+                        Margin="20 20 10 10"
+                        Padding="5"
+                        BorderBrush="Gray">
+                        <Button Content="{DynamicResource Create New Request}"
+                            Width="auto"
+                                Foreground="{DynamicResource Font1}"
+                            FontWeight="DemiBold"
+                                Height="45"
+                                Template="{StaticResource CustomButtonTemplate}"
+                            Cursor="Hand"
+                            Background="Transparent"
+                                Command="{Binding CreateNewRequestCommand}"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderThickness="0">
+                        </Button>
+                    </Border>
+                </StackPanel>
+                <ListView BorderThickness="0"
+                              Height="400"
+                              Grid.Row="1"                     
+                              Background="Transparent"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              ItemContainerStyle="{StaticResource CustomListView}"
+                              ItemsSource="{Binding Requests}"
+                              ScrollViewer.CanContentScroll="False">
+                              
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{DynamicResource MainColor1}"
+                                                BorderThickness="1.5"
+                                                CornerRadius="20"
+                                                Height="auto"
+                                                Width="865"
+                                Padding="0 0 0 10"
+                                Margin="35 10 30 10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="240"></ColumnDefinition>
+                                        <ColumnDefinition Width="200"></ColumnDefinition>
+                                        <ColumnDefinition Width="260"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" BorderThickness="0 0 1 0" Height="auto"  Margin="0 10 20 0"  BorderBrush="{DynamicResource MainColor1}">
+                                        <Grid Margin="10 10 10 0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0"
+                                                                   FontSize="18"
+                                                                   Margin="10 -5 0 10"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                   FontWeight="DemiBold"
+                                                                   Text="{DynamicResource Tour info:}">
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="1"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                   Margin="0 0 0 10">
+                                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\location.png"
+                                                                   Height="20"
+                                                                   Width="20"
+                                                                   Visibility="Visible"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="10 0 5 -6"/>
+                                                            <Run Text="{Binding LocationName}" FontSize="14"></Run>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="2"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                   Margin="0 0 0 10">
+                                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\language.png"
+                                                                   Height="20"
+                                                                   Width="20"
+                                                                   Visibility="Visible"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="10 0 5 -6"/>
+                                                            <Run Text="{Binding Language}" FontSize="14"></Run>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="3"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                   Visibility="{Binding NotAccepted, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                                   Margin="0 0 0 0">
+                                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\date.png"
+                                                                   Height="20"
+                                                                   Width="20"
+                                                                   Visibility="Visible"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="10 0 5 -6"/>
+                                                            <Run Text="{Binding RangeFrom,  StringFormat='dd-MM-yyyy'}" FontSize="14"></Run>
+                                                            <Run Text=" -" FontSize="14"></Run>
+                                                            <Run Text="{Binding RangeTo,   StringFormat='dd-MM-yyyy'}" FontSize="14"></Run>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="3"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                   Visibility="{Binding IsAccepted, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                                   Margin="0 0 0 0">
+                                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\date.png"
+                                                                   Height="20"
+                                                                   Width="20"
+                                                                   Visibility="Visible"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="10 0 5 -6"/>
+                                                            <Run Text="{Binding StartTime, StringFormat='dd-MM-yyyy HH:mm'}" FontSize="14"></Run>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Column="1"
+                                                                BorderThickness="0 0 1 0"
+                                                                Height="120"
+                                                                Margin="0 10 20 0"
+                                                                BorderBrush="{DynamicResource MainColor1}">
+                                        <Grid Margin="0 0 10 0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0" Margin="0 10 0 0" Orientation="Horizontal">
+                                                <Image Source="C:\Users\Korisnik\Desktop\ikone\person.png"
+                                                                   Height="20"
+                                                                   Width="20"
+                                                                   Visibility="Visible"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="0 0 5 10"/>
+                                                <TextBlock Foreground="{DynamicResource Font1}">
+                                                                <Run Text="{Binding Capacity}" FontWeight="SemiBold" FontSize="18"></Run>
+                                                                <Run Text="{DynamicResource tourists}" FontWeight="SemiBold" FontSize="18"></Run>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <ListView Grid.Row="1"
+                                                                  Margin="-5 0 0 0"                 
+                                                                  Height="80"
+                                                                  ItemContainerStyle="{StaticResource CustomListView}"
+                                                                  BorderThickness="0"
+                                                                  ScrollViewer.CanContentScroll="False"                                                                 
+                                                                  Background="Transparent"
+                                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                                  ItemsSource="{Binding Attendees}"
+                                                                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Background="Transparent"
+                                                                                       Foreground="{DynamicResource Font1}">                                                            
+                                                                        <Run Text="- " FontSize="16"></Run>
+                                                                        <Run Text="{Binding FullName}" FontSize="16"></Run>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Column="2"
+                                                                BorderThickness="0 0 1 0"
+                                                                Height="120"
+                                                                Padding="0 0 15 0"
+                                                                Margin="0 10 20 0"
+                                                                BorderBrush="{DynamicResource MainColor1}">
+                                        <Grid Margin="0 10 10 0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0"
+                                                                           Foreground="{DynamicResource Font1}">
+                                                            <Run Text="{DynamicResource Additional info:}" FontWeight="SemiBold" FontSize="18"></Run>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="1" 
+                                                                   Width="auto"
+                                                                   Foreground="{DynamicResource Font1}"
+                                                                   TextWrapping="Wrap"
+                                                                   TextAlignment="Justify">
+                                                            <Run Text="{Binding Description}"></Run>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Column="3" BorderThickness="0 0 0 0" Height="120"  Margin="0 10 20 0"  BorderBrush="{DynamicResource MainColor1}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                   Text="{DynamicResource Request Status:}"
+                                                                   FontSize="18"
+                                                                   FontWeight="SemiBold"
+                                                                   Margin="0 0 0 10"></TextBlock>
+                                            <TextBlock Grid.Row="3"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                           FontSize="12"
+                                                                           Visibility="{Binding IsPending, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\pending.png"
+                                                                   Height="20"
+                                                                   Width="20"
+                                                                   Visibility="Visible"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="0 0 5 -5"/>
+                                                            <Run Text="{DynamicResource On Pending}" FontSize="14"></Run>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="3"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                           FontSize="12"
+                                                                           Visibility="{Binding IsAccepted, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\accept.png"
+                                                                   Height="20"
+                                                                   Width="20"
+                                                                   Visibility="Visible"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="0 0 5 -5"/>
+                                                            <Run Text="{DynamicResource Accepted}" FontSize="14"></Run>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="3"
+                                                                           Foreground="{DynamicResource Font1}"
+                                                                           FontSize="12"
+                                                                   Visibility="{Binding IsInvalid, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                            <Image Source="C:\Users\Korisnik\Desktop\ikone\invalid.png"
+                                                                   Height="20"
+                                                                   Width="20"
+                                                                   Visibility="Visible"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="0 0 5 -5"/>
+                                                            <Run Text="{DynamicResource Invalid}" FontSize="14"></Run>
+                                            </TextBlock>
+                                            <Border CornerRadius="5"
+                                                                BorderThickness="1"          
+                                                                Margin="0 20 10 10"
+                                                                Grid.Row="4"
+                                                                Padding="5"
+                                                                BorderBrush="{DynamicResource MainColor1}">
+                                                <Button Content="Cancel Request"
+                                                                    FontWeight="DemiBold"                                
+                                                                    FontSize="16"
+                                                                    HorizontalAlignment="Center"
+                                                                    Cursor="Hand"
+                                                                    VerticalAlignment="Center"
+                                                                    Template="{StaticResource CustomButtonTemplate}"
+                                                                    Background="Transparent"
+                                                                    BorderThickness="0">
+                                                </Button>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

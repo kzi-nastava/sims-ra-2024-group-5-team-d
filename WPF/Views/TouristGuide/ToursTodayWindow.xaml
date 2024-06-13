@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristGuide.ToursTodayWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="950">
+    <UserControl.Resources>
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <!-- Style for the tabs -->
+        <Style TargetType="Label" x:Key="TabsLabelsStyle">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Setter Property="Content" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="LabelDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="40,15,40,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Grid containing the tabs -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Border around the tabs -->
+            <Border Grid.ColumnSpan="4"/>
+
+            <Border BorderBrush="{StaticResource PrimaryColor}" Grid.Column="1" BorderThickness="0 0 0 2">
+                <Label Grid.Column="1" Content="Tours today" Style="{StaticResource TabsLabelsStyle}"/>
+            </Border>
+
+            <Label Grid.Column="0" Content="All tours" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding AllToursTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+
+            <Label Grid.Column="2" Content="Finished tours" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding FinishedToursTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+            <Label Grid.Column="3" Content="Requests"  Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding RequestTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+            <Label Grid.Column="4" Content="Complex Requests" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding ComplexRequestTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+        </Grid>
+        <ListView BorderThickness="0"
+          Background="Transparent"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+          ItemsSource="{Binding ToursToday}"
+          SelectedItem="{Binding SelectedTour}"
+          ScrollViewer.CanContentScroll="False" Grid.Row="2"
+          ItemContainerStyle="{StaticResource CustomListView}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Height="278" Width="371" BorderThickness="2" BorderBrush="Transparent" CornerRadius="8" Margin="-5,25,40,0" Background="{StaticResource WhiteWhite}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"  Grid.Column="0" Width="184" Height="105" HorizontalAlignment="Left" Margin="15 15 15 0"/>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="0,15,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Map Point.png" Height="16" Width="16"/>
+                                        <Label Grid.Column="1" Content="{Binding Location}" HorizontalAlignment="Left" />
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Clock Circle.png" Height="16" Width="16"/>
+                                        <Label Grid.Column="1" HorizontalAlignment="Left">
+                                            <TextBlock Style="{StaticResource TextBlockDesign}">
+                                                <Run Text="{Binding Duration}" />
+                                                <Run Text=" hours" />
+                                            </TextBlock>
+                                        </Label>
+                                    </Grid>
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
+                                        <Label Grid.Column="1" HorizontalAlignment="Left">
+                                            <TextBlock Style="{StaticResource TextBlockDesign}">
+                                                <Run Text="{Binding Capacity}" />
+                                                <Run Text=" seats" />
+                                            </TextBlock>
+                                        </Label>
+
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Source="C:\Users\milan\OneDrive\Radna površina\SIMPROJEKAT\sims-ra-2024-group-5-team-d\Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
+                                        <Label Grid.Column="1" Content="{Binding Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Label Grid.Row="1" Content="{Binding Name}" HorizontalAlignment="Left" FontSize="20" Margin="10,0,0,0" FontWeight="SemiBold" Style="{StaticResource LabelDesign}"/>
+                            <Label Grid.Row="2">
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="10,0,10,0" MaxHeight="50" Style="{StaticResource TextBlockDesign}"/>
+                            </Label>
+                            <Button Grid.Row="3" Command="{Binding DataContext.ViewMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15" Style="{StaticResource ButtonDesign}" BorderThickness="0" CommandParameter="{Binding}">
+                                <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
+                                    <TextBlock Text="View More" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+
+    </Grid>
+</UserControl>

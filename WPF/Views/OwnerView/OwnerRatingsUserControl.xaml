@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.OwnerView.OwnerRatingsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             d:DesignHeight="572" d:DesignWidth="1108">
+    <UserControl.InputBindings>
+        <KeyBinding Key="D" Modifiers="Control" Command="{Binding PrintPDF}"/>
+    </UserControl.InputBindings>
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <converter:DateConverter x:Key="DateConverter" />
+    </UserControl.Resources>
+    <Grid Width="960">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Your reviews" Grid.ColumnSpan="2" FontSize="40" Margin="10" HorizontalAlignment="Center" Style="{StaticResource FontColor}"/>
+            <Button Grid.Column="1" HorizontalAlignment="Right" Margin="0 0 33 0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Template="{StaticResource CustomButtonTemplate}" Command="{Binding PrintPDF}">
+                <Border Style="{StaticResource BorderHover}" Padding="5" CornerRadius="15">
+                    <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image  Source="..\..\..\Resources\Images\OwnerImages\pdf.png" 
+                                               Width="32" 
+                                               Height="32"
+                                               Margin="0 0 5 0" VerticalAlignment="Center"/>
+                        <TextBlock  Text="Download pdf" Margin="5 1 5 0" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+        </Grid>
+        <ListView BorderThickness="0" 
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      x:Name="Ratings"
+                      ScrollViewer.CanContentScroll="False" Margin="0,73,5,0" Grid.RowSpan="2" ItemsSource="{Binding OwnerRatings}" SelectedItem="{Binding SelectedOwnerRating}" ItemContainerStyle="{StaticResource CustomListView}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{StaticResource WhiteWhite}"
+                                CornerRadius="10"
+                                Width="910" Margin="8 0 0 15"
+                             Style="{StaticResource BorderHoverAnimation}">
+                        <Grid Margin="10" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="140"/>
+                            </Grid.ColumnDefinitions>
+                            <Image  Source="{Binding AvatarPath}" 
+                                    Grid.RowSpan="2" Margin="0 0 20 0"/>
+                            <Grid Grid.Column="1" VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding GuestName}" MinWidth="300" Style="{StaticResource FontColor}" Grid.Column="0" FontSize="24" FontWeight="Bold"/>
+                                <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Background="{StaticResource WhiteWhite}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Star1}" 
+                                           Width="24" 
+                                           Height="24" 
+                                           Grid.Column="0"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                                    <Image Source="{Binding Star2}" 
+                                           Width="24" 
+                                           Height="24" 
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                                    <Image Source="{Binding Star3}" 
+                                           Width="24" 
+                                           Height="24" 
+                                           Grid.Column="2"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                                    <Image Source="{Binding Star4}"  
+                                           Width="24" 
+                                           Height="24" 
+                                           Grid.Column="3"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                                    <Image Source="{Binding Star5}"  
+                                           Width="24" 
+                                           Height="24" 
+                                           Grid.Column="4"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+
+                                </Grid>
+                                <Grid Grid.Column="1" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image  Source="..\..\..\Resources\Images\OwnerImages\home.png" 
+                                               Width="24" 
+                                               Height="24"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                            Margin="10 0 10 0"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding AccommodationName}" FontSize="16" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                                </Grid>
+                                <Grid Grid.Column="2" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image  Source="..\..\..\Resources\Images\OwnerImages\location.png" 
+                                               Width="24" 
+                                               Height="24"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                            Margin="10 0 5 0"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Location}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource FontColor}"/>
+                                </Grid>
+                            </Grid>
+                            <Border Grid.Row="1" MaxHeight="50" Grid.Column="1" Margin="0 0 0 0" CornerRadius="10">
+                                <TextBlock  Text="{Binding Comment}" FontSize="17" TextWrapping="WrapWithOverflow" Padding="2 5 10 0" Style="{StaticResource FontColor}"/>
+                            </Border>
+                            <Label Grid.Column="2" Content="{Binding RatingDate, Converter={StaticResource DateConverter}}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="15" FontFamily="{StaticResource CustomFont}"
+                                   Foreground="{StaticResource PrimaryBlack}"/>
+                            <Button
+                                Template="{StaticResource CustomButtonTemplate}"
+                                Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Margin="0 30 0 0"   Command="{Binding DataContext.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                <Border Style="{StaticResource BorderHover}" Padding="5" CornerRadius="15">
+                                    <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Image  Source="..\..\..\Resources\Images\OwnerImages\info2.png" 
+                                               Width="32" 
+                                               Height="32"
+                                               Margin="0 0 5 0" VerticalAlignment="Center"/>
+                                        <TextBlock TextAlignment="Center" Margin="5 1 5 0" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"><Run Text="Show "/><LineBreak/><Run Text="details"/></TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

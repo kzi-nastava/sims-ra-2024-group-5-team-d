@@ -1,0 +1,141 @@
+﻿<Window x:Class="BookingApp.WPF.Views.GuestWindows.MoveReservationAccommodation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows"
+        mc:Ignorable="d"
+        Title="MoveReservationAccommodation" Height="300" Width="300" WindowStartupLocation="CenterScreen">
+    <Grid Background="{StaticResource PrimaryBlack}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Button HorizontalAlignment="Right"
+        VerticalAlignment="Center" 
+        Grid.Column="2"
+        Height="18" 
+        Width="18"
+        Margin="0,4,4,4"
+        ToolTipService.ShowDuration="5000">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Transparent" BorderThickness="0" Padding="0">
+                                    <Image Source="../../../Resources/Images/GuestImages/help.png"
+                                   Height="18" 
+                                   Width="18"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontSize="13"
+                                   FontWeight="Bold">
+                            Information about move reservation
+                            </TextBlock>
+                        <TextBlock Text="Once you have selected the dates to move the reservation, you must click the send button to send the request to move the reservation!"
+                                    TextWrapping="Wrap"
+                                    TextTrimming="WordEllipsis"
+                                    MaxWidth="400">
+                        </TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+
+
+        <Label Content="Send a request to change the reservation" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top" 
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            Height="auto" 
+            Width="auto"  
+            FontWeight="Bold"
+            Foreground="{StaticResource WhiteWhite}"
+            Margin="0,10,0,0"/>
+        <Label Content="Select new dates" 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center" 
+            Grid.Column="0"
+            Grid.Row="2"
+            Height="26" 
+            Width="auto" 
+            Margin="10,15,0,0" 
+            FontSize="11"
+            Foreground="{StaticResource WhiteWhite}"/>
+
+        <Label Content="To:" 
+           HorizontalAlignment="Left"
+           VerticalAlignment="Center" 
+           Grid.Column="0"
+           Grid.Row="3"
+           Height="26" 
+           Width="auto" 
+           Margin="40,15,0,10" 
+           FontSize="11"
+           Foreground="{StaticResource WhiteWhite}"/>
+        <DatePicker 
+                 Grid.Row="3"
+                 Height="25" 
+                 Margin="100,13,46,13" 
+                 Grid.ColumnSpan="2"
+                 SelectedDate="{Binding NewReservedFrom}"/>
+        <Label Content="From:" 
+           HorizontalAlignment="Left"
+           VerticalAlignment="Center" 
+           Grid.Column="0"
+           Grid.Row="4"
+           Height="26" 
+           Width="auto" 
+           Margin="40,15,0,10" 
+           FontSize="11"
+           Foreground="{StaticResource WhiteWhite}"              />
+        <DatePicker Grid.Row="4"
+                 Height="25" 
+                 Margin="100,13,46,13" 
+                 Grid.ColumnSpan="2"
+                 SelectedDate="{Binding NewReservedTo}"/>
+        <Button Grid.Row="5" 
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Width="auto"
+              Height="auto"
+              VerticalAlignment="Center" 
+              HorizontalAlignment="Center"
+              Margin="0,10,0,10"
+              Command="{Binding SendRequestCommand}"
+              Background="Transparent"
+              BorderBrush="Transparent">
+            <Border  Background="DarkOrange"
+                                        CornerRadius="2"
+                                        Height="auto" 
+                                        Width="auto">
+                <TextBlock  Text="Send"
+                                       Margin="20 0 20 0" 
+                                       Foreground="{StaticResource  WhiteGrey}" 
+                                       FontWeight="Bold" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+            </Border>
+        </Button>
+    </Grid>
+</Window>

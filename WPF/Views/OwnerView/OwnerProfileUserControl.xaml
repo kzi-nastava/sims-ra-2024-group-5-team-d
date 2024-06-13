@@ -1,0 +1,235 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.OwnerView.OwnerProfileUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             mc:Ignorable="d" 
+             Focusable="True"
+              d:DesignHeight="572" d:DesignWidth="1108">
+    <UserControl.Resources>
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="0 20 20 20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding ProfileViewModel.AvatarPath}" Width="120" Grid.Column="0" Margin="0 0 20 0"/>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource FontColor}" FontSize="27" FontWeight="DemiBold" Text="{Binding ProfileViewModel.FullName}"/>
+                    <TextBlock Text="{Binding ProfileViewModel.UserType}" FontSize="20" Style="{StaticResource FontColor}" Grid.Row="1"/>
+                    <TextBlock Text="{Binding ProfileViewModel.AverageRating,StringFormat={}{0:F2}}" FontSize="32" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="2" Margin="0 -7 0 0"/>
+                    <TextBlock Text="{Binding ProfileViewModel.NumberOfReservations}" FontSize="20" Style="{StaticResource FontColor}" Grid.Row="3" Margin="0 -7 0 0"/>
+                </Grid>
+            </Grid>
+            <Button Command="{Binding ChangeCredentialsCommand}" x:Name="Credentials" Grid.Row="1"  Style="{StaticResource ButtonHover}" BorderThickness="0" Background="Transparent" Template="{StaticResource CustomButtonTemplate}" HorizontalAlignment="Center" Margin="0 10 0 0" Visibility="{Binding ProfileCredentials.IsVisible,Converter={StaticResource BoolToVisibilityConverter}}">
+                <Border CornerRadius="8" Style="{StaticResource BorderHover}">
+                    <StackPanel  Orientation="Horizontal" >
+                        <TextBlock  Text="Change credentials" VerticalAlignment="Center" FontSize="18" Padding="10" Foreground="{StaticResource WhiteWhite}"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+            <Grid Grid.Row="2" HorizontalAlignment="Center" Margin="0 10 0 0" Visibility="{Binding ProfileCredentials.IsEditing,Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Username: " FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <Border Grid.Column="1" CornerRadius="10" Background="{StaticResource WhiteWhite}">
+                        <TextBox Background="Transparent" Text="{Binding ProfileCredentials.Username}" FontSize="16" Foreground="{StaticResource PrimaryBlack}"  FontWeight="Normal" Width="220" Padding="5" BorderThickness="0"/>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1" HorizontalAlignment="Left" Margin="0 10 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Password:  " FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <Border Grid.Column="1" CornerRadius="10" Background="{StaticResource WhiteWhite}">
+                        <TextBox Background="Transparent" Text="{Binding ProfileCredentials.Password}" FontSize="16"  FontWeight="Normal" Width="220" Padding="5" BorderThickness="0"/>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Command="{Binding SaveCommand}"  Grid.Column="0"  Style="{StaticResource ButtonHover}" BorderThickness="0" Background="Transparent" Template="{StaticResource CustomButtonTemplate}" Margin="0 10 0 0">
+                        <Border CornerRadius="8" Style="{StaticResource BorderHover}">
+                            <StackPanel  Orientation="Horizontal" >
+                                <TextBlock  Text="Save" VerticalAlignment="Center" FontSize="18" Padding="5" Foreground="{StaticResource WhiteWhite}"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <Button  Command="{Binding CancelCommand}" Grid.Column="1"  Style="{StaticResource ButtonHover}" BorderThickness="0" Background="Transparent" Template="{StaticResource CustomButtonTemplate}" Margin="0 10 0 0">
+                        <Border CornerRadius="8" Style="{StaticResource BorderHover}">
+                            <StackPanel  Orientation="Horizontal" >
+                                <TextBlock  Text="Cancel" VerticalAlignment="Center" FontSize="18" Padding="5" Foreground="{StaticResource WhiteWhite}"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3" Margin="30 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Most popular accommodation" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                        <Border Grid.Row="1" Style="{StaticResource  BorderHoverAnimation}" CornerRadius="8" Background="{StaticResource WhiteWhite}" Margin="10 0 10 0" Padding="10">
+                            <Grid Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border CornerRadius="3" Height="70" Width="130" HorizontalAlignment="Left">
+                                    <Image Source="{Binding MostPopularAccommodation.ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"                                     
+                                        Stretch="Fill"/>
+                                </Border>
+                                <TextBlock Text="{Binding MostPopularAccommodation.Name}" Grid.ColumnSpan="2" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="1"/>
+                                <Grid Grid.Column="1" Background="{StaticResource WhiteWhite}" Margin="10 0 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding MostPopularAccommodation.Location}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="0"/>
+                                    <TextBlock Text="{Binding MostPopularAccommodation.Type}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="1"/>
+                                    <TextBlock Text="{Binding MostPopularAccommodation.Capacity}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="2"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Best rated accommodation" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}"  HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                        <Border Grid.Row="1" Style="{StaticResource  BorderHoverAnimation}" CornerRadius="8" Background="{StaticResource WhiteWhite}" Margin="10 0 10 0" Padding="10">
+                            <Grid Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border CornerRadius="3" Height="70" Width="130" HorizontalAlignment="Left">
+                                    <Image Source="{Binding BestRatedAccommodation.ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"                                     
+                                        Stretch="Fill"/>
+                                </Border>
+                                <TextBlock Text="{Binding BestRatedAccommodation.Name}" Grid.ColumnSpan="2" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="1"/>
+                                <Grid Grid.Column="1" Background="{StaticResource WhiteWhite}" Margin="10 0 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding BestRatedAccommodation.Location}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="0"/>
+                                    <TextBlock Text="{Binding BestRatedAccommodation.Type}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="1"/>
+                                    <TextBlock Text="{Binding BestRatedAccommodation.Capacity}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="2"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Column="2" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Most busy accommodation" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}"  HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                        <Border Grid.Row="1" Style="{StaticResource  BorderHoverAnimation}" CornerRadius="8" Background="{StaticResource WhiteWhite}" Margin="10 0 10 0" Padding="10">
+                            <Grid Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border CornerRadius="3" Height="70" Width="130" HorizontalAlignment="Left">
+                                    <Image Source="{Binding MostBusyAccommodation.ImagesPath, Converter={StaticResource FirstImagePathConverter}}" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"                                     
+                                        Stretch="Fill"/>
+                                </Border>
+                                <TextBlock Text="{Binding MostBusyAccommodation.Name}" Grid.ColumnSpan="2" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="1"/>
+                                <Grid Grid.Column="1" Background="{StaticResource WhiteWhite}" Margin="10 0 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding MostBusyAccommodation.Location}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="0"/>
+                                    <TextBlock Text="{Binding MostBusyAccommodation.Type}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="1"/>
+                                    <TextBlock Text="{Binding MostBusyAccommodation.Capacity}" FontSize="18" FontWeight="SemiBold" Style="{StaticResource FontColor}" Grid.Row="2"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Button  HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Bottom" Grid.Column="1"  Style="{StaticResource ButtonHover}" BorderThickness="0" Background="Transparent" Template="{StaticResource CustomButtonTemplate}" Margin="0 10 0 0" Click="Button_Click">
+                <Border CornerRadius="8" Style="{StaticResource BorderHover}">
+                    <StackPanel  Orientation="Horizontal" >
+                        <TextBlock  Text="Log out" VerticalAlignment="Center" FontSize="18" Padding="10" Foreground="{StaticResource WhiteWhite}"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

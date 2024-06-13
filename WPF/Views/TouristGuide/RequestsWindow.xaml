@@ -1,0 +1,306 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristGuide.RequestsWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristGuide"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Converters"
+             mc:Ignorable="d"
+              d:DesignHeight="768" d:DesignWidth="950">
+    <UserControl.Resources>
+        <converter:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Style TargetType="Label" x:Key="TabsLabelsStyle">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,5"/>
+        </Style>
+        <Style TargetType="Border" x:Key="SearchBorder">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor2}"/>
+            <Setter Property="Background" Value="{StaticResource WhiteWhite}"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonDesign">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style x:Key="TextBlockDesign" TargetType="TextBlock" >
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+        <Style x:Key="LabelDesign" TargetType="Label" >
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="40,15,40,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Grid containing the tabs -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Border around the tabs -->
+            <Border Grid.ColumnSpan="4"/>
+
+            <Label Grid.Column="0" Content="All tours" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding AllToursTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+            <Label Grid.Column="1" Content="Tours today" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding ToursTodayTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+
+            <Label Grid.Column="2" Content="Finished tours" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding FinishedToursTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+            <Border BorderBrush="{StaticResource PrimaryColor}" Grid.Column="3" BorderThickness="0 0 0 2">
+                <Label Grid.Column="3" Content="Requests"  
+                   Style="{StaticResource TabsLabelsStyle}">
+                    <Label.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding RequestTabCommand}" />
+                    </Label.InputBindings>
+                </Label>
+            </Border>
+            <Label Grid.Column="4" Content="Complex Requests" Style="{StaticResource TabsLabelsStyle}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding ComplexRequestTabCommand}" />
+                </Label.InputBindings>
+            </Label>
+
+        </Grid>
+        <!-- Content Area -->
+        <Grid Grid.Row="1" Visibility="{Binding IsGridVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0"
+                    Style="{StaticResource SearchBorder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/../../../Resources\Images\GuideImages\Map Point.png" Width="18" Margin="5,0,0,0"/>
+                    <ComboBox Grid.Column="1" VerticalAlignment="Center" Width="108" SelectedIndex="{Binding PickedLocationId, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" FontFamily="{StaticResource CustomFont}">
+                        <ComboBoxItem Content="Serbia, Novi Sad"/>
+                        <ComboBoxItem Content="Serbia, Beograd"/>
+                        <ComboBoxItem Content="Serbia, Smederevo"/>
+                        <ComboBoxItem Content="Serbia, Požega"/>
+                        <ComboBoxItem Content="Serbia, Kragujevac"/>
+                        <ComboBoxItem Content="Serbia, Niš"/>
+                        <ComboBoxItem Content="Serbia, Subotica"/>
+                        <ComboBoxItem Content="Serbia, Pančevo"/>
+                        <ComboBoxItem Content="Serbia, Čačak"/>
+                        <ComboBoxItem Content="Serbia, Užice"/>
+                        <ComboBoxItem IsEnabled="False" Visibility="Collapsed">Location</ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1"
+                    Margin="8 0 0 0 "
+                    Style="{StaticResource SearchBorder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/../../../Resources\Images\GuideImages\User.png" Width="18" Margin="10,0,0,0"/>
+                    <TextBox Grid.Column="1" VerticalAlignment="Center" Width="110" BorderThickness="0" Text="{Binding PickedMaxCapacity, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Text" Value="Capacity"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter Property="Text" Value=""/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                </Grid>
+            </Border>
+            <Border Grid.Column="2"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource SearchBorder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/../../../Resources\Images\GuideImages\Chat Round Line.png" Width="18" Margin="10,0,0,0"/>
+                    <ComboBox Grid.Column="1" VerticalAlignment="Center" SelectedIndex="{Binding PickedLanguage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Width="102">
+                        <ComboBoxItem Content="English"/>
+                        <ComboBoxItem Content="Serbian"/>
+                        <ComboBoxItem Content="German"/>
+                        <ComboBoxItem IsEnabled="False" Visibility="Collapsed">Language</ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+
+            </Border>
+            <Border Grid.Column="3"
+                    Margin="15,0,0,0"
+                    Style="{StaticResource SearchBorder}">
+                <DatePicker IsTodayHighlighted="True" BorderThickness="0" Width="125" VerticalAlignment="Center" SelectedDate="{Binding PickedDateFrom}">
+                    <DatePicker.Resources>
+                        <Style TargetType="{x:Type DatePickerTextBox}" >
+                            <Setter Property="Text" Value="Date From" />
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </Border>
+            <Border Grid.Column="4"
+                    Margin="20,0,0,0"
+                    Style="{StaticResource SearchBorder}">
+                <DatePicker IsTodayHighlighted="True" BorderThickness="0" Width="125" VerticalAlignment="Center" SelectedDate="{Binding PickedDateTo}" >
+                    <DatePicker.Resources>
+                        <Style TargetType="{x:Type DatePickerTextBox}">
+                            <Setter Property="Text" Value="Date To"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </Border>
+            <Button Grid.Row="1" Grid.Column="4" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Margin="0,10,0,0" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="30" Width="120"  BorderThickness="0">
+                    <TextBlock Text="Search" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"/>
+                </Border>
+            </Button>
+
+
+            <Button Grid.Row="1" Command="{Binding StatisticsCommand}" Margin="0,10,0,0" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                <Border CornerRadius="4" Height="30" Width="120" BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2">
+                    <TextBlock Text="Show statistics" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource PrimaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" />
+                </Border>
+            </Button>
+
+
+
+        </Grid>
+        <ListView BorderThickness="0"
+              Background="Transparent"
+              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+              SelectedItem="{Binding SelectedTourRequest}"
+              ItemsSource="{Binding TourRequests}"
+              ItemContainerStyle="{StaticResource CustomListView}"
+              ScrollViewer.CanContentScroll="False" 
+              Grid.Row="2"
+              Margin="0 10 0 0"
+              >
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Height="150" Width="845" CornerRadius="8" Margin="0 0 0 10" Background="{StaticResource WhiteWhite}" Padding="15">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 15 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Map Point.png" Height="16" Width="16"/>
+                                    <Label Grid.Column="1" Content="{Binding Location}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}"/>
+                                </Grid>
+                                <Grid Grid.Column="1" VerticalAlignment="Bottom" Margin="0 0 15 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Clock Circle.png" Height="16" Width="16"/>
+                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Style="{StaticResource TextBlockDesign}">
+                                        <Run Text="{Binding DateFrom,StringFormat=d}" />
+                                        <Run Text="-" />
+                                        <Run Text="{Binding DateTo,StringFormat=d}" />
+                                        </TextBlock>
+                                    </Label>
+                                </Grid>
+                                <Grid Grid.Column="2" VerticalAlignment="Bottom" Margin="0 0 15 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\User.png" Height="16" Width="16"/>
+                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Style="{StaticResource TextBlockDesign}">
+                                            <Run Text="{Binding Capacity}" />
+                                            <Run Text=" seats" />
+                                        </TextBlock>
+                                    </Label>
+                                </Grid>
+                                <Grid Grid.Column="3" VerticalAlignment="Bottom" Margin="0 0 15 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="/../../../Resources\Images\GuideImages\Chat Round Line.png" Height="16" Width="16"/>
+                                    <Label Grid.Column="1" Content="{Binding Language}" HorizontalAlignment="Left" Style="{StaticResource LabelDesign}"/>
+                                </Grid>
+                            <Button Grid.Column="4" Grid.Row="2" Command="{Binding DataContext.AcceptCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource ButtonDesign}" BorderThickness="0">
+                                <Border CornerRadius="4" Background="{StaticResource PrimaryColor}" Height="34" Width="100" BorderThickness="0">
+                                    <TextBlock Text="Accept" Style="{StaticResource TextBlockDesign}" Foreground="{StaticResource WhiteWhite}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"/>
+                                </Border>
+                            </Button>
+                            </Grid>
+                            <Label Grid.Row="1">
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxHeight="50" Style="{StaticResource TextBlockDesign}"/>
+                            </Label>
+                            <TextBlock Style="{StaticResource TextBlockDesign}" FontSize="14" FontWeight="SemiBold" Margin="5 0 0 0">
+                                <Run Text="Request from:"/>
+                                <Run Text="{Binding Tourist.FullName}"/>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

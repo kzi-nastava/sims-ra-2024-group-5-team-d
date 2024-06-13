@@ -1,0 +1,92 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Home">Home page </sys:String>
+    <sys:String x:Key="Your Tours">Tours &amp; Vouchers</sys:String>
+    <sys:String x:Key="Your Requests">Your Requests </sys:String>
+    <sys:String x:Key="Notifications">Notifications </sys:String>
+    <sys:String x:Key="Sign Out">Sign Out</sys:String>
+    <sys:String x:Key="Location:">Location:</sys:String>
+    <sys:String x:Key="Duration:">Duration:</sys:String>
+    <sys:String x:Key="Number of people:">Number of people:</sys:String>
+    <sys:String x:Key="Language:">Language: </sys:String>
+    <sys:String x:Key="Search">Search</sys:String>
+    <sys:String x:Key="Recommended tours:">Recommended tours:</sys:String>
+    <sys:String x:Key="English">English</sys:String>
+    <sys:String x:Key="German">German</sys:String>
+    <sys:String x:Key="Serbian">Serbian</sys:String>
+    <sys:String x:Key="Any">Any</sys:String>
+    <sys:String x:Key="vote">vote(s)</sys:String>
+    <sys:String x:Key="hour">hour(s)</sys:String>
+    <sys:String x:Key="Badge of Excellence">Badge of Excellence</sys:String>
+    <sys:String x:Key="See More">See More</sys:String>
+    <sys:String x:Key="Select Date and Travelers">Select Date and Travelers</sys:String>
+    <sys:String x:Key="tourists">Tourist(s)</sys:String>
+    <sys:String x:Key="cancellation">Cancellation possible up to 48 hours before the tour starts</sys:String>
+    <sys:String x:Key="cancellation2">Cancellation possible until </sys:String>
+    <sys:String x:Key="ticket">Ticket</sys:String>
+    <sys:String x:Key="Book Now">Book Now</sys:String>
+    <sys:String x:Key="Description">Descripton</sys:String>
+    <sys:String x:Key="Unfortunatelly">Unfortunatelly, this tour is full..here are other options for </sys:String>
+    <sys:String x:Key="What To Expect">What To Expect?</sys:String>
+    <sys:String x:Key="Check Availabilty">Check Availabilty</sys:String>
+    <sys:String x:Key="places left">place(s) left</sys:String>
+    <sys:String x:Key="Personal Information">Personal Information</sys:String>
+    <sys:String x:Key="fullname">Full Name: </sys:String>
+    <sys:String x:Key="age">Age: </sys:String>
+    <sys:String x:Key="personalid">Pesonal ID: </sys:String>
+    <sys:String x:Key="Use the Voucher">Use the Voucher</sys:String>
+    <sys:String x:Key="use">Use</sys:String>
+    <sys:String x:Key="Voucher is used">Voucher is used</sys:String>
+    <sys:String x:Key="Starting Point">Starting Point</sys:String>
+    <sys:String x:Key="Cancel">Cancel</sys:String>
+    <sys:String x:Key="Expires:">Expires: </sys:String>
+    <sys:String x:Key="All Complex Requests:">All Complex Requests:</sys:String>
+    <sys:String x:Key="Create New Request">Create New Request</sys:String>
+    <sys:String x:Key="Number of accepted requests:">Number of accepted requests: </sys:String>
+    <sys:String x:Key="Request contains:">Request contains: </sys:String>
+    <sys:String x:Key="accepted"> accepted</sys:String>
+    <sys:String x:Key="x Simple Requests"> x Simple Requests</sys:String>
+    <sys:String x:Key="Request Status:">Request Status:</sys:String>
+    <sys:String x:Key="Show More">Show More</sys:String>
+    <sys:String x:Key="Show Less">Show Less</sys:String>
+    <sys:String x:Key="Tour info:">Tour info:</sys:String>
+    <sys:String x:Key="Additional info:">Additional info:</sys:String>
+    <sys:String x:Key="On Pending">On Pending</sys:String>
+    <sys:String x:Key="Accepted">Accepted</sys:String>
+    <sys:String x:Key="Invalid">Invalid</sys:String>
+    <sys:String x:Key="Simple Requests">Simple Requests</sys:String>
+    <sys:String x:Key="Complex Requests">Complex Requests</sys:String>
+    <sys:String x:Key="Show Statistics">Show Statistics</sys:String>
+    <sys:String x:Key="All Requests">All Requests</sys:String>
+    <sys:String x:Key="avgPeopleRequest">Avg. Num. of People on Accepted Requests:</sys:String>
+    <sys:String x:Key="Stats">Simple Request Statistics</sys:String>
+    <sys:String x:Key="Print PDF">Print PDF</sys:String>
+    <sys:String x:Key="BackToRequests">Back To Requests</sys:String>
+    <sys:String x:Key="Live tour">Live tour</sys:String>
+    <sys:String x:Key="Future Tours">Future Tours</sys:String>
+    <sys:String x:Key="Past Tours">Past Tours</sys:String>
+    <sys:String x:Key="Vouchers">Vouchers</sys:String>
+    <sys:String x:Key="Present tourists">Present tourists that you've registered:</sys:String>
+    <sys:String x:Key="Tour Progress">Tour Progress</sys:String>
+    <sys:String x:Key="All Notifications">All Notifications</sys:String>
+    <sys:String x:Key="Mark all as read">Mark all as read</sys:String>
+    <sys:String x:Key="Create Request">Create Request</sys:String>
+    <sys:String x:Key="Get notified when request is accepted">Get notified when request is accepted</sys:String>
+    <sys:String x:Key="Confirm Tour Request">Confirm Tour Request</sys:String>
+    <sys:String x:Key="Create New Complex Request">Create New Complex Request</sys:String>
+    <sys:String x:Key="Edit Request">Edit Request</sys:String>
+    <sys:String x:Key="Remove">Remove</sys:String>
+    <sys:String x:Key="Add More">Add More</sys:String>
+    <sys:String x:Key="Pick Your Tour Period">Pick Your Tour Period</sys:String>
+    <sys:String x:Key="No Rating">No Rating</sys:String>
+    <sys:String x:Key="Guides knowledge">Guides knowledge</sys:String>
+    <sys:String x:Key="Guides language">Guides language</sys:String>
+    <sys:String x:Key="Tours interest level">Tours interest level</sys:String>
+
+
+
+
+
+
+</ResourceDictionary>

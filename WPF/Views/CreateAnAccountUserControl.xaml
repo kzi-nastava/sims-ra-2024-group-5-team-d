@@ -1,0 +1,188 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.CreateAnAccountUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="450">
+    <Grid Grid.Column="1" Margin="80 40 20 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Image Source="..\..\Resources\Images\OwnerImages\logo png.png" Width="100" HorizontalAlignment="Left"/>
+        <TextBlock Margin="0 10 0 0" Text="Create an account"  Foreground="{StaticResource PrimaryBlack}" Grid.Row="1"  FontWeight="DemiBold" FontSize="28"/>
+        <TextBlock Margin="0 5 0 10 " Width="320" HorizontalAlignment="Left" Text="Discover, Explore, and Experience – Your Journey Starts Here" Grid.Row="2" Foreground="{StaticResource PrimaryBlack2}"  FontFamily="{StaticResource CustomFont}" TextWrapping="WrapWithOverflow"/>
+        <Border Grid.Row="3" Background="White" BorderThickness="2" BorderBrush="{StaticResource WhiteGrey}" CornerRadius="5" Width="260" HorizontalAlignment="Left">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Command="{Binding TypeCommand}" CommandParameter="0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="Transparent">
+                                <!-- Postavljanje sadržaja gumba (npr. tekst) -->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Promjena pozadinske boje kada je miš iznad gumba -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                </Trigger>
+                                <!-- Promjena pozadinske boje kada se gumb pritisne -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightBlue"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image  Source="../../Resources/Images/accommodation.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
+                </Button>
+                <Button Grid.Column="1" Command="{Binding TypeCommand}" CommandParameter="1">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="Transparent">
+                                <!-- Postavljanje sadržaja gumba (npr. tekst) -->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Promjena pozadinske boje kada je miš iznad gumba -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                </Trigger>
+                                <!-- Promjena pozadinske boje kada se gumb pritisne -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightBlue"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image  Source="../../Resources/Images/travel.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
+                </Button>
+                <Button Grid.Column="2" Command="{Binding TypeCommand}" CommandParameter="2">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="Transparent">
+                                <!-- Postavljanje sadržaja gumba (npr. tekst) -->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Promjena pozadinske boje kada je miš iznad gumba -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                </Trigger>
+                                <!-- Promjena pozadinske boje kada se gumb pritisne -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightBlue"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image  Source="../../Resources/Images/traveler.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
+                </Button>
+                <Button Grid.Column="3" Command="{Binding TypeCommand}" CommandParameter="3">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="Transparent">
+                                <!-- Postavljanje sadržaja gumba (npr. tekst) -->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Promjena pozadinske boje kada je miš iznad gumba -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                </Trigger>
+                                <!-- Promjena pozadinske boje kada se gumb pritisne -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightBlue"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image  Source="../../Resources/Images/tourist1.png" HorizontalAlignment="Center" Width="25" VerticalAlignment="Center"/>
+                </Button>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="4" Width="260" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Full Name" FontWeight="DemiBold" Foreground="{StaticResource PrimaryBlack}" Margin="0 15 0 3"/>
+            <Border Grid.Row="1" CornerRadius="5" Background="{StaticResource WhiteGrey}">
+                <TextBox Padding="3" FontSize="14" BorderThickness="0" Background="Transparent" Text="{Binding FullName}"></TextBox>
+            </Border>
+            <Grid Grid.Row="2" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Date of Birth" Grid.Row="0"  FontWeight="DemiBold" Grid.Column="0" Foreground="{StaticResource PrimaryBlack}" Margin="0 13 0 3"/>
+                <Border Margin="0 0 10 0" Grid.Column="0" CornerRadius="5" Grid.Row="1" Background="{StaticResource WhiteGrey}">
+                    <TextBox Padding="3" Text="{Binding BirhtDate}" FontSize="14" BorderThickness="0" Background="Transparent"></TextBox>
+                </Border>
+                <TextBlock Text="Personal ID" Grid.Row="0"  FontWeight="DemiBold" Grid.Column="1" Foreground="{StaticResource PrimaryBlack}" Margin="0 13 0 3"/>
+                <Border Margin="0 0 0 0" Grid.Column="1" CornerRadius="5" Grid.Row="1" Background="{StaticResource WhiteGrey}">
+                    <TextBox Padding="3" Text="{Binding PersonalId}" FontSize="14" BorderThickness="0" Background="Transparent"></TextBox>
+                </Border>
+            </Grid>
+
+            <TextBlock Text="Username" Grid.Row="4" FontWeight="DemiBold" Foreground="{StaticResource PrimaryBlack}" Margin="0 15 0 3"/>
+            <Border Grid.Row="5" CornerRadius="5" Background="{StaticResource WhiteGrey}">
+                <TextBox Text="{Binding Username}" Padding="3" FontSize="14" BorderThickness="0" Background="Transparent"></TextBox>
+            </Border>
+            <TextBlock Text="Password"  FontWeight="DemiBold" Grid.Row="6" Foreground="{StaticResource PrimaryBlack}" Margin="0 13 0 3"/>
+            <Border Grid.Row="7" CornerRadius="5" Background="{StaticResource WhiteGrey}">
+                <PasswordBox Padding="3" x:Name="txtPassword" FontSize="14" BorderThickness="0" Background="Transparent"></PasswordBox>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="5" Margin="0 8 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Foreground="{StaticResource PrimaryBlack2}" Text="Already have an account?" FontSize="10"/>
+            <TextBlock Grid.Column="1" Foreground="{StaticResource PrimaryColor}" Cursor="Hand" Text="Log In" FontSize="10" Margin="3 0 0 0" MouseLeftButtonDown="LogIn">
+                <TextBlock.TextDecorations>
+                    <TextDecorationCollection>
+                        <TextDecoration Location="Underline"/>
+                    </TextDecorationCollection>
+                </TextBlock.TextDecorations>
+            </TextBlock>
+        </Grid>
+        <Button Grid.Row="6"
+                                    FontSize="20" 
+                                    Background="Transparent"
+                                    Height="27"
+                Margin="0 15 0 0"
+                Cursor="Hand"
+                                    VerticalAlignment="Center"
+                                    BorderThickness="0" HorizontalAlignment="Left" Command="{Binding RegisterCommand}"  CommandParameter="{Binding ElementName=txtPassword}">
+            <Border  Background="{StaticResource PrimaryColor}"
+                                             CornerRadius="2"
+                                              Height="25">
+                <TextBlock  Text="Sign Up" Margin="20 -2 20 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Button>
+    </Grid>
+</UserControl>

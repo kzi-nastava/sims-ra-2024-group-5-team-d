@@ -1,0 +1,535 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.GuestWindows.AccommodationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.GuestWindows" xmlns:local1="clr-namespace:BookingApp.WPF.Converters"
+             mc:Ignorable="d" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             d:DesignHeight="600" d:DesignWidth="430">
+    <UserControl.Resources>
+        <local1:FirstImagePathConverter x:Key="FirstImagePathConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <ScrollViewer>
+            <Grid Background="{StaticResource PrimaryBlack}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="100" 
+                        Margin="15,15,0,15"
+                        Width="100">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="{Binding ImagesPath, Converter={StaticResource FirstImagePathConverter}}"
+                        Width="100"
+                        Height="auto"/>
+                        <Image Source="../../../Resources/Images/GuestImages/gallery.png"
+                           Width="25"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           MouseLeftButtonDown="OpenGallery_Click"/>
+                    </Grid>
+                </StackPanel>
+                <Label Content="{Binding AccommodationName}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" 
+                        Grid.Column="1"
+                        Grid.ColumnSpan="4"
+                        Grid.Row="0"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Height="auto" 
+                        Width="auto"
+                        Foreground="{StaticResource WhiteWhite}"/>
+                <Image Source="../../../Resources/Images/GuestImages/star.png"
+                        Grid.Column="3"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="30"
+                        Width="30"/>
+                <Image Source="../../../Resources/Images/GuestImages/location.png"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="26"
+                        Width="30" Margin="40,0,0,0"/>
+                <Label Content="{Binding Location}"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="auto" 
+                        Margin="67,0,0,0"
+                        Width="auto"
+                        FontSize="9"
+                        Foreground="{StaticResource WhiteWhite}"/>
+                <Label Content="{Binding AverageRating}"
+                        Grid.Column="3"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="auto"
+                        Width="30"
+                        Foreground="{StaticResource WhiteWhite}"
+                        Margin="33,0,0,0"/>
+                <Image Source="../../../Resources/Images/GuestImages/people.png"
+                        Grid.Column="4"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="30"
+                        Width="30" />
+                <Label Content="{Binding Capacity}"
+                        Grid.Column="4"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="auto"
+                        Width="30" 
+                        Foreground="{StaticResource WhiteWhite}" 
+                        Margin="33,0,0,0"/>
+
+                <Image Source="../../../Resources/Images/GuestImages/wifi.png"
+                         Grid.Column="0" 
+                         Grid.Row="2"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         Width="28"
+                         Margin="0,20,0,0"/>
+                <Image Source="../../../Resources/Images/GuestImages/restaurant.png"
+                         Grid.Column="1" 
+                         Grid.Row="2"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         Width="28"
+                         Margin="0,20,0,0"/>
+                <Image Source="../../../Resources/Images/GuestImages/bath.png"
+                         Grid.Column="2" 
+                         Grid.Row="2"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         Width="24"
+                         Margin="0,20,0,0"/>
+                <Image Source="../../../Resources/Images/GuestImages/parking.png"
+                         Grid.Column="3" 
+                         Grid.Row="2"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         Width="26"
+                         Margin="0,20,0,0"/>
+                <Image Source="../../../Resources/Images/GuestImages/bed.png"
+                         Grid.Column="4" 
+                         Grid.Row="2"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         Width="26"
+                         Margin="0,20,0,0"/>
+
+                <Label Content="FreeWiFi" 
+                        Grid.Row="2"
+                        FontSize="11"
+                        Foreground="{StaticResource WhiteWhite}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top" 
+                        Margin="0,40,0,0"/>
+                <Label Content="Kitchen" 
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,40,0,0"
+                        FontSize="11"
+                        Foreground="{StaticResource WhiteWhite}"/>
+                <Label Content="Bath" 
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,40,0,0"
+                        FontSize="11"
+                        Foreground="{StaticResource WhiteWhite}"/>
+                <Label Content="Parking" 
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,40,0,0"
+                        FontSize="11"
+                        Foreground="{StaticResource WhiteWhite}"/>
+                <Label Content="Beds" 
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,40,0,0"
+                        FontSize="11"
+                        Foreground="{StaticResource WhiteWhite}"/>
+
+                <Grid x:Name="Grid"
+                      Grid.Row="3"
+                      Grid.ColumnSpan="5">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="../../../Resources/Images/GuestImages/check.png"
+                             Grid.Column="0"
+                             Grid.Row="0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Height="18"
+                             Width="18" 
+                             Margin="10,20,10,0"/>
+                    <Label Content="Free cancelation" 
+                             Grid.Column="0"
+                             Grid.Row="0"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Top" 
+                             Margin="35,15,0,0"
+                             Foreground="{StaticResource WhiteWhite}"/>
+                    <Label Content="until 23:59 on" 
+                             Grid.Column="0"
+                             Grid.Row="0"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Bottom" 
+                             Margin="50,30,0,0" 
+                             FontSize="11"
+                             Foreground="{StaticResource WhiteWhite}"/>
+                    <Label Content="{Binding CancellationDeadline}" 
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="0"
+                             Width="57"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Bottom" 
+                             Margin="130,0,0,0" 
+                             FontSize="11"
+                             Foreground="{StaticResource WhiteWhite}"/>
+
+                    <Image Source="../../../Resources/Images/GuestImages/check.png"
+                             Grid.Column="0"
+                             Grid.Row="1"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Height="18"
+                             Width="18"
+                             Margin="10,20,10,0"/>
+                    <Label Content="No payement needed" 
+                             Grid.Column="0"
+                             Grid.Row="1"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Top" 
+                             Margin="35,15,0,0"
+                             Foreground="{StaticResource WhiteWhite}"/>
+                    <Label Content="until 23:59 on" 
+                             Grid.Column="0"
+                             Grid.Row="1"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Bottom" 
+                             Margin="50,30,0,0" 
+                             FontSize="11"
+                             Foreground="{StaticResource WhiteWhite}"/>
+                    <Label Content="{Binding CancellationDeadline}" 
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="1"
+                             Width="57"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Bottom" 
+                             Margin="130,0,0,0" 
+                             FontSize="11"
+                             Foreground="{StaticResource WhiteWhite}"/>
+
+                    <Image Source="../../../Resources/Images/GuestImages/check.png"
+                             Grid.Column="0"
+                             Grid.Row="2"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Height="18"
+                             Width="18" 
+                             Margin="10,20,10,0"/>
+                    <Label Content="No credit card needed" 
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="2"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Top" 
+                             Margin="35,15,0,0"
+                             Foreground="{StaticResource WhiteWhite}"/>
+                    <Label Content="until 23:59 on" 
+                             Grid.Column="0"
+                             Grid.Row="2"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Bottom" 
+                             Margin="50,30,0,10" 
+                             FontSize="11"
+                             Foreground="{StaticResource WhiteWhite}"/>
+                    <Label Content="{Binding CancellationDeadline}" 
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="2"
+                             Width="57"
+                             HorizontalAlignment="Left" 
+                             VerticalAlignment="Bottom" 
+                             Margin="130,0,0,10" 
+                             FontSize="11"
+                             Foreground="{StaticResource WhiteWhite}"/>
+
+                    <Label Content="Reservation" 
+                             Grid.Column="0"
+                             Grid.Row="3"
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" 
+                             Margin="0,15,0,10" 
+                             FontSize="14"
+                             Grid.ColumnSpan="2" 
+                             FontWeight="Bold"
+                             Foreground="{StaticResource WhiteWhite}"/>
+                    <Border BorderThickness="0,0,0,2" 
+                      BorderBrush="{StaticResource PrimaryColor}"
+                      Grid.Column="0"
+                      Grid.Row="3"
+                      Grid.ColumnSpan="2"
+                      VerticalAlignment="Top"/>
+
+                    <Label Content="From:" 
+                        Grid.Column="0" 
+                        Grid.Row="5"
+                        VerticalAlignment="Top" 
+                        Margin="0,0,0,20"
+                        Foreground="{StaticResource WhiteWhite}"/>
+                    <DatePicker Grid.Column="0" 
+                         Grid.Row="5"
+                         VerticalAlignment="Bottom" 
+                         Margin="48,0,45,20" 
+                         SelectedDate="{Binding FromDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="To:" 
+                        Grid.Column="1" 
+                        Grid.Row="5" 
+                        VerticalAlignment="Center"
+                        Margin="0,0,0,20"
+                        Foreground="{StaticResource WhiteWhite}"/>
+                    <DatePicker Grid.Column="1"
+                             Grid.Row="5"
+                             VerticalAlignment="Center" 
+                             Margin="48,0,45,20" 
+                             SelectedDate="{Binding ToDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Content="Number of days:" 
+                        Grid.Column="0" 
+                        Grid.Row="6" 
+                        VerticalAlignment="Center" 
+                        Margin="0,0,0,20"
+                        Foreground="{StaticResource WhiteWhite}"/>
+                    <TextBox Grid.Column="0"
+                          Grid.Row="6" 
+                          VerticalAlignment="Center"  
+                          Margin="100,0,62,20" 
+                          Text="{Binding NumberOfDays,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    </TextBox>
+                    <Label Content="*must be greater then " 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="6" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"
+                        FontSize="11"
+                        Margin="10,0,0,20"
+                        Foreground="DarkOrange"/>
+                    <Label Content="{Binding MinStay}" 
+                        Grid.Column="1" 
+                        Grid.Row="6" 
+                        VerticalAlignment="Center" 
+                        FontSize="11"
+                        Margin="60,0,0,20"
+                        Foreground="DarkOrange"/>
+                    <Button x:Name="DateCheck" 
+                         Content="DATE CHECK"
+                         Grid.Column="0"
+                         Grid.Row="7"
+                         Grid.ColumnSpan="2" 
+                         VerticalAlignment="Center"
+                         Height="43"
+                         Margin="130,0,130,20"
+                         Click="DateCheckClick"/>
+                    <TextBlock  x:Name="NotAvailableLabel" 
+                         Text="Accommodation is not available in the given range, the range is extended!!!" 
+                         Grid.Column="0"
+                         Grid.Row="8" 
+                         Grid.ColumnSpan="2" 
+                         VerticalAlignment="Center" 
+                         Foreground="DarkOrange"
+                         TextWrapping="Wrap"
+                         TextAlignment="Center"
+                         MaxWidth="300" 
+                         HorizontalAlignment="Center" 
+                         Margin="0,0,0,10"
+                         Visibility="Collapsed"/>
+                    <DataGrid x:Name="AvailabilityDateGrid"
+               Grid.Row="9"
+               Height="auto"
+               AutoGenerateColumns="False"
+               IsReadOnly="True"
+               Grid.ColumnSpan="2"
+               SelectionMode="Single"
+               ItemsSource="{Binding AvailableDates,UpdateSourceTrigger=PropertyChanged}"
+               SelectedItem="{Binding SelectedDate}"
+               SelectionChanged="AvailabilityDateGrid_SelectionChanged"
+               Margin="20,0,20,15">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Width="*" 
+                                  Header="Available from:" 
+                                  Binding="{Binding Key}"/>
+                            <DataGridTextColumn  Width="*"
+                                  Header="Available to:"  
+                                  Binding="{Binding Value}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label x:Name="NumberOfPeopleLabel"
+            Content="Number of people:"
+            Grid.Column="0" 
+            Grid.Row="10"
+            VerticalAlignment="Center" 
+            Margin="0,15,0,15"
+            Visibility="Collapsed"
+                           Foreground="{StaticResource WhiteWhite}"/>
+                    <TextBox  x:Name="NumberOfPeopleTextBox" 
+                               Grid.Column="0"
+                               Grid.Row="10" 
+                               VerticalAlignment="Center" 
+                               Margin="116,0,48,0" 
+                               Text="{Binding NumberOfPeople, UpdateSourceTrigger=PropertyChanged}" 
+                              Height="18.345" 
+                              Width="44.5"
+                              Visibility="Collapsed"/>
+                    <Label x:Name="TextMessage"
+                        Content="*must be greater then 0  and less then " 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="10" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Left"
+                        FontSize="11"
+                        Margin="159,0,0,0"
+                        Foreground="DarkOrange"
+                        Visibility="Collapsed"/>
+                    <Label x:Name="TextCapacity"
+                        Content="{Binding Capacity}" 
+                        Grid.Column="1" 
+                        Width="auto"
+                        Height="auto"
+                        Grid.Row="10" 
+                        VerticalAlignment="Center" 
+                        FontSize="11"
+                        Margin="165,0,10,0"
+                        Foreground="DarkOrange"
+                        Visibility="Collapsed"/>
+
+                    <Button x:Name="ReserveButton"
+                             Grid.Column="0" 
+                             Grid.Row="11"
+                             VerticalAlignment="Center" 
+                             HorizontalAlignment="Center"
+                             Height="30"
+                             Width="auto"
+                             Visibility="Collapsed"
+                             Click="ReserveAccommodation"
+                             Margin="0,0,0,20"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                        <Border  Background="DarkOrange"
+                                             CornerRadius="5"
+                                              Height="25" 
+                                              Width="auto">
+                            <TextBlock  Text="Reserve"
+                                            Foreground="{StaticResource  WhiteGrey}" 
+                                            FontWeight="Bold" 
+                                            FontSize="14" 
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="10,0,10,0"/>
+                        </Border>
+                    </Button>
+
+                    <Button x:Name="CancelButton" 
+                             Grid.Column="1"
+                             Grid.Row="11" 
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Width="auto"
+                             Height="30"
+                             Click="Cancel"
+                             Margin="0,0,0,20"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                        <Border  Background="DarkOrange"
+                                             CornerRadius="5"
+                                              Height="25" 
+                                              Width="auto">
+                            <TextBlock  Text="Cancel"
+                                            Foreground="{StaticResource  WhiteGrey}" 
+                                            FontWeight="Bold" 
+                                            FontSize="14" 
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="10,0,10,0"/>
+                        </Border>
+                    </Button>
+
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

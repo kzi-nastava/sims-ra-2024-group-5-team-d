@@ -1,0 +1,163 @@
+﻿<Window x:Class="BookingApp.WPF.Views.OwnerView.RateGuestFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Views.OwnerView"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Title="RateFormWindow" Height="550" Width="600">
+    <Window.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource WhiteGrey}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="FontColor">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="FontFamily" Value="{StaticResource CustomFont}"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"  FontWeight="DemiBold" Style="{StaticResource FontColor}"></TextBlock>
+            <Grid Grid.Row="1" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Cleanliness :" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="32" Style="{StaticResource FontColor}"/>
+                <TextBlock Grid.Row="1" Text="Rule compliance :" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="32" Style="{StaticResource FontColor}"/>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border  Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                                <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="1" Template="{StaticResource CustomButtonTemplate}">
+                                    <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                                </Button>
+                            </Border>
+
+                    <Border Grid.Column="1" Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="2" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                    <Border  Grid.Column="2" Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="3" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                    <Border  Grid.Column="3" Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="4" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                    <Border Grid.Column="4" Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding CleanlinessRatingCommand}" CommandParameter="5" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border  Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="1" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                    <Border  Grid.Column="1" Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="2" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                    <Border Grid.Column="2" Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="3" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                    <Border  Grid.Column="3" Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="4" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                    <Border Grid.Column="4" Margin="0 20 10 20" Style="{StaticResource NewBorderHoverAnimation}">
+                        <Button Background="Transparent" BorderThickness="0" Command="{Binding RuleComplianceRatingCommand}" CommandParameter="5" Template="{StaticResource CustomButtonTemplate}">
+                            <Image Source="../../../Resources/Images/OwnerImages/StarFull.png"/>
+                        </Button>
+                    </Border>
+                </Grid>
+            </Grid>
+            <TextBlock Text="Additional comment:" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" Style="{StaticResource FontColor}"/>
+
+            <TextBox FontSize="20" Text="{Binding Comment}" Grid.Row="4" BorderBrush="{StaticResource PrimaryColor}" BorderThickness="3" Margin="50 0 50 0" TextWrapping="Wrap" Padding="5" Foreground="{StaticResource PrimaryBlack}"/>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Template="{StaticResource CustomButtonTemplate}"
+                                    FontSize="20" 
+                                    Background="Transparent"
+                                    Height="50"
+                                    VerticalAlignment="Center"
+                                    BorderThickness="0" HorizontalAlignment="Center" Click="Close">
+                    <Border  Style="{StaticResource BorderHover}"
+                                             CornerRadius="10"
+                                         Height="48"
+                                             Width="140">
+                        <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image  Source="..\..\..\Resources\Images\OwnerImages\X.png" 
+                                               Width="32" 
+                                               Height="32"
+                                               Margin="10 0 5 0"/>
+                            <TextBlock  Text="Cancel" Margin="5 1 0 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal" FontSize="20"/>
+                        </StackPanel>
+                    </Border>
+                </Button>
+                <Button Grid.Column="1"
+                    Template="{StaticResource CustomButtonTemplate}"
+                                    FontSize="20" 
+                                    Background="Transparent"
+                                    Height="50"
+                                    VerticalAlignment="Center"
+                                    BorderThickness="0" Grid.Row="0" HorizontalAlignment="Center" Command="{Binding RateGuestCommand}">
+                    <Border  Style="{StaticResource BorderHover}"
+                                             CornerRadius="10"
+                                              Height="48">
+                        <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image  Source="..\..\..\Resources\Images\OwnerImages\check.png" 
+                                               Width="32" 
+                                               Height="32"
+                                               Margin="10 0 5 0"/>
+                            <TextBlock  Text="Confirm" Margin="5 1 10 0" Foreground="{StaticResource WhiteWhite}" FontWeight="Normal" FontSize="20"/>
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

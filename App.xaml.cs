@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.WPF.Views.Utils;
+using PdfSharp.Fonts;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,6 @@ namespace BookingApp
     /// </summary>
     public partial class App : Application
     {
+       
     }
 }
